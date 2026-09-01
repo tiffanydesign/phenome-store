@@ -178,6 +178,42 @@
 }
 
 /* ---------------------------------------------------------------------------
+   2b · NO SERIF, ANYWHERE. A system rule, not a preference.
+
+   Audited before this rule was written rather than after, because a blanket
+   font-family that is not needed is worse than no rule at all — it wins over
+   things it was never meant to reach. What the audit found:
+
+     · shared.css declares font-family exactly twice, both `var(--ph-font)`,
+       so the whole site's face is decided by one token and this file owns it.
+     · the two chains that token can resolve to both end on a generic SANS —
+       --font-sans on `sans-serif`, --font-numeral on `monospace`. New Science
+       Mono is a fixed-pitch SANS, not a slab: it is in the system because a
+       column of prices has to line up, not because it has serifs.
+     · no `serif`, `Georgia`, `Times`, `Garamond` or `Palatino` appears in any
+       stylesheet, script or page. The one inline font-family on the site is
+       `inherit`, on a <textarea>.
+     · no <svg><text> exists anywhere — which matters, because an SVG text node
+       with no font-family falls back to the UA default, and on Windows that
+       default is Times New Roman. That is the one way a serif could still get
+       onto this site without any stylesheet asking for it.
+
+   So the rule below is a GUARD against the future, not a fix for the present:
+   the elements that do not inherit from <body> (form controls, placeholder
+   pseudo-elements) and the ones that would reach past CSS for a UA serif
+   (SVG text) are named, and nothing else is touched. Specificity is (0,0,1),
+   so the numeral mono at (0,1,0) still wins where it should.
+
+   Contralto is loaded by the Adobe kit and is never referenced, so no browser
+   fetches it — a kit declares @font-face, and a face nothing renders is a face
+   nothing downloads. It stays in the kit because the kit is shared with
+   phenome-digital-twin, where the serif IS the display face. */
+html, body, svg text, svg tspan, ::placeholder,
+button, input, select, textarea, optgroup {
+  font-family: var(--font-sans);
+}
+
+/* ---------------------------------------------------------------------------
    3 · TYPE · the ladder is shared.css's, the tracking is not.
    Every 400-weight rung on that ladder carries POSITIVE tracking (+0.204px at
    17), which was measured for Outfit — a geometric sans that sets tight.
@@ -543,13 +579,88 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 }
 
 /* ---------------------------------------------------------------------------
-   7 · Fallbacks
+   7 · THE DESIGN SYSTEM LAUNCHER
+   Bottom right, on all 82 pages, and it is made of the material it opens —
+   a pane at the live tier, one blur, one drop, and no edge. That is the point
+   of putting it here rather than in a nav: the control that opens the system
+   is the smallest complete specimen of it.
+
+   COLLAPSED IT IS A DISC, and it opens to a pill on hover, focus or touch.
+   The width animates rather than the contents, so nothing reflows around it —
+   it is `position: fixed`, so nothing can. The label is in the flow at all
+   times and clipped by the disc; `visibility` would take it out of the
+   accessible name, and `display:none` cannot be transitioned.
+
+   z-index 90 sits under .ph-nav (100) and the sticky .ph-bar (99) on purpose.
+   Those two are the page's own chrome and a floating tool does not outrank
+   them; it is bottom-anchored, so the three never actually meet.
+   ------------------------------------------------------------------------ */
+.ds-launch {
+  position: fixed; z-index: 90;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 46px; width: 46px; padding: 0 13px;
+  border: 0; border-radius: 980px;
+  overflow: hidden; white-space: nowrap;
+  color: var(--phenome-blue-500) !important;
+  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  text-decoration: none !important;
+  /* THE OVERLAY TIER, not the live tier, and it is the mega-menu's argument
+     again: this control is fixed to the window on 82 pages, so it travels over
+     a photograph, a running film and a navy band without knowing which. Its
+     ink cannot flip per context the way a component's can — there is no
+     context to flip on. At 59% over #0a1e57 the glyph measured 1.6:1 and the
+     disc read as a blue smudge; at 84% the composite is #d7dbe4 whatever is
+     behind it, and Phenome Blue on that is 7.7:1 everywhere. A floating tool
+     is the one surface in the system allowed to be nearly opaque, because it
+     is the one surface with no ground of its own. */
+  background: var(--gl-tint-overlay);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow);
+  transition: width var(--ph-dur-base) var(--ease-frosted-out),
+              box-shadow var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ds-launch svg { flex: 0 0 auto; display: block; }
+/* The nine marks are the system's own four-step ramp, read left to right and
+   top to bottom — the same ramp section 03 of the design system page prints.
+   It is a glyph made of tokens rather than an icon of a grid. */
+.ds-launch svg rect { fill: currentColor; }
+.ds-launch .ds-launch-t {
+  opacity: 0;
+  transition: opacity 140ms linear;
+}
+.ds-launch:hover, .ds-launch:focus-visible {
+  width: 178px;
+  box-shadow: var(--gl-shadow-lift);
+}
+.ds-launch:hover .ds-launch-t, .ds-launch:focus-visible .ds-launch-t {
+  opacity: 1;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out) 60ms;
+}
+.ds-launch:active { box-shadow: var(--gl-shadow-press); }
+/* A pointer-less device has no hover to open it with, and a 46px disc carrying
+   an unexplained glyph is a puzzle. It ships open there, and the page has the
+   room: 178px against 390 is under half the width, bottom-anchored. */
+@media (hover: none) {
+  .ds-launch { width: 178px; }
+  .ds-launch .ds-launch-t { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-launch, .ds-launch .ds-launch-t { transition: none; }
+}
+/* The system page does not carry a control that opens the system page. */
+.ds-page .ds-launch { display: none; }
+
+/* ---------------------------------------------------------------------------
+   8 · Fallbacks
    A browser with no backdrop-filter gets opaque panes rather than transparent
    ones — the fill alphas above are all the legibility the type has, and 42%
    white over a photograph with no blur under it is not a surface.
    ------------------------------------------------------------------------ */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .ph-nav, .ph-bar, .ph-panel, .atile:not(.dark) { background: #f7f9fdf2 !important; }
+  .ph-nav, .ph-bar, .ph-panel, .atile:not(.dark), .ds-launch { background: #f7f9fdf2 !important; }
   .card, .figures .figure, .supp-review, .supp-card, .ph-prod, .buy-card,
   .quiz-band, .section-gray .card-gray { background: #fffffff0 !important; }
 }

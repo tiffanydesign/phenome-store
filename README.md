@@ -66,3 +66,29 @@ the mega-menu takes an 84% fill rather than the doctrine's 59% because it opens
 over arbitrary page content, and `.tile` keeps its warm `#E3E3E3` plate because
 that value is measured off the kit photographs and any other ground puts a seam
 across the tile.
+
+### The design system page
+
+`/design-system/` documents the system in the system: it loads `shared.css` and
+`phenome-glass.css` and reads its own tokens, so nothing on it can drift from
+what ships. Eight sections — typeface, type scale, colour, the ground, glass
+surfaces, elevation & motion, components, inverted contexts — with a live
+backdrop switcher on the glass section that puts the five tiers over the field,
+over a photograph and over the navy, which is the only way to show why the tiers
+exist rather than assert it.
+
+Every one of the 82 store pages carries a `.ds-launch` control bottom right —
+a glass disc that opens to a pill and links here. It takes the overlay tier
+rather than the live tier: it is fixed to the window and travels over film,
+photography and navy without knowing which, so it has no context to flip its ink
+against. The design system page itself does not carry one.
+
+### One rule: no serif
+
+The system is sans-serif and there is no serif in it — not as a face, not as a
+fallback. Both stacks end on a generic sans (`sans-serif` and `monospace`), and
+New Science Mono is a fixed-pitch sans, in the system because a column of prices
+has to line up on the decimal. A guard rule in `phenome-glass.css` names the
+elements that do not inherit from `<body>` — form controls, `::placeholder` and
+`<svg><text>`, the last because an SVG text node with no font-family falls back
+to the platform UA face and lands on Times New Roman under Windows.
