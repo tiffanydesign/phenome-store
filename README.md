@@ -43,3 +43,26 @@ files through Jekyll.
 /clinic/  /account/  3 pages each      /legal/          privacy, terms
 /about/  /careers/  /press/  /contact/  /quiz/  /sitemap/
 ```
+
+## Design tokens — Digital Twin
+
+`phenome-glass.css` re-points the mirror's own token layer at the design system
+in [phenome-digital-twin](https://tiffanydesign.github.io/phenome-digital-twin/digitaltwin.html).
+It is an overlay: `shared.css` is unchanged and still byte-accurate to the
+capture, and every page loads the Adobe kit, then `shared.css`, then this file.
+
+| | |
+|---|---|
+| Type | `helvetica-neue-lt-pro` for everything; `new-science-mono` for prices and readings. The store's type ladder is kept and re-tracked for Helvetica. |
+| Colour | The brand ramp (`#0a1e57`→`#e6e9f2`), the navy ink scale and the twin's status ramp, mapped onto the existing `--ph-*` names. The accent moves from the measured web blue `#0071E3` to Phenome Blue `#203a85`, which settles Appendix B #1 in `shared.css`. Black grounds become `#0a1e57`. |
+| Glass | The twin's fourth "plain frosted" doctrine: one flat white fill, `blur(24px) saturate(140%)`, one long soft drop. No rim, no grain, no sheen, no inner glow. |
+| Ground | The twin's field on `<body>` — a 150° three-stop wash, two brand pools and two corner lobes — because a rimless pane needs structure behind it. |
+
+Contralto and the serif type scale are **not** carried over; the store keeps a
+single sans.
+
+Two known trades, both written up at their own rules in `phenome-glass.css`:
+the mega-menu takes an 84% fill rather than the doctrine's 59% because it opens
+over arbitrary page content, and `.tile` keeps its warm `#E3E3E3` plate because
+that value is measured off the kit photographs and any other ground puts a seam
+across the tile.

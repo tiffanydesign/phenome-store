@@ -1,0 +1,560 @@
+/* ============================================================================
+   Phenome Store — Digital Twin design tokens
+
+   An OVERLAY, not a rewrite. `shared.css` is the captured mirror of the live
+   store and stays byte-accurate to it; everything here is loaded after it and
+   re-points its own token layer at the Digital Twin's system
+   (tiffanydesign.github.io/phenome-digital-twin/digitaltwin.html).
+
+   THREE THINGS WERE TAKEN, and a fourth was deliberately left:
+
+     type      the SANS only — helvetica-neue-lt-pro, served from the same
+               Adobe kit the twin uses — plus new-science-mono for every
+               numeral in the system.
+     colour    the brand ramp, the navy ink scale, the pale-blue grounds and
+               the twin's status ramp, mapped onto shared.css's own --ph-*
+               names so 82 pages retheme without one page being edited.
+     glass     the twin's fourth "plain frosted" doctrine, verbatim: one flat
+               white fill, blur + saturate, one long soft drop. No rim, no
+               grain, no sheen, no inner glow. Nothing here draws an edge.
+
+     NOT taken · Contralto, the twin's high-contrast display face, and the
+               serif-scale tokens that go with it (--font-serif-*, --text-name,
+               --text-title-lg). Asked for explicitly. The store's own type
+               ladder is kept and re-tracked for Helvetica instead — see TYPE.
+
+   WHAT THIS COSTS, written down because it is the whole trade: shared.css was
+   measured against Apple's shipped page — its greys, its 80%-white bar, its
+   button hover deltas all cite a measurement. Those measurements are not wrong,
+   they are simply against a different system now. Where a value here replaces
+   one of them, the twin's reasoning is quoted rather than re-derived.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1 · TOKENS · lifted from digitaltwin.html's :root
+   ------------------------------------------------------------------------ */
+:root {
+  /* brand ramp */
+  --phenome-blue-900: #0a1e57; --phenome-blue-700: #142b6e; --phenome-blue-500: #203a85;
+  --phenome-blue-400: #435ba1; --phenome-blue-300: #7185bd; --phenome-blue-200: #a9b5d9;
+  --phenome-blue-100: #e6e9f2;
+
+  /* ink + surface */
+  --ink-900: #10214b; --ink-600: #4a5578; --ink-400: #8b93ad; --ink-label: #3f4a70;
+  --surface-page: #f4f6fb; --surface-card: #fff; --surface-sunken: #e7ebf3;
+  --divider: #203a8514; --border-strong: #203a8529; --grid-line: #203a850d;
+
+  --gradient-brand:    linear-gradient(135deg,#30b0cd 0%,#2394cc 48%,#2e74b2 100%);
+  --gradient-vitality: linear-gradient(135deg,#269381 0%,#1f8697 49%,#085e98 100%);
+
+  --status-success:#70d332; --status-success-fill:#509b21; --status-success-ink:#417e1b;
+  --status-warning:#ffb600; --status-warning-fill:#b27f00; --status-warning-ink:#7a5600;
+  --status-danger:#ff4b2b;  --status-danger-fill:#ff3c1a;  --status-danger-ink:#db2100;
+  --status-info:#508cfc;                                   --status-info-ink:#045afb;
+
+  /* the ground. A 150deg three-stop wash plus two very large soft corner lobes.
+     Structure in the GROUND is the only thing a rimless pane has left to be
+     seen against — the twin's note on why its flat near-white page went. */
+  --stage-field-1:#eef3f9; --stage-field-2:#e5edf7; --stage-field-3:#dce7f4;
+
+  --ease-frosted-out: cubic-bezier(.16,1,.3,1);
+
+  /* ---- GLASS · plain frosted doctrine, three properties and no fourth ----
+       fill      one flat white at a stated alpha, uniform through the pane
+       backdrop  blur + saturate. 140, not 165: a pane that pushes the colour
+                 behind it is a pane you look AT rather than through
+       shadow    one drop, soft and long, struck off blue-grey, 0 8px 24px -18px
+     Both nulls are 0 0 #0000 rather than `none`, because they are consumed
+     inside comma-separated box-shadow lists where `none` is not a valid member. */
+  --gl-blur:       blur(24px) saturate(140%);
+  --gl-blur-panel: blur(24px) saturate(140%);
+  --gl-blur-thin:  blur(14px) saturate(140%);
+
+  --gl-tint:       #ffffff6b;   /* 42% — a card and a pane draw at the same alpha */
+  --gl-tint-panel: #ffffff6b;
+  --gl-tint-solid: #ffffff80;   /* 50% — chips, segments, small round buttons */
+  --gl-tint-live:  #ffffff96;   /* 59% — anything that must hold its own boundary
+                                   against a backdrop the blur cannot work on:
+                                   a quiet ground, a photograph, a running film */
+  --gl-tint-sunk:  #96a8cd2e;   /* a recess is one flat blue-grey wash, nothing else */
+
+  /* The tier the twin does not have, and it is added for a measured reason.
+     The twin is one page over a ground it controls. This is 82 pages of
+     storefront, and the mega-menu opens over WHATEVER is under it — a dark
+     hero, a photograph, a running film. At 59% the panel's own 14px links sit
+     under the 4.5 rule over the site's dark tiles. 84% is the least that clears
+     it on all of them with the panel still visibly glass. */
+  --gl-tint-overlay: #ffffffd6;
+
+  --gl-grain: none;
+  --gl-shadow:        0 8px 24px -18px #4664a038;
+  --gl-shadow-panel:  0 8px 24px -18px #4664a038;
+  --gl-shadow-lift:   0 14px 34px -18px #4664a04d;
+  --gl-shadow-press:  0 3px 9px -10px #4664a03d;
+  --gl-inner: 0 0 #0000;
+  --gl-inner-sunk: 0 0 #0000;
+
+  /* Kit first, then the installed desktop names, then the humanist-sans chain.
+     The kit name leads so the machine with the fonts installed renders what a
+     visitor renders. Helvetica stays ahead of Arial: a platform that has a real
+     Helvetica should use it, and on Windows the two resolve to the same face. */
+  --font-sans: "helvetica-neue-lt-pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+  /* Every number in the system, from a hero stat down to a price. A mono is
+     fixed-pitch by construction, so a column of prices lines up on the decimal
+     without asking for tabular figures at all. The kit serves 100 and 300 only,
+     which is why the weight below is 300 and not 400. */
+  --font-numeral: "new-science-mono","New Science Mono",
+                  ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+/* ---------------------------------------------------------------------------
+   2 · MAPPING · the twin's values onto shared.css's own --ph-* names.
+   This block is what reskins all 82 pages. Nothing below it is required for
+   the colour change; everything below it is the glass.
+   ------------------------------------------------------------------------ */
+:root {
+  /* --ph-white stays literal white. It is a TEXT colour as often as a fill on
+     this site (.btn label, .section-black h2, .atile.dark .atile-sub), and a
+     translucent value here would have washed every inverted label on the site
+     to 59% — the exact failure mode shared.css records for its own nav label. */
+  --ph-white:       #ffffff;
+  --ph-surface-alt: var(--surface-page);
+  --ph-surface:     var(--surface-sunken);
+  --ph-pill:        var(--surface-sunken);
+  --ph-line:        var(--border-strong);
+  --hair:           var(--divider);
+  --ph-text-1:      var(--ink-900);
+  --ph-text-2:      var(--ink-600);
+  --ph-tertiary:    var(--ink-400);
+
+  /* Black was a site colour here — recorded, not accidental. It is the top of
+     the brand ramp now: #0a1e57 rather than #000000. Every dark ground on the
+     site moves with this one token, and the ramp is what the twin's glass was
+     drawn over. Kept as --ph-black rather than renamed, because eleven rules in
+     shared.css reach for it by that name, including two that use it as a hover
+     INK (.ph-links a:hover) where a navy is exactly what is wanted. */
+  --ph-black:       var(--phenome-blue-900);
+
+  /* The accent moves from the measured WEB blue (#0071E3) to Phenome Blue.
+     shared.css's Appendix B #1 records exactly this as the open question —
+     "#203A85 Phenome Blue, the brand guideline's primary, and the colour inside
+     assets/brand/phenome-logo.svg" — and the twin answers it: the logo and the
+     interface are one blue. Hover and press keep Apple's own dynamic (a small
+     step up, then one step under the resting fill), now walked along the brand
+     ramp rather than along the web scale. */
+  --ph-accent:        var(--phenome-blue-500);
+  --ph-accent-link:   var(--phenome-blue-500);
+  --ph-accent-hover:  var(--phenome-blue-700);
+  --ph-accent-active: var(--phenome-blue-900);
+  --ph-focus:         var(--phenome-blue-400);
+
+  /* On a dark ground the brand blue is 1.8:1 and unreadable — the same reason
+     shared.css carried an --ph-on-brand at all. Measured against the new ground
+     (#0a1e57): 7.6:1, where the old #6fa8ff sat at 5.1 against #000. */
+  --ph-on-brand:    #8fb8ea;
+
+  --ph-warn:        var(--status-warning-ink);
+  --ph-warn-ink:    var(--status-warning-fill);
+  --ph-warn-bg:     #fdf6e6;
+  --ph-success:     var(--status-success-ink);
+  --ph-success-ink: var(--status-success-fill);
+  --ph-success-bg:  #f1f8ea;
+  --ph-error:       var(--status-danger-ink);
+  --ph-error-bg:    #fdf0ed;
+
+  --ph-font: var(--font-sans);
+  /* The kit ships 400 / 500 / 700 and no 600. 500 rather than 700 for the
+     heading role: at 80px Helvetica Neue Medium is the weight the twin's own
+     module labels use, and Bold at that size reads as a different family. */
+  --ph-w-600: 500;
+
+  --ph-ease: var(--ease-frosted-out);
+
+  /* Radii step down toward the twin's 8/10/12/16 without touching the pill
+     tokens — a pill is a shape decision, not a token, and the storefront's
+     controls are pills in both systems. */
+  --ph-r12: 10px; --ph-r14: 12px; --ph-r18: 16px; --ph-r21: 16px; --ph-r27: 20px;
+  --ph-r36: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+   3 · TYPE · the ladder is shared.css's, the tracking is not.
+   Every 400-weight rung on that ladder carries POSITIVE tracking (+0.204px at
+   17), which was measured for Outfit — a geometric sans that sets tight.
+   Helvetica Neue sets wider and wants the opposite sign at display sizes and
+   nothing at all at body sizes. Sizes and line-heights are untouched, so no
+   layout moves.
+   ------------------------------------------------------------------------ */
+:root {
+  --ph-tr-80-600: -0.020em; --ph-tr-64-600: -0.018em; --ph-tr-48-600: -0.016em;
+  --ph-tr-40-600: -0.014em; --ph-tr-32-600: -0.012em; --ph-tr-28-600: -0.010em;
+  --ph-tr-24-600: -0.008em; --ph-tr-21-600: -0.005em;
+  --ph-tr-12-600: 0.010em;  --ph-tr-12-600-caps: 0.06em;   /* --tracking-overline */
+  --ph-tr-21-400: -0.004em; --ph-tr-19-400: -0.002em; --ph-tr-17-400: 0em;
+  --ph-tr-nav: 0em;
+}
+/* The three fixed display steps on the tile homepage are hand-typed in
+   shared.css and take no token, so they are re-tracked here by name. */
+.atile-head             { letter-spacing: -0.012em; }
+.atile.full .atile-head { letter-spacing: -0.020em; }
+.atile-sub,
+.atile.full .atile-sub  { letter-spacing: -0.004em; }
+
+/* ---- numerals ------------------------------------------------------------
+   Every number in the system on the mono, which is the one rule the twin has
+   about numbers. It reads as a decision rather than as a slip only if it is
+   applied to ALL of them — a price in the mono beside a spec value in the sans
+   is worse than neither. Weight 300 because the kit serves 100 and 300 only.
+
+   THE SCOPE IS PRICES AND READINGS, NOT LINES THAT CONTAIN A NUMBER, and the
+   difference was measured rather than reasoned. .ph-prod-meta reads
+   "Wearable · £279" — one word and one price — and set whole in a 300-weight
+   mono at 14px the WORD is what you notice: it is wider than the sans, lighter
+   than the sans, and it is not a number. A mono earns its place by making a
+   column of figures line up on the decimal; there is no column in a meta line.
+   Same argument retires .ctable td, which is prose as often as it is data. */
+.card-price, .ph-card-price, .price, .stat-num, .figures .figure > .n,
+.spec dd, .stat-value, .kpi-value, .num {
+  font-family: var(--font-numeral);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+/* Mixed lines stay in the sans and take tabular figures instead — the columns
+   still align, and the words still look like words. */
+.ph-prod-meta, .ctable td, .card-spec {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---------------------------------------------------------------------------
+   4 · THE GROUND
+   Glass over flat near-white is the weakest reading this material has, so the
+   page takes the twin's field: a 150deg three-stop wash, two brand pools and
+   two very large corner lobes. Fixed, so the field belongs to the window and
+   the panes travel over it.
+   ------------------------------------------------------------------------ */
+body {
+  background:
+    radial-gradient(1200px 800px at 85% -10%,#30b0cd1a,transparent 60%),
+    radial-gradient(1000px 700px at -10% 90%,#203a8512,transparent 55%),
+    radial-gradient(760px 760px at -170px -170px,#c4daf773,#c4daf700 68%),
+    radial-gradient(700px 700px at calc(100% + 170px) calc(100% + 200px),#d2e2f866,#d2e2f800 70%),
+    linear-gradient(150deg,var(--stage-field-1) 0%,var(--stage-field-2) 46%,var(--stage-field-3) 100%);
+  background-attachment: fixed;
+  text-rendering: optimizeLegibility;
+}
+/* iOS composites a fixed background on every scroll frame, and a phone has no
+   room for the corner lobes anyway — the linear wash alone carries the hue. */
+@media (max-width: 900px), (hover: none) {
+  body { background-attachment: scroll; }
+}
+
+/* A section is no longer an opaque band. .section-gray was --ph-surface, an
+   opaque tone that would sit on top of the field and cut it in two; it is the
+   doctrine's recess instead — one flat blue-grey wash, no inset, no drop. */
+.section-gray  { background: var(--gl-tint-sunk); }
+/* The hero ran an OPAQUE ramp — --ph-surface at the top down to white at the
+   bottom — and it existed for one reason shared.css states plainly: the bar had
+   no border, so "what makes its edge visible is the tone of the page behind
+   it". The bar has a drop now, which is the doctrine's whole answer to an edge,
+   so the ramp is free to stop being opaque — and it had to, because an opaque
+   white bottom half is a lid over the field on the first screen of 40 pages.
+   Same shape, same direction, one twentieth of the weight. */
+.hero:not(.on-dark):not(.on-film) {
+  background: linear-gradient(180deg, #96a8cd24 0%, #96a8cd00 100%);
+}
+.section-black { background: var(--phenome-blue-900); color: var(--phenome-blue-200); }
+.section-black h2, .section-black h3, .section-black .card-price { color: #fff; }
+/* Secondary ink on the dark ground. shared.css sends nine of these to
+   --ph-tertiary, which was #86868B and measured 5.6:1 on #000. That token is
+   #8b93ad now and the ground is navy, so the same nine rules land at 3.97:1
+   inside a card — under the rule, and lower still because the card's own white
+   film lifts the ground it is read against. blue-200 puts them at 6.2:1.
+   The token itself is NOT changed: on the light page #8b93ad is correct, and
+   moving it there to fix the dark ground would be the tail wagging the dog. */
+.section-black p, .section-black .ticks li, .section-black .spec dt,
+.section-black table th, .section-black .quote figcaption,
+.section-black .card-sub, .section-black .ph-dim {
+  color: var(--phenome-blue-200);
+}
+
+/* ---------------------------------------------------------------------------
+   5 · GLASS · the utility tiers, then the components that take them
+   ------------------------------------------------------------------------ */
+.gl {
+  position: relative; border: 0;
+  background-image: var(--gl-grain);
+  background-color: var(--gl-tint);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow), var(--gl-inner);
+}
+.gl-panel {
+  background-image: var(--gl-grain);
+  background-color: var(--gl-tint-panel);
+  -webkit-backdrop-filter: var(--gl-blur-panel); backdrop-filter: var(--gl-blur-panel);
+  box-shadow: var(--gl-shadow-panel), var(--gl-inner);
+}
+.gl-sunk {
+  background-image: var(--gl-grain);
+  background-color: var(--gl-tint-sunk);
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: var(--gl-inner-sunk);
+}
+
+/* ---- the bar. It was already glass — 80% white, saturate(180%) blur(20px),
+   measured off apple.com. It moves to the doctrine's own numbers and takes the
+   live tier rather than the pane tier: a nav bar spends its life over a
+   photograph or a running film, which is precisely the case --gl-tint-live
+   exists for. The drop replaces the tone-of-the-page separation shared.css
+   relied on, which no longer holds now that the page is not white. */
+.ph-nav, .ph-bar {
+  background: var(--gl-tint-live);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow);
+  border-bottom: 0;
+}
+
+/* ---- the mega-menu. Overlay tier, and it says why at its own token. */
+.ph-panel {
+  background: var(--gl-tint-overlay) !important;
+  -webkit-backdrop-filter: var(--gl-blur-panel); backdrop-filter: var(--gl-blur-panel);
+  border: 0 !important;
+  box-shadow: 0 18px 48px -24px #4664a05c, var(--gl-shadow-panel) !important;
+}
+.ph-card { background: var(--gl-tint-sunk); }
+
+/* ---- panes. Everything shared.css drew as a white or grey card.
+
+   THE LIVE TIER, NOT THE PANE TIER, and the twin's own note is the authority
+   for it: "the condition is not a live field, it is a field that gives the blur
+   nothing to bend — a body moving across near-white does it, and so does a
+   quiet ground behind a card." This storefront is the second case on every one
+   of its 82 pages: the field in section 4 is a wide, slow wash with no detail
+   in it, and a 42% pane over that has no boundary at all. Measured at 1440 on
+   /store/: the product cards' right and bottom edges were unfindable in a
+   render, which is the exact failure --gl-tint-live was written for. 59%.
+
+   A DARK VARIANT IS EXCLUDED BY NAME rather than by a blanket :not(), because
+   there are three of them and each states its own ink. Filling .ph-prod.is-dark
+   with a light pane while shared.css:2876 still sets its name to --ph-white put
+   white type on 59% white — 1.1:1, the label did not fade, it vanished. Same
+   class of mistake shared.css records for its own hover rule, caught the same
+   way: by looking at it. */
+.card, .figures .figure, .supp-review, .supp-card,
+.buy-card:not(.glass-aurora):not(.glass-video),
+.ph-prod:not(.is-dark), .atile:has(> .atile-film):not(.dark),
+.railx-media, .atile-art-card, .compare-pick .compare-side, .quiz-band,
+.section-gray .card-gray, .section-gray .figures .figure,
+.section-gray .railx-btn, .section-gray .ctable, .section-gray table {
+  background: var(--gl-tint-live) !important;
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow), var(--gl-inner);
+  border-color: transparent;
+}
+/* The dark product card, the dark tile and the dark end-band all took their
+   ground from --ph-black, which is navy now — so only the ones that hard-type
+   a hover grey need saying, and the gradient is the tile homepage's. */
+.ph-prod.is-dark, .tile.tile-dark, .supp-end {
+  background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
+  border-color: transparent;
+}
+a.ph-prod.is-dark:hover { background: linear-gradient(150deg,#1c3a8c 0%,#12296e 62%,#0d2153 100%); }
+.ph-prod.is-dark .ph-prod-meta { color: var(--phenome-blue-200); }
+/* ---- recesses. The grey card, the sunken well, the trough. */
+.card-gray, .supp-why, .pill-lab, .ph-cat-tile, .step-mark, .supp-opt-dot,
+.card-img.kit, .ph-card-img, .buy-choice, .railx-btn, .ph-rail-btn {
+  background: var(--gl-tint-sunk);
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: var(--gl-inner-sunk);
+}
+/* ---- chips and small round controls: the densest tier. */
+.pill, .tag, .btn.ghost,
+.buy-card:not(.glass-aurora):not(.glass-video) .buy-badge {
+  background: var(--gl-tint-solid);
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: var(--gl-shadow);
+  border-color: transparent;
+}
+
+/* An outlined pill in an INVERTED context is the same control with its ink
+   already flipped to white — .pin-cta ships as class="tag pin-cta" and states
+   `color: var(--ph-white)` for the film behind it. Handing it the light chip
+   fill put white on 50% white at 1.06:1, which is the .ph-prod.is-dark failure
+   a third time and the reason every inverted context on the site is now listed
+   in one place rather than discovered one page at a time. Same material, same
+   two properties, struck off the dark side instead. */
+.hero.on-dark .tag, .atile.dark .tag, .hero.on-dark .pill,
+.section-black .btn.ghost {
+  background: #ffffff1f;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: none;
+  color: #fff !important;
+}
+.hero.on-dark .tag:hover, .atile.dark .tag:hover { background: #ffffff33; box-shadow: none; }
+/* Over a SOLID navy ground a white film is enough. Over a PHOTOGRAPH it is not,
+   and .pin-cta sits on a moving one: at 12% white the pill's own label ran
+   1.9:1 wherever the frame went pale, and raising the white only made the pane
+   and the highlight the same tone. So this one states its own alpha off the
+   dark side — the twin does the same thing for a label over a dark organ, and
+   for the same reason: white type needs a floor under it, not a veil. */
+.pin-cta, .hero.on-film .tag {
+  background: #06122e8f;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: none;
+  color: #fff !important;
+}
+.pin-cta:hover, .hero.on-film .tag:hover { background: #06122eb8; box-shadow: none; }
+/* The film's scrim was struck off pure black at three stops. Navy, at the same
+   three alphas — the picture under it is unchanged, the cast over it is not. */
+.pin-scrim {
+  background: linear-gradient(90deg,#06122eb8 0%,#06122e75 52%,#06122e1a 100%);
+}
+
+/* ---- THE DARK PRODUCT PAGE ---------------------------------------------
+   Six product pages run a hero on a film or on a dark wash, and shared.css
+   already gives them a glass buy-card of their own — .glass-aurora and
+   .glass-video, a 150deg white ramp at 26%→5% over a near-black ground. That
+   card is the one surface on this site the twin's material was ALREADY being
+   used for, so it is left as glass and only its ground moves: the greys it was
+   drawn against (#171922 / #0E1016 / rgba(40,42,52)) are neutral, and every
+   other dark ground in the system is now navy. A neutral near-black beside a
+   navy footer on the same scroll is the one thing that reads as two systems.
+
+   Their own fills are NOT overridden. A light pane forced onto a card whose
+   type is white is the .ph-prod.is-dark failure again, and it happened here
+   first: at 59% white the £180 sat on a milky slab at 1.4:1. */
+.hero.on-dark {
+  background:
+    radial-gradient(58% 62% at 74% 18%, #30b0cd38, transparent 68%),
+    radial-gradient(52% 58% at 12% 88%, #435ba147, transparent 70%),
+    linear-gradient(168deg, #142b6e 0%, #08183f 58%, #0d2153 100%);
+}
+.hero.on-film::after {
+  background: linear-gradient(180deg, #06122ea3, #06122eb8);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* shared.css's own no-backdrop fallback for this card is rgba(40,42,52,.90),
+     a neutral. Same alpha, walked onto the ramp. */
+  .buy-card:is(.glass-aurora, .glass-video) { background: #0f2350e6; }
+}
+
+/* ---- hover. The doctrine has one move left and this is it: the pane comes
+   further off the page. It does NOT brighten — brightening a translucent fill
+   reads as glass going opaque, which is the one thing it cannot do. The two
+   card rules below are the exception the doctrine allows and shared.css
+   already had: an <a> that IS the card has to answer the cursor with more
+   than a shadow, so it steps one tint tier rather than changing hue. */
+.card, .ph-prod, .supp-card, .atile, .ph-cat-tile, .pill, .tag, .btn.ghost {
+  transition: box-shadow var(--ph-dur-base) var(--ease-frosted-out),
+              background-color var(--ph-dur-base) var(--ease-frosted-out);
+}
+a.card:hover, a.card-gray:hover, a.ph-prod:hover, a.atile:hover,
+.pill:hover, .tag:hover, .btn.ghost:hover {
+  box-shadow: var(--gl-shadow-lift), var(--gl-inner);
+}
+/* 72%, one step above the resting live tier and one step under opaque. It has
+   to be stated rather than reached for: with the panes raised to 59% the old
+   hover fill and the resting fill became the same value, and a card that
+   answers the cursor with nothing is what shared.css's own .tag was doing for
+   as long as it existed. */
+a.card:hover, a.card-gray:hover, a.ph-prod:not(.is-dark):hover {
+  background: #ffffffb8 !important;
+}
+a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-inner); }
+
+/* ---- the tile homepage. Square opaque tiles become panes with a corner, and
+   the dark ones stop being #000 — that value is hard-typed in shared.css, so
+   it is named here rather than reached through a token. */
+.atile {
+  border-radius: 20px;
+  background: var(--gl-tint-live);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow);
+}
+.atile.dark {
+  background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.atile.dark .atile-eyebrow { color: var(--ph-on-brand); }
+.atile-link.ghost {
+  background: var(--gl-tint-solid); border-color: transparent;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+}
+.atile.dark .atile-link.ghost { background: #ffffff1f; color: #fff; }
+
+/* ---- the footer. A recess the width of the page, and the rule above it is
+   the divider rather than the strong border: it separates two of our own
+   surfaces, not a surface from the page. */
+.ph-footer {
+  background: var(--gl-tint-sunk);
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+}
+.ph-footer .rule { background: var(--divider); }
+
+/* ---- glass over a dark ground. White at 42% over #0a1e57 is a milky slab;
+   over dark the pane inverts and holds its boundary on a light film instead. */
+.section-black .card, .section-black .card-gray, .section-black .figure {
+  background: #ffffff14 !important;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  box-shadow: none;
+}
+.section-black a.card:hover, .section-black a.card-gray:hover {
+  background: #ffffff26 !important;
+}
+.section-black .pill, .section-black .tag, .section-black .pill-lab {
+  background: #ffffff1f; color: #fff; box-shadow: none;
+}
+
+/* ---- THE ONE SURFACE THAT IS DELIBERATELY NOT GLASS.
+   .tile takes `background: var(--tile-ground, var(--ph-pill))` and every kit
+   tile sets --tile-ground inline to the ground its own photograph was cut on —
+   #E3E3E3 on the five kits, a warm grey. shared.css states why in full: the
+   photograph's ground and the tile's ground are the same surface, and any
+   difference between them "shows as a band across the tile". That measurement
+   did not stop being true when the palette changed, so the tile keeps its warm
+   plate and does NOT take the pane fill. It is now the one warm value left on
+   a cool page, and the honest fix is a reshoot, not a rule. Left visible on
+   purpose rather than papered over with a tint that would put the seam back.
+   Only its dark variant moves, because that one is ours, not the camera's. */
+.tile.tile-dark {
+  background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
+}
+.tile.tile-dark .tile-eyebrow, .tile.tile-dark .tile-price { color: var(--phenome-blue-200); }
+
+/* ---- rules and dividers. Every hairline on the site was struck off pure
+   black at some alpha; they are struck off the navy now — the same weight on
+   the page, carrying the same hue as everything around it. */
+hr, .rule, .card-spec, .spec > div, .acc-item, table th, table td {
+  border-color: var(--divider);
+}
+
+/* ---------------------------------------------------------------------------
+   6 · The pointer, in the brand blue.
+   One closed outline filled with blue-500 over a 3px white stroke — two stacked
+   copies of the same path, which is the construction that survives being a data
+   URI. The white is not decoration: over a dark tile a navy hand disappears.
+   The declaration ends in the native keyword so a browser that refuses the
+   image still gets the right affordance rather than an arrow.
+   ------------------------------------------------------------------------ */
+a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='30'%3E%3Cpath d='M7.4 5.6a2.2 2.2 0 0 1 4.4 0V13.1a2 2 0 0 1 4 0V14.6a1.9 1.9 0 0 1 3.8 0V16.1a1.8 1.8 0 0 1 3.6 0V21c0 4-3.2 7.2-7.2 7.2h-2.4C5.4 28.2 2.6 25.4 2.6 21.8V16.4a2.4 2.4 0 0 1 4.8 0Z' fill='%23fff' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M7.4 5.6a2.2 2.2 0 0 1 4.4 0V13.1a2 2 0 0 1 4 0V14.6a1.9 1.9 0 0 1 3.8 0V16.1a1.8 1.8 0 0 1 3.6 0V21c0 4-3.2 7.2-7.2 7.2h-2.4C5.4 28.2 2.6 25.4 2.6 21.8V16.4a2.4 2.4 0 0 1 4.8 0Z' fill='%23203a85'/%3E%3C/svg%3E") 10 4, pointer;
+}
+
+/* ---------------------------------------------------------------------------
+   7 · Fallbacks
+   A browser with no backdrop-filter gets opaque panes rather than transparent
+   ones — the fill alphas above are all the legibility the type has, and 42%
+   white over a photograph with no blur under it is not a surface.
+   ------------------------------------------------------------------------ */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ph-nav, .ph-bar, .ph-panel, .atile:not(.dark) { background: #f7f9fdf2 !important; }
+  .card, .figures .figure, .supp-review, .supp-card, .ph-prod, .buy-card,
+  .quiz-band, .section-gray .card-gray { background: #fffffff0 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .ph-prod, .supp-card, .atile, .ph-cat-tile, .pill, .tag, .btn.ghost {
+    transition: none;
+  }
+}
