@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>Shop by goal — Phenome</title>
+<meta content="Answer six questions and get a personalised Phenome plan in about two minutes." name="description"/>
+<link href="/shared.css" rel="stylesheet"/>
+</head>
+<body>
+<div data-ph-nav=""></div>
+<main>
+<section class="hero"><div class="wrap-wide center">
+<div class="eyebrow">Shop by goal</div>
+<h1 class="hero-title">Start with your goal, not the catalogue.</h1>
+<p class="lede">Tell us what you want to improve and we'll build a personalised plan in about two minutes.</p>
+</div></section>
+<section class="section" id="quiz"><div class="wrap" style="max-width:820px">
+<div class="card-gray" id="quizCard" style="padding:44px 40px">
+<div id="quizProgress" style="font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--ph-text-2)"></div>
+<h2 class="sec-title" id="quizQ" style="font-size:32px;margin-top:12px;line-height:40px"></h2>
+<p class="body-text" id="quizWhy" style="margin-top:12px"></p>
+<div id="quizOpts" style="margin-top:28px;display:flex;flex-direction:column;gap:12px"></div>
+<div style="margin-top:28px;display:flex;gap:16px;align-items:center">
+<button class="btn ghost small" id="quizBack" type="button">Back</button>
+<span class="body-text" id="quizHint" style="font-size:14px">Pick one to continue</span>
+</div>
+</div>
+<div id="quizResult" style="display:none">
+<div class="center"><div class="eyebrow">Your plan</div>
+<h2 class="sec-title" id="resTitle">Your personalised plan.</h2>
+<p class="lede" id="resWhy"></p></div>
+<div id="resPrimary" style="margin-top:44px"></div>
+<div class="grid grid-2" id="resSupporting" style="margin-top:24px"></div>
+<div class="center" style="margin-top:40px"><button class="btn ghost" id="quizRestart" type="button">Start over</button></div>
+</div>
+</div></section>
+<section class="section section-gray" id="goals"><div class="wrap-wide">
+<div class="eyebrow">Choose a goal</div>
+<h2 class="sec-title">Six starting points.</h2>
+<p class="lede" style="margin-left:0">Each opens a focused set of products — or let the quiz decide for you.</p>
+<div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Longevity &amp; healthy ageing</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Decode your genome and track how you age.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">Comprehensive Genomic Test · PhenomeTech Ring · Personalised Supplements</p>
+<div style="margin-top:12px"><a class="link-more" href="/testing/comprehensive-genomic/">Explore</a></div></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Gut health &amp; digestion</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Map your microbiome; fix bloating and energy.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">Gut Microbiome Test · Personalised Supplements</p>
+<div style="margin-top:12px"><a class="link-more" href="/testing/gut-microbiome/">Explore</a></div></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Energy, sleep &amp; recovery</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">See what's draining you, wearable to plate.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">PhenomeTech Ring · Gut Microbiome Test</p>
+<div style="margin-top:12px"><a class="link-more" href="/devices/ring/">Explore</a></div></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Peak performance</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Train and recover in line with your genes.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">Sports Performance Test · PhenomeTech Ring</p>
+<div style="margin-top:12px"><a class="link-more" href="/testing/sports-performance/">Explore</a></div></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Planning a family</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Know what you could pass on before you start.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">Carrier Screening Test · Newborn Screening Test</p>
+<div style="margin-top:12px"><a class="link-more" href="/testing/carrier-screening/">Explore</a></div></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Know my genetic risks</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">One test, a lifetime of actionable insight.</p>
+<p class="body-text" style="margin-top:12px;font-size:14px;line-height:18px">Comprehensive Genomic Test · Carrier Screening Test</p>
+<div style="margin-top:12px"><a class="link-more" href="/testing/comprehensive-genomic/">Explore</a></div></div></div>
+</div></section>
+<section class="section"><div class="wrap-wide">
+<div class="eyebrow">How the plan is built</div>
+<h2 class="sec-title">From answers to a personalised plan.</h2>
+<div class="grid grid-2" style="margin-top:40px;gap:48px">
+<div><h3 class="card-title">Each answer adds weight</h3><p class="body-text" style="margin-top:12px">Every option you choose adds weight to one or more products. Nothing is hidden — the reasoning is shown back to you at the end.</p></div>
+<div><h3 class="card-title">The highest weight becomes the hero</h3><p class="body-text" style="margin-top:12px">The highest-weighted product becomes your primary recommendation; the next one or two become supporting add-ons.</p></div>
+<div><h3 class="card-title">Family signals surface screening</h3><p class="body-text" style="margin-top:12px">Family-planning answers surface Carrier Screening, and Newborn Screening where relevant.</p></div>
+<div><h3 class="card-title">Support is opt-in</h3><p class="body-text" style="margin-top:12px">Saying yes to ongoing support adds Personalised Supplements; saying no keeps it to products only.</p></div>
+</div></div></section>
+<section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">SHOP BY GOAL</div><h2 class="sec-title">Start with your goal, not the catalogue.</h2><p class="lede" style="margin-left:0">Tell us what you want to improve and we’ll build a personalised plan from our tests, the PhenomeTech Ring and supplements — in about two minutes.</p><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/quiz/">Take the 2-min quiz</a><a class="btn ghost" href="#goals">Browse all goals</a></div></div></section><section class="section"><div class="wrap-wide"><h2 class="sec-title">Choose a goal</h2><p class="lede" style="margin-left:0">Six starting points. Each one opens a focused set of products and a quiz to fine-tune your plan.</p></div></section><section class="section section-gray"><div class="wrap-wide"><div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Longevity &amp; healthy ageing</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Decode your genome and track the systems that shape how you age.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Gut health &amp; digestion</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Map your microbiome and tackle bloating, energy and immunity at the source.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Energy, sleep &amp; recovery</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">See what’s draining you — from continuous wearable data to your plate.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Peak performance</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Train, fuel and recover in line with your genetics.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Family planning</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Know what you could pass on before you start a family.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Know my genetic risks</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">One test, a lifetime of actionable genetic insight.</p></div></div><div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap"><a class="tag" href="/testing/comprehensive-genomic/">Explore  →</a><a class="tag" href="/testing/gut-microbiome/">Explore  →</a><a class="tag" href="/devices/ring/">Explore  →</a><a class="tag" href="/testing/sports-performance/">Explore  →</a><a class="tag" href="/testing/carrier-screening/">Explore  →</a><a class="tag" href="/testing/comprehensive-genomic/">Explore  →</a></div></div></section><section class="section"><div class="wrap-wide"><h2 class="sec-title">Not sure where to start?</h2><p class="lede" style="margin-left:0">Answer six quick questions and we’ll build your plan.</p><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/quiz/">Take the quiz  →</a></div></div></section><section class="section section-gray"><div class="wrap-wide"><h2 class="sec-title">Phenome · Shop by Goal</h2><div class="grid grid-2" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Question 3 of 6</h3></div></div></div></section><section class="section"><div class="wrap-wide"><p class="lede" style="margin-left:0">Progress bar (step 3 of 6 filled)</p></div></section><section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">STEP 3 OF 6</div><h2 class="sec-title">Anything been bothering you lately?</h2><p class="lede" style="margin-left:0">Select all that apply — this points us to the right test.</p><div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Bloating or gut discomfort</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">selected (✓)</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Low energy</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">selected (✓)</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Poor sleep</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">unselected</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Brain fog</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">unselected</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Getting ill often</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">unselected</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">None of these</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">unselected</p></div></div></div></section><section class="section"><div class="wrap-wide"><h2 class="sec-title">Phenome · Shop by Goal</h2><div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap"><a class="tag" href="/quiz/">Retake quiz</a></div></div></section><section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">YOUR PHENOME PLAN</div><h2 class="sec-title">Your plan for gut health &amp; energy</h2><div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Goal: gut health</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Bloating</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Low energy</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">One-off deep test</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">+ supplements</h3></div></div></div></section><section class="section"><div class="wrap-wide"><div class="eyebrow">RECOMMENDED FOR YOU</div><h2 class="sec-title">Gut Microbiome Test</h2><p class="lede" style="margin-left:0">Metagenomic sequencing maps the bacteria driving your bloating, energy and immunity — with food-first steps to act on.</p><p class="body-text" style="margin-top:16px;font-size:19px;line-height:23px">One-time · results in 2–3 weeks</p><div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Because gut health is your main goal</p></div><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">You flagged bloating and low energy</p></div><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">You prefer one deep, one-off test</p></div></div><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/store/gut-microbiome/">Explore</a></div></div></section><section class="section section-gray"><div class="wrap-wide"><h2 class="sec-title">Complete your plan</h2><p class="lede" style="margin-left:0">Chosen from your answers to go further, faster.</p></div></section><section class="section"><div class="wrap-wide"><div class="compare"><div class="compare-side"><div class="k">PhenomeTech Ring</div><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Track sleep, recovery and energy day to day.</p><p style="margin-top:12px;font-size:17px;font-weight:600">£179</p></div><div class="compare-side"><div class="k">Personalised Supplements</div><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Targeted to your gut and energy results.</p><p style="margin-top:12px;font-size:17px;font-weight:600">£39/mo</p></div></div><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/store/phenometech-ring/">Add</a><a class="btn ghost" href="/store/supplements/">Add</a></div></div></section><section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">Your plan · 3 items</div><h2 class="sec-title">£398  ·  then £39/mo</h2><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/store/cart/">Add all to bag  →</a></div></div></section><section class="cta-band"><div class="wrap">
+<h2>Prefer to browse?</h2><p>Every test, side by side — sample type, technology, turnaround and price.</p>
+<div class="cta-actions"><a class="btn" href="/testing/compare/">Compare all tests</a>
+<a class="link-more" href="/store/">See the store</a></div>
+</div></section>
+<script>
+const QUIZ = {"questions": [{"q": "What do you most want to achieve?", "why": "This sets the primary goal that everything else is weighted against.", "opts": [["Live longer & age well", {"comprehensive-genomic": 3, "ring": 2, "supplements": 2}], ["Improve my gut health", {"gut-microbiome": 4, "supplements": 1}], ["More energy & better sleep", {"ring": 3, "gut-microbiome": 2}], ["Perform at my peak", {"sports-performance": 4, "ring": 2}], ["Plan a family", {"carrier-screening": 4, "newborn-screening": 2}], ["Understand my DNA & risks", {"comprehensive-genomic": 4, "carrier-screening": 2}]]}, {"q": "What's bothering you most right now?", "why": "Symptoms point to the test most likely to explain them.", "opts": [["Digestion, bloating or IBS", {"gut-microbiome": 3}], ["Low energy or poor sleep", {"ring": 2, "gut-microbiome": 2}], ["Breath, gums or teeth", {"oral-microbiome": 4}], ["Recovery or recurring injuries", {"sports-performance": 3, "ring": 1}], ["Nothing \u2014 I'm being proactive", {"comprehensive-genomic": 2}]]}, {"q": "How do you like to measure your health?", "why": "Separates people who want an ongoing device from those who want a deep one-off test \u2014 or a bundle of both.", "opts": [["Continuous wearable data", {"ring": 4}], ["One-off deep test", {"comprehensive-genomic": 2, "gut-microbiome": 1}], ["A bit of both", {"ring": 2, "comprehensive-genomic": 2}]]}, {"q": "How deep do you want to go on genetics?", "why": "Gates the Comprehensive Genomic Test versus a lighter, targeted route \u2014 a big difference in depth and price.", "opts": [["Full genome \u2014 everything", {"comprehensive-genomic": 4}], ["Only what's actionable", {"carrier-screening": 2, "sports-performance": 1}], ["Not fussed about genetics", {"gut-microbiome": 2, "ring": 2}]]}, {"q": "Are you planning a family?", "why": "Family-planning signals surface Carrier Screening, and Newborn Screening after birth.", "opts": [["Yes, in the next year or two", {"carrier-screening": 4, "newborn-screening": 1}], ["Already expecting", {"carrier-screening": 3, "newborn-screening": 3}], ["We have a newborn", {"newborn-screening": 4}], ["No", {}]]}, {"q": "Want ongoing support built in?", "why": "Attaches the recurring supplements plan for people who want action, not just data.", "opts": [["Yes \u2014 personalised supplements", {"supplements": 5}], ["Just the insights for now", {}]]}, {"q": "Where shall we send your plan?", "why": "Optional. Your plan appears on the next screen whether you fill this in or not.", "kind": "email", "opts": []}], "products": {"gut-microbiome": {"name": "Gut Microbiome Test", "href": "/testing/gut-microbiome/", "price": "\u00a3200", "blurb": "An at-home clinical-grade stool DNA sequencing analysis that maps gut microbiome composition and function, and delivers personalised health insights o", "color": "#0a1e57", "buy": "/store/gut-microbiome/"}, "oral-microbiome": {"name": "Oral Microbiome Test", "href": "/testing/oral-microbiome/", "price": "\u00a3200", "blurb": "Your mouth is home to trillions of bacteria that influence not just your oral health, but your cardiovascular, gut, brain, and systemic wellness.", "color": "#2f4ba0", "buy": "/store/oral-microbiome/"}, "comprehensive-genomic": {"name": "Comprehensive Genomic Test", "href": "/testing/comprehensive-genomic/", "price": "\u00a3650", "blurb": "Full Whole Genome Sequencing on Illumina in our accredited lab \u2014 all 3 billion base pairs, not the fraction a chip captures.", "color": "#4b3f9e", "buy": "/store/comprehensive-genomic/"}, "carrier-screening": {"name": "Carrier Screening Test", "href": "/testing/carrier-screening/", "price": "\u00a3350", "blurb": "Carrier screening reads the recessive conditions you could pass to a child \u2014 long before it becomes an urgent question.", "color": "#8e3b56", "buy": "/testing/carrier-screening/"}, "newborn-screening": {"name": "Newborn Screening Test", "href": "/testing/newborn-screening/", "price": "Sold out", "blurb": "Screening in the first months turns invisible risks into decisions you can act on, when early intervention matters most.", "color": "#2b6d6a", "buy": "/testing/newborn-screening/"}, "sports-performance": {"name": "Sports Performance Test", "href": "/testing/sports-performance/", "price": "\u00a3250", "blurb": "For everyone from professional athletes to beginners. Results help tailor training, recovery, and nutrition to your genetic profile.", "color": "#a8641f", "buy": "/testing/sports-performance/"}, "ring": {"name": "PhenomeTech Ring", "href": "/devices/ring/", "price": "\u00a3299", "blurb": "Sleep, recovery and heart rate read all night, feeding the same app as your test results.", "color": "#0a1e57", "buy": "/store/phenometech-ring/"}, "supplements": {"name": "Personalised Supplements", "href": "/supplements/", "price": "\u00a345 / month", "blurb": "Formulated from your own results \u2014 dose, form and combination, reviewed by a nutritionist.", "color": "#2f4ba0", "buy": "/store/supplements/"}}};
+let step = 0, answers = [];
+const el = id => document.getElementById(id);
+function render() {
+  const q = QUIZ.questions[step];
+  el('quizProgress').textContent = 'QUESTION ' + (step + 1) + ' / ' + QUIZ.questions.length;
+  el('quizQ').textContent = q.q;
+  el('quizWhy').textContent = q.why;
+  el('quizBack').style.visibility = step === 0 ? 'hidden' : 'visible';
+  const box = el('quizOpts'); box.innerHTML = '';
+
+  // The email step is the one question that is not a choice, so it needs its own control.
+  // Deliberately NOT a <form>: a submit with no action reloads the page, and the quiz
+  // holds every answer in memory — six answers gone, back to question one.
+  if (q.kind === 'email') {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:4px';
+    const inp = document.createElement('input');
+    inp.type = 'email'; inp.placeholder = 'you@email.com'; inp.autocomplete = 'email';
+    inp.setAttribute('aria-label', 'Email address');
+    inp.value = answers[step] || '';
+    inp.style.cssText = 'flex:1 1 260px;min-height:52px;padding:14px 18px;font:inherit;font-size:17px;'
+      + 'border:1px solid var(--ph-hairline,#D2D2D7);border-radius:12px;background:#fff;color:inherit';
+    const go = document.createElement('button');
+    go.type = 'button'; go.className = 'btn'; go.textContent = 'See my plan';
+    const skip = document.createElement('button');
+    skip.type = 'button'; skip.className = 'btn ghost'; skip.textContent = 'Skip';
+    const done = (v) => { answers[step] = v; finish(); };
+    go.onclick = () => {
+      if (inp.value && !inp.checkValidity()) {
+        inp.focus(); el('quizHint').textContent = 'That address does not look right.'; return;
+      }
+      done(inp.value.trim());
+    };
+    skip.onclick = () => done('');
+    inp.onkeydown = (e) => { if (e.key === 'Enter') go.click(); };
+    row.append(inp, go, skip);
+    box.appendChild(row);
+    setTimeout(() => inp.focus(), 0);
+    return;
+  }
+
+  q.opts.forEach((o, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn ghost';
+    b.style.cssText = 'height:auto;padding:16px 22px;justify-content:flex-start;text-align:left;font-size:17px;border-radius:16px';
+    b.textContent = o[0];
+    if (answers[step] === i) { b.style.borderColor = 'var(--navy)'; b.style.background = '#eef1f9'; }
+    b.onclick = () => { answers[step] = i; step < QUIZ.questions.length - 1 ? (step++, render()) : finish(); };
+    box.appendChild(b);
+  });
+}
+function finish() {
+  const score = {}, reasons = [];
+  answers.forEach((ai, qi) => {
+    const opt = QUIZ.questions[qi].opts[ai];
+    if (!opt) return;                         // the email step has no options to score
+    if (Object.keys(opt[1]).length) reasons.push('you chose “' + opt[0] + '”');
+    for (const k in opt[1]) score[k] = (score[k] || 0) + opt[1][k];
+  });
+  const ranked = Object.keys(score).sort((a, b) => score[b] - score[a]);
+  const primary = ranked[0], supporting = ranked.slice(1, 3);
+  el('quizCard').style.display = 'none';
+  el('quizResult').style.display = 'block';
+  const p = QUIZ.products[primary];
+  el('resWhy').textContent = 'Because ' + reasons.slice(0, 3).join(', and ') + '.';
+  el('resPrimary').innerHTML =
+    '<div class="card-gray" style="padding:40px;border:2px solid ' + p.color + '">' +
+    '<div class="eyebrow" style="color:' + p.color + '">Primary recommendation</div>' +
+    '<h3 class="sec-title" style="font-size:34px;margin-top:12px">' + p.name + '</h3>' +
+    '<p class="body-text" style="margin-top:12px">' + p.blurb + '</p>' +
+    '<p style="margin-top:16px;font-size:19px;font-weight:600">' + p.price + '</p>' +
+    '<div class="cta-actions" style="justify-content:flex-start;margin-top:24px">' +
+    '<a class="btn" href="' + p.buy + '">' + (p.href.indexOf('/testing/') === 0 ? 'Explore' : 'Add to bag') + '</a>' +
+    (p.buy === p.href ? '' : '<a class="link-more" href="' + p.href + '">Learn more</a>') + '</div></div>';
+  el('resSupporting').innerHTML = supporting.map(s => {
+    const x = QUIZ.products[s];
+    return '<div class="card-gray"><div class="eyebrow">Supporting add-on</div>' +
+      '<h3 class="card-title" style="margin-top:10px">' + x.name + '</h3>' +
+      '<p class="body-text" style="margin-top:10px;font-size:16px">' + x.blurb + '</p>' +
+      '<p style="margin-top:12px;font-size:17px;font-weight:600">' + x.price + '</p>' +
+      '<div style="margin-top:14px;display:flex;gap:14px;align-items:center">' +
+      '<a class="btn small" href="' + x.buy + '">' + (x.href.indexOf('/testing/') === 0 ? 'Explore' : 'Add') + '</a>' +
+      (x.buy === x.href ? '' : '<a class="link-more" href="' + x.href + '">Details</a>') + '</div></div>';
+  }).join('');
+  window.scrollTo({ top: el('quizResult').offsetTop - 80, behavior: 'smooth' });
+}
+el('quizBack').onclick = () => { if (step > 0) { step--; render(); } };
+el('quizRestart').onclick = () => { step = 0; answers = []; el('quizResult').style.display = 'none'; el('quizCard').style.display = 'block'; render(); window.scrollTo({ top: el('quiz').offsetTop - 80, behavior: 'smooth' }); };
+render();
+</script>
+</main>
+<div data-ph-footer=""></div>
+<script src="/shared.js"></script>
+</body>
+</html>

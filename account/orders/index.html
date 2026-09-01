@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>Track an order — Phenome</title>
+<meta content="Free UK delivery in 2–3 working days. Every dispatch email carries a tracking link — and if it has been longer, send us your order number and we’ll chase it." name="description"/>
+<link href="/shared.css" rel="stylesheet"/>
+</head>
+<body>
+<div data-ph-nav=""></div>
+<main>
+<section class="hero"><div class="wrap-wide hero-split">
+<div>
+<div class="eyebrow">YOUR ACCOUNT · ORDERS</div>
+<h1 class="hero-title">It should be with you in two to three working days.</h1>
+<p class="lede" style="margin-left:0">Free UK delivery, plain packaging, and a tracking link in every dispatch email. If it has been longer than that, put your order number in below and we’ll chase it.</p>
+<div class="hero-facts">
+<div class="hero-fact"><div class="k">uk delivery</div><div class="v">Free, 2–3 working days</div></div>
+<div class="hero-fact"><div class="k">tracking link</div><div class="v">In your dispatch email</div></div>
+<div class="hero-fact"><div class="k">packaging</div><div class="v">Plain and discreet</div></div>
+</div>
+</div>
+<div class="hero-img"><img alt="A plain unmarked cardboard parcel just delivered on the mat inside a front door" height="933" src="/assets/pages/orders_parcel.webp" width="1400"/></div></div></section>
+<section class="section"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">FIND AN ORDER</div><h2 class="sec-title">Start with your order number</h2></div>
+<p class="lede" style="margin-left:0">It’s on your confirmation email. Give us that and the address it went to, and we’ll come back to you by email.</p>
+<form onsubmit="event.preventDefault();this.querySelector('[data-sent]').style.display='block';" style="margin-top:32px;max-width:520px">
+<label style="font-size:14px;color:var(--gray);display:block">Order number
+<input placeholder="The number on your confirmation email" required="" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px"/>
+</label>
+<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Email on the order
+<input placeholder="you@email.com" required="" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="email"/>
+</label>
+<div style="margin-top:20px"><button class="btn" type="submit">Find my order</button></div>
+<p data-sent="" style="display:none;margin-top:16px;color:var(--navy)">Thanks — we’ve got that. We’ll reply by email. If your order has already been dispatched, the tracking link in that dispatch email is the quickest answer.</p>
+</form>
+<p class="body-text" style="margin-top:20px;font-size:14px;color:var(--ph-text-2);line-height:18px">This build is not connected to the live order system — nothing you type here is submitted.</p>
+</div></section>
+<section class="section section-gray"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">What happens after you order</h2></div>
+<p class="lede" style="margin-left:0">Two emails, one parcel, and — if it’s a test — one thing left to do when it lands.</p>
+<div class="steps steps-4" style="margin-top:44px">
+<div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.8"></circle><path d="M8.1 12.3l2.7 2.7 5.1-5.4"></path></svg></div>
+<div class="num">01</div>
+<div class="t">Confirmation</div>
+<p>An email as soon as the order goes through, carrying your order number. Keep it — everything else starts there.</p>
+</div>
+<div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M3.2 7.4 12 3l8.8 4.4v9.2L12 21l-8.8-4.4z"></path><path d="M3.2 7.4 12 11.8l8.8-4.4M12 11.8V21"></path></svg></div>
+<div class="num">02</div>
+<div class="t">Dispatch</div>
+<p>A second email when it leaves us. That one carries the tracking link, and it is the only place the link lives.</p>
+</div>
+<div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M6.2 20.8V4.4a1.2 1.2 0 0 1 1-1.2l8-1a1.2 1.2 0 0 1 1.4 1.2v17.4"></path><path d="M4 20.8h16"></path><circle cx="13.9" cy="12.4" r=".95"></circle></svg></div>
+<div class="num">03</div>
+<div class="t">Delivery</div>
+<p>Free UK delivery in 2–3 working days, in plain, discreet packaging. Nothing on the outside says what’s inside.</p>
+</div>
+<div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M3.4 8.6V5.2a1.8 1.8 0 0 1 1.8-1.8h3.4M15.4 3.4h3.4a1.8 1.8 0 0 1 1.8 1.8v3.4M20.6 15.4v3.4a1.8 1.8 0 0 1-1.8 1.8h-3.4M8.6 20.6H5.2a1.8 1.8 0 0 1-1.8-1.8v-3.4"></path><path d="M3.4 12h17.2"></path></svg></div>
+<div class="num">04</div>
+<div class="t">Activate, if it’s a test</div>
+<p>A kit does nothing until it’s linked to your profile. That takes a minute in the app, and it can’t be skipped.</p>
+</div>
+</div>
+<div class="cta-actions" style="justify-content:flex-start;margin-top:32px">
+<a class="btn ghost" href="/account/activate/">Activate a kit</a>
+<a class="link-more" href="/testing/how-it-works/">How testing works</a>
+</div>
+</div></section>
+<section class="section"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">If it’s taking longer than that</h2></div>
+<p class="lede" style="margin-left:0">In order, because the first two usually settle it.</p>
+<div class="grid grid-3 rail" style="margin-top:40px">
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">Open the dispatch email</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">The tracking link in it is more current than anything we could tell you by hand. If there’s no dispatch email, the order hasn’t left us yet.</p>
+</div>
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">Ask the household</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A small, unmarked box is easy to take in and forget about. Check with whoever else is at the address before you assume it’s lost.</p>
+</div>
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">Then tell us</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">If it’s been longer than three working days since your dispatch email, message support with the order number and we’ll chase it for you.</p>
+</div>
+</div>
+<div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap">
+<a class="tag" href="/contact/">Message support →</a>
+<a class="tag" href="/account/">Back to your account →</a>
+</div>
+</div></section>
+<section class="section section-gray"><div class="wrap-wide">
+<h2 class="sec-title">Returns, in plain terms</h2>
+<div class="grid grid-3 rail" style="margin-top:40px">
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">Unopened kits</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Returnable within 30 days. Once a kit has been activated or a sample sent, it can’t be refunded.</p>
+</div>
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">The Ring</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A 30-day return window and a two-year warranty. Support issues the prepaid return label.</p>
+</div>
+<div class="card-gray">
+<h3 class="card-title" style="font-size:21px">Supplements</h3>
+<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Subscriptions renew monthly and can be paused or cancelled at any time. No minimum term.</p>
+</div>
+</div>
+<div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap">
+<a class="tag" href="/legal/terms.html">Read the terms →</a>
+<a class="tag" href="/devices/ring/warranty-returns/">Ring warranty and returns →</a>
+</div>
+</div></section>
+<section class="section"><div class="wrap-wide">
+<h2 class="sec-title">Order questions</h2>
+<div class="acc" style="margin-top:32px">
+<details class="acc-item"><summary>I haven’t had a dispatch email</summary><div class="acc-body">Check the folder your confirmation email landed in first. If it isn’t there, the order hasn’t been dispatched yet — message support with your order number and we’ll tell you where it stands.</div></details>
+<details class="acc-item"><summary>Can I change the delivery address?</summary><div class="acc-body">Message support with your order number as soon as you can. If it hasn’t been dispatched, we can usually change it; once it’s on its way, we can’t.</div></details>
+<details class="acc-item"><summary>Do you deliver outside the UK?</summary><div class="acc-body">The delivery times and charges on this page are for the UK. For anywhere else, message support before you order and we’ll tell you what’s possible.</div></details>
+<details class="acc-item"><summary>My order arrived, but the results are late</summary><div class="acc-body">Those are two different clocks. Results are ready 2–3 weeks after the lab receives your sample — and the lab can’t start until the kit is activated. If it’s been longer, message support.</div></details>
+<details class="acc-item"><summary>Something arrived damaged</summary><div class="acc-body">Tell us which order it was. If a kit is damaged or a sample fails, we send a replacement at no cost and prioritise the re-run.</div></details>
+</div>
+<div class="cta-actions" style="justify-content:flex-start;margin-top:28px"><a class="link-more" href="/contact/">Go to support</a></div>
+</div></section>
+<section class="cta-band section-close section-gray"><div class="wrap">
+<h2>Waiting on a kit you haven’t ordered yet?</h2>
+<p>Start with the test that answers the question you actually have.</p>
+<div class="cta-actions"><a class="btn" href="/quiz/">Find your test</a><a class="link-more" href="/testing/compare/">Compare all tests</a></div>
+</div></section>
+</main>
+<div data-ph-footer=""></div>
+<script src="/shared.js"></script>
+</body>
+</html>
