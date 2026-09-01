@@ -32,7 +32,7 @@
    appears, so they must be reviewed together once the direction is settled.
    ========================================================================== */
 
-@import url('/phenome-store-mirror/assets/fonts/outfit.css');
+@import url('/phenome-store/assets/fonts/outfit.css');
 
 :root {
   /* ---- colour · tokens.json color.neutral -------------------------------- */
@@ -1785,7 +1785,7 @@ html.ph-reveal .ph-in .step:nth-child(6) .step-mark { transition-delay: 350ms; }
   .pin { height: auto; }
   .pin-stage { position: static; height: auto; padding: var(--ph-sec-top) 0 var(--ph-sec-bottom); }
   .pin-film { display: none; }
-  .pin-stage { background: #000 url("/phenome-store-mirror/assets/video/gut-why.webp") center / cover; }
+  .pin-stage { background: #000 url("/phenome-store/assets/video/gut-why.webp") center / cover; }
   .pin-pts { display: grid; gap: 32px; min-height: 0; }
   .pin-pt { grid-area: auto; opacity: 1; transform: none; transition: none; }
 }
@@ -2277,7 +2277,7 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
   /* The poster still shows — the ground is not lost, only its motion. */
   .hero-film { display: none; }
   .hero.on-film {
-    background-image: url("/phenome-store-mirror/assets/video/hero-aurora.webp");
+    background-image: url("/phenome-store/assets/video/hero-aurora.webp");
     background-size: cover; background-position: center;
   }
 }

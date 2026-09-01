@@ -6,45 +6,45 @@
       "key": "store",
       "trigger": "Store",
       "eyebrow": "STORE MENU",
-      "href": "/phenome-store-mirror/store/",
+      "href": "/phenome-store/store/",
       "featured": [
         {
           "name": "Comprehensive Genomic Test",
           "price": "£650",
-          "href": "/phenome-store-mirror/store/comprehensive-genomic/",
-          "img": "/phenome-store-mirror/assets/menu/comprehensive-genomic.webp",
+          "href": "/phenome-store/store/comprehensive-genomic/",
+          "img": "/phenome-store/assets/menu/comprehensive-genomic.webp",
           "w": 300,
           "h": 200
         },
         {
           "name": "Gut Microbiome Test",
           "price": "£200",
-          "href": "/phenome-store-mirror/store/gut-microbiome/",
-          "img": "/phenome-store-mirror/assets/menu/gut-microbiome.webp",
+          "href": "/phenome-store/store/gut-microbiome/",
+          "img": "/phenome-store/assets/menu/gut-microbiome.webp",
           "w": 300,
           "h": 200
         },
         {
           "name": "PhenomeTech Ring",
           "price": "from £179",
-          "href": "/phenome-store-mirror/store/phenometech-ring/",
-          "img": "/phenome-store-mirror/assets/menu/ring.webp",
+          "href": "/phenome-store/store/phenometech-ring/",
+          "img": "/phenome-store/assets/menu/ring.webp",
           "w": 300,
           "h": 200
         },
         {
           "name": "Ceramic Ring",
           "price": "from £199",
-          "href": "/phenome-store-mirror/store/phenometech-ring/",
-          "img": "/phenome-store-mirror/assets/menu/ring-ceramic.webp",
+          "href": "/phenome-store/store/phenometech-ring/",
+          "img": "/phenome-store/assets/menu/ring-ceramic.webp",
           "w": 300,
           "h": 200
         },
         {
           "name": "Quercetin Capsules",
           "price": "£26.99",
-          "href": "/phenome-store-mirror/supplements/quercetin-capsules/",
-          "img": "/phenome-store-mirror/assets/menu/quercetin.svg",
+          "href": "/phenome-store/supplements/quercetin-capsules/",
+          "img": "/phenome-store/assets/menu/quercetin.svg",
           "w": 300,
           "h": 200
         }
@@ -55,37 +55,37 @@
           "links": [
             {
               "label": "Shop all",
-              "href": "/phenome-store-mirror/store/"
+              "href": "/phenome-store/store/"
             },
             {
               "label": "Genetic tests",
-              "href": "/phenome-store-mirror/store/genetic/"
+              "href": "/phenome-store/store/genetic/"
             },
             {
               "label": "Microbiome tests",
-              "href": "/phenome-store-mirror/store/microbiome/"
+              "href": "/phenome-store/store/microbiome/"
             },
             {
               "label": "Supplements",
-              "href": "/phenome-store-mirror/store/supplements/"
+              "href": "/phenome-store/store/supplements/"
             },
             {
               "label": "PhenomeTech Ring",
-              "href": "/phenome-store-mirror/store/phenometech-ring/"
+              "href": "/phenome-store/store/phenometech-ring/"
             },
             {
               "label": "Ceramic Ring",
-              "href": "/phenome-store-mirror/store/phenometech-ring/"
+              "href": "/phenome-store/store/phenometech-ring/"
             },
             {
               "label": "Shop by goal",
-              "href": "/phenome-store-mirror/store/shop-by-goal/",
+              "href": "/phenome-store/store/shop-by-goal/",
               "todo": true,
               "small": true
             },
             {
               "label": "Not sure where to start",
-              "href": "/phenome-store-mirror/quiz/",
+              "href": "/phenome-store/quiz/",
               "small": true
             }
           ]
@@ -95,24 +95,24 @@
           "links": [
             {
               "label": "Track order",
-              "href": "/phenome-store-mirror/account/orders/"
+              "href": "/phenome-store/account/orders/"
             },
             {
               "label": "Activate a kit",
-              "href": "/phenome-store-mirror/account/activate/"
+              "href": "/phenome-store/account/activate/"
             },
             {
               "label": "Free sizing kit",
-              "href": "/phenome-store-mirror/store/free-sizing-kit/",
+              "href": "/phenome-store/store/free-sizing-kit/",
               "todo": true
             },
             {
               "label": "Shipping and returns",
-              "href": "/phenome-store-mirror/devices/ring/warranty-returns/"
+              "href": "/phenome-store/devices/ring/warranty-returns/"
             },
             {
               "label": "Contact us",
-              "href": "/phenome-store-mirror/contact/"
+              "href": "/phenome-store/contact/"
             }
           ]
         },
@@ -121,22 +121,22 @@
           "links": [
             {
               "label": "Sleep and recovery",
-              "href": "/phenome-store-mirror/store/shop-by-goal/sleep-and-recovery/",
+              "href": "/phenome-store/store/shop-by-goal/sleep-and-recovery/",
               "todo": true
             },
             {
               "label": "Energy and focus",
-              "href": "/phenome-store-mirror/store/shop-by-goal/energy-and-focus/",
+              "href": "/phenome-store/store/shop-by-goal/energy-and-focus/",
               "todo": true
             },
             {
               "label": "Immune and everyday balance",
-              "href": "/phenome-store-mirror/store/shop-by-goal/immune-and-everyday-balance/",
+              "href": "/phenome-store/store/shop-by-goal/immune-and-everyday-balance/",
               "todo": true
             },
             {
               "label": "Movement and performance",
-              "href": "/phenome-store-mirror/store/shop-by-goal/movement-and-performance/",
+              "href": "/phenome-store/store/shop-by-goal/movement-and-performance/",
               "todo": true
             }
           ]
@@ -155,24 +155,24 @@
           "links": [
             {
               "label": "Comprehensive Genomic Test",
-              "href": "/phenome-store-mirror/testing/comprehensive-genomic/"
+              "href": "/phenome-store/testing/comprehensive-genomic/"
             },
             {
               "label": "Carrier Screening Test",
-              "href": "/phenome-store-mirror/testing/carrier-screening/"
+              "href": "/phenome-store/testing/carrier-screening/"
             },
             {
               "label": "Newborn Screening Test",
-              "href": "/phenome-store-mirror/testing/newborn-screening/",
+              "href": "/phenome-store/testing/newborn-screening/",
               "note": "Sold out"
             },
             {
               "label": "Sports Performance Test",
-              "href": "/phenome-store-mirror/testing/sports-performance/"
+              "href": "/phenome-store/testing/sports-performance/"
             },
             {
               "label": "Explore genetic testing ›",
-              "href": "/phenome-store-mirror/testing/genetic/"
+              "href": "/phenome-store/testing/genetic/"
             }
           ]
         },
@@ -181,30 +181,30 @@
           "links": [
             {
               "label": "Gut Microbiome Test",
-              "href": "/phenome-store-mirror/testing/gut-microbiome/"
+              "href": "/phenome-store/testing/gut-microbiome/"
             },
             {
               "label": "Oral Microbiome Test",
-              "href": "/phenome-store-mirror/testing/oral-microbiome/"
+              "href": "/phenome-store/testing/oral-microbiome/"
             },
             {
               "label": "Explore microbiome testing ›",
-              "href": "/phenome-store-mirror/testing/microbiome/"
+              "href": "/phenome-store/testing/microbiome/"
             },
             {
               "rule": true
             },
             {
               "label": "Compare tests",
-              "href": "/phenome-store-mirror/testing/compare/"
+              "href": "/phenome-store/testing/compare/"
             },
             {
               "label": "How testing works",
-              "href": "/phenome-store-mirror/testing/how-it-works/"
+              "href": "/phenome-store/testing/how-it-works/"
             },
             {
               "label": "Activate a kit",
-              "href": "/phenome-store-mirror/account/activate/"
+              "href": "/phenome-store/account/activate/"
             }
           ]
         },
@@ -213,25 +213,25 @@
           "links": [
             {
               "label": "What you will learn",
-              "href": "/phenome-store-mirror/testing/what-you-will-learn/",
+              "href": "/phenome-store/testing/what-you-will-learn/",
               "todo": true
             },
             {
               "label": "Whole genome sequencing",
-              "href": "/phenome-store-mirror/science/whole-genome-sequencing/"
+              "href": "/phenome-store/science/whole-genome-sequencing/"
             },
             {
               "label": "Built on Illumina",
-              "href": "/phenome-store-mirror/testing/built-on-illumina/",
+              "href": "/phenome-store/testing/built-on-illumina/",
               "todo": true
             },
             {
               "label": "Results & counselling",
-              "href": "/phenome-store-mirror/app/results-and-reports/"
+              "href": "/phenome-store/app/results-and-reports/"
             },
             {
               "label": "Testing FAQs",
-              "href": "/phenome-store-mirror/testing/faqs/",
+              "href": "/phenome-store/testing/faqs/",
               "todo": true
             }
           ]
@@ -242,7 +242,7 @@
       "key": "supplements",
       "trigger": "Supplements",
       "eyebrow": "SUPPLEMENTS MENU",
-      "href": "/phenome-store-mirror/store/supplements/",
+      "href": "/phenome-store/store/supplements/",
       "featured": [],
       "columns": [
         {
@@ -250,7 +250,7 @@
           "links": [
             {
               "label": "NAD+",
-              "href": "/phenome-store-mirror/supplements/nad/",
+              "href": "/phenome-store/supplements/nad/",
               "note": "Liposomal"
             },
             {
@@ -293,12 +293,12 @@
             },
             {
               "label": "Quercetin",
-              "href": "/phenome-store-mirror/supplements/quercetin-capsules/",
+              "href": "/phenome-store/supplements/quercetin-capsules/",
               "todo": true
             },
             {
               "label": "Propolis",
-              "href": "/phenome-store-mirror/supplements/propolis-throat-lozenges/",
+              "href": "/phenome-store/supplements/propolis-throat-lozenges/",
               "todo": true
             },
             {
@@ -325,7 +325,7 @@
             },
             {
               "label": "Bromelain",
-              "href": "/phenome-store-mirror/supplements/bromelain-capsules/",
+              "href": "/phenome-store/supplements/bromelain-capsules/",
               "todo": true
             },
             {
@@ -388,12 +388,12 @@
               },
               {
                 "label": "Why liposomal",
-                "href": "/phenome-store-mirror/supplements/why-these-formulas/",
+                "href": "/phenome-store/supplements/why-these-formulas/",
                 "todo": true
               },
               {
                 "label": "Supplement FAQs",
-                "href": "/phenome-store-mirror/supplements/faqs/",
+                "href": "/phenome-store/supplements/faqs/",
                 "todo": true
               }
             ]
@@ -405,7 +405,7 @@
       "key": "devices",
       "trigger": "Devices",
       "eyebrow": "DEVICES MENU",
-      "href": "/phenome-store-mirror/store/devices/",
+      "href": "/phenome-store/store/devices/",
       "featured": [],
       "columns": [
         {
@@ -413,32 +413,32 @@
           "links": [
             {
               "label": "Explore PhenomeTech Ring",
-              "href": "/phenome-store-mirror/devices/ring/"
+              "href": "/phenome-store/devices/ring/"
             },
             {
               "label": "Titanium, from £179",
-              "href": "/phenome-store-mirror/devices/ring/compare-materials/"
+              "href": "/phenome-store/devices/ring/compare-materials/"
             },
             {
               "label": "Ceramic, from £199",
-              "href": "/phenome-store-mirror/devices/ring/compare-materials/"
+              "href": "/phenome-store/devices/ring/compare-materials/"
             },
             {
               "label": "Finishes",
-              "href": "/phenome-store-mirror/devices/ring/design/"
+              "href": "/phenome-store/devices/ring/design/"
             },
             {
               "label": "Find your size",
-              "href": "/phenome-store-mirror/devices/ring/find-your-size/"
+              "href": "/phenome-store/devices/ring/find-your-size/"
             },
             {
               "label": "Compare materials",
-              "href": "/phenome-store-mirror/devices/ring/compare-materials/",
+              "href": "/phenome-store/devices/ring/compare-materials/",
               "small": true
             },
             {
               "label": "Ring FAQs",
-              "href": "/phenome-store-mirror/devices/ring/faqs/",
+              "href": "/phenome-store/devices/ring/faqs/",
               "todo": true,
               "small": true
             }
@@ -449,11 +449,11 @@
           "links": [
             {
               "label": "Shop the Ring",
-              "href": "/phenome-store-mirror/store/phenometech-ring/"
+              "href": "/phenome-store/store/phenometech-ring/"
             },
             {
               "label": "Free sizing kit",
-              "href": "/phenome-store-mirror/store/free-sizing-kit/",
+              "href": "/phenome-store/store/free-sizing-kit/",
               "todo": true
             }
           ]
@@ -463,23 +463,23 @@
           "links": [
             {
               "label": "Sleep and recovery",
-              "href": "/phenome-store-mirror/devices/ring/what-it-measures/"
+              "href": "/phenome-store/devices/ring/what-it-measures/"
             },
             {
               "label": "Design",
-              "href": "/phenome-store-mirror/devices/ring/design/"
+              "href": "/phenome-store/devices/ring/design/"
             },
             {
               "label": "How it works",
-              "href": "/phenome-store-mirror/devices/ring/how-it-works/"
+              "href": "/phenome-store/devices/ring/how-it-works/"
             },
             {
               "label": "Battery and charging",
-              "href": "/phenome-store-mirror/devices/ring/battery-charging/"
+              "href": "/phenome-store/devices/ring/battery-charging/"
             },
             {
               "label": "Warranty and returns",
-              "href": "/phenome-store-mirror/devices/ring/warranty-returns/"
+              "href": "/phenome-store/devices/ring/warranty-returns/"
             }
           ]
         }
@@ -489,7 +489,7 @@
       "key": "app",
       "trigger": "App",
       "eyebrow": "APP MENU",
-      "href": "/phenome-store-mirror/app/",
+      "href": "/phenome-store/app/",
       "featured": [],
       "columns": [
         {
@@ -497,33 +497,33 @@
           "links": [
             {
               "label": "Explore the app",
-              "href": "/phenome-store-mirror/app/"
+              "href": "/phenome-store/app/"
             },
             {
               "label": "Your dashboard",
-              "href": "/phenome-store-mirror/app/dashboard/"
+              "href": "/phenome-store/app/dashboard/"
             },
             {
               "label": "Results and reports",
-              "href": "/phenome-store-mirror/app/results-and-reports/"
+              "href": "/phenome-store/app/results-and-reports/"
             },
             {
               "label": "Trends over time",
-              "href": "/phenome-store-mirror/app/trends/"
+              "href": "/phenome-store/app/trends/"
             },
             {
               "label": "Book a session",
-              "href": "/phenome-store-mirror/app/book-a-session/"
+              "href": "/phenome-store/app/book-a-session/"
             },
             {
               "label": "Download for iOS",
-              "href": "/phenome-store-mirror/app/download/",
+              "href": "/phenome-store/app/download/",
               "todo": true,
               "small": true
             },
             {
               "label": "Download for Android",
-              "href": "/phenome-store-mirror/app/download/",
+              "href": "/phenome-store/app/download/",
               "todo": true,
               "small": true
             }
@@ -534,20 +534,20 @@
           "links": [
             {
               "label": "Create an account",
-              "href": "/phenome-store-mirror/account/"
+              "href": "/phenome-store/account/"
             },
             {
               "label": "Activate a kit",
-              "href": "/phenome-store-mirror/account/activate/"
+              "href": "/phenome-store/account/activate/"
             },
             {
               "label": "Pair your Ring",
-              "href": "/phenome-store-mirror/app/pair-your-ring/",
+              "href": "/phenome-store/app/pair-your-ring/",
               "todo": true
             },
             {
               "label": "Import past results",
-              "href": "/phenome-store-mirror/app/import-past-results/",
+              "href": "/phenome-store/app/import-past-results/",
               "todo": true
             }
           ]
@@ -557,20 +557,20 @@
           "links": [
             {
               "label": "Connected data",
-              "href": "/phenome-store-mirror/app/connected-data/",
+              "href": "/phenome-store/app/connected-data/",
               "todo": true
             },
             {
               "label": "Specialist sessions",
-              "href": "/phenome-store-mirror/app/book-a-session/"
+              "href": "/phenome-store/app/book-a-session/"
             },
             {
               "label": "Privacy and your data",
-              "href": "/phenome-store-mirror/legal/privacy.html"
+              "href": "/phenome-store/legal/privacy.html"
             },
             {
               "label": "App support",
-              "href": "/phenome-store-mirror/contact/"
+              "href": "/phenome-store/contact/"
             }
           ]
         }
@@ -580,7 +580,7 @@
       "key": "science",
       "trigger": "Science",
       "eyebrow": "SCIENCE MENU",
-      "href": "/phenome-store-mirror/science/",
+      "href": "/phenome-store/science/",
       "featured": [],
       "columns": [
         {
@@ -588,37 +588,37 @@
           "links": [
             {
               "label": "Our research",
-              "href": "/phenome-store-mirror/science/our-research/"
+              "href": "/phenome-store/science/our-research/"
             },
             {
               "label": "Whole genome sequencing",
-              "href": "/phenome-store-mirror/science/whole-genome-sequencing/"
+              "href": "/phenome-store/science/whole-genome-sequencing/"
             },
             {
               "label": "Multiomics",
-              "href": "/phenome-store-mirror/science/multiomics/"
+              "href": "/phenome-store/science/multiomics/"
             },
             {
               "label": "Systems biology",
-              "href": "/phenome-store-mirror/science/systems-biology/"
+              "href": "/phenome-store/science/systems-biology/"
             },
             {
               "label": "The Longevity Hub",
-              "href": "/phenome-store-mirror/hub/"
+              "href": "/phenome-store/hub/"
             },
             {
               "label": "The experts",
-              "href": "/phenome-store-mirror/science/the-experts/",
+              "href": "/phenome-store/science/the-experts/",
               "todo": true
             },
             {
               "label": "Meet the team",
-              "href": "/phenome-store-mirror/about/",
+              "href": "/phenome-store/about/",
               "small": true
             },
             {
               "label": "Partner with us",
-              "href": "/phenome-store-mirror/careers/",
+              "href": "/phenome-store/careers/",
               "small": true
             }
           ]
@@ -628,17 +628,17 @@
           "links": [
             {
               "label": "Illumina",
-              "href": "/phenome-store-mirror/science/partners/illumina/",
+              "href": "/phenome-store/science/partners/illumina/",
               "todo": true
             },
             {
               "label": "Academic collaborations",
-              "href": "/phenome-store-mirror/science/partners/academic/",
+              "href": "/phenome-store/science/partners/academic/",
               "todo": true
             },
             {
               "label": "Clinical partners",
-              "href": "/phenome-store-mirror/science/partners/clinical/",
+              "href": "/phenome-store/science/partners/clinical/",
               "todo": true
             }
           ]
@@ -648,7 +648,7 @@
           "links": [
             {
               "label": "Standards and accreditation",
-              "href": "/phenome-store-mirror/science/standards-and-accreditation/",
+              "href": "/phenome-store/science/standards-and-accreditation/",
               "todo": true
             }
           ]
@@ -706,7 +706,7 @@
       "key": "support",
       "trigger": "Support",
       "eyebrow": "SUPPORT MENU",
-      "href": "/phenome-store-mirror/contact/",
+      "href": "/phenome-store/contact/",
       "featured": [],
       "columns": [
         {
@@ -714,27 +714,27 @@
           "links": [
             {
               "label": "Testing",
-              "href": "/phenome-store-mirror/testing/"
+              "href": "/phenome-store/testing/"
             },
             {
               "label": "Supplements",
-              "href": "/phenome-store-mirror/store/supplements/"
+              "href": "/phenome-store/store/supplements/"
             },
             {
               "label": "PhenomeTech Ring",
-              "href": "/phenome-store-mirror/devices/ring/"
+              "href": "/phenome-store/devices/ring/"
             },
             {
               "label": "The app",
-              "href": "/phenome-store-mirror/app/"
+              "href": "/phenome-store/app/"
             },
             {
               "label": "Orders and delivery",
-              "href": "/phenome-store-mirror/account/orders/"
+              "href": "/phenome-store/account/orders/"
             },
             {
               "label": "Your account",
-              "href": "/phenome-store-mirror/account/"
+              "href": "/phenome-store/account/"
             }
           ]
         },
@@ -743,23 +743,23 @@
           "links": [
             {
               "label": "Track order",
-              "href": "/phenome-store-mirror/account/orders/"
+              "href": "/phenome-store/account/orders/"
             },
             {
               "label": "Activate a kit",
-              "href": "/phenome-store-mirror/account/activate/"
+              "href": "/phenome-store/account/activate/"
             },
             {
               "label": "Returns and refunds",
-              "href": "/phenome-store-mirror/devices/ring/warranty-returns/"
+              "href": "/phenome-store/devices/ring/warranty-returns/"
             },
             {
               "label": "Report a problem",
-              "href": "/phenome-store-mirror/contact/"
+              "href": "/phenome-store/contact/"
             },
             {
               "label": "Contact us",
-              "href": "/phenome-store-mirror/contact/"
+              "href": "/phenome-store/contact/"
             }
           ]
         },
@@ -768,21 +768,21 @@
           "links": [
             {
               "label": "Sample collection guide",
-              "href": "/phenome-store-mirror/support/sample-collection-guide/",
+              "href": "/phenome-store/support/sample-collection-guide/",
               "todo": true
             },
             {
               "label": "Reading your report",
-              "href": "/phenome-store-mirror/support/reading-your-report/",
+              "href": "/phenome-store/support/reading-your-report/",
               "todo": true
             },
             {
               "label": "Ring sizing",
-              "href": "/phenome-store-mirror/devices/ring/find-your-size/"
+              "href": "/phenome-store/devices/ring/find-your-size/"
             },
             {
               "label": "Privacy and your data",
-              "href": "/phenome-store-mirror/legal/privacy.html"
+              "href": "/phenome-store/legal/privacy.html"
             }
           ]
         }
@@ -930,8 +930,8 @@
     nav.outerHTML =
       '<header class="ph-nav" id="phNav">' +
       '<div class="ph-nav-inner">' +
-      '<a class="ph-brand" href="/phenome-store-mirror/index.html" aria-label="Phenome Longevity — home">' +
-      '<img src="/phenome-store-mirror/assets/brand/phenome-logo.svg" alt="Phenome Longevity" width="770" height="118"></a>' +
+      '<a class="ph-brand" href="/phenome-store/index.html" aria-label="Phenome Longevity — home">' +
+      '<img src="/phenome-store/assets/brand/phenome-logo.svg" alt="Phenome Longevity" width="770" height="118"></a>' +
       /* The design's top row is seven: Store, Testing, Supplements, Devices, App,
          Science, Support. Clinic sits on the RIGHT as an outlined pill and
          Longevity Hub is not in the row at all — it is reached from the Science
@@ -948,11 +948,11 @@
          developer halleder." They are NOT href="#" — each points at the real page
          that already exists, so nothing here is a dead control. The search page
          has no working search and the cart has no state; the developer wires both. */
-      '<a class="ph-nav-icon" href="/phenome-store-mirror/hub/search/" aria-label="Search">' +
+      '<a class="ph-nav-icon" href="/phenome-store/hub/search/" aria-label="Search">' +
       '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
       'stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
       '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg></a>' +
-      '<a class="ph-nav-icon" href="/phenome-store-mirror/store/cart/" aria-label="Basket">' +
+      '<a class="ph-nav-icon" href="/phenome-store/store/cart/" aria-label="Basket">' +
       '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
       'stroke="currentColor" stroke-width="1.6"><path d="M4 6h12l-1 11H5L4 6Z" ' +
       'stroke-linejoin="round"></path><path d="M7.5 6a2.5 2.5 0 0 1 5 0" ' +
@@ -1139,7 +1139,7 @@
        the entire reason the block above exists. One owner per decision. */
     header.querySelectorAll('.ph-links a:not(.ph-trigger)').forEach(function (a) {
       var href = a.getAttribute('href');
-      if (href !== '/phenome-store-mirror/index.html' && path.indexOf(href) === 0) a.classList.add('active');
+      if (href !== '/phenome-store/index.html' && path.indexOf(href) === 0) a.classList.add('active');
     });
   }
 
@@ -1153,60 +1153,60 @@
       '<p style="font-size:17px;line-height:25px;color:var(--ink);max-width:640px;margin:0 0 36px">Whole-genome and microbiome testing for a longer, healthier life. At home, clinical-grade, and built on the science.</p>' +
       '<div class="cols">' +
       '<div class="col"><div class="col-t">Testing</div>' +
-      '<a href="/phenome-store-mirror/testing/gut-microbiome/">Gut Microbiome</a>' +
-      '<a href="/phenome-store-mirror/testing/oral-microbiome/">Oral Microbiome</a>' +
-      '<a href="/phenome-store-mirror/testing/comprehensive-genomic/">Comprehensive Genomic</a>' +
-      '<a href="/phenome-store-mirror/testing/carrier-screening/">Carrier Screening</a>' +
-      '<a href="/phenome-store-mirror/testing/newborn-screening/">Newborn Screening</a>' +
-      '<a href="/phenome-store-mirror/testing/sports-performance/">Sports Performance</a>' +
-      '<a href="/phenome-store-mirror/testing/microbiome/">Microbiome testing</a>' +
-      '<a href="/phenome-store-mirror/testing/genetic/">Genetic testing</a></div>' +
+      '<a href="/phenome-store/testing/gut-microbiome/">Gut Microbiome</a>' +
+      '<a href="/phenome-store/testing/oral-microbiome/">Oral Microbiome</a>' +
+      '<a href="/phenome-store/testing/comprehensive-genomic/">Comprehensive Genomic</a>' +
+      '<a href="/phenome-store/testing/carrier-screening/">Carrier Screening</a>' +
+      '<a href="/phenome-store/testing/newborn-screening/">Newborn Screening</a>' +
+      '<a href="/phenome-store/testing/sports-performance/">Sports Performance</a>' +
+      '<a href="/phenome-store/testing/microbiome/">Microbiome testing</a>' +
+      '<a href="/phenome-store/testing/genetic/">Genetic testing</a></div>' +
       '<div class="col"><div class="col-t">Shop</div>' +
-      '<a href="/phenome-store-mirror/devices/ring/">PhenomeTech Ring</a>' +
-      '<a href="/phenome-store-mirror/supplements/">Supplements</a>' +
-      '<a href="/phenome-store-mirror/store/">Shop all</a>' +
-      '<a href="/phenome-store-mirror/quiz/">Shop by goal</a>' +
-      '<a href="/phenome-store-mirror/store/microbiome/">Microbiome</a>' +
-      '<a href="/phenome-store-mirror/store/genetic/">Genetic</a>' +
-      '<a href="/phenome-store-mirror/store/devices/">Devices</a>' +
-      '<a href="/phenome-store-mirror/store/supplements/">Supplements</a>' +
-      '<a href="/phenome-store-mirror/store/cart/">Your bag</a>' +
-      '<a href="/phenome-store-mirror/store/checkout/">Checkout</a></div>' +
+      '<a href="/phenome-store/devices/ring/">PhenomeTech Ring</a>' +
+      '<a href="/phenome-store/supplements/">Supplements</a>' +
+      '<a href="/phenome-store/store/">Shop all</a>' +
+      '<a href="/phenome-store/quiz/">Shop by goal</a>' +
+      '<a href="/phenome-store/store/microbiome/">Microbiome</a>' +
+      '<a href="/phenome-store/store/genetic/">Genetic</a>' +
+      '<a href="/phenome-store/store/devices/">Devices</a>' +
+      '<a href="/phenome-store/store/supplements/">Supplements</a>' +
+      '<a href="/phenome-store/store/cart/">Your bag</a>' +
+      '<a href="/phenome-store/store/checkout/">Checkout</a></div>' +
       '<div class="col"><div class="col-t">Explore</div>' +
-      '<a href="/phenome-store-mirror/science/">Science</a>' +
-      '<a href="/phenome-store-mirror/science/whole-genome-sequencing/">Whole genome sequencing</a>' +
-      '<a href="/phenome-store-mirror/science/multiomics/">Multiomics</a>' +
-      '<a href="/phenome-store-mirror/science/systems-biology/">Systems biology</a>' +
-      '<a href="/phenome-store-mirror/science/our-research/">Our research</a>' +
-      '<a href="/phenome-store-mirror/app/">The App</a>' +
-      '<a href="/phenome-store-mirror/app/#longevity-ai">Longevity AI</a>' +
-      '<a href="/phenome-store-mirror/hub/">Longevity Hub</a>' +
-      '<a href="/phenome-store-mirror/hub/podcast/">The Longevity Seat</a>' +
-      '<a href="/phenome-store-mirror/hub/gut-guide/">The gut health guide</a>' +
-      '<a href="/phenome-store-mirror/app/dashboard/">Your dashboard</a>' +
-      '<a href="/phenome-store-mirror/app/results-and-reports/">Results and reports</a>' +
-      '<a href="/phenome-store-mirror/app/trends/">Trends over time</a>' +
-      '<a href="/phenome-store-mirror/app/book-a-session/">Book a session</a></div>' +
+      '<a href="/phenome-store/science/">Science</a>' +
+      '<a href="/phenome-store/science/whole-genome-sequencing/">Whole genome sequencing</a>' +
+      '<a href="/phenome-store/science/multiomics/">Multiomics</a>' +
+      '<a href="/phenome-store/science/systems-biology/">Systems biology</a>' +
+      '<a href="/phenome-store/science/our-research/">Our research</a>' +
+      '<a href="/phenome-store/app/">The App</a>' +
+      '<a href="/phenome-store/app/#longevity-ai">Longevity AI</a>' +
+      '<a href="/phenome-store/hub/">Longevity Hub</a>' +
+      '<a href="/phenome-store/hub/podcast/">The Longevity Seat</a>' +
+      '<a href="/phenome-store/hub/gut-guide/">The gut health guide</a>' +
+      '<a href="/phenome-store/app/dashboard/">Your dashboard</a>' +
+      '<a href="/phenome-store/app/results-and-reports/">Results and reports</a>' +
+      '<a href="/phenome-store/app/trends/">Trends over time</a>' +
+      '<a href="/phenome-store/app/book-a-session/">Book a session</a></div>' +
       '<div class="col"><div class="col-t">Company</div>' +
-      '<a href="/phenome-store-mirror/about/">About</a>' +
-      '<a href="/phenome-store-mirror/careers/">Careers</a>' +
-      '<a href="/phenome-store-mirror/press/">Press</a>' +
-      '<a href="/phenome-store-mirror/clinic/">The Clinic</a>' +
-      '<a href="/phenome-store-mirror/clinic/what-to-expect/">What to expect</a>' +
-      '<a href="/phenome-store-mirror/clinic/book/">Register your interest</a>' +
-      '<a href="/phenome-store-mirror/contact/">Contact</a>' +
-      '<a href="/phenome-store-mirror/testing/how-it-works/">How testing works</a>' +
-      '<a href="/phenome-store-mirror/testing/compare/">Compare tests</a>' +
-      '<a href="/phenome-store-mirror/devices/ring/compare-materials/">Compare ring materials</a>' +
-      '<a href="/phenome-store-mirror/devices/ring/how-it-works/">How the Ring works</a>' +
-      '<a href="/phenome-store-mirror/hub/search/">Search the Hub</a></div>' +
+      '<a href="/phenome-store/about/">About</a>' +
+      '<a href="/phenome-store/careers/">Careers</a>' +
+      '<a href="/phenome-store/press/">Press</a>' +
+      '<a href="/phenome-store/clinic/">The Clinic</a>' +
+      '<a href="/phenome-store/clinic/what-to-expect/">What to expect</a>' +
+      '<a href="/phenome-store/clinic/book/">Register your interest</a>' +
+      '<a href="/phenome-store/contact/">Contact</a>' +
+      '<a href="/phenome-store/testing/how-it-works/">How testing works</a>' +
+      '<a href="/phenome-store/testing/compare/">Compare tests</a>' +
+      '<a href="/phenome-store/devices/ring/compare-materials/">Compare ring materials</a>' +
+      '<a href="/phenome-store/devices/ring/how-it-works/">How the Ring works</a>' +
+      '<a href="/phenome-store/hub/search/">Search the Hub</a></div>' +
       '<div class="col"><div class="col-t">Support</div>' +
-      '<a href="/phenome-store-mirror/contact/">Help centre</a>' +
-      '<a href="/phenome-store-mirror/account/">Your account</a>' +
-      '<a href="/phenome-store-mirror/account/orders/">Track an order</a>' +
-      '<a href="/phenome-store-mirror/account/activate/">Activate a kit</a>' +
-      '<a href="/phenome-store-mirror/legal/privacy.html">Privacy &amp; data</a>' +
-      '<a href="/phenome-store-mirror/legal/terms.html">Terms</a><a href="/phenome-store-mirror/sitemap/">Sitemap</a></div>' +
+      '<a href="/phenome-store/contact/">Help centre</a>' +
+      '<a href="/phenome-store/account/">Your account</a>' +
+      '<a href="/phenome-store/account/orders/">Track an order</a>' +
+      '<a href="/phenome-store/account/activate/">Activate a kit</a>' +
+      '<a href="/phenome-store/legal/privacy.html">Privacy &amp; data</a>' +
+      '<a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/sitemap/">Sitemap</a></div>' +
       '</div>' +
       '<div class="trust" style="margin-top:40px;border-bottom:0">' +
       '<span><b>ISO 15189</b> accredited lab</span>' +

@@ -3,7 +3,7 @@
 A complete, verified mirror of the Phenome store website, captured from the
 source deployment for hosting on GitHub Pages.
 
-**Live:** https://tiffanydesign.github.io/phenome-store-mirror/
+**Live:** https://tiffanydesign.github.io/phenome-store/
 
 ## What was captured
 
@@ -24,7 +24,7 @@ no broken links, missing images or missing media.
 
 - **`main`** — what GitHub Pages serves. Identical to the source in content and
   markup, with one mechanical change: root-absolute paths (`/store/`,
-  `/shared.css`, `/assets/…`) are prefixed with `/phenome-store-mirror` so the
+  `/shared.css`, `/assets/…`) are prefixed with `/phenome-store` so the
   site works from a project-pages subpath. 1,104 references were rewritten.
 - **`original`** — the untouched capture, byte-for-byte identical to the source
   deployment. Use this branch if you move the site to a domain root.
