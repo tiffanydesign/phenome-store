@@ -12,8 +12,9 @@
                Adobe kit the twin uses. ONE face for the whole system: numbers
                stay in it and switch to tabular figures instead.
      colour    the brand ramp, the navy ink scale, the pale-blue grounds and
-               the twin's status ramp, mapped onto shared.css's own --ph-*
-               names so 82 pages retheme without one page being edited.
+               the one status the store actually states, mapped onto
+               shared.css's own --ph-* names so 82 pages retheme without one
+               page being edited.
      glass     the twin's fourth "plain frosted" doctrine, verbatim: one flat
                white fill, blur + saturate, one long soft drop. No rim, no
                grain, no sheen, no inner glow. Nothing here draws an edge.
@@ -44,13 +45,20 @@
   --surface-page: #f4f6fb; --surface-card: #fff; --surface-sunken: #e7ebf3;
   --divider: #203a8514; --border-strong: #203a8529; --grid-line: #203a850d;
 
-  --gradient-brand:    linear-gradient(135deg,#30b0cd 0%,#2394cc 48%,#2e74b2 100%);
-  --gradient-vitality: linear-gradient(135deg,#269381 0%,#1f8697 49%,#085e98 100%);
+  /* THE STATUS RAMP IS ONE COLOUR WIDE, because the store has one status.
+     `.todo-banner` — a routed page that is not written yet — is the only thing
+     on 82 pages that states a status, and it is a warning. The success, danger
+     and info ramps were carried over with the rest of the twin's :root and then
+     never reached a single rule; two brand gradients came the same way. Both
+     are gone rather than left as a ramp someone would sample from without
+     checking whether the system had ever used it.
 
-  --status-success:#70d332; --status-success-fill:#509b21; --status-success-ink:#417e1b;
-  --status-warning:#ffb600; --status-warning-fill:#b27f00; --status-warning-ink:#7a5600;
-  --status-danger:#ff4b2b;  --status-danger-fill:#ff3c1a;  --status-danger-ink:#db2100;
-  --status-info:#508cfc;                                   --status-info-ink:#045afb;
+     A component that genuinely needs success or danger adds the pair it needs
+     here, struck off this navy the way every other ink in this file is. It does
+     NOT fall through to shared.css's own --ph-success / --ph-error: those are
+     the Apple-era mirror's greens and reds, measured against a different
+     system, and they are the one thing that would read as two systems meeting. */
+  --status-warning-fill:#b27f00; --status-warning-ink:#7a5600;
 
   /* the ground. A 150deg three-stop wash plus two very large soft corner lobes.
      Structure in the GROUND is the only thing a rimless pane has left to be
@@ -150,14 +158,11 @@
      (#0a1e57): 7.6:1, where the old #6fa8ff sat at 5.1 against #000. */
   --ph-on-brand:    #8fb8ea;
 
+  /* The warn triplet, and only it — see the status note in the token block.
+     shared.css consumes all three on .todo-banner. */
   --ph-warn:        var(--status-warning-ink);
   --ph-warn-ink:    var(--status-warning-fill);
   --ph-warn-bg:     #fdf6e6;
-  --ph-success:     var(--status-success-ink);
-  --ph-success-ink: var(--status-success-fill);
-  --ph-success-bg:  #f1f8ea;
-  --ph-error:       var(--status-danger-ink);
-  --ph-error-bg:    #fdf0ed;
 
   --ph-font: var(--font-sans);
   /* The kit ships 400 / 500 / 700 and no 600. 500 rather than 700 for the
