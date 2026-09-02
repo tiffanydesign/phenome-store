@@ -828,6 +828,212 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 .ds-page .ds-launch { display: none; }
 
 /* ---------------------------------------------------------------------------
+   7b · THE DOCK, and the site map it opens.
+
+   phenome-routes.js moves the launcher above into a wrapper and puts a second
+   control over it. The wrapper takes the fixed position the launcher used to
+   own, so the two stack from one anchor and there is no second set of offsets
+   to keep in step; the launcher goes static inside it.
+
+   THE SECOND CONTROL IS REVEALED BY THE DOCK, not by itself — it has to be,
+   because it is not there to be pointed at until the dock is open. Hovering
+   anywhere in the dock opens both: the launcher to its pill and the site map
+   above it. The 10px gap is INSIDE the wrapper, so travelling from one to the
+   other never leaves the hover target and the pair cannot flicker.
+   ------------------------------------------------------------------------ */
+.ph-dock {
+  position: fixed; z-index: 90;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+}
+.ph-dock .ds-launch { position: static; right: auto; bottom: auto; }
+
+.ph-dock-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 46px; width: 46px; padding: 0 13px;
+  border: 0; border-radius: 980px; cursor: pointer;
+  overflow: hidden; white-space: nowrap;
+  font-family: var(--ph-font); font-size: var(--ph-fs-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase; color: var(--phenome-blue-500);
+  background: var(--gl-tint-overlay);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+  box-shadow: var(--gl-shadow);
+  /* Out of the way until the dock is open, and out of the tab order with it —
+     `opacity` alone would leave a 46px target sitting invisibly over the page. */
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out),
+              transform var(--ph-dur-base) var(--ease-frosted-out),
+              width var(--ph-dur-base) var(--ease-frosted-out),
+              box-shadow var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
+}
+.ph-dock-btn svg { flex: 0 0 auto; display: block; }
+.ph-dock-btn .ph-dock-t { opacity: 0; transition: opacity 140ms linear; }
+
+.ph-dock:hover .ph-dock-btn, .ph-dock:focus-within .ph-dock-btn,
+.ph-dock.is-armed .ph-dock-btn {
+  opacity: 1; visibility: visible; transform: none; width: 178px;
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+}
+.ph-dock:hover .ph-dock-t, .ph-dock:focus-within .ph-dock-t,
+.ph-dock.is-armed .ph-dock-t {
+  opacity: 1;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out) 60ms;
+}
+/* The launcher opens with the dock as well as on its own, so the pair arrives
+   as one object rather than as a pill and a disc that happen to be adjacent. */
+.ph-dock:hover .ds-launch, .ph-dock:focus-within .ds-launch,
+.ph-dock.is-armed .ds-launch {
+  width: 178px; box-shadow: var(--gl-shadow-lift);
+}
+.ph-dock:hover .ds-launch-t, .ph-dock:focus-within .ds-launch-t,
+.ph-dock.is-armed .ds-launch-t { opacity: 1; }
+.ph-dock-btn:hover { box-shadow: var(--gl-shadow-lift); }
+.ph-dock-btn:active { box-shadow: var(--gl-shadow-press); }
+@media (hover: none) {
+  .ph-dock-btn { opacity: 1; visibility: visible; transform: none; width: 178px; }
+  .ph-dock-btn .ph-dock-t { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-dock-btn, .ph-dock-btn .ph-dock-t { transition: none; }
+}
+
+/* ---- the sheet ---------------------------------------------------------
+   83 routes is too many to read as a list and too few to need a search page,
+   so it is a tree in columns: one block per top-level section, the section's
+   own page leading it, children indented under it. The indent is the whole
+   hierarchy — there is no other structure to draw, because a route on this
+   site IS its directory. */
+.ph-routes {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: max(24px, env(safe-area-inset-top)) 24px;
+}
+.ph-routes[hidden] { display: none; }
+.ph-routes-scrim {
+  position: absolute; inset: 0;
+  background: #06122ea8;
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+}
+.ph-routes-open { overflow: hidden; }
+
+/* Opaque, for the reason the mega-menu is: what shows through an index is not
+   information. It is the sheet colour the nav panel already uses. */
+.ph-routes-sheet {
+  position: relative;
+  width: min(1080px, 100%); max-height: min(760px, 100%);
+  display: flex; flex-direction: column;
+  border-radius: var(--ph-r18);
+  background: #f7f9fd;
+  box-shadow: 0 40px 90px -40px #06122e8f, 0 2px 10px -6px #06122e5c;
+  overflow: hidden;
+}
+
+.ph-routes-head {
+  display: grid; grid-template-columns: 1fr auto auto auto;
+  align-items: center; gap: 18px;
+  padding: 22px 22px 18px 26px;
+  border-bottom: 1px solid var(--border-strong);
+}
+.ph-routes-kicker {
+  margin: 0 0 6px; font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  color: var(--phenome-blue-500);
+}
+.ph-routes-head h2 {
+  margin: 0; font-size: var(--ph-fs-24); line-height: 1;
+  letter-spacing: var(--ph-tr-24-600); font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+}
+.ph-routes-count {
+  margin: 0; font-size: var(--ph-fs-14); color: var(--ink-600);
+  font-variant-numeric: tabular-nums;
+}
+.ph-routes-count b { font-weight: var(--ph-w-600); color: var(--ink-900); }
+
+.ph-routes-filter {
+  height: 36px; width: 190px; padding: 0 14px;
+  border: 1px solid var(--phenome-blue-500); border-radius: 980px;
+  background: #fff; color: var(--ink-900);
+  font-family: var(--ph-font); font-size: var(--ph-fs-14);
+}
+.ph-routes-filter::placeholder { color: var(--ink-400); }
+.ph-routes-filter:focus { outline: 2px solid var(--phenome-blue-400); outline-offset: 2px; }
+
+.ph-routes-close {
+  height: 36px; width: 36px; padding: 0;
+  border: 1px solid var(--border-strong); border-radius: 980px;
+  background: #fff; cursor: pointer;
+  font-size: 20px; line-height: 1; color: var(--ink-600);
+  transition: background-color var(--ph-dur-fast) var(--ease-frosted-out),
+              border-color var(--ph-dur-fast) var(--ease-frosted-out);
+}
+.ph-routes-close:hover {
+  background: var(--phenome-blue-500); border-color: transparent; color: #fff;
+}
+
+.ph-routes-body {
+  padding: 20px 26px 26px; overflow-y: auto;
+  columns: 3; column-gap: 30px;
+}
+.ph-routes-sec { break-inside: avoid; margin-bottom: 20px; }
+.ph-routes-sec[hidden] { display: none; }
+.ph-routes-sec h3 {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  margin: 0 0 6px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--divider);
+  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  color: var(--ink-label);
+}
+.ph-routes-sec h3 b {
+  font-weight: var(--ph-w-600); color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.ph-route {
+  display: block; padding: 5px 8px; border-radius: var(--ph-r8);
+  text-decoration: none !important;
+  transition: background-color var(--ph-dur-fast) var(--ease-frosted-out);
+}
+.ph-route[hidden] { display: none; }
+.ph-route.d1 { margin-left: 12px; }
+.ph-route.d2 { margin-left: 24px; }
+.ph-route.d3 { margin-left: 36px; }
+.ph-route-path {
+  display: block; font-size: var(--ph-fs-14); font-weight: var(--ph-w-600);
+  color: var(--ink-900); overflow-wrap: anywhere;
+}
+.ph-route-title {
+  display: block; margin-top: 1px;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12); color: var(--ink-600);
+}
+.ph-route:hover { background: var(--gl-tint-sunk); }
+/* The page you are on, marked on the row rather than announced above it. */
+.ph-route.on { background: var(--phenome-blue-500); }
+.ph-route.on .ph-route-path { color: #fff; }
+.ph-route.on .ph-route-title { color: var(--phenome-blue-200); }
+
+.ph-routes.is-empty .ph-routes-body::after {
+  content: 'No route matches that.';
+  display: block; padding: 8px; font-size: var(--ph-fs-14); color: var(--ink-400);
+}
+
+@media (max-width: 900px) {
+  .ph-routes-body { columns: 2; }
+  .ph-routes-head { grid-template-columns: 1fr auto; row-gap: 12px; }
+  .ph-routes-filter { width: 100%; grid-column: 1; }
+  .ph-routes-count { grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .ph-routes { padding: 12px; }
+  .ph-routes-body { columns: 1; }
+  .ph-routes-sheet { max-height: 100%; }
+}
+
+/* ---------------------------------------------------------------------------
    8 · Fallbacks
    A browser with no backdrop-filter gets opaque panes rather than transparent
    ones — the fill alphas above are all the legibility the type has, and 42%
