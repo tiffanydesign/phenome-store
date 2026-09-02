@@ -214,6 +214,40 @@ button, input, select, textarea, optgroup {
 }
 
 /* ---------------------------------------------------------------------------
+   2c · THE SCROLLBAR IS PART OF THE PAGE, not part of the browser.
+
+   The UA bar is a neutral grey track with a darker grey thumb, and it runs the
+   full height of every one of these 82 pages — which makes it the largest
+   neutral surface in a system that has no neutral grey in it anywhere. Beside
+   the pale-blue field it reads as a strip of a different product.
+
+   So it takes the brand ramp's light end: Blue 200 at rest, Blue 300 under the
+   cursor, and no track at all, so the field runs behind it. The thumb is drawn
+   as an inset pill — a transparent border with `background-clip: content-box`
+   is the only way to inset a webkit thumb, since it has no margin of its own.
+
+   Specificity is (0,0,0) on purpose: the rails that hide their own bars do it
+   with a class, `.railx-track::-webkit-scrollbar`, and still win.
+   ------------------------------------------------------------------------ */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--phenome-blue-200) transparent;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--phenome-blue-200);
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: 980px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--phenome-blue-300);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---------------------------------------------------------------------------
    3 · TYPE · the ladder is shared.css's, the tracking is not.
    Every 400-weight rung on that ladder carries POSITIVE tracking (+0.204px at
    17), which was measured for Outfit — a geometric sans that sets tight.
