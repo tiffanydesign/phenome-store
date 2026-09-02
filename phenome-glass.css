@@ -9,8 +9,8 @@
    THREE THINGS WERE TAKEN, and a fourth was deliberately left:
 
      type      the SANS only — helvetica-neue-lt-pro, served from the same
-               Adobe kit the twin uses — plus new-science-mono for every
-               numeral in the system.
+               Adobe kit the twin uses. ONE face for the whole system: numbers
+               stay in it and switch to tabular figures instead.
      colour    the brand ramp, the navy ink scale, the pale-blue grounds and
                the twin's status ramp, mapped onto shared.css's own --ph-*
                names so 82 pages retheme without one page being edited.
@@ -99,12 +99,9 @@
      visitor renders. Helvetica stays ahead of Arial: a platform that has a real
      Helvetica should use it, and on Windows the two resolve to the same face. */
   --font-sans: "helvetica-neue-lt-pro","Helvetica Neue",Helvetica,Arial,sans-serif;
-  /* Every number in the system, from a hero stat down to a price. A mono is
-     fixed-pitch by construction, so a column of prices lines up on the decimal
-     without asking for tabular figures at all. The kit serves 100 and 300 only,
-     which is why the weight below is 300 and not 400. */
-  --font-numeral: "new-science-mono","New Science Mono",
-                  ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  /* There is no second face. A column of prices lines up on the decimal because
+     the figures are TABULAR, not because they are set in a mono — see the
+     numerals block below. */
 }
 
 /* ---------------------------------------------------------------------------
@@ -186,10 +183,8 @@
 
      · shared.css declares font-family exactly twice, both `var(--ph-font)`,
        so the whole site's face is decided by one token and this file owns it.
-     · the two chains that token can resolve to both end on a generic SANS —
-       --font-sans on `sans-serif`, --font-numeral on `monospace`. New Science
-       Mono is a fixed-pitch SANS, not a slab: it is in the system because a
-       column of prices has to line up, not because it has serifs.
+     · that token resolves to ONE chain, --font-sans, and it ends on the
+       generic `sans-serif`. There is no second chain to audit.
      · no `serif`, `Georgia`, `Times`, `Garamond` or `Palatino` appears in any
        stylesheet, script or page. The one inline font-family on the site is
        `inherit`, on a <textarea>.
@@ -202,7 +197,7 @@
    the elements that do not inherit from <body> (form controls, placeholder
    pseudo-elements) and the ones that would reach past CSS for a UA serif
    (SVG text) are named, and nothing else is touched. Specificity is (0,0,1),
-   so the numeral mono at (0,1,0) still wins where it should.
+   so any component rule at (0,1,0) still wins where it should.
 
    Contralto is loaded by the Adobe kit and is never referenced, so no browser
    fetches it — a kit declares @font-face, and a face nothing renders is a face
@@ -237,28 +232,18 @@ button, input, select, textarea, optgroup {
 .atile.full .atile-sub  { letter-spacing: -0.004em; }
 
 /* ---- numerals ------------------------------------------------------------
-   Every number in the system on the mono, which is the one rule the twin has
-   about numbers. It reads as a decision rather than as a slip only if it is
-   applied to ALL of them — a price in the mono beside a spec value in the sans
-   is worse than neither. Weight 300 because the kit serves 100 and 300 only.
+   A column of figures has to line up on the decimal, and in THIS face it already
+   does: measured in the browser, helvetica-neue-lt-pro renders ten digits at 40px
+   in 222.4px whichever ten they are — 0.556em each, fixed pitch. That is why the
+   second face this system used to carry for numbers could go without the columns
+   moving.
 
-   THE SCOPE IS PRICES AND READINGS, NOT LINES THAT CONTAIN A NUMBER, and the
-   difference was measured rather than reasoned. .ph-prod-meta reads
-   "Wearable · £279" — one word and one price — and set whole in a 300-weight
-   mono at 14px the WORD is what you notice: it is wider than the sans, lighter
-   than the sans, and it is not a number. A mono earns its place by making a
-   column of figures line up on the decimal; there is no column in a meta line.
-   Same argument retires .ctable td, which is prose as often as it is data. */
+   The property below is a GUARD, not the mechanism: it holds the same alignment
+   if the kit fails to load and the stack falls through to Helvetica or Arial.
+   Applied everywhere a number is read rather than spoken — prices, readings,
+   stats — and on the mixed lines too, where it costs nothing. */
 .card-price, .ph-card-price, .price, .stat-num, .figures .figure > .n,
-.spec dd, .stat-value, .kpi-value, .num {
-  font-family: var(--font-numeral);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-}
-/* Mixed lines stay in the sans and take tabular figures instead — the columns
-   still align, and the words still look like words. */
+.spec dd, .stat-value, .kpi-value, .num,
 .ph-prod-meta, .ctable td, .card-spec {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
