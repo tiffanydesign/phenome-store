@@ -376,10 +376,23 @@ body {
   border-bottom: 0;
 }
 
-/* ---- the mega-menu. Overlay tier, and it says why at its own token. */
+/* ---- the mega-menu. THE ONE OPAQUE SURFACE IN THE SYSTEM.
+
+   It was the overlay tier, 84% white, and 84% is the least that clears the 4.5
+   rule over every ground the menu can open on — which is the right number for a
+   pane and the wrong idea for this one. A menu is not a surface you are meant
+   to see through; whatever is behind it at 16% is not information, it is
+   interference, and on a dark hero or a running film it is interference that
+   moves. So this one stops being glass.
+
+   #f7f9fd rather than white: it is the composite the nav bar above it already
+   reads as, so the panel drops out of the bar rather than out of a brighter
+   sheet stuck under it — and it is the value this file's own no-backdrop
+   fallback has always used for exactly this element. The blur goes with the
+   transparency; there is nothing left behind it to bend. */
 .ph-panel {
-  background: var(--gl-tint-overlay) !important;
-  -webkit-backdrop-filter: var(--gl-blur-panel); backdrop-filter: var(--gl-blur-panel);
+  background: #f7f9fd !important;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
   border: 0 !important;
   box-shadow: 0 18px 48px -24px #4664a05c, var(--gl-shadow-panel) !important;
 }
@@ -420,6 +433,12 @@ body {
   background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
   border-color: transparent;
 }
+/* The supplement buy-band is BLACK, not navy. It is the one dark ground on the
+   site that is carrying a price and nothing else — no photograph, no film, no
+   gradient to belong to — and a navy wash there reads as a coloured panel
+   behind the number rather than as an absence behind it. Black is a site
+   colour here, recorded 2026-08-17. */
+.supp-end { background: #000; }
 a.ph-prod.is-dark:hover { background: linear-gradient(150deg,#1c3a8c 0%,#12296e 62%,#0d2153 100%); }
 .ph-prod.is-dark .ph-prod-meta { color: var(--phenome-blue-200); }
 /* ---- recesses. The grey card, the sunken well, the trough. */
@@ -504,8 +523,15 @@ a.ph-prod.is-dark:hover { background: linear-gradient(150deg,#1c3a8c 0%,#12296e 
    with nothing. That is verbatim the tie shared.css records for
    `.section-black .btn.ghost`, which is why that one is four classes deep. */
 .section-black .btn.ghost, .supp-end .btn.ghost { border-color: #ffffff8c; }
+/* Phenome Blue itself on this one, not the hover step. Everywhere else the
+   outlined control fills with --ph-accent-hover, which is the accent one shade
+   DOWN — the right move when the button is on a pale ground and the fill has
+   to arrive darker than the page. Against black there is nothing to arrive
+   darker than: 700 reads as the button dimming. 500 is the brand blue lighting
+   up, which is what a press on a black band should look like. White on it is
+   10.5:1. */
 .supp-end .btn.ghost:hover {
-  background: var(--ph-accent-hover); border-color: transparent; color: #fff !important;
+  background: var(--phenome-blue-500); border-color: transparent; color: #fff !important;
 }
 .supp-end .btn.ghost:active {
   background: var(--ph-accent-active); border-color: transparent;
@@ -601,6 +627,17 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
   background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
   -webkit-backdrop-filter: none; backdrop-filter: none;
 }
+/* THE SCIENCE TILE IS BLACK, and it is the only one, because it is the only
+   tile whose film is a BAND rather than the whole ground. A full-height film
+   covers the tile and the tile's own colour never shows; a band leaves the
+   ground visible above and beside it, so the tile's navy met the footage's
+   black on a hard line across the middle of the panel. Black on both sides and
+   the seam has nothing to be a seam between.
+
+   Reached by the film's own modifier rather than by a class added to the page:
+   .atile-film--band is written by the generator for this one tile, so the rule
+   follows the tile that has the problem instead of a name that could move. */
+.atile.dark:has(> .atile-film--band) { background: #000; }
 .atile.dark .atile-eyebrow { color: var(--ph-on-brand); }
 /* The one inset picture on the front door — the genetic tile's read-out — is the
    only media here that was drawn as a rounded card, at --ph-r18. It is a picture
@@ -645,11 +682,23 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
   color: #fff;
 }
 
-/* ---- the footer. A recess the width of the page, and the rule above it is
-   the divider rather than the strong border: it separates two of our own
-   surfaces, not a surface from the page. */
+/* ---- the footer. A LIGHT band the width of the page, and the rule above it
+   is the divider rather than the strong border: it separates two of our own
+   surfaces, not a surface from the page.
+
+   It was the recess wash, --gl-tint-sunk, which is 18% of a blue-grey — and a
+   recess is the wrong direction for the last thing on the page. The wash
+   composites to about #cfdced down there, where the page has already run to
+   the cool end of its own gradient, so the footer arrived as the bluest and
+   heaviest surface on a page that spends the rest of its height getting
+   lighter. Six columns of navy link text then sit on it.
+
+   A white wash instead of a blue one: the same one flat tint, struck off the
+   light side, landing near #e9f0f8. It still reads as its own band — the page
+   is a gradient and this is not — but as the page finishing rather than as a
+   trough dug at the bottom of it. */
 .ph-footer {
-  background: var(--gl-tint-sunk);
+  background: #ffffff66;
   -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
 }
 .ph-footer .rule { background: var(--divider); }
