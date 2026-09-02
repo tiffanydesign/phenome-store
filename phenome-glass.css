@@ -438,6 +438,41 @@ a.ph-prod.is-dark:hover { background: linear-gradient(150deg,#1c3a8c 0%,#12296e 
   border-color: transparent;
 }
 
+/* ---- the site's outlined secondary · .btn.ghost --------------------------
+   THE SAME DEFECT THE FRONT DOOR HAD, on 45 controls across 34 pages, and it
+   was introduced the same way: the chip rule above reaches .btn.ghost and sets
+   its border to transparent, so the control shared.css draws as an OUTLINED
+   pill — `border: 1px solid var(--ph-line)` — was left to be read off a 50%
+   white fill on a ground that is already pale. --ph-line is 16% blue: on that
+   fill the edge lands near 1.2:1, which is not a line, it is a rumour.
+
+   Same construction as .atile-link.ghost, so the store's secondary and the
+   front door's are one control rather than two that resemble each other: ONE
+   ink for the label and the border, one translucent fill carrying its own
+   floor, one thin blur.
+
+   THE LABEL MOVES WITH THE BORDER, from --ph-text-1 to the accent, and that is
+   the part of this that is a decision rather than a repair. An outlined
+   secondary whose label is body ink reads as a box drawn around a sentence;
+   with both on the accent it reads as the quiet half of a pair, which is what
+   it is — and it is the pattern shared.css's own comment cites for this
+   control, apple's `.button-secondary { color: #0066CC; border-color: #0066CC }`.
+   The !important is forced: shared.css states this colour with one.
+
+   Composited on the light ground (50%→59% white over the field, ≈ #f2f6fb):
+   the accent reads 9.7:1 on its own fill, where --ph-line read 1.2:1.
+
+   The dark ground is NOT touched. `.section-black .btn.ghost` is (0,3,0) and
+   already states its own three answers — transparent-to-12% white, white ink,
+   40% white border — so it outranks this rule and keeps them. Hover is
+   shared.css's and is unchanged: the pill fills, the border goes transparent
+   at the same 1px, and nothing moves. */
+.btn.ghost {
+  background: var(--gl-tint-live);
+  border-color: var(--phenome-blue-500);
+  color: var(--phenome-blue-500) !important;
+}
+
 /* An outlined pill in an INVERTED context is the same control with its ink
    already flipped to white — .pin-cta ships as class="tag pin-cta" and states
    `color: var(--ph-white)` for the film behind it. Handing it the light chip
@@ -446,11 +481,34 @@ a.ph-prod.is-dark:hover { background: linear-gradient(150deg,#1c3a8c 0%,#12296e 
    in one place rather than discovered one page at a time. Same material, same
    two properties, struck off the dark side instead. */
 .hero.on-dark .tag, .atile.dark .tag, .hero.on-dark .pill,
-.section-black .btn.ghost {
+.section-black .btn.ghost, .supp-end .btn.ghost {
   background: #ffffff1f;
   -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
   box-shadow: none;
   color: #fff !important;
+}
+/* .supp-end IS AN INVERTED CONTEXT AND WAS NOT LISTED AS ONE. Counted rather
+   than assumed — every .btn.ghost on the site walked to its ground: 21 on the
+   light page, 3 in .section-black, and 21 on the navy end-band of a supplement
+   page, which is nearly half the site's secondaries sitting on a dark ground
+   under a rule written for a pale one. It is the failure the design system's
+   last section describes, found a fourth time and the same way: by looking.
+
+   One value for the line on every dark ground, 55% white, rather than the
+   three the site had drifted to. Measured over 12% white on the navy: 4.6:1,
+   where .section-black's inherited 40% read 3.1.
+
+   THE HOVER HAS TO BE STATED. `.btn.ghost:hover` is (0,3,0) and so is
+   `.supp-end .btn.ghost`; this file loads second, so without the rule below
+   the resting fill would beat the hover and 21 buttons would answer the cursor
+   with nothing. That is verbatim the tie shared.css records for
+   `.section-black .btn.ghost`, which is why that one is four classes deep. */
+.section-black .btn.ghost, .supp-end .btn.ghost { border-color: #ffffff8c; }
+.supp-end .btn.ghost:hover {
+  background: var(--ph-accent-hover); border-color: transparent; color: #fff !important;
+}
+.supp-end .btn.ghost:active {
+  background: var(--ph-accent-active); border-color: transparent;
 }
 .hero.on-dark .tag:hover, .atile.dark .tag:hover { background: #ffffff33; box-shadow: none; }
 /* Over a SOLID navy ground a white film is enough. Over a PHOTOGRAPH it is not,
