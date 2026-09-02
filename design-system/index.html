@@ -347,8 +347,7 @@
     <header class="ds-mast">
       <p class="ds-kicker">Phenome · Store</p>
       <h1>Design system</h1>
-      <p class="ds-lede">One typeface, one blue, one glass — and every value here is read from
-        the tokens the store ships.</p>
+      <p class="ds-lede">The type, colour, surfaces and components the store is built from.</p>
       <dl class="ds-meta">
         <div><dt>Token layer</dt><dd>phenome-glass.css</dd></div>
         <div><dt>Pages</dt><dd>82</dd></div>
@@ -377,14 +376,13 @@
         <section class="ds-sec" id="s01">
           <div class="ds-sec-h"><span class="n">01</span><h2>Typeface</h2></div>
 
-          <p class="ds-note">One face, three weights, no italic and no serif — the whole site
-            resolves through <span class="ds-tok">--font-sans</span>.</p>
+          <p class="ds-note">Helvetica Neue LT Pro, set site-wide by <span class="ds-tok">--font-sans</span>.</p>
 
           <div class="ds-block">
             <div class="ds-face gl">
               <div class="ds-face-name">
                 <h3>Helvetica Neue LT Pro</h3>
-                <span>400 · 500 · 700 — no 600, so headings take 500</span>
+                <span>400 · 500 · 700 · headings 500</span>
               </div>
               <div class="ds-face-line ds-w400">Longevity, measured. <em>0123456789</em></div>
               <div class="ds-face-line ds-w500">Longevity, measured. <em>0123456789</em></div>
@@ -394,8 +392,7 @@
 
           <div class="ds-block">
             <p class="ds-sub">Figures</p>
-            <p class="ds-note" style="margin-top:0">Digits are fixed-pitch at 0.556em, so a column
-              lines up on the decimal without a second face.</p>
+            <p class="ds-note" style="margin-top:0">Every digit is 0.556em wide, so a column lines up on the decimal.</p>
             <div class="ds-figures">
               <div class="gl-sunk">
                 <p class="ds-sub">A price column</p>
@@ -416,8 +413,8 @@
         <!-- ========================================================= 02 -->
         <section class="ds-sec" id="s02">
           <div class="ds-sec-h"><span class="n">02</span><h2>Type scale</h2></div>
-          <p class="ds-note">Twelve rungs; tracking runs negative at display sizes, zero at body,
-            and positive on the overline alone.</p>
+          <p class="ds-note">Twelve rungs. Tracking is negative at display sizes, zero at body,
+            +0.06em on the overline.</p>
 
           <div class="ds-block ds-scale">
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:64px;line-height:1;font-weight:500;letter-spacing:-.02em">Longevity</div><div class="ds-rung-m"><span>h1</span><b>80/88</b><span>−.020em</span><span>500</span></div></div>
@@ -438,11 +435,10 @@
         <!-- ========================================================= 03 -->
         <section class="ds-sec" id="s03">
           <div class="ds-sec-h"><span class="n">03</span><h2>Colour</h2></div>
-          <p class="ds-note">One blue — the blue inside the logo — and every ink is struck off it
-            rather than off a neutral grey.</p>
+          <p class="ds-note">Phenome Blue, with an ink scale struck off the same navy.</p>
 
           <div class="ds-block">
-            <p class="ds-sub">Brand · 500 is the accent, 700 its hover, 900 its active</p>
+            <p class="ds-sub">Brand · 500 accent, 700 hover, 900 active</p>
             <div class="ds-swatches">
               <div class="ds-sw"><i style="background:#0a1e57"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 900</b><span class="ds-sw-v">#0a1e57</span></div></div>
               <div class="ds-sw"><i style="background:#142b6e"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 700</b><span class="ds-sw-v">#142b6e</span></div></div>
@@ -482,16 +478,14 @@
               <div class="ds-sw dark"><i style="background:#8fb8ea;margin:10px 10px 0;border-radius:8px;height:56px"></i><div class="ds-sw-t"><b class="ds-sw-n">Link ink</b><span class="ds-sw-v">#8fb8ea · 7.6:1</span></div></div>
               <div class="ds-sw dark"><i style="background:#a9b5d9;margin:10px 10px 0;border-radius:8px;height:56px"></i><div class="ds-sw-t"><b class="ds-sw-n">Secondary text</b><span class="ds-sw-v">#a9b5d9 · Blue 200</span></div></div>
             </div>
-            <p class="ds-note">Blue 500 falls to 1.8:1 on the navy, so a dark ground carries its
-              own lighter blue.</p>
+            <p class="ds-note">Blue 500 reads 1.8:1 on the navy. Dark grounds use #8fb8ea, at 7.6:1.</p>
           </div>
         </section>
 
         <!-- ========================================================= 04 -->
         <section class="ds-sec" id="s04">
           <div class="ds-sec-h"><span class="n">04</span><h2>Surfaces</h2></div>
-          <p class="ds-note">A pane has no rim, no grain and no sheen — it holds its edge on one
-            soft drop over a fixed wash.</p>
+          <p class="ds-note">A pane is one flat white fill, a blur and one drop, over a fixed wash.</p>
 
           <div class="ds-block">
             <p class="ds-sub">The ground</p>
@@ -508,8 +502,7 @@
 
           <div class="ds-block">
             <p class="ds-sub">Glass · five tiers</p>
-            <p class="ds-note" style="margin:0 0 20px">Switch the ground and the tiers explain
-              themselves.</p>
+            <p class="ds-note" style="margin:0 0 20px">Switch the ground to compare the tiers.</p>
 
             <div class="ds-stage-bar">
               <span class="ds-sub" style="margin:0">Backdrop</span>
@@ -532,7 +525,7 @@
           </div>
 
           <div class="ds-block">
-            <p class="ds-sub">Three properties, and no fourth</p>
+            <p class="ds-sub">Material</p>
             <ul class="ds-spec">
               <li><b>Fill</b><span>one flat white, uniform through the pane</span></li>
               <li><b>Backdrop</b><span>blur(24px) saturate(140%) · thin tier 14px</span></li>
@@ -545,8 +538,7 @@
         <!-- ========================================================= 05 -->
         <section class="ds-sec" id="s05">
           <div class="ds-sec-h"><span class="n">05</span><h2>Elevation &amp; motion</h2></div>
-          <p class="ds-note">One move: the pane lifts off the page or settles back, and hover never
-            brightens the fill.</p>
+          <p class="ds-note">The pane lifts off the page or settles back. Only the drop changes.</p>
 
           <div class="ds-block ds-shadows">
             <div class="rest"><div class="ds-shadow-fig"></div><p><b>Rest</b>0 8px 24px −18px · 22%</p></div>
@@ -572,8 +564,7 @@
         <!-- ========================================================= 06 -->
         <section class="ds-sec" id="s06">
           <div class="ds-sec-h"><span class="n">06</span><h2>Components</h2></div>
-          <p class="ds-note">Every control here is the site's own class: filled stays solid,
-            outlined is where the material shows up.</p>
+          <p class="ds-note">Filled controls are solid. Outlined controls take the glass fill.</p>
 
           <div class="ds-block ds-specimen gl">
             <p class="ds-sub">Buttons</p>
@@ -608,7 +599,7 @@
               </a>
               <div class="card-gray">
                 <h3 class="card-title" style="margin:0 0 8px;font-size:21px;font-weight:500">Recess</h3>
-                <p style="margin:0;font-size:14px;color:var(--ink-600)">A grey card is not a lighter pane. It is one flat wash.</p>
+                <p style="margin:0;font-size:14px;color:var(--ink-600)">One flat blue-grey wash.</p>
               </div>
             </div>
           </div>
@@ -630,20 +621,19 @@
         <!-- ========================================================= 07 -->
         <section class="ds-sec" id="s07">
           <div class="ds-sec-h"><span class="n">07</span><h2>Inverted contexts</h2></div>
-          <p class="ds-note">A control that already states white ink cannot take the light chip
-            fill, so each of the three grounds has its own answer.</p>
+          <p class="ds-note">White ink on the 50% chip fill reads 1.06:1. Each ground has its own fill.</p>
 
           <div class="ds-block ds-invert">
             <div class="g-navy">
-              <div><h4>Over a solid navy</h4><p>A white film is enough. The ground is known and it is dark.</p></div>
+              <div><h4>Over a solid navy</h4><p>White 12%, over a ground that is known and dark.</p></div>
               <a class="tag" href="#s07" style="background:#ffffff1f;color:#fff;box-shadow:none;border-color:transparent">White 12%</a>
             </div>
             <div class="g-photo">
-              <div><h4>Over a photograph</h4><p>A white film is not enough — wherever the frame goes pale, the pill and the highlight become one tone.</p></div>
+              <div><h4>Over a photograph</h4><p>Navy 56%, because the frame goes pale in places and a white film would match it.</p></div>
               <a class="tag" href="#s07" style="background:#06122e8f;color:#fff;box-shadow:none;border-color:transparent">Navy 56%</a>
             </div>
             <div class="g-light">
-              <div><h4>Over the field</h4><p>The default. Fifty per cent white, thin blur, one drop.</p></div>
+              <div><h4>Over the field</h4><p>The default. White 50%, thin blur, one drop.</p></div>
               <a class="tag" href="#s07">Chip · 50%</a>
             </div>
           </div>
