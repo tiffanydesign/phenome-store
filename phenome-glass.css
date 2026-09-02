@@ -840,24 +840,41 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
    and the code takes the fill this system already ships for a chip on a solid
    navy — white 12%, the answer section 07 of the design system prints.
    ------------------------------------------------------------------------ */
+/* IT IS A CAPSULE, NOT A BAND. Full-bleed, the blue ran the whole window and
+   read as wider than the nav under it — the nav is full-bleed too, but it is
+   near-white, so only this one announced its width. So the colour stops being
+   the page's full measure and becomes the size of the sentence: an inline
+   capsule, centred, capped at the nav's own content width so it can never
+   outrun the row it sits above.
+
+   The wrapper keeps the full width and the page's own margin, which is what
+   holds the capsule off the viewport edge on a phone. */
 .ph-promo {
-  background: var(--phenome-blue-500);
-  color: #fff;
+  display: flex; justify-content: center;
+  padding: 10px var(--ph-margin);
 }
 .ph-promo-inner {
-  width: 100%; max-width: calc(var(--ph-content-max) + var(--ph-margin) * 2);
   /* margin-inline alone left the <p> its block margins, and shared.css gives
      every p 14 above and 28 below — which escaped the band by collapse and
      pushed the whole bar 14px down the page. All four sides, stated. */
-  margin: 0 auto; padding: 9px var(--ph-margin);
-  display: flex; align-items: center; justify-content: center;
+  margin: 0; max-width: var(--ph-content-max);
+  padding: 6px 8px 6px 16px;
+  display: inline-flex; align-items: center; justify-content: center;
   gap: 4px 10px; flex-wrap: wrap; text-align: center;
-  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); font-weight: var(--ph-w-400);
+  border-radius: 980px;
+  background: var(--phenome-blue-500); color: #fff;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12); font-weight: var(--ph-w-400);
 }
 .ph-promo b {
   padding: 3px 10px; border-radius: 980px;
   background: #ffffff1f;
   font-weight: var(--ph-w-600); letter-spacing: .04em;
+}
+/* Wrapped onto two lines a 980px radius turns the ends into half-circles and
+   the capsule into a lozenge, so below the wrap it squares down to the band
+   radius and keeps its padding even on all four sides. */
+@media (max-width: 560px) {
+  .ph-promo-inner { border-radius: var(--ph-r14); padding: 8px 12px; }
 }
 
 /* ---------------------------------------------------------------------------
