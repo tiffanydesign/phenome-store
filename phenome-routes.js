@@ -138,10 +138,15 @@ var ROUTES = [
       if (!byKey[key]) { byKey[key] = { key: key, rows: [] }; groups.push(byKey[key]); }
       byKey[key].rows.push({ route: route, title: r[1] });
     });
+    /* PATH ORDER, not length order. Sorting by length put the section's own
+       page first and everything else in size order, which was harmless while
+       every row printed its full route — but a row now shows only its own
+       segment, so `confirmed/` sat indented under nothing, eleven rows below
+       the `checkout/` it belongs to. In path order a child always follows its
+       parent, and the section's own page still leads: it is a prefix of every
+       route under it, so it sorts first. */
     groups.forEach(function (g) {
-      g.rows.sort(function (a, b) {
-        return a.route.length - b.route.length || a.route.localeCompare(b.route);
-      });
+      g.rows.sort(function (a, b) { return a.route.localeCompare(b.route); });
     });
     groups.sort(function (a, b) {
       if (a.key === '/') return -1;
@@ -156,6 +161,18 @@ var ROUTES = [
     var segs = route.replace(/^\/|\/$/g, '').split('/');
     if (/\.html$/.test(route)) segs.pop();
     return Math.max(0, segs.length - 1);
+  }
+
+  /* THE PATH IS SAID ONCE. Printing all 83 routes in full put the same prefix
+     down fifteen times under one heading and turned the sheet into a column of
+     slashes. A row now carries only the segment that is its own — the heading
+     names the section, the indent carries the depth, and the full route is on
+     the row's title for anyone who wants to read or copy it. */
+  function labelFor(route, prefix) {
+    if (route === prefix) return prefix;
+    var rest = route.slice(prefix.length).replace(/\/$/, '');
+    var last = rest.split('/').pop();
+    return /\.html$/.test(route) ? last : last + '/';
   }
 
   function el(tag, cls, text) {
@@ -210,19 +227,20 @@ var ROUTES = [
     var body = el('div', 'ph-routes-body');
     groups.forEach(function (g) {
       var sec = el('section', 'ph-routes-sec');
-      var label = g.key === '/' ? '/' : '/' + g.key + '/';
-      var h = el('h3', null, label);
+      var prefix = g.key === '/' ? '/' : '/' + g.key + '/';
+      var h = el('h3', null, g.key === '/' ? '/' : g.key);
       h.appendChild(el('b', null, String(g.rows.length)));
       sec.appendChild(h);
 
       g.rows.forEach(function (r) {
         var a = el('a', 'ph-route d' + Math.min(depthOf(r.route), 3));
         a.href = BASE + r.route;
+        a.title = r.route;
         if (r.route === current) {
           a.className += ' on';
           a.setAttribute('aria-current', 'page');
         }
-        a.appendChild(el('span', 'ph-route-path', r.route));
+        a.appendChild(el('span', 'ph-route-path', labelFor(r.route, prefix)));
         a.appendChild(el('span', 'ph-route-title', r.title));
         sec.appendChild(a);
         rows.push({ node: a, sec: sec, hay: (r.route + ' ' + r.title).toLowerCase() });

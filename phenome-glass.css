@@ -828,6 +828,39 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 .ds-page .ds-launch { display: none; }
 
 /* ---------------------------------------------------------------------------
+   6b · THE WELCOME BAR, on the store and its 14 sub-pages.
+
+   ABOVE THE NAV IN THE FLOW, not fixed over it. `.ph-nav` is `sticky; top: 0`,
+   so a band placed before it scrolls away once and the nav then holds the top
+   on its own — which is what an offer is: the first thing you see and not a
+   thing that follows you down fifteen pages.
+
+   Phenome Blue at full strength. It is the one band on the site whose whole
+   job is to be noticed, so it takes the accent as a fill rather than as ink,
+   and the code takes the fill this system already ships for a chip on a solid
+   navy — white 12%, the answer section 07 of the design system prints.
+   ------------------------------------------------------------------------ */
+.ph-promo {
+  background: var(--phenome-blue-500);
+  color: #fff;
+}
+.ph-promo-inner {
+  width: 100%; max-width: calc(var(--ph-content-max) + var(--ph-margin) * 2);
+  /* margin-inline alone left the <p> its block margins, and shared.css gives
+     every p 14 above and 28 below — which escaped the band by collapse and
+     pushed the whole bar 14px down the page. All four sides, stated. */
+  margin: 0 auto; padding: 9px var(--ph-margin);
+  display: flex; align-items: center; justify-content: center;
+  gap: 4px 10px; flex-wrap: wrap; text-align: center;
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); font-weight: var(--ph-w-400);
+}
+.ph-promo b {
+  padding: 3px 10px; border-radius: 980px;
+  background: #ffffff1f;
+  font-weight: var(--ph-w-600); letter-spacing: .04em;
+}
+
+/* ---------------------------------------------------------------------------
    7b · THE DOCK, and the site map it opens.
 
    phenome-routes.js moves the launcher above into a wrapper and puts a second
@@ -923,7 +956,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
    information. It is the sheet colour the nav panel already uses. */
 .ph-routes-sheet {
   position: relative;
-  width: min(1080px, 100%); max-height: min(760px, 100%);
+  width: min(1320px, 100%); max-height: min(880px, 100%);
   display: flex; flex-direction: column;
   border-radius: var(--ph-r18);
   background: #f7f9fd;
@@ -975,8 +1008,8 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 }
 
 .ph-routes-body {
-  padding: 20px 26px 26px; overflow-y: auto;
-  columns: 3; column-gap: 30px;
+  padding: 22px 28px 28px; overflow-y: auto;
+  columns: 4; column-gap: 34px;
 }
 .ph-routes-sec { break-inside: avoid; margin-bottom: 20px; }
 .ph-routes-sec[hidden] { display: none; }
@@ -986,7 +1019,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   border-bottom: 1px solid var(--divider);
   font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
   letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
-  color: var(--ink-label);
+  color: var(--phenome-blue-500);
 }
 .ph-routes-sec h3 b {
   font-weight: var(--ph-w-600); color: var(--ink-400);
@@ -1021,6 +1054,9 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   display: block; padding: 8px; font-size: var(--ph-fs-14); color: var(--ink-400);
 }
 
+@media (max-width: 1180px) {
+  .ph-routes-body { columns: 3; }
+}
 @media (max-width: 900px) {
   .ph-routes-body { columns: 2; }
   .ph-routes-head { grid-template-columns: 1fr auto; row-gap: 12px; }
