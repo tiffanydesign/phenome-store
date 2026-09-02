@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Design system — Phenome</title>
-<meta name="description" content="The tokens, type, colour, glass surfaces and components the Phenome store is built from.">
+<meta name="description" content="The typeface, colour, surfaces and components the Phenome store is built from.">
 <link rel="preconnect" href="https://use.typekit.net">
 <link rel="preconnect" href="https://p.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/omf6kcr.css">
@@ -16,10 +16,13 @@
 
    It is written in the system it documents: shared.css and phenome-glass.css
    are loaded above and nothing here re-declares a token. What this stylesheet
-   adds is a SPECIMEN SHEET — an index rail, a section rule, a swatch, a token
+   adds is a SPECIMEN SHEET — an index rail, a section rule, a swatch, a spec
    row — and those are page furniture, not system components. Anything on this
    page that looks like a control IS the site's control, reached by its real
    class name, so a change to the system shows up here without an edit.
+
+   Nothing is documented here that the store does not ship. A token the site
+   declares but never renders does not get a swatch.
    ========================================================================== */
 
 /* ---- shell ------------------------------------------------------------- */
@@ -33,19 +36,17 @@
 .ds-mast h1 { margin: 0; font-size: clamp(46px, 6.4vw, 80px);
               line-height: 1.02; font-weight: var(--ph-w-600);
               letter-spacing: var(--ph-tr-80-600); color: var(--ink-900); }
-.ds-mast .ds-lede { margin: 22px 0 0; max-width: 46ch;
+.ds-mast .ds-lede { margin: 22px 0 0; max-width: 44ch;
                     font-size: var(--ph-fs-21); line-height: var(--ph-lh-21-loose);
                     color: var(--ink-600); }
 
-/* The masthead's own colophon. Everything in it is a number or a name, so it
-   is set in the numeral face and tracked like one. */
 .ds-meta { display: flex; flex-wrap: wrap; gap: 0 40px; margin-top: 40px;
            padding-top: 22px; border-top: 1px solid var(--border-strong); }
 .ds-meta div { padding: 10px 0; }
 .ds-meta dt { font-size: var(--ph-fs-12); letter-spacing: var(--ph-tr-12-600-caps);
               text-transform: uppercase; color: var(--ink-400); margin-bottom: 6px; }
-.ds-meta dd { margin: 0; font-family: var(--font-numeral); font-weight: 300;
-              font-size: var(--ph-fs-14); letter-spacing: -0.02em; color: var(--ink-900); }
+.ds-meta dd { margin: 0; font-size: var(--ph-fs-14); font-weight: var(--ph-w-600);
+              color: var(--ink-900); font-variant-numeric: tabular-nums; }
 
 /* ---- the two-column body ------------------------------------------------ */
 .ds-body { display: grid; grid-template-columns: 208px 1fr; gap: 64px;
@@ -60,45 +61,47 @@
 
 .ds-index { position: sticky; top: 68px; padding: 18px 8px 18px 18px;
             border-radius: var(--ph-r18); }
-.ds-index ol { list-style: none; margin: 0; padding: 0;
-               counter-reset: none; }
+.ds-index ol { list-style: none; margin: 0; padding: 0; }
 .ds-index a { display: block; padding: 7px 0; font-size: var(--ph-fs-14);
               line-height: 1.25; color: var(--ink-600); }
 .ds-index a:hover { color: var(--phenome-blue-500); text-decoration: none; }
-.ds-index a b { font-family: var(--font-numeral); font-weight: 300;
-                letter-spacing: -0.02em; color: var(--ink-400); margin-right: 9px; }
-.ds-index a.on { color: var(--phenome-blue-500); }
-.ds-index a.on b { color: var(--phenome-blue-500); }
+.ds-index a b { font-weight: var(--ph-w-600); color: var(--ink-400);
+                margin-right: 9px; font-variant-numeric: tabular-nums; }
+.ds-index a.on, .ds-index a.on b { color: var(--phenome-blue-500); }
 
 /* ---- section ------------------------------------------------------------ */
 .ds-sec { padding-top: 8px; scroll-margin-top: 76px; }
 .ds-sec + .ds-sec { margin-top: 96px; }
 .ds-sec-h { display: flex; align-items: baseline; gap: 14px;
             padding-bottom: 14px; border-bottom: 1px solid var(--border-strong); }
-.ds-sec-h .n { font-family: var(--font-numeral); font-weight: 300;
-               font-size: var(--ph-fs-24); letter-spacing: -0.02em; color: var(--ink-400); }
+.ds-sec-h .n { font-size: var(--ph-fs-21); font-weight: var(--ph-w-600);
+               color: var(--ink-400); font-variant-numeric: tabular-nums; }
 .ds-sec-h h2 { margin: 0; font-size: var(--ph-fs-28); line-height: var(--ph-lh-28);
                letter-spacing: var(--ph-tr-28-600); font-weight: var(--ph-w-600);
                color: var(--ink-900); }
-.ds-note { margin: 22px 0 0; max-width: 62ch; font-size: var(--ph-fs-17);
+.ds-note { margin: 22px 0 0; max-width: 60ch; font-size: var(--ph-fs-17);
            line-height: var(--ph-lh-17-loose); color: var(--ink-600); }
-.ds-note + .ds-note { margin-top: 14px; }
-.ds-note code, .ds-tok { font-family: var(--font-numeral); font-weight: 300;
-                         font-size: .92em; letter-spacing: -0.02em; color: var(--ink-900); }
+.ds-note + .ds-note { margin-top: 12px; }
+/* A token name is the system's own vocabulary, so it is set in the system's own
+   face — one weight up and one step darker, which is all it needs to read as a
+   name rather than as prose. */
+.ds-tok { font-weight: var(--ph-w-600); color: var(--ink-900); }
 
 .ds-block { margin-top: 34px; }
 .ds-sub { margin: 0 0 16px; font-size: var(--ph-fs-12);
           letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
           font-weight: var(--ph-w-600); color: var(--ink-label); }
 
-/* A rule that is a claim rather than a note. Used four times on this page and
-   each time for a decision that cannot be varied per page. */
-.ds-rule { margin-top: 30px; padding: 22px 26px; border-radius: var(--ph-r18);
-           border-left: 2px solid var(--phenome-blue-500); }
-.ds-rule p { margin: 0; max-width: 58ch; font-size: var(--ph-fs-17);
-             line-height: var(--ph-lh-17-loose); color: var(--ink-900); }
-.ds-rule p + p { margin-top: 12px; color: var(--ink-600); }
-.ds-rule strong { font-weight: var(--ph-w-bold, 700); }
+/* A spec row: a name on the left, the shipped value on the right. Used for the
+   ground layers, the glass properties and the motion tokens, so those three
+   read as one kind of statement. */
+.ds-spec { list-style: none; margin: 20px 0 0; padding: 0; }
+.ds-spec li { display: flex; flex-wrap: wrap; justify-content: space-between;
+              gap: 8px 24px; padding: 11px 0; border-top: 1px solid var(--divider);
+              font-size: var(--ph-fs-14); color: var(--ink-600); }
+.ds-spec li:first-child { border-top: 0; }
+.ds-spec b { font-weight: var(--ph-w-600); color: var(--ink-900); }
+.ds-spec span { color: var(--ink-900); font-variant-numeric: tabular-nums; }
 
 /* ---- 01 · type specimen ------------------------------------------------- */
 .ds-face { padding: 34px 30px; border-radius: var(--ph-r18); }
@@ -106,8 +109,7 @@
                 margin-bottom: 22px; }
 .ds-face-name h3 { margin: 0; font-size: var(--ph-fs-21); font-weight: var(--ph-w-600);
                    letter-spacing: var(--ph-tr-21-600); color: var(--ink-900); }
-.ds-face-name span { font-family: var(--font-numeral); font-weight: 300;
-                     font-size: var(--ph-fs-12); letter-spacing: -0.02em; color: var(--ink-400); }
+.ds-face-name span { font-size: var(--ph-fs-12); color: var(--ink-400); }
 .ds-face-line { font-size: clamp(30px, 4.6vw, 54px); line-height: 1.12;
                 letter-spacing: -0.02em; color: var(--ink-900);
                 white-space: nowrap; overflow-x: auto; overflow-y: hidden;
@@ -115,32 +117,32 @@
 .ds-face-line + .ds-face-line { margin-top: 10px; }
 .ds-face-line em { font-style: normal; color: var(--ink-400); }
 .ds-w400 { font-weight: 400; } .ds-w500 { font-weight: 500; } .ds-w700 { font-weight: 700; }
-.ds-mono { font-family: var(--font-numeral); font-weight: 300; letter-spacing: -0.02em; }
 
-/* The mono earns its place by making a column line up on the decimal. Two
-   columns, one set in each face, is the only way to show that rather than
-   assert it. */
-.ds-align { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px; margin-top: 26px; }
-.ds-align > div { padding: 18px 20px; border-radius: var(--ph-r14); }
-.ds-align ul { list-style: none; margin: 10px 0 0; padding: 0;
-               font-size: var(--ph-fs-21); line-height: 1.7; text-align: right; }
-.ds-align .ds-col-mono ul { font-family: var(--font-numeral); font-weight: 300;
-                            letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+/* MEASURED, not assumed: every digit in this face renders at the same advance —
+   222.4px for ten digits at 40px, whichever ten they are — so a column lines up
+   on the decimal in the sans itself. The specimen is the column, because the
+   before/after this block used to show was two identical columns. */
+.ds-figures { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+              gap: 22px; margin-top: 26px; align-items: start; }
+.ds-figures > div { padding: 20px 22px; border-radius: var(--ph-r14); }
+.ds-figures ul.ds-prices { list-style: none; margin: 12px 0 0; padding: 0;
+                           font-size: var(--ph-fs-21); line-height: 1.7;
+                           text-align: right; color: var(--ink-900); }
+.ds-figures .ds-spec { margin-top: 12px; }
+.ds-figures .ds-spec li { border-top-color: var(--border-strong); }
 
 /* ---- 02 · scale --------------------------------------------------------- */
 .ds-scale { margin-top: 26px; }
-.ds-rung { display: grid; grid-template-columns: 1fr 232px; gap: 24px;
+.ds-rung { display: grid; grid-template-columns: 1fr 218px; gap: 24px;
            align-items: baseline; padding: 15px 0;
            border-top: 1px solid var(--divider); }
 .ds-rung:first-child { border-top: 0; }
 .ds-rung-s { color: var(--ink-900); overflow: hidden; text-overflow: ellipsis;
              white-space: nowrap; }
 .ds-rung-m { display: flex; gap: 14px; justify-content: flex-end;
-             font-family: var(--font-numeral); font-weight: 300;
-             font-size: var(--ph-fs-12); letter-spacing: -0.02em; color: var(--ink-400);
+             font-size: var(--ph-fs-12); color: var(--ink-400);
              font-variant-numeric: tabular-nums; }
-.ds-rung-m b { color: var(--ink-600); font-weight: 300; }
+.ds-rung-m b { color: var(--ink-900); font-weight: var(--ph-w-600); }
 
 /* ---- 03 · colour -------------------------------------------------------- */
 .ds-swatches { display: grid; gap: 10px;
@@ -150,24 +152,20 @@
 .ds-sw-t { padding: 10px 2px 0; }
 .ds-sw-n { display: block; font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
            color: var(--ink-900); }
-.ds-sw-v { display: block; margin-top: 3px; font-family: var(--font-numeral);
-           font-weight: 300; font-size: var(--ph-fs-12); letter-spacing: -0.02em;
-           color: var(--ink-400); text-transform: uppercase; }
-/* A near-white swatch has nothing to separate it from the page, so those four
-   take a hairline. It is the only drawn edge on this page and it is here for
-   the same reason the twin's own ramp puts one back: a disc on the page ground
-   at 11px has lost almost everything it had to be seen against. */
+.ds-sw-v { display: block; margin-top: 3px; font-size: var(--ph-fs-12);
+           color: var(--ink-400); text-transform: uppercase;
+           font-variant-numeric: tabular-nums; }
+/* A near-white swatch has nothing to separate it from the page, so those take a
+   hairline. It is the only drawn edge on this page. */
 .ds-sw.hair i { box-shadow: inset 0 0 0 1px var(--border-strong); }
+.ds-sw.dark { background: var(--phenome-blue-900); border-radius: var(--ph-r12);
+              padding-bottom: 10px; }
+.ds-sw.dark .ds-sw-t { padding-inline: 12px; }
+.ds-sw.dark .ds-sw-n { color: #fff; }
+.ds-sw.dark .ds-sw-v { color: var(--phenome-blue-200); }
 
-.ds-grads { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.ds-grad { border-radius: var(--ph-r14); overflow: hidden; }
-.ds-grad i { display: block; height: 92px; }
-.ds-grad span { display: block; padding: 10px 2px 0; font-family: var(--font-numeral);
-                font-weight: 300; font-size: var(--ph-fs-12); letter-spacing: -0.02em;
-                color: var(--ink-400); }
-
-/* ---- 04 · the ground ---------------------------------------------------- */
-.ds-field { position: relative; height: 300px; border-radius: var(--ph-r18);
+/* ---- 04 · surfaces ------------------------------------------------------ */
+.ds-field { position: relative; height: 260px; border-radius: var(--ph-r18);
             overflow: hidden;
             background:
               radial-gradient(1200px 800px at 85% -10%,#30b0cd1a,transparent 60%),
@@ -175,23 +173,11 @@
               radial-gradient(760px 760px at -170px -170px,#c4daf773,#c4daf700 68%),
               radial-gradient(700px 700px at calc(100% + 170px) calc(100% + 200px),#d2e2f866,#d2e2f800 70%),
               linear-gradient(150deg,var(--stage-field-1) 0%,var(--stage-field-2) 46%,var(--stage-field-3) 100%); }
-.ds-layers { list-style: none; margin: 20px 0 0; padding: 0; }
-.ds-layers li { display: grid; grid-template-columns: 26px 1fr auto; gap: 16px;
-                align-items: baseline; padding: 11px 0;
-                border-top: 1px solid var(--divider);
-                font-size: var(--ph-fs-14); color: var(--ink-600); }
-.ds-layers li:first-child { border-top: 0; }
-.ds-layers b { font-family: var(--font-numeral); font-weight: 300; font-size: var(--ph-fs-12);
-               letter-spacing: -0.02em; color: var(--ink-400); }
-.ds-layers span { font-family: var(--font-numeral); font-weight: 300; font-size: var(--ph-fs-12);
-                  letter-spacing: -0.02em; color: var(--ink-900); text-align: right; }
 
-/* ---- 05 · glass --------------------------------------------------------- */
 .ds-stage-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
                 margin-bottom: 16px; }
-/* The trough is the one surface in the system that is NOT this material —
-   a recess, so the segment sitting in it can be the pane. Same construction as
-   the twin's segmented control, at this page's one size. */
+/* The trough is the one surface in the system that is NOT this material — a
+   recess, so the segment sitting in it can be the pane. */
 .ds-seg { display: inline-flex; padding: 3px; border-radius: 980px;
           background: var(--gl-tint-sunk); }
 .ds-seg button { appearance: none; border: 0; background: none;
@@ -222,9 +208,8 @@
            display: flex; flex-direction: column; justify-content: flex-end; }
 .ds-pane b { display: block; font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
              color: var(--ink-900); }
-.ds-pane span { display: block; margin-top: 5px; font-family: var(--font-numeral);
-                font-weight: 300; font-size: var(--ph-fs-12); letter-spacing: -0.02em;
-                color: var(--ink-600); }
+.ds-pane span { display: block; margin-top: 5px; font-size: var(--ph-fs-12);
+                color: var(--ink-600); font-variant-numeric: tabular-nums; }
 /* The five tiers, each stating its own fill so the page is the spec. */
 .ds-pane.t1 { background: var(--gl-tint); -webkit-backdrop-filter: var(--gl-blur);
               backdrop-filter: var(--gl-blur); box-shadow: var(--gl-shadow), var(--gl-inner); }
@@ -249,55 +234,43 @@
    So the row does not invert as a block: it inverts at the two ends and holds
    in the middle, because a translucent white fill over a dark ground crosses
    from "dark surface" to "light surface" somewhere between 42% and 50%. That
-   crossover is the whole reason section 08 exists and the reason no component
+   crossover is the reason the last section exists and the reason no component
    in this system may assume its own ground. */
 .ds-stage[data-bg="navy"] .ds-pane.t1 b,
 .ds-stage[data-bg="navy"] .ds-pane.t5 b { color: #fff; }
 .ds-stage[data-bg="navy"] .ds-pane.t1 span,
 .ds-stage[data-bg="navy"] .ds-pane.t5 span { color: var(--phenome-blue-200); }
 
-.ds-doctrine { display: grid; gap: 12px; margin-top: 30px;
-               grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); }
-.ds-doctrine div { padding: 20px 22px; border-radius: var(--ph-r14); }
-.ds-doctrine dt { font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-                  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
-                  color: var(--phenome-blue-500); margin-bottom: 9px; }
-.ds-doctrine dd { margin: 0; font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
-                  color: var(--ink-600); }
-.ds-doctrine dd b { display: block; margin-bottom: 7px; font-family: var(--font-numeral);
-                    font-weight: 300; letter-spacing: -0.02em; color: var(--ink-900); }
-
-/* What the doctrine threw out. Struck through, because the page should record
-   that these existed and were removed rather than that they were never tried. */
-.ds-gone { list-style: none; margin: 22px 0 0; padding: 0; display: flex;
-           flex-wrap: wrap; gap: 8px; }
-.ds-gone li { padding: 7px 13px; border-radius: 980px; background: var(--gl-tint-sunk);
-              font-size: var(--ph-fs-12); color: var(--ink-400); }
-.ds-gone li s { color: var(--ink-400); }
-.ds-gone li em { font-style: normal; color: var(--ink-600); margin-left: 7px; }
-
-/* ---- 06 · elevation ----------------------------------------------------- */
+/* ---- 05 · elevation ----------------------------------------------------- */
 .ds-shadows { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .ds-shadow-fig { height: 96px; border-radius: var(--ph-r14); background: var(--gl-tint-live);
                  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); }
 .ds-shadows .rest .ds-shadow-fig  { box-shadow: var(--gl-shadow); }
 .ds-shadows .lift .ds-shadow-fig  { box-shadow: var(--gl-shadow-lift); }
 .ds-shadows .press .ds-shadow-fig { box-shadow: var(--gl-shadow-press); }
-.ds-shadows p { margin: 12px 0 0; font-size: var(--ph-fs-12); color: var(--ink-600); }
-.ds-shadows p b { display: block; font-family: var(--font-numeral); font-weight: 300;
-                  letter-spacing: -0.02em; color: var(--ink-900); margin-bottom: 4px; }
+.ds-shadows p { margin: 12px 0 0; font-size: var(--ph-fs-12); color: var(--ink-600);
+                font-variant-numeric: tabular-nums; }
+.ds-shadows p b { display: block; font-weight: var(--ph-w-600); color: var(--ink-900);
+                  margin-bottom: 4px; }
 
 .ds-motion { display: grid; grid-template-columns: 148px 1fr; gap: 26px; align-items: center;
              margin-top: 30px; padding: 22px 24px; border-radius: var(--ph-r14); }
 .ds-motion svg { display: block; width: 100%; height: auto; }
+.ds-motion .ds-spec { margin-top: 0; }
 
-/* ---- 07 · components ---------------------------------------------------- */
+/* ---- 06 · components ---------------------------------------------------- */
 .ds-specimen { padding: 28px 26px; border-radius: var(--ph-r18); }
 .ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .ds-row + .ds-sub { margin-top: 30px; }
 .ds-cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.ds-radii { display: flex; flex-wrap: wrap; gap: 10px; }
+.ds-radii i { display: grid; place-items: end center; width: 74px; height: 56px;
+              padding-bottom: 6px; background: var(--gl-tint-sunk);
+              font-style: normal; font-size: var(--ph-fs-12);
+              font-weight: var(--ph-w-600); color: var(--ink-600);
+              font-variant-numeric: tabular-nums; }
 
-/* ---- 08 · inverted ------------------------------------------------------ */
+/* ---- 07 · inverted ------------------------------------------------------ */
 .ds-invert { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .ds-invert > div { padding: 26px 24px; border-radius: var(--ph-r14); min-height: 168px;
                    display: flex; flex-direction: column; justify-content: space-between; }
@@ -305,8 +278,7 @@
 /* The photograph frame takes a scrim, and it takes it for the reason the frame
    is arguing: white type over a picture needs a floor, not a veil. This is the
    site's own .pin-scrim at its own three stops, so the frame demonstrates the
-   fix at the same time as the problem. Without it the caption sat over the
-   window at 1.9:1 — the page would have been making its point by failing it. */
+   fix at the same time as the problem. */
 .ds-invert .g-photo { background:
     linear-gradient(180deg,#06122eb8 0%,#06122e75 52%,#06122e2e 100%),
     url("/phenome-store/assets/pages/band_gut.webp") center/cover; }
@@ -339,7 +311,7 @@
   /* The strip is chrome the anchor has to clear, and it is stacked under the
      nav rather than beside it: 44 for the bar, 52 for the strip, 8 to breathe. */
   .ds-sec { scroll-margin-top: 104px; }
-  .ds-align { grid-template-columns: 1fr; }
+  .ds-figures { grid-template-columns: 1fr; }
   .ds-rung { grid-template-columns: 1fr; gap: 8px; }
   .ds-rung-m { justify-content: flex-start; }
   .ds-motion { grid-template-columns: 1fr; }
@@ -364,14 +336,13 @@
     <header class="ds-mast">
       <p class="ds-kicker">Phenome · Store</p>
       <h1>Design system</h1>
-      <p class="ds-lede">One sans, one numeral face, one blue and one glass. Every value on
-        this page is the value the store is actually built from — the page reads its own
-        tokens, so nothing here can drift from what ships.</p>
+      <p class="ds-lede">One typeface, one blue, one glass. Every value on this page is the
+        value the store is built from — the page reads its own tokens, so nothing here can
+        drift from what ships.</p>
       <dl class="ds-meta">
-        <div><dt>Source</dt><dd>phenome-digital-twin</dd></div>
         <div><dt>Token layer</dt><dd>phenome-glass.css</dd></div>
         <div><dt>Pages</dt><dd>82</dd></div>
-        <div><dt>Typefaces</dt><dd>2</dd></div>
+        <div><dt>Typefaces</dt><dd>1</dd></div>
         <div><dt>Glass tiers</dt><dd>5</dd></div>
       </dl>
     </header>
@@ -383,11 +354,10 @@
           <li><a href="#s01"><b>01</b>Typeface</a></li>
           <li><a href="#s02"><b>02</b>Type scale</a></li>
           <li><a href="#s03"><b>03</b>Colour</a></li>
-          <li><a href="#s04"><b>04</b>The ground</a></li>
-          <li><a href="#s05"><b>05</b>Glass surfaces</a></li>
-          <li><a href="#s06"><b>06</b>Elevation &amp; motion</a></li>
-          <li><a href="#s07"><b>07</b>Components</a></li>
-          <li><a href="#s08"><b>08</b>Inverted contexts</a></li>
+          <li><a href="#s04"><b>04</b>Surfaces</a></li>
+          <li><a href="#s05"><b>05</b>Elevation &amp; motion</a></li>
+          <li><a href="#s06"><b>06</b>Components</a></li>
+          <li><a href="#s07"><b>07</b>Inverted contexts</a></li>
         </ol>
       </nav>
 
@@ -397,29 +367,15 @@
         <section class="ds-sec" id="s01">
           <div class="ds-sec-h"><span class="n">01</span><h2>Typeface</h2></div>
 
-          <p class="ds-note">Two faces, and they divide by job rather than by rank.
-            <span class="ds-tok">helvetica-neue-lt-pro</span> sets everything that is language.
-            <span class="ds-tok">new-science-mono</span> sets everything that is a number — a price,
-            a reading, a token value on this page. Both come from one Adobe kit, shared with
-            phenome-digital-twin.</p>
-
-          <div class="ds-rule gl-sunk">
-            <p><strong>The system is sans-serif. There is no serif in it, anywhere.</strong></p>
-            <p>Not as a default and not as a fallback: both font stacks end on a generic sans
-              — <span class="ds-tok">sans-serif</span> and <span class="ds-tok">monospace</span> —
-              and New Science Mono is a fixed-pitch sans, in the system because a column of
-              prices has to line up on the decimal, not because it has serifs. The one route a
-              serif could still take is an <span class="ds-tok">&lt;svg&gt;&lt;text&gt;</span>
-              with no font-family, which falls back to the platform UA face and lands on Times
-              New Roman under Windows. There are none on the site, and a guard rule names
-              that element so there cannot be.</p>
-          </div>
+          <p class="ds-note">One face, everywhere: <span class="ds-tok">helvetica-neue-lt-pro</span>,
+            served from an Adobe kit. Three weights, no italic, no second face, no serif —
+            the whole site resolves through a single token, <span class="ds-tok">--font-sans</span>.</p>
 
           <div class="ds-block">
             <div class="ds-face gl">
               <div class="ds-face-name">
                 <h3>Helvetica Neue LT Pro</h3>
-                <span>400 · 500 · 700 — no italic in the kit</span>
+                <span>400 · 500 · 700</span>
               </div>
               <div class="ds-face-line ds-w400">Longevity, measured. <em>0123456789</em></div>
               <div class="ds-face-line ds-w500">Longevity, measured. <em>0123456789</em></div>
@@ -427,45 +383,38 @@
             </div>
           </div>
 
-          <p class="ds-note">The kit has no 600, which is the weight the store's type ladder asked
-            for at every heading. The heading role takes 500 rather than 700: at 80px, Medium is
-            a display weight and Bold reads as a different family.</p>
+          <p class="ds-note">The kit has no 600, which is the weight the type ladder asks for at
+            every heading. The heading role takes 500: at 80px, Medium is a display weight and
+            Bold reads as a different family.</p>
 
           <div class="ds-block">
-            <div class="ds-face gl">
-              <div class="ds-face-name">
-                <h3>New Science Mono</h3>
-                <span>300 — the kit serves 100 and 300 only</span>
+            <p class="ds-sub">Figures</p>
+            <p class="ds-note" style="margin-top:0">This face's digits are fixed-pitch: every one of
+              them is 0.556em wide, so a column of prices lines up on the decimal in the sans itself.
+              Numbers do not need a face of their own here.</p>
+            <div class="ds-figures">
+              <div class="gl-sunk">
+                <p class="ds-sub">A price column</p>
+                <ul class="ds-prices"><li>£180.00</li><li>£1,480.00</li><li>£99.50</li><li>£1,111.11</li></ul>
               </div>
-              <div class="ds-face-line ds-mono">£1,480.00 · 5.7k · 98.4%</div>
+              <div class="gl-sunk">
+                <p class="ds-sub">The rule</p>
+                <ul class="ds-spec">
+                  <li><b>Digit advance</b><span>0.556em · every digit</span></li>
+                  <li><b>Applied to</b><span>prices, stats, spec values</span></li>
+                  <li><b>Held by</b><span>font-variant-numeric: tabular-nums</span></li>
+                </ul>
+              </div>
             </div>
-
-            <div class="ds-align">
-              <div class="ds-col-sans gl-sunk">
-                <p class="ds-sub">Sans · proportional</p>
-                <ul><li>£180.00</li><li>£1,480.00</li><li>£99.50</li><li>£1,111.11</li></ul>
-              </div>
-              <div class="ds-col-mono gl-sunk">
-                <p class="ds-sub">Mono · fixed pitch</p>
-                <ul><li>£180.00</li><li>£1,480.00</li><li>£99.50</li><li>£1,111.11</li></ul>
-              </div>
-            </div>
-            <p class="ds-note">That is the whole argument for the second face, and the whole limit
-              of it. The mono is for <em>columns of figures</em> — a price, a spec value, a stat.
-              A line that merely contains a number stays in the sans and takes tabular figures
-              instead: set whole in a 300-weight mono, <span class="ds-tok">Wearable · £279</span>
-              makes you notice the word, which is not a number and is not what the face is for.</p>
           </div>
         </section>
 
         <!-- ========================================================= 02 -->
         <section class="ds-sec" id="s02">
           <div class="ds-sec-h"><span class="n">02</span><h2>Type scale</h2></div>
-          <p class="ds-note">Twelve rungs, sizes and line-heights unchanged from the store's own
-            measured ladder. The <em>tracking</em> is not unchanged: every 400-weight rung carried a
-            positive value — <span class="ds-tok">+0.204px</span> at 17 — measured for Outfit, a
-            geometric sans that sets tight. Helvetica Neue sets wider and wants the opposite sign at
-            display sizes and nothing at all at body sizes.</p>
+          <p class="ds-note">Twelve rungs. Sizes and line-heights are the store's own; the tracking
+            is Helvetica's — negative at display sizes, zero at body sizes, and positive on the
+            overline alone, where caps at 12px have no ascenders to separate them.</p>
 
           <div class="ds-block ds-scale">
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:64px;line-height:1;font-weight:500;letter-spacing:-.02em">Longevity</div><div class="ds-rung-m"><span>h1</span><b>80/88</b><span>−.020em</span><span>500</span></div></div>
@@ -481,22 +430,17 @@
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:14px;line-height:1;font-weight:400">Longevity, measured at home, over years</div><div class="ds-rung-m"><span>small</span><b>14/18</b><span>0</span><span>400</span></div></div>
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:12px;line-height:1;font-weight:500;letter-spacing:.06em;text-transform:uppercase">Longevity, measured at home</div><div class="ds-rung-m"><span>overline</span><b>12/16</b><span>+.06em</span><span>500</span></div></div>
           </div>
-
-          <p class="ds-note">The overline is the one rung that tracks positive, and it is the twin's
-            own <span class="ds-tok">--tracking-overline</span>: caps at 12px have no ascenders or
-            descenders to separate them, so they jam at anything tighter.</p>
         </section>
 
         <!-- ========================================================= 03 -->
         <section class="ds-sec" id="s03">
           <div class="ds-sec-h"><span class="n">03</span><h2>Colour</h2></div>
-          <p class="ds-note">One blue, and it is the blue inside the logo. The store used to run the
-            measured web scale — <span class="ds-tok">#0071E3</span> — while the wordmark next to it
-            carried Phenome Blue; the two sat side by side on every page. The system answers it in
-            the guideline's favour.</p>
+          <p class="ds-note">One blue, and it is the blue inside the logo. Every ink is struck off
+            that navy rather than off a neutral grey, so a data label and the heading above it read
+            as the same temperature.</p>
 
           <div class="ds-block">
-            <p class="ds-sub">Brand ramp</p>
+            <p class="ds-sub">Brand</p>
             <div class="ds-swatches">
               <div class="ds-sw"><i style="background:#0a1e57"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 900</b><span class="ds-sw-v">#0a1e57</span></div></div>
               <div class="ds-sw"><i style="background:#142b6e"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 700</b><span class="ds-sw-v">#142b6e</span></div></div>
@@ -506,6 +450,8 @@
               <div class="ds-sw"><i style="background:#a9b5d9"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 200</b><span class="ds-sw-v">#a9b5d9</span></div></div>
               <div class="ds-sw hair"><i style="background:#e6e9f2"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 100</b><span class="ds-sw-v">#e6e9f2</span></div></div>
             </div>
+            <p class="ds-note">Blue 500 is the accent: every link, every filled control, every
+              focus ring. 700 is its hover and 900 its active state.</p>
           </div>
 
           <div class="ds-block">
@@ -513,12 +459,9 @@
             <div class="ds-swatches">
               <div class="ds-sw"><i style="background:#10214b"></i><div class="ds-sw-t"><b class="ds-sw-n">Ink 900</b><span class="ds-sw-v">#10214b</span></div></div>
               <div class="ds-sw"><i style="background:#4a5578"></i><div class="ds-sw-t"><b class="ds-sw-n">Ink 600</b><span class="ds-sw-v">#4a5578</span></div></div>
-              <div class="ds-sw"><i style="background:#8b93ad"></i><div class="ds-sw-t"><b class="ds-sw-n">Ink 400</b><span class="ds-sw-v">#8b93ad</span></div></div>
               <div class="ds-sw"><i style="background:#3f4a70"></i><div class="ds-sw-t"><b class="ds-sw-n">Ink label</b><span class="ds-sw-v">#3f4a70</span></div></div>
+              <div class="ds-sw"><i style="background:#8b93ad"></i><div class="ds-sw-t"><b class="ds-sw-n">Ink 400</b><span class="ds-sw-v">#8b93ad</span></div></div>
             </div>
-            <p class="ds-note">There is no neutral grey in the ink scale. Every value is struck off
-              the navy, which is why a data label and the heading above it read as the same
-              temperature rather than as two systems meeting.</p>
           </div>
 
           <div class="ds-block">
@@ -534,68 +477,44 @@
           </div>
 
           <div class="ds-block">
-            <p class="ds-sub">Status · use the ink and fill variants, never the raw hue</p>
-            <div class="ds-swatches">
-              <div class="ds-sw"><i style="background:#417e1b"></i><div class="ds-sw-t"><b class="ds-sw-n">Success ink</b><span class="ds-sw-v">#417e1b</span></div></div>
-              <div class="ds-sw"><i style="background:#7a5600"></i><div class="ds-sw-t"><b class="ds-sw-n">Warning ink</b><span class="ds-sw-v">#7a5600</span></div></div>
-              <div class="ds-sw"><i style="background:#db2100"></i><div class="ds-sw-t"><b class="ds-sw-n">Danger ink</b><span class="ds-sw-v">#db2100</span></div></div>
-              <div class="ds-sw"><i style="background:#045afb"></i><div class="ds-sw-t"><b class="ds-sw-n">Info ink</b><span class="ds-sw-v">#045afb</span></div></div>
-              <div class="ds-sw"><i style="background:#70d332"></i><div class="ds-sw-t"><b class="ds-sw-n">Success</b><span class="ds-sw-v">#70d332</span></div></div>
-              <div class="ds-sw"><i style="background:#ffb600"></i><div class="ds-sw-t"><b class="ds-sw-n">Warning</b><span class="ds-sw-v">#ffb600</span></div></div>
-              <div class="ds-sw"><i style="background:#ff4b2b"></i><div class="ds-sw-t"><b class="ds-sw-n">Danger</b><span class="ds-sw-v">#ff4b2b</span></div></div>
-              <div class="ds-sw"><i style="background:#508cfc"></i><div class="ds-sw-t"><b class="ds-sw-n">Info</b><span class="ds-sw-v">#508cfc</span></div></div>
-            </div>
-          </div>
-
-          <div class="ds-block">
-            <p class="ds-sub">Gradients</p>
-            <div class="ds-grads">
-              <div class="ds-grad"><i style="background:linear-gradient(135deg,#30b0cd 0%,#2394cc 48%,#2e74b2 100%)"></i><span>brand · 135° #30b0cd → #2394cc → #2e74b2</span></div>
-              <div class="ds-grad"><i style="background:linear-gradient(135deg,#269381 0%,#1f8697 49%,#085e98 100%)"></i><span>vitality · 135° #269381 → #1f8697 → #085e98</span></div>
-            </div>
-          </div>
-
-          <div class="ds-block">
             <p class="ds-sub">On a dark ground</p>
-            <p class="ds-note" style="margin-top:0">Phenome Blue is 1.8:1 on the navy and unreadable,
-              so the dark ground carries its own lighter blue —
-              <span class="ds-tok">#8fb8ea</span>, 7.6:1 — and secondary text takes Blue 200 rather
-              than Ink 400, which lands at 3.97:1 inside a card and fails.</p>
+            <div class="ds-swatches" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+              <div class="ds-sw dark"><i style="background:#8fb8ea;margin:10px 10px 0;border-radius:8px;height:56px"></i><div class="ds-sw-t"><b class="ds-sw-n">Link ink</b><span class="ds-sw-v">#8fb8ea · 7.6:1</span></div></div>
+              <div class="ds-sw dark"><i style="background:#a9b5d9;margin:10px 10px 0;border-radius:8px;height:56px"></i><div class="ds-sw-t"><b class="ds-sw-n">Secondary text</b><span class="ds-sw-v">#a9b5d9 · Blue 200</span></div></div>
+            </div>
+            <p class="ds-note">Blue 500 is 1.8:1 on the navy and unreadable, so a dark ground
+              carries its own lighter blue, and secondary text takes Blue 200 rather than Ink 400.</p>
           </div>
         </section>
 
         <!-- ========================================================= 04 -->
         <section class="ds-sec" id="s04">
-          <div class="ds-sec-h"><span class="n">04</span><h2>The ground</h2></div>
-          <p class="ds-note">A rimless pane holds its edge on its drop alone, and a drop over flat
-            near-white is the weakest reading this material has. So the page is given structure
-            instead of the pane being given an edge back: a 150° three-stop wash, two brand pools
-            and two very large corner lobes, fixed to the window so the panes travel over it.</p>
+          <div class="ds-sec-h"><span class="n">04</span><h2>Surfaces</h2></div>
+          <p class="ds-note">A pane has no rim; it holds its edge on one soft drop. That drop is
+            invisible over flat near-white, so the page itself carries the structure — a fixed
+            wash the panes travel over.</p>
 
           <div class="ds-block">
+            <p class="ds-sub">The ground</p>
             <div class="ds-field"></div>
-            <ul class="ds-layers">
-              <li><b>01</b>Cyan pool, top right<span>#30b0cd 10%</span></li>
-              <li><b>02</b>Brand pool, bottom left<span>#203a85 7%</span></li>
-              <li><b>03</b>Corner lobe, top left<span>#c4daf7 45%</span></li>
-              <li><b>04</b>Corner lobe, bottom right<span>#d2e2f8 40%</span></li>
-              <li><b>05</b>Base wash, 150°<span>#eef3f9 → #e5edf7 → #dce7f4</span></li>
+            <ul class="ds-spec">
+              <li><b>Base wash · 150°</b><span>#eef3f9 → #e5edf7 → #dce7f4</span></li>
+              <li><b>Cyan pool, top right</b><span>#30b0cd 10%</span></li>
+              <li><b>Brand pool, bottom left</b><span>#203a85 7%</span></li>
+              <li><b>Corner lobe, top left</b><span>#c4daf7 45%</span></li>
+              <li><b>Corner lobe, bottom right</b><span>#d2e2f8 40%</span></li>
             </ul>
-            <p class="ds-note">The lobes are dropped below 900px and wherever there is no pointer.
-              iOS composites a fixed background on every scroll frame, and a phone has no room for
-              them anyway — the linear wash alone carries the hue there.</p>
+            <p class="ds-note">The lobes are dropped below 900px and wherever there is no pointer:
+              iOS composites a fixed background on every scroll frame, and the linear wash alone
+              carries the hue there.</p>
           </div>
-        </section>
-
-        <!-- ========================================================= 05 -->
-        <section class="ds-sec" id="s05">
-          <div class="ds-sec-h"><span class="n">05</span><h2>Glass surfaces</h2></div>
-          <p class="ds-note">Three properties, and there is no fourth. Change the ground under the
-            panes below and the reason the tiers exist becomes visible: over the field a 42% pane is
-            a surface, over a quiet ground it stops being one, and over a photograph only the top
-            two tiers still hold their own boundary.</p>
 
           <div class="ds-block">
+            <p class="ds-sub">Glass · five tiers</p>
+            <p class="ds-note" style="margin:0 0 20px">Change the ground and the reason for the
+              tiers becomes visible: over the field a 42% pane is a surface; over a photograph only
+              the top two tiers still hold their own boundary.</p>
+
             <div class="ds-stage-bar">
               <span class="ds-sub" style="margin:0">Backdrop</span>
               <div class="ds-seg" role="tablist" aria-label="Stage backdrop">
@@ -607,64 +526,39 @@
 
             <div class="ds-stage" data-bg="field" id="dsStage">
               <div class="ds-panes">
-                <div class="ds-pane t1"><b>Pane</b><span>--gl-tint · 42%</span></div>
-                <div class="ds-pane t2"><b>Chip</b><span>--gl-tint-solid · 50%</span></div>
-                <div class="ds-pane t3"><b>Live</b><span>--gl-tint-live · 59%</span></div>
-                <div class="ds-pane t4"><b>Overlay</b><span>--gl-tint-overlay · 84%</span></div>
-                <div class="ds-pane t5"><b>Recess</b><span>--gl-tint-sunk · 18%</span></div>
+                <div class="ds-pane t1"><b>Pane</b><span>42% · cards, panels</span></div>
+                <div class="ds-pane t2"><b>Chip</b><span>50% · chips, segments</span></div>
+                <div class="ds-pane t3"><b>Live</b><span>59% · over photography</span></div>
+                <div class="ds-pane t4"><b>Overlay</b><span>84% · menus, sheets</span></div>
+                <div class="ds-pane t5"><b>Recess</b><span>18% · troughs, wells</span></div>
               </div>
             </div>
           </div>
 
-          <p class="ds-note">Switch to <em>Navy</em> and the labels do not all invert together. They
-            flip at 42% and at 18% and hold their navy ink in between, because a translucent white
-            fill over a dark ground crosses from reading as a dark surface to reading as a light one
-            somewhere between 42% and 50% — measured, not felt. That crossover is the whole reason
-            section 08 exists.</p>
-
-          <dl class="ds-doctrine">
-            <div class="gl-sunk"><dt>Fill</dt><dd><b>one flat white</b>Not a ramp, not two stops.
-              Glass tint is uniform through its thickness; a 180° gradient was the last trace of the
-              surface being modelled rather than simply being there.</dd></div>
-            <div class="gl-sunk"><dt>Backdrop</dt><dd><b>blur(24px) saturate(140%)</b>140 rather than
-              165, because a pane that pushes the colour behind it is a pane you are looking
-              <em>at</em> rather than through. The thin tier is 14px — less glass in front of you,
-              not more.</dd></div>
-            <div class="gl-sunk"><dt>Shadow</dt><dd><b>0 8px 24px −18px</b>Struck off a blue-grey
-              rather than the navy. It is the only thing separating a pane from the page, which is
-              why it is longer and softer than the tight double-drop it replaces.</dd></div>
-          </dl>
-
-          <p class="ds-note" style="margin-top:30px">What the doctrine removed, and what that costs —
-            written down because someone will want them back and should know what the trade was.</p>
-          <ul class="ds-gone">
-            <li><s>graduated rim</s><em>a lit edge, nowhere the same weight twice</em></li>
-            <li><s>160px grain</s><em>frosted glass has tooth; these panes do not show it</em></li>
-            <li><s>two sheen lobes</s><em>the "air" term</em></li>
-            <li><s>inner glow</s><em>stood for thickness</em></li>
-            <li><s>1px border</s><em>same weight on all four sides, so it was the rectangle you saw</em></li>
-          </ul>
-
-          <div class="ds-rule gl-sunk">
-            <p><strong>A recess is not thicker glass.</strong></p>
-            <p>It is one flat blue-grey wash and nothing else — no inset, no drop, no rim, and a
-              <em>thinner</em> blur than a pane, which is the opposite of what the three previous
-              doctrines all said and the reason this one is shorter than any of them.</p>
+          <div class="ds-block">
+            <p class="ds-sub">Three properties, and no fourth</p>
+            <ul class="ds-spec">
+              <li><b>Fill</b><span>one flat white, uniform through the pane</span></li>
+              <li><b>Backdrop</b><span>blur(24px) saturate(140%) · thin tier 14px</span></li>
+              <li><b>Shadow</b><span>0 8px 24px −18px · #4664a0 22%</span></li>
+              <li><b>Recess</b><span>one flat blue-grey wash · no drop, no rim</span></li>
+            </ul>
+            <p class="ds-note">No rim, no grain, no sheen, no inner glow, no border. Nothing in this
+              material draws an edge.</p>
           </div>
         </section>
 
-        <!-- ========================================================= 06 -->
-        <section class="ds-sec" id="s06">
-          <div class="ds-sec-h"><span class="n">06</span><h2>Elevation &amp; motion</h2></div>
-          <p class="ds-note">With no inner term left there is nothing to invert, so the material has
-            exactly one move: the pane comes further off the page, or settles back onto it. Hover
-            does <em>not</em> brighten the fill — brightening a translucent fill reads as glass going
+        <!-- ========================================================= 05 -->
+        <section class="ds-sec" id="s05">
+          <div class="ds-sec-h"><span class="n">05</span><h2>Elevation &amp; motion</h2></div>
+          <p class="ds-note">One move: the pane comes further off the page, or settles back onto it.
+            Hover never brightens the fill — brightening a translucent fill reads as glass going
             opaque, which is the one thing it cannot do.</p>
 
           <div class="ds-block ds-shadows">
-            <div class="rest"><div class="ds-shadow-fig"></div><p><b>0 8px 24px −18px</b>Rest · #4664a0 22%</p></div>
-            <div class="lift"><div class="ds-shadow-fig"></div><p><b>0 14px 34px −18px</b>Hover · #4664a0 30%</p></div>
-            <div class="press"><div class="ds-shadow-fig"></div><p><b>0 3px 9px −10px</b>Press · #4664a0 24%</p></div>
+            <div class="rest"><div class="ds-shadow-fig"></div><p><b>Rest</b>0 8px 24px −18px · 22%</p></div>
+            <div class="lift"><div class="ds-shadow-fig"></div><p><b>Hover</b>0 14px 34px −18px · 30%</p></div>
+            <div class="press"><div class="ds-shadow-fig"></div><p><b>Press</b>0 3px 9px −10px · 24%</p></div>
           </div>
 
           <div class="ds-motion gl-sunk">
@@ -673,24 +567,18 @@
               <path d="M4 116 V4" stroke="#203a8529" stroke-width="1" fill="none"/>
               <path d="M4 116 C 23.2 4 40 8.8 116 4" stroke="#203a85" stroke-width="2" fill="none" stroke-linecap="round"/>
             </svg>
-            <div>
-              <p class="ds-sub" style="margin-bottom:10px">Easing &amp; duration</p>
-              <ul class="ds-layers" style="margin-top:0">
-                <li><b>—</b>Frosted out<span>cubic-bezier(.16, 1, .3, 1)</span></li>
-                <li><b>—</b>Fast · a control answering<span>160ms</span></li>
-                <li><b>—</b>Base · a surface changing<span>240ms</span></li>
-                <li><b>—</b>Reveal · a band settling<span>620ms</span></li>
-              </ul>
-              <p class="ds-note" style="margin-top:14px;font-size:var(--ph-fs-14)">620 rather than 240
-                for the reveal, because a band arriving is not a click: at 240 it snaps and reads as a
-                glitch; at 620 it reads as weight.</p>
-            </div>
+            <ul class="ds-spec">
+              <li><b>Easing</b><span>cubic-bezier(.16, 1, .3, 1)</span></li>
+              <li><b>Fast · a control answering</b><span>160ms</span></li>
+              <li><b>Base · a surface changing</b><span>240ms</span></li>
+              <li><b>Reveal · a band settling</b><span>620ms</span></li>
+            </ul>
           </div>
         </section>
 
-        <!-- ========================================================= 07 -->
-        <section class="ds-sec" id="s07">
-          <div class="ds-sec-h"><span class="n">07</span><h2>Components</h2></div>
+        <!-- ========================================================= 06 -->
+        <section class="ds-sec" id="s06">
+          <div class="ds-sec-h"><span class="n">06</span><h2>Components</h2></div>
           <p class="ds-note">Everything below is the site's own class, not a copy of it. A filled
             control stays solid — a button is a decision, and a decision should not be see-through.
             An outlined control is where the material shows up.</p>
@@ -698,78 +586,76 @@
           <div class="ds-block ds-specimen gl">
             <p class="ds-sub">Buttons</p>
             <div class="ds-row">
-              <a class="btn" href="#s07">Find your test</a>
-              <a class="btn ghost" href="#s07">Take the quiz</a>
-              <a class="btn small" href="#s07">Add to bag</a>
+              <a class="btn" href="#s06">Find your test</a>
+              <a class="btn ghost" href="#s06">Take the quiz</a>
+              <a class="btn small" href="#s06">Add to bag</a>
               <span class="btn disabled">Sold out</span>
             </div>
 
-            <p class="ds-sub">Chips &amp; pills</p>
+            <p class="ds-sub">Chips &amp; tags</p>
             <div class="ds-row">
               <span class="pill">New</span>
               <span class="pill">Save 20%</span>
-              <a class="tag" href="#s07">Read the science →</a>
-              <a class="tag" href="#s07">Compare tests →</a>
-            </div>
-
-            <p class="ds-sub">Radii</p>
-            <div class="ds-row">
-              <span class="ds-tok">8</span><span class="ds-tok">10</span><span class="ds-tok">12</span>
-              <span class="ds-tok">16</span><span class="ds-tok">20</span><span class="ds-tok">24</span>
-              <span class="ds-tok">980 · pill</span>
+              <a class="tag" href="#s06">Read the science →</a>
+              <a class="tag" href="#s06">Compare tests →</a>
             </div>
           </div>
 
           <div class="ds-block">
             <p class="ds-sub">Cards</p>
             <div class="ds-cards">
-              <a class="card" href="#s07">
+              <a class="card" href="#s06">
                 <h3 class="card-title" style="margin:0 0 8px;font-size:21px;font-weight:500">Gut Microbiome Test</h3>
                 <p style="margin:0;font-size:14px;color:var(--ink-600)">Shotgun metagenomic sequencing, read in an accredited lab.</p>
                 <p class="card-price" style="margin-top:14px">£180</p>
               </a>
-              <a class="card" href="#s07">
+              <a class="card" href="#s06">
                 <h3 class="card-title" style="margin:0 0 8px;font-size:21px;font-weight:500">Whole Genome</h3>
                 <p style="margin:0;font-size:14px;color:var(--ink-600)">All 3 billion base pairs, not the fraction a chip reads.</p>
                 <p class="card-price" style="margin-top:14px">£650</p>
               </a>
               <div class="card-gray">
                 <h3 class="card-title" style="margin:0 0 8px;font-size:21px;font-weight:500">Recess</h3>
-                <p style="margin:0;font-size:14px;color:var(--ink-600)">A grey card is not a lighter pane. It is the doctrine's one flat wash.</p>
+                <p style="margin:0;font-size:14px;color:var(--ink-600)">A grey card is not a lighter pane. It is one flat wash.</p>
               </div>
+            </div>
+          </div>
+
+          <div class="ds-block">
+            <p class="ds-sub">Radii</p>
+            <div class="ds-radii">
+              <i style="border-radius:8px">8</i>
+              <i style="border-radius:10px">10</i>
+              <i style="border-radius:12px">12</i>
+              <i style="border-radius:16px">16</i>
+              <i style="border-radius:20px">20</i>
+              <i style="border-radius:24px">24</i>
+              <i style="border-radius:980px">pill</i>
             </div>
           </div>
         </section>
 
-        <!-- ========================================================= 08 -->
-        <section class="ds-sec" id="s08">
-          <div class="ds-sec-h"><span class="n">08</span><h2>Inverted contexts</h2></div>
-          <p class="ds-note">The one rule that has to be checked by hand every time a surface is
-            added, because nothing on this project measures colour automatically. A control whose
-            ink is already white cannot take the light chip fill — it lands at 1.1:1, and the label
-            does not fade, it vanishes.</p>
+        <!-- ========================================================= 07 -->
+        <section class="ds-sec" id="s07">
+          <div class="ds-sec-h"><span class="n">07</span><h2>Inverted contexts</h2></div>
+          <p class="ds-note">A control whose ink is already white cannot take the light chip fill —
+            white on 50% white lands at 1.06:1 and the label does not fade, it vanishes. There are
+            three grounds on this site and each has one answer. They are listed here rather than
+            discovered a page at a time.</p>
 
           <div class="ds-block ds-invert">
             <div class="g-navy">
               <div><h4>Over a solid navy</h4><p>A white film is enough. The ground is known and it is dark.</p></div>
-              <a class="tag" href="#s08" style="background:#ffffff1f;color:#fff;box-shadow:none;border-color:transparent">White 12%</a>
+              <a class="tag" href="#s07" style="background:#ffffff1f;color:#fff;box-shadow:none;border-color:transparent">White 12%</a>
             </div>
             <div class="g-photo">
               <div><h4>Over a photograph</h4><p>A white film is not enough — wherever the frame goes pale, the pill and the highlight become one tone.</p></div>
-              <a class="tag" href="#s08" style="background:#06122e8f;color:#fff;box-shadow:none;border-color:transparent">Navy 56%</a>
+              <a class="tag" href="#s07" style="background:#06122e8f;color:#fff;box-shadow:none;border-color:transparent">Navy 56%</a>
             </div>
             <div class="g-light">
               <div><h4>Over the field</h4><p>The default. Fifty per cent white, thin blur, one drop.</p></div>
-              <a class="tag" href="#s08">Chip · 50%</a>
+              <a class="tag" href="#s07">Chip · 50%</a>
             </div>
-          </div>
-
-          <div class="ds-rule gl-sunk">
-            <p><strong>Every inverted context is listed in one place.</strong></p>
-            <p>Not discovered one page at a time. The same failure was found three times while this
-              system was being applied — on a dark product card, on a glass buy-card over film, and
-              on a call-to-action over a moving photograph — and each time the cause was identical: a
-              blanket pane fill reaching a component that states its own white ink.</p>
           </div>
         </section>
 
