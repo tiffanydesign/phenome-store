@@ -524,11 +524,17 @@ a.card:hover, a.card-gray:hover, a.ph-prod:not(.is-dark):hover {
 }
 a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-inner); }
 
-/* ---- the tile homepage. Square opaque tiles become panes with a corner, and
-   the dark ones stop being #000 — that value is hard-typed in shared.css, so
+/* ---- the tile homepage --------------------------------------------------
+   SQUARE, and only here. A corner makes a tile an object lying on the page;
+   with none it is the page's own structure, which is what the front door is —
+   seven panels edge to edge on a 12px gutter, not seven cards. The rounded
+   card survives where it is describing one thing you can buy: the media frame
+   on a product page keeps its radius and is not touched by this file.
+
+   The dark tiles stop being #000 — that value is hard-typed in shared.css, so
    it is named here rather than reached through a token. */
 .atile {
-  border-radius: 20px;
+  border-radius: 0;
   background: var(--gl-tint-live);
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
   box-shadow: var(--gl-shadow);
@@ -538,11 +544,48 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
   -webkit-backdrop-filter: none; backdrop-filter: none;
 }
 .atile.dark .atile-eyebrow { color: var(--ph-on-brand); }
+/* The one inset picture on the front door — the genetic tile's read-out — is the
+   only media here that was drawn as a rounded card, at --ph-r18. It is a picture
+   on a panel, not a product you are being sold, so it squares off with the tile
+   it sits in. The rounded media frame lives on the product page and stays there. */
+.atile-pic.atile-pic--inset img { border-radius: 0; }
+
+/* ---- the secondary tile control · "Take the 2-min quiz", "Buy" -----------
+   IT HAD NO LINE. shared.css draws this control as an outlined pill —
+   `border: 1px solid transparent` on .atile-link, turned to the accent on
+   .ghost — and the first pass of this file set that border back to transparent
+   and left the pill to be read off a 50% white fill alone. Against a tile that
+   is itself 59% white, a 50% fill is a nine-per-cent step: on the light tiles
+   the button had no edge at all, and it is the one control on the front door
+   that is not a decision already made for you.
+
+   So the line comes back, and it is the SAME construction in both polarities
+   rather than two different buttons: one ink for the label and the line, one
+   translucent fill under them, one thin blur. The fill is what makes it work
+   on a ground this file cannot see — it is the tier the system already ships
+   for exactly that, and it carries its own floor rather than borrowing the
+   tile's.
+
+   Composited by hand from the alphas above, the way the pane tiers in this
+   file already are — label and line read against the fill they sit on:
+
+     light tile   #203a85 on the button's own fill   10.1 : 1
+     dark tile    #ffffff on 12% white over navy      9.2 : 1
+     the line     55% white over the same             4.6 : 1
+
+   Hover stays as shared.css wrote it: the pill fills with the hover blue and
+   the border goes transparent, so the box never changes size — the 1px is
+   still there, it just stops being drawn. */
 .atile-link.ghost {
-  background: var(--gl-tint-solid); border-color: transparent;
+  background: var(--gl-tint-live);
+  border-color: var(--phenome-blue-500);
   -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
 }
-.atile.dark .atile-link.ghost { background: #ffffff1f; color: #fff; }
+.atile.dark .atile-link.ghost {
+  background: #ffffff1f;
+  border-color: #ffffff8c;
+  color: #fff;
+}
 
 /* ---- the footer. A recess the width of the page, and the rule above it is
    the divider rather than the strong border: it separates two of our own
