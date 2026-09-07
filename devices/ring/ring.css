@@ -52,16 +52,34 @@
   backdrop-filter: none !important;
 }
 
-/* THE TWO SURFACES THAT CANNOT LIVE ON TONE ALONE, and they are both chrome
-   rather than page: they float over content that scrolls under them, so there
-   is no parent whose tone they can be the inverse of. They get a real border —
-   a border is not a shadow, and a 1px line is the flattest possible way to say
-   "this is in front". The nav also goes fully opaque: at 88% over a moving page
-   with no blur behind it, type was reading against whatever passed underneath. */
+/* THE SURFACES THAT CANNOT LIVE ON TONE ALONE, and they are chrome rather than
+   page: they float over content that scrolls under them, so there is no parent
+   whose tone they can be the inverse of. They get a real border — a border is
+   not a shadow, and a 1px line is the flattest possible way to say "this is in
+   front".
+
+   The BACKGROUND here is only the fallback. Both bars are glass: the nav takes
+   its fill from the film (§ 3b) and the product bar from the rule below. What
+   this rule still supplies to both is the hairline. */
 .ph-flat .ph-nav,
 .ph-flat .ph-bar {
   background: var(--flat-page);
   border-bottom: 1px solid var(--divider);
+}
+
+/* ---- the product bar is glass too, asked for by name.
+
+   It is the third and last exemption from the blanket backdrop-filter removal
+   above, so like the other two it needs !important to beat that rule's own.
+
+   Apple's own globalnav numbers, which is what the nav it replaces is already
+   using: 72% white, saturate(180%) blur(20px). The same material either side of
+   the swap means the bar does not appear to change substance when one takes
+   over from the other — only its contents do. */
+.ph-flat .ph-bar {
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
 }
 .ph-flat .ds-launch {
   background: var(--flat-page);
@@ -187,23 +205,73 @@
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  /* The top padding is the mask's runway - the distance over which the scrim
-     has to become invisible. Too little and it arrives as a band with an edge. */
-  padding: clamp(120px, 22vh, 260px) 0 clamp(34px, 5vh, 60px);
+  /* HALF THE RUNWAY IT HAD. It was 22vh, and the mask ran linearly across all
+     of it, so on this film the darkening reached a third of the way up the
+     screen — fine over the black studio it was tuned against, and a grey veil
+     over the white product frames, which is most of the running time. 11vh. */
+  padding: clamp(72px, 11vh, 150px) 0 clamp(30px, 4.5vh, 52px);
 }
 .ph-flat .ring-marquee-scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-color: #000;
-  /* Apple's own two values, and the !important is deliberate: section 1 takes
-     backdrop-filter off every element on this page and this is one of the two
-     surfaces that gets it back. The blur is what stops a busy frame reading
-     through the type; the alpha stays full and the MASK does the fading. */
-  -webkit-backdrop-filter: blur(20px) saturate(1) !important;
-  backdrop-filter: blur(20px) saturate(1) !important;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 100%);
+
+  /* IT TURNS OVER: white, not black. Two things forced it and they agree.
+
+     The wordmark is brand blue now, and #203a85 on a black wash is unreadable
+     at any alpha that would also hold back the picture - the two requirements
+     pull opposite ways and there is no value that serves both.
+
+     And the black was wrong on its own terms. This film opens near-white, and a
+     dark band under a white frame is the only heavy thing on a page that has
+     had every other dark surface deliberately removed. The page is white; the
+     band that carries its type should be too.
+
+     A CURVE, NOT A RAMP, which is the other half of "the transition is not
+     natural". A two-stop linear gradient changes fastest where it starts and
+     that first edge is exactly what the eye finds. These six stops trace an
+     ease-in: almost nothing for the first third, then the weight arriving late
+     and quickly. Same legibility under the type, no edge anywhere.
+
+     Alpha tops out at .82 rather than 1, so the picture is still faintly there
+     behind the last line - a wash the film shows through, rather than a panel
+     laid over the bottom of it.
+
+     THE RAMP IS THE MASK, NOT THE FILL, and that is the whole fix for "the
+     transition is not natural". backdrop-filter applies to the element's BOX,
+     uniformly; a gradient in its background does not fade it. Written that way
+     the wash arrived gradually while the blur arrived all at once, and the top
+     of the blur was a hard horizontal line across the picture - the one edge
+     the gradient was drawn to avoid, put back by the other property.
+
+     A mask clips both. So the fill is flat white and the mask carries the
+     curve, which means the wash and the blur reach any given row at exactly the
+     same strength and neither can draw an edge the other does not. */
+  background-color: #fff;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.14) 46%,
+    rgba(0, 0, 0, 0.36) 64%,
+    rgba(0, 0, 0, 0.62) 82%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.14) 46%,
+    rgba(0, 0, 0, 0.36) 64%,
+    rgba(0, 0, 0, 0.62) 82%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+  /* The blur is what lets the wash stop at 82% and still hold type over a busy
+     frame. Section 1 takes backdrop-filter off every element on this page, so
+     this needs !important like the two bars do. 14, not 20 - a lighter wash
+     needs less help, and leaves more of the picture. */
+  -webkit-backdrop-filter: blur(14px) saturate(1) !important;
+  backdrop-filter: blur(14px) saturate(1) !important;
 }
 
 .ph-flat .ring-marquee-viewport {
@@ -216,29 +284,34 @@
   row-gap: 28px;
 }
 
-.ph-flat .ring-marquee-header { max-width: 20em; min-width: 0; }
+/* 20em was a measure for a two-line headline to wrap inside. There is no
+   headline any more and a wordmark does not wrap — broken across two lines it
+   stops being a name and becomes a sentence. `max-content` lets it take exactly
+   the width of the word it holds and no more, which also keeps it clear of the
+   price capsule on the same row. */
+.ph-flat .ring-marquee-header { max-width: max-content; min-width: 0; }
 /* The product name is drawn rather than hidden. Apple retires it to a
    visually-hidden h1 because its film opens on the watch and the wordmark is in
    the localnav two lines above; neither holds here, and a product page whose
    product is never named in text is a page that cannot be found. */
+/* THE ONLY LINE ON THE FILM. It was a 12px uppercase eyebrow over a headline;
+   the headline is gone and this is what is left, so it stops being a label and
+   becomes the wordmark - which is why the tracking and the uppercase went with
+   the size. Both existed to make a small label legible and neither helps here.
+
+   Brand blue on the light wash rather than white on a dark one. Worst case is
+   the wash over a black frame, which composites to about #dbdbdb; #203a85 on
+   that is roughly 8.5:1, so it holds through the darkest part of the film. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .72);
-}
-.ph-flat .ring-marquee-headline {
-  margin: 12px 0 0;
-  font-size: clamp(34px, 3.9vw, 56px);
-  line-height: 1.07;
+  font-size: clamp(28px, 3.4vw, 52px);
+  line-height: 1.06;
   font-weight: var(--ph-w-600);
   letter-spacing: -0.014em;
-  color: #fff;
-  text-wrap: balance;
+  color: var(--ph-accent);
 }
+/* .ring-marquee-headline is gone from the markup - one line was asked for and
+   the wordmark is it. Nothing styles it here any more. */
 
 /* ---- the capsule. Apple draws it on ::before so the content can sit above the
    blur; here the blur is on the element itself, which reaches the same result
@@ -250,16 +323,20 @@
   column-gap: 28px;
   padding: 10px 10px 10px 24px;
   border-radius: 100vmax;
-  background: rgba(66, 66, 69, .25);
+  /* Light glass, because the band under it is light now. It was 25% of a warm
+     grey, which was Apple's value for a capsule floating on a dark scrim; the
+     same 25% over a white wash is a smudge. White at 62% reads as the same
+     material on the other side of the page's ladder. */
+  background: rgba(255, 255, 255, .62);
   -webkit-backdrop-filter: blur(20px) !important;
   backdrop-filter: blur(20px) !important;
 }
 .ph-flat .ring-marquee-pricing {
   margin: 0;
-  font-size: var(--ph-fs-17);
-  line-height: var(--ph-lh-17);
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
   font-weight: var(--ph-w-600);
-  color: #fff;
+  color: var(--ph-text-1);
   white-space: nowrap;
 }
 .ph-flat .ring-marquee-buy {
@@ -310,15 +387,10 @@
     padding-bottom: clamp(20px, 3.5vh, 32px);
   }
   .ph-flat .ring-marquee-eyebrow {
-    font-size: var(--ph-fs-14);
-    line-height: var(--ph-lh-14);
-    letter-spacing: 0.01em;
-    text-transform: none;
-    /* Solid white on the phone, not 72%. In the reference the product name is
-       set at the same weight and brightness as the headline - it reads as the
-       first line of the copy rather than as a label above it, and at 14px a
-       72% white on a moving film is the first thing to go. */
-    color: #fff;
+    /* The phone was already treating this as the first line of the copy rather
+       than as a label; the desktop rule has now caught up with it, so all this
+       does is hold the size to what a 390 screen can carry. */
+    font-size: clamp(20px, 6.4vw, 26px);
   }
   .ph-flat .ring-marquee-headline {
     margin-top: 6px;
@@ -542,10 +614,16 @@
   width: 100%;
   height: 100%;
   border: 0;
-  /* Inert by default — the whole containment strategy is this one line. */
-  pointer-events: none;
+  /* THE POINTER GOES IN, THE WHEEL DOES NOT. Hover shading and a click on the
+     product both live inside the frame and both need real pointer events, so
+     this cannot be `none` any more. What made `none` safe was that the frame
+     would otherwise swallow the wheel — that is handled at the source instead:
+     the frame is loaded with ?driven=1 and registers no wheel listener at all
+     in that mode, so with nothing there to scroll the browser chains the scroll
+     straight to this document. See the note in the showcase's Carousel.jsx. */
+  pointer-events: auto;
+  cursor: pointer;
 }
-.ph-flat .ringfam-stage.is-live .ringfam-frame { pointer-events: auto; }
 
 /* The cover. Transparent, because the piece behind it is already running and
    hiding it would waste the best invitation there is. Only the tag is drawn. */
