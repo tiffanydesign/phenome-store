@@ -1,0 +1,798 @@
+/* ============================================================================
+   /devices/ring/ — the flat sheet, and the ring family stage.
+
+   A THIRD STYLESHEET FOR ONE PAGE, which the rest of this site does not do, and
+   the reason is that this page asks for two things the other 80 must not get:
+
+     1. ZERO shadow. Not softer, not smaller — none. The reference given is
+        apple.com/se/mac, where the entire hierarchy is carried by two ground
+        tones and nothing else: no drop, no rim, no blur. phenome-glass.css
+        spent its whole existence giving panes an edge; here that edge is
+        removed and the tone has to do all of it alone.
+     2. A WebGL stage embedded from another origin, with its own scroll
+        behaviour to contain.
+
+   Loaded after phenome-glass.css, so it wins on equal specificity. Scoped to
+   `.ph-flat` on <body> rather than written bare, so that nothing here can leak
+   if the file is ever linked from a second page by accident.
+
+   THE LADDER IS TWO VALUES AND THERE IS NO THIRD:
+     #ffffff  the page, and a pane sitting in a tinted band
+     #f4f6fb  a tinted band, and a pane sitting on the page
+   A surface is always the value its parent is not. That inversion IS the
+   hierarchy now — with the hairline gone there is nothing else left to read.
+   ========================================================================== */
+
+.ph-flat {
+  /* Named locally so every rule below reads as the ladder rather than as two
+     hex values that happen to recur. Both come from phenome-glass.css. */
+  --flat-page: #ffffff;
+  --flat-band: #f4f6fb;
+}
+
+/* ---------------------------------------------------------------------------
+   1 · FLAT · the removal, stated once and universally.
+
+   `*` is a blunt instrument and it is the correct one here: the shadows on this
+   page come from eleven different rules across two stylesheets, four of them
+   carrying !important, and enumerating them would mean this file silently stops
+   working the next time a component gains a drop. The requirement is "no shadow
+   on this page", so the selector says exactly that.
+
+   backdrop-filter goes with it. Every fill it was working behind is opaque now,
+   so it was already doing nothing but costing a compositor layer per pane — and
+   on the nav, which is the one surface still translucent, the blur was half of
+   what made it read as a raised bar. Both halves go.
+   ------------------------------------------------------------------------ */
+.ph-flat *,
+.ph-flat *::before,
+.ph-flat *::after {
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* THE SURFACES THAT CANNOT LIVE ON TONE ALONE, and they are chrome rather than
+   page: they float over content that scrolls under them, so there is no parent
+   whose tone they can be the inverse of. They get a real border — a border is
+   not a shadow, and a 1px line is the flattest possible way to say "this is in
+   front".
+
+   The BACKGROUND here is only the fallback. Both bars are glass: the nav takes
+   its fill from the film (§ 3b) and the product bar from the rule below. What
+   this rule still supplies to both is the hairline. */
+.ph-flat .ph-nav,
+.ph-flat .ph-bar {
+  background: var(--flat-page);
+  border-bottom: 1px solid var(--divider);
+}
+
+/* ---- the product bar is glass too, asked for by name.
+
+   It is the third and last exemption from the blanket backdrop-filter removal
+   above, so like the other two it needs !important to beat that rule's own.
+
+   Apple's own globalnav numbers, which is what the nav it replaces is already
+   using: 72% white, saturate(180%) blur(20px). The same material either side of
+   the swap means the bar does not appear to change substance when one takes
+   over from the other — only its contents do. */
+.ph-flat .ph-bar {
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+}
+.ph-flat .ds-launch {
+  background: var(--flat-page);
+  border: 1px solid var(--border-strong);
+}
+/* The launcher stands off the marquee. It parks bottom-right, which on a phone
+   is exactly where the film's Buy control now is - measured at 390, the disc
+   was sitting on the word. It is a developer tool on a product page, so when
+   the two collide the tool is the one that gives way; past the marquee there is
+   nothing under it and it comes back. */
+.ph-flat:not(.is-past-hero) .ds-launch {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
+}
+
+/* ---------------------------------------------------------------------------
+   2 · THE LADDER · a pane takes the value its section does not.
+
+   phenome-glass.css sends every pane to white and lets the hairline separate it
+   from a white page. With the hairline gone that reads as one unbroken sheet,
+   so the panes on THIS page invert against their band instead. Same two values,
+   opposite assignment — which is the apple.com/mac construction exactly.
+   ------------------------------------------------------------------------ */
+.ph-flat .section-gray { background: var(--flat-band); }
+
+.ph-flat .section .figures .figure,
+.ph-flat .section .card,
+.ph-flat .section .card-gray { background: var(--flat-band) !important; }
+
+.ph-flat .section-gray .figures .figure,
+.ph-flat .section-gray .card,
+.ph-flat .section-gray .card-gray { background: var(--flat-page) !important; }
+
+/* The figure stops being a rule-topped column and becomes a tile. shared.css
+   draws it as `border-top: 1px solid` over open page — a construction that
+   needs the rule, because without it the column has no top. A tile has a top:
+   its own fill. The rule would now be a second boundary drawn inside the first. */
+.ph-flat .figures .figure {
+  border-top: 0;
+  padding: 26px 24px 28px;
+  border-radius: var(--ph-r18);
+}
+
+/* The spec row keeps its rule. It is a TABLE, not a surface — the line is
+   separating two readings from each other inside one pane, which is the one job
+   a hairline still has on a flat page. Same for the divider under a card's
+   tick list. Neither is an edge, so neither is what "no shadow" was about. */
+
+/* ---------------------------------------------------------------------------
+   3 - THE MARQUEE - apple.com/se/apple-watch-series-11, structurally.
+
+   Read out of that page's own stylesheet rather than reconstructed from a
+   screenshot, because four of the five moves are not guessable:
+
+     .section-welcome        theme-dark, globalnav-overlap - the film runs UNDER
+                             the navigation bar, not below it.
+     .marquee                position:absolute; bottom:0 - the copy is a band
+                             along the FOOT of the film, not a layer over it.
+     .marquee-scrim          absolute, filling that band; background #000 at
+                             FULL alpha, backdrop-filter blur(20px), and then
+                             mask-image: linear-gradient(180deg, transparent,
+                             #000). The mask is the whole trick - the band is
+                             invisible where it meets the film and solid where
+                             the type sits, so it has no edge at either end.
+     .viewport-content       flex; justify-content:space-between;
+                             align-items:flex-end - headline bottom left, price
+                             and Buy bottom right, one row.
+     .marquee-detail::before rgba(66,66,69,.25) + blur(20px) +
+                             border-radius:100vmax. The price and the control
+                             ride in a glass capsule.
+
+   Below is that construction with this site's own type and blue in it. Values
+   that are Apple's are Apple's; where one is changed the reason is next to it.
+   ------------------------------------------------------------------------ */
+/* `.ring-marquee.hero`, not `.ring-marquee`, and the extra class is load-bearing.
+   phenome-glass.css draws the hero ramp on `.hero:not(.on-dark):not(.on-film)`,
+   and :not() contributes its argument's specificity — that selector is (0,3,0).
+   At (0,2,0) every background declaration below lost silently: measured, the
+   section was still transparent with the pale blue ramp on it, which on a
+   letterboxed phone film showed as light bars above and below the picture.
+   (0,3,0) plus a later stylesheet wins the tie. */
+.ph-flat .ring-marquee.hero {
+  position: relative;
+  /* svh, not vh: 100vh on a phone is the viewport at its TALLEST, so the foot
+     of the film - which is where all of the copy is - would sit behind the
+     browser's own bar until you scroll. */
+  height: 100svh;
+  min-height: 620px;
+  padding: 0;
+  overflow: hidden;
+  /* The film runs under the bar. .ph-nav is sticky and 44px tall, so it holds
+     44px of flow above <main>; pulling the section up by exactly that puts the
+     first frame behind it, which is what globalnav-overlap does on Apple. */
+  margin-top: calc(-1 * var(--ph-nav-h));
+  /* Black, not the page ground, for the frames before the film decodes: the
+     section is dark-themed and a white flash under white type is the one frame
+     that must not happen. */
+  background-color: #000;
+  /* The hero's pale ramp is removed. It was drawn for a hero made of type on
+     the page ground; over a full-bleed film it is a blue veil on the picture. */
+  background-image: none;
+}
+
+.ph-flat .ring-marquee-media {
+  position: absolute;
+  inset: 0;
+  /* Stated here as well as on the section: this is the box the letterbox bars
+     belong to, and a transparent video element shows whatever is under IT. */
+  background: #000;
+}
+.ph-flat .ring-marquee-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ---- the band. Apple's .marquee: absolute, along the foot, full width. */
+.ph-flat .ring-marquee-band {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  /* HALF THE RUNWAY IT HAD. It was 22vh, and the mask ran linearly across all
+     of it, so on this film the darkening reached a third of the way up the
+     screen — fine over the black studio it was tuned against, and a grey veil
+     over the white product frames, which is most of the running time. 11vh. */
+  padding: clamp(72px, 11vh, 150px) 0 clamp(30px, 4.5vh, 52px);
+}
+.ph-flat .ring-marquee-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* BLACK, and it went white for one turn before coming back. Worth recording
+     why, because the reason it went is still true and is handled elsewhere now:
+     brand blue at #203a85 cannot be read on a black wash. It is not the black
+     that was wrong, it is that rung of the ramp — so the wordmark takes
+     --ph-on-brand, the value this system already defines for brand blue on a
+     dark ground, and the band stays the colour it is meant to be.
+
+     THE HEIGHT IS RIGHT AS IT STANDS: the runway is set on .ring-marquee-band
+     above and is not what changed here. Only the colour did.
+
+     TWO THINGS FROM THE WHITE VERSION ARE KEPT, because both fixed real faults
+     rather than being part of the colour:
+
+     THE RAMP IS THE MASK, NOT THE FILL. backdrop-filter applies to the
+     element's BOX, uniformly; a gradient in its background does not fade it.
+     Written that way the wash arrived gradually while the blur arrived all at
+     once, and the top of the blur drew a hard horizontal line across the
+     picture — the one edge the gradient existed to avoid, put back by the other
+     property. A mask clips both, so the fill is flat and the mask carries the
+     curve, and the two reach every row at the same strength.
+
+     A CURVE, NOT A RAMP. Six stops tracing an ease-in rather than two stops of
+     linear. A linear gradient changes fastest where it starts, and that first
+     edge is exactly what the eye finds.
+
+     Alpha tops out at .55, down from .78 and from the original 1. Opaque black
+     at the foot read as a panel laid over the film; 78 was still heavier than
+     the band needs to be. At 55 the foot is a wash the picture is clearly
+     behind rather than a floor under it. */
+  background-color: #000;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.03) 28%,
+    rgba(0, 0, 0, 0.10) 46%,
+    rgba(0, 0, 0, 0.25) 64%,
+    rgba(0, 0, 0, 0.42) 82%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.03) 28%,
+    rgba(0, 0, 0, 0.10) 46%,
+    rgba(0, 0, 0, 0.25) 64%,
+    rgba(0, 0, 0, 0.42) 82%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  /* The blur is what lets the wash stop short of opaque and still hold type
+     over a busy frame. Section 1 takes backdrop-filter off every element on
+     this page, so this needs !important like the two bars do. */
+  -webkit-backdrop-filter: blur(16px) saturate(1) !important;
+  backdrop-filter: blur(16px) saturate(1) !important;
+}
+
+.ph-flat .ring-marquee-viewport {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  column-gap: 80px;
+  row-gap: 28px;
+}
+
+/* 20em was a measure for a two-line headline to wrap inside. There is no
+   headline any more and a wordmark does not wrap — broken across two lines it
+   stops being a name and becomes a sentence. `max-content` lets it take exactly
+   the width of the word it holds and no more, which also keeps it clear of the
+   price capsule on the same row. */
+.ph-flat .ring-marquee-header { max-width: max-content; min-width: 0; }
+/* The product name is drawn rather than hidden. Apple retires it to a
+   visually-hidden h1 because its film opens on the watch and the wordmark is in
+   the localnav two lines above; neither holds here, and a product page whose
+   product is never named in text is a page that cannot be found. */
+/* THE ONLY LINE ON THE FILM. It was a 12px uppercase eyebrow over a headline;
+   the headline is gone and this is what is left, so it stops being a label and
+   becomes the wordmark - which is why the tracking and the uppercase went with
+   the size. Both existed to make a small label legible and neither helps here.
+
+   --ph-accent: the Buy button's own blue, asked for by name.
+
+   IT IS CONDITIONAL, AND THE CONDITION IS THE FILM. #203a85 is the brand's
+   light-ground rung. Over the film's white passages, under a 55% black wash,
+   the ground composites near #737373 and the mark reads. Over the black studio
+   passages the ground stays black whatever the wash does — a black wash cannot
+   lighten anything — and #203a85 there measures about 1.6:1, which is not a
+   contrast, it is an absence.
+
+   So the wordmark is painted from the sampler that already drives the bar: it
+   holds --ph-accent while the film is light and steps to --ph-on-brand, the
+   same blue's dark-ground rung, while it is dark. One brand blue, the rung
+   chosen by what is actually behind it. --mark-ink is written by the script at
+   the foot of the page; the fallback here is the value asked for. */
+.ph-flat .ring-marquee-eyebrow {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 52px);
+  line-height: 1.06;
+  font-weight: var(--ph-w-600);
+  letter-spacing: -0.014em;
+  color: var(--mark-ink, var(--ph-accent));
+  transition: color 160ms linear;
+}
+/* .ring-marquee-headline is gone from the markup - one line was asked for and
+   the wordmark is it. Nothing styles it here any more. */
+
+/* ---- the capsule. Apple draws it on ::before so the content can sit above the
+   blur; here the blur is on the element itself, which reaches the same result
+   with one box - backdrop-filter works on what is BEHIND an element, and the
+   price and the button are its children rather than its backdrop. */
+.ph-flat .ring-marquee-detail {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 28px;
+  padding: 10px 10px 10px 24px;
+  border-radius: 100vmax;
+  /* Back to Apple's own value with the band: 25% of a warm grey, which is what
+     a capsule floating on a dark scrim takes. It was white for the turn the
+     scrim was white, because 25% grey over a white wash is a smudge; over black
+     it is glass again. */
+  background: rgba(66, 66, 69, .25);
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+}
+.ph-flat .ring-marquee-pricing {
+  margin: 0;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600);
+  color: #fff;
+  white-space: nowrap;
+}
+.ph-flat .ring-marquee-buy {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 980px;
+  background: var(--ph-accent);
+  color: #fff !important;
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
+  font-weight: var(--ph-w-600);
+  text-decoration: none;
+  transition: background var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ring-marquee-buy:hover { background: var(--ph-accent-hover); }
+
+@media (max-width: 900px) {
+  /* THE PHONE ARRANGEMENT, from the reference screenshot, and it is a different
+     composition rather than the desktop one narrowed:
+
+       film             fills everything above the copy
+       scrim band       eyebrow, then the headline, on the black
+       detail bar       FULL WIDTH, square, below the band - price left, Buy
+                        right, edge to edge
+
+     Apple's own stylesheet makes exactly that move and it is worth quoting,
+     because it is the one part nobody would guess: the capsule's fill is drawn
+     on ::before, and at narrow widths that pseudo-element is given
+     `margin-inline-start: calc(101svw/-2 - -50%); width: 101svw;
+      border-radius: unset` - it breaks out of the content column, spans the
+     viewport and drops its corners. The capsule stops being an object on the
+     film and becomes the floor of the page. Same thing here, done on the
+     element itself. */
+  .ph-flat .ring-marquee-band {
+    padding: clamp(90px, 16vh, 160px) 0 0;
+  }
+  .ph-flat .ring-marquee-viewport {
+    display: block;
+    /* The band's own gutter is released for the full-bleed bar, and given back
+       to the two things that still sit in the column. */
+    padding-inline: 0;
+  }
+  .ph-flat .ring-marquee-header {
+    max-width: none;
+    padding-inline: var(--ph-margin);
+    padding-bottom: clamp(20px, 3.5vh, 32px);
+  }
+  .ph-flat .ring-marquee-eyebrow {
+    /* The phone was already treating this as the first line of the copy rather
+       than as a label; the desktop rule has now caught up with it, so all this
+       does is hold the size to what a 390 screen can carry. */
+    font-size: clamp(20px, 6.4vw, 26px);
+  }
+  .ph-flat .ring-marquee-headline {
+    margin-top: 6px;
+    font-size: clamp(30px, 8.2vw, 40px);
+    line-height: 1.09;
+  }
+
+  /* The bar. Square, edge to edge, its own ground - one step off the scrim's
+     black so the two read as two surfaces rather than one tall black box. */
+  .ph-flat .ring-marquee-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 16px;
+    width: 100%;
+    padding: 14px var(--ph-margin) calc(14px + env(safe-area-inset-bottom, 0px));
+    border-radius: 0;
+    background: rgba(28, 28, 30, .82);
+  }
+  .ph-flat .ring-marquee-pricing { font-size: var(--ph-fs-19); }
+  .ph-flat .ring-marquee-buy { height: 40px; padding: 0 26px; font-size: var(--ph-fs-17); }
+
+  /* THE CROP INVERTS, and it has to. `cover` fills by discarding the long axis,
+     and a phone hero is 0.46:1 against the film's 1.78:1 - cover throws away
+     three quarters of the frame's width. Apple can hold `cover` here because
+     its hero film is shot for the crop and carries no words; ours is a finished
+     advertisement whose captions live across the middle of the frame, and at
+     390 they were rendering as fragments of letters.
+
+     So the film is letterboxed instead, on the section's own black. That is not
+     a compromise on a hero this dark - a whole film centred on black is how a
+     trailer sits on a phone, and it is the only arrangement that keeps the
+     advertisement legible. Lifted off centre so the copy is not landing on the
+     picture. */
+  .ph-flat .ring-marquee-media video {
+    object-fit: contain;
+    object-position: center 36%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3b - THE BAR - glass over the film, then out of the way entirely.
+
+   Section 1 takes backdrop-filter off every element on this page; the bar and
+   the scrim are the two surfaces that get one back, so both need !important to
+   beat that rule's own.
+
+   THREE STATES, and the page needs all three:
+
+     over the film    transparent glass, TINTED FROM THE FILM ITSELF. The film
+                      opens near-white, turns to a black studio and ends on a
+                      white card, so a single fixed tint is wrong for two thirds
+                      of it. --nav-tint and --nav-ink are written by the script
+                      at the foot of the page, which samples the frame behind
+                      the bar four times a second.
+     after the film   nothing. The bar leaves.
+     in its place     the product bar - name and Buy - which shared.js already
+                      builds on every product page. Here it stops being a second
+                      row under the nav and becomes the only row.
+   ------------------------------------------------------------------------ */
+.ph-flat .ph-nav {
+  /* The fallbacks are the two states the script would otherwise have to race:
+     light glass, dark ink. If the canvas is unavailable, or the film has not
+     decoded, or the sampler throws, the bar is still a legible Apple-style
+     glass bar - it simply stops responding to the picture. */
+  background: rgba(var(--nav-tint, 255 255 255) / var(--nav-tint-alpha, .72));
+  color: var(--nav-ink, var(--ph-text-1));
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 0;
+  /* NO transition on background. The tint is eased in script now, once per
+     presented frame; a CSS transition on top of that is a second easing
+     chasing the first, and while it was there the bar was still travelling
+     toward the previous sample when the next one landed. That fight was the
+     stutter. Transform and opacity keep theirs - those are state changes, not
+     a continuous signal. */
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+
+/* ---- the ink follows the tint. One custom property drives every glyph in the
+   bar, so the sampler decides light-on-dark or dark-on-light once and nothing
+   else has to be told. The wordmark is a raster element and cannot take a
+   colour, so it is inverted on the dark reading instead - for a one-colour mark
+   that is the same thing. */
+.ph-flat .ph-nav a,
+.ph-flat .ph-links .ph-trigger,
+.ph-flat .ph-nav-icon { color: var(--nav-ink, var(--ph-text-1)); }
+.ph-flat .ph-nav-end .ph-item > .ph-trigger {
+  color: var(--nav-ink, var(--ph-text-1));
+  border-color: var(--nav-rim, var(--border-strong));
+}
+.ph-flat .ph-burger span { background: var(--nav-ink, var(--ph-text-1)); }
+.ph-flat.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
+/* The mega-menu panel stays light whatever the bar is doing. It is a sheet that
+   COVERS the film rather than a layer over it, so it keeps its own ground and
+   its own ink - and it is the one opaque surface in the system by design. */
+.ph-flat .ph-panel { color: var(--ph-text-1); }
+.ph-flat .ph-panel a { color: var(--ph-accent-link); }
+
+/* ---- past the film, the bar leaves.
+   Asked for directly, and it is the right move for one specific reason: the
+   product bar shared.js builds carries the same two facts as the marquee - the
+   name and the Buy - so once the marquee is gone the two bars would be saying
+   the same thing in two stacked rows. One replaces the other rather than
+   joining it. `visibility` is in the transition so the bar cannot be tabbed
+   into while it is sliding away. */
+.ph-flat.is-past-hero .ph-nav {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
+}
+
+/* ---- the product bar takes the top. shared.js parks it at --ph-nav-h, which
+   is the correct place on the other 80 pages, where the nav stays. Here the nav
+   has gone, so the bar rises into the space it left. Section 1 already gave it
+   a flat white ground and a hairline; only the position changes. */
+.ph-flat .ph-bar { top: 0; }
+@media (max-width: 900px) { .ph-flat .ph-bar { top: 0; } }
+
+/* ---------------------------------------------------------------------------
+   4 · THE RING FAMILY STAGE.
+
+   An embedded WebGL carousel from tiffanydesign.github.io/Ice-works-showcase/ —
+   twelve photographs of the two rings riding an off-screen ring, drawn in one
+   fragment shader, connected by liquid bridges as they separate.
+
+   THE PROBLEM THIS SECTION HAS TO SOLVE is that the embedded piece owns the
+   wheel: inside it, wheel input is rotation, not scroll. Dropped into a page
+   that must keep scrolling, an iframe like that is a trap — the pointer enters
+   it and the page stops responding, with nothing on screen explaining why.
+
+   The answer is that the frame is INERT UNTIL ASKED. It renders and animates
+   from the moment it loads, but `pointer-events: none` means the wheel passes
+   straight through to the page. A cover invites the click that hands it the
+   wheel, and it is handed back on Escape, on the Release control, or as soon as
+   the section leaves the viewport. See the script at the foot of the page.
+   ------------------------------------------------------------------------ */
+.ph-flat .ringfam { padding-bottom: clamp(56px, 5vw, 88px); }
+
+.ph-flat .ringfam-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--ph-gutter);
+  align-items: end;
+}
+.ph-flat .ringfam-lede {
+  margin: 0;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  color: var(--ph-text-2);
+}
+
+/* ---- the pin. The section holds still while the reader scrolls through the
+   three colourways, then lets go.
+
+   THE TRACK IS THE SCROLL BUDGET. `position: sticky` needs somewhere to stick
+   WITHIN, so the pin is a tall block and the stage sticks to the top of it;
+   how tall decides how much wheel a reader spends on each card. Three cards at
+   90vh apiece, plus one screen for the stage itself to occupy.
+
+   This is a scroll-driven sequence, NOT a scroll-jack: the page never takes the
+   wheel, never animates the scroll position, and never refuses to move. Every
+   turn of the wheel moves the document exactly as far as it always would — the
+   only thing that changes is that for one section the thing which moves is the
+   ring rather than the page. Flick past it and you pass it; the ring simply
+   ends on its last card. */
+.ph-flat .ringfam-pin {
+  position: relative;
+  margin-top: clamp(32px, 3.4vw, 56px);
+  height: calc(100svh + 3 * 90svh);
+}
+.ph-flat .ringfam-stage {
+  position: sticky;
+  /* Under the bar rather than below it: the stage is the whole screen while it
+     is pinned, and the bar is glass over it. */
+  top: 0;
+  /* Full-bleed, and it costs nothing to get: the stage is a direct child of
+     .section, which has vertical padding and no horizontal padding at all, so
+     it already spans the document. NOT `width: 100vw` — shared.css states the
+     rule and the reason plainly (§ .grid.rail): a viewport unit ignores the
+     scrollbar, the document starts scrolling sideways by exactly its width, and
+     the layout audit then reports every near-miss on the page at once. Measured
+     here before the rule was read: a 15px horizontal bar under the whole page.
+     The piece is composed around a circle that is mostly off-screen, so the
+     bleed is not decoration — a content column would crop the arc. */
+  /* A full screen, because a pinned band that is not one leaves the page
+     visibly held still around it — the reader sees the section above and below
+     refusing to move and reads it as a stall rather than as a stage. */
+  height: 100svh;
+  background: var(--flat-band);
+  overflow: hidden;
+}
+
+/* ---- the three marks. The one piece of chrome this needs, and it is doing a
+   job the ring cannot: it says how many there are and how far through you are,
+   which is what tells a reader that the section is finite and worth staying
+   in. Without it a page that holds still is a page that has broken. */
+.ph-flat .ringfam-steps {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 5vh, 56px);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+.ph-flat .ringfam-step {
+  width: 28px;
+  height: 3px;
+  border-radius: 980px;
+  background: rgba(16, 33, 75, .14);
+  transition: background 240ms var(--ease-frosted-out);
+}
+.ph-flat .ringfam-step.on { background: var(--ph-accent); }
+.ph-flat .ringfam-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* THE POINTER GOES IN, THE WHEEL DOES NOT. Hover shading and a click on the
+     product both live inside the frame and both need real pointer events, so
+     this cannot be `none` any more. What made `none` safe was that the frame
+     would otherwise swallow the wheel — that is handled at the source instead:
+     the frame is loaded with ?driven=1 and registers no wheel listener at all
+     in that mode, so with nothing there to scroll the browser chains the scroll
+     straight to this document. See the note in the showcase's Carousel.jsx. */
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* The cover. Transparent, because the piece behind it is already running and
+   hiding it would waste the best invitation there is. Only the tag is drawn. */
+.ph-flat .ringfam-guard {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  /* Centred horizontally, LOW vertically. Dead-centre was the first attempt and
+     it put the tag straight over the card — covering the single photograph the
+     invitation exists to sell. The hit area is still the whole stage; only the
+     drawn part moves out of the way. */
+  align-content: end;
+  justify-content: center;
+  padding-bottom: clamp(28px, 4vh, 52px);
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ph-font);
+  text-align: center;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ringfam-stage.is-live .ringfam-guard { opacity: 0; pointer-events: none; }
+
+.ph-flat .ringfam-guard-tag {
+  justify-self: center;
+  padding: 10px 20px;
+  border-radius: 980px;
+  background: var(--flat-page);
+  border: 1px solid var(--border-strong);
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
+  font-weight: var(--ph-w-600);
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-guard:hover .ringfam-guard-tag { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
+.ph-flat .ringfam-guard-sub {
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  color: var(--ph-text-2);
+}
+
+.ph-flat .ringfam-release {
+  position: absolute;
+  right: var(--ph-margin);
+  bottom: var(--ph-margin);
+  padding: 8px 16px;
+  border-radius: 980px;
+  border: 1px solid var(--border-strong);
+  background: var(--flat-page);
+  cursor: pointer;
+  font-family: var(--ph-font);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-release:hover { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
+
+/* The two products the stage is showing, named under it. The stage is twelve
+   photographs of colourways; this is the line that says there are two things
+   for sale, which the photography on its own never manages to. */
+.ph-flat .ringfam-list {
+  list-style: none;
+  margin: clamp(32px, 3.4vw, 56px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ph-gutter);
+}
+.ph-flat .ringfam-item {
+  display: grid;
+  gap: 10px;
+  padding: 28px 26px 30px;
+  border-radius: var(--ph-r18);
+  background: var(--flat-band);
+}
+.ph-flat .ringfam-item h3 {
+  margin: 0;
+  font-size: var(--ph-fs-24);
+  line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-24-600);
+}
+.ph-flat .ringfam-meta {
+  margin: 0;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+.ph-flat .ringfam-price {
+  margin: 0;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600);
+}
+/* A price with no way to act on it is a dead end, and this tile is the first
+   place on the page either ring is named and costed. The pair of Buy buttons
+   further down the page are attached to the long-form sections; this is the
+   short one, so it gets the short control. */
+.ph-flat .ringfam-item .link-more { margin-top: 6px; justify-self: start; }
+/* "Live" is a STATUS, and the store states exactly one status anywhere (see the
+   note in phenome-glass.css § 1). This is not that one — it is not a warning,
+   it is the shipping state of a product — so it is drawn in the brand rather
+   than in a status ramp that would have to be invented for two words. */
+.ph-flat .ringfam-live {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 11px 3px 9px;
+  border-radius: 980px;
+  background: var(--flat-page);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase;
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ph-accent);
+}
+
+/* The stand-in. The embedded piece is a desktop WebGL experience — the author's
+   own README says so — and a phone gets the two rings as photographs instead of
+   a frame that would run hot and read as a crop of something else. */
+.ph-flat .ringfam-fallback { display: none; }
+
+@media (max-width: 900px) {
+  .ph-flat .ringfam-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+  /* The pin goes with the stage. Hiding the stage alone would leave its track
+     behind — 370svh of empty block, which on a phone is four blank screens. */
+  .ph-flat .ringfam-pin { display: none; }
+  .ph-flat .ringfam-list { grid-template-columns: 1fr; }
+  .ph-flat .ringfam-fallback {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: clamp(28px, 5vw, 40px);
+  }
+  .ph-flat .ringfam-fallback img {
+    display: block;
+    width: 100%;
+    height: clamp(180px, 42vw, 260px);
+    object-fit: cover;
+    border-radius: var(--ph-r18);
+  }
+}
+
+/* A pointer-driven stage has nothing to offer a keyboard or a reduced-motion
+   reader, and the release control is the only part of it that must stay
+   reachable. Coarse pointers get the photographs for the same reason phones do:
+   the piece expects a wheel and a hover, and a touch device has neither. */
+@media (hover: none) {
+  .ph-flat .ringfam-pin { display: none; }
+  .ph-flat .ringfam-fallback { display: grid; }
+}
