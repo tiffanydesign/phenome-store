@@ -388,10 +388,14 @@
 
    TWO RUNGS SMALLER on the site's own scale — 52 to 32 at the top, 28 to 21 at
    the bottom. Both ends move together so the ramp between them keeps its shape
-   rather than flattening at one width. */
+   rather than flattening at one width.
+
+   ONE RUNG BACK UP since — 32 to 40 at the top, 21 to 24 at the bottom, and the
+   vw term scaled by the same 1.25 so the ramp still reaches its ceiling at the
+   width it did rather than earlier. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
-  font-size: clamp(21px, 2.2vw, 32px);
+  font-size: clamp(24px, 2.75vw, 40px);
   line-height: 1.08;
   font-weight: var(--ph-w-600);
   letter-spacing: -0.012em;
@@ -475,8 +479,9 @@
   }
   .ph-flat .ring-marquee-eyebrow {
     /* Two rungs down here as well, so the phone keeps the same relationship to
-       the desktop size it had before both moved. */
-    font-size: clamp(17px, 4.6vw, 20px);
+       the desktop size it had before both moved — and one rung back up with it,
+       for the same reason. */
+    font-size: clamp(19px, 5.2vw, 23px);
   }
   .ph-flat .ring-marquee-headline {
     margin-top: 6px;
