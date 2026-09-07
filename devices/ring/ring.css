@@ -67,6 +67,17 @@
   background: var(--flat-page);
   border: 1px solid var(--border-strong);
 }
+/* The launcher stands off the marquee. It parks bottom-right, which on a phone
+   is exactly where the film's Buy control now is - measured at 390, the disc
+   was sitting on the word. It is a developer tool on a product page, so when
+   the two collide the tool is the one that gives way; past the marquee there is
+   nothing under it and it comes back. */
+.ph-flat:not(.is-past-hero) .ds-launch {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
+}
 
 /* ---------------------------------------------------------------------------
    2 · THE LADDER · a pane takes the value its section does not.
@@ -268,70 +279,163 @@
 .ph-flat .ring-marquee-buy:hover { background: var(--ph-accent-hover); }
 
 @media (max-width: 900px) {
-  /* Apple's own narrow answer: the capsule stops being a capsule and becomes a
-     full-width bar. A price and a control cannot sit beside a headline at 390,
-     and a pill floated under one reads as a stray chip. */
-  .ph-flat .ring-marquee-viewport { flex-direction: column; align-items: stretch; }
-  .ph-flat .ring-marquee-header { max-width: none; }
-  .ph-flat .ring-marquee-detail {
-    justify-content: space-between;
-    padding: 10px 10px 10px 20px;
+  /* THE PHONE ARRANGEMENT, from the reference screenshot, and it is a different
+     composition rather than the desktop one narrowed:
+
+       film             fills everything above the copy
+       scrim band       eyebrow, then the headline, on the black
+       detail bar       FULL WIDTH, square, below the band - price left, Buy
+                        right, edge to edge
+
+     Apple's own stylesheet makes exactly that move and it is worth quoting,
+     because it is the one part nobody would guess: the capsule's fill is drawn
+     on ::before, and at narrow widths that pseudo-element is given
+     `margin-inline-start: calc(101svw/-2 - -50%); width: 101svw;
+      border-radius: unset` - it breaks out of the content column, spans the
+     viewport and drops its corners. The capsule stops being an object on the
+     film and becomes the floor of the page. Same thing here, done on the
+     element itself. */
+  .ph-flat .ring-marquee-band {
+    padding: clamp(90px, 16vh, 160px) 0 0;
+  }
+  .ph-flat .ring-marquee-viewport {
+    display: block;
+    /* The band's own gutter is released for the full-bleed bar, and given back
+       to the two things that still sit in the column. */
+    padding-inline: 0;
+  }
+  .ph-flat .ring-marquee-header {
+    max-width: none;
+    padding-inline: var(--ph-margin);
+    padding-bottom: clamp(20px, 3.5vh, 32px);
+  }
+  .ph-flat .ring-marquee-eyebrow {
+    font-size: var(--ph-fs-14);
+    line-height: var(--ph-lh-14);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    /* Solid white on the phone, not 72%. In the reference the product name is
+       set at the same weight and brightness as the headline - it reads as the
+       first line of the copy rather than as a label above it, and at 14px a
+       72% white on a moving film is the first thing to go. */
+    color: #fff;
+  }
+  .ph-flat .ring-marquee-headline {
+    margin-top: 6px;
+    font-size: clamp(30px, 8.2vw, 40px);
+    line-height: 1.09;
   }
 
+  /* The bar. Square, edge to edge, its own ground - one step off the scrim's
+     black so the two read as two surfaces rather than one tall black box. */
+  .ph-flat .ring-marquee-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 16px;
+    width: 100%;
+    padding: 14px var(--ph-margin) calc(14px + env(safe-area-inset-bottom, 0px));
+    border-radius: 0;
+    background: rgba(28, 28, 30, .82);
+  }
+  .ph-flat .ring-marquee-pricing { font-size: var(--ph-fs-19); }
+  .ph-flat .ring-marquee-buy { height: 40px; padding: 0 26px; font-size: var(--ph-fs-17); }
+
   /* THE CROP INVERTS, and it has to. `cover` fills by discarding the long axis,
-     and a phone hero is 0.46:1 against the film's 1.78:1 — cover throws away
+     and a phone hero is 0.46:1 against the film's 1.78:1 - cover throws away
      three quarters of the frame's width. Apple can hold `cover` here because
      its hero film is shot for the crop and carries no words; ours is a finished
      advertisement whose captions live across the middle of the frame, and at
      390 they were rendering as fragments of letters.
 
      So the film is letterboxed instead, on the section's own black. That is not
-     a compromise on a hero this dark — a whole film centred on black is how a
+     a compromise on a hero this dark - a whole film centred on black is how a
      trailer sits on a phone, and it is the only arrangement that keeps the
-     advertisement legible. Lifted off centre so the copy band is not landing on
-     the picture. */
+     advertisement legible. Lifted off centre so the copy is not landing on the
+     picture. */
   .ph-flat .ring-marquee-media video {
     object-fit: contain;
-    object-position: center 38%;
+    object-position: center 36%;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   3b - THE BAR - apple.com's globalnav, and its two states.
+   3b - THE BAR - glass over the film, then out of the way entirely.
 
-   Asked for by name. Section 1 takes every backdrop-filter off this page and
-   this is the second surface that gets one back, so the exemption again needs
-   !important to beat that rule's own.
+   Section 1 takes backdrop-filter off every element on this page; the bar and
+   the scrim are the two surfaces that get one back, so both need !important to
+   beat that rule's own.
 
-   Two states, because Apple has two and the page needs both: dark glass while
-   the bar is over the film, light glass over everything after it. Apple drives
-   the swap from data-theme-changer='dark' on the welcome section; here it is a
-   class on <body>, set by the script at the foot of the page.
+   THREE STATES, and the page needs all three:
+
+     over the film    transparent glass, TINTED FROM THE FILM ITSELF. The film
+                      opens near-white, turns to a black studio and ends on a
+                      white card, so a single fixed tint is wrong for two thirds
+                      of it. --nav-tint and --nav-ink are written by the script
+                      at the foot of the page, which samples the frame behind
+                      the bar four times a second.
+     after the film   nothing. The bar leaves.
+     in its place     the product bar - name and Buy - which shared.js already
+                      builds on every product page. Here it stops being a second
+                      row under the nav and becomes the only row.
    ------------------------------------------------------------------------ */
 .ph-flat .ph-nav {
-  background: rgba(255, 255, 255, .8);
+  /* The fallbacks are the two states the script would otherwise have to race:
+     light glass, dark ink. If the canvas is unavailable, or the film has not
+     decoded, or the sampler throws, the bar is still a legible Apple-style
+     glass bar - it simply stops responding to the picture. */
+  background: rgba(var(--nav-tint, 255 255 255) / var(--nav-tint-alpha, .72));
+  color: var(--nav-ink, var(--ph-text-1));
   -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
   backdrop-filter: saturate(180%) blur(20px) !important;
   border-bottom: 0;
-  transition: background var(--ph-dur-base) var(--ease-frosted-out);
+  transition: background 220ms linear,
+              transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out);
 }
 
-.ph-flat.is-nav-dark .ph-nav { background: rgba(22, 22, 23, .72); }
-/* The wordmark is a raster element, not type, so it cannot be recoloured — it
-   is inverted instead, which for a one-colour mark is the same thing. */
-.ph-flat.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
-.ph-flat.is-nav-dark .ph-nav,
-.ph-flat.is-nav-dark .ph-nav a,
-.ph-flat.is-nav-dark .ph-links .ph-trigger,
-.ph-flat.is-nav-dark .ph-nav-icon { color: #fff; }
-.ph-flat.is-nav-dark .ph-nav-end .ph-item > .ph-trigger {
-  color: #fff;
-  border-color: rgba(255, 255, 255, .38);
+/* ---- the ink follows the tint. One custom property drives every glyph in the
+   bar, so the sampler decides light-on-dark or dark-on-light once and nothing
+   else has to be told. The wordmark is a raster element and cannot take a
+   colour, so it is inverted on the dark reading instead - for a one-colour mark
+   that is the same thing. */
+.ph-flat .ph-nav a,
+.ph-flat .ph-links .ph-trigger,
+.ph-flat .ph-nav-icon { color: var(--nav-ink, var(--ph-text-1)); }
+.ph-flat .ph-nav-end .ph-item > .ph-trigger {
+  color: var(--nav-ink, var(--ph-text-1));
+  border-color: var(--nav-rim, var(--border-strong));
 }
-.ph-flat.is-nav-dark .ph-burger span { background: #fff; }
+.ph-flat .ph-burger span { background: var(--nav-ink, var(--ph-text-1)); }
+.ph-flat.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
 /* The mega-menu panel stays light whatever the bar is doing. It is a sheet that
    COVERS the film rather than a layer over it, so it keeps its own ground and
    its own ink - and it is the one opaque surface in the system by design. */
+.ph-flat .ph-panel { color: var(--ph-text-1); }
+.ph-flat .ph-panel a { color: var(--ph-accent-link); }
+
+/* ---- past the film, the bar leaves.
+   Asked for directly, and it is the right move for one specific reason: the
+   product bar shared.js builds carries the same two facts as the marquee - the
+   name and the Buy - so once the marquee is gone the two bars would be saying
+   the same thing in two stacked rows. One replaces the other rather than
+   joining it. `visibility` is in the transition so the bar cannot be tabbed
+   into while it is sliding away. */
+.ph-flat.is-past-hero .ph-nav {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
+}
+
+/* ---- the product bar takes the top. shared.js parks it at --ph-nav-h, which
+   is the correct place on the other 80 pages, where the nav stays. Here the nav
+   has gone, so the bar rises into the space it left. Section 1 already gave it
+   a flat white ground and a hairline; only the position changes. */
+.ph-flat .ph-bar { top: 0; }
+@media (max-width: 900px) { .ph-flat .ph-bar { top: 0; } }
 
 /* ---------------------------------------------------------------------------
    4 · THE RING FAMILY STAGE.
