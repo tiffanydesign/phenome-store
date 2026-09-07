@@ -102,23 +102,96 @@
    tick list. Neither is an edge, so neither is what "no shadow" was about. */
 
 /* ---------------------------------------------------------------------------
-   3 · THE HERO FILM.
+   3 · THE MARQUEE · apple.com/se/iphone-air, structurally.
 
-   The right half of the hero was a still. It is the ceramic ring's own product
-   film now, and it is treated as a photograph rather than as media: no controls,
-   no chrome, no play affordance, the same 27px corner the still had. It carries
-   no information the copy does not already state, which is what makes it safe
-   to run muted and looping with `aria-hidden` — a decorative surface.
+   Read off that page's own markup rather than from a screenshot, because the
+   arrangement is the point and it is not the obvious one:
+
+     section.section-welcome
+       div.marquee-top        the product wordmark, then ONE headline. Centred,
+                              at the top of the screen, ABOVE the media.
+       div.welcome-video      the film, edge to edge, taking the rest of the
+                              viewport. Together the two are one screen.
+
+   The text is NOT overlaid on the film — that is the detail worth having. An
+   overlay would need a scrim, a scrim is a dark surface, and this page has just
+   had every dark surface taken out of it. Apple's answer avoids the problem
+   instead of solving it, and it is free here: the copy sits on the page ground
+   and the film starts below it.
+
+   What was here before: a two-column split with a headline, a supporting
+   paragraph and the film boxed into the right-hand column. The paragraph is
+   gone — one sentence, asked for directly. The two controls stay, and that is
+   a deliberate departure from the reference: Apple's hero carries no buttons
+   because its localnav does, and ours does not appear until the page scrolls.
+   Dropping them would leave a product page with no way to buy above the fold.
    ------------------------------------------------------------------------ */
-.ph-flat .hero-img video {
+.ph-flat .ring-marquee {
+  /* svh, not vh: on a phone `100vh` is the tallest the viewport ever gets, so
+     the film's last band sits under the browser's own bar until you scroll. */
+  /* HEIGHT, not min-height, and that distinction is the whole layout. With
+     `min-height` the section has no definite height for its children to shrink
+     against, so the film contributes its own intrinsic 16:9 box — measured at
+     1440x900: a 1119px hero, 219px past the fold, with the film refusing to
+     give any of it back. A stated height makes the section a real constraint
+     and the film becomes the thing that absorbs whatever the copy does not
+     use. The floor keeps it honest on a short laptop. */
+  height: 100svh;
+  min-height: 640px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ph-flat .ring-marquee-top { flex: 0 0 auto; }
+.ph-flat .ring-marquee-top .cta-actions { margin-top: 28px; }
+
+.ph-flat .ring-marquee-media {
+  /* basis 0, so the film asks for nothing and is given the remainder. `auto`
+     would make it ask for its intrinsic height first and negotiate down. */
+  flex: 1 1 0;
+  /* A flex item's floor is its own content, and this one's content is a 1080px
+     video. Without this it cannot shrink below that whatever the basis says. */
+  min-height: 0;
+  margin-top: clamp(28px, 4vh, 56px);
+  overflow: hidden;
+  background: var(--flat-band);
+}
+.ph-flat .ring-marquee-media video {
   display: block;
   width: 100%;
-  height: auto;
-  /* The master is 16:9 and the still it replaces was 3:2, so the hero column
-     would jump on load without this. Reserved, not cropped. */
-  aspect-ratio: 16 / 9;
+  height: 100%;
+  /* The film is a finished 16:9 advertisement and the slot it has to fill is
+     wider than that at every desktop height, so it is cropped top and bottom
+     rather than letterboxed — "fill the first screen" was the instruction and
+     a letterbox is the one thing that does not. Its own captions sit on the
+     middle band, which is what survives the crop. */
   object-fit: cover;
-  background: var(--flat-band);
+  object-position: center;
+}
+
+/* THE CROP INVERTS ON A PHONE, and it has to. `cover` fills by discarding the
+   long axis, and below 900 the slot is TALLER than it is wide — 390x507 is
+   0.77:1 against the film's 1.78:1, so cover was throwing away 78% of the
+   frame's width. Verified at 390: the film's own caption "Engineered for
+   Continuous Wear" was rendering as "eered". A finished advertisement carries
+   its message in the middle of the frame, and on a phone the only way to keep
+   that message is to keep the frame.
+
+   So the phone stops forcing one screen. The section goes back to its natural
+   height and the film takes a 16:9 band at full width under the copy — which
+   is about a screen anyway, and is a whole advertisement rather than a
+   magnified detail of one. */
+@media (max-width: 900px) {
+  .ph-flat .ring-marquee {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+  .ph-flat .ring-marquee-media {
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 9;
+  }
+  .ph-flat .ring-marquee-media video { object-fit: contain; }
 }
 
 /* ---------------------------------------------------------------------------
