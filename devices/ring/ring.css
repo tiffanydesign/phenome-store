@@ -377,28 +377,25 @@
    becomes the wordmark - which is why the tracking and the uppercase went with
    the size. Both existed to make a small label legible and neither helps here.
 
-   --ph-accent: the Buy button's own blue, asked for by name.
+   BLUE 500, ALWAYS. It was sampled from the film and stepped between the
+   brand's two rungs — --ph-accent on light passages, --ph-on-brand on dark —
+   and it is one fixed value now, asked for twice and explicitly.
 
-   IT IS CONDITIONAL, AND THE CONDITION IS THE FILM. #203a85 is the brand's
-   light-ground rung. Over the film's white passages, under a 55% black wash,
-   the ground composites near #737373 and the mark reads. Over the black studio
-   passages the ground stays black whatever the wash does — a black wash cannot
-   lighten anything — and #203a85 there measures about 1.6:1, which is not a
-   contrast, it is an absence.
+   The trade is recorded rather than argued: #203a85 measures about 1.6:1 over
+   the film's black studio passages, so for those few seconds the mark is a dark
+   blue on a dark ground. Raised before this was decided; the decision stands
+   and the switching is gone.
 
-   So the wordmark is painted from the sampler that already drives the bar: it
-   holds --ph-accent while the film is light and steps to --ph-on-brand, the
-   same blue's dark-ground rung, while it is dark. One brand blue, the rung
-   chosen by what is actually behind it. --mark-ink is written by the script at
-   the foot of the page; the fallback here is the value asked for. */
+   TWO RUNGS SMALLER on the site's own scale — 52 to 32 at the top, 28 to 21 at
+   the bottom. Both ends move together so the ramp between them keeps its shape
+   rather than flattening at one width. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
-  font-size: clamp(28px, 3.4vw, 52px);
-  line-height: 1.06;
+  font-size: clamp(21px, 2.2vw, 32px);
+  line-height: 1.08;
   font-weight: var(--ph-w-600);
-  letter-spacing: -0.014em;
-  color: var(--mark-ink, var(--ph-accent));
-  transition: color 160ms linear;
+  letter-spacing: -0.012em;
+  color: var(--ph-accent);
 }
 /* .ring-marquee-headline is gone from the markup - one line was asked for and
    the wordmark is it. Nothing styles it here any more. */
@@ -477,10 +474,9 @@
     padding-bottom: clamp(20px, 3.5vh, 32px);
   }
   .ph-flat .ring-marquee-eyebrow {
-    /* The phone was already treating this as the first line of the copy rather
-       than as a label; the desktop rule has now caught up with it, so all this
-       does is hold the size to what a 390 screen can carry. */
-    font-size: clamp(20px, 6.4vw, 26px);
+    /* Two rungs down here as well, so the phone keeps the same relationship to
+       the desktop size it had before both moved. */
+    font-size: clamp(17px, 4.6vw, 20px);
   }
   .ph-flat .ring-marquee-headline {
     margin-top: 6px;
@@ -678,10 +674,20 @@
   overflow: hidden;
 }
 
-/* ---- the three marks. The one piece of chrome this needs, and it is doing a
-   job the ring cannot: it says how many there are and how far through you are,
-   which is what tells a reader that the section is finite and worth staying
-   in. Without it a page that holds still is a page that has broken. */
+/* ---- the three marks, which are also the three controls.
+
+   They started as an indicator: how many there are and how far through you are,
+   which is what tells a reader the section is finite and worth staying in.
+   Without it a page that holds still is a page that has broken.
+
+   THEY TAKE THE POINTER NOW, and pressing one does exactly what scrolling to it
+   does — because it IS scrolling to it. The handler moves the document to the
+   matching point in the pin's own track and lets the existing scroll listener
+   notice; nothing tells the ring anything directly. Two routes to one mechanism
+   rather than two mechanisms that have to be kept agreeing.
+
+   The hit area is 44 x 20 around a 28 x 3 mark: a 3px target is not a target.
+   Drawn on ::before so the mark itself stays the size it was. */
 .ph-flat .ringfam-steps {
   position: absolute;
   left: 50%;
@@ -689,16 +695,34 @@
   transform: translateX(-50%);
   display: flex;
   gap: 8px;
-  pointer-events: none;
+  z-index: 2;
 }
 .ph-flat .ringfam-step {
+  position: relative;
   width: 28px;
   height: 3px;
+  padding: 0;
+  border: 0;
   border-radius: 980px;
   background: rgba(16, 33, 75, .14);
+  cursor: pointer;
   transition: background 240ms var(--ease-frosted-out);
 }
+.ph-flat .ringfam-step::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+}
+.ph-flat .ringfam-step:hover { background: rgba(16, 33, 75, .3); }
 .ph-flat .ringfam-step.on { background: var(--ph-accent); }
+.ph-flat .ringfam-step:focus-visible {
+  outline: 2px solid var(--ph-focus);
+  outline-offset: 6px;
+}
 .ph-flat .ringfam-frame {
   display: block;
   width: 100%;
