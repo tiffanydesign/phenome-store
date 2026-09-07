@@ -216,62 +216,59 @@
   inset: 0;
   pointer-events: none;
 
-  /* IT TURNS OVER: white, not black. Two things forced it and they agree.
+  /* BLACK, and it went white for one turn before coming back. Worth recording
+     why, because the reason it went is still true and is handled elsewhere now:
+     brand blue at #203a85 cannot be read on a black wash. It is not the black
+     that was wrong, it is that rung of the ramp — so the wordmark takes
+     --ph-on-brand, the value this system already defines for brand blue on a
+     dark ground, and the band stays the colour it is meant to be.
 
-     The wordmark is brand blue now, and #203a85 on a black wash is unreadable
-     at any alpha that would also hold back the picture - the two requirements
-     pull opposite ways and there is no value that serves both.
+     THE HEIGHT IS RIGHT AS IT STANDS: the runway is set on .ring-marquee-band
+     above and is not what changed here. Only the colour did.
 
-     And the black was wrong on its own terms. This film opens near-white, and a
-     dark band under a white frame is the only heavy thing on a page that has
-     had every other dark surface deliberately removed. The page is white; the
-     band that carries its type should be too.
+     TWO THINGS FROM THE WHITE VERSION ARE KEPT, because both fixed real faults
+     rather than being part of the colour:
 
-     A CURVE, NOT A RAMP, which is the other half of "the transition is not
-     natural". A two-stop linear gradient changes fastest where it starts and
-     that first edge is exactly what the eye finds. These six stops trace an
-     ease-in: almost nothing for the first third, then the weight arriving late
-     and quickly. Same legibility under the type, no edge anywhere.
+     THE RAMP IS THE MASK, NOT THE FILL. backdrop-filter applies to the
+     element's BOX, uniformly; a gradient in its background does not fade it.
+     Written that way the wash arrived gradually while the blur arrived all at
+     once, and the top of the blur drew a hard horizontal line across the
+     picture — the one edge the gradient existed to avoid, put back by the other
+     property. A mask clips both, so the fill is flat and the mask carries the
+     curve, and the two reach every row at the same strength.
 
-     Alpha tops out at .82 rather than 1, so the picture is still faintly there
-     behind the last line - a wash the film shows through, rather than a panel
-     laid over the bottom of it.
+     A CURVE, NOT A RAMP. Six stops tracing an ease-in rather than two stops of
+     linear. A linear gradient changes fastest where it starts, and that first
+     edge is exactly what the eye finds.
 
-     THE RAMP IS THE MASK, NOT THE FILL, and that is the whole fix for "the
-     transition is not natural". backdrop-filter applies to the element's BOX,
-     uniformly; a gradient in its background does not fade it. Written that way
-     the wash arrived gradually while the blur arrived all at once, and the top
-     of the blur was a hard horizontal line across the picture - the one edge
-     the gradient was drawn to avoid, put back by the other property.
-
-     A mask clips both. So the fill is flat white and the mask carries the
-     curve, which means the wash and the blur reach any given row at exactly the
-     same strength and neither can draw an edge the other does not. */
-  background-color: #fff;
+     Alpha tops out at .78 rather than 1. The original was opaque black at the
+     foot and read as a panel laid over the bottom of the film; at 78 the
+     picture is still faintly behind the last line and the band is a wash the
+     film shows through. */
+  background-color: #000;
   -webkit-mask-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.04) 28%,
-    rgba(0, 0, 0, 0.14) 46%,
-    rgba(0, 0, 0, 0.36) 64%,
-    rgba(0, 0, 0, 0.62) 82%,
-    rgba(0, 0, 0, 0.82) 100%
+    rgba(0, 0, 0, 0.13) 46%,
+    rgba(0, 0, 0, 0.34) 64%,
+    rgba(0, 0, 0, 0.59) 82%,
+    rgba(0, 0, 0, 0.78) 100%
   );
   mask-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.04) 28%,
-    rgba(0, 0, 0, 0.14) 46%,
-    rgba(0, 0, 0, 0.36) 64%,
-    rgba(0, 0, 0, 0.62) 82%,
-    rgba(0, 0, 0, 0.82) 100%
+    rgba(0, 0, 0, 0.13) 46%,
+    rgba(0, 0, 0, 0.34) 64%,
+    rgba(0, 0, 0, 0.59) 82%,
+    rgba(0, 0, 0, 0.78) 100%
   );
-  /* The blur is what lets the wash stop at 82% and still hold type over a busy
-     frame. Section 1 takes backdrop-filter off every element on this page, so
-     this needs !important like the two bars do. 14, not 20 - a lighter wash
-     needs less help, and leaves more of the picture. */
-  -webkit-backdrop-filter: blur(14px) saturate(1) !important;
-  backdrop-filter: blur(14px) saturate(1) !important;
+  /* The blur is what lets the wash stop short of opaque and still hold type
+     over a busy frame. Section 1 takes backdrop-filter off every element on
+     this page, so this needs !important like the two bars do. */
+  -webkit-backdrop-filter: blur(16px) saturate(1) !important;
+  backdrop-filter: blur(16px) saturate(1) !important;
 }
 
 .ph-flat .ring-marquee-viewport {
@@ -299,16 +296,21 @@
    becomes the wordmark - which is why the tracking and the uppercase went with
    the size. Both existed to make a small label legible and neither helps here.
 
-   Brand blue on the light wash rather than white on a dark one. Worst case is
-   the wash over a black frame, which composites to about #dbdbdb; #203a85 on
-   that is roughly 8.5:1, so it holds through the darkest part of the film. */
+   BRAND BLUE ON A DARK GROUND IS ITS OWN VALUE, and this system already has
+   it: --ph-on-brand, #8fb8ea, which phenome-glass.css measured for exactly this
+   situation and which shared.css already uses on `.hero.on-dark .eyebrow`.
+
+   --ph-accent, #203a85, is the light-ground rung of the same blue. It was right
+   for the one turn the scrim was white and is unreadable now the scrim is black
+   again — roughly 1.6:1 against the foot of the band. #8fb8ea on the same
+   ground measures near 9:1. Same blue, correct rung. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
   font-size: clamp(28px, 3.4vw, 52px);
   line-height: 1.06;
   font-weight: var(--ph-w-600);
   letter-spacing: -0.014em;
-  color: var(--ph-accent);
+  color: var(--ph-on-brand);
 }
 /* .ring-marquee-headline is gone from the markup - one line was asked for and
    the wordmark is it. Nothing styles it here any more. */
@@ -323,11 +325,11 @@
   column-gap: 28px;
   padding: 10px 10px 10px 24px;
   border-radius: 100vmax;
-  /* Light glass, because the band under it is light now. It was 25% of a warm
-     grey, which was Apple's value for a capsule floating on a dark scrim; the
-     same 25% over a white wash is a smudge. White at 62% reads as the same
-     material on the other side of the page's ladder. */
-  background: rgba(255, 255, 255, .62);
+  /* Back to Apple's own value with the band: 25% of a warm grey, which is what
+     a capsule floating on a dark scrim takes. It was white for the turn the
+     scrim was white, because 25% grey over a white wash is a smudge; over black
+     it is glass again. */
+  background: rgba(66, 66, 69, .25);
   -webkit-backdrop-filter: blur(20px) !important;
   backdrop-filter: blur(20px) !important;
 }
@@ -336,7 +338,7 @@
   font-size: var(--ph-fs-19);
   line-height: var(--ph-lh-19);
   font-weight: var(--ph-w-600);
-  color: var(--ph-text-1);
+  color: #fff;
   white-space: nowrap;
 }
 .ph-flat .ring-marquee-buy {
