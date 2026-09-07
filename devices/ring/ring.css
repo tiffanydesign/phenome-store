@@ -317,8 +317,8 @@
 }
 
 .ph-flat.is-nav-dark .ph-nav { background: rgba(22, 22, 23, .72); }
-/* The wordmark is an <img> and cannot be recoloured, so it is inverted - for a
-   one-colour mark that is the same thing. */
+/* The wordmark is a raster element, not type, so it cannot be recoloured — it
+   is inverted instead, which for a one-colour mark is the same thing. */
 .ph-flat.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
 .ph-flat.is-nav-dark .ph-nav,
 .ph-flat.is-nav-dark .ph-nav a,
