@@ -475,9 +475,30 @@
   color: var(--ph-text-2);
 }
 
-.ph-flat .ringfam-stage {
+/* ---- the pin. The section holds still while the reader scrolls through the
+   three colourways, then lets go.
+
+   THE TRACK IS THE SCROLL BUDGET. `position: sticky` needs somewhere to stick
+   WITHIN, so the pin is a tall block and the stage sticks to the top of it;
+   how tall decides how much wheel a reader spends on each card. Three cards at
+   90vh apiece, plus one screen for the stage itself to occupy.
+
+   This is a scroll-driven sequence, NOT a scroll-jack: the page never takes the
+   wheel, never animates the scroll position, and never refuses to move. Every
+   turn of the wheel moves the document exactly as far as it always would — the
+   only thing that changes is that for one section the thing which moves is the
+   ring rather than the page. Flick past it and you pass it; the ring simply
+   ends on its last card. */
+.ph-flat .ringfam-pin {
   position: relative;
   margin-top: clamp(32px, 3.4vw, 56px);
+  height: calc(100svh + 3 * 90svh);
+}
+.ph-flat .ringfam-stage {
+  position: sticky;
+  /* Under the bar rather than below it: the stage is the whole screen while it
+     is pinned, and the bar is glass over it. */
+  top: 0;
   /* Full-bleed, and it costs nothing to get: the stage is a direct child of
      .section, which has vertical padding and no horizontal padding at all, so
      it already spans the document. NOT `width: 100vw` — shared.css states the
@@ -487,10 +508,35 @@
      here before the rule was read: a 15px horizontal bar under the whole page.
      The piece is composed around a circle that is mostly off-screen, so the
      bleed is not decoration — a content column would crop the arc. */
-  height: min(78vh, 760px);
+  /* A full screen, because a pinned band that is not one leaves the page
+     visibly held still around it — the reader sees the section above and below
+     refusing to move and reads it as a stall rather than as a stage. */
+  height: 100svh;
   background: var(--flat-band);
   overflow: hidden;
 }
+
+/* ---- the three marks. The one piece of chrome this needs, and it is doing a
+   job the ring cannot: it says how many there are and how far through you are,
+   which is what tells a reader that the section is finite and worth staying
+   in. Without it a page that holds still is a page that has broken. */
+.ph-flat .ringfam-steps {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 5vh, 56px);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+.ph-flat .ringfam-step {
+  width: 28px;
+  height: 3px;
+  border-radius: 980px;
+  background: rgba(16, 33, 75, .14);
+  transition: background 240ms var(--ease-frosted-out);
+}
+.ph-flat .ringfam-step.on { background: var(--ph-accent); }
 .ph-flat .ringfam-frame {
   display: block;
   width: 100%;
@@ -636,7 +682,9 @@
 
 @media (max-width: 900px) {
   .ph-flat .ringfam-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
-  .ph-flat .ringfam-stage { display: none; }
+  /* The pin goes with the stage. Hiding the stage alone would leave its track
+     behind — 370svh of empty block, which on a phone is four blank screens. */
+  .ph-flat .ringfam-pin { display: none; }
   .ph-flat .ringfam-list { grid-template-columns: 1fr; }
   .ph-flat .ringfam-fallback {
     display: grid;
@@ -658,6 +706,6 @@
    reachable. Coarse pointers get the photographs for the same reason phones do:
    the piece expects a wheel and a hover, and a touch device has neither. */
 @media (hover: none) {
-  .ph-flat .ringfam-stage { display: none; }
+  .ph-flat .ringfam-pin { display: none; }
   .ph-flat .ringfam-fallback { display: grid; }
 }
