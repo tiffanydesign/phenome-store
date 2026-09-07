@@ -1,0 +1,342 @@
+/* ============================================================================
+   /devices/ring/ — the flat sheet, and the ring family stage.
+
+   A THIRD STYLESHEET FOR ONE PAGE, which the rest of this site does not do, and
+   the reason is that this page asks for two things the other 80 must not get:
+
+     1. ZERO shadow. Not softer, not smaller — none. The reference given is
+        apple.com/se/mac, where the entire hierarchy is carried by two ground
+        tones and nothing else: no drop, no rim, no blur. phenome-glass.css
+        spent its whole existence giving panes an edge; here that edge is
+        removed and the tone has to do all of it alone.
+     2. A WebGL stage embedded from another origin, with its own scroll
+        behaviour to contain.
+
+   Loaded after phenome-glass.css, so it wins on equal specificity. Scoped to
+   `.ph-flat` on <body> rather than written bare, so that nothing here can leak
+   if the file is ever linked from a second page by accident.
+
+   THE LADDER IS TWO VALUES AND THERE IS NO THIRD:
+     #ffffff  the page, and a pane sitting in a tinted band
+     #f4f6fb  a tinted band, and a pane sitting on the page
+   A surface is always the value its parent is not. That inversion IS the
+   hierarchy now — with the hairline gone there is nothing else left to read.
+   ========================================================================== */
+
+.ph-flat {
+  /* Named locally so every rule below reads as the ladder rather than as two
+     hex values that happen to recur. Both come from phenome-glass.css. */
+  --flat-page: #ffffff;
+  --flat-band: #f4f6fb;
+}
+
+/* ---------------------------------------------------------------------------
+   1 · FLAT · the removal, stated once and universally.
+
+   `*` is a blunt instrument and it is the correct one here: the shadows on this
+   page come from eleven different rules across two stylesheets, four of them
+   carrying !important, and enumerating them would mean this file silently stops
+   working the next time a component gains a drop. The requirement is "no shadow
+   on this page", so the selector says exactly that.
+
+   backdrop-filter goes with it. Every fill it was working behind is opaque now,
+   so it was already doing nothing but costing a compositor layer per pane — and
+   on the nav, which is the one surface still translucent, the blur was half of
+   what made it read as a raised bar. Both halves go.
+   ------------------------------------------------------------------------ */
+.ph-flat *,
+.ph-flat *::before,
+.ph-flat *::after {
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* THE TWO SURFACES THAT CANNOT LIVE ON TONE ALONE, and they are both chrome
+   rather than page: they float over content that scrolls under them, so there
+   is no parent whose tone they can be the inverse of. They get a real border —
+   a border is not a shadow, and a 1px line is the flattest possible way to say
+   "this is in front". The nav also goes fully opaque: at 88% over a moving page
+   with no blur behind it, type was reading against whatever passed underneath. */
+.ph-flat .ph-nav,
+.ph-flat .ph-bar {
+  background: var(--flat-page);
+  border-bottom: 1px solid var(--divider);
+}
+.ph-flat .ds-launch {
+  background: var(--flat-page);
+  border: 1px solid var(--border-strong);
+}
+
+/* ---------------------------------------------------------------------------
+   2 · THE LADDER · a pane takes the value its section does not.
+
+   phenome-glass.css sends every pane to white and lets the hairline separate it
+   from a white page. With the hairline gone that reads as one unbroken sheet,
+   so the panes on THIS page invert against their band instead. Same two values,
+   opposite assignment — which is the apple.com/mac construction exactly.
+   ------------------------------------------------------------------------ */
+.ph-flat .section-gray { background: var(--flat-band); }
+
+.ph-flat .section .figures .figure,
+.ph-flat .section .card,
+.ph-flat .section .card-gray { background: var(--flat-band) !important; }
+
+.ph-flat .section-gray .figures .figure,
+.ph-flat .section-gray .card,
+.ph-flat .section-gray .card-gray { background: var(--flat-page) !important; }
+
+/* The figure stops being a rule-topped column and becomes a tile. shared.css
+   draws it as `border-top: 1px solid` over open page — a construction that
+   needs the rule, because without it the column has no top. A tile has a top:
+   its own fill. The rule would now be a second boundary drawn inside the first. */
+.ph-flat .figures .figure {
+  border-top: 0;
+  padding: 26px 24px 28px;
+  border-radius: var(--ph-r18);
+}
+
+/* The spec row keeps its rule. It is a TABLE, not a surface — the line is
+   separating two readings from each other inside one pane, which is the one job
+   a hairline still has on a flat page. Same for the divider under a card's
+   tick list. Neither is an edge, so neither is what "no shadow" was about. */
+
+/* ---------------------------------------------------------------------------
+   3 · THE HERO FILM.
+
+   The right half of the hero was a still. It is the ceramic ring's own product
+   film now, and it is treated as a photograph rather than as media: no controls,
+   no chrome, no play affordance, the same 27px corner the still had. It carries
+   no information the copy does not already state, which is what makes it safe
+   to run muted and looping with `aria-hidden` — a decorative surface.
+   ------------------------------------------------------------------------ */
+.ph-flat .hero-img video {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The master is 16:9 and the still it replaces was 3:2, so the hero column
+     would jump on load without this. Reserved, not cropped. */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--flat-band);
+}
+
+/* ---------------------------------------------------------------------------
+   4 · THE RING FAMILY STAGE.
+
+   An embedded WebGL carousel from tiffanydesign.github.io/Ice-works-showcase/ —
+   twelve photographs of the two rings riding an off-screen ring, drawn in one
+   fragment shader, connected by liquid bridges as they separate.
+
+   THE PROBLEM THIS SECTION HAS TO SOLVE is that the embedded piece owns the
+   wheel: inside it, wheel input is rotation, not scroll. Dropped into a page
+   that must keep scrolling, an iframe like that is a trap — the pointer enters
+   it and the page stops responding, with nothing on screen explaining why.
+
+   The answer is that the frame is INERT UNTIL ASKED. It renders and animates
+   from the moment it loads, but `pointer-events: none` means the wheel passes
+   straight through to the page. A cover invites the click that hands it the
+   wheel, and it is handed back on Escape, on the Release control, or as soon as
+   the section leaves the viewport. See the script at the foot of the page.
+   ------------------------------------------------------------------------ */
+.ph-flat .ringfam { padding-bottom: clamp(56px, 5vw, 88px); }
+
+.ph-flat .ringfam-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--ph-gutter);
+  align-items: end;
+}
+.ph-flat .ringfam-lede {
+  margin: 0;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  color: var(--ph-text-2);
+}
+
+.ph-flat .ringfam-stage {
+  position: relative;
+  margin-top: clamp(32px, 3.4vw, 56px);
+  /* Full-bleed, and it costs nothing to get: the stage is a direct child of
+     .section, which has vertical padding and no horizontal padding at all, so
+     it already spans the document. NOT `width: 100vw` — shared.css states the
+     rule and the reason plainly (§ .grid.rail): a viewport unit ignores the
+     scrollbar, the document starts scrolling sideways by exactly its width, and
+     the layout audit then reports every near-miss on the page at once. Measured
+     here before the rule was read: a 15px horizontal bar under the whole page.
+     The piece is composed around a circle that is mostly off-screen, so the
+     bleed is not decoration — a content column would crop the arc. */
+  height: min(78vh, 760px);
+  background: var(--flat-band);
+  overflow: hidden;
+}
+.ph-flat .ringfam-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Inert by default — the whole containment strategy is this one line. */
+  pointer-events: none;
+}
+.ph-flat .ringfam-stage.is-live .ringfam-frame { pointer-events: auto; }
+
+/* The cover. Transparent, because the piece behind it is already running and
+   hiding it would waste the best invitation there is. Only the tag is drawn. */
+.ph-flat .ringfam-guard {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  /* Centred horizontally, LOW vertically. Dead-centre was the first attempt and
+     it put the tag straight over the card — covering the single photograph the
+     invitation exists to sell. The hit area is still the whole stage; only the
+     drawn part moves out of the way. */
+  align-content: end;
+  justify-content: center;
+  padding-bottom: clamp(28px, 4vh, 52px);
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ph-font);
+  text-align: center;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ringfam-stage.is-live .ringfam-guard { opacity: 0; pointer-events: none; }
+
+.ph-flat .ringfam-guard-tag {
+  justify-self: center;
+  padding: 10px 20px;
+  border-radius: 980px;
+  background: var(--flat-page);
+  border: 1px solid var(--border-strong);
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
+  font-weight: var(--ph-w-600);
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-guard:hover .ringfam-guard-tag { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
+.ph-flat .ringfam-guard-sub {
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  color: var(--ph-text-2);
+}
+
+.ph-flat .ringfam-release {
+  position: absolute;
+  right: var(--ph-margin);
+  bottom: var(--ph-margin);
+  padding: 8px 16px;
+  border-radius: 980px;
+  border: 1px solid var(--border-strong);
+  background: var(--flat-page);
+  cursor: pointer;
+  font-family: var(--ph-font);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-release:hover { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
+
+/* The two products the stage is showing, named under it. The stage is twelve
+   photographs of colourways; this is the line that says there are two things
+   for sale, which the photography on its own never manages to. */
+.ph-flat .ringfam-list {
+  list-style: none;
+  margin: clamp(32px, 3.4vw, 56px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ph-gutter);
+}
+.ph-flat .ringfam-item {
+  display: grid;
+  gap: 10px;
+  padding: 28px 26px 30px;
+  border-radius: var(--ph-r18);
+  background: var(--flat-band);
+}
+.ph-flat .ringfam-item h3 {
+  margin: 0;
+  font-size: var(--ph-fs-24);
+  line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-24-600);
+}
+.ph-flat .ringfam-meta {
+  margin: 0;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+.ph-flat .ringfam-price {
+  margin: 0;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600);
+}
+/* A price with no way to act on it is a dead end, and this tile is the first
+   place on the page either ring is named and costed. The pair of Buy buttons
+   further down the page are attached to the long-form sections; this is the
+   short one, so it gets the short control. */
+.ph-flat .ringfam-item .link-more { margin-top: 6px; justify-self: start; }
+/* "Live" is a STATUS, and the store states exactly one status anywhere (see the
+   note in phenome-glass.css § 1). This is not that one — it is not a warning,
+   it is the shipping state of a product — so it is drawn in the brand rather
+   than in a status ramp that would have to be invented for two words. */
+.ph-flat .ringfam-live {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 11px 3px 9px;
+  border-radius: 980px;
+  background: var(--flat-page);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase;
+  color: var(--ph-accent);
+}
+.ph-flat .ringfam-live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ph-accent);
+}
+
+/* The stand-in. The embedded piece is a desktop WebGL experience — the author's
+   own README says so — and a phone gets the two rings as photographs instead of
+   a frame that would run hot and read as a crop of something else. */
+.ph-flat .ringfam-fallback { display: none; }
+
+@media (max-width: 900px) {
+  .ph-flat .ringfam-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+  .ph-flat .ringfam-stage { display: none; }
+  .ph-flat .ringfam-list { grid-template-columns: 1fr; }
+  .ph-flat .ringfam-fallback {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: clamp(28px, 5vw, 40px);
+  }
+  .ph-flat .ringfam-fallback img {
+    display: block;
+    width: 100%;
+    height: clamp(180px, 42vw, 260px);
+    object-fit: cover;
+    border-radius: var(--ph-r18);
+  }
+}
+
+/* A pointer-driven stage has nothing to offer a keyboard or a reduced-motion
+   reader, and the release control is the only part of it that must stay
+   reachable. Coarse pointers get the photographs for the same reason phones do:
+   the piece expects a wheel and a hover, and a touch device has neither. */
+@media (hover: none) {
+  .ph-flat .ringfam-stage { display: none; }
+  .ph-flat .ringfam-fallback { display: grid; }
+}
