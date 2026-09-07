@@ -42,7 +42,13 @@
 
   /* ink + surface */
   --ink-900: #10214b; --ink-600: #4a5578; --ink-400: #8b93ad; --ink-label: #3f4a70;
-  --surface-page: #f4f6fb; --surface-card: #fff; --surface-sunken: #e7ebf3;
+  /* THE PAGE IS WHITE, 2026-09-07. It was #f4f6fb under a blue field and the
+     whole site read as a tinted sheet; the reference is apple.com/watch, where
+     the ground is #fff and the only other value in the ladder is one very
+     quiet band. The brand blue survives in that band and nowhere else:
+     #f4f6fb is the SAME hue the page used to be, demoted from ground to
+     recess, which is why the site still looks like itself. */
+  --surface-page: #ffffff; --surface-card: #fff; --surface-sunken: #f4f6fb;
   --divider: #203a8514; --border-strong: #203a8529; --grid-line: #203a850d;
 
   /* THE STATUS RAMP IS ONE COLOUR WIDE, because the store has one status.
@@ -60,10 +66,10 @@
      system, and they are the one thing that would read as two systems meeting. */
   --status-warning-fill:#b27f00; --status-warning-ink:#7a5600;
 
-  /* the ground. A 150deg three-stop wash plus two very large soft corner lobes.
-     Structure in the GROUND is the only thing a rimless pane has left to be
-     seen against — the twin's note on why its flat near-white page went. */
-  --stage-field-1:#eef3f9; --stage-field-2:#e5edf7; --stage-field-3:#dce7f4;
+  /* The three field stops that used to live here — #eef3f9 / #e5edf7 / #dce7f4,
+     a 150deg wash with two corner lobes — are gone with the blue ground. They
+     were the ONLY thing a rimless pane had to be seen against, so removing them
+     is not a colour change on its own: --gl-inner below is what replaces them. */
 
   --ease-frosted-out: cubic-bezier(.16,1,.3,1);
 
@@ -78,13 +84,26 @@
   --gl-blur-panel: blur(24px) saturate(140%);
   --gl-blur-thin:  blur(14px) saturate(140%);
 
-  --gl-tint:       #ffffff6b;   /* 42% — a card and a pane draw at the same alpha */
-  --gl-tint-panel: #ffffff6b;
-  --gl-tint-solid: #ffffff80;   /* 50% — chips, segments, small round buttons */
-  --gl-tint-live:  #ffffff96;   /* 59% — anything that must hold its own boundary
-                                   against a backdrop the blur cannot work on:
-                                   a quiet ground, a photograph, a running film */
-  --gl-tint-sunk:  #96a8cd2e;   /* a recess is one flat blue-grey wash, nothing else */
+  /* THE TINTS ARE OPAQUE NOW, and that follows from the ground rather than
+     being a second decision. Every value below was an alpha struck against the
+     blue field: 42% white over #e5edf7 composites to #f2f5fa, which is a
+     surface. Over #ffffff the same 42% composites to #ffffff — the pane stops
+     existing. So each tier is restated as the composite it used to produce,
+     and the ladder it encoded is preserved exactly:
+         pane / live / solid  →  white, one step above the page
+         sunk                 →  #f4f6fb, one step below it
+     TWO SURFACES KEEP AN ALPHA, and both for the same reason: their backdrop
+     is not the page. .ph-nav is given its own value by name in section 5, and
+     --gl-tint-overlay below is left at 84% — a floating tool travels over dark
+     heroes and film, where opaque white is a sticker rather than a control.
+     Over the white page both composite to white, so nothing is lost there.
+     The blur stays on the rules that carry it; behind an opaque fill it costs
+     nothing and does nothing. */
+  --gl-tint:       #ffffff;
+  --gl-tint-panel: #ffffff;
+  --gl-tint-solid: #ffffff;     /* chips, segments, small round buttons */
+  --gl-tint-live:  #ffffff;     /* anything that must hold its own boundary */
+  --gl-tint-sunk:  #f4f6fb;     /* a recess is one flat, very quiet blue wash */
 
   /* The tier the twin does not have, and it is added for a measured reason.
      The twin is one page over a ground it controls. This is 82 pages of
@@ -99,7 +118,15 @@
   --gl-shadow-panel:  0 8px 24px -18px #4664a038;
   --gl-shadow-lift:   0 14px 34px -18px #4664a04d;
   --gl-shadow-press:  0 3px 9px -10px #4664a03d;
-  --gl-inner: 0 0 #0000;
+  /* THE HAIRLINE THAT REPLACES THE FIELD. A white pane on a white page has no
+     edge and the 8px/24px drop above is far too soft to be one — measured at
+     1440 on /store/ and /, the card edges were unfindable, which is the same
+     failure the field was carrying before. 6% ink is #eff0f4 on white: not a
+     rule, a boundary. It is the inset half of every pane's box-shadow list,
+     which is why it costs no layout and no border-box.
+     The recess keeps its null: it is a TONE, and a tone that is also outlined
+     reads as a second card rather than as a hollow in the one it sits in. */
+  --gl-inner: inset 0 0 0 1px #10214b0f;
   --gl-inner-sunk: 0 0 #0000;
 
   /* Kit first, then the installed desktop names, then the humanist-sans chain.
@@ -289,39 +316,42 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
-   4 · THE GROUND
-   Glass over flat near-white is the weakest reading this material has, so the
-   page takes the twin's field: a 150deg three-stop wash, two brand pools and
-   two very large corner lobes. Fixed, so the field belongs to the window and
-   the panes travel over it.
+   4 · THE GROUND · WHITE, 2026-09-07.
+
+   What was here: a fixed 150deg three-stop wash (#eef3f9 → #dce7f4) under two
+   brand pools and two very large corner lobes. It was the right call for glass
+   — a rimless pane needs structure behind it — and it was also the reason the
+   whole storefront read as a pale blue sheet rather than as a white page with
+   a blue brand in it. Asked for directly, with apple.com/se/watch named as the
+   reference: ground #fff, one quiet band, nothing else.
+
+   So the field goes, and the two things it was doing are re-housed rather than
+   dropped, because dropping them is what makes a white page look unfinished:
+     · the pane's boundary   → --gl-inner, a 6% inset hairline (section 1)
+     · the brand's presence  → --surface-sunken #f4f6fb, the SAME hue the page
+                               used to be, now only in the recess tier and the
+                               hero ramp below
+
+   `background` is stated rather than left to shared.css's own `var(--ph-white)`
+   so that this file, which owns the ground, keeps saying what the ground is.
    ------------------------------------------------------------------------ */
 body {
-  background:
-    radial-gradient(1200px 800px at 85% -10%,#30b0cd1a,transparent 60%),
-    radial-gradient(1000px 700px at -10% 90%,#203a8512,transparent 55%),
-    radial-gradient(760px 760px at -170px -170px,#c4daf773,#c4daf700 68%),
-    radial-gradient(700px 700px at calc(100% + 170px) calc(100% + 200px),#d2e2f866,#d2e2f800 70%),
-    linear-gradient(150deg,var(--stage-field-1) 0%,var(--stage-field-2) 46%,var(--stage-field-3) 100%);
-  background-attachment: fixed;
+  background: #ffffff;
   text-rendering: optimizeLegibility;
-}
-/* iOS composites a fixed background on every scroll frame, and a phone has no
-   room for the corner lobes anyway — the linear wash alone carries the hue. */
-@media (max-width: 900px), (hover: none) {
-  body { background-attachment: scroll; }
 }
 
 /* A section is no longer an opaque band. .section-gray was --ph-surface, an
    opaque tone that would sit on top of the field and cut it in two; it is the
    doctrine's recess instead — one flat blue-grey wash, no inset, no drop. */
 .section-gray  { background: var(--gl-tint-sunk); }
-/* The hero ran an OPAQUE ramp — --ph-surface at the top down to white at the
-   bottom — and it existed for one reason shared.css states plainly: the bar had
-   no border, so "what makes its edge visible is the tone of the page behind
-   it". The bar has a drop now, which is the doctrine's whole answer to an edge,
-   so the ramp is free to stop being opaque — and it had to, because an opaque
-   white bottom half is a lid over the field on the first screen of 40 pages.
-   Same shape, same direction, one twentieth of the weight. */
+/* The hero ramp is UNCHANGED by the move to a white page, and it is worth
+   saying why, because it is now the largest piece of colour on 40 first
+   screens. It is 14% blue-grey fading to nothing; over the old field it was a
+   whisper on top of a wash, over #fff it composites to about #ebeff6 at the
+   masthead and reaches white by the fold. That is the same gesture Apple's
+   product pages open with — the page barely tinted at the top, resolving to
+   white under the first heading — and it is where the brand hue now lives on
+   a page that has no other. */
 .hero:not(.on-dark):not(.on-film) {
   background: linear-gradient(180deg, #96a8cd24 0%, #96a8cd00 100%);
 }
@@ -368,9 +398,16 @@ body {
    live tier rather than the pane tier: a nav bar spends its life over a
    photograph or a running film, which is precisely the case --gl-tint-live
    exists for. The drop replaces the tone-of-the-page separation shared.css
-   relied on, which no longer holds now that the page is not white. */
+   relied on.
+
+   THE ONE TIER THAT KEEPS ITS ALPHA after the ground went white. --gl-tint-live
+   is opaque now and for every other consumer that is correct, but the bar is
+   the one surface whose backdrop is NOT the page: it travels over dark heroes,
+   photographs and film, and an opaque bar there is a white slab laid across
+   the top of the picture. 88% over white is white; over a hero it is still
+   glass. Stated by name rather than by a token, because it is the exception. */
 .ph-nav, .ph-bar {
-  background: var(--gl-tint-live);
+  background: #ffffffe0;
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
   box-shadow: var(--gl-shadow);
   border-bottom: 0;
@@ -598,13 +635,15 @@ a.card:hover, a.card-gray:hover, a.ph-prod:hover, a.atile:hover,
 .pill:hover, .tag:hover, .btn.ghost:hover {
   box-shadow: var(--gl-shadow-lift), var(--gl-inner);
 }
-/* 72%, one step above the resting live tier and one step under opaque. It has
-   to be stated rather than reached for: with the panes raised to 59% the old
-   hover fill and the resting fill became the same value, and a card that
-   answers the cursor with nothing is what shared.css's own .tag was doing for
-   as long as it existed. */
-a.card:hover, a.card-gray:hover, a.ph-prod:not(.is-dark):hover {
-  background: #ffffffb8 !important;
+/* The hover fill was 72% white — one step above a 59% resting pane. Both ends
+   of that comparison are gone: the resting pane is opaque white, so 72% white
+   is now a step DOWNWARDS in lightness, which would make a hovered card go
+   grey. The step it was expressing survives on the one card the step is
+   actually visible on, the recess: .card-gray rests at #f4f6fb and lifts to
+   white. A card that is already white answers with the drop alone, which is
+   the rule immediately above and is Apple's own answer on the same control. */
+a.card-gray:hover {
+  background: #ffffff !important;
 }
 a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-inner); }
 
@@ -621,7 +660,11 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
   border-radius: 0;
   background: var(--gl-tint-live);
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
-  box-shadow: var(--gl-shadow);
+  /* The hairline is added here, and the front door is the page that needed it
+     most: seven square white panels on a 12px gutter over a white ground is
+     one white sheet with seven captions on it. The gutter has to be a gutter,
+     and 6% ink at the tile's own edge is what makes it one. */
+  box-shadow: var(--gl-shadow), var(--gl-inner);
 }
 .atile.dark {
   background: linear-gradient(150deg,#142b6e 0%,#0a1e57 62%,#08183f 100%);
@@ -693,13 +736,14 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
    heaviest surface on a page that spends the rest of its height getting
    lighter. Six columns of navy link text then sit on it.
 
-   A white wash instead of a blue one: the same one flat tint, struck off the
-   light side, landing near #e9f0f8. It still reads as its own band — the page
-   is a gradient and this is not — but as the page finishing rather than as a
-   trough dug at the bottom of it. */
+   It was 40% white, which over the old blue field landed near #e9f0f8 — a
+   band, because the page it sat on was a gradient. On a white page the same
+   40% is white on white and the footer stops being a band at all, so it takes
+   the recess tone outright. #f4f6fb is the ONE other value on the page now,
+   which is the point: the footer and .section-gray are the same surface, and
+   the eye should read them as the same surface. */
 .ph-footer {
-  background: #ffffff66;
-  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  background: var(--gl-tint-sunk);
 }
 .ph-footer .rule { background: var(--divider); }
 
@@ -792,7 +836,12 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
      is the one surface with no ground of its own. */
   background: var(--gl-tint-overlay);
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
-  box-shadow: var(--gl-shadow);
+  /* The lift shadow and the hairline, not the resting drop. A floating tool is
+     the one control with NO ground of its own, so on a white page it was a
+     white disc on white with an 8px/24px drop under it — invisible, verified
+     in a render at 1440. The drop it needs is the one the system already uses
+     for "this is off the page", and the hairline holds the circle's edge. */
+  box-shadow: var(--gl-shadow-lift), var(--gl-inner);
   transition: width var(--ph-dur-base) var(--ease-frosted-out),
               box-shadow var(--ph-dur-base) var(--ease-frosted-out);
 }
@@ -902,7 +951,12 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   text-transform: uppercase; color: var(--phenome-blue-500);
   background: var(--gl-tint-overlay);
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
-  box-shadow: var(--gl-shadow);
+  /* The lift shadow and the hairline, not the resting drop. A floating tool is
+     the one control with NO ground of its own, so on a white page it was a
+     white disc on white with an 8px/24px drop under it — invisible, verified
+     in a render at 1440. The drop it needs is the one the system already uses
+     for "this is off the page", and the hairline holds the circle's edge. */
+  box-shadow: var(--gl-shadow-lift), var(--gl-inner);
   /* Out of the way until the dock is open, and out of the tab order with it —
      `opacity` alone would leave a 46px target sitting invisibly over the page. */
   opacity: 0; visibility: hidden; transform: translateY(6px);
@@ -1081,14 +1135,14 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 
 /* ---------------------------------------------------------------------------
    8 · Fallbacks
-   A browser with no backdrop-filter gets opaque panes rather than transparent
-   ones — the fill alphas above are all the legibility the type has, and 42%
-   white over a photograph with no blur under it is not a surface.
+   Almost nothing is left to fall back to: with the page white the tiers in
+   section 1 are opaque already, so a browser with no backdrop-filter now sees
+   what every other browser sees. The bar is the single exception — it is the
+   one surface that kept an alpha (section 5) and the one whose backdrop can be
+   a photograph, so without a blur under it 88% is not a surface.
    ------------------------------------------------------------------------ */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .ph-nav, .ph-bar, .ph-panel, .atile:not(.dark), .ds-launch { background: #f7f9fdf2 !important; }
-  .card, .figures .figure, .supp-review, .supp-card, .ph-prod, .buy-card,
-  .quiz-band, .section-gray .card-gray { background: #fffffff0 !important; }
+  .ph-nav, .ph-bar { background: #fffffff5 !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .card, .ph-prod, .supp-card, .atile, .ph-cat-tile, .pill, .tag, .btn.ghost {
