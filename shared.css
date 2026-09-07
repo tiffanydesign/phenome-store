@@ -1889,7 +1889,13 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
 .railx-cap {
   margin-top: 20px; max-width: 34rem;
   font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
-  letter-spacing: var(--ph-tr-17-600); color: var(--ph-text-2);
+  /* --ph-tr-17-600 was never declared — one use, no definition, so the
+     declaration was dropped in silence and the caption inherited body tracking.
+     The ladder has no 17/600 rung, and rather than invent one (see .opener on
+     the missing 28/400) this points at the rung that exists. Zero visual delta:
+     after the glass retheme --ph-tr-17-400 is 0em, which is what it was
+     inheriting anyway. */
+  letter-spacing: var(--ph-tr-17-400); color: var(--ph-text-2);
   /* The description carries the SAME weight as the name and differs only in colour —
      Bugra asked to see it at 600 rather than 400. tokens has no 500, so 600 is the
      rung above 400 and there is nothing between them. */
@@ -2479,8 +2485,15 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
 .buy-card .buy-sub { margin-top: 8px; }
 .buy-card .ticks { margin-top: 20px; }
 .buy-card .btn { display: flex; justify-content: center; width: 100%; margin-top: 24px; }
+/* align-self, because above 1280 the card is a flex column and a flex item's
+   inline-block is blockified by the spec — so `display: inline-block` above was
+   being honoured as `block` and the badge stretched to the card's full 528px,
+   which reads as a disabled text field rather than as a chip. Measured on all
+   six buy pages 2026-09-03. Stated as align-self rather than width:max-content
+   so a long badge still wraps inside the card instead of overflowing it, and so
+   the declaration is simply inert below 1280 where the card is a block. */
 .buy-badge {
-  display: inline-block; margin-top: 16px;
+  display: inline-block; align-self: flex-start; margin-top: 16px;
   background: var(--ph-surface); border-radius: var(--ph-r6);
   padding: 5px 10px; font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
   color: var(--ph-text-2);
@@ -2579,6 +2592,17 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
   .buy-media { aspect-ratio: 4 / 3; }
   .buy-price { flex-wrap: wrap; }
   .buy-price .btn { width: 100%; }
+}
+/* The card's inner padding has to answer to the page margin, and below 800 the
+   margin drops to 24 while the card kept 36 — so on a phone the H1 sat on a 24px
+   left edge and every line inside the card sat on a 60px one. Two left edges on
+   one screen, on all six buy pages. 22 rather than 24 because the card's own
+   1px edge and 16px radius already read as a step in from the page; matching the
+   margin exactly made the card look like it had no padding at all. It also
+   returns 28px of a 332px card to the copy, which at 390 is a fifth of the
+   measure. Measured 2026-09-03 at 390x844. */
+@media (max-width: 799px) {
+  .buy-card { padding: 24px 22px; }
 }
 
 /* The track count is the PANEL's, not the stylesheet's. The eight panels are not the
