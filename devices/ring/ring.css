@@ -102,97 +102,236 @@
    tick list. Neither is an edge, so neither is what "no shadow" was about. */
 
 /* ---------------------------------------------------------------------------
-   3 · THE MARQUEE · apple.com/se/iphone-air, structurally.
+   3 - THE MARQUEE - apple.com/se/apple-watch-series-11, structurally.
 
-   Read off that page's own markup rather than from a screenshot, because the
-   arrangement is the point and it is not the obvious one:
+   Read out of that page's own stylesheet rather than reconstructed from a
+   screenshot, because four of the five moves are not guessable:
 
-     section.section-welcome
-       div.marquee-top        the product wordmark, then ONE headline. Centred,
-                              at the top of the screen, ABOVE the media.
-       div.welcome-video      the film, edge to edge, taking the rest of the
-                              viewport. Together the two are one screen.
+     .section-welcome        theme-dark, globalnav-overlap - the film runs UNDER
+                             the navigation bar, not below it.
+     .marquee                position:absolute; bottom:0 - the copy is a band
+                             along the FOOT of the film, not a layer over it.
+     .marquee-scrim          absolute, filling that band; background #000 at
+                             FULL alpha, backdrop-filter blur(20px), and then
+                             mask-image: linear-gradient(180deg, transparent,
+                             #000). The mask is the whole trick - the band is
+                             invisible where it meets the film and solid where
+                             the type sits, so it has no edge at either end.
+     .viewport-content       flex; justify-content:space-between;
+                             align-items:flex-end - headline bottom left, price
+                             and Buy bottom right, one row.
+     .marquee-detail::before rgba(66,66,69,.25) + blur(20px) +
+                             border-radius:100vmax. The price and the control
+                             ride in a glass capsule.
 
-   The text is NOT overlaid on the film — that is the detail worth having. An
-   overlay would need a scrim, a scrim is a dark surface, and this page has just
-   had every dark surface taken out of it. Apple's answer avoids the problem
-   instead of solving it, and it is free here: the copy sits on the page ground
-   and the film starts below it.
-
-   What was here before: a two-column split with a headline, a supporting
-   paragraph and the film boxed into the right-hand column. The paragraph is
-   gone — one sentence, asked for directly. The two controls stay, and that is
-   a deliberate departure from the reference: Apple's hero carries no buttons
-   because its localnav does, and ours does not appear until the page scrolls.
-   Dropping them would leave a product page with no way to buy above the fold.
+   Below is that construction with this site's own type and blue in it. Values
+   that are Apple's are Apple's; where one is changed the reason is next to it.
    ------------------------------------------------------------------------ */
-.ph-flat .ring-marquee {
-  /* svh, not vh: on a phone `100vh` is the tallest the viewport ever gets, so
-     the film's last band sits under the browser's own bar until you scroll. */
-  /* HEIGHT, not min-height, and that distinction is the whole layout. With
-     `min-height` the section has no definite height for its children to shrink
-     against, so the film contributes its own intrinsic 16:9 box — measured at
-     1440x900: a 1119px hero, 219px past the fold, with the film refusing to
-     give any of it back. A stated height makes the section a real constraint
-     and the film becomes the thing that absorbs whatever the copy does not
-     use. The floor keeps it honest on a short laptop. */
+/* `.ring-marquee.hero`, not `.ring-marquee`, and the extra class is load-bearing.
+   phenome-glass.css draws the hero ramp on `.hero:not(.on-dark):not(.on-film)`,
+   and :not() contributes its argument's specificity — that selector is (0,3,0).
+   At (0,2,0) every background declaration below lost silently: measured, the
+   section was still transparent with the pale blue ramp on it, which on a
+   letterboxed phone film showed as light bars above and below the picture.
+   (0,3,0) plus a later stylesheet wins the tie. */
+.ph-flat .ring-marquee.hero {
+  position: relative;
+  /* svh, not vh: 100vh on a phone is the viewport at its TALLEST, so the foot
+     of the film - which is where all of the copy is - would sit behind the
+     browser's own bar until you scroll. */
   height: 100svh;
-  min-height: 640px;
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
+  min-height: 620px;
+  padding: 0;
+  overflow: hidden;
+  /* The film runs under the bar. .ph-nav is sticky and 44px tall, so it holds
+     44px of flow above <main>; pulling the section up by exactly that puts the
+     first frame behind it, which is what globalnav-overlap does on Apple. */
+  margin-top: calc(-1 * var(--ph-nav-h));
+  /* Black, not the page ground, for the frames before the film decodes: the
+     section is dark-themed and a white flash under white type is the one frame
+     that must not happen. */
+  background-color: #000;
+  /* The hero's pale ramp is removed. It was drawn for a hero made of type on
+     the page ground; over a full-bleed film it is a blue veil on the picture. */
+  background-image: none;
 }
-.ph-flat .ring-marquee-top { flex: 0 0 auto; }
-.ph-flat .ring-marquee-top .cta-actions { margin-top: 28px; }
 
 .ph-flat .ring-marquee-media {
-  /* basis 0, so the film asks for nothing and is given the remainder. `auto`
-     would make it ask for its intrinsic height first and negotiate down. */
-  flex: 1 1 0;
-  /* A flex item's floor is its own content, and this one's content is a 1080px
-     video. Without this it cannot shrink below that whatever the basis says. */
-  min-height: 0;
-  margin-top: clamp(28px, 4vh, 56px);
-  overflow: hidden;
-  background: var(--flat-band);
+  position: absolute;
+  inset: 0;
+  /* Stated here as well as on the section: this is the box the letterbox bars
+     belong to, and a transparent video element shows whatever is under IT. */
+  background: #000;
 }
 .ph-flat .ring-marquee-media video {
   display: block;
   width: 100%;
   height: 100%;
-  /* The film is a finished 16:9 advertisement and the slot it has to fill is
-     wider than that at every desktop height, so it is cropped top and bottom
-     rather than letterboxed — "fill the first screen" was the instruction and
-     a letterbox is the one thing that does not. Its own captions sit on the
-     middle band, which is what survives the crop. */
   object-fit: cover;
   object-position: center;
 }
 
-/* THE CROP INVERTS ON A PHONE, and it has to. `cover` fills by discarding the
-   long axis, and below 900 the slot is TALLER than it is wide — 390x507 is
-   0.77:1 against the film's 1.78:1, so cover was throwing away 78% of the
-   frame's width. Verified at 390: the film's own caption "Engineered for
-   Continuous Wear" was rendering as "eered". A finished advertisement carries
-   its message in the middle of the frame, and on a phone the only way to keep
-   that message is to keep the frame.
-
-   So the phone stops forcing one screen. The section goes back to its natural
-   height and the film takes a 16:9 band at full width under the copy — which
-   is about a screen anyway, and is a whole advertisement rather than a
-   magnified detail of one. */
-@media (max-width: 900px) {
-  .ph-flat .ring-marquee {
-    height: auto;
-    min-height: 0;
-    padding-bottom: 0;
-  }
-  .ph-flat .ring-marquee-media {
-    flex: 0 0 auto;
-    aspect-ratio: 16 / 9;
-  }
-  .ph-flat .ring-marquee-media video { object-fit: contain; }
+/* ---- the band. Apple's .marquee: absolute, along the foot, full width. */
+.ph-flat .ring-marquee-band {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  /* The top padding is the mask's runway - the distance over which the scrim
+     has to become invisible. Too little and it arrives as a band with an edge. */
+  padding: clamp(120px, 22vh, 260px) 0 clamp(34px, 5vh, 60px);
 }
+.ph-flat .ring-marquee-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: #000;
+  /* Apple's own two values, and the !important is deliberate: section 1 takes
+     backdrop-filter off every element on this page and this is one of the two
+     surfaces that gets it back. The blur is what stops a busy frame reading
+     through the type; the alpha stays full and the MASK does the fading. */
+  -webkit-backdrop-filter: blur(20px) saturate(1) !important;
+  backdrop-filter: blur(20px) saturate(1) !important;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 100%);
+}
+
+.ph-flat .ring-marquee-viewport {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  column-gap: 80px;
+  row-gap: 28px;
+}
+
+.ph-flat .ring-marquee-header { max-width: 20em; min-width: 0; }
+/* The product name is drawn rather than hidden. Apple retires it to a
+   visually-hidden h1 because its film opens on the watch and the wordmark is in
+   the localnav two lines above; neither holds here, and a product page whose
+   product is never named in text is a page that cannot be found. */
+.ph-flat .ring-marquee-eyebrow {
+  margin: 0;
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .72);
+}
+.ph-flat .ring-marquee-headline {
+  margin: 12px 0 0;
+  font-size: clamp(34px, 3.9vw, 56px);
+  line-height: 1.07;
+  font-weight: var(--ph-w-600);
+  letter-spacing: -0.014em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+/* ---- the capsule. Apple draws it on ::before so the content can sit above the
+   blur; here the blur is on the element itself, which reaches the same result
+   with one box - backdrop-filter works on what is BEHIND an element, and the
+   price and the button are its children rather than its backdrop. */
+.ph-flat .ring-marquee-detail {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 28px;
+  padding: 10px 10px 10px 24px;
+  border-radius: 100vmax;
+  background: rgba(66, 66, 69, .25);
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+}
+.ph-flat .ring-marquee-pricing {
+  margin: 0;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17);
+  font-weight: var(--ph-w-600);
+  color: #fff;
+  white-space: nowrap;
+}
+.ph-flat .ring-marquee-buy {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 980px;
+  background: var(--ph-accent);
+  color: #fff !important;
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
+  font-weight: var(--ph-w-600);
+  text-decoration: none;
+  transition: background var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ring-marquee-buy:hover { background: var(--ph-accent-hover); }
+
+@media (max-width: 900px) {
+  /* Apple's own narrow answer: the capsule stops being a capsule and becomes a
+     full-width bar. A price and a control cannot sit beside a headline at 390,
+     and a pill floated under one reads as a stray chip. */
+  .ph-flat .ring-marquee-viewport { flex-direction: column; align-items: stretch; }
+  .ph-flat .ring-marquee-header { max-width: none; }
+  .ph-flat .ring-marquee-detail {
+    justify-content: space-between;
+    padding: 10px 10px 10px 20px;
+  }
+
+  /* THE CROP INVERTS, and it has to. `cover` fills by discarding the long axis,
+     and a phone hero is 0.46:1 against the film's 1.78:1 — cover throws away
+     three quarters of the frame's width. Apple can hold `cover` here because
+     its hero film is shot for the crop and carries no words; ours is a finished
+     advertisement whose captions live across the middle of the frame, and at
+     390 they were rendering as fragments of letters.
+
+     So the film is letterboxed instead, on the section's own black. That is not
+     a compromise on a hero this dark — a whole film centred on black is how a
+     trailer sits on a phone, and it is the only arrangement that keeps the
+     advertisement legible. Lifted off centre so the copy band is not landing on
+     the picture. */
+  .ph-flat .ring-marquee-media video {
+    object-fit: contain;
+    object-position: center 38%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3b - THE BAR - apple.com's globalnav, and its two states.
+
+   Asked for by name. Section 1 takes every backdrop-filter off this page and
+   this is the second surface that gets one back, so the exemption again needs
+   !important to beat that rule's own.
+
+   Two states, because Apple has two and the page needs both: dark glass while
+   the bar is over the film, light glass over everything after it. Apple drives
+   the swap from data-theme-changer='dark' on the welcome section; here it is a
+   class on <body>, set by the script at the foot of the page.
+   ------------------------------------------------------------------------ */
+.ph-flat .ph-nav {
+  background: rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 0;
+  transition: background var(--ph-dur-base) var(--ease-frosted-out);
+}
+
+.ph-flat.is-nav-dark .ph-nav { background: rgba(22, 22, 23, .72); }
+/* The wordmark is an <img> and cannot be recoloured, so it is inverted - for a
+   one-colour mark that is the same thing. */
+.ph-flat.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
+.ph-flat.is-nav-dark .ph-nav,
+.ph-flat.is-nav-dark .ph-nav a,
+.ph-flat.is-nav-dark .ph-links .ph-trigger,
+.ph-flat.is-nav-dark .ph-nav-icon { color: #fff; }
+.ph-flat.is-nav-dark .ph-nav-end .ph-item > .ph-trigger {
+  color: #fff;
+  border-color: rgba(255, 255, 255, .38);
+}
+.ph-flat.is-nav-dark .ph-burger span { background: #fff; }
+/* The mega-menu panel stays light whatever the bar is doing. It is a sheet that
+   COVERS the film rather than a layer over it, so it keeps its own ground and
+   its own ink - and it is the one opaque surface in the system by design. */
 
 /* ---------------------------------------------------------------------------
    4 · THE RING FAMILY STAGE.
