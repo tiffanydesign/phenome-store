@@ -389,8 +389,13 @@
   -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
   backdrop-filter: saturate(180%) blur(20px) !important;
   border-bottom: 0;
-  transition: background 220ms linear,
-              transform var(--ph-dur-base) var(--ease-frosted-out),
+  /* NO transition on background. The tint is eased in script now, once per
+     presented frame; a CSS transition on top of that is a second easing
+     chasing the first, and while it was there the bar was still travelling
+     toward the previous sample when the next one landed. That fight was the
+     stutter. Transform and opacity keep theirs - those are state changes, not
+     a continuous signal. */
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
               opacity var(--ph-dur-base) var(--ease-frosted-out);
 }
 
