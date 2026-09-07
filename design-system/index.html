@@ -281,6 +281,54 @@
               font-weight: var(--ph-w-600); color: var(--ink-600);
               font-variant-numeric: tabular-nums; }
 
+/* ---- 08 · logo ----------------------------------------------------------
+   Ported from the clinic portal's own design system
+   (tiffanydesign/clinic-portal, src/app/pages/demo/design-system/
+   DesignSystemLogo.tsx), which encodes Phenome Brand Guideline pp.3-10.
+
+   WHAT IS DIFFERENT HERE, and it is a real difference rather than a port that
+   drifted: the portal renders a vector component with full/small x coloured/
+   mono/mono-blue cuts. This site ships ONE logo file, assets/brand/
+   phenome-logo.svg, the full coloured lockup already in the masthead. The white
+   cut is that file inverted - `brightness(0) invert(1)`, which for a one-colour
+   mark is the same thing and is what the ring page already does to it on a dark
+   bar. The compact mark is a raster, carried across from the portal's EPlogo.png
+   as assets/brand/phenome-icon.png, because this site had no icon cut at all.
+
+   Neither substitution is claimed to be the guideline's artwork; the notes in
+   the section say which cuts exist here and which do not. */
+.ds-logo-grid { display: grid; gap: 14px; margin-top: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.ds-logo-cell { display: grid; place-items: center; gap: 16px;
+                padding: 34px 26px; border-radius: var(--ph-r18);
+                background: var(--ph-white); border: 1px solid var(--divider); }
+.ds-logo-cell.on-dark { background: var(--phenome-blue-900); border-color: transparent; }
+.ds-logo-cell.on-tint { background: var(--gl-tint-sunk); }
+.ds-logo-cell img { display: block; width: auto; }
+.ds-logo-cell .full { height: 26px; }
+.ds-logo-cell .icon { height: 46px; }
+/* The white cut is the same file with its ink knocked out. */
+.ds-logo-cell.on-dark img.mono { filter: brightness(0) invert(1); }
+.ds-logo-cap { font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+               font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+               text-transform: uppercase; color: var(--ink-label); text-align: center; }
+.ds-logo-cell.on-dark .ds-logo-cap { color: var(--phenome-blue-200); }
+
+/* Clearspace: the mark with a dashed keep-out drawn around it. The guideline
+   leaves its own unit as an unfilled placeholder, so no multiple is encoded -
+   the box states the rule, not a measurement. */
+.ds-clear { display: grid; place-items: center; padding: 46px;
+            border-radius: var(--ph-r18); background: var(--gl-tint-sunk); }
+.ds-clear-in { padding: 30px; border: 1px dashed var(--border-strong); border-radius: 6px; }
+.ds-clear-in img { display: block; height: 26px; width: auto; }
+
+.ds-dont { list-style: none; margin: 20px 0 0; padding: 0;
+           display: grid; gap: 2px 30px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.ds-dont li { position: relative; padding: 7px 0 7px 24px;
+              font-size: var(--ph-fs-17); line-height: var(--ph-lh-17); color: var(--ink-600); }
+.ds-dont li::before { content: '\00d7'; position: absolute; left: 4px; top: 7px;
+                      font-weight: var(--ph-w-600); color: var(--status-warning-ink); }
+
 /* ---- 07 · inverted ------------------------------------------------------ */
 .ds-invert { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .ds-invert > div { padding: 26px 24px; border-radius: var(--ph-r14); min-height: 168px;
@@ -366,7 +414,7 @@
           <li><a href="#s04"><b>04</b>Surfaces</a></li>
           <li><a href="#s05"><b>05</b>Elevation &amp; motion</a></li>
           <li><a href="#s06"><b>06</b>Components</a></li>
-          <li><a href="#s07"><b>07</b>Inverted contexts</a></li>
+          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li>
         </ol>
       </nav>
 
@@ -637,7 +685,52 @@
               <a class="tag" href="#s07">Chip · 50%</a>
             </div>
           </div>
-        </section>
+        </section><section class="ds-sec" id="s08"><div class="ds-sec-h"><span class="n">08</span><h2>Logo</h2></div>
+
+<p class="ds-note">Phenome Brand Guideline pp.3&ndash;10, carried across from the clinic portal&rsquo;s own design system so the two products state the same rules.</p>
+<p class="ds-note">This site ships <span class="ds-tok">assets/brand/phenome-logo.svg</span> &mdash; the full coloured lockup already in the masthead &mdash; and one raster icon. The white cut below is that same file inverted, which for a one-colour mark is the same artwork; it is not a separate asset. Cuts the guideline defines but this site does not carry are named as missing rather than approximated.</p>
+
+<div class="ds-block">
+<p class="ds-sub">Full logo</p>
+<p class="ds-note" style="margin-top:0">The primary version, used in most applications. Full colour on white or light grounds only; the white monochrome cut on dark or photographic grounds (p.3, p.6).</p>
+<div class="ds-logo-grid">
+<div class="ds-logo-cell"><img alt="Phenome Longevity, full colour" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured &mdash; on white</span></div>
+<div class="ds-logo-cell on-tint"><img alt="Phenome Longevity, full colour on the tinted ground" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured &mdash; on #f4f6fb</span></div>
+<div class="ds-logo-cell on-dark"><img alt="Phenome Longevity, white cut" class="full mono" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Mono white &mdash; on dark</span></div>
+</div>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Icon</p>
+<p class="ds-note" style="margin-top:0">The simplified mark, for compact spaces &mdash; favicons, wearables, a collapsed rail (p.4).</p>
+<div class="ds-logo-grid">
+<div class="ds-logo-cell"><img alt="Phenome icon, full colour" class="icon" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Coloured</span></div>
+<div class="ds-logo-cell on-dark"><img alt="Phenome icon, white cut" class="icon mono" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Mono white</span></div>
+</div>
+<p class="ds-note">The icon is a raster, not a vector. It is the portal&rsquo;s own <span class="ds-tok">EPlogo.png</span>; this site had no icon cut before. A vector replacement should land here rather than beside it.</p>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Monochrome</p>
+<p class="ds-note" style="margin-top:0">For single-colour print and busy or photographic grounds (p.5). Approved cuts are Phenome blue, black and white. Blue and white exist here; <b>no solid-black cut is carried on this site.</b></p>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Clearspace</p>
+<div class="ds-clear"><div class="ds-clear-in"><img alt="The logo inside its keep-out area" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/></div></div>
+<p class="ds-note">Keep the area around the logo free of text, images and other graphic elements at all times (p.7). The guideline leaves its own clearspace unit as an unfilled placeholder, so <b>no multiple is encoded here</b> &mdash; the box above states the rule, not a measurement.</p>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Misuse &mdash; do not</p>
+<ul class="ds-dont"><li>Crop the logo</li><li>Change the size or position of the icon and logotype</li><li>Change the transparency of the logo</li><li>Distort the logo</li><li>Use drop shadows or any other effects</li><li>Readjust any spacing of the logotype</li><li>Use different colours</li><li>Rotate any part of the logo</li><li>Re-create it in any other typeface</li><li>Outline the logotype</li></ul>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Sub-brand lockups</p>
+<p class="ds-note" style="margin-top:0">The guideline defines lockups for the other product lines &mdash; Phenome Omics, Phenome Longevity Wearables/Tech, Phenome Longevity Supplements/Phenome+ (p.10). <b>None are carried on this site</b>, including for the wearables and supplements pages that would use them.</p>
+</div>
+</section>
 
       </div>
     </div>

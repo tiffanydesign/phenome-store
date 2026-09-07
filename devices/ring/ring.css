@@ -241,28 +241,28 @@
      linear. A linear gradient changes fastest where it starts, and that first
      edge is exactly what the eye finds.
 
-     Alpha tops out at .78 rather than 1. The original was opaque black at the
-     foot and read as a panel laid over the bottom of the film; at 78 the
-     picture is still faintly behind the last line and the band is a wash the
-     film shows through. */
+     Alpha tops out at .55, down from .78 and from the original 1. Opaque black
+     at the foot read as a panel laid over the film; 78 was still heavier than
+     the band needs to be. At 55 the foot is a wash the picture is clearly
+     behind rather than a floor under it. */
   background-color: #000;
   -webkit-mask-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.04) 28%,
-    rgba(0, 0, 0, 0.13) 46%,
-    rgba(0, 0, 0, 0.34) 64%,
-    rgba(0, 0, 0, 0.59) 82%,
-    rgba(0, 0, 0, 0.78) 100%
+    rgba(0, 0, 0, 0.03) 28%,
+    rgba(0, 0, 0, 0.10) 46%,
+    rgba(0, 0, 0, 0.25) 64%,
+    rgba(0, 0, 0, 0.42) 82%,
+    rgba(0, 0, 0, 0.55) 100%
   );
   mask-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.04) 28%,
-    rgba(0, 0, 0, 0.13) 46%,
-    rgba(0, 0, 0, 0.34) 64%,
-    rgba(0, 0, 0, 0.59) 82%,
-    rgba(0, 0, 0, 0.78) 100%
+    rgba(0, 0, 0, 0.03) 28%,
+    rgba(0, 0, 0, 0.10) 46%,
+    rgba(0, 0, 0, 0.25) 64%,
+    rgba(0, 0, 0, 0.42) 82%,
+    rgba(0, 0, 0, 0.55) 100%
   );
   /* The blur is what lets the wash stop short of opaque and still hold type
      over a busy frame. Section 1 takes backdrop-filter off every element on
@@ -296,21 +296,28 @@
    becomes the wordmark - which is why the tracking and the uppercase went with
    the size. Both existed to make a small label legible and neither helps here.
 
-   BRAND BLUE ON A DARK GROUND IS ITS OWN VALUE, and this system already has
-   it: --ph-on-brand, #8fb8ea, which phenome-glass.css measured for exactly this
-   situation and which shared.css already uses on `.hero.on-dark .eyebrow`.
+   --ph-accent: the Buy button's own blue, asked for by name.
 
-   --ph-accent, #203a85, is the light-ground rung of the same blue. It was right
-   for the one turn the scrim was white and is unreadable now the scrim is black
-   again — roughly 1.6:1 against the foot of the band. #8fb8ea on the same
-   ground measures near 9:1. Same blue, correct rung. */
+   IT IS CONDITIONAL, AND THE CONDITION IS THE FILM. #203a85 is the brand's
+   light-ground rung. Over the film's white passages, under a 55% black wash,
+   the ground composites near #737373 and the mark reads. Over the black studio
+   passages the ground stays black whatever the wash does — a black wash cannot
+   lighten anything — and #203a85 there measures about 1.6:1, which is not a
+   contrast, it is an absence.
+
+   So the wordmark is painted from the sampler that already drives the bar: it
+   holds --ph-accent while the film is light and steps to --ph-on-brand, the
+   same blue's dark-ground rung, while it is dark. One brand blue, the rung
+   chosen by what is actually behind it. --mark-ink is written by the script at
+   the foot of the page; the fallback here is the value asked for. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
   font-size: clamp(28px, 3.4vw, 52px);
   line-height: 1.06;
   font-weight: var(--ph-w-600);
   letter-spacing: -0.014em;
-  color: var(--ph-on-brand);
+  color: var(--mark-ink, var(--ph-accent));
+  transition: color 160ms linear;
 }
 /* .ring-marquee-headline is gone from the markup - one line was asked for and
    the wordmark is it. Nothing styles it here any more. */

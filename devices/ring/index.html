@@ -173,6 +173,14 @@
   var ctx = canvas.getContext && canvas.getContext('2d', { willReadFrequently: true });
   var sampling = !!ctx;
 
+  /* Its own canvas rather than sharing the bar's: the two read different strips
+     of the same frame and sharing one would mean clearing and redrawing twice
+     per read for no saving. Four pixels. */
+  var markCanvas = document.createElement('canvas');
+  markCanvas.width = 4;
+  markCanvas.height = 1;
+  var markCtx = markCanvas.getContext && markCanvas.getContext('2d', { willReadFrequently: true });
+
   var running = false;
   var handle = 0;
   var tick = 0;
@@ -239,8 +247,42 @@
     return { y: from / scale, h: Math.max(1, (to - from) / scale) };
   }
 
+  /* THE WORDMARK'S OWN GROUND, which is a different part of the frame from the
+     bar's. --ph-accent is the brand blue asked for and it is the light-ground
+     rung: it reads over the film's white passages under the 55% wash and
+     vanishes over the black studio ones, where a black wash cannot lighten
+     anything. So the mark is painted from the film too, stepping to the same
+     blue's dark-ground rung (--ph-on-brand) when the band goes dark.
+
+     A separate, cheaper read than the bar's: one 4x1 strip of the bottom fifth
+     of the picture, no easing and no filter. This is a two-value decision, not
+     a continuous colour, and 160ms of CSS transition is the right amount of
+     smoothing for it. */
+  function sampleMark() {
+    var band = document.querySelector('.ring-marquee-band');
+    if (!band || !markCtx || film.readyState < 2) return;
+    try {
+      var h = Math.max(1, Math.round(film.videoHeight * 0.2));
+      markCtx.drawImage(film, 0, film.videoHeight - h, film.videoWidth, h, 0, 0, 4, 1);
+      var d = markCtx.getImageData(0, 0, 4, 1).data;
+      var r = 0, g = 0, b = 0;
+      for (var i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
+      r /= 4; g /= 4; b /= 4;
+      /* The wash darkens what is behind it, so the ground the mark is actually
+         read against is the frame at (1 - the wash's alpha at that row). .45 is
+         the mask's own value near the wordmark's line. */
+      var luma = ((0.2126 * r + 0.7152 * g + 0.0722 * b) / 255) * 0.45;
+      body.style.setProperty('--mark-ink',
+        luma < 0.22 ? 'var(--ph-on-brand)' : 'var(--ph-accent)');
+    } catch (e) {
+      markCtx = null;
+      body.style.removeProperty('--mark-ink');
+    }
+  }
+
   function sample() {
     if (!sampling || film.readyState < 2) return;
+    sampleMark();
     var rows = stripRows();
     if (!rows) {
       /* Over letterbox, which is the section's own ground. Reading a canvas for
@@ -328,6 +370,10 @@
        up from wherever the bar was left. */
     cur = null;
     target = null;
+    /* Dropped with the tint: past the film there is no ground to read and the
+       CSS fallback - the accent, which is what was asked for - is correct on
+       the page's own white. */
+    body.style.removeProperty('--mark-ink');
   }
 
   /* Past the film there is nothing to sample and nothing to tint: the bar has
