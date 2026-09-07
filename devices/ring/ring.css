@@ -200,6 +200,68 @@
   object-position: center;
 }
 
+/* ---- the play/pause control, Apple's own measurements.
+
+   `.section-welcome .inline-media-ui-button .play-pause-button` on the watch
+   page, read out of its stylesheet:
+
+     36 x 36, border-radius 50%
+     top 20px, then a --welcome-media-ui-offset of 40 (28 at narrow widths)
+       plus the global nav's height, and the same offset on the end margin
+     dark ground: fill rgba(66,66,69,.72), icon rgba(255,255,255,.8)
+     hover: fill rgba(73,73,76,.7256), icon #fff
+     active: fill rgba(57,57,60,.7424) and transform: scale(.95)
+     backdrop-filter: blur(20px)
+
+   All of it is here. The one thing not carried is Apple's scale(0)-to-scale(1)
+   entrance: theirs is tied to a media-loaded state machine this page does not
+   have, and a control that animates itself in is a control that is briefly not
+   there to be clicked.
+
+   IT IS THE FOURTH AND LAST BACKDROP-FILTER EXEMPTION on this page, after the
+   nav, the scrim and the product bar — so like those it needs !important to
+   beat section 1's blanket removal. */
+.ph-flat .ring-marquee-play {
+  position: absolute;
+  z-index: 3;
+  top: calc(20px + var(--ph-nav-h) + 40px);
+  inset-inline-end: 40px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(66, 66, 69, .72);
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+  color: rgba(255, 255, 255, .8);
+  transition: background-color 100ms linear, transform .2s ease, color 100ms linear;
+}
+.ph-flat .ring-marquee-play:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
+.ph-flat .ring-marquee-play:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
+.ph-flat .ring-marquee-play:focus-visible {
+  outline: 2px solid var(--ph-focus);
+  outline-offset: 3px;
+}
+.ph-flat .ring-marquee-play svg { width: 15px; height: 15px; display: block; fill: currentColor; }
+/* One button, two glyphs, and the state decides which is drawn — rather than
+   two buttons swapped, which would lose focus every time it is pressed. */
+.ph-flat .ring-marquee-play .i-play { display: none; }
+.ph-flat .ring-marquee-play[data-paused] .i-play { display: block; }
+.ph-flat .ring-marquee-play[data-paused] .i-pause { display: none; }
+
+@media (max-width: 900px) {
+  /* Apple's own narrow value for the same offset: 28, not 40. */
+  .ph-flat .ring-marquee-play {
+    top: calc(20px + var(--ph-nav-h) + 28px);
+    inset-inline-end: 28px;
+  }
+}
+
 /* ---- the band. Apple's .marquee: absolute, along the foot, full width. */
 .ph-flat .ring-marquee-band {
   position: absolute;
@@ -271,8 +333,27 @@
   backdrop-filter: blur(16px) saturate(1) !important;
 }
 
+/* THE HERO COLUMN IS WIDER THAN THE PAGE'S, and that is Apple's own rule
+   rather than a nudge. `.viewport-content` on the watch page is:
+
+     width: 87.5%; max-width: var(--global-content-max-width-hero)
+
+   where that token is 1680px, against a standard content column of 1260. So the hero deliberately runs
+   wider than everything under it, and by a proportion rather than a fixed
+   figure — the wider the screen, the further out the copy sits.
+
+   .wrap-wide caps at 1260 whatever the viewport is, which is why this read as
+   too central: at 1440 the two are within a few pixels of each other, but at
+   1920 Apple's hero spans 1680 with 120px margins and ours still spanned 1260
+   with 330. The complaint scales with the monitor. Same two numbers here.
+
+   The `!important` beats .wrap-wide's own max-width, which is (0,1,0) like this
+   selector's second half and would otherwise win on source order. */
 .ph-flat .ring-marquee-viewport {
   position: relative;
+  width: 87.5%;
+  max-width: 1680px !important;
+  padding-inline: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
