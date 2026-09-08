@@ -1,0 +1,823 @@
+/* ============================================================================
+   PhenomeTech Ring — the product page's own behaviour
+
+   LOADED AFTER shared.js, and that order is load-bearing rather than tidy:
+   shared.js builds the nav, the footer and `.ph-bar` synchronously inside its
+   own IIFE, so by the time this file parses those elements exist and can be
+   enhanced instead of re-created. Nothing here re-implements anything
+   shared.js already does — the pinned band's index, the figure count-up, the
+   section reveal and the product bar's observer are all still shared.js's,
+   and this file reads their output.
+
+   EVERY CONTROL ON THIS PAGE SHIPS AS A BUTTON WITH ITS STATE IN THE MARKUP.
+   The page's previous version painted `.on` onto a div and stopped: five
+   swatches, eight size chips and two material cards that looked like controls
+   and were pictures. So the rule for this file is the one shared.js writes for
+   its rail arrows — "ship the buttons, wire them later" leaves dead controls,
+   so ship real controls and let this make them live. Where a control genuinely
+   cannot work without script (the lightbox), it is created here.
+
+   ES5-shaped on purpose: var, function declarations, no template literals, no
+   optional chaining. shared.js is written that way and one page introducing a
+   second dialect is a second thing to maintain.
+
+   Every lookup is guarded. shared.js's own note says the build fails on ONE
+   console error, so a missing element returns rather than throws.
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  var doc = document;
+  var root = doc.documentElement;
+  var still = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : { matches: false, addEventListener: function () {} };
+
+  function $(sel, ctx) { return (ctx || doc).querySelector(sel); }
+  function $$(sel, ctx) {
+    return Array.prototype.slice.call((ctx || doc).querySelectorAll(sel));
+  }
+  function on(el, ev, fn, opt) { if (el) el.addEventListener(ev, fn, opt); }
+
+  /* One rAF-coalesced scroll subscription for the page rather than one per
+     component. Three things below read the scroll position; three separate
+     listeners would each schedule their own frame. */
+  var readers = [];
+  var queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () {
+      queued = false;
+      for (var i = 0; i < readers.length; i++) readers[i]();
+    });
+  }
+  function watch(fn) {
+    readers.push(fn);
+    fn();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  /* ==========================================================================
+     1 · THE PRODUCT'S STATE
+     One object, three facts, and every part of the page that shows one of them
+     subscribes. The alternative — each control reaching into the others — is
+     what makes the hero and the comparison table disagree about which material
+     is selected, which is exactly the bug the "Choose ceramic" button below is
+     there to avoid creating.
+     ====================================================================== */
+
+  /* THE CATALOGUE IS THE PAGE'S OWN COPY, not a new set of claims. Prices,
+     material names and colourway names are read off the markup that was already
+     there (`Titanium £179 / Ceramic £199`, `Gold · Graphite · Silver`,
+     `Arctic White or Onyx`); the only thing added is which photograph goes with
+     which finish. Graphite and Onyx point at the same still because the shoot
+     delivered one black profile — the ring is black in both, so the reuse is
+     invisible and stating it here is cheaper than a second render. */
+  var FINISHES = [
+    { id: 'gold',     name: 'Gold',         sw: '#C6A15B', mat: 'titanium' },
+    { id: 'graphite', name: 'Graphite',     sw: '#2E2E30', mat: 'titanium' },
+    { id: 'silver',   name: 'Silver',       sw: '#D6D6DA', mat: 'titanium' },
+    { id: 'white',    name: 'Arctic White', sw: '#EFEFF2', mat: 'ceramic'  },
+    { id: 'onyx',     name: 'Onyx',         sw: '#1B1B1E', mat: 'ceramic'  }
+  ];
+  var MATERIALS = {
+    titanium: { name: 'Titanium', price: 179, mo: '14.92', sw: '#C6A15B' },
+    ceramic:  { name: 'Ceramic',  price: 199, mo: '16.58', sw: '#D6D6DA' }
+  };
+
+  var state = { material: 'titanium', finish: 'gold', size: '8', kit: false };
+  var subs = [];
+  function publish() { for (var i = 0; i < subs.length; i++) subs[i](state); }
+  function subscribe(fn) { subs.push(fn); }
+
+  function finishById(id) {
+    for (var i = 0; i < FINISHES.length; i++) if (FINISHES[i].id === id) return FINISHES[i];
+    return FINISHES[0];
+  }
+  function firstFinishOf(mat) {
+    for (var i = 0; i < FINISHES.length; i++) if (FINISHES[i].mat === mat) return FINISHES[i];
+    return FINISHES[0];
+  }
+  function money(n) { return '£' + n; }
+
+  function setMaterial(mat) {
+    if (!MATERIALS[mat] || state.material === mat) return;
+    state.material = mat;
+    /* The finish has to follow the material or the page shows a ceramic ring
+       under a titanium price. Kept if it belongs to the new material, otherwise
+       the new material's first. */
+    if (finishById(state.finish).mat !== mat) state.finish = firstFinishOf(mat).id;
+    publish();
+  }
+  function setFinish(id) {
+    var f = finishById(id);
+    if (state.finish === id) return;
+    /* Choosing a finish also chooses its material. A reader who clicks Arctic
+       White has said "ceramic" as clearly as if they had clicked the card. */
+    state.finish = id;
+    state.material = f.mat;
+    publish();
+  }
+  function setSize(sz) {
+    if (state.size === sz && !state.kit) return;
+    state.size = sz; state.kit = false;
+    publish();
+  }
+  function setKit() {
+    if (state.kit) return;
+    state.kit = true;
+    publish();
+  }
+
+  /* ==========================================================================
+     2 · THE GALLERY
+     ====================================================================== */
+
+  function gallery() {
+    var main = $('[data-gal-main]');
+    if (!main) return;
+
+    var frames = $$('img[data-finish]', main);
+    var tag = $('[data-gal-tag]', main);
+    var tagName = tag ? $('span', tag) : null;
+    var tagDot = tag ? $('i', tag) : null;
+
+    /* The `data-live` flag hands the crossfade over from CSS to script. Until
+       it is set, `.pdp-gal-main:not([data-live]) img:first-of-type` keeps the
+       first still visible, so a page whose script fails shows a photograph. */
+    main.setAttribute('data-live', '');
+
+    subscribe(function (s) {
+      var f = finishById(s.finish);
+      for (var i = 0; i < frames.length; i++) {
+        var isOn = frames[i].getAttribute('data-finish') === s.finish;
+        frames[i].classList.toggle('on', isOn);
+        /* A frame that is not showing is not announced. Five stacked images
+           would otherwise be five identical alt texts in a row. */
+        frames[i].setAttribute('aria-hidden', isOn ? 'false' : 'true');
+      }
+      if (tagName) tagName.textContent = MATERIALS[s.material].name + ' · ' + f.name;
+      if (tagDot) tagDot.style.setProperty('--sw', f.sw);
+    });
+  }
+
+  /* ---- the lightbox --------------------------------------------------------
+     Built here rather than shipped in the markup: it is the one control on this
+     page that has nothing to offer without script, so a reader who does not get
+     the script should not get a dead overlay in their tab order either.
+     The item list is the gallery's own frames plus the four tiles, read from the
+     DOM at open time so it cannot drift from what is on screen. */
+  function lightbox() {
+    var tiles = $$('[data-lb]');
+    var main = $('[data-gal-main]');
+    if (!tiles.length && !main) return;
+
+    var box = doc.createElement('div');
+    box.className = 'pdp-lb';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Product images');
+    box.innerHTML =
+      '<div class="pdp-lb-frame"><p class="pdp-lb-cap"></p></div>' +
+      '<button class="pdp-lb-btn pdp-lb-prev" type="button" aria-label="Previous image">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '</button>' +
+      '<button class="pdp-lb-btn pdp-lb-next" type="button" aria-label="Next image">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '</button>' +
+      '<button class="pdp-lb-btn pdp-lb-close" type="button" aria-label="Close">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' +
+      '</button>';
+    doc.body.appendChild(box);
+
+    var frame = $('.pdp-lb-frame', box);
+    var cap = $('.pdp-lb-cap', box);
+    var btnPrev = $('.pdp-lb-prev', box);
+    var btnNext = $('.pdp-lb-next', box);
+    var btnClose = $('.pdp-lb-close', box);
+    var items = [], idx = 0, opener = null;
+
+    function collect() {
+      items = [];
+      if (main) {
+        var lit = $('img.on', main) || $('img', main);
+        if (lit) items.push({ kind: 'img', src: lit.currentSrc || lit.src, cap: lit.getAttribute('alt') || '' });
+      }
+      for (var i = 0; i < tiles.length; i++) {
+        var v = $('video', tiles[i]);
+        var g = $('img', tiles[i]);
+        var c = $('.cap', tiles[i]);
+        var label = c ? c.textContent : (tiles[i].getAttribute('aria-label') || '');
+        if (v) items.push({ kind: 'video', el: v, cap: label });
+        else if (g) items.push({ kind: 'img', src: g.currentSrc || g.src, cap: label });
+      }
+    }
+
+    function paint() {
+      var it = items[idx];
+      if (!it) return;
+      var old = frame.querySelector('img, video');
+      if (old) frame.removeChild(old);
+      var node;
+      if (it.kind === 'video') {
+        /* The film is cloned rather than moved. Moving it stops the copy in the
+           mosaic, so closing the overlay would leave a frozen tile behind. */
+        node = it.el.cloneNode(true);
+        node.setAttribute('controls', '');
+        node.removeAttribute('tabindex');
+        node.muted = false;
+      } else {
+        node = doc.createElement('img');
+        node.src = it.src;
+        node.alt = it.cap;
+        node.decoding = 'async';
+      }
+      frame.insertBefore(node, cap);
+      cap.textContent = it.cap;
+      var many = items.length > 1;
+      btnPrev.hidden = !many;
+      btnNext.hidden = !many;
+      if (node.tagName === 'VIDEO' && !still.matches) { try { node.play(); } catch (e) {} }
+    }
+
+    function open(i) {
+      collect();
+      if (!items.length) return;
+      idx = Math.max(0, Math.min(i, items.length - 1));
+      opener = doc.activeElement;
+      root.classList.add('pdp-lb-open');
+      doc.body.classList.add('pdp-lb-open');
+      box.classList.add('on');
+      paint();
+      btnClose.focus();
+    }
+    function close() {
+      box.classList.remove('on');
+      root.classList.remove('pdp-lb-open');
+      doc.body.classList.remove('pdp-lb-open');
+      var v = frame.querySelector('video');
+      if (v) { try { v.pause(); } catch (e) {} }
+      if (opener && opener.focus) opener.focus();
+    }
+    function step(d) {
+      idx = (idx + d + items.length) % items.length;
+      paint();
+    }
+
+    on(btnPrev, 'click', function () { step(-1); });
+    on(btnNext, 'click', function () { step(1); });
+    on(btnClose, 'click', close);
+    /* The backdrop closes; the picture does not. `contains` rather than
+       `target === box` so a click on the caption is inside, not outside. */
+    on(box, 'click', function (e) {
+      if (!frame.contains(e.target) && e.target.className.indexOf('pdp-lb-btn') === -1) close();
+    });
+    on(doc, 'keydown', function (e) {
+      if (!box.classList.contains('on')) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowLeft') { step(-1); return; }
+      if (e.key === 'ArrowRight') { step(1); return; }
+      /* Focus stays in the overlay: three buttons, so the trap is a cycle of
+         three rather than a general-purpose tabbable scan. */
+      if (e.key === 'Tab') {
+        var ring = [btnClose, btnPrev, btnNext].filter(function (b) { return !b.hidden; });
+        var at = ring.indexOf(doc.activeElement);
+        e.preventDefault();
+        ring[(at + (e.shiftKey ? -1 : 1) + ring.length) % ring.length].focus();
+      }
+    });
+
+    var zoom = $('[data-gal-zoom]');
+    on(zoom, 'click', function () { open(0); });
+    for (var i = 0; i < tiles.length; i++) {
+      (function (n) {
+        on(tiles[n], 'click', function () { open(n + (main ? 1 : 0)); });
+      })(i);
+    }
+  }
+
+  /* ==========================================================================
+     3 · THE BUY COLUMN
+     ====================================================================== */
+
+  function buyColumn() {
+    var cards = $$('[data-material]');
+    var swatches = $$('[data-swatch]');
+    var chips = $$('[data-size]');
+    var kit = $('[data-kit]');
+
+    for (var a = 0; a < cards.length; a++) {
+      (function (el) {
+        on(el, 'click', function () { setMaterial(el.getAttribute('data-material')); });
+      })(cards[a]);
+    }
+    for (var b = 0; b < swatches.length; b++) {
+      (function (el) {
+        on(el, 'click', function () { setFinish(el.getAttribute('data-swatch')); });
+      })(swatches[b]);
+    }
+    for (var c = 0; c < chips.length; c++) {
+      (function (el) {
+        on(el, 'click', function () { setSize(el.getAttribute('data-size')); });
+      })(chips[c]);
+    }
+    on(kit, 'click', function (e) { e.preventDefault(); setKit(); });
+
+    var finLabel = $('[data-finish-label]');
+    var sizeLabel = $('[data-size-label]');
+    var prices = $$('[data-price]');
+    var mos = $$('[data-mo]');
+
+    subscribe(function (s) {
+      var m = MATERIALS[s.material];
+      var f = finishById(s.finish);
+
+      for (var i = 0; i < cards.length; i++) {
+        var isOn = cards[i].getAttribute('data-material') === s.material;
+        cards[i].classList.toggle('on', isOn);
+        cards[i].setAttribute('aria-pressed', isOn ? 'true' : 'false');
+      }
+      /* ALL FIVE STAY LIVE. The first version disabled the three that do not
+         belong to the chosen material, which turned the swatch row into a dead
+         end and made the label above it a lie: setFinish() sets the material
+         from the finish — "picking one picks its material" — and a disabled
+         button can never reach it. So a reader who wants Onyx had to find the
+         Ceramic card first, and the dimmed swatch was a control that looked
+         like it did something and did nothing. That is the exact defect this
+         page was rewritten to remove; reintroducing it three controls to the
+         left would have been funny. The `.on` outline is the only state the
+         row needs — which material a finish belongs to is already answered by
+         the tag on the photograph and by the card that lights up. */
+      for (var j = 0; j < swatches.length; j++) {
+        var id = swatches[j].getAttribute('data-swatch');
+        swatches[j].classList.toggle('on', id === s.finish);
+        swatches[j].setAttribute('aria-pressed', id === s.finish ? 'true' : 'false');
+      }
+      for (var k = 0; k < chips.length; k++) {
+        var picked = !s.kit && chips[k].getAttribute('data-size') === s.size;
+        chips[k].classList.toggle('on', picked);
+        chips[k].setAttribute('aria-pressed', picked ? 'true' : 'false');
+      }
+      if (kit) kit.classList.toggle('on', s.kit);
+
+      /* The two labels were static sentences with a colourway hardcoded into
+         one of them ("Choose your look: Gold."). They are the confirmation for
+         the control under them, so they say what is actually chosen. */
+      if (finLabel) finLabel.textContent = f.name + '.';
+      if (sizeLabel) {
+        sizeLabel.textContent = s.kit ? 'Sizing kit first.' : 'US ' + s.size + '.';
+      }
+
+      /* The number fades a quarter out and back rather than snapping. 140ms,
+         which is under the threshold where a reader would call it an animation
+         and over the one where they would miss the change. */
+      for (var p = 0; p < prices.length; p++) {
+        (function (el) {
+          el.classList.add('swap');
+          setTimeout(function () {
+            el.textContent = money(m.price);
+            el.classList.remove('swap');
+          }, still.matches ? 0 : 140);
+        })(prices[p]);
+      }
+      for (var q = 0; q < mos.length; q++) mos[q].textContent = m.mo;
+    });
+  }
+
+  /* ==========================================================================
+     4 · THE SIGNAL BAND
+     ====================================================================== */
+
+  function signals() {
+    var chips = $$('[data-sig]');
+    var panes = $$('[data-sig-pane]');
+    if (!chips.length || !panes.length) return;
+
+    function show(key) {
+      for (var i = 0; i < chips.length; i++) {
+        chips[i].setAttribute('aria-selected', chips[i].getAttribute('data-sig') === key ? 'true' : 'false');
+      }
+      for (var j = 0; j < panes.length; j++) {
+        panes[j].classList.toggle('on', panes[j].getAttribute('data-sig-pane') === key);
+      }
+    }
+    for (var i = 0; i < chips.length; i++) {
+      (function (el) {
+        on(el, 'click', function () { show(el.getAttribute('data-sig')); });
+        /* A tablist steers with the arrow keys. Five chips, so the wrap-around
+           is worth having — the reader who reaches the end should not have to
+           reverse to see the first one. */
+        on(el, 'keydown', function (e) {
+          var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!d) return;
+          e.preventDefault();
+          var at = chips.indexOf(el);
+          var next = chips[(at + d + chips.length) % chips.length];
+          next.focus();
+          show(next.getAttribute('data-sig'));
+        });
+      })(chips[i]);
+    }
+    show(chips[0].getAttribute('data-sig'));
+  }
+
+  /* ==========================================================================
+     5 · THE TIMELINE
+     ====================================================================== */
+
+  function timeline() {
+    var wrap = $('[data-tl]');
+    if (!wrap) return;
+    var steps = $$('[data-tl-step]', wrap);
+    var rail = $('[data-tl-rail]', wrap);
+    if (!steps.length) return;
+
+    /* A reader who asked for less motion gets every step lit and no film. The
+       rail is filled to its end so it does not read as a progress bar stuck at
+       zero. */
+    if (still.matches) {
+      for (var s = 0; s < steps.length; s++) steps[s].setAttribute('aria-current', 'true');
+      if (rail) rail.style.setProperty('--fill', '100%');
+      return;
+    }
+
+    /* THE FILM DOES NOT FOLLOW THE STEPS, and that is a decision rather than an
+       omission. The first version cut the clip into four windows and seeked
+       between them on every step change. Two things were wrong with it. The
+       footage that belongs beside this section is one continuous shot — the
+       Health Monitor's biomarker rows peeling out one after another, which is
+       the section's whole argument in moving form — and chopping it into 1.6s
+       loops destroyed the only thing it had to say. And seed's own version of
+       this section, which is where the arrangement comes from, runs ONE clip
+       independently of the step: the film sets the register, the steps carry the
+       progression. So the film loops, and the four windows and the `data-t`
+       attribute that fed them are gone rather than left in as machinery nothing
+       drives. */
+    var cur = -1;
+
+    function goto(i) {
+      if (i === cur) return;
+      cur = i;
+      for (var j = 0; j < steps.length; j++) {
+        steps[j].setAttribute('aria-current', j === i ? 'true' : 'false');
+      }
+      if (rail) {
+        /* The fill reaches the CURRENT node, measured rather than divided into
+           equal quarters: the steps have different amounts of copy, so quarters
+           would put the line above or below the dot it is supposed to arrive at.
+           +15px is the node's own offset inside the step, which the rail's
+           ::before starts at too. */
+        var top = steps[0].offsetTop;
+        rail.style.setProperty('--fill', (steps[i].offsetTop - top + 15) + 'px');
+      }
+    }
+
+    for (var i = 0; i < steps.length; i++) {
+      (function (n) {
+        /* Clicking a step lights it and nothing else. It does NOT scroll: the
+           section is already on screen — that is how the step got clicked — and
+           taking the scroll here would fight a reader who is mid-flick. The
+           scroll reader below takes over again on the next frame they move, so
+           a click is a peek rather than a mode. */
+        on(steps[n], 'click', function () { goto(n); });
+        on(steps[n], 'focus', function () { goto(n); });
+      })(i);
+    }
+
+    /* Scroll-driven, and it READS the scroll rather than taking it — the same
+       rule shared.js writes for its pinned band. The current step is the last
+       one whose node has crossed the line 46% down the viewport: a line, not
+       the nearest midpoint, so the sequence only ever moves forward as you
+       scroll down and backward as you scroll up. */
+    watch(function () {
+      var line = window.innerHeight * 0.46;
+      var pick = 0;
+      for (var j = 0; j < steps.length; j++) {
+        if (steps[j].getBoundingClientRect().top <= line) pick = j;
+      }
+      goto(pick);
+    });
+  }
+
+  /* ==========================================================================
+     6 · THE PINNED BAND'S RAIL
+     ====================================================================== */
+
+  /* shared.js's pinned() toggles `.on` across .pin-pt and that is the only
+     source of truth for where the band is. So this watches the class rather
+     than recomputing the progress: two pieces of arithmetic over one scroll
+     position is how a rail ends up one step ahead of the copy it labels. */
+  function pinRail() {
+    var pin = $('.pin');
+    var railWrap = $('[data-pin-rail]');
+    if (!pin || !railWrap) return;
+
+    var pts = $$('.pin-pt', pin);
+    var marks = $$('[data-pin-mark]', railWrap);
+    var track = $('[data-pin-track] i', railWrap);
+    if (!pts.length || !marks.length) return;
+
+    function sync() {
+      var at = 0;
+      for (var i = 0; i < pts.length; i++) if (pts[i].classList.contains('on')) at = i;
+      for (var j = 0; j < marks.length; j++) {
+        marks[j].setAttribute('aria-current', j === at ? 'true' : 'false');
+      }
+      if (track) {
+        track.style.setProperty('--fill',
+          (pts.length > 1 ? (at / (pts.length - 1)) * 100 : 100) + '%');
+      }
+    }
+
+    /* In stillness shared.js lights every point at once, so there is no index to
+       follow and the rail is filled and left alone. */
+    if (still.matches) {
+      if (track) track.style.setProperty('--fill', '100%');
+      for (var m = 0; m < marks.length; m++) marks[m].setAttribute('aria-current', 'false');
+      return;
+    }
+
+    if ('MutationObserver' in window) {
+      var mo = new MutationObserver(sync);
+      for (var k = 0; k < pts.length; k++) {
+        mo.observe(pts[k], { attributes: true, attributeFilter: ['class'] });
+      }
+    } else {
+      watch(sync);
+    }
+    sync();
+
+    /* A mark scrolls the band to the stretch that shows its point. The band's
+       own height is `--pin-steps` screens of scroll, so step n starts n/steps of
+       the way through the run — the same fraction pinned() divides by. */
+    for (var n = 0; n < marks.length; n++) {
+      (function (i) {
+        on(marks[i], 'click', function () {
+          var stage = $('.pin-stage', pin);
+          var sh = stage ? stage.offsetHeight : window.innerHeight;
+          var run = pin.offsetHeight - sh;
+          var top = pin.getBoundingClientRect().top + window.pageYOffset;
+          /* Land a hair inside the step rather than exactly on its boundary,
+             where a rounding difference between this and pinned() would show
+             the previous point. */
+          var into = run * ((i + 0.35) / marks.length);
+          window.scrollTo({ top: top + into, behavior: still.matches ? 'auto' : 'smooth' });
+        });
+      })(n);
+    }
+  }
+
+  /* ==========================================================================
+     7 · THE FILM CONTROLS
+     ====================================================================== */
+
+  /* One wiring for every film on the page, keyed off which button is inside
+     which frame. The glyph swap is the CSS's job — `data-paused` and
+     `data-muted` on the button — so this only ever moves the attribute and the
+     media state, never innerHTML. */
+  function filmControls() {
+    var bars = $$('[data-filmbar]');
+    for (var i = 0; i < bars.length; i++) {
+      (function (bar) {
+        var sel = bar.getAttribute('data-filmbar');
+        var film = sel ? $(sel) : null;
+        if (!film) { bar.hidden = true; return; }
+
+        var play = $('[data-film-play]', bar);
+        var mute = $('[data-film-mute]', bar);
+
+        function paintPlay() {
+          if (!play) return;
+          if (film.paused) play.setAttribute('data-paused', '');
+          else play.removeAttribute('data-paused');
+          play.setAttribute('aria-label', film.paused ? 'Play video' : 'Pause video');
+        }
+        function paintMute() {
+          if (!mute) return;
+          if (film.muted) mute.setAttribute('data-muted', '');
+          else mute.removeAttribute('data-muted');
+          mute.setAttribute('aria-label', film.muted ? 'Unmute video' : 'Mute video');
+        }
+
+        on(play, 'click', function () {
+          if (film.paused) { try { film.play(); } catch (e) {} }
+          else film.pause();
+        });
+        on(mute, 'click', function () { film.muted = !film.muted; paintMute(); });
+        on(film, 'play', paintPlay);
+        on(film, 'pause', paintPlay);
+        on(film, 'volumechange', paintMute);
+
+        /* AUTOPLAY IS AN ATTRIBUTE AND STILLNESS IS A QUERY, so a reader who has
+           reduced-motion on gets a film that starts anyway — the markup ships
+           `autoplay` because the overwhelming majority of readers should see it
+           move. shared.js's own watchStill() does not touch video; it drops the
+           reveal classes and nothing else. So the pause is taken here, once, at
+           the only point that knows about both the setting and the element.
+           The button then reads `data-paused`, which is exactly right: the film
+           is stopped and the reader can start it deliberately. */
+        if (still.matches) { try { film.pause(); } catch (e) {} }
+
+        paintPlay();
+        paintMute();
+      })(bars[i]);
+    }
+  }
+
+  /* ==========================================================================
+     8 · TITANIUM OR CERAMIC
+     ====================================================================== */
+
+  function compare() {
+    var table = $('[data-vs]');
+    if (!table) return;
+    var lift = $('[data-vs-lift]', table);
+    var heads = $$('[data-vs-mat]', table);
+    var picks = $$('[data-vs-pick]', table);
+
+    for (var i = 0; i < picks.length; i++) {
+      (function (el) {
+        on(el, 'click', function () { setMaterial(el.getAttribute('data-vs-pick')); });
+      })(picks[i]);
+    }
+
+    /* THE LIFTED PANE IS MEASURED, NOT CALCULATED. Its position comes from the
+       header cell's own bounding box against the table's, so the grid can change
+       its track fractions in a media query without this needing to know. */
+    function place() {
+      if (!lift) return;
+      var head = null;
+      for (var j = 0; j < heads.length; j++) {
+        if (heads[j].getAttribute('data-vs-mat') === state.material) head = heads[j];
+      }
+      if (!head || !head.offsetWidth) { lift.style.opacity = '0'; return; }
+      var t = table.getBoundingClientRect();
+      var h = head.getBoundingClientRect();
+      lift.style.opacity = '1';
+      lift.style.left = (h.left - t.left) + 'px';
+      lift.style.width = h.width + 'px';
+    }
+
+    subscribe(function (s) {
+      for (var j = 0; j < heads.length; j++) {
+        var mine = heads[j].getAttribute('data-vs-mat') === s.material;
+        if (mine) heads[j].setAttribute('data-on', '');
+        else heads[j].removeAttribute('data-on');
+      }
+      for (var k = 0; k < picks.length; k++) {
+        var isOn = picks[k].getAttribute('data-vs-pick') === s.material;
+        picks[k].textContent = isOn ? 'Selected' : 'Choose ' + MATERIALS[picks[k].getAttribute('data-vs-pick')].name.toLowerCase();
+        picks[k].disabled = isOn;
+      }
+      place();
+    });
+    watch(place);
+  }
+
+  /* ---- the cutaway's four marks -------------------------------------------
+     A dot on the photograph and a row in the list are two views of one thing, so
+     they share an index and either can drive it. Hover and focus both count:
+     a pointer reader points, a keyboard reader tabs, and both should light the
+     same pair. */
+  function cutaway() {
+    var fig = $('[data-cut]');
+    if (!fig) return;
+    var hots = $$('[data-hot]', fig);
+    var items = $$('[data-cut-item]', fig);
+    if (!hots.length || !items.length) return;
+
+    function show(i) {
+      for (var j = 0; j < hots.length; j++) {
+        hots[j].setAttribute('aria-current', j === i ? 'true' : 'false');
+      }
+      for (var k = 0; k < items.length; k++) {
+        if (k === i) items[k].setAttribute('data-on', '');
+        else items[k].removeAttribute('data-on');
+        var btn = $('[data-cut-btn]', items[k]);
+        if (btn) btn.setAttribute('aria-expanded', k === i ? 'true' : 'false');
+      }
+    }
+
+    function wire(el, i) {
+      on(el, 'click', function () { show(i); });
+      on(el, 'mouseenter', function () { show(i); });
+      on(el, 'focus', function () { show(i); });
+    }
+    for (var i = 0; i < hots.length; i++) wire(hots[i], i);
+    for (var j = 0; j < items.length; j++) {
+      var btn = $('[data-cut-btn]', items[j]);
+      if (btn) wire(btn, j);
+    }
+    show(0);
+  }
+
+  /* ==========================================================================
+     9 · TECH SPECS
+     ====================================================================== */
+
+  /* The rows are native <details>, so they open without this. What this adds is
+     the one control eight rows earn: open all, close all — and it reports which
+     it will do next rather than staying on one label. */
+  function specs() {
+    var btn = $('[data-specs-all]');
+    var rows = $$('[data-spec]');
+    if (!btn || !rows.length) return;
+
+    var label = $('span', btn);
+    function paint() {
+      var open = 0;
+      for (var i = 0; i < rows.length; i++) if (rows[i].open) open++;
+      var most = open > rows.length / 2;
+      btn.setAttribute('aria-expanded', most ? 'true' : 'false');
+      if (label) label.textContent = most ? 'Collapse all' : 'Expand all';
+    }
+    on(btn, 'click', function () {
+      var most = btn.getAttribute('aria-expanded') === 'true';
+      for (var i = 0; i < rows.length; i++) rows[i].open = !most;
+      paint();
+    });
+    for (var i = 0; i < rows.length; i++) on(rows[i], 'toggle', paint);
+    paint();
+  }
+
+  /* ==========================================================================
+     10 · THE DOCK
+     ====================================================================== */
+
+  /* shared.js's `.ph-bar` arrives as a name and a button. It gains a thumbnail
+     and a line of meta here, and the CSS takes it off the top edge — so the
+     observer, the aria-hidden toggle and the tabindex handoff shared.js wrote
+     all keep working and none of it is duplicated.
+     shared.js runs at parse time inside its own IIFE, so the bar is already in
+     the document when this file executes. The guard is for the case where it is
+     not — a product page whose hero has no CTA gets no bar at all. */
+  function dock() {
+    var bar = $('.ph-bar');
+    if (!bar) return;
+    var inner = $('.ph-bar-inner', bar);
+    var name = $('.ph-bar-name', bar);
+    if (!inner || !name) return;
+
+    var thumb = doc.createElement('img');
+    thumb.className = 'ph-bar-thumb';
+    thumb.alt = '';
+    thumb.setAttribute('aria-hidden', 'true');
+    thumb.width = 38; thumb.height = 38;
+    thumb.decoding = 'async';
+
+    var txt = doc.createElement('span');
+    txt.className = 'ph-bar-txt';
+    var meta = doc.createElement('span');
+    meta.className = 'ph-bar-meta';
+
+    inner.insertBefore(thumb, name);
+    inner.insertBefore(txt, name);
+    txt.appendChild(name);
+    txt.appendChild(meta);
+
+    subscribe(function (s) {
+      var f = finishById(s.finish);
+      var frame = $('[data-gal-main] img[data-finish="' + s.finish + '"]');
+      if (frame) thumb.src = frame.currentSrc || frame.src;
+      meta.textContent = money(MATERIALS[s.material].price) + ' · ' + f.name +
+        ' · ' + (s.kit ? 'sizing kit' : 'size ' + s.size);
+    });
+  }
+
+  /* ==========================================================================
+     BOOT
+     Order matters in one place only: dock() reads the gallery's frames for its
+     thumbnail, so gallery() has to have marked the frames first. Everything
+     else is independent, and the single publish() at the end is what paints the
+     initial state through every subscriber at once — rather than each component
+     painting itself and then being repainted on the first interaction.
+     ====================================================================== */
+
+  gallery();
+  lightbox();
+  buyColumn();
+  signals();
+  timeline();
+  pinRail();
+  filmControls();
+  compare();
+  cutaway();
+  specs();
+  dock();
+  publish();
+
+  /* A reader who turns reduced-motion on mid-session gets stillness on the next
+     paint for the two things that can be withdrawn cleanly: a running film and a
+     step that is animating. Nothing is re-laid out — shared.js makes the same
+     trade for the same reason. */
+  if (still.addEventListener) {
+    still.addEventListener('change', function () {
+      if (!still.matches) return;
+      var films = $$('.pdp-tl-film video, .pin-film');
+      for (var i = 0; i < films.length; i++) { try { films[i].pause(); } catch (e) {} }
+    });
+  }
+})();
