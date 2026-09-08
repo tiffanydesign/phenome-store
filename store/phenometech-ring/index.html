@@ -320,92 +320,147 @@
 
 <!-- ==========================================================================
      5 · THE PINNED FILM
-     The band itself is unchanged — same film, same four points, same scroll
-     mechanics from shared.js's pinned(). What is added is somewhere to steer:
-     four numbered marks that read pinned()'s own `.on` class rather than
-     recomputing the progress, plus the film's own play control.
+
+     THE NUMBERED RAIL IS GONE, and the reason is that the numbers were lying.
+     1-2-3-4 promises a sequence, and these four are peers: a battery figure, a
+     water rating, a material, a data claim. Nothing about the second follows
+     from the first. So the marks were counting steps in a process that has no
+     steps — chrome that added a control, an index and a progress line to say
+     something untrue.
+
+     What replaces it is not a better indicator, it is no indicator. Each point
+     leads with its own value set large, and the value changing IS where you
+     are: 7 days becomes 100 metres becomes 4 grams. An overline above it names
+     the subject, which is the one job the numbers could have done and didn't.
+     Apple's own pinned product bands ship exactly this way — the copy swaps and
+     there is no rail — and the confidence is the point.
+
+     shared.js's pinned() is untouched; it still turns the section's scroll into
+     an index and toggles `.on`. Only what that class paints has changed.
      ====================================================================== -->
 <section class="section section-keep pin-sec"><div class="pin" style="--pin-steps:4"><div class="pin-stage"><div class="pin-band"><video aria-hidden="true" autoplay="" class="pin-film" id="pdp-film-pin" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-highlights.webp" preload="metadata" tabindex="-1"><source src="/phenome-store/assets/video/ring-highlights.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-highlights.mp4" type="video/mp4"/></video><div class="pin-scrim"></div></div>
 <div class="pdp-filmbar" data-filmbar="#pdp-film-pin">
 <button aria-label="Pause video" class="pdp-filmbtn" data-film-play="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
 </div>
-<div class="pin-inner"><div class="pin-head"><h2 class="sec-title">Get the highlights.</h2></div><div class="pin-pts"><div class="pin-pt" data-pin="0"><p class="pin-pt-t">7-day battery life, with a roughly 90-minute full charge.</p></div><div class="pin-pt" data-pin="1"><p class="pin-pt-t">Water resistant to 100 metres — swim, shower, sleep.</p></div><div class="pin-pt" data-pin="2"><p class="pin-pt-t">Aerospace titanium or ceramic, just 4 grams on the finger.</p></div><div class="pin-pt" data-pin="3"><p class="pin-pt-t">Syncs your signals with your genomic &amp; microbiome data.</p></div></div>
-<div class="pdp-pinrail" data-pin-rail="">
-<button aria-current="true" aria-label="Battery" class="pdp-pinmark" data-pin-mark="" type="button">1</button>
-<button aria-current="false" aria-label="Water resistance" class="pdp-pinmark" data-pin-mark="" type="button">2</button>
-<button aria-current="false" aria-label="Materials and weight" class="pdp-pinmark" data-pin-mark="" type="button">3</button>
-<button aria-current="false" aria-label="Syncing" class="pdp-pinmark" data-pin-mark="" type="button">4</button>
-<span aria-hidden="true" class="pdp-pintrack" data-pin-track=""><i></i></span>
+<div class="pin-inner"><div class="pin-head"><h2 class="sec-title">Get the highlights.</h2></div><div class="pin-pts">
+<div class="pin-pt" data-pin="0"><p class="pdp-pin-k">Battery</p><p class="pdp-pin-v">7 days</p><p class="pin-pt-t">On a single charge, and roughly ninety minutes to fill it again.</p></div>
+<div class="pin-pt" data-pin="1"><p class="pdp-pin-k">Water resistance</p><p class="pdp-pin-v">100 m</p><p class="pin-pt-t">Ten atmospheres. Swim in it, shower in it, sleep in it.</p></div>
+<div class="pin-pt" data-pin="2"><p class="pdp-pin-k">On the finger</p><p class="pdp-pin-v">4 g</p><p class="pin-pt-t">Aerospace-grade titanium, or high-density zirconia ceramic.</p></div>
+<div class="pin-pt" data-pin="3"><p class="pdp-pin-k">In context</p><p class="pdp-pin-v">One picture</p><p class="pin-pt-t">Your signals, read together with your genome and your microbiome.</p></div>
 </div>
 </div></div></div></section>
 
 <!-- ==========================================================================
      6 · TITANIUM OR CERAMIC
-     WHAT THIS REPLACES: two cards of four lines each, which is a comparison the
-     reader has to perform themselves — "4 grams" and "a soft, warm feel" sat at
-     the same height and compared nothing. The attribute is on the left now and
-     the two answers are on the same line, and the raised column is whichever
-     material is selected in the hero. Choosing here chooses there.
+     Apple's compare structure, which is the reference asked for: no key column,
+     each column a self-contained pitch — picture, colourways, price, buy — and
+     then its own facts, each group led by a value large enough to read across
+     the room. The reader compares by looking left and right at the same height
+     rather than tracking a row back to a label at the far edge.
+
+     WHERE THIS DEPARTS FROM APPLE, and it is the section's whole argument:
+     Apple repeats every spec in every column because its phones genuinely
+     differ down the list. Ours do not — the sensors, the water rating, the
+     battery and the radio are identical, and the lede says exactly that. So the
+     columns carry only what differs, and everything shared is stated once,
+     full width, underneath.
+
+     The colourway dots here are LIVE. Clicking one sets the finish and the
+     material, the same as the hero's swatches — which is what keeps this
+     section part of the decision rather than a description of it.
      ====================================================================== -->
 <section class="section"><div class="wrap-wide">
 <h2 class="sec-title">Titanium or ceramic?</h2>
 <p class="lede" style="margin-left:0">Identical sensors, identical insight. Choose by feel and finish.</p>
 
 <div class="pdp-vs" data-vs="">
-<span aria-hidden="true" class="pdp-vs-lift" data-vs-lift=""></span>
 
-<div class="pdp-vs-h"></div>
-<div class="pdp-vs-h" data-on="" data-vs-mat="titanium">
-<span class="pdp-vs-k"><span class="mat-sw" style="--sw:#C6A15B"></span>Titanium</span>
+<div class="pdp-vs-col" data-on="" data-vs-mat="titanium">
+<div class="pdp-vs-fig" data-vs-fig="titanium">
+<img alt="The PhenomeTech Ring in gold titanium" data-finish="gold" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_gold.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in graphite titanium" data-finish="graphite" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in silver titanium" data-finish="silver" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver.webp" width="1080"/>
+</div>
+<div class="pdp-vs-sw">
+<button aria-label="Gold" class="pdp-vs-dot on" data-swatch="gold" data-tone="t-gold" type="button"></button>
+<button aria-label="Graphite" class="pdp-vs-dot" data-swatch="graphite" data-tone="t-black" type="button"></button>
+<button aria-label="Silver" class="pdp-vs-dot" data-swatch="silver" data-tone="t-silver" type="button"></button>
+</div>
+<p class="pdp-vs-swname" data-vs-swname="titanium">Gold</p>
+
+<div class="pdp-vs-buy">
+<p class="pdp-vs-name">Titanium</p>
 <p class="pdp-vs-price">£179</p>
 <button class="pdp-vs-pick" data-vs-pick="titanium" type="button">Selected</button>
 </div>
-<div class="pdp-vs-h" data-vs-mat="ceramic">
-<span class="pdp-vs-k"><span class="mat-sw" style="--sw:#D6D6DA"></span>Ceramic</span>
+
+<div class="pdp-vs-facts">
+<div class="pdp-vs-g">
+<p class="pdp-vs-v">4<small>g</small></p>
+<p class="pdp-vs-t">Featherlight</p>
+<p class="pdp-vs-s">Approximately, at size 8</p>
+</div>
+<div class="pdp-vs-g">
+<svg aria-hidden="true" class="pdp-vs-m" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M3 12.5l9 5 9-5"></path></svg>
+<p class="pdp-vs-t">Grade-5 aerospace titanium</p>
+<p class="pdp-vs-s">The alloy aircraft are built from — hard, light and it does not corrode</p>
+</div>
+<div class="pdp-vs-g">
+<p class="pdp-vs-t">Brushed metallic</p>
+<p class="pdp-vs-s">A fine directional grain that catches the light and hides a day's wear</p>
+</div>
+</div>
+</div>
+
+<div class="pdp-vs-col" data-vs-mat="ceramic">
+<div class="pdp-vs-fig" data-vs-fig="ceramic">
+<img alt="The PhenomeTech Ring in arctic white ceramic" data-finish="white" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in onyx ceramic" data-finish="onyx" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
+</div>
+<div class="pdp-vs-sw">
+<button aria-label="Arctic White" class="pdp-vs-dot on" data-swatch="white" data-tone="c-white" type="button"></button>
+<button aria-label="Onyx" class="pdp-vs-dot" data-swatch="onyx" data-tone="c-black" type="button"></button>
+</div>
+<p class="pdp-vs-swname" data-vs-swname="ceramic">Arctic White</p>
+
+<div class="pdp-vs-buy">
+<p class="pdp-vs-name">Ceramic</p>
 <p class="pdp-vs-price">£199</p>
 <button class="pdp-vs-pick" data-vs-pick="ceramic" type="button">Choose ceramic</button>
 </div>
 
-<!-- Each row is three siblings in document order: the attribute, then the two
-     answers. `data-m` is what the narrow layout draws above each answer — below
-     860 the attribute takes a full row of its own and the two values sit side
-     by side, so without the material name on the value itself the reader gets
-     two numbers and no way to tell which ring they belong to. That was the
-     first version's actual failure at 390, not a cosmetic one. -->
-<div class="pdp-vs-c k">Weight, size 8</div>
-<div class="pdp-vs-c v" data-m="Titanium">approx. 4 g</div>
-<div class="pdp-vs-c v" data-m="Ceramic">approx. 6 g</div>
+<div class="pdp-vs-facts">
+<div class="pdp-vs-g">
+<p class="pdp-vs-v">6<small>g</small></p>
+<p class="pdp-vs-t">Substantial</p>
+<p class="pdp-vs-s">Approximately, at size 8</p>
+</div>
+<div class="pdp-vs-g">
+<svg aria-hidden="true" class="pdp-vs-m" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle></svg>
+<p class="pdp-vs-t">High-density zirconia ceramic</p>
+<p class="pdp-vs-s">Harder than steel at the surface, and warm against the skin within minutes</p>
+</div>
+<div class="pdp-vs-g">
+<p class="pdp-vs-t">Smooth matte</p>
+<p class="pdp-vs-s">A close, even finish that resists scratching and stays fingerprint-free</p>
+</div>
+</div>
+</div>
 
-<div class="pdp-vs-c k">Material</div>
-<div class="pdp-vs-c" data-m="Titanium">Grade-5 aerospace titanium</div>
-<div class="pdp-vs-c" data-m="Ceramic">High-density zirconia ceramic</div>
+</div>
 
-<div class="pdp-vs-c k">Finish</div>
-<div class="pdp-vs-c" data-m="Titanium">Brushed metallic</div>
-<div class="pdp-vs-c" data-m="Ceramic">Smooth matte</div>
-
-<div class="pdp-vs-c k">Feel</div>
-<div class="pdp-vs-c" data-m="Titanium">Featherlight &amp; durable</div>
-<div class="pdp-vs-c" data-m="Ceramic">Warm, scratch-resistant</div>
-
-<div class="pdp-vs-c k">Colourways</div>
-<div class="pdp-vs-c" data-m="Titanium">Gold · Graphite · Silver</div>
-<div class="pdp-vs-c" data-m="Ceramic">Arctic White · Onyx</div>
-
-<!-- The three rows the two-card version could not show at all, because a fact
-     that is the same on both sides has nowhere to sit when there is no shared
-     line to sit on. -->
-<div class="pdp-vs-c k">Sensors</div>
-<div class="pdp-vs-c" data-m="Titanium"><span class="same"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>All five, identical</span></div>
-<div class="pdp-vs-c" data-m="Ceramic"><span class="same"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>All five, identical</span></div>
-
-<div class="pdp-vs-c k">Water resistance</div>
-<div class="pdp-vs-c v" data-m="Titanium">100 m · 10 ATM</div>
-<div class="pdp-vs-c v" data-m="Ceramic">100 m · 10 ATM</div>
-
-<div class="pdp-vs-c k">Battery</div>
-<div class="pdp-vs-c v" data-m="Titanium">Up to 7 days</div>
-<div class="pdp-vs-c v" data-m="Ceramic">Up to 7 days</div>
+<!-- The band that replaces the three rows of the old table which said the same
+     thing in both columns. Stated once, because the section's own lede says the
+     two rings are identical everywhere that matters and printing those facts
+     twice would spend two columns denying it. -->
+<div class="pdp-vs-same">
+<p class="pdp-vs-same-t">Everything else is the same ring.</p>
+<ul class="pdp-vs-same-l">
+<li><b>5 sensors</b><span>Identical in both</span></li>
+<li><b>100 m</b><span>10 ATM water resistance</span></li>
+<li><b>7 days</b><span>Battery, either material</span></li>
+<li><b>Bluetooth 5.3</b><span>iOS 16+ · Android 10+</span></li>
+</ul>
 </div>
 
 <!-- ---- the cutaway. `ring orthographic.png` is the one asset in the shoot

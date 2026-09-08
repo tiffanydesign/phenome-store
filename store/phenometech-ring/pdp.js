@@ -398,10 +398,19 @@
      ====================================================================== */
 
   function buyColumn() {
-    var cards = $$('[data-material]');
-    var swatches = $$('[data-swatch]');
-    var chips = $$('[data-size]');
-    var kit = $('[data-kit]');
+    /* SCOPED TO THE COLUMN, not the document. The comparison section grew its
+       own live colourway dots, which also carry `data-swatch` — a global query
+       here would wire every one of them twice (harmless, since the second
+       setFinish is a no-op) and, worse, would let this function's `.on`
+       bookkeeping reach controls that belong to another component. Each part of
+       the page owns its own controls; they meet at the state object and nowhere
+       else. */
+    var col = $('.buy-col');
+    if (!col) return;
+    var cards = $$('[data-material]', col);
+    var swatches = $$('[data-swatch]', col);
+    var chips = $$('[data-size]', col);
+    var kit = $('[data-kit]', col);
 
     for (var a = 0; a < cards.length; a++) {
       (function (el) {
@@ -606,73 +615,13 @@
   }
 
   /* ==========================================================================
-     6 · THE PINNED BAND'S RAIL
+     6 · THE PINNED BAND
+     Nothing here. The band's four points are peers rather than steps, so the
+     numbered rail that used to index them has been removed along with the code
+     that drove it — see pdp.css §4. shared.js's own pinned() still turns the
+     section's scroll into an index and toggles `.on`; the stylesheet does the
+     rest, and this file has no business in it.
      ====================================================================== */
-
-  /* shared.js's pinned() toggles `.on` across .pin-pt and that is the only
-     source of truth for where the band is. So this watches the class rather
-     than recomputing the progress: two pieces of arithmetic over one scroll
-     position is how a rail ends up one step ahead of the copy it labels. */
-  function pinRail() {
-    var pin = $('.pin');
-    var railWrap = $('[data-pin-rail]');
-    if (!pin || !railWrap) return;
-
-    var pts = $$('.pin-pt', pin);
-    var marks = $$('[data-pin-mark]', railWrap);
-    var track = $('[data-pin-track] i', railWrap);
-    if (!pts.length || !marks.length) return;
-
-    function sync() {
-      var at = 0;
-      for (var i = 0; i < pts.length; i++) if (pts[i].classList.contains('on')) at = i;
-      for (var j = 0; j < marks.length; j++) {
-        marks[j].setAttribute('aria-current', j === at ? 'true' : 'false');
-      }
-      /* A ratio, for the same reason the timeline's rail takes one: the CSS
-         scales the bar instead of widening it. */
-      if (track) {
-        track.style.setProperty('--p', pts.length > 1 ? at / (pts.length - 1) : 1);
-      }
-    }
-
-    /* In stillness shared.js lights every point at once, so there is no index to
-       follow and the rail is filled and left alone. */
-    if (still.matches) {
-      if (track) track.style.setProperty('--p', 1);
-      for (var m = 0; m < marks.length; m++) marks[m].setAttribute('aria-current', 'false');
-      return;
-    }
-
-    if ('MutationObserver' in window) {
-      var mo = new MutationObserver(sync);
-      for (var k = 0; k < pts.length; k++) {
-        mo.observe(pts[k], { attributes: true, attributeFilter: ['class'] });
-      }
-    } else {
-      watch(sync);
-    }
-    sync();
-
-    /* A mark scrolls the band to the stretch that shows its point. The band's
-       own height is `--pin-steps` screens of scroll, so step n starts n/steps of
-       the way through the run — the same fraction pinned() divides by. */
-    for (var n = 0; n < marks.length; n++) {
-      (function (i) {
-        on(marks[i], 'click', function () {
-          var stage = $('.pin-stage', pin);
-          var sh = stage ? stage.offsetHeight : window.innerHeight;
-          var run = pin.offsetHeight - sh;
-          var top = pin.getBoundingClientRect().top + window.pageYOffset;
-          /* Land a hair inside the step rather than exactly on its boundary,
-             where a rounding difference between this and pinned() would show
-             the previous point. */
-          var into = run * ((i + 0.35) / marks.length);
-          window.scrollTo({ top: top + into, behavior: still.matches ? 'auto' : 'smooth' });
-        });
-      })(n);
-    }
-  }
 
   /* ==========================================================================
      7 · THE FILM CONTROLS
@@ -735,50 +684,89 @@
      8 · TITANIUM OR CERAMIC
      ====================================================================== */
 
+  /* Two columns, no key column, and the sliding measured pane is gone with the
+     table it belonged to — the chosen column is a card now, which is one CSS
+     property rather than a bounding-box calculation that had to be re-run on
+     every resize. What is left here is state: which column is raised, which
+     dot is ringed, which picture each column shows, and what the pick button
+     says. */
   function compare() {
     var table = $('[data-vs]');
     if (!table) return;
-    var lift = $('[data-vs-lift]', table);
-    var heads = $$('[data-vs-mat]', table);
+
+    var cols = $$('[data-vs-mat]', table);
     var picks = $$('[data-vs-pick]', table);
+    var dots = $$('[data-swatch]', table);
+    var figs = $$('[data-vs-fig]', table);
+    var names = $$('[data-vs-swname]', table);
 
     for (var i = 0; i < picks.length; i++) {
       (function (el) {
         on(el, 'click', function () { setMaterial(el.getAttribute('data-vs-pick')); });
       })(picks[i]);
     }
-
-    /* THE LIFTED PANE IS MEASURED, NOT CALCULATED. Its position comes from the
-       header cell's own bounding box against the table's, so the grid can change
-       its track fractions in a media query without this needing to know. */
-    function place() {
-      if (!lift) return;
-      var head = null;
-      for (var j = 0; j < heads.length; j++) {
-        if (heads[j].getAttribute('data-vs-mat') === state.material) head = heads[j];
-      }
-      if (!head || !head.offsetWidth) { lift.style.opacity = '0'; return; }
-      var t = table.getBoundingClientRect();
-      var h = head.getBoundingClientRect();
-      lift.style.opacity = '1';
-      lift.style.left = (h.left - t.left) + 'px';
-      lift.style.width = h.width + 'px';
+    /* The dots do the same job as the hero's swatches and go through the same
+       setter, so a click here can cross the material boundary too — choosing
+       Onyx from the titanium side of the page is a legitimate thing to want. */
+    for (var d = 0; d < dots.length; d++) {
+      (function (el) {
+        on(el, 'click', function () { setFinish(el.getAttribute('data-swatch')); });
+      })(dots[d]);
     }
+    for (var f = 0; f < figs.length; f++) figs[f].setAttribute('data-live', '');
+
+    /* EACH COLUMN REMEMBERS ITS OWN FINISH, and it needs somewhere to remember
+       it. The state object holds ONE finish — the one being bought — so a
+       column whose material is not current has nothing in it to read. This map
+       is that memory: seeded with each material's first colourway so both
+       columns have a picture at load, and updated only for the material the
+       reader actually touched. The titanium column therefore keeps showing gold
+       while the reader is looking at ceramic, instead of blanking or falling
+       back to a default that has nothing to do with them. */
+    var shown = {
+      titanium: firstFinishOf('titanium').id,
+      ceramic: firstFinishOf('ceramic').id
+    };
 
     subscribe(function (s) {
-      for (var j = 0; j < heads.length; j++) {
-        var mine = heads[j].getAttribute('data-vs-mat') === s.material;
-        if (mine) heads[j].setAttribute('data-on', '');
-        else heads[j].removeAttribute('data-on');
+      var cur = finishById(s.finish);
+      shown[cur.mat] = cur.id;
+
+      for (var j = 0; j < cols.length; j++) {
+        if (cols[j].getAttribute('data-vs-mat') === s.material) cols[j].setAttribute('data-on', '');
+        else cols[j].removeAttribute('data-on');
       }
       for (var k = 0; k < picks.length; k++) {
-        var isOn = picks[k].getAttribute('data-vs-pick') === s.material;
-        picks[k].textContent = isOn ? 'Selected' : 'Choose ' + MATERIALS[picks[k].getAttribute('data-vs-pick')].name.toLowerCase();
+        var mat = picks[k].getAttribute('data-vs-pick');
+        var isOn = mat === s.material;
+        picks[k].textContent = isOn ? 'Selected' : 'Choose ' + MATERIALS[mat].name.toLowerCase();
         picks[k].disabled = isOn;
       }
-      place();
+      /* The ring goes only on the dot of the finish being bought. The other
+         column's dots stay unringed even though its picture is showing one of
+         them — the picture says "this is what ceramic looks like", the ring
+         says "this is what you are buying", and only one of those is true of
+         the column you have not chosen. */
+      for (var n = 0; n < dots.length; n++) {
+        dots[n].classList.toggle('on', dots[n].getAttribute('data-swatch') === s.finish);
+      }
+
+      /* Both columns are painted, each from its own remembered finish. */
+      for (var g = 0; g < figs.length; g++) {
+        var fig = figs[g];
+        var want = shown[fig.getAttribute('data-vs-fig')];
+        var frames = $$('img[data-finish]', fig);
+        for (var m = 0; m < frames.length; m++) {
+          var lit = frames[m].getAttribute('data-finish') === want;
+          frames[m].classList.toggle('on', lit);
+          frames[m].setAttribute('aria-hidden', lit ? 'false' : 'true');
+        }
+      }
+      for (var w = 0; w < names.length; w++) {
+        var mat = names[w].getAttribute('data-vs-swname');
+        if (shown[mat]) names[w].textContent = finishById(shown[mat]).name;
+      }
     });
-    watch(place);
   }
 
   /* ---- the cutaway's four marks -------------------------------------------
@@ -908,7 +896,6 @@
   buyColumn();
   signals();
   timeline();
-  pinRail();
   filmControls();
   compare();
   cutaway();
