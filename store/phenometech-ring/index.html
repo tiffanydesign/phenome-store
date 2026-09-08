@@ -15,7 +15,7 @@
      it does not retheme. See its header for what was taken from
      seed.com/daily-synbiotic and what was deliberately left alone. -->
 <link href="/phenome-store/store/phenometech-ring/pdp.css" rel="stylesheet"/>
-<link rel="preload" as="image" href="/phenome-store/assets/pages/ring_fin_gold.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="/phenome-store/assets/video/ring-cw-gold.webp" fetchpriority="high"/>
 </head>
 <body class="pdp">
 <div class="ph-promo"><p class="ph-promo-inner">Welcome offer — 10% off your first order with code <b>WELCOME10</b></p></div>
@@ -32,36 +32,50 @@
      ====================================================================== -->
 <section class="hero"><div class="wrap-wide">
 
-<div class="buy-head">
-<div class="eyebrow">PHENOMETECH RING</div>
-<h1 class="hero-title">Your data, on your finger.</h1>
-<p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
-</div>
+<!-- shared.css centres this above `.buy` across both tracks. It is emptied
+     rather than removed — shared.js and the site's audit tooling both look for
+     `.buy-head`, and `.hero .lede` carries a centring rule that would reach the
+     copy in its new home inside the column. -->
+<div class="buy-head"></div>
 
 <div class="buy">
 
-<!-- ---- the media. Five stills stacked in the big frame, one per finish, and
-     only opacity moves between them; six tiles below, each of which opens the
-     overlay at its own index. -->
+<!-- ---- the media. A 4:5 film that changes with the swatch, over six square
+     tiles three across. The first tile is the studio still of whichever finish
+     is chosen, so the plain-ground view of the product sits one glance under
+     the cinema and answers the same control. -->
 <div class="pdp-gal">
 
 <div class="pdp-gal-main" data-gal-main="">
-<img alt="The PhenomeTech Ring in gold titanium, side on" data-finish="gold" fetchpriority="high" height="810" src="/phenome-store/assets/pages/ring_fin_gold.webp" width="1080"/>
-<img alt="The PhenomeTech Ring in graphite titanium, side on" data-finish="graphite" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
-<img alt="The PhenomeTech Ring in silver titanium, side on" data-finish="silver" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver.webp" width="1080"/>
-<img alt="The PhenomeTech Ring in arctic white ceramic, side on" data-finish="white" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white.webp" width="1080"/>
-<!-- Onyx and graphite are the same photograph. The shoot delivered one black
-     profile and the ring is black in both materials, so the reuse is invisible
-     and a second render would be a second file for the same picture. -->
-<img alt="The PhenomeTech Ring in onyx ceramic, side on" data-finish="onyx" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
-<span class="pdp-gal-tag" data-gal-tag=""><i style="--sw:#C6A15B"></i><span>Titanium · Gold</span></span>
-<button aria-label="Open the image at full size" class="pdp-gal-zoom" data-gal-zoom="" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></button>
+<!-- Four clips, five finishes: Graphite and Onyx share the black scene, the
+     same way they share the black studio still. No `autoplay` — pdp.js plays
+     the current one and pauses the rest, so a page with no script shows a
+     poster that is a frame of the same film rather than four videos fighting
+     for four decoders. mp4 only: measured, VP9 came out 60-85% LARGER than
+     h264 on the gold and silver scenes (moving water, moving moiré), so a
+     `<source>` list with webm first would have handed the majority browser the
+     bigger file. One format, one decision. -->
+<video aria-label="A gold ring turning above sunlit water" data-clip="gold" id="pdp-cw-gold" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-gold.webp" preload="auto"><source src="/phenome-store/assets/video/ring-cw-gold.mp4" type="video/mp4"/></video>
+<video aria-label="A black ring above ink-wash mountains" data-clip="graphite" id="pdp-cw-graphite" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-graphite.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-graphite.mp4" type="video/mp4"/></video>
+<video aria-label="A white ring above a bank of cloud" data-clip="white" id="pdp-cw-white" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-white.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-white.mp4" type="video/mp4"/></video>
+<video aria-label="A silver ring resting on dark draped fabric" data-clip="silver" id="pdp-cw-silver" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-silver.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-silver.mp4" type="video/mp4"/></video>
+<span class="pdp-gal-tag" data-gal-tag=""><i></i><span>Titanium · Gold</span></span>
+<div class="pdp-gal-tools">
+<button aria-label="Pause the film" class="pdp-gal-tool pdp-gal-hold" data-gal-hold="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
+<button aria-label="Open at full size" class="pdp-gal-tool pdp-gal-zoom" data-gal-zoom="" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></button>
+</div>
 </div>
 
 <div class="pdp-gal-grid">
-<button aria-label="A silver ring turning in the studio, film" class="pdp-tile" data-lb="" type="button">
-<video aria-hidden="true" autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-studio.webp" preload="none" tabindex="-1"><source src="/phenome-store/assets/video/ring-studio.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-studio.mp4" type="video/mp4"/></video>
-<span class="film-dot"></span><span class="cap">Studio film</span>
+<!-- The studio stills, which held the big frame through two passes. Stacked and
+     crossfading, exactly as they were, one tile down. -->
+<button aria-label="The chosen finish, in the studio" class="pdp-tile" data-lb="" data-gal-still="" type="button">
+<img alt="The PhenomeTech Ring in gold titanium, side on" data-finish="gold" decoding="async" height="810" src="/phenome-store/assets/pages/ring_fin_gold.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in graphite titanium, side on" data-finish="graphite" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in silver titanium, side on" data-finish="silver" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in arctic white ceramic, side on" data-finish="white" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white.webp" width="1080"/>
+<img alt="The PhenomeTech Ring in onyx ceramic, side on" data-finish="onyx" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
+<span class="cap" data-still-cap="">Gold</span>
 </button>
 <!-- The four-up beige still that stood here is gone. It came out of the
      colourway film and one of its four rings is PINK — a finish this page does
@@ -101,9 +115,14 @@
      further down agree with this column instead of restating it. -->
 <div class="buy-col">
 
+<div class="pdp-head">
+<span class="eyebrow">PhenomeTech Ring</span>
+<h1 class="hero-title">Your data, on your finger.</h1>
+<p class="lede">Sleep, activity, heart rate and recovery — read continuously, and read against your own baseline.</p>
+</div>
+
 <div class="buy-opt">
-<p class="buy-label"><b>Material.</b> Titanium or ceramic, same continuous sensing.</p>
-<p class="buy-sub">They track exactly the same health data — it's purely a matter of feel and finish.</p>
+<p class="pdp-opt-k">Material</p>
 <div class="buy-choices">
 <button aria-pressed="true" class="buy-choice on" data-material="titanium" type="button"><span class="n">Titanium</span><span class="p">£179</span></button>
 <button aria-pressed="false" class="buy-choice" data-material="ceramic" type="button"><span class="n">Ceramic</span><span class="p">£199</span></button>
@@ -111,20 +130,18 @@
 </div>
 
 <div class="buy-opt">
-<p class="buy-label"><b>Finish.</b> Choose your look: <span data-finish-label="">Gold.</span></p>
-<p class="buy-sub">Three in titanium, two in ceramic. Picking one picks its material.</p>
+<p class="pdp-opt-k">Finish<span data-finish-label="">Gold</span></p>
 <div class="buy-swatches">
-<button aria-label="Gold" aria-pressed="true" class="buy-swatch on" data-swatch="gold" style="--sw:#C6A15B" type="button"></button>
-<button aria-label="Graphite" aria-pressed="false" class="buy-swatch" data-swatch="graphite" style="--sw:#2E2E30" type="button"></button>
-<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-swatch="silver" style="--sw:#D6D6DA" type="button"></button>
-<button aria-label="Arctic White" aria-pressed="false" class="buy-swatch" data-swatch="white" style="--sw:#EFEFF2" type="button"></button>
-<button aria-label="Onyx" aria-pressed="false" class="buy-swatch" data-swatch="onyx" style="--sw:#1B1B1E" type="button"></button>
+<button aria-label="Gold" aria-pressed="true" class="buy-swatch on" data-swatch="gold" data-tone="t-gold" type="button"></button>
+<button aria-label="Graphite" aria-pressed="false" class="buy-swatch" data-swatch="graphite" data-tone="t-black" type="button"></button>
+<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-swatch="silver" data-tone="t-silver" type="button"></button>
+<button aria-label="Arctic White" aria-pressed="false" class="buy-swatch" data-swatch="white" data-tone="c-white" type="button"></button>
+<button aria-label="Onyx" aria-pressed="false" class="buy-swatch" data-swatch="onyx" data-tone="c-black" type="button"></button>
 </div>
 </div>
 
 <div class="buy-opt">
-<p class="buy-label"><b>Size.</b> Find your fit — <span data-size-label="">US 8.</span></p>
-<p class="buy-sub">Not sure? Order a free sizing kit and choose later.</p>
+<p class="pdp-opt-k">Size<span data-size-label="">US 8</span></p>
 <div class="buy-chips">
 <button aria-pressed="false" class="tag" data-size="6" type="button">6</button>
 <button aria-pressed="false" class="tag" data-size="7" type="button">7</button>
@@ -135,11 +152,11 @@
 <button aria-pressed="false" class="tag" data-size="12" type="button">12</button>
 <button aria-pressed="false" class="tag" data-size="13" type="button">13</button>
 </div>
-<button class="tag buy-alt" data-kit="" type="button">Send me a free sizing kit instead</button>
+<button class="tag buy-alt" data-kit="" type="button">Free sizing kit instead</button>
 </div>
 
 <div class="buy-price">
-<div><p class="stat-num" data-price="">£179</p><p class="buy-sub">or from £<span data-mo="">14.92</span>/mo. Free shipping &amp; sizing kit.</p></div>
+<div><p class="stat-num" data-price="">£179</p><p class="buy-sub">or £<span data-mo="">14.92</span>/mo</p></div>
 <a class="btn" href="/phenome-store/store/cart/">Add to bag</a>
 </div>
 

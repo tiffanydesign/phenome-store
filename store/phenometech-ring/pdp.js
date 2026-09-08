@@ -72,16 +72,30 @@
   /* THE CATALOGUE IS THE PAGE'S OWN COPY, not a new set of claims. Prices,
      material names and colourway names are read off the markup that was already
      there (`Titanium £179 / Ceramic £199`, `Gold · Graphite · Silver`,
-     `Arctic White or Onyx`); the only thing added is which photograph goes with
-     which finish. Graphite and Onyx point at the same still because the shoot
-     delivered one black profile — the ring is black in both, so the reuse is
-     invisible and stating it here is cheaper than a second render. */
+     `Arctic White or Onyx`); what is added is which film, which still and which
+     three tones go with which finish.
+
+     `clip` is the scene in the colourway film. Graphite and Onyx point at the
+     same one for the same reason they point at the same still: the shoot
+     delivered one black ring, and the ring is black in both materials.
+
+     `hi / body / sh` are the three tones the swatch is drawn from — a
+     highlight, the body, and the shaded side, sampled off that ring's own
+     photograph. They live here rather than only in the stylesheet because the
+     bead in the film's tag needs the same three and one table is better than
+     two; the CSS holds them too, keyed by `data-tone`, for the swatches that
+     never change. */
   var FINISHES = [
-    { id: 'gold',     name: 'Gold',         sw: '#C6A15B', mat: 'titanium' },
-    { id: 'graphite', name: 'Graphite',     sw: '#2E2E30', mat: 'titanium' },
-    { id: 'silver',   name: 'Silver',       sw: '#D6D6DA', mat: 'titanium' },
-    { id: 'white',    name: 'Arctic White', sw: '#EFEFF2', mat: 'ceramic'  },
-    { id: 'onyx',     name: 'Onyx',         sw: '#1B1B1E', mat: 'ceramic'  }
+    { id: 'gold',     name: 'Gold',         mat: 'titanium', clip: 'gold',
+      hi: '#fdf0dc', body: '#cfa878', sh: '#6c5036' },
+    { id: 'graphite', name: 'Graphite',     mat: 'titanium', clip: 'graphite',
+      hi: '#eceaf1', body: '#2b2a36', sh: '#101019' },
+    { id: 'silver',   name: 'Silver',       mat: 'titanium', clip: 'silver',
+      hi: '#eef0f4', body: '#a8afba', sh: '#5b6371' },
+    { id: 'white',    name: 'Arctic White', mat: 'ceramic',  clip: 'white',
+      hi: '#ffffff', body: '#dfe2e9', sh: '#aeb4c1' },
+    { id: 'onyx',     name: 'Onyx',         mat: 'ceramic',  clip: 'graphite',
+      hi: '#6e7783', body: '#14161a', sh: '#000000' }
   ];
   var MATERIALS = {
     titanium: { name: 'Titanium', price: 179, mo: '14.92', sw: '#C6A15B' },
@@ -140,18 +154,86 @@
     var main = $('[data-gal-main]');
     if (!main) return;
 
-    var frames = $$('img[data-finish]', main);
+    var films = $$('video[data-clip]', main);
+    /* `stillTile`, not `still`: the module-level `still` is the reduced-motion
+       media query and shadowing it here silently broke the check below. */
+    var stillTile = $('[data-gal-still]');
+    var frames = stillTile ? $$('img[data-finish]', stillTile) : [];
+    var stillCap = $('[data-still-cap]');
     var tag = $('[data-gal-tag]', main);
     var tagName = tag ? $('span', tag) : null;
     var tagDot = tag ? $('i', tag) : null;
 
     /* The `data-live` flag hands the crossfade over from CSS to script. Until
-       it is set, `.pdp-gal-main:not([data-live]) img:first-of-type` keeps the
-       first still visible, so a page whose script fails shows a photograph. */
+       it is set, `:not([data-live]) video:first-of-type` keeps the first clip's
+       poster visible, so a page whose script never runs shows a picture rather
+       than a black box. */
     main.setAttribute('data-live', '');
+    if (stillTile) stillTile.setAttribute('data-live', '');
+
+    /* ONLY THE CURRENT CLIP PLAYS. Four decoders running for three frames
+       nobody can see is four decoders' worth of battery, and on a phone it is
+       the difference between a hero that scrolls and one that stutters. The
+       outgoing clip is paused AFTER the crossfade rather than with it — pausing
+       first shows a frozen frame fading out, which reads as a stall — and the
+       timeout re-checks the class before pausing, so flicking back and forth
+       across the swatches cannot pause the one that is now showing. */
+    var FADE = 560;
+    /* Held by the reader, not by the code. Once it is true a swatch change
+       swaps the picture and leaves it still — which is the whole point of a
+       pause control on a thing that also changes underneath you. */
+    var held = still.matches;
+    var hold = $('[data-gal-hold]');
+
+    function run(f) {
+      for (var i = 0; i < films.length; i++) {
+        (function (v) {
+          var on = v.getAttribute('data-clip') === f.clip;
+          v.classList.toggle('on', on);
+          v.setAttribute('aria-hidden', on ? 'false' : 'true');
+          if (on) {
+            /* `still.matches` is read here rather than captured at boot, so a
+               reader who turns reduced-motion on mid-session gets a poster on
+               the next swatch instead of a film. */
+            if (!held && !still.matches) { try { v.play(); } catch (e) {} }
+          } else if (!v.paused) {
+            setTimeout(function () {
+              if (!v.classList.contains('on')) { try { v.pause(); } catch (e) {} }
+            }, FADE);
+          }
+        })(films[i]);
+      }
+      paintHold();
+    }
+
+    function paintHold() {
+      if (!hold) return;
+      if (held) hold.setAttribute('data-paused', '');
+      else hold.removeAttribute('data-paused');
+      hold.setAttribute('aria-label', held ? 'Play the film' : 'Pause the film');
+    }
+
+    on(hold, 'click', function () {
+      held = !held;
+      var v = $('video.on', main);
+      if (v) {
+        if (held) { try { v.pause(); } catch (e) {} }
+        else { try { v.play(); } catch (e) {} }
+      }
+      paintHold();
+    });
+    /* If reduced-motion comes on mid-session the films are stopped elsewhere;
+       this keeps the button telling the truth about it. */
+    if (still.addEventListener) {
+      still.addEventListener('change', function () {
+        if (still.matches) { held = true; paintHold(); }
+      });
+    }
 
     subscribe(function (s) {
       var f = finishById(s.finish);
+      run(f);
+
       for (var i = 0; i < frames.length; i++) {
         var isOn = frames[i].getAttribute('data-finish') === s.finish;
         frames[i].classList.toggle('on', isOn);
@@ -159,8 +241,13 @@
            would otherwise be five identical alt texts in a row. */
         frames[i].setAttribute('aria-hidden', isOn ? 'false' : 'true');
       }
+      if (stillCap) stillCap.textContent = f.name;
       if (tagName) tagName.textContent = MATERIALS[s.material].name + ' · ' + f.name;
-      if (tagDot) tagDot.style.setProperty('--sw', f.sw);
+      if (tagDot) {
+        tagDot.style.setProperty('--rf-hi', f.hi);
+        tagDot.style.setProperty('--rf-body', f.body);
+        tagDot.style.setProperty('--rf-sh', f.sh);
+      }
     });
   }
 
@@ -200,19 +287,26 @@
     var btnClose = $('.pdp-lb-close', box);
     var items = [], idx = 0, opener = null;
 
+    /* Read at open time, not at boot, because two of the things in this list
+       change: the big frame is whichever colourway film is running, and the
+       first tile is whichever studio still is showing. `.on` first, then the
+       first child as the fallback for the case where the script set no state. */
     function collect() {
       items = [];
       if (main) {
-        var lit = $('img.on', main) || $('img', main);
-        if (lit) items.push({ kind: 'img', src: lit.currentSrc || lit.src, cap: lit.getAttribute('alt') || '' });
+        var film = $('video.on', main) || $('video', main);
+        if (film) {
+          items.push({
+            kind: 'video', el: film,
+            cap: film.getAttribute('aria-label') || ''
+          });
+        }
       }
       for (var i = 0; i < tiles.length; i++) {
-        var v = $('video', tiles[i]);
-        var g = $('img', tiles[i]);
+        var g = $('img.on', tiles[i]) || $('img', tiles[i]);
         var c = $('.cap', tiles[i]);
         var label = c ? c.textContent : (tiles[i].getAttribute('aria-label') || '');
-        if (v) items.push({ kind: 'video', el: v, cap: label });
-        else if (g) items.push({ kind: 'img', src: g.currentSrc || g.src, cap: label });
+        if (g) items.push({ kind: 'img', src: g.currentSrc || g.src, cap: label });
       }
     }
 
@@ -363,13 +457,13 @@
       }
       if (kit) kit.classList.toggle('on', s.kit);
 
-      /* The two labels were static sentences with a colourway hardcoded into
-         one of them ("Choose your look: Gold."). They are the confirmation for
-         the control under them, so they say what is actually chosen. */
-      if (finLabel) finLabel.textContent = f.name + '.';
-      if (sizeLabel) {
-        sizeLabel.textContent = s.kit ? 'Sizing kit first.' : 'US ' + s.size + '.';
-      }
+      /* The labels were sentences with a colourway hardcoded into one of them
+         ("Choose your look: Gold."). They are 12px overlines now and the value
+         sits at the end of the line, so the field name and the confirmation are
+         one row instead of two. No trailing full stops: it is a field, not a
+         sentence. */
+      if (finLabel) finLabel.textContent = f.name;
+      if (sizeLabel) sizeLabel.textContent = s.kit ? 'Sizing kit' : 'US ' + s.size;
 
       /* The number fades a quarter out and back rather than snapping. 140ms,
          which is under the threshold where a reader would call it an animation
@@ -780,7 +874,10 @@
 
     subscribe(function (s) {
       var f = finishById(s.finish);
-      var frame = $('[data-gal-main] img[data-finish="' + s.finish + '"]');
+      /* The thumbnail comes from the studio still, not from the film's poster.
+         A 38px circle cut out of a cloud bank says nothing; the same circle cut
+         out of the plain-ground profile is recognisably that finish. */
+      var frame = $('[data-gal-still] img[data-finish="' + s.finish + '"]');
       if (frame) thumb.src = frame.currentSrc || frame.src;
       meta.textContent = money(MATERIALS[s.material].price) + ' · ' + f.name +
         ' · ' + (s.kit ? 'sizing kit' : 'size ' + s.size);
@@ -816,7 +913,7 @@
   if (still.addEventListener) {
     still.addEventListener('change', function () {
       if (!still.matches) return;
-      var films = $$('.pdp-tl-film video, .pin-film');
+      var films = $$('.pdp-tl-film video, .pin-film, [data-gal-main] video');
       for (var i = 0; i < films.length; i++) { try { films[i].pause(); } catch (e) {} }
     });
   }
