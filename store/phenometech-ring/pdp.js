@@ -534,7 +534,7 @@
        zero. */
     if (still.matches) {
       for (var s = 0; s < steps.length; s++) steps[s].setAttribute('aria-current', 'true');
-      if (rail) rail.style.setProperty('--fill', '100%');
+      if (rail) rail.style.setProperty('--p', 1);
       return;
     }
 
@@ -552,21 +552,30 @@
        drives. */
     var cur = -1;
 
+    /* A RATIO, NOT A PIXEL LENGTH, because the CSS scales the bar rather than
+       growing it — animating `height` costs a layout pass on every frame of the
+       420ms for a bar that moves nothing around it.
+       The fill still reaches the CURRENT NODE and is still measured rather than
+       divided into equal quarters: the steps carry different amounts of copy,
+       so quarters would put the line above or below the dot it is supposed to
+       arrive at. The 15 is the node's own offset inside its step; the 12s are
+       the inset the rail's own ::before and ::after both start and end at, so
+       the ratio is taken against the bar's box rather than the container's. */
+    function setFill(i) {
+      var INSET = 12, NODE = 15;
+      var span = steps[0].parentNode.clientHeight - INSET * 2;
+      if (span <= 0) return;
+      var at = steps[i].offsetTop - steps[0].offsetTop + NODE - INSET;
+      rail.style.setProperty('--p', Math.min(Math.max(at / span, 0), 1));
+    }
+
     function goto(i) {
       if (i === cur) return;
       cur = i;
       for (var j = 0; j < steps.length; j++) {
         steps[j].setAttribute('aria-current', j === i ? 'true' : 'false');
       }
-      if (rail) {
-        /* The fill reaches the CURRENT node, measured rather than divided into
-           equal quarters: the steps have different amounts of copy, so quarters
-           would put the line above or below the dot it is supposed to arrive at.
-           +15px is the node's own offset inside the step, which the rail's
-           ::before starts at too. */
-        var top = steps[0].offsetTop;
-        rail.style.setProperty('--fill', (steps[i].offsetTop - top + 15) + 'px');
-      }
+      if (rail) setFill(i);
     }
 
     for (var i = 0; i < steps.length; i++) {
@@ -620,16 +629,17 @@
       for (var j = 0; j < marks.length; j++) {
         marks[j].setAttribute('aria-current', j === at ? 'true' : 'false');
       }
+      /* A ratio, for the same reason the timeline's rail takes one: the CSS
+         scales the bar instead of widening it. */
       if (track) {
-        track.style.setProperty('--fill',
-          (pts.length > 1 ? (at / (pts.length - 1)) * 100 : 100) + '%');
+        track.style.setProperty('--p', pts.length > 1 ? at / (pts.length - 1) : 1);
       }
     }
 
     /* In stillness shared.js lights every point at once, so there is no index to
        follow and the rail is filled and left alone. */
     if (still.matches) {
-      if (track) track.style.setProperty('--fill', '100%');
+      if (track) track.style.setProperty('--p', 1);
       for (var m = 0; m < marks.length; m++) marks[m].setAttribute('aria-current', 'false');
       return;
     }

@@ -760,10 +760,19 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp .pdp-tl-steps::before {
   top: 12px; bottom: 12px; background: var(--pdp-rule);
 }
+/* THE FILL IS SCALED, NOT GROWN. It animated `height` first, which is a layout
+   property: every frame of the 420ms costs a layout pass and a repaint even
+   though the bar is absolutely positioned and moves nothing around it. The bar
+   occupies the rail's full extent and `scaleY` from its top edge does the same
+   thing on the compositor. pdp.js therefore hands over a RATIO rather than a
+   pixel length — see the note there for why the ratio is measured off the
+   nodes rather than divided into equal quarters. */
 .pdp .pdp-tl-steps::after {
-  top: 12px; height: var(--fill, 0px);
+  top: 12px; bottom: 12px;
   background: var(--ph-accent);
-  transition: height 420ms var(--pdp-ease);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--p, 0));
+  transition: transform 420ms var(--pdp-ease);
 }
 
 .pdp .pdp-tl-step {
@@ -913,10 +922,14 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   background: #ffffff2b; overflow: hidden;
   max-width: 190px;
 }
+/* Same correction as the timeline's rail, same reason: `width` is a layout
+   property and `scaleX` from the left edge is the composited way to say it. */
 .pdp .pdp-pintrack i {
-  display: block; height: 100%; width: var(--fill, 0%);
+  display: block; height: 100%; width: 100%;
   background: #fff; border-radius: 1px;
-  transition: width 380ms var(--pdp-ease);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+  transition: transform 380ms var(--pdp-ease);
 }
 /* The film in the pinned band gets the same control as the timeline's, parked
    clear of the copy. */
