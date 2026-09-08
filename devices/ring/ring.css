@@ -679,54 +679,231 @@
   overflow: hidden;
 }
 
-/* ---- the three marks, which are also the three controls.
+/* ---- the three colourways, which are also the three controls.
 
-   They started as an indicator: how many there are and how far through you are,
+   They began as three 3px marks: how many there are and how far through you are,
    which is what tells a reader the section is finite and worth staying in.
    Without it a page that holds still is a page that has broken.
 
-   THEY TAKE THE POINTER NOW, and pressing one does exactly what scrolling to it
-   does — because it IS scrolling to it. The handler moves the document to the
-   matching point in the pin's own track and lets the existing scroll listener
-   notice; nothing tells the ring anything directly. Two routes to one mechanism
-   rather than two mechanisms that have to be kept agreeing.
+   THEY SAY WHAT THEY SWITCH TO NOW. The marks answered "three, you are on the
+   second" and stopped there, so the one question the section exists to ask —
+   which finish would you wear — had no answer anywhere on the pinned screen;
+   the names were in the aria-labels, read only by a screen reader. A named
+   segment answers both at once, and the swatch answers it before the label is
+   read. The names are the showcase's own, from ring/projects.js.
 
-   The hit area is 44 x 20 around a 28 x 3 mark: a 3px target is not a target.
-   Drawn on ::before so the mark itself stays the size it was. */
-.ph-flat .ringfam-steps {
+   THEY STILL TAKE THE POINTER THE SAME WAY, and pressing one does exactly what
+   scrolling to it does — because it IS scrolling to it. The handler moves the
+   document to the matching point in the pin's own track and lets the existing
+   scroll listener notice; nothing tells the ring anything directly. Two routes
+   to one mechanism rather than two mechanisms kept agreeing.
+
+   The hit area is the segment now, 38px tall and a third of the capsule wide,
+   which is the sizing note the marks needed a ::before to fake. */
+.ph-flat .ringfam-tabs {
   position: absolute;
   left: 50%;
-  bottom: clamp(28px, 5vh, 56px);
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
+  /* HIGHER THAN THE MARKS SAT. The showcase draws its own progress numeral in
+     the bottom ~40px of the frame, which a 3px mark could sit above without
+     touching. A 46px capsule at the same offset lands on it, and two pieces of
+     chrome in one band read as one confused one. This clears it and puts the
+     control in the middle of the empty band under the card instead. */
+  bottom: clamp(60px, 8vh, 96px);
+  /* `translate` rather than a transform, so the centring and the 8px the
+     control rises on the way in are two properties and not one string that has
+     to carry both. */
+  translate: -50% 0;
   z-index: 2;
+
+  /* Equal thirds, and that is load-bearing rather than tidy: it is what lets
+     the thumb below be one width and one translate instead of a measurement
+     that has to be re-taken on every resize and every font swap. */
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  padding: var(--rf-pad);
+  border-radius: 999px;
+  isolation: isolate;
+
+  --rf-pad: 4px;
+
+  /* GLASS, AND IT IS THE BAR'S OWN GLASS. Another exemption from §1's blanket
+     backdrop-filter removal, so like every other one it needs !important to
+     beat that rule's, and it is asked for on the same grounds §1 states: the
+     blur went because every fill behind it had become opaque, and this fill is
+     not. A pane you can see the piece through is the thing being built.
+
+     The numbers are not new ones. They are .ph-bar's, which are apple's own
+     globalnav numbers — 72% white, saturate(180%) blur(20px). The page already
+     has exactly one glass surface and this is the second; making them the same
+     material means the two never read as two different ideas of glass on one
+     screen. Copied by value rather than shared through a token because that is
+     how .ph-bar states them too, and one of the two is chrome and the other is
+     part of a piece — they are the same material by decision, not by wiring.
+
+     WHAT THE TRANSPARENCY IS FOR. Over bare ground it shows almost nothing:
+     72% over the showcase's near-white stage composites to within a couple of
+     values of white, and there the pane is carried by its line. What it is for
+     is that the ground is not bare and not fixed. This is a live piece; the
+     card's cast shadow and the pebbles it sits on reach into the lower band at
+     shorter viewport heights, and the control fades in over the tail of the
+     ring coming to rest rather than after it. Whatever is under the pane in
+     those seconds is seen through it and softened, which is the blur doing the
+     one job a blur is for. */
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+
+  /* NO DROP, and the line instead. §1's requirement is "no shadow on this
+     page" and it is not conditional — the exemptions above it are for the blur
+     alone. This is the case §2 already answers for the nav and the launcher:
+     chrome floating over content that scrolls under it has no parent whose tone
+     it can be the inverse of, so it takes a real border, a 1px line being the
+     flattest possible way to say "this is in front". --border-strong rather
+     than --divider because this one floats over a full screen of picture rather
+     than sitting along an edge, and it is the weight .ds-launch already uses to
+     do the same job on this same page. */
+  border: 1px solid var(--border-strong);
+
+  /* IT IS NOT THERE WHILE THE RING IS TURNING.
+
+     The piece is the thing on this screen. A control parked over it full time
+     spends most of its life covering the picture it belongs to, and the ring's
+     dissolve sweeps the full height of the frame — so the seconds it would
+     cover are the seconds worth watching. It waits for the card instead: gone
+     while the ring turns, back when one is standing still and there is
+     something to choose between.
+
+     Hidden rather than merely transparent, so a control that is not on screen
+     is also not in the tab order and not under the pointer. The visibility flip
+     is delayed on the way out and immediate on the way in, which is the shape
+     .ds-launch already uses to leave and re-enter on this page.
+
+     The one exception is written in the script, not here: it does not leave
+     while the reader is inside it. See `engaged` there. */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out),
+              translate var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
 }
-.ph-flat .ringfam-step {
-  position: relative;
-  width: 28px;
-  height: 3px;
-  padding: 0;
-  border: 0;
-  border-radius: 980px;
-  background: rgba(16, 33, 75, .14);
-  cursor: pointer;
-  transition: background 240ms var(--ease-frosted-out);
+.ph-flat .ringfam-tabs:not(.is-settled) { translate: -50% 8px; }
+.ph-flat .ringfam-tabs.is-settled {
+  opacity: 1;
+  visibility: visible;
+  /* Slower in than out, and it arrives from 8px below. Leaving wants to be done
+     before the reader notices; arriving is the control offering itself and can
+     take the beat. */
+  transition: opacity var(--ph-dur-reveal) var(--ease-frosted-out),
+              translate var(--ph-dur-reveal) var(--ease-frosted-out),
+              visibility 0s;
 }
-.ph-flat .ringfam-step::before {
-  content: '';
+
+/* The thumb. One white pill that slides, and the only moving part in the
+   control — the labels do not resize, do not re-weight and do not fade, so
+   there is one thing to follow rather than four.
+
+   It reads --ringfam-i, which the scroll handler sets on the capsule. That is
+   the same index the ring is posted, off the same sync(), so the thumb cannot
+   drift from the picture: there is no second source of truth to keep in step.
+
+   translate by its OWN width, which the grid has already made exactly a third.
+   Nothing here needs to know the pixel width of anything. */
+.ph-flat .ringfam-thumb {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 44px;
-  height: 20px;
-  transform: translate(-50%, -50%);
+  z-index: 0;
+  top: var(--rf-pad);
+  bottom: var(--rf-pad);
+  left: var(--rf-pad);
+  width: calc((100% - 2 * var(--rf-pad)) / 3);
+  border-radius: 999px;
+  /* Opaque against a translucent ground, which over the showcase's near-white
+     stage is a difference of about two values — so the thumb takes a line too,
+     for the same reason the capsule does. Quieter than the capsule's: the outer
+     edge is the one separating the control from the picture, this one only
+     separates a part of the control from the rest of it, and two lines of equal
+     weight 4px apart read as a frame rather than as a hierarchy. */
+  background: var(--flat-page);
+  border: 1px solid var(--divider);
+  transform: translate3d(calc(var(--ringfam-i, 0) * 100%), 0, 0);
+  transition: transform 480ms var(--ease-frosted-out);
 }
-.ph-flat .ringfam-step:hover { background: rgba(16, 33, 75, .3); }
-.ph-flat .ringfam-step.on { background: var(--ph-accent); }
-.ph-flat .ringfam-step:focus-visible {
+
+.ph-flat .ringfam-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: var(--ph-btn-sm-h);
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--ph-font);
+  font-size: var(--ph-fs-14);
+  /* ONE WEIGHT FOR ALL THREE, which is apple's own answer on .tabnav-link and
+     is here for a mechanical reason as well as a visual one: the capsule is
+     sized by its widest segment, so a selected tab that went heavier would
+     re-measure the widest label and the whole pane would breathe by a pixel or
+     two every time the ring turned. Colour carries the state, the thumb carries
+     the position. */
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-nav);
+  /* --ink-label, NOT --ink-600, and the difference is measured rather than
+     taste. A translucent pane over a piece that animates has no fixed ground to
+     check against, so the floor is the darkest one it can make: blur(20px)
+     averages whatever is behind over a 20px neighbourhood, so the composite
+     bottoms out when a whole card's worth of black sits behind a segment, at
+     72% white over black — #b8b8b8. Measured across the pin at 1440: at rest
+     every segment reads 7.7:1, and only that transit case is tight.
+       --ink-600  #4a5578 on #b8b8b8 → 3.90:1   under
+       --ink-label #3f4a70 on #b8b8b8 → 4.61:1  over, and 9.09:1 at rest
+     The quieter tier fails the one moment the section is most alive — the
+     dissolve, when a card is passing behind the control. --ink-label is the
+     token this system already names for the job and it clears the transit. */
+  color: var(--ink-label);
+  transition: color 240ms var(--ease-frosted-out);
+}
+.ph-flat .ringfam-tab:hover { color: var(--ink-900); }
+.ph-flat .ringfam-tab[aria-selected="true"] { color: var(--ink-900); }
+.ph-flat .ringfam-tab:focus-visible {
   outline: 2px solid var(--ph-focus);
-  outline-offset: 6px;
+  outline-offset: 3px;
+}
+
+/* The swatch, sampled off the showcase's own photography rather than named from
+   memory: 5.webp's ceramic, 3.webp's gold band, 9.webp's body.
+
+   THE LINE IS FOR THE WHITE ONE and the other two carry it so that all three
+   are the same object. Arctic White on the white thumb is a hole in the pill
+   without it. A border rather than an inset shadow because §1 removes every
+   shadow on this page, inset ones included — and a border is the honest way to
+   draw an edge here anyway. */
+.ph-flat .ringfam-swatch {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--rf-tone);
+  border: 1px solid var(--border-strong);
+}
+.ph-flat .ringfam-tab[data-step="0"] { --rf-tone: #edeff3; }
+.ph-flat .ringfam-tab[data-step="1"] { --rf-tone: #d4a96a; }
+.ph-flat .ringfam-tab[data-step="2"] { --rf-tone: #16181d; }
+
+/* The slide and the 8px rise are the whole motion budget of this control.
+   Switching them off leaves a thumb that simply is where it belongs and a
+   capsule that appears where it will sit — the appearing and disappearing are
+   the behaviour, not the motion, so those stay. */
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .ringfam-thumb { transition: none; }
+  .ph-flat .ringfam-tabs:not(.is-settled) { translate: -50% 0; }
+  .ph-flat .ringfam-tabs,
+  .ph-flat .ringfam-tabs.is-settled { transition: opacity var(--ph-dur-fast) linear, visibility 0s; }
 }
 .ph-flat .ringfam-frame {
   display: block;
