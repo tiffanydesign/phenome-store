@@ -392,10 +392,22 @@
 
    ONE RUNG BACK UP since — 32 to 40 at the top, 21 to 24 at the bottom, and the
    vw term scaled by the same 1.25 so the ramp still reaches its ceiling at the
-   width it did rather than earlier. */
+   width it did rather than earlier.
+
+   AND TWO RUNGS BACK DOWN, 2026-09-08 — 40 to 28 at the top, 24 to 19 at the
+   bottom. The vw term is scaled by the same 0.7 (2.75 to 1.925) so the ramp
+   still tops out at 1454px, the width it has always topped out at; only the
+   height of the ramp changes, never where it ends.
+
+   The phone rule below is deliberately NOT moved with it this time, which
+   breaks the pairing the note under it describes. On a phone this mark is the
+   only heading on the screen and it is already at 20px; taking it two rungs
+   down would put a product name at 14px to keep a ratio with a desktop the
+   reader is not looking at. The relationship was worth keeping while both were
+   large. It is not worth keeping down here. */
 .ph-flat .ring-marquee-eyebrow {
   margin: 0;
-  font-size: clamp(24px, 2.75vw, 40px);
+  font-size: clamp(19px, 1.925vw, 28px);
   line-height: 1.08;
   font-weight: var(--ph-w-600);
   letter-spacing: -0.012em;
@@ -655,7 +667,10 @@
 .ph-flat .ringfam-pin {
   position: relative;
   margin-top: clamp(32px, 3.4vw, 56px);
-  height: calc(100svh + 3 * 90svh);
+  /* Six colourways now, at the same 90svh apiece the three had. Six screens of
+     track rather than three is a long section, and it is the length the piece
+     is worth: every screen of it is one product frame held still. */
+  height: calc(100svh + 6 * 90svh);
 }
 .ph-flat .ringfam-stage {
   position: sticky;
@@ -715,14 +730,16 @@
   translate: -50% 0;
   z-index: 2;
 
-  /* Equal thirds, and that is load-bearing rather than tidy: it is what lets
+  /* Equal halves, and that is load-bearing rather than tidy: it is what lets
      the thumb below be one width and one translate instead of a measurement
-     that has to be re-taken on every resize and every font swap. */
+     that has to be re-taken on every resize and every font swap. Halves rather
+     than the thirds this started as, because the segments are the two finishes
+     now and the colours live inside them. */
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   padding: var(--rf-pad);
-  border-radius: 999px;
+  border-radius: var(--ph-r27);
   isolation: isolate;
 
   --rf-pad: 4px;
@@ -803,11 +820,12 @@
    control — the labels do not resize, do not re-weight and do not fade, so
    there is one thing to follow rather than four.
 
-   It reads --ringfam-i, which the scroll handler sets on the capsule. That is
-   the same index the ring is posted, off the same sync(), so the thumb cannot
+   IT FOLLOWS THE FINISH, NOT THE COLOUR. --ringfam-cat is 0 or 1, so the thumb
+   moves twice in a journey of six and the dot ring does the rest. Both come off
+   the same sync() and the same step index the ring is posted, so neither can
    drift from the picture: there is no second source of truth to keep in step.
 
-   translate by its OWN width, which the grid has already made exactly a third.
+   translate by its OWN width, which the grid has already made exactly a half.
    Nothing here needs to know the pixel width of anything. */
 .ph-flat .ringfam-thumb {
   position: absolute;
@@ -815,8 +833,8 @@
   top: var(--rf-pad);
   bottom: var(--rf-pad);
   left: var(--rf-pad);
-  width: calc((100% - 2 * var(--rf-pad)) / 3);
-  border-radius: 999px;
+  width: calc((100% - 2 * var(--rf-pad)) / 2);
+  border-radius: var(--ph-r21);
   /* Opaque against a translucent ground, which over the showcase's near-white
      stage is a difference of about two values — so the thumb takes a line too,
      for the same reason the capsule does. Quieter than the capsule's: the outer
@@ -825,32 +843,46 @@
      weight 4px apart read as a frame rather than as a hierarchy. */
   background: var(--flat-page);
   border: 1px solid var(--divider);
-  transform: translate3d(calc(var(--ringfam-i, 0) * 100%), 0, 0);
+  transform: translate3d(calc(var(--ringfam-cat, 0) * 100%), 0, 0);
   transition: transform 480ms var(--ease-frosted-out);
 }
 
-.ph-flat .ringfam-tab {
+/* A segment is a finish: its name, then the three colours it comes in. The
+   button is only the name — the dots beside it are their own controls, so the
+   reader can go straight to Silver rather than to Titanium and then scroll.
+
+   ONE LINE, name then dots. Stacked, the pair made a 70px capsule that sat in
+   the frame like a second card; along one baseline the control is a bar again,
+   and the dots read as the finish's colours rather than as a caption under it.
+   It costs width, which is the dimension this pane had going spare — 266 x 70
+   stacked against 376 x 51 in a row. */
+.ph-flat .ringfam-seg {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 26px;
+}
+
+.ph-flat .ringfam-tab {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  height: var(--ph-btn-sm-h);
-  padding: 0 20px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: 4px;
   background: none;
   cursor: pointer;
   white-space: nowrap;
   font-family: var(--ph-font);
   font-size: var(--ph-fs-14);
-  /* ONE WEIGHT FOR ALL THREE, which is apple's own answer on .tabnav-link and
-     is here for a mechanical reason as well as a visual one: the capsule is
-     sized by its widest segment, so a selected tab that went heavier would
-     re-measure the widest label and the whole pane would breathe by a pixel or
-     two every time the ring turned. Colour carries the state, the thumb carries
-     the position. */
+  line-height: var(--ph-lh-14);
+  /* ONE WEIGHT FOR BOTH, which is apple's own answer on .tabnav-link and is
+     here for a mechanical reason as well as a visual one: the capsule is sized
+     by its widest segment, so a selected label that went heavier would
+     re-measure it and the whole pane would breathe by a pixel or two every time
+     the ring turned. Colour carries the state, the thumb carries the position. */
   font-weight: var(--ph-w-600);
   letter-spacing: var(--ph-tr-nav);
   /* --ink-label, NOT --ink-600, and the difference is measured rather than
@@ -869,31 +901,74 @@
   transition: color 240ms var(--ease-frosted-out);
 }
 .ph-flat .ringfam-tab:hover { color: var(--ink-900); }
-.ph-flat .ringfam-tab[aria-selected="true"] { color: var(--ink-900); }
-.ph-flat .ringfam-tab:focus-visible {
+.ph-flat .ringfam-tab[aria-current="true"] { color: var(--ink-900); }
+.ph-flat .ringfam-tab:focus-visible,
+.ph-flat .ringfam-dot:focus-visible {
   outline: 2px solid var(--ph-focus);
   outline-offset: 3px;
 }
 
-/* The swatch, sampled off the showcase's own photography rather than named from
-   memory: 5.webp's ceramic, 3.webp's gold band, 9.webp's body.
-
-   THE LINE IS FOR THE WHITE ONE and the other two carry it so that all three
-   are the same object. Arctic White on the white thumb is a hole in the pill
-   without it. A border rather than an inset shadow because §1 removes every
-   shadow on this page, inset ones included — and a border is the honest way to
-   draw an edge here anyway. */
-.ph-flat .ringfam-swatch {
-  width: 9px;
-  height: 9px;
-  flex: none;
-  border-radius: 50%;
-  background: var(--rf-tone);
-  border: 1px solid var(--border-strong);
+.ph-flat .ringfam-dots {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.ph-flat .ringfam-tab[data-step="0"] { --rf-tone: #edeff3; }
-.ph-flat .ringfam-tab[data-step="1"] { --rf-tone: #d4a96a; }
-.ph-flat .ringfam-tab[data-step="2"] { --rf-tone: #16181d; }
+
+/* ---- THE DOTS ARE THE FINISHES, not indicator pips.
+
+   Each one is asked to look like the ring it stands for, gloss included, and
+   the three tones it takes are sampled off that ring's own photograph rather
+   than named from memory: a highlight, the body, and the shaded side. The
+   gradient puts them where the light puts them — lit from the upper left, body
+   through the middle, shade falling away bottom-right — which at 11px is the
+   whole difference between a bead of ceramic and a flat coloured circle.
+
+   Two of the six are called Black and they are not the same black: the ceramic
+   is a deep warm-free gloss with a soft sheen, the titanium is near-graphite
+   with a hard chrome highlight. The tones say so.
+
+   A border rather than an inset shadow, because §1 removes every shadow on this
+   page, inset ones included. It is load-bearing for White and Pink, which would
+   otherwise be holes in the glass, and the other four carry it so all six read
+   as the same object. */
+.ph-flat .ringfam-dot {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  background:
+    radial-gradient(118% 118% at 32% 24%,
+      var(--rf-hi) 0%,
+      var(--rf-body) 47%,
+      var(--rf-sh) 100%);
+  transition: scale 240ms var(--ease-frosted-out);
+}
+.ph-flat .ringfam-dot:hover { scale: 1.18; }
+
+/* The current one is ringed rather than recoloured or grown — a swatch whose
+   job is to be the ring's colour cannot be dimmed to show it is not selected,
+   and an outline is not a shadow so §1 leaves it alone. */
+.ph-flat .ringfam-dot[aria-current="true"] {
+  outline: 1.5px solid var(--ink-900);
+  outline-offset: 2px;
+}
+
+/* Ceramic — glossy, and the highlight is a wet white rather than a metal one. */
+.ph-flat .ringfam-dot[data-tone="c-pink"]  { --rf-hi: #fbf1f4; --rf-body: #e2bcc7; --rf-sh: #9d7b88; }
+.ph-flat .ringfam-dot[data-tone="c-black"] { --rf-hi: #6e7783; --rf-body: #14161a; --rf-sh: #000000; }
+.ph-flat .ringfam-dot[data-tone="c-white"] { --rf-hi: #ffffff; --rf-body: #dfe2e9; --rf-sh: #aeb4c1; }
+/* Titanium — metal, so the highlight is brighter and the fall-off harder. */
+.ph-flat .ringfam-dot[data-tone="t-gold"]   { --rf-hi: #fdf0dc; --rf-body: #cfa878; --rf-sh: #6c5036; }
+.ph-flat .ringfam-dot[data-tone="t-black"]  { --rf-hi: #eceaf1; --rf-body: #2b2a36; --rf-sh: #101019; }
+.ph-flat .ringfam-dot[data-tone="t-silver"] { --rf-hi: #eef0f4; --rf-body: #a8afba; --rf-sh: #5b6371; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .ringfam-dot { transition: none; }
+  .ph-flat .ringfam-dot:hover { scale: 1; }
+}
 
 /* The slide and the 8px rise are the whole motion budget of this control.
    Switching them off leaves a thumb that simply is where it belongs and a
@@ -980,74 +1055,13 @@
 }
 .ph-flat .ringfam-release:hover { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
 
-/* The two products the stage is showing, named under it. The stage is twelve
-   photographs of colourways; this is the line that says there are two things
-   for sale, which the photography on its own never manages to. */
-.ph-flat .ringfam-list {
-  list-style: none;
-  margin: clamp(32px, 3.4vw, 56px) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--ph-gutter);
-}
-.ph-flat .ringfam-item {
-  display: grid;
-  gap: 10px;
-  padding: 28px 26px 30px;
-  border-radius: var(--ph-r18);
-  background: var(--flat-band);
-}
-.ph-flat .ringfam-item h3 {
-  margin: 0;
-  font-size: var(--ph-fs-24);
-  line-height: var(--ph-lh-24);
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-24-600);
-}
-.ph-flat .ringfam-meta {
-  margin: 0;
-  font-size: var(--ph-fs-17);
-  line-height: var(--ph-lh-17);
-  color: var(--ph-text-2);
-}
-.ph-flat .ringfam-price {
-  margin: 0;
-  font-size: var(--ph-fs-19);
-  line-height: var(--ph-lh-19);
-  font-weight: var(--ph-w-600);
-}
-/* A price with no way to act on it is a dead end, and this tile is the first
-   place on the page either ring is named and costed. The pair of Buy buttons
-   further down the page are attached to the long-form sections; this is the
-   short one, so it gets the short control. */
-.ph-flat .ringfam-item .link-more { margin-top: 6px; justify-self: start; }
-/* "Live" is a STATUS, and the store states exactly one status anywhere (see the
-   note in phenome-glass.css § 1). This is not that one — it is not a warning,
-   it is the shipping state of a product — so it is drawn in the brand rather
-   than in a status ramp that would have to be invented for two words. */
-.ph-flat .ringfam-live {
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 3px 11px 3px 9px;
-  border-radius: 980px;
-  background: var(--flat-page);
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase;
-  color: var(--ph-accent);
-}
-.ph-flat .ringfam-live::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--ph-accent);
-}
+/* The two-product list that stood here is gone, 2026-09-08. It named both
+   rings under the stage with a price and a Buy for each — and the stage above
+   it now names the finish and the colour on the picture itself, with a control
+   that says there are two products and six colours in one line. The list was
+   the same three facts said again in a heavier voice, directly under the place
+   they had just been said. Removed at the source, markup and rules together,
+   rather than hidden: nothing else on the site uses these classes. */
 
 /* The stand-in. The embedded piece is a desktop WebGL experience — the author's
    own README says so — and a phone gets the two rings as photographs instead of
@@ -1059,7 +1073,6 @@
   /* The pin goes with the stage. Hiding the stage alone would leave its track
      behind — 370svh of empty block, which on a phone is four blank screens. */
   .ph-flat .ringfam-pin { display: none; }
-  .ph-flat .ringfam-list { grid-template-columns: 1fr; }
   .ph-flat .ringfam-fallback {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1083,3 +1096,161 @@
   .ph-flat .ringfam-pin { display: none; }
   .ph-flat .ringfam-fallback { display: grid; }
 }
+
+/* ---------------------------------------------------------------------------
+   8 · TYPESETTING REPAIRS · three places the shared components come apart here
+
+   None of these are taste. Each is a component meeting a container it was not
+   measured against, and each was visible on screen at 1440 before it was fixed.
+   ------------------------------------------------------------------------ */
+
+/* ---- the spec table wraps its own values.
+
+   .spec-table is two columns of [key | value] and it is right at the widths it
+   was built for. This page puts it inside .showcase-t, which is half of
+   wrap-wide — about 560px — so each of its two columns gets ~256px, and after
+   a 120px key and a 24px gap the value is left with 112. "Pink · Black · White"
+   sets at about 150. It broke, and "White" sat alone on a second line under a
+   row whose other half had room to spare.
+
+   One column, so a row is the full half-width and both rows read as one list
+   rather than as a two-by-two grid with a hole in it. */
+.ph-flat .showcase-t .spec-table { grid-template-columns: minmax(0, 1fr); }
+
+/* ---- the unit breaks the number's line.
+
+   .figure .n sets its <small> inline. Four of the five tiles in the second row
+   fit "4.2 index" and "6 daily" on one line; "20,000 genes" does not, so that
+   tile's number block ran to two lines and its label — and only its label —
+   dropped 30px below the other four. A row of five figures whose whole job is
+   to be five of the same thing.
+
+   The unit goes under the number in every tile instead. It is one line taller
+   everywhere rather than two lines taller in one place, the labels sit on one
+   baseline across the row, and the unit stops being something the number has to
+   make room for. Scoped to the tiles that have units — the sleep/heart row has
+   none and is left exactly as it was. */
+.ph-flat .figure .n small {
+  display: block;
+  margin-left: 0;
+  margin-top: 2px;
+}
+
+/* ---- the assurance list stood on a line that was not there.
+
+   Four of the six items carried an empty <b></b>. `.assure b` is display:block,
+   so an empty one is still a full line box — 24px of nothing above the text,
+   which is why four items sat a line lower than the two that had a heading and
+   the checkmarks stopped agreeing with the words beside them. The empty tags
+   are gone from the markup; this is the margin that went with them. */
+.ph-flat .assure p:first-child { margin-top: 0; }
+
+/* ---------------------------------------------------------------------------
+   9 · REVEAL · the section arrives in parts rather than as a block
+
+   shared.js already owns the mechanism and it is a good one: nothing is hidden
+   until the script has confirmed both IntersectionObserver and that the reader
+   did not ask for stillness, so the page ships painted and this only makes it
+   animate. Every rule below sits under html.ph-reveal, so it inherits that
+   guarantee whole — a reduced-motion reader never reaches any of it.
+
+   WHAT CHANGES IS THE GRAIN. The shared rule moves `section > *`, and every
+   section here has one wrapper, so a heading, its paragraph, a photograph, a
+   spec table and a button all arrive on the same frame as one slab. That reads
+   as a panel being switched on. Apple's product pages — the reference this page
+   is already working from — bring the same parts in one after another, and the
+   difference between the two is most of what "considered" means on a scroll.
+
+   So the wrapper is stood down and its parts are moved instead. Two things fall
+   out of that beyond the stagger:
+
+     - The pinned stage stops being animated. It is a section child, so the
+       shared rule was putting a 24px translate on .ringfam-pin — a transform on
+       the ancestor of a position:sticky element, which is not free. It fired
+       early enough to be invisible and it should not have been there at all.
+
+     - Nothing moves that the layout audit measures. The shared rule moves
+       section children for a stated reason: audit_layout compares the boxes of
+       consecutive siblings. These are grandchildren and deeper, inside a
+       wrapper that now holds perfectly still.
+
+   The travel is 18px rather than the shared 24. More things are moving, and the
+   further each one goes the more the group reads as a list being dealt out. */
+html.ph-reveal body.ph-flat main > section.ph-r > * {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+html.ph-reveal body.ph-flat main > section.ph-r :is(
+  .sec-title,
+  .lede,
+  .ringfam-lede,
+  .spec-table,
+  .cta-actions,
+  .showcase-img,
+  .figure,
+  .assure li,
+  .cta-band h2,
+  .cta-band p
+) {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity var(--ph-dur-reveal) var(--ph-ease),
+              transform var(--ph-dur-reveal) var(--ph-ease);
+  transition-delay: var(--rv-at, 0ms);
+}
+html.ph-reveal body.ph-flat main > section.ph-in :is(
+  .sec-title,
+  .lede,
+  .ringfam-lede,
+  .spec-table,
+  .cta-actions,
+  .showcase-img,
+  .figure,
+  .assure li,
+  .cta-band h2,
+  .cta-band p
+) {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reading order, and the numbers are small on purpose. A stagger you can count
+   is a stagger that has become the subject; these are close enough together
+   that the section reads as one movement with a direction to it. */
+html.ph-reveal body.ph-flat main > section .sec-title      { --rv-at: 0ms; }
+html.ph-reveal body.ph-flat main > section .lede,
+html.ph-reveal body.ph-flat main > section .ringfam-lede,
+html.ph-reveal body.ph-flat main > section.cta-band p      { --rv-at: 90ms; }
+/* The photograph comes in with the paragraph, not after the button. It is the
+   other half of the row, and a picture that waits for the whole text column to
+   finish reads as a late asset rather than as part of the composition. */
+html.ph-reveal body.ph-flat main > section .showcase-img   { --rv-at: 120ms; }
+html.ph-reveal body.ph-flat main > section .spec-table     { --rv-at: 175ms; }
+html.ph-reveal body.ph-flat main > section .cta-actions    { --rv-at: 245ms; }
+
+/* The repeating rows deal themselves out left to right, starting after the
+   paragraph above them has arrived. 55ms between tiles: enough to see the
+   direction, not enough that the fifth feels like it is waiting its turn. */
+html.ph-reveal body.ph-flat main > section .figure:nth-child(1) { --rv-at: 150ms; }
+html.ph-reveal body.ph-flat main > section .figure:nth-child(2) { --rv-at: 205ms; }
+html.ph-reveal body.ph-flat main > section .figure:nth-child(3) { --rv-at: 260ms; }
+html.ph-reveal body.ph-flat main > section .figure:nth-child(4) { --rv-at: 315ms; }
+html.ph-reveal body.ph-flat main > section .figure:nth-child(5) { --rv-at: 370ms; }
+
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(1) { --rv-at: 140ms; }
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(2) { --rv-at: 185ms; }
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(3) { --rv-at: 230ms; }
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(4) { --rv-at: 275ms; }
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(5) { --rv-at: 320ms; }
+html.ph-reveal body.ph-flat main > section .assure li:nth-child(6) { --rv-at: 365ms; }
+
+/* The full-bleed plate keeps the shared treatment and the shared reason: it is
+   one image filling a fixed, clipped box, so sliding it would show a strip of
+   background along one edge and crop the same off the other. It fades. */
+html.ph-reveal body.ph-flat main > section.band.ph-r > * {
+  opacity: 0;
+  transition: opacity var(--ph-dur-reveal) var(--ph-ease);
+}
+html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
