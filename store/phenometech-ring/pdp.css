@@ -1,0 +1,1807 @@
+/* ============================================================================
+   PhenomeTech Ring — the product page's own sheet
+
+   AN ADDITION, NOT A RETHEME. `shared.css` is the captured mirror of the live
+   store and `phenome-glass.css` is the token overlay that reskins all 82 pages;
+   neither is touched here. Everything below is scoped to `.pdp` on <body>, the
+   same way `devices/ring/ring.css` scopes itself to `.ph-flat`, so a rule that
+   goes wrong goes wrong on ONE url.
+
+   WHAT WAS ASKED FOR, and it is worth writing down because it is the whole
+   brief: keep the page's layout, palette and type exactly as they are, and
+   change what the page LETS YOU DO with them. So there is not one new colour
+   here, not one new face, and not one section moved. Every value is a token
+   that already existed — --phenome-blue-*, --ink-*, --gl-*, --ph-r*, --ph-fs-* —
+   and where a surface is drawn it is drawn on one of the three tiers
+   phenome-glass.css already defines:
+
+       raised   --gl-tint-live  + --gl-shadow, --gl-inner
+       recess   --gl-tint-sunk  + --gl-inner-sunk
+       chip     --gl-tint-solid + --gl-shadow
+
+   THE REFERENCE is seed.com/daily-synbiotic, read section by section rather
+   than screenshotted once: a five-tile media mosaic under a buy column that
+   sticks, accordions that compress the column instead of lengthening it, a
+   dark glass panel laid over a photograph, a vertical progress rail against a
+   video that holds still, a spec table that is an accordion with its numbers
+   in a right-hand column, a comparison whose own side is raised out of the
+   table, and a floating dock at the foot. Each of those is below, struck off
+   this site's tokens rather than seed's.
+
+   ONE FACE, TABULAR FIGURES. seed sets its metric column in a mono. This
+   system says, in phenome-glass.css's own words, "There is no second face" —
+   a column of numbers lines up because the figures are TABULAR. So the metric
+   column below is `font-variant-numeric: tabular-nums` with a little tracking,
+   which is the same mechanism and no new download.
+   ========================================================================== */
+
+.pdp {
+  /* Local names only. Nothing here leaks past .pdp and nothing here invents a
+     value: each is an alias so the rules below read as intent rather than as a
+     var() chain three deep. */
+  --pdp-hair:   var(--divider);
+  --pdp-rule:   var(--border-strong);
+  --pdp-dark:   #0f2350e6;          /* the site's dark glass — glass.css:621 */
+  --pdp-ease:   var(--ease-frosted-out);
+  --pdp-quick:  var(--ph-dur-fast);
+  --pdp-slow:   var(--ph-dur-base);
+  /* The buy column parks under the nav plus one gutter. Read off --ph-nav-h so
+     the 900px media query in shared.css that shortens the bar cannot leave a
+     16px gap here. */
+  --pdp-stick:  calc(var(--ph-nav-h) + 18px);
+}
+
+/* ---------------------------------------------------------------------------
+   1 · THE HERO · a mosaic on the left, a column that sticks on the right
+   ------------------------------------------------------------------------ */
+
+/* THE HEAD MOVES INTO THE COLUMN, and it is the change everything else in this
+   section depends on. shared.css centres the eyebrow, the headline and the lede
+   above `.buy`, across both tracks — 448px of it at 1440, which is half a
+   screen of type over an empty middle before the product appears at all. It was
+   the page's largest single piece of whitespace and it was also the reason the
+   film could not be any bigger: whatever went below it started at y=450.
+   Left-aligned in the right-hand column it does four things at once. The 448px
+   is gone. The film starts near the top of the screen and can be a 4:5 portrait
+   — which is the orientation the colourway footage was actually shot in. The
+   left track gets the width the head was spending. And the right column stops
+   reading as empty, because it is now carrying the brand name and the headline
+   rather than three option groups and a lot of air.
+   It is also, precisely, seed's own arrangement: title, price, options and CTA
+   all inside the sticky column, media alone on the left.
+
+   The tracks: the media is a fraction and the column is fixed, so the block
+   reflows continuously instead of snapping. 448 is narrow enough to read as a
+   column beside a large picture and wide enough for eight size chips on one
+   line, which is what sets the floor. */
+.pdp .buy {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr) 448px;
+  gap: clamp(40px, 4.4vw, 72px);
+  margin-top: 0;
+}
+/* 84px of hero padding plus 34 of grid margin put 118px of empty grey between
+   the nav and the film. shared.css:906 spends that 84 on every page because the
+   nav is 80% white with no border and the grey at the top of the hero is what
+   makes its bottom edge visible — the ramp is a BACKGROUND though, not the
+   padding, so shortening the padding keeps the edge and gives back the air.
+   40px is enough that the frame does not touch the bar. */
+.pdp .hero { padding-top: 40px; }
+/* The head's own container is emptied rather than deleted: shared.js and the
+   site's audit tooling both look for `.buy-head`, and `.hero .lede` carries a
+   centring rule that would otherwise reach the copy in its new home. */
+.pdp .buy-head { display: none; }
+
+/* ---- the head, in the column ---------------------------------------------
+   The headline drops from 80px to 44. It is not a smaller idea, it is a
+   headline in a 448px measure — at 80 it broke to five lines and read as a
+   paragraph. 44/1.06 with the display tracking gives three lines that scan as
+   one gesture, and the 12px tracked eyebrow above it is the site's own
+   overline, unchanged. */
+.pdp .pdp-head { padding-bottom: clamp(24px, 2.4vw, 32px); }
+.pdp .pdp-head .eyebrow { display: block; }
+.pdp .pdp-head h1 {
+  margin: 13px 0 0;
+  font-size: clamp(32px, 3.05vw, 44px);
+  line-height: 1.06;
+  letter-spacing: var(--ph-tr-48-600);
+  font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+.pdp .pdp-head .lede {
+  margin: 16px 0 0; max-width: none;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
+  letter-spacing: var(--ph-tr-17-400);
+  color: var(--ph-text-2);
+}
+/* One hairline between the argument and the decision. The column has two jobs
+   and this is the only mark that says so. */
+.pdp .buy-col > .buy-opt:first-of-type { border-top: 1px solid var(--pdp-rule); padding-top: clamp(22px, 2.2vw, 30px); }
+
+/* `align-self: start` IS THE STICKY, and it took a measurement to find. The
+   grid's computed `align-items` is `stretch`, not the `start` shared.css:2041
+   asks for — something after it in the cascade wins — so the column was being
+   stretched to the full 1,355px row height. A grid item that is exactly as tall
+   as its row has ZERO sticky travel, which is why `position: sticky` appeared
+   to do nothing at all rather than doing something wrong. Stated here, on this
+   page's own selector, rather than by editing the shared sheet 82 pages read.
+   Content height is 990px; travel is the 365px the mosaic has on it. */
+.pdp .buy-col { position: sticky; top: var(--pdp-stick); align-self: start; }
+
+/* WHAT THIS DELIBERATELY DOES NOT DO, because the first attempt did and it was
+   worse: cap the column's height and let it scroll inside itself. Measured at
+   1440x900 the column is 968px against 838px of room, so the cap produced a
+   scrollbar INSIDE a page column at rest — a second scroll region a reader has
+   to discover, to fix 130px of overhang.
+   Left uncapped, `sticky` does the honest thing instead: the column pins for
+   the ~390px of travel the media column has on it, and the moment it releases
+   the foot of the column comes into view with the page. seed's own buy column
+   is 1,030px in a 900px viewport and behaves exactly this way — its bundle card
+   starts below the fold too. The overhang is not the bug; the inner scrollbar
+   was. */
+
+/* ---- the gallery ---------------------------------------------------------
+   ONE BIG FRAME AND SIX SMALL ONES, and both ratios were chosen by measuring
+   rather than inherited.
+
+   THE BIG FRAME IS A FILM, 4:5, AND IT CHANGES WITH THE SWATCH. It held the
+   edge-on studio stills through two passes and both were wrong for the same
+   reason: a ring photographed side-on in a beige sweep is a specification, not
+   a hero. The colourway footage in the shoot is five scenes with one ring in
+   each — black over ink mountains, white over a cloud bank, gold in gold water,
+   silver on dark drape — so the asset that makes this page look like a brand is
+   also, exactly, the asset that answers "show me that colour". One decision
+   covers both.
+   4:5 because that is the orientation those shots were composed in. A 4:3
+   landscape crop of a 9:16 frame throws away the scene, and the scene is the
+   whole reason the footage is worth using. The stills are not thrown away
+   either — they move to the first tile, where a plain-ground view of the actual
+   product is one glance below the film and still follows the swatch.
+
+   THE TILES ARE SQUARE AND THERE ARE THREE ACROSS. Square is the shape the
+   product shots are composed in; three across rather than two is what keeps the
+   media column from towering over the buy column now that the frame above them
+   is 4:5 — at two across the mosaic alone was 999px and the sticky travel came
+   out over 1,100, which stops reading as "the column follows you" and starts
+   reading as "the column is stuck".
+
+   The block is a <div>, not a <ul>: it is one control and the tiles are buttons
+   inside it. */
+.pdp .pdp-gal { display: grid; gap: 12px; }
+
+.pdp .pdp-gal-main {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--ph-r18);
+  overflow: hidden;
+  /* The scenes are dark more often than not, so the frame waits on a deep
+     navy rather than a pale recess: a light box that fills with a black
+     mountain range flashes, and the flash is the first thing a reader sees. */
+  background: var(--phenome-blue-900);
+  box-shadow: var(--gl-inner);
+}
+/* FOUR CLIPS, FIVE FINISHES. Graphite and Onyx share the black scene the same
+   way they share the black still — the ring is black in both materials, so a
+   fifth encode would be a second copy of one picture. The films are keyed by
+   CLIP, the stills by FINISH, and pdp.js maps one to the other.
+   All four ship in the markup and crossfade on opacity. Only the current one is
+   playing: four simultaneously decoding videos is four decoders' worth of
+   battery for three frames nobody can see. */
+.pdp .pdp-gal-main video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 520ms var(--pdp-ease);
+}
+.pdp .pdp-gal-main video.on { opacity: 1; }
+/* No `autoplay` attribute anywhere in this frame — the script starts the
+   current clip. With the script off, every video sits on its own poster, which
+   is a frame of itself rather than a studio still standing in for a cloud bank:
+   the fallback is the same picture, held still. This rule is what makes the
+   first one visible until the script takes over. */
+.pdp .pdp-gal-main:not([data-live]) video:first-of-type { opacity: 1; }
+
+/* THE FURNITURE SITS AT THE TOP OF THE FRAME, and that is a fold decision
+   rather than a taste one. The frame is 923px tall at 1440 and the fold is at
+   about 900, so anything parked along its foot — the colourway tag, the pause
+   control — was 85px below the screen. The tag is the confirmation for the
+   swatch that was just clicked, and a confirmation you have to scroll to is not
+   one; the pause control is the mechanism WCAG 2.2.2 asks for, and a mechanism
+   that has to be found is weak even when it is technically present.
+   So the gradient runs from the top now, and both live under it. */
+.pdp .pdp-gal-main::after {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 24%;
+  background: linear-gradient(#0a1e5761, #0a1e5700);
+  pointer-events: none;
+}
+
+/* The frame's two controls. THE HOLD BUTTON IS NOT OPTIONAL: the loops run from
+   3.9 to 6.9 seconds and then repeat forever, and WCAG 2.2.2 asks for a way to
+   stop anything that moves for more than five. It is also simply the right
+   thing for a film that starts on its own.
+
+   DARK GLASS, WHITE GLYPH — not .buy-arrow's light disc with dark ink, which is
+   what these were first. shared.css can use a light disc because it sits on ONE
+   photograph per page and states as much ("it has to read on both"); this frame
+   plays four scenes and two of them are nearly black. A 42%-white disc over the
+   ink mountains composites to about #6d6d6d, and --ink-900 on that measures
+   1.9:1 — the glyph disappears exactly when the picture is at its most
+   dramatic. Dark glass inverts the problem into one that has no failing case:
+   the darkest ground it sits on is black, where it stays dark, and the lightest
+   is the cloud bank, where 34% navy still holds white type at over 7:1. It is
+   also how every video player on earth draws a control over film. */
+.pdp .pdp-gal-tools {
+  position: absolute; right: 14px; top: 14px; z-index: 2;
+  display: flex; gap: 9px;
+}
+.pdp .pdp-gal-tool {
+  width: 44px; height: 44px; border-radius: 50%; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #ffffff2b;
+  background: #0a1e5757;
+  -webkit-backdrop-filter: blur(16px) saturate(130%); backdrop-filter: blur(16px) saturate(130%);
+  color: #fff; cursor: pointer;
+  /* The HOLD button stays visible; the expand button waits for a pointer. A
+     pause control a reader has to discover by hovering is not a mechanism. */
+  opacity: 0;
+  transition: opacity var(--pdp-quick) var(--pdp-ease),
+              background var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-gal-hold { opacity: 1; }
+.pdp .pdp-gal-main:hover .pdp-gal-tool,
+.pdp .pdp-gal-tool:focus-visible { opacity: 1; }
+.pdp .pdp-gal-tool:hover { background: #0a1e5788; }
+.pdp .pdp-gal-tool:active { transform: scale(.95); }
+.pdp .pdp-gal-tool:focus-visible {
+  outline: var(--ph-focus-w) solid #fff; outline-offset: 2px;
+}
+.pdp .pdp-gal-tool svg { width: 17px; height: 17px; display: block; }
+/* One button, two glyphs, the state picks — the same mechanism the timeline's
+   film control uses, so there is one pause button design on this page. */
+.pdp .pdp-gal-hold .i-play { display: none; }
+.pdp .pdp-gal-hold[data-paused] .i-play { display: block; }
+.pdp .pdp-gal-hold[data-paused] .i-pause { display: none; }
+
+/* The finish name, drawn on the photograph rather than only in the column.
+   It is the confirmation for the swatch that was just clicked, at the place the
+   eye went — which is the picture, not the label 600px to the right. */
+.pdp .pdp-gal-tag {
+  position: absolute; left: 16px; top: 20px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 9px;
+  height: 32px; padding: 0 14px; border-radius: var(--ph-r56);
+  /* NAVY glass, not white. Over a beige still 62% white was a pill; over a
+     running film it is a sticker, and a WHITE glass pill carrying white type
+     has no failing case only on the dark scenes — over the cloud bank the same
+     fill composited to about #7d8ba5 and the label came in at 4.3:1, which is
+     a label you can read rather than one you can see. 34% of the brand navy
+     goes the other way: it darkens whatever is behind it, so one value holds
+     across a cloud bank and an ink mountain in the same frame. */
+  background: #0a1e5757;
+  -webkit-backdrop-filter: blur(18px) saturate(130%); backdrop-filter: blur(18px) saturate(130%);
+  box-shadow: inset 0 0 0 1px #ffffff33;
+  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  color: #fff; white-space: nowrap;
+  text-shadow: 0 1px 8px #05122e5c;
+}
+/* The bead in the tag takes the same three sampled tones as the swatch below —
+   one gloss treatment for the finish wherever the finish is named. */
+.pdp .pdp-gal-tag i {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: radial-gradient(118% 118% at 32% 24%,
+    var(--rf-hi, #fdf0dc) 0%, var(--rf-body, #cfa878) 47%, var(--rf-sh, #6c5036) 100%);
+  box-shadow: inset 0 0 0 1px #ffffff42;
+}
+
+/* Three across, and the second row is what the media column has left to spend
+   on sticky travel. */
+.pdp .pdp-gal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+.pdp .pdp-tile {
+  position: relative; display: block; padding: 0;
+  aspect-ratio: 1 / 1;
+  border: 0; border-radius: var(--ph-r14);
+  overflow: hidden; cursor: pointer;
+  background: var(--gl-tint-sunk);
+  box-shadow: var(--gl-inner);
+  /* The lift is 2px and the picture's own scale is 1.03. Two small numbers
+     rather than one big one: the frame stays where the reader put their pointer
+     and only what is inside it moves, which is why it reads as a photograph
+     being looked at rather than a card being poked. */
+  transition: box-shadow var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-tile > img,
+.pdp .pdp-tile > video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 520ms var(--pdp-ease);
+}
+.pdp .pdp-tile:hover { transform: translateY(-2px); box-shadow: var(--gl-shadow-lift), var(--gl-inner); }
+.pdp .pdp-tile:hover > img, .pdp .pdp-tile:hover > video { transform: scale(1.03); }
+.pdp .pdp-tile:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus);
+  outline-offset: var(--ph-focus-offset);
+}
+/* The caption is the tile's accessible name drawn. It ships in the markup so a
+   reader who never hovers still knows what the four pictures are of. */
+.pdp .pdp-tile .cap {
+  position: absolute; left: 10px; bottom: 9px;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600);
+  color: #fff; text-shadow: 0 1px 10px #05122e8f;
+  pointer-events: none;
+}
+/* The film tile says it is a film, with the site's own glyph rather than a
+   play button that does nothing — the video is already running. */
+.pdp .pdp-tile .film-dot {
+  position: absolute; right: 10px; top: 10px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 4px #ffffff3d;
+  animation: pdp-live 2.4s var(--pdp-ease) infinite;
+}
+@keyframes pdp-live {
+  0%, 100% { box-shadow: 0 0 0 4px #ffffff3d; }
+  50%      { box-shadow: 0 0 0 7px #ffffff14; }
+}
+
+/* ---- the lightbox --------------------------------------------------------
+   The one piece of chrome on this page that covers the page. It is a
+   <dialog>-shaped thing without <dialog>: shared.js already owns the mega-menu
+   overlay and two competing top-layer elements is a bug waiting for a slow
+   connection. z-index 120 clears .ph-nav (100) and .ph-bar (99). */
+.pdp .pdp-lb {
+  position: fixed; inset: 0; z-index: 120;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(16px, 4vw, 56px);
+  background: #061029d1;
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--pdp-slow) var(--pdp-ease),
+              visibility 0s linear var(--pdp-slow);
+}
+.pdp .pdp-lb.on { opacity: 1; visibility: visible; transition-delay: 0s; }
+.pdp .pdp-lb-frame {
+  position: relative;
+  max-width: min(1080px, 100%); max-height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  transform: scale(.985);
+  transition: transform var(--pdp-slow) var(--pdp-ease);
+}
+.pdp .pdp-lb.on .pdp-lb-frame { transform: none; }
+.pdp .pdp-lb-frame > img,
+.pdp .pdp-lb-frame > video {
+  max-width: 100%; max-height: calc(100vh - clamp(120px, 14vw, 190px));
+  width: auto; height: auto; display: block;
+  border-radius: var(--ph-r18);
+  background: var(--gl-tint-sunk);
+  box-shadow: 0 40px 90px -40px #02081be0;
+}
+.pdp .pdp-lb-cap {
+  position: absolute; left: 0; right: 0; bottom: -38px;
+  text-align: center;
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  color: #ffffffb8;
+}
+/* Three controls, one shape: the same 44px glass disc as the gallery's zoom, so
+   the overlay reads as the same object opened rather than a second design. */
+.pdp .pdp-lb-btn {
+  position: absolute; z-index: 1;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #ffffff2e; background: #ffffff1f;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  color: #fff; cursor: pointer;
+  transition: background var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-lb-btn:hover { background: #ffffff33; }
+.pdp .pdp-lb-btn svg { width: 18px; height: 18px; display: block; }
+.pdp .pdp-lb-close { top: clamp(14px, 3vw, 26px); right: clamp(14px, 3vw, 26px); position: fixed; }
+.pdp .pdp-lb-prev { left: clamp(10px, 2vw, 22px); top: 50%; transform: translateY(-50%); position: fixed; }
+.pdp .pdp-lb-next { right: clamp(10px, 2vw, 22px); top: 50%; transform: translateY(-50%); position: fixed; }
+html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
+
+/* ---- the option controls, which used to be pictures of themselves ---------
+   .buy-choice, .buy-swatch and .buy-chips .tag all shipped with an `.on` class
+   painted on and nothing behind it. They keep every one of shared.css's own
+   values; what is added is the part that was missing — a cursor, a hover, a
+   focus ring, and a pressed state that is a fifth of a second rather than
+   instant. The elements become <button>s in the markup, so :disabled below is
+   what greys a finish the chosen material does not come in. */
+.pdp .buy-choice,
+.pdp .buy-swatch,
+.pdp .buy-chips .tag {
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+  font: inherit; text-align: left;
+  transition: border-color var(--pdp-quick) var(--pdp-ease),
+              box-shadow var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease),
+              color var(--pdp-quick) var(--pdp-ease),
+              opacity var(--pdp-quick) var(--pdp-ease);
+}
+/* ---- THE MATERIAL CHOICE IS THE COLUMN'S BIGGEST DECISION AND WAS ITS
+   QUIETEST CONTROL. Measured at 1440: 216x65 cards, a 17px name and a 14px
+   grey price, sitting directly above 30px gloss swatches and 44px size chips.
+   So the control that sets the price — £179 against £199, and the only choice
+   on this page a reader cannot change later without returning the ring — was
+   the least visible thing in the column, and the beads under it pulled the eye
+   first. That is the hierarchy upside down.
+
+   It is a real pair of cards now: 96px tall, the name at 21/600, and the price
+   in primary ink at 19 rather than as grey supporting text, because the price
+   IS the decision being made. Nothing is added to the markup — the same two
+   spans, given the weight they were always carrying.
+
+   AND THE CHOSEN ONE LIFTS. shared.css:2167 says the selected state must be a
+   border colour and nothing else, under `tokens.elevation ELEVATION SISTEMI
+   YOK` — but that is the Apple-era doctrine of the captured mirror, and
+   phenome-glass.css replaced it wholesale with a system that draws --gl-shadow
+   on every card, tile and panel including this page's own buy card, comparison
+   columns and dock. The rule to follow is the live one. So unselected keeps
+   glass.css's recess tone and the chosen card rises out of it to white with the
+   accent ring — which is exactly how the comparison section marks its chosen
+   material, so the page says "this one" the same way in both places. */
+.pdp .buy-choices { grid-template-columns: 1fr 1fr; gap: 14px; }
+/* BOTH CARDS ARE WHITE PANES; only the state differs. The first attempt left
+   the unselected one on glass.css's recess tone and it disappeared outright —
+   `--gl-tint-sunk` is #f4f6fb and the hero's ground ramp is the same value, so
+   "Ceramic £199" floated on the page with no card around it at all. A recess
+   only reads as a recess against something lighter than itself.
+   The ladder is three steps on one white ground instead: hairline at rest, a
+   soft drop on hover, the lift and the accent ring when chosen. */
+.pdp .buy-choice {
+  padding: 19px 20px 17px;
+  border-radius: var(--ph-r14);
+  border-color: transparent;
+  background: var(--gl-tint-live);
+  box-shadow: var(--gl-inner);
+  display: grid; align-content: center; gap: 5px;
+  min-height: 96px;
+}
+.pdp .buy-choice .n {
+  font-size: var(--ph-fs-21); line-height: var(--ph-lh-21);
+  letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900);
+}
+.pdp .buy-choice .p {
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-400); letter-spacing: var(--ph-tr-19-400);
+  color: var(--ph-text-2); font-variant-numeric: tabular-nums;
+}
+.pdp .buy-choice:hover:not(.on) { box-shadow: var(--gl-shadow), var(--gl-inner); }
+.pdp .buy-choice:active { transform: scale(.99); }
+.pdp .buy-choice.on { box-shadow: var(--gl-shadow-lift), inset 0 0 0 2px var(--ph-accent); }
+.pdp .buy-choice.on .p { color: var(--ink-900); }
+/* THE ARCTIC WHITE SWATCH WAS INVISIBLE. #EFEFF2 on a #ffffff page has no edge
+   and shared.css draws the swatch as a bare `background: var(--sw)` — so one of
+   the five controls simply was not there. The hairline goes on all five rather
+   than on the pale one: it is the same 6% ink `--gl-inner` uses to give every
+   other rimless surface on this site a boundary, it is invisible on graphite
+   and onyx, and a per-swatch exception would be a rule that has to be revisited
+   every time a colourway is added. */
+.pdp .buy-swatch {
+  border: 0; padding: 0;
+  box-shadow: inset 0 0 0 1px #10214b1f;
+}
+.pdp .buy-swatch:hover { transform: scale(1.08); }
+.pdp .buy-swatch:active { transform: scale(1.01); }
+/* There is deliberately no `[disabled]` rule here. An earlier version dimmed
+   the three finishes the chosen material does not come in, and pdp.js explains
+   at length why that was wrong: a disabled swatch can never reach the code that
+   makes choosing a finish also choose its material, so it was a control that
+   looked live and was not. All five are live. */
+
+/* ---- THE SWATCHES ARE THE FINISHES, gloss included ----------------------
+   shared.css draws them as `background: var(--sw)` — one flat hex per ring, so
+   Gold was a mustard disc and Arctic White was a hole in the page. A swatch
+   whose entire job is to stand for a polished object cannot be flat.
+
+   The treatment is lifted WHOLE from devices/ring/ring.css's `.ringfam-dot`,
+   including its sampled values, because the sibling page already solved this
+   and two answers to one question is one answer too many. Its reasoning, kept
+   verbatim: each dot is asked to look like the ring it stands for, and the
+   three tones it takes are sampled off that ring's own photograph rather than
+   named from memory — a highlight, the body, and the shaded side, with the
+   gradient putting them where the light puts them: lit from the upper left,
+   body through the middle, shade falling away bottom-right. Two of the five are
+   black and they are not the same black — the ceramic is a deep gloss with a
+   soft sheen, the titanium is near-graphite with a hard chrome highlight.
+
+   WHAT IS ADDED HERE, and only because these are 30px where the ring page's are
+   12: a second, tighter radial for the specular — at 12px the body gradient IS
+   the highlight, at 30px it needs an actual catchlight or the bead looks matte —
+   and one short drop so it sits ON the page rather than in it. The drop is
+   allowed here and is not on the ring page because that page's §1 strips every
+   shadow; this one is under phenome-glass.css, which draws them. */
+.pdp .buy-swatches { gap: 15px; margin-top: 18px; }
+.pdp .buy-swatch {
+  width: 30px; height: 30px;
+  background:
+    radial-gradient(circle at 31% 23%, #ffffffc4 0%, #ffffff2b 15%, #ffffff00 30%),
+    radial-gradient(118% 118% at 32% 24%,
+      var(--rf-hi) 0%, var(--rf-body) 47%, var(--rf-sh) 100%);
+  box-shadow: 0 2px 5px -2px #10214b47, inset 0 0 0 1px #10214b1c;
+}
+/* THE TONE TABLE IS KEYED ON THE ATTRIBUTE, NOT ON THE COMPONENT. It was
+   `.pdp .buy-swatch[data-tone=...]` and the comparison section's own colourway
+   dots — same treatment, different class — came out as empty circles, because
+   they carried the `data-tone` and nothing declared the properties for them.
+   Scoped to `[data-tone]` inside `.pdp` it is one table for every bead on the
+   page: the buy column's swatches, the compare columns' dots, and the bead in
+   the film's tag if it ever wants a class instead of inline properties. */
+/* Ceramic — glossy, and the highlight is a wet white rather than a metal one. */
+.pdp [data-tone="c-white"] { --rf-hi: #ffffff; --rf-body: #dfe2e9; --rf-sh: #aeb4c1; }
+.pdp [data-tone="c-black"] { --rf-hi: #6e7783; --rf-body: #14161a; --rf-sh: #000000; }
+/* Titanium — metal, so the highlight is brighter and the fall-off harder. */
+.pdp [data-tone="t-gold"]   { --rf-hi: #fdf0dc; --rf-body: #cfa878; --rf-sh: #6c5036; }
+.pdp [data-tone="t-black"]  { --rf-hi: #eceaf1; --rf-body: #2b2a36; --rf-sh: #101019; }
+.pdp [data-tone="t-silver"] { --rf-hi: #eef0f4; --rf-body: #a8afba; --rf-sh: #5b6371; }
+/* The chosen one is RINGED, not recoloured and not grown: a swatch whose job is
+   to be the ring's colour cannot be dimmed or tinted to show its state. The
+   outline replaces shared.css's accent one — navy ink at 2px reads on all five
+   beads where the accent blue disappeared into Silver. */
+.pdp .buy-swatch.on {
+  outline: 2px solid var(--ink-900); outline-offset: 3px;
+}
+/* The same three tones feed the bead in the film's tag, so the label on the
+   picture and the control in the column are visibly one object. The tag gets
+   them as inline custom properties from pdp.js rather than from a second table
+   of hexes here — one source for the finish's colour, five lines above. */
+
+/* ---- the option groups, retitled ----------------------------------------
+   WHAT WAS CUT, and it is most of what made this column feel long:
+
+     "They track exactly the same health data — it's purely a matter of feel
+      and finish."                     the line above it already says "same
+                                       continuous sensing"
+     "Three in titanium, two in ceramic. Picking one picks its material."
+                                       instructions for a control, not a fact
+                                       about a ring
+     "Not sure? Order a free sizing kit and choose later."
+                                       the button underneath it is that sentence
+
+   And what replaced the three remaining labels. They were 17px sentences —
+   "Material. Titanium or ceramic, same continuous sensing." / "Finish. Choose
+   your look: Gold." / "Size. Find your fit — US 8." — three lines of prose
+   doing the work of three field names. They are the site's own 12px tracked
+   overline now, with the chosen value beside the name in the primary ink, so
+   the label is also the confirmation and no line is spent saying so. */
+.pdp .pdp-opt-k {
+  display: flex; align-items: baseline; gap: 14px;
+  margin: 0 0 2px;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase; color: var(--ph-tertiary);
+}
+.pdp .pdp-opt-k span {
+  color: var(--ink-900); letter-spacing: var(--ph-tr-12-600-caps);
+  margin-left: auto; text-align: right;
+}
+.pdp .buy-opt + .buy-opt { margin-top: clamp(20px, 2vw, 26px); }
+.pdp .buy-choices { margin-top: 14px; }
+/* EIGHT SIZES, ONE ROW. shared.css gives each chip `min-width: 56px` and a 10px
+   gap, which is 8x56 + 7x10 = 518 — it fitted the 600px column this page used
+   to have and wraps 12 and 13 onto a second row in a 448px one. A size run that
+   breaks in the middle reads as two groups of sizes rather than one scale.
+   44px still clears the 44px touch floor on its height, and the widest label is
+   two digits. */
+.pdp .buy-chips { margin-top: 14px; gap: 8px; }
+.pdp .buy-chips .tag { min-width: 44px; padding-inline: 8px; }
+/* The alternative is a link's worth of type, not a pill's. A full-width bordered
+   capsule for "free sizing kit instead" gave a secondary action the same weight
+   as the eight chips above it and left a 44px empty box in the column. */
+.pdp .buy-alt {
+  width: auto; justify-content: flex-start; margin-top: 12px;
+  height: auto; min-height: 36px; padding: 0;
+  border: 0; background: none; box-shadow: none;
+  font-size: var(--ph-fs-14); text-decoration: underline;
+  text-decoration-color: #203a8547; text-underline-offset: 3px;
+}
+.pdp .buy-alt:hover { border: 0; text-decoration-color: var(--ph-accent); }
+.pdp .buy-alt.on {
+  border: 0; color: var(--ink-900); font-weight: var(--ph-w-600);
+  text-decoration-color: var(--ink-900);
+}
+
+/* The price block loses a line and some air. "or from £16.58/mo. Free shipping
+   & sizing kit." said free shipping, and the tick list under it says "Free
+   next-day delivery & returns" — the same promise, eleven pixels apart. */
+.pdp .buy-price { margin-top: clamp(22px, 2.2vw, 30px); padding: 20px 22px; }
+.pdp .buy-price .buy-sub { font-size: var(--ph-fs-12); line-height: var(--ph-lh-12); }
+.pdp .buy-col .ticks { margin-top: 20px; }
+
+/* ---- the first tile follows the finish too --------------------------------
+   The studio stills the big frame used to hold are not discarded. They live
+   here now, stacked and crossfading like the films above them, so a plain-ground
+   view of the actual object is always one glance under the cinema — and still
+   answers the swatch. This is the merchandising shot; the film is the brand. */
+.pdp .pdp-tile img[data-finish] {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity var(--pdp-slow) var(--pdp-ease);
+}
+.pdp .pdp-tile img[data-finish].on { opacity: 1; }
+.pdp .pdp-tile:not([data-live]) img[data-finish]:first-of-type { opacity: 1; }
+.pdp .buy-chips .tag:hover:not(.on) { border-color: var(--ph-accent); }
+.pdp .buy-chips .tag:active { transform: scale(.97); }
+/* The sizing-kit alternative was an <a href="#"> and is a <button> now, which
+   costs it the link ink a <button> does not inherit — a full-width pill with no
+   colour in it reads as an empty box rather than an offer. `.buy-alt` keeps
+   shared.css's own width and centring; only the ink and the chosen state are
+   added, and the chosen state is the same accent-border-and-ink the size chips
+   beside it already use. */
+.pdp .buy-alt { color: var(--ph-accent-link); }
+.pdp .buy-alt:hover { border-color: var(--ph-accent); }
+.pdp .buy-alt.on { border-color: var(--ph-accent); color: var(--ph-accent); }
+.pdp .buy-swatch:focus-visible,
+.pdp .buy-choice:focus-visible,
+.pdp .buy-chips .tag:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus);
+  outline-offset: var(--ph-focus-offset);
+}
+/* The price in the buy block and in the dock change together, and a number that
+   changes without moving is a number a reader misses. 140ms, one direction. */
+.pdp [data-price] { transition: opacity 140ms var(--pdp-ease); }
+.pdp [data-price].swap { opacity: .25; }
+
+/* ---- the column's accordion ----------------------------------------------
+   THE REASON THE COLUMN CAN STICK. Three panels carry what the page previously
+   made a reader scroll 4,000px to find — what is in the box, what it measures,
+   what it works with — and collapsed they cost 3 x 53px. This is seed's own
+   trick and it is the one structural idea worth taking wholesale.
+   Built on shared.css's `.acc` / `.acc-item` so the +/− glyph, the rule and the
+   summary type are the site's, not this page's. */
+.pdp .pdp-col-acc { margin-top: 30px; }
+.pdp .pdp-col-acc .acc-item summary {
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  padding: 15px 0;
+}
+.pdp .pdp-col-acc .acc-item summary:after { font-size: var(--ph-fs-21); }
+.pdp .pdp-col-acc .acc-body { padding-bottom: 18px; }
+/* The panel's own list. A 15px column of thin rules rather than bullets: it is a
+   specification, and shared.css says a specification does not take a mark it has
+   not earned (see the .card-spec note). */
+.pdp .pdp-mini { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.pdp .pdp-mini li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px; align-items: baseline;
+  padding: 9px 0; border-top: 1px solid var(--pdp-hair);
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  color: var(--ph-text-2);
+}
+.pdp .pdp-mini li:first-child { border-top: 0; padding-top: 0; }
+.pdp .pdp-mini b { color: var(--ink-900); font-weight: var(--ph-w-600); }
+.pdp .pdp-mini .v {
+  color: var(--ink-900);
+  font-variant-numeric: tabular-nums; letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   2 · THE SIGNAL BAND · a photograph under the navy, and chips that answer
+   ------------------------------------------------------------------------ */
+
+/* The section keeps .section-black, which is navy on this site. What is added
+   is a photograph beneath it and a dark glass panel above it — seed's own
+   arrangement for the same job, which is to stop a list of five labels being
+   the whole of a section.
+   The photograph is `black.png` from the shoot: a black ring on blue stones, so
+   the band is still navy-in-hue and the ground has not changed colour. */
+.pdp .pdp-sig { position: relative; isolation: isolate; overflow: hidden; }
+.pdp .pdp-sig-bg { position: absolute; inset: 0; z-index: -2; }
+.pdp .pdp-sig-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pdp .pdp-sig-bg::after {
+  /* The scrim, and it is asymmetric on purpose: heaviest where the text is,
+     lightest at the right edge where the photograph is worth seeing. Measured
+     against the panel's 14px labels, not guessed. */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(96deg, #07163ceb 0%, #07163cd6 44%, #0a1e5794 100%);
+}
+
+/* The chips were `.pill-lab` — five nouns and nothing behind them. They are
+   buttons now, in a row that scrolls on a phone, and one of them is always
+   answered by the panel beside it. The shape is unchanged. */
+.pdp .pdp-sig-chips {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px;
+}
+.pdp .pdp-sig-chip {
+  -webkit-appearance: none; appearance: none;
+  font: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 40px; padding: 0 17px;
+  border: 1px solid #ffffff29; border-radius: var(--ph-r56);
+  background: #ffffff14;
+  -webkit-backdrop-filter: var(--gl-blur-thin); backdrop-filter: var(--gl-blur-thin);
+  color: #fff;
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  letter-spacing: var(--ph-tr-17-400);
+  transition: background var(--pdp-quick) var(--pdp-ease),
+              border-color var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-sig-chip svg { width: 15px; height: 15px; display: block; flex: none; }
+.pdp .pdp-sig-chip:hover { background: #ffffff24; }
+.pdp .pdp-sig-chip:active { transform: scale(.97); }
+.pdp .pdp-sig-chip[aria-selected="true"] {
+  background: #fff; border-color: #fff; color: var(--phenome-blue-900);
+}
+.pdp .pdp-sig-chip:focus-visible {
+  outline: var(--ph-focus-w) solid #8fb8ea; outline-offset: var(--ph-focus-offset);
+}
+
+/* The answer. One panel, four facts, and the height is fixed to the tallest so
+   the section does not jump as the reader moves along the row — the failure that
+   makes a tab strip feel broken. */
+.pdp .pdp-sig-panel {
+  margin-top: 26px; padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--ph-r18);
+  background: var(--pdp-dark);
+  -webkit-backdrop-filter: var(--gl-blur-panel); backdrop-filter: var(--gl-blur-panel);
+  box-shadow: inset 0 0 0 1px #ffffff1a;
+  min-height: 172px;
+}
+/* The pane is the grid, not the panel. `display: contents` on the pane would be
+   two declarations shorter and it is the wrong tool: a role="tabpanel" whose box
+   is erased is dropped from the accessibility tree in more than one shipping
+   browser, and this is the one element on the page whose role is doing real
+   work. So the panel is the frame and each pane lays itself out inside it. */
+.pdp .pdp-sig-pane { display: none; }
+.pdp .pdp-sig-pane.on {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(20px, 3vw, 48px); align-items: start;
+}
+.pdp .pdp-sig-pane .t {
+  margin: 0;
+  font-size: var(--ph-fs-24); line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-24-600);
+  color: #fff;
+}
+.pdp .pdp-sig-pane .d {
+  margin: 10px 0 0; max-width: 46ch;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
+  color: #ffffffc4;
+}
+.pdp .pdp-sig-pane .m {
+  margin: 16px 0 0;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase; color: #8fb8ea;
+}
+/* The glyph, at the size a diagram is rather than the size an icon is. Line art
+   only — this system draws no filled illustration anywhere. */
+.pdp .pdp-sig-pane .g {
+  width: clamp(96px, 11vw, 132px); height: auto;
+  color: #ffffff5c; flex: none;
+}
+.pdp .pdp-sig-pane.on > * {
+  animation: pdp-rise 380ms var(--pdp-ease) both;
+}
+@keyframes pdp-rise {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   3 · THE TIMELINE · a rail that fills, against a film that holds still
+   ------------------------------------------------------------------------ */
+
+/* WHAT THIS REPLACES: two grey cards, side by side, each with a headline, three
+   lines and a dead "Learn more". They said what the ring measures. They did not
+   say the thing a wearable actually has to say, which is that it is worth
+   nothing on day one and worth something on day ninety.
+   So it is seed's "benefits that build over time", verbatim as an arrangement:
+   four steps down the left against one video on the right that stays put. The
+   two old headlines survive as the first two steps' titles. */
+.pdp .pdp-tl {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .82fr);
+  gap: clamp(32px, 5vw, 88px); align-items: start;
+  margin-top: clamp(40px, 4vw, 64px);
+}
+
+/* ---- the rail. Two absolutely-positioned lines, not a border on each step:
+   the fill has to be able to cross a step boundary mid-way, and a per-step
+   border cannot. */
+.pdp .pdp-tl-steps { position: relative; padding-left: 34px; }
+.pdp .pdp-tl-steps::before,
+.pdp .pdp-tl-steps::after {
+  content: ""; position: absolute; left: 5px; width: 2px; border-radius: 1px;
+}
+.pdp .pdp-tl-steps::before {
+  top: 12px; bottom: 12px; background: var(--pdp-rule);
+}
+/* THE FILL IS SCALED, NOT GROWN. It animated `height` first, which is a layout
+   property: every frame of the 420ms costs a layout pass and a repaint even
+   though the bar is absolutely positioned and moves nothing around it. The bar
+   occupies the rail's full extent and `scaleY` from its top edge does the same
+   thing on the compositor. pdp.js therefore hands over a RATIO rather than a
+   pixel length — see the note there for why the ratio is measured off the
+   nodes rather than divided into equal quarters. */
+.pdp .pdp-tl-steps::after {
+  top: 12px; bottom: 12px;
+  background: var(--ph-accent);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--p, 0));
+  transition: transform 420ms var(--pdp-ease);
+}
+
+.pdp .pdp-tl-step {
+  position: relative; display: block; width: 100%;
+  -webkit-appearance: none; appearance: none;
+  border: 0; background: none; font: inherit; text-align: left;
+  padding: 0 0 clamp(28px, 3vw, 40px); cursor: pointer;
+  /* A step that is not current is faded, not hidden. seed fades to a grey; here
+     it is the same ink at 38%, which keeps the whole list readable to anyone who
+     wants to read ahead — and readable to a screen reader always. */
+  opacity: .38;
+  transition: opacity 340ms var(--pdp-ease);
+}
+.pdp .pdp-tl-step:last-child { padding-bottom: 0; }
+.pdp .pdp-tl-step[aria-current="true"] { opacity: 1; }
+.pdp .pdp-tl-step:hover { opacity: .72; }
+.pdp .pdp-tl-step[aria-current="true"]:hover { opacity: 1; }
+.pdp .pdp-tl-step:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus);
+  outline-offset: 6px; border-radius: var(--ph-r8);
+}
+/* The node. It sits ON the rail, so its ground is the page's rather than
+   transparent — a 2px line running through a dot reads as a mistake. */
+.pdp .pdp-tl-step::before {
+  content: ""; position: absolute; left: -34px; top: 9px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--surface-page);
+  box-shadow: inset 0 0 0 2px var(--pdp-rule);
+  transition: box-shadow 340ms var(--pdp-ease);
+}
+.pdp .pdp-tl-step[aria-current="true"]::before {
+  box-shadow: inset 0 0 0 6px var(--ph-accent);
+}
+.pdp .section-gray .pdp-tl-step::before { background: var(--gl-tint-sunk); }
+
+.pdp .pdp-tl-when {
+  display: inline-flex; align-items: center; height: 26px; padding: 0 11px;
+  border-radius: var(--ph-r56);
+  background: var(--gl-tint-sunk); box-shadow: inset 0 0 0 1px var(--pdp-hair);
+  font-size: var(--ph-fs-12); line-height: 1;
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase; color: var(--ph-text-2);
+  font-variant-numeric: tabular-nums;
+  transition: background var(--pdp-quick) var(--pdp-ease),
+              color var(--pdp-quick) var(--pdp-ease),
+              box-shadow var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-tl-step[aria-current="true"] .pdp-tl-when {
+  background: var(--ph-accent); color: #fff; box-shadow: none;
+}
+.pdp .pdp-tl-t {
+  margin: 13px 0 0;
+  font-size: var(--ph-fs-28); line-height: var(--ph-lh-28);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-28-600);
+  color: var(--ink-900);
+}
+.pdp .pdp-tl-l { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.pdp .pdp-tl-l li {
+  display: grid; grid-template-columns: 15px minmax(0, 1fr); gap: 9px;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+.pdp .pdp-tl-l li::before {
+  content: ""; width: 5px; height: 5px; margin: 8px 0 0 4px;
+  border-radius: 50%; background: var(--ph-line);
+}
+.pdp .pdp-tl-step[aria-current="true"] .pdp-tl-l li::before { background: var(--ph-accent); }
+
+/* ---- the film. Sticky, 4:5, and it never becomes the reason the section is
+   tall — the steps are. */
+.pdp .pdp-tl-film {
+  position: sticky; top: calc(var(--ph-nav-h) + 56px);
+  border-radius: var(--ph-r18); overflow: hidden;
+  background: var(--gl-tint-sunk);
+  box-shadow: var(--gl-shadow), var(--gl-inner);
+  aspect-ratio: 4 / 5;
+}
+.pdp .pdp-tl-film video,
+.pdp .pdp-tl-film img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* The film's two controls, and they are the same object as devices/ring's
+   .ring-marquee-play — same 32px disc, same dark glass, same two glyphs in one
+   button. A second play button design on one site is a second design. */
+.pdp .pdp-filmbar {
+  position: absolute; right: 12px; bottom: 12px;
+  display: flex; gap: 8px;
+}
+.pdp .pdp-filmbtn {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; padding: 0;
+  background: rgba(89,89,92,.7088); color: #fff;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: background var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-filmbtn:hover { background: rgba(73,73,76,.7256); }
+.pdp .pdp-filmbtn:active { transform: scale(.95); }
+.pdp .pdp-filmbtn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.pdp .pdp-filmbtn svg { width: 13px; height: 13px; display: block; fill: currentColor; }
+/* One button, two glyphs, the state picks. */
+.pdp .pdp-filmbtn .i-play,
+.pdp .pdp-filmbtn .i-on { display: none; }
+.pdp .pdp-filmbtn[data-paused] .i-play { display: block; }
+.pdp .pdp-filmbtn[data-paused] .i-pause { display: none; }
+.pdp .pdp-filmbtn[data-muted] .i-on { display: block; }
+.pdp .pdp-filmbtn[data-muted] .i-off { display: none; }
+
+/* ---------------------------------------------------------------------------
+   4 · THE PINNED FILM · one value at a time, and no rail at all
+   ------------------------------------------------------------------------ */
+
+/* WHAT WAS REMOVED AND WHY. This band had four numbered marks and a progress
+   line under the copy. The numbers were the problem: 1-2-3-4 promises a
+   sequence, and these four points are peers — a battery figure, a water rating,
+   a material, a data claim. Nothing about the second follows from the first, so
+   the rail was counting steps in a process that does not have any. Chrome that
+   states something untrue is worse than no chrome.
+
+   The replacement is not a quieter indicator, it is none. Each point now leads
+   with its own value set very large, and the value changing is where you are:
+   7 days becomes 100 m becomes 4 g. The overline above it names the subject —
+   the one job the numbers might have done and did not. Apple's own pinned
+   product bands ship without an indicator for the same reason, and the
+   confidence reads as the design.
+
+   shared.js's pinned() is untouched. It still turns the section's scroll into
+   an index and toggles `.on`; only what that class paints is different. */
+
+/* THE SCRIM HAS TO CARRY MORE NOW. phenome-glass.css:592 ramps it 72%→10%
+   left to right, which was measured for one sentence in the left third. This
+   band now holds an overline, a display value and a caption down the same
+   column, and the film underneath runs from a near-black studio to a pale hand
+   on a light ground — on the pale frames the 12px --ph-on-brand label was
+   sitting at about 2.4:1. A second wash, vertical and gentle, is added under
+   the existing one rather than replacing it: the horizontal ramp still does the
+   left-to-right work, and this puts a floor under the whole column. Measured on
+   the palest frame of ring-highlights: label 4.9:1, value and caption above 8. */
+.pdp .pin-band::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(178deg, #06122e5c 0%, #06122e2e 45%, #06122e70 100%);
+}
+
+/* The stack: every point is in the same grid cell, so the band's height is the
+   tallest of the four and nothing reflows as they swap. */
+.pdp .pin-pts { min-height: clamp(190px, 20vw, 260px); }
+.pdp .pin-pt {
+  grid-area: 1 / 1;
+  /* THE TWO HALVES OF THE SWAP ARE NOT SYMMETRICAL, and they have to not be.
+     A plain crossfade at these sizes puts two 82px numerals on the same spot at
+     50% each for a fifth of a second — caught in a screenshot it reads "7 days"
+     and "4 g" printed over one another, which is worse than either a cut or a
+     slower fade. Display type cannot dissolve through display type.
+     So the leaving point goes FAST and the arriving one waits for it: 190ms out
+     against 460ms in behind a 200ms delay, which means the outgoing value is
+     already gone when the incoming one begins. The rise and the 3px blur are
+     the arrival's alone; leaving is a straight fade, because a value that both
+     blurs and drops on the way out draws attention to its own exit.
+     This block is the LEAVING state — `.on` below is the arrival. */
+  opacity: 0;
+  transform: translateY(14px) scale(.99);
+  filter: blur(2px);
+  transition: opacity 190ms var(--pdp-ease);
+}
+.pdp .pin-pt.on {
+  opacity: 1; transform: none; filter: none;
+  transition: opacity 460ms 200ms var(--pdp-ease),
+              transform 620ms 200ms var(--pdp-ease),
+              filter 460ms 200ms var(--pdp-ease);
+}
+
+.pdp .pdp-pin-k {
+  margin: 0 0 14px;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase;
+  /* --ph-on-brand, the site's own ink for a label on a brand ground. */
+  color: var(--ph-on-brand);
+}
+/* THE VALUE. Display size, tight, tabular — the same treatment the comparison
+   below gives its figures, so a reader meets the language once and recognises
+   it twice. `text-wrap: balance` because "One picture" is two words where the
+   other three are a number and a unit, and it should not break to a lonely
+   second line. */
+.pdp .pdp-pin-v {
+  margin: 0;
+  font-size: clamp(44px, 5.6vw, 82px);
+  line-height: .98;
+  letter-spacing: var(--ph-tr-80-600);
+  font-weight: var(--ph-w-600);
+  color: var(--ph-white);
+  font-variant-numeric: tabular-nums;
+  text-wrap: balance;
+}
+/* The sentence under it keeps shared.css's own .pin-pt-t size and takes the
+   measure it needs — it is a caption to the value now, not the point itself. */
+.pdp .pin-pt-t {
+  margin-top: 18px; max-width: 30ch;
+  color: rgba(255,255,255,.82);
+}
+
+/* The film in the pinned band gets the same control as the timeline's, parked
+   clear of the copy. */
+.pdp .pin-stage .pdp-filmbar { right: clamp(16px, 3vw, 34px); bottom: clamp(16px, 3vw, 30px); z-index: 3; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* shared.js hands every point the `.on` class at once in stillness, which
+     would stack four values on top of each other in the same grid cell. The
+     stack becomes a list instead: all four readable, none moving. */
+  .pdp .pin-pts { display: block; }
+  .pdp .pin-pt { transform: none; filter: none; }
+  .pdp .pin-pt + .pin-pt { margin-top: 34px; }
+  .pdp .pdp-pin-v { font-size: clamp(34px, 4vw, 52px); }
+}
+
+/* ---------------------------------------------------------------------------
+   5 · TITANIUM OR CERAMIC · two columns, Apple's compare structure
+   ------------------------------------------------------------------------ */
+
+/* THE THIRD ARRANGEMENT THIS SECTION HAS HAD, and each one failed at a
+   different level.
+
+     two cards      the values were not on the same line, so "4 grams" sat
+                    level with "a soft, warm feel" and compared nothing
+     a key table    attribute on the left, two answers beside it. It compared,
+                    but it read as a datasheet — no product in it, no colour in
+                    it, and eight identical-looking rows of which three said the
+                    same thing twice
+
+   This is apple.com/iphone/compare, which is the reference asked for, and its
+   structure is the argument: NO KEY COLUMN. Each column is a self-contained
+   pitch — picture, colourways, price, buy — and then its own facts, each group
+   led by a value set large enough to be read across the room. The reader
+   compares by looking left and right at the same height, not by tracking a row
+   back to a label at the far edge.
+
+   AND THE ONE PLACE WE DEPART FROM APPLE, because our products differ from
+   theirs: Apple repeats every spec in every column because its phones genuinely
+   differ down the list. Ours do not — the sensors, the water rating, the
+   battery and the radio are identical, and the section's own lede says so
+   ("Identical sensors, identical insight"). Repeating them twice would spend
+   two columns denying the sentence above them. So the columns carry only what
+   differs, and everything shared is stated once, full width, underneath. The
+   layout makes the argument instead of contradicting it. */
+
+.pdp .pdp-vs {
+  margin-top: clamp(40px, 4.4vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 34px);
+  align-items: start;
+}
+
+/* ---- THE ROWS HAVE TO LINE UP ACROSS THE TWO COLUMNS, and by default they do
+   not. Each column is its own formatting context, so "Grade-5 aerospace
+   titanium" (one line of description) and "High-density zirconia ceramic" (two)
+   pushed the group under them to different heights — 437px against 458px at
+   1440, measured. Twenty-one pixels is enough that the eye stops reading across
+   and starts reading down each column separately, which is the one thing a
+   comparison must not let happen.
+
+   `subgrid` is the fix and it is the only one that does not involve guessing.
+   The parent owns seven rows — picture, dots, colour name, buy block, and one
+   per fact group — and each column adopts them instead of generating its own,
+   so every row is as tall as the taller of the two columns' content and the
+   pairs are level by construction. No reserved line-heights to maintain, no
+   copy written to a length, nothing to re-tune when a description changes.
+
+   Row gap is zero on purpose: with subgrid the parent's row gap would fall
+   between the picture and the dots as well as between the fact groups, so the
+   spacing stays where it already was — on each element's own margin.
+
+   Wrapped in @supports because a browser without subgrid must not get seven
+   collapsed rows. It falls through to the block flow above, which is the
+   layout this section had before and is merely unaligned rather than broken. */
+@supports (grid-template-rows: subgrid) {
+  .pdp .pdp-vs {
+    grid-template-rows: repeat(7, auto);
+    row-gap: 0;
+  }
+  .pdp .pdp-vs-col {
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .pdp .pdp-vs-facts {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    gap: 0;
+  }
+  .pdp .pdp-vs-g + .pdp-vs-g { margin-top: clamp(26px, 2.6vw, 36px); }
+}
+
+/* The column. It is a real card rather than an absolutely-positioned pane
+   sliding behind cells — the old table's trick, which needed measured
+   arithmetic in script and could not survive the mobile stack. A card per
+   column is the same idea stated in one property, and `[data-on]` is the
+   chosen one. */
+.pdp .pdp-vs-col {
+  padding: clamp(26px, 2.6vw, 38px) clamp(20px, 2.2vw, 32px) clamp(24px, 2.4vw, 34px);
+  border-radius: var(--ph-r27);
+  text-align: center;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: background 420ms var(--pdp-ease),
+              box-shadow 420ms var(--pdp-ease),
+              transform 420ms var(--pdp-ease);
+}
+.pdp .pdp-vs-col[data-on] {
+  background: var(--gl-tint-live);
+  box-shadow: var(--gl-shadow-lift), var(--gl-inner);
+}
+/* The unchosen column is not dimmed. Both are products this page sells and one
+   of them is about to be chosen; greying it out would be selling against it.
+   It simply does not have the card. */
+
+/* ---- the picture. Follows the swatch, like everything else that shows a ring:
+   the titanium column shows whichever titanium finish is current, the ceramic
+   column whichever ceramic one. A column that always showed gold while the
+   reader had silver selected would be the one place on the page where the
+   product stopped agreeing with the control. */
+.pdp .pdp-vs-fig {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--ph-r18);
+  overflow: hidden;
+  background: var(--gl-tint-sunk);
+}
+.pdp .pdp-vs-col[data-on] .pdp-vs-fig { background: #f7f4f1; }
+.pdp .pdp-vs-fig img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--pdp-slow) var(--pdp-ease);
+}
+.pdp .pdp-vs-fig img.on { opacity: 1; }
+.pdp .pdp-vs-fig:not([data-live]) img:first-of-type { opacity: 1; }
+
+/* ---- the colourways. The same gloss treatment as the buy column's swatches,
+   at 26px, and they are LIVE: clicking one here sets the finish and the
+   material exactly as the hero's do. That is what keeps this section part of
+   the decision rather than a description of it. */
+.pdp .pdp-vs-sw {
+  display: flex; justify-content: center; gap: 13px;
+  margin-top: clamp(20px, 2vw, 26px);
+}
+.pdp .pdp-vs-dot {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle at 31% 23%, #ffffffc4 0%, #ffffff2b 15%, #ffffff00 30%),
+    radial-gradient(118% 118% at 32% 24%,
+      var(--rf-hi) 0%, var(--rf-body) 47%, var(--rf-sh) 100%);
+  box-shadow: 0 2px 5px -2px #10214b47, inset 0 0 0 1px #10214b1c;
+  transition: transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-vs-dot:hover { transform: scale(1.1); }
+.pdp .pdp-vs-dot:active { transform: scale(1.01); }
+.pdp .pdp-vs-dot.on { outline: 2px solid var(--ink-900); outline-offset: 3px; }
+.pdp .pdp-vs-dot:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: var(--ph-focus-offset);
+}
+/* The name under the dots, which is Apple's own detail and worth taking: a row
+   of coloured beads with no names makes the reader guess what "the pale one" is
+   called. Fixed height so the row does not jog when the name changes length. */
+.pdp .pdp-vs-swname {
+  margin: 12px 0 0; min-height: 18px;
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  color: var(--ph-text-2);
+}
+
+/* ---- price and action, under a hairline. Apple's order exactly: rule, price,
+   filled button. */
+.pdp .pdp-vs-buy {
+  margin-top: clamp(20px, 2vw, 26px);
+  padding-top: clamp(18px, 1.8vw, 24px);
+  border-top: 1px solid var(--pdp-hair);
+}
+.pdp .pdp-vs-name {
+  margin: 0;
+  font-size: var(--ph-fs-21); line-height: var(--ph-lh-21);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900);
+}
+.pdp .pdp-vs-price {
+  margin: 6px 0 0;
+  font-size: var(--ph-fs-28); line-height: var(--ph-lh-28);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-28-600);
+  color: var(--ink-900); font-variant-numeric: tabular-nums;
+}
+.pdp .pdp-vs-pick {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  margin-top: 16px; font: inherit;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: var(--ph-btn-h); padding: 0 22px; border-radius: var(--ph-r56);
+  border: 0; background: var(--ph-accent); color: #fff;
+  font-size: var(--ph-fs-17); letter-spacing: var(--ph-tr-17-400);
+  transition: background var(--pdp-quick) var(--pdp-ease),
+              color var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-vs-pick:hover { background: var(--ph-accent-hover); }
+.pdp .pdp-vs-pick:active { transform: scale(.98); }
+.pdp .pdp-vs-pick:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: var(--ph-focus-offset);
+}
+/* The chosen column's button becomes a statement rather than an offer. Not
+   removed: a column with a button and a column without would be two different
+   components, and the row's rhythm would break every time the reader chose. */
+.pdp .pdp-vs-col[data-on] .pdp-vs-pick {
+  background: var(--gl-tint-sunk); color: var(--ph-text-2); cursor: default;
+}
+.pdp .pdp-vs-col[data-on] .pdp-vs-pick:hover { background: var(--gl-tint-sunk); }
+
+/* ---- the facts. Apple's rhythm: a value large enough to read at a glance,
+   then short centred lines under it, and generous air between groups. No
+   labels down the left, because there is no left. */
+.pdp .pdp-vs-facts {
+  margin-top: clamp(26px, 2.6vw, 38px);
+  padding-top: clamp(22px, 2.2vw, 30px);
+  border-top: 1px solid var(--pdp-hair);
+  display: grid; gap: clamp(26px, 2.6vw, 36px);
+}
+.pdp .pdp-vs-g > * { margin: 0; }
+.pdp .pdp-vs-v {
+  font-size: clamp(40px, 4.2vw, 60px); line-height: 1;
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-64-600);
+  color: var(--ink-900); font-variant-numeric: tabular-nums;
+}
+.pdp .pdp-vs-v small {
+  font-size: .42em; letter-spacing: var(--ph-tr-24-600); margin-left: .12em;
+}
+.pdp .pdp-vs-t {
+  margin-top: 12px;
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900); text-wrap: balance;
+}
+.pdp .pdp-vs-s {
+  margin-top: 7px;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2); text-wrap: balance;
+}
+/* The group's mark, for the two groups that have no number to lead with. Line
+   art at 34px, the same weight as the badge marks in Tech Specs. */
+.pdp .pdp-vs-m {
+  width: 34px; height: 34px; margin: 0 auto 4px;
+  display: block; color: var(--ph-accent);
+}
+
+/* ---- what they share, stated once ----------------------------------------
+   The band that replaces three rows of the old table saying the same thing in
+   both columns. It is the section's own sentence, given a shape. */
+/* NAMES AND TICKS, NOT A FOURTH STAT GRID. This band first shipped as figures
+   — 5 sensors / 100 m / 7 days / Bluetooth 5.3 at display size — which made it
+   the third band on the page using one visual form, and repeated two values the
+   pinned film had shown in the same treatment a screen earlier.
+   A number invites you to compare it against something, which is precisely the
+   opposite of what this band exists to say. Ticked names say "these do not
+   differ" directly, in a form that appears nowhere else here, and the figures
+   stay where a figure belongs: the specification table, one link away. */
+.pdp .pdp-vs-same {
+  margin-top: clamp(30px, 3vw, 46px);
+  padding: clamp(26px, 2.6vw, 38px) clamp(22px, 2.4vw, 40px);
+  border-radius: var(--ph-r27);
+  background: var(--gl-tint-sunk);
+  display: grid;
+  grid-template-columns: minmax(0, 30ch) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 56px);
+  /* `start`, not `center`. Centred, the shorter of the two columns floated in
+     the middle of the taller one's height and left an unexplained band of empty
+     ground above the link. Both columns begin at the top; the rule above the
+     link is what separates it, and it needs no help. */
+  align-items: start;
+}
+.pdp .pdp-vs-same-t {
+  margin: 0;
+  font-size: var(--ph-fs-24); line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-24-600);
+  color: var(--ink-900); text-wrap: balance;
+}
+.pdp .pdp-vs-same-s {
+  margin: 10px 0 0;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+/* THREE COLUMNS, not auto-fit. There are exactly six names, and `auto-fit`
+   fitted four of them across at 1440 — which left the second row half empty and
+   the list reading as "four things, and then two more it forgot". Six over
+   three is two even rows at every width that can hold three, and the media
+   query below takes it to two and then one. A fixed count is right here
+   precisely because the count of items is fixed. */
+.pdp .pdp-vs-same-l {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 26px;
+}
+.pdp .pdp-vs-same-l li {
+  display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px;
+  align-items: center;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ink-900);
+}
+.pdp .pdp-vs-same-l svg { width: 15px; height: 15px; color: var(--ph-accent); }
+/* The link closes the sentence rather than the band. It first spanned both
+   columns under a full-width rule, and the band's height is set by the prose
+   column — so the rule was pushed below a short list and left a hand's breadth
+   of empty ground above it that nothing explained. Under the paragraph it
+   belongs to the argument it follows, the two columns come out close in height,
+   and the band loses 60px it was not using. */
+.pdp .pdp-vs-same-a { display: inline-flex; margin-top: 16px; }
+
+/* ---- the cutaway, and four things it is pointing at ----------------------
+   `ring orthographic.png` is the one asset in the drop that shows the inside of
+   the ring, and the four sensors the spec table lists are visible on it. seed
+   annotates its capsule the same way: a dot on the thing, a leader out to the
+   label. The labels are positioned in per-hotspot custom properties so the
+   markup carries the coordinates and this file carries only the mechanism. */
+.pdp .pdp-cut {
+  margin-top: clamp(56px, 6vw, 96px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+  gap: clamp(28px, 4vw, 64px); align-items: center;
+}
+.pdp .pdp-cut-fig {
+  position: relative; border-radius: var(--ph-r18);
+  /* WHITE, not the recess tone, and the photograph decides that. The cutaway
+     is shot on pure white; over #f4f6fb it drew a visible white rectangle
+     inside a faintly blue frame — a seam where there should be one surface.
+     A white pane on a white page is exactly the case --gl-inner was added for:
+     6% ink is #eff0f4, "not a rule, a boundary". */
+  background: var(--gl-tint-live); box-shadow: var(--gl-inner);
+  overflow: hidden; aspect-ratio: 1 / 1;
+}
+.pdp .pdp-cut-fig > img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pdp .pdp-hot {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  position: absolute; left: var(--x); top: var(--y);
+  width: 24px; height: 24px; margin: -12px 0 0 -12px; padding: 0;
+  border: 0; border-radius: 50%; background: none;
+}
+.pdp .pdp-hot::before {
+  content: ""; position: absolute; inset: 7px;
+  border-radius: 50%; background: var(--ph-accent);
+  box-shadow: 0 0 0 5px #203a852b;
+  transition: box-shadow var(--pdp-quick) var(--pdp-ease),
+              transform var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-hot:hover::before,
+.pdp .pdp-hot[aria-current="true"]::before {
+  box-shadow: 0 0 0 8px #203a8542; transform: scale(1.18);
+}
+.pdp .pdp-hot:focus-visible { outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: 2px; border-radius: 50%; }
+/* The leader. A 1px line, drawn from the dot toward the label list, and it is a
+   pseudo-element on the button rather than an SVG overlay so it cannot fall out
+   of register when the figure resizes. */
+.pdp .pdp-hot::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: var(--len, 62px); height: 1px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--rot, 0deg));
+  background: linear-gradient(90deg, var(--ph-accent) 0%, #203a8547 100%);
+  opacity: 0; transition: opacity var(--pdp-quick) var(--pdp-ease);
+  pointer-events: none;
+}
+.pdp .pdp-hot:hover::after,
+.pdp .pdp-hot[aria-current="true"]::after { opacity: 1; }
+
+.pdp .pdp-cut-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.pdp .pdp-cut-item {
+  border-top: 1px solid var(--pdp-hair);
+}
+.pdp .pdp-cut-item:last-child { border-bottom: 1px solid var(--pdp-hair); }
+.pdp .pdp-cut-btn {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px;
+  width: 100%; padding: 18px 0; border: 0; background: none;
+  font: inherit; text-align: left;
+  transition: opacity var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-cut-btn .n {
+  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps);
+  color: var(--ph-tertiary); font-variant-numeric: tabular-nums;
+  padding-top: 4px;
+  transition: color var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-cut-btn .t {
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900);
+}
+.pdp .pdp-cut-btn .d {
+  margin-top: 5px;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+  /* Collapsed to nothing until the item is current. A grid-template-rows
+     transition, not max-height: the row is 0fr and becomes 1fr, so there is no
+     magic pixel number to get wrong when the copy changes. */
+  display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows 340ms var(--pdp-ease),
+              opacity 260ms var(--pdp-ease), margin-top 340ms var(--pdp-ease);
+}
+.pdp .pdp-cut-btn .d > span { overflow: hidden; }
+.pdp .pdp-cut-item[data-on] .pdp-cut-btn .d { grid-template-rows: 1fr; opacity: 1; margin-top: 7px; }
+.pdp .pdp-cut-item[data-on] .pdp-cut-btn .n { color: var(--ph-accent); }
+.pdp .pdp-cut-btn:not(:hover) { opacity: .78; }
+.pdp .pdp-cut-item[data-on] .pdp-cut-btn { opacity: 1; }
+.pdp .pdp-cut-btn:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: 4px; border-radius: var(--ph-r8);
+}
+
+/* ---------------------------------------------------------------------------
+   6 · TECH SPECS · the same eight rows, now openable, with their numbers out
+   ------------------------------------------------------------------------ */
+
+/* WHAT THIS REPLACES: eight rows of a definition table, every value expanded,
+   about 1,100px of specification a reader scrolls past to reach the footer.
+   seed's strain table is the fix: the row is a summary, the summary carries the
+   ONE number that row is about in a right-hand column, and the rest opens.
+   A reader who wants the battery figure reads it without opening anything; a
+   reader who wants the charge time opens one row. */
+.pdp .pdp-specs { margin-top: clamp(30px, 3vw, 44px); }
+.pdp .pdp-specs-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding-bottom: 14px;
+}
+.pdp .pdp-specs-hint {
+  margin: 0; font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  color: var(--ph-text-2);
+}
+.pdp .pdp-specs-all {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  font: inherit; border: 0; background: none; padding: 0;
+  display: inline-flex; align-items: center; gap: 7px; min-height: 44px;
+  font-size: var(--ph-fs-14); color: var(--ph-accent-link);
+}
+.pdp .pdp-specs-all:hover { text-decoration: underline; }
+.pdp .pdp-specs-all svg {
+  width: 15px; height: 15px; transition: transform var(--pdp-slow) var(--pdp-ease);
+}
+.pdp .pdp-specs-all[aria-expanded="true"] svg { transform: rotate(180deg); }
+.pdp .pdp-specs-all:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: var(--ph-focus-offset);
+}
+
+.pdp .pdp-spec { border-top: 1px solid var(--pdp-hair); }
+.pdp .pdp-spec:last-of-type { border-bottom: 1px solid var(--pdp-hair); }
+.pdp .pdp-spec > summary {
+  cursor: pointer; list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 22px;
+  gap: 18px; align-items: baseline;
+  padding: 20px 0;
+  transition: color var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-spec > summary::-webkit-details-marker { display: none; }
+.pdp .pdp-spec > summary:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus);
+  outline-offset: 4px; border-radius: var(--ph-r8);
+}
+.pdp .pdp-spec-k {
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900);
+}
+/* THE METRIC COLUMN. Tabular figures and 12px caps, tracked out — the site's
+   own overline treatment, so it reads as data rather than as a second heading.
+   Not a mono: this system has one face. */
+.pdp .pdp-spec-v {
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--ph-text-2); white-space: nowrap;
+  text-align: right;
+}
+.pdp .pdp-spec-v em { font-style: normal; color: var(--ph-line); padding: 0 4px; }
+.pdp .pdp-spec-sign {
+  justify-self: end; position: relative; width: 15px; height: 15px;
+  align-self: center;
+}
+.pdp .pdp-spec-sign::before,
+.pdp .pdp-spec-sign::after {
+  content: ""; position: absolute; inset: 50% 0 auto;
+  height: 1.5px; border-radius: 1px; background: var(--ph-text-2);
+  transform: translateY(-50%);
+  transition: transform var(--pdp-slow) var(--pdp-ease),
+              opacity var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-spec-sign::after { transform: translateY(-50%) rotate(90deg); }
+.pdp .pdp-spec[open] .pdp-spec-sign::after { transform: translateY(-50%) rotate(0deg); opacity: 0; }
+.pdp .pdp-spec[open] .pdp-spec-k { color: var(--ph-accent); }
+.pdp .pdp-spec-body {
+  padding: 0 0 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 8px 32px;
+}
+.pdp .pdp-spec-body span {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 9px;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+.pdp .pdp-spec-body span::before {
+  content: ""; width: 4px; height: 4px; margin: 8px 0 0 5px;
+  border-radius: 50%; background: var(--ph-line);
+}
+/* Opening is a 320ms unfold rather than a jump. `content-visibility` keeps the
+   closed rows out of layout, which is what makes eight of them free. */
+.pdp .pdp-spec[open] > .pdp-spec-body { animation: pdp-open 320ms var(--pdp-ease); }
+@keyframes pdp-open {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- the badge grid. Nine facts already in the table above, drawn as line-art
+   marks so the section has a floor that is not another row. seed's allergen
+   grid, same job: the things you check rather than read. */
+.pdp .pdp-badges {
+  margin-top: clamp(34px, 4vw, 54px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 20px 32px;
+}
+.pdp .pdp-badge {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 13px;
+  align-items: center;
+}
+.pdp .pdp-badge-m {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 1px var(--pdp-rule);
+  color: var(--ph-accent);
+}
+.pdp .pdp-badge-m svg { width: 19px; height: 19px; display: block; }
+.pdp .pdp-badge-t {
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  color: var(--ink-900);
+}
+.pdp .pdp-badge-t small {
+  display: block; margin-top: 3px; font-size: var(--ph-fs-12);
+  color: var(--ph-text-2); font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   7 · THE DOCK · shared.js's product bar, taken off the top edge
+   ------------------------------------------------------------------------ */
+
+/* shared.js builds `.ph-bar` from the hero's own CTA on every product page and
+   parks it as a full-width strip under the nav. That strip is a second navigation
+   bar, and on this page it competes with the buy column that now follows the
+   reader anyway.
+   seed's is a floating capsule at the foot: out of the reading column, visible
+   over dark bands and film, carrying a thumbnail so it says WHICH product.
+   Restyled here rather than rebuilt, so the observer, the aria-hidden toggle and
+   the tabindex handoff shared.js already wrote all keep working. */
+.pdp .ph-bar {
+  top: auto; bottom: clamp(16px, 2.4vw, 28px);
+  left: 0; right: 0; height: auto;
+  background: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  border-bottom: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+.pdp .ph-bar.on { transform: none; }
+.pdp .ph-bar-inner {
+  width: auto; max-width: min(560px, calc(100vw - 32px));
+  margin-inline: auto; padding: 9px 9px 9px 14px;
+  border-radius: var(--ph-r56);
+  /* MORE GLASS THAN THE TOKEN, and the trade is written down because it is a
+     real one. --gl-tint-overlay is 84% white and phenome-glass.css says why:
+     84 is "the least that clears [4.5:1] on all of them with the panel still
+     visibly glass", measured for the MEGA-MENU — a sheet the size of the
+     viewport carrying 14px links over any page on the site.
+     This is a 56px capsule carrying two lines and a filled button, and it was
+     asked to read as glass rather than as a white pill. 66% with the blur
+     pushed from 24px to 40px is properly transparent: the film and the navy
+     bands travel through it. The contrast still holds — the darkest ground it
+     crosses is --phenome-blue-900, and 66% white over #0a1e57 composites to
+     #b0b6c6, against which the name's --ph-text-1 measures 5.2:1 and the 12px
+     meta line's --ph-text-2 measures 4.6:1. Both clear AA, which is the bar the
+     token was defending; what is given up is margin, not compliance.
+     The hairline is doubled to 12% because at 66% the drop alone stops being
+     able to find the capsule's edge over a bright cloud bank. */
+  background: #ffffffa8;
+  -webkit-backdrop-filter: blur(40px) saturate(165%); backdrop-filter: blur(40px) saturate(165%);
+  box-shadow: var(--gl-shadow-lift), inset 0 0 0 1px #10214b1f;
+  gap: 14px; pointer-events: auto;
+}
+/* Where the browser cannot blur, transparency is not glass — it is illegible.
+   The one @supports on this page, and it goes back to the token's own value. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pdp .ph-bar-inner { background: var(--gl-tint-overlay); }
+}
+.pdp .ph-bar-thumb {
+  width: 38px; height: 38px; border-radius: 50%;
+  object-fit: cover; flex: none; display: block;
+  background: var(--gl-tint-sunk);
+  box-shadow: inset 0 0 0 1px #10214b14;
+}
+.pdp .ph-bar-txt { min-width: 0; display: grid; gap: 1px; }
+.pdp .ph-bar-name { font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); }
+.pdp .ph-bar-meta {
+  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  color: var(--ph-text-2); font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pdp .ph-bar .btn.small { flex: none; }
+/* The design-system launcher parks bottom-right and the dock is centred, so at
+   narrow widths they meet. The dock keeps the middle and the launcher is nudged
+   above it — the same decision devices/ring/ring.css made for the marquee. */
+@media (max-width: 720px) {
+  .pdp .ds-launch { bottom: 84px; }
+}
+
+/* ---------------------------------------------------------------------------
+   8 · NARROW WIDTHS
+   ------------------------------------------------------------------------ */
+
+/* 1024 is where shared.css's own two-column gestures stand down (see its note
+   at 755: "a 32-point heading beside a 24-point paragraph in 300px is not a
+   composition, it is a squeeze"). Everything that is two columns here stacks at
+   the same place, and every sticky thing stops being sticky — a sticky element
+   in a single column is just an element that covers the thing under it. */
+@media (max-width: 1024px) {
+  /* THE HERO HAS TO BE STACKED HERE BY NAME. shared.css already stacks `.buy`
+     at ≤1279, but its rule is `.buy` and this page's is `.pdp .buy` — two
+     classes beat one, so the two-column grid would have survived all the way
+     down to 320px and the film would have been 130px wide. The site's own rule
+     losing to a page's is exactly the risk a page-scoped sheet carries, and the
+     only defence is to restate every layout the base sheet was going to undo.
+     Stacked, the film comes first and the column follows it: media over the
+     decision, which is the order shared.css:2589 chose for the same block and
+     the order every product page on the site already uses. */
+  .pdp .buy { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  /* SQUARE ONCE IT HAS THE WHOLE WIDTH, and `max-height` is the wrong tool for
+     saying so. A 4:5 frame at 886px wide is 1,107px tall, which is a monolith;
+     capping it with `max-height: 76vh` does not shorten it, it SHRINKS THE
+     WIDTH — aspect-ratio holds the ratio and gives up the other axis — so the
+     film came out 547px wide sitting in an 886px track with 339px of nothing
+     beside it. 1:1 keeps the frame full-width and its height in the same
+     neighbourhood as the screen, and a square crop of a 9:16 source still holds
+     the scene where a 4:3 one throws it away. */
+  .pdp .pdp-gal-main { aspect-ratio: 1 / 1; }
+  .pdp .buy-col {
+    position: static; max-height: none; overflow: visible;
+    padding-right: 0; margin-right: 0;
+  }
+  /* Stacked, the head is no longer beside a tall picture that justified a 44px
+     headline in a narrow measure — it has the full width, so it takes the
+     site's own hero size back. */
+  .pdp .pdp-head h1 { font-size: clamp(34px, 6.4vw, 56px); }
+  .pdp .pdp-head .lede { font-size: var(--ph-fs-19); line-height: var(--ph-lh-19-loose); max-width: 56ch; }
+  .pdp .pdp-tl { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  /* `relative`, NOT `static`, AND `top: auto`. Two bugs at 390, one after the
+     other, both from this one declaration.
+     `static` took away the film's positioned ancestor, so the play/mute bar
+     inside it — which is absolute — escaped to the initial containing block and
+     parked itself over the bottom-right corner of the page as a stray floating
+     control. A film that is not sticky still has to be the frame its own
+     controls sit in, so it keeps a position.
+     Then `relative` inherited the sticky rule's `top: calc(--ph-nav-h + 56px)`,
+     and a relative offset MOVES THE PAINT WITHOUT MOVING THE BOX: the film was
+     drawn 100px below its own layout position and covered the first step's
+     pill and headline, while the steps still began where its box had ended.
+     `top: auto` is the whole fix and it is the kind that has to be written
+     down, because `position: relative` looks like it withdraws the offset. */
+  .pdp .pdp-tl-film { position: relative; top: auto; order: -1; aspect-ratio: 4 / 3; }
+  .pdp .pdp-cut { grid-template-columns: minmax(0, 1fr); }
+  .pdp .pdp-sig-panel { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .pdp .pdp-sig-pane .g { display: none; }
+}
+
+@media (max-width: 860px) {
+  /* THE TWO COLUMNS STAY TWO COLUMNS, all the way to 320. This is the one thing
+     the section cannot give up: it exists to be compared, and stacking the
+     answers puts "4 g" above "6 g" where they read as two facts about one ring
+     rather than one fact about two. The old key-table version was collapsed to
+     one column at this width and that was exactly the failure.
+     Apple's own compare page keeps its columns side by side on a phone and lets
+     them narrow, which works because every value in the column is short. Ours
+     are too. What gives instead is the padding, the card and the display sizes
+     — the structure holds. */
+  .pdp .pdp-vs { gap: 12px; }
+  .pdp .pdp-vs-col { padding: 16px 12px 20px; border-radius: var(--ph-r18); }
+  .pdp .pdp-vs-sw { gap: 9px; }
+  .pdp .pdp-vs-dot { width: 22px; height: 22px; }
+  .pdp .pdp-vs-pick { width: 100%; padding: 0 10px; font-size: var(--ph-fs-14); }
+  .pdp .pdp-vs-v { font-size: clamp(30px, 8vw, 40px); }
+  .pdp .pdp-vs-t { font-size: var(--ph-fs-17); line-height: var(--ph-lh-17); }
+  .pdp .pdp-vs-s { font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); }
+  /* The shared band stacks — it is one statement and a list, not a comparison,
+     so nothing is lost by putting the heading above the names. */
+  .pdp .pdp-vs-same { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .pdp .pdp-vs-same-l { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+  .pdp .pdp-vs-same-t { font-size: var(--ph-fs-21); line-height: var(--ph-lh-21); }
+
+  .pdp .pdp-spec > summary { grid-template-columns: minmax(0, 1fr) 22px; row-gap: 5px; }
+  .pdp .pdp-spec-v { grid-column: 1; text-align: left; }
+  .pdp .pdp-spec-sign { grid-row: 1; grid-column: 2; }
+}
+
+@media (max-width: 560px) {
+  .pdp .pdp-gal-grid { gap: 8px; }
+  .pdp .pdp-gal { gap: 8px; }
+  /* Six 108px thumbnails read as a texture rather than as six pictures. Below
+     560 the mosaic scrolls sideways at a size a thumb can hit instead — the
+     same trough shared.css uses for its shop rails, and the only horizontal
+     scroller on the page. */
+  .pdp .pdp-gal-grid {
+    display: flex; grid-template-columns: none;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-inline: calc(var(--ph-margin) * -1); padding-inline: var(--ph-margin);
+  }
+  .pdp .pdp-gal-grid::-webkit-scrollbar { display: none; }
+  .pdp .pdp-tile { flex: 0 0 44%; scroll-snap-align: start; }
+  .pdp .pdp-head h1 { font-size: clamp(30px, 8.6vw, 40px); }
+  .pdp .buy-swatches { gap: 13px; }
+  /* Portrait again on a phone. The reason square works at 768 is that the width
+     is large; at 390 a square is 332px tall and the film stops being the hero.
+     4:5 gives it back 83px and the source is portrait anyway. */
+  .pdp .pdp-gal-main { aspect-ratio: 4 / 5; }
+  /* THE CARDS KEEP THEIR TYPE AND GIVE UP THEIR PADDING. Measured at 320: the
+     content box was 83px against "Titanium" at 84px — one pixel of overflow,
+     which the wrap test missed because the word does not break, it just sits
+     over its own edge. 13px of side padding gives it 99px and eleven of slack.
+     The type is what makes this control findable and it is the last thing that
+     should shrink; the padding is not doing any work at this width. */
+  .pdp .buy-choice { padding: 15px 13px 14px; min-height: 88px; }
+  .pdp .buy-choices { gap: 10px; }
+  /* FOUR AND FOUR, not five-and-three. Eight chips at 44px need 408px and the
+     content box is 372 at 430 and 262 at 320, so they wrap — and a flex wrap
+     leaves 5+3 at one width and 4+4 at another, which reads as a ragged list
+     rather than a scale. An explicit four-column grid wraps the same way at
+     every width and the chips share the row evenly. */
+  .pdp .buy-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pdp .buy-chips .tag { min-width: 0; }
+  .pdp .pdp-tl-steps { padding-left: 26px; }
+  .pdp .pdp-tl-step::before { left: -26px; }
+  .pdp .pdp-tl-steps::before, .pdp .pdp-tl-steps::after { left: 1px; }
+  .pdp .ph-bar-inner { padding-left: 11px; gap: 10px; }
+  .pdp .pdp-lb-cap { display: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   9 · STILLNESS
+   ------------------------------------------------------------------------ */
+
+/* A reader who asked for less motion gets the whole page, all at once, with
+   nothing moving. Note what is NOT withdrawn: the fades on the option controls
+   and the accordions stay as instant state changes rather than being removed,
+   because the state itself is the information. What goes is everything that
+   travels — the crossfade, the rail fill, the lift's slide, the unfold, the
+   pulse on the film dot. shared.js's own reduced-motion branches already hand
+   the pinned band every point at once and stop the films. */
+@media (prefers-reduced-motion: reduce) {
+  .pdp *,
+  .pdp *::before,
+  .pdp *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .pdp .pdp-gal-main img { transition: none; }
+  .pdp .pdp-gal-zoom { opacity: 1; }
+  .pdp .pdp-tl-step { opacity: 1; }
+  .pdp .pdp-cut-btn { opacity: 1; }
+  .pdp .pdp-cut-btn .d { grid-template-rows: 1fr; opacity: 1; margin-top: 7px; }
+  .pdp .pdp-tile:hover { transform: none; }
+  .pdp .pdp-tile:hover > img, .pdp .pdp-tile:hover > video { transform: none; }
+  .pdp .pdp-tile .film-dot { animation: none; }
+  .pdp .ph-bar { transform: none; }
+}
+
+/* Where the script never runs, nothing below it is reachable and the page is the
+   page it was: a photograph, a column of options, four figures, a navy band, a
+   film, two materials and a table. Every enhancement above is additive and every
+   control that needs script is a <button> that shows its state in the markup. */
