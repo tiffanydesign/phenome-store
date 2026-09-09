@@ -422,14 +422,59 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
               color var(--pdp-quick) var(--pdp-ease),
               opacity var(--pdp-quick) var(--pdp-ease);
 }
+/* ---- THE MATERIAL CHOICE IS THE COLUMN'S BIGGEST DECISION AND WAS ITS
+   QUIETEST CONTROL. Measured at 1440: 216x65 cards, a 17px name and a 14px
+   grey price, sitting directly above 30px gloss swatches and 44px size chips.
+   So the control that sets the price — £179 against £199, and the only choice
+   on this page a reader cannot change later without returning the ring — was
+   the least visible thing in the column, and the beads under it pulled the eye
+   first. That is the hierarchy upside down.
+
+   It is a real pair of cards now: 96px tall, the name at 21/600, and the price
+   in primary ink at 19 rather than as grey supporting text, because the price
+   IS the decision being made. Nothing is added to the markup — the same two
+   spans, given the weight they were always carrying.
+
+   AND THE CHOSEN ONE LIFTS. shared.css:2167 says the selected state must be a
+   border colour and nothing else, under `tokens.elevation ELEVATION SISTEMI
+   YOK` — but that is the Apple-era doctrine of the captured mirror, and
+   phenome-glass.css replaced it wholesale with a system that draws --gl-shadow
+   on every card, tile and panel including this page's own buy card, comparison
+   columns and dock. The rule to follow is the live one. So unselected keeps
+   glass.css's recess tone and the chosen card rises out of it to white with the
+   accent ring — which is exactly how the comparison section marks its chosen
+   material, so the page says "this one" the same way in both places. */
+.pdp .buy-choices { grid-template-columns: 1fr 1fr; gap: 14px; }
+/* BOTH CARDS ARE WHITE PANES; only the state differs. The first attempt left
+   the unselected one on glass.css's recess tone and it disappeared outright —
+   `--gl-tint-sunk` is #f4f6fb and the hero's ground ramp is the same value, so
+   "Ceramic £199" floated on the page with no card around it at all. A recess
+   only reads as a recess against something lighter than itself.
+   The ladder is three steps on one white ground instead: hairline at rest, a
+   soft drop on hover, the lift and the accent ring when chosen. */
+.pdp .buy-choice {
+  padding: 19px 20px 17px;
+  border-radius: var(--ph-r14);
+  border-color: transparent;
+  background: var(--gl-tint-live);
+  box-shadow: var(--gl-inner);
+  display: grid; align-content: center; gap: 5px;
+  min-height: 96px;
+}
+.pdp .buy-choice .n {
+  font-size: var(--ph-fs-21); line-height: var(--ph-lh-21);
+  letter-spacing: var(--ph-tr-21-600);
+  color: var(--ink-900);
+}
+.pdp .buy-choice .p {
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-400); letter-spacing: var(--ph-tr-19-400);
+  color: var(--ph-text-2); font-variant-numeric: tabular-nums;
+}
 .pdp .buy-choice:hover:not(.on) { box-shadow: var(--gl-shadow), var(--gl-inner); }
 .pdp .buy-choice:active { transform: scale(.99); }
-.pdp .buy-choice.on {
-  /* The chosen card is stated twice — the accent border shared.css already
-     draws, plus a 1px inset of the same ink. On a 10% ramp one hairline was
-     findable only if you were looking for it. */
-  box-shadow: inset 0 0 0 1px var(--ph-accent);
-}
+.pdp .buy-choice.on { box-shadow: var(--gl-shadow-lift), inset 0 0 0 2px var(--ph-accent); }
+.pdp .buy-choice.on .p { color: var(--ink-900); }
 /* THE ARCTIC WHITE SWATCH WAS INVISIBLE. #EFEFF2 on a #ffffff page has no edge
    and shared.css draws the swatch as a bare `background: var(--sw)` — so one of
    the five controls simply was not there. The hairline goes on all five rather
@@ -1704,6 +1749,14 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
      is large; at 390 a square is 332px tall and the film stops being the hero.
      4:5 gives it back 83px and the source is portrait anyway. */
   .pdp .pdp-gal-main { aspect-ratio: 4 / 5; }
+  /* THE CARDS KEEP THEIR TYPE AND GIVE UP THEIR PADDING. Measured at 320: the
+     content box was 83px against "Titanium" at 84px — one pixel of overflow,
+     which the wrap test missed because the word does not break, it just sits
+     over its own edge. 13px of side padding gives it 99px and eleven of slack.
+     The type is what makes this control findable and it is the last thing that
+     should shrink; the padding is not doing any work at this width. */
+  .pdp .buy-choice { padding: 15px 13px 14px; min-height: 88px; }
+  .pdp .buy-choices { gap: 10px; }
   /* FOUR AND FOUR, not five-and-three. Eight chips at 44px need 408px and the
      content box is 372 at 430 and 262 at 320, so they wrap — and a flex wrap
      leaves 5+3 at one width and 4+4 at another, which reads as a ragged list
