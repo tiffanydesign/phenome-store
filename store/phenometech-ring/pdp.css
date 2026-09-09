@@ -1235,37 +1235,64 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 /* ---- what they share, stated once ----------------------------------------
    The band that replaces three rows of the old table saying the same thing in
    both columns. It is the section's own sentence, given a shape. */
+/* NAMES AND TICKS, NOT A FOURTH STAT GRID. This band first shipped as figures
+   — 5 sensors / 100 m / 7 days / Bluetooth 5.3 at display size — which made it
+   the third band on the page using one visual form, and repeated two values the
+   pinned film had shown in the same treatment a screen earlier.
+   A number invites you to compare it against something, which is precisely the
+   opposite of what this band exists to say. Ticked names say "these do not
+   differ" directly, in a form that appears nowhere else here, and the figures
+   stay where a figure belongs: the specification table, one link away. */
 .pdp .pdp-vs-same {
   margin-top: clamp(30px, 3vw, 46px);
-  padding: clamp(26px, 2.6vw, 36px) clamp(22px, 2.4vw, 40px);
+  padding: clamp(26px, 2.6vw, 38px) clamp(22px, 2.4vw, 40px);
   border-radius: var(--ph-r27);
   background: var(--gl-tint-sunk);
   display: grid;
-  grid-template-columns: minmax(0, 20ch) minmax(0, 1fr);
-  gap: clamp(20px, 3vw, 52px); align-items: center;
+  grid-template-columns: minmax(0, 30ch) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 56px);
+  /* `start`, not `center`. Centred, the shorter of the two columns floated in
+     the middle of the taller one's height and left an unexplained band of empty
+     ground above the link. Both columns begin at the top; the rule above the
+     link is what separates it, and it needs no help. */
+  align-items: start;
 }
 .pdp .pdp-vs-same-t {
   margin: 0;
-  font-size: var(--ph-fs-21); line-height: var(--ph-lh-21);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+  font-size: var(--ph-fs-24); line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-24-600);
   color: var(--ink-900); text-wrap: balance;
 }
+.pdp .pdp-vs-same-s {
+  margin: 10px 0 0;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ph-text-2);
+}
+/* THREE COLUMNS, not auto-fit. There are exactly six names, and `auto-fit`
+   fitted four of them across at 1440 — which left the second row half empty and
+   the list reading as "four things, and then two more it forgot". Six over
+   three is two even rows at every width that can hold three, and the media
+   query below takes it to two and then one. A fixed count is right here
+   precisely because the count of items is fixed. */
 .pdp .pdp-vs-same-l {
   margin: 0; padding: 0; list-style: none;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 18px 24px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 26px;
 }
-.pdp .pdp-vs-same-l li { display: grid; gap: 3px; }
-.pdp .pdp-vs-same-l b {
-  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
-  color: var(--ink-900); font-variant-numeric: tabular-nums;
+.pdp .pdp-vs-same-l li {
+  display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px;
+  align-items: center;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  color: var(--ink-900);
 }
-.pdp .pdp-vs-same-l span {
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase; color: var(--ph-text-2);
-}
+.pdp .pdp-vs-same-l svg { width: 15px; height: 15px; color: var(--ph-accent); }
+/* The link closes the sentence rather than the band. It first spanned both
+   columns under a full-width rule, and the band's height is set by the prose
+   column — so the rule was pushed below a short list and left a hand's breadth
+   of empty ground above it that nothing explained. Under the paragraph it
+   belongs to the argument it follows, the two columns come out close in height,
+   and the band loses 60px it was not using. */
+.pdp .pdp-vs-same-a { display: inline-flex; margin-top: 16px; }
 
 /* ---- the cutaway, and four things it is pointing at ----------------------
    `ring orthographic.png` is the one asset in the drop that shows the inside of
@@ -1645,9 +1672,10 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   .pdp .pdp-vs-t { font-size: var(--ph-fs-17); line-height: var(--ph-lh-17); }
   .pdp .pdp-vs-s { font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); }
   /* The shared band stacks — it is one statement and a list, not a comparison,
-     so nothing is lost by putting the heading above the facts. */
-  .pdp .pdp-vs-same { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .pdp .pdp-vs-same-l { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+     so nothing is lost by putting the heading above the names. */
+  .pdp .pdp-vs-same { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .pdp .pdp-vs-same-l { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+  .pdp .pdp-vs-same-t { font-size: var(--ph-fs-21); line-height: var(--ph-lh-21); }
 
   .pdp .pdp-spec > summary { grid-template-columns: minmax(0, 1fr) 22px; row-gap: 5px; }
   .pdp .pdp-spec-v { grid-column: 1; text-align: left; }
