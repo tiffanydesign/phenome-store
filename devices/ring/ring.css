@@ -667,10 +667,32 @@
 .ph-flat .ringfam-pin {
   position: relative;
   margin-top: clamp(32px, 3.4vw, 56px);
-  /* Six colourways now, at the same 90svh apiece the three had. Six screens of
-     track rather than three is a long section, and it is the length the piece
-     is worth: every screen of it is one product frame held still. */
-  height: calc(100svh + 6 * 90svh);
+  /* THE TRACK IS SIX WEIGHTED BANDS, NOT SIX EQUAL ONES, and the weights are
+     the script's — 0.3 for the first card, 1 for each of the other five, which
+     is the 5.3 below. The two have to agree; there is a note at the head of the
+     script saying so from the other side.
+
+     Why the first card is worth less than a third. The reader has already been
+     looking at it for the whole screen of entry travel, framed and settled,
+     before the track even starts — so a full band on top of that was about
+     1700px of scroll in which nothing on screen moved, and a held picture stops
+     reading as a held picture after roughly half a second. It went to 0.5
+     first, which was not enough: the entry screen is the larger half of that
+     number and the fix for it is in the script, not here (see the lead-in). 0.3
+     is the point where the first turn happens soon enough after the pin to feel
+     like the section answering the wheel, and not so soon that it reads as a
+     jump-cut past a card the reader had not finished looking at.
+
+     And why the unit came down from 90svh to 62svh. At 90 a card was a full
+     screen of wheel with only its own stillness to show for it. The continuous
+     parts added in this pass — the marker crossing to the next swatch, the rule
+     filling under the capsules — mean the band no longer has to be long enough
+     to feel deliberate on its own. 62svh apiece is 328 of track rather than
+     540, and the section reads faster while showing the same six frames for as
+     long as it takes to look at one. */
+  --rf-unit: 62svh;
+  --rf-track: 5.3;
+  height: calc(100svh + var(--rf-track) * var(--rf-unit));
 }
 .ph-flat .ringfam-stage {
   position: sticky;
@@ -694,292 +716,516 @@
   overflow: hidden;
 }
 
-/* ---- the three colourways, which are also the three controls.
+/* ---- THE COLOURWAYS MOVED INTO THE PICTURE'S OWN TEXT COLUMN.
 
-   They began as three 3px marks: how many there are and how far through you are,
-   which is what tells a reader the section is finite and worth staying in.
-   Without it a page that holds still is a page that has broken.
+   They were a glass capsule floating in the empty band under the card: two
+   named segments, Ceramic and Titanium, with three swatches inside each. It
+   worked, and it was in the wrong place, for a reason that is only obvious once
+   the frame is looked at rather than the control. The showcase already writes a
+   text column on the left of every card — the product on one line, the
+   colourway on the next, set in its own Helvetica at 30px. A second control at
+   the bottom of the same screen naming the same two products in a second
+   typeface is the screen saying the same thing twice in two voices, and the
+   capsule had to hide itself while the ring turned to avoid covering the piece
+   it belonged to. A control that spends half its life invisible is a control in
+   the wrong place.
 
-   THEY SAY WHAT THEY SWITCH TO NOW. The marks answered "three, you are on the
-   second" and stopped there, so the one question the section exists to ask —
-   which finish would you wear — had no answer anywhere on the pinned screen;
-   the names were in the aria-labels, read only by a screen reader. A named
-   segment answers both at once, and the swatch answers it before the label is
-   read. The names are the showcase's own, from ring/projects.js.
+   So the swatches join the sentence they belong to. They sit directly under the
+   showcase's own name block, on the showcase's own left margin, and read as the
+   next line of it: the product, the colourway, the six it comes in. Nothing
+   covers the card, so nothing has to hide, so the marker can glide the whole
+   time the reader is scrolling — which is the thing the section was missing.
 
-   THEY STILL TAKE THE POINTER THE SAME WAY, and pressing one does exactly what
-   scrolling to it does — because it IS scrolling to it. The handler moves the
-   document to the matching point in the pin's own track and lets the existing
-   scroll listener notice; nothing tells the ring anything directly. Two routes
-   to one mechanism rather than two mechanisms kept agreeing.
+   THE ALIGNMENT IS BORROWED, NOT GUESSED. The showcase parks its name block at
+   12vw from the left of its own viewport and centres it on the vertical middle,
+   in a box three times its name size tall. Those are its numbers, restated here
+   as --rf-left and --rf-name, and the rail clears the block by half that height
+   plus a gap. The frame is full-bleed and full-height, so its vw and this
+   document's vw are the same vw — which is what makes borrowing them safe. Its
+   text scales up by half below 1024px, and so does the clearance.
 
-   The hit area is the segment now, 38px tall and a third of the capsule wide,
-   which is the sizing note the marks needed a ::before to fake. */
-.ph-flat .ringfam-tabs {
+   ---- THE SIX ARE TWO GROUPS OF THREE, IN TWO CAPSULES, EACH WITH ITS NAME.
+
+   This started as one flat row of six with a divider in the middle and a caption
+   under it that changed as you scrolled. Three things were wrong with that and
+   the capsules fix all three at once.
+
+   A divider is the weakest possible way to say "two products". It says "there is
+   a gap here" and leaves the reader to work out what the gap means, and it
+   competes with the rule under the row, which is a line doing a different job
+   4px away. A container says it outright: these three are one thing, those three
+   are another. Oura reaches the same shape from the same problem — their finish
+   swatches live in a white rounded capsule on the product photograph — and the
+   construction is worth borrowing exactly because it is not decoration: a
+   translucent-free white pill is the one way to put small colour swatches over
+   an uncontrolled photographic background and keep them readable as colours.
+
+   The caption goes. It named the material of whichever finish was showing, which
+   meant the word "titanium" was only on screen during the half of the section
+   you had already scrolled into — a label that is absent exactly when it would
+   be answering a question. Two static labels, one over each capsule, are on
+   screen the whole time and say what each group is made of before you choose.
+
+   And the labels can be the finish names now rather than the material names,
+   because they are attached to their own three swatches rather than floating
+   under all six. "Ceramic" over three ceramic swatches is not a repeat of the
+   card's own "PhenomeTech Ceramic Ring" — it is the label of a group. */
+.ph-flat .ringfam-rail {
   position: absolute;
-  left: 50%;
-  /* HIGHER THAN THE MARKS SAT. The showcase draws its own progress numeral in
-     the bottom ~40px of the frame, which a 3px mark could sit above without
-     touching. A 46px capsule at the same offset lands on it, and two pieces of
-     chrome in one band read as one confused one. This clears it and puts the
-     control in the middle of the empty band under the card instead. */
-  bottom: clamp(60px, 8vh, 96px);
-  /* `translate` rather than a transform, so the centring and the 8px the
-     control rises on the way in are two properties and not one string that has
-     to carry both. */
-  translate: -50% 0;
-  z-index: 2;
+  z-index: 3;
+  left: var(--rf-left);
+  top: 50%;
+  /* Half the showcase's own name box, then the gap. */
+  margin-top: calc(var(--rf-name) * 1.5 + 34px);
 
-  /* Equal halves, and that is load-bearing rather than tidy: it is what lets
-     the thumb below be one width and one translate instead of a measurement
-     that has to be re-taken on every resize and every font swap. Halves rather
-     than the thirds this started as, because the segments are the two finishes
-     now and the colours live inside them. */
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  padding: var(--rf-pad);
-  border-radius: var(--ph-r27);
-  isolation: isolate;
+  gap: 14px;
+  justify-items: start;
 
-  --rf-pad: 4px;
+  /* The rail is a small block sitting over a frame whose whole surface is a
+     link to the product. It takes no pointer events of its own; the swatches
+     take theirs back below. */
+  pointer-events: none;
 
-  /* GLASS, AND IT IS THE BAR'S OWN GLASS. Another exemption from §1's blanket
-     backdrop-filter removal, so like every other one it needs !important to
-     beat that rule's, and it is asked for on the same grounds §1 states: the
-     blur went because every fill behind it had become opaque, and this fill is
-     not. A pane you can see the piece through is the thing being built.
+  /* The showcase's own numbers. 12vw and 30/1440vw are stated in its config as
+     metaLeft and nameSize; the 1.5 is its narrowText, applied at the same
+     1024px it applies it. */
+  --rf-left: 12vw;
+  --rf-name: 2.0833vw;
+  /* OURA'S OWN SIZING, MEASURED OFF THEIR SELECTOR RATHER THAN EYEBALLED.
+     Their swatch is a 24px disc inside a 32px hit target, gap 8px, in a capsule
+     padded 16px vertical and 20px horizontal; the selected one is ringed at the
+     full 32px. Every number below is one of those.
 
-     The numbers are not new ones. They are .ph-bar's, which are apple's own
-     globalnav numbers — 72% white, saturate(180%) blur(20px). The page already
-     has exactly one glass surface and this is the second; making them the same
-     material means the two never read as two different ideas of glass on one
-     screen. Copied by value rather than shared through a token because that is
-     how .ph-bar states them too, and one of the two is chrome and the other is
-     part of a piece — they are the same material by decision, not by wiring.
+     The 32px cell is doing real work beyond the ring: 24px is under the 44px
+     a touch target wants and only just over the 24px a pointer one does, and
+     the 8px of transparent margin around each disc is what makes the row
+     comfortable to hit without spacing the colours apart visually. */
+  --rf-dot: 24px;
+  --rf-cell: 32px;
 
-     WHAT THE TRANSPARENCY IS FOR. Over bare ground it shows almost nothing:
-     72% over the showcase's near-white stage composites to within a couple of
-     values of white, and there the pane is carried by its line. What it is for
-     is that the ground is not bare and not fixed. This is a live piece; the
-     card's cast shadow and the pebbles it sits on reach into the lower band at
-     shorter viewport heights, and the control fades in over the tail of the
-     ring coming to rest rather than after it. Whatever is under the pane in
-     those seconds is seen through it and softened, which is the blur doing the
-     one job a blur is for. */
-  background: rgba(255, 255, 255, .72);
-  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
-  backdrop-filter: saturate(180%) blur(20px) !important;
+  /* IT ARRIVES ON THE LEAD-IN, which is the same number the intro copy above
+     the pin parallaxes on — so the rail sliding in and the heading sliding out
+     are one movement seen twice, rather than two effects that happen to be near
+     each other. The window is the FRONT of the entry now, not the back: it was
+     0.34 to 1, which put the swatches on screen only in the last third of the
+     approach and left the reader looking at a lone photograph before that. It
+     is 0.06 to about 0.55 now, and the lead-in itself finishes at 55% of the
+     approach rather than at the pin (see the script), so between the two the
+     rail is up and still while the stage is still travelling. Browsers clamp
+     opacity themselves, so the line does not need a clamp() of its own.
 
-  /* NO DROP, and the line instead. §1's requirement is "no shadow on this
-     page" and it is not conditional — the exemptions above it are for the blur
-     alone. This is the case §2 already answers for the nav and the launcher:
-     chrome floating over content that scrolls under it has no parent whose tone
-     it can be the inverse of, so it takes a real border, a 1px line being the
-     flattest possible way to say "this is in front". --border-strong rather
-     than --divider because this one floats over a full screen of picture rather
-     than sitting along an edge, and it is the weight .ds-launch already uses to
-     do the same job on this same page. */
-  border: 1px solid var(--border-strong);
-
-  /* IT IS NOT THERE WHILE THE RING IS TURNING.
-
-     The piece is the thing on this screen. A control parked over it full time
-     spends most of its life covering the picture it belongs to, and the ring's
-     dissolve sweeps the full height of the frame — so the seconds it would
-     cover are the seconds worth watching. It waits for the card instead: gone
-     while the ring turns, back when one is standing still and there is
-     something to choose between.
-
-     Hidden rather than merely transparent, so a control that is not on screen
-     is also not in the tab order and not under the pointer. The visibility flip
-     is delayed on the way out and immediate on the way in, which is the shape
-     .ds-launch already uses to leave and re-enter on this page.
-
-     The one exception is written in the script, not here: it does not leave
-     while the reader is inside it. See `engaged` there. */
+     It also waits for the showcase to say its assembly is over — six swatches
+     under a name that has not been written yet is a caption for nothing. */
   opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--ph-dur-base) var(--ease-frosted-out),
-              translate var(--ph-dur-base) var(--ease-frosted-out),
-              visibility 0s linear var(--ph-dur-base);
+  translate: -18px 0;
 }
-.ph-flat .ringfam-tabs:not(.is-settled) { translate: -50% 8px; }
-.ph-flat .ringfam-tabs.is-settled {
-  opacity: 1;
-  visibility: visible;
-  /* Slower in than out, and it arrives from 8px below. Leaving wants to be done
-     before the reader notices; arriving is the control offering itself and can
-     take the beat. */
-  transition: opacity var(--ph-dur-reveal) var(--ease-frosted-out),
-              translate var(--ph-dur-reveal) var(--ease-frosted-out),
-              visibility 0s;
+.ph-flat .ringfam-stage.is-ready .ringfam-rail {
+  opacity: calc((var(--rf-in, 0) - 0.06) * 2.1);
+  translate: calc((1 - var(--rf-in, 0)) * -14px) 0;
 }
 
-/* The thumb. One white pill that slides, and the only moving part in the
-   control — the labels do not resize, do not re-weight and do not fade, so
-   there is one thing to follow rather than four.
+/* ---- BELOW 1024 THE TEXT COLUMN STOPS BEING A COLUMN, so the rail leaves it.
 
-   IT FOLLOWS THE FINISH, NOT THE COLOUR. --ringfam-cat is 0 or 1, so the thumb
-   moves twice in a journey of six and the dot ring does the rest. Both come off
-   the same sync() and the same step index the ring is posted, so neither can
-   drift from the picture: there is no second source of truth to keep in step.
+   1024 is the showcase's own narrowAt. Under it the ring's plane and radius both
+   widen and the card grows across the frame until it is sitting over the left
+   margin — the showcase's own two lines of type run under the photograph there,
+   which is its composition and not this document's to fix. What this document
+   can do is not add to it: six swatches printed over a product photograph are
+   unreadable as swatches and are covering the thing they describe.
 
-   translate by its OWN width, which the grid has already made exactly a half.
-   Nothing here needs to know the pixel width of anything. */
-.ph-flat .ringfam-thumb {
-  position: absolute;
-  z-index: 0;
-  top: var(--rf-pad);
-  bottom: var(--rf-pad);
-  left: var(--rf-pad);
-  width: calc((100% - 2 * var(--rf-pad)) / 2);
-  border-radius: var(--ph-r21);
-  /* Opaque against a translucent ground, which over the showcase's near-white
-     stage is a difference of about two values — so the thumb takes a line too,
-     for the same reason the capsule does. Quieter than the capsule's: the outer
-     edge is the one separating the control from the picture, this one only
-     separates a part of the control from the rest of it, and two lines of equal
-     weight 4px apart read as a frame rather than as a hierarchy. */
+   So in that band the rail parks at the foot of the stage on the same 12vw
+   margin. It is no longer the next line of the card's own sentence, which is
+   what it is for above 1024 — but it is legible, it is on the same left edge,
+   and it is out of the picture. The 900px cut below this one takes the whole pin
+   away and shows the two photographs instead, so this covers 900 to 1024. */
+@media (max-width: 1024px) {
+  .ph-flat .ringfam-rail {
+    top: auto;
+    bottom: clamp(56px, 9vh, 96px);
+    margin-top: 0;
+  }
+}
+
+/* The two groups, side by side. The rail itself is the positioning context for
+   the marker, so everything between it and a swatch stays static. */
+.ph-flat .ringfam-groups {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  pointer-events: auto;
+}
+.ph-flat .ringfam-group {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+/* The finish name, over its own three. Uppercase and tracked at 12px against
+   the showcase's 30px sentence case, so the two never read as the same voice —
+   this is a label on a control, and the card's own line is a product name.
+
+   It sits OUTSIDE the capsule rather than inside it. Inside, it would have to
+   share the pill with the swatches and the pill would become a small toolbar
+   with a title; outside, the pill stays one clean object and the label reads as
+   naming it, which is the relationship a caption has to a thing. */
+.ph-flat .ringfam-finish {
+  margin: 0 0 0 4px;
+  font-family: var(--ph-font);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  letter-spacing: .085em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+}
+
+/* The capsule. Oura's proportions: 16px vertical padding, 20px horizontal, and
+   a radius large enough to be a stadium rather than a rounded rectangle.
+
+   OPAQUE WHITE, NOT GLASS, and this is the one place on the page where that is
+   the considered answer rather than the lazy one. The old tab bar was glass, on
+   the argument that the reader should see the piece through its own chrome —
+   but a blur behind small colour swatches drags whatever is behind them into
+   them, and a swatch whose job is to BE a colour cannot afford to be tinted by
+   the photograph it is sitting on. White is what keeps the six readable as six
+   colours regardless of what the ring is doing behind them, and it is Oura's
+   answer to the identical problem.
+
+   A hairline instead of a shadow, per §1 and §2: this is chrome floating over
+   content, so it takes a real border rather than the drop that Oura uses. */
+.ph-flat .ringfam-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-radius: 999px;
   background: var(--flat-page);
   border: 1px solid var(--divider);
-  transform: translate3d(calc(var(--ringfam-cat, 0) * 100%), 0, 0);
-  transition: transform 480ms var(--ease-frosted-out);
 }
 
-/* A segment is a finish: its name, then the three colours it comes in. The
-   button is only the name — the dots beside it are their own controls, so the
-   reader can go straight to Silver rather than to Titanium and then scroll.
+/* ---- THE SWATCHES ARE THE FINISHES, not indicator pips.
 
-   ONE LINE, name then dots. Stacked, the pair made a 70px capsule that sat in
-   the frame like a second card; along one baseline the control is a bar again,
-   and the dots read as the finish's colours rather than as a caption under it.
-   It costs width, which is the dimension this pane had going spare — 266 x 70
-   stacked against 376 x 51 in a row. */
-.ph-flat .ringfam-seg {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 12px 26px;
-}
+   Each one is asked to look like the ring it stands for. Not "the right colour
+   with a bit of shine on it" — the right MATERIAL, because the whole question
+   this section exists to ask is which of two materials you would wear, and the
+   two answer light in completely different ways.
 
-.ph-flat .ringfam-tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  background: none;
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: var(--ph-font);
-  font-size: var(--ph-fs-14);
-  line-height: var(--ph-lh-14);
-  /* ONE WEIGHT FOR BOTH, which is apple's own answer on .tabnav-link and is
-     here for a mechanical reason as well as a visual one: the capsule is sized
-     by its widest segment, so a selected label that went heavier would
-     re-measure it and the whole pane would breathe by a pixel or two every time
-     the ring turned. Colour carries the state, the thumb carries the position. */
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-nav);
-  /* --ink-label, NOT --ink-600, and the difference is measured rather than
-     taste. A translucent pane over a piece that animates has no fixed ground to
-     check against, so the floor is the darkest one it can make: blur(20px)
-     averages whatever is behind over a 20px neighbourhood, so the composite
-     bottoms out when a whole card's worth of black sits behind a segment, at
-     72% white over black — #b8b8b8. Measured across the pin at 1440: at rest
-     every segment reads 7.7:1, and only that transit case is tight.
-       --ink-600  #4a5578 on #b8b8b8 → 3.90:1   under
-       --ink-label #3f4a70 on #b8b8b8 → 4.61:1  over, and 9.09:1 at rest
-     The quieter tier fails the one moment the section is most alive — the
-     dissolve, when a card is passing behind the control. --ink-label is the
-     token this system already names for the job and it clears the transit. */
-  color: var(--ink-label);
-  transition: color 240ms var(--ease-frosted-out);
-}
-.ph-flat .ringfam-tab:hover { color: var(--ink-900); }
-.ph-flat .ringfam-tab[aria-current="true"] { color: var(--ink-900); }
-.ph-flat .ringfam-tab:focus-visible,
-.ph-flat .ringfam-dot:focus-visible {
-  outline: 2px solid var(--ph-focus);
-  outline-offset: 3px;
-}
+   ---- THE LIGHTING MODEL IS OURA'S, READ OFF THEIR OWN SWATCHES.
 
-.ph-flat .ringfam-dots {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+   ouraring.com/store/rings/oura-ring-4-ceramic serves its four finish swatches
+   as rendered PNGs. Enlarged, they are not the bead-with-a-hotspot that a
+   radial-gradient gives you and that these swatches used to be. They are:
 
-/* ---- THE DOTS ARE THE FINISHES, not indicator pips.
+     · a BROAD SPECULAR BAND running diagonally across the disc from the upper
+       left, with a fairly crisp upper edge where it meets the body — a rolled
+       surface catching a window, not a point light on a sphere;
+     · a thin DARKER SLIVER outboard of that band, at the very top-left corner,
+       which is what makes the band read as a reflection rather than as the
+       object simply being paler up there;
+     · a soft BOUNCE along the lower edge, light coming back off whatever the
+       ring is sitting on;
+     · and, on the pale finishes, very little contrast between any of them. The
+       three light ceramics are almost flat. Only Midnight, the black, has the
+       band at full strength, because a dark gloss is mostly reflection.
 
-   Each one is asked to look like the ring it stands for, gloss included, and
-   the three tones it takes are sampled off that ring's own photograph rather
-   than named from memory: a highlight, the body, and the shaded side. The
-   gradient puts them where the light puts them — lit from the upper left, body
-   through the middle, shade falling away bottom-right — which at 11px is the
-   whole difference between a bead of ceramic and a flat coloured circle.
+   So the construction here is a linear-gradient along a 128° axis carrying
+   shade → highlight → body → shade, with a radial bounce laid under its lower
+   edge. Four stops that move per family rather than four colours per swatch.
 
-   Two of the six are called Black and they are not the same black: the ceramic
-   is a deep warm-free gloss with a soft sheen, the titanium is near-graphite
-   with a hard chrome highlight. The tones say so.
+   ---- AND THEN THE PART OURA DOES NOT DO: THE TITANIUM IS BRUSHED.
 
-   A border rather than an inset shadow, because §1 removes every shadow on this
-   page, inset ones included. It is load-bearing for White and Pink, which would
-   otherwise be holes in the glass, and the other four carry it so all six read
-   as the same object. */
+   Their range is ceramic only, so every swatch is a gloss. Half of ours is
+   metal, and a brushed metal is not a duller gloss — it is a different optical
+   object. Two things separate them here and both are physical rather than
+   decorative:
+
+     · ANISOTROPY. A polished surface returns a point as a point; a brushed one
+       smears it along the grain. So the titanium's highlight band is wider and
+       its edges softer (--rf-lift / --rf-hold / --rf-fall move), and the grain
+       runs parallel to the band, which is where a real smear would lie.
+     · THE GRAIN ITSELF. See the note on the ::after below — it is the part of
+       this that fought the rasteriser hardest.
+
+   ---- NO BORDER ON THE DISC, AND THE CAPSULE IS WHAT MADE THAT POSSIBLE.
+
+   Every version of these swatches until now carried a 1px ring, first one grey
+   for all six and then one per finish. It was never wanted: a drawn outline
+   around a rendered material is an interface element sitting on top of an
+   object, and at 24px it is a tenth of the disc's diameter spent on something
+   that is not the material. It was load-bearing only because White and Pink,
+   over a near-white photographic stage, had nothing else to separate them from
+   their background.
+
+   The capsule takes that job. On a known white ground the pale finishes are
+   held by their own shading — the bounce along the lower edge and the shade at
+   the rim are darker than the pill they sit on — so the disc can be pure
+   material with nothing drawn around it. That is the whole reason the capsule
+   earns its place: not tidiness, but that it is what lets the swatches lose
+   their outlines.
+
+   THE HIT TARGET IS THE 32px CELL, THE MATERIAL IS THE 24px DISC. The button is
+   the cell and is transparent; ::before is the disc. So the pointer gets Oura's
+   comfortable target and the eye gets their tighter swatch, and the marker has
+   a real box to ring rather than a ring floated over a gap. */
 .ph-flat .ringfam-dot {
-  width: 12px;
-  height: 12px;
+  width: var(--rf-cell);
+  height: var(--rf-cell);
   flex: none;
   padding: 0;
+  position: relative;
+  border: 0;
+  background: none;
   border-radius: 50%;
-  border: 1px solid var(--border-strong);
   cursor: pointer;
-  background:
-    radial-gradient(118% 118% at 32% 24%,
-      var(--rf-hi) 0%,
-      var(--rf-body) 47%,
-      var(--rf-sh) 100%);
+  /* So the grain's blend stays inside the disc rather than reaching the pill. */
+  isolation: isolate;
   transition: scale 240ms var(--ease-frosted-out);
 }
-.ph-flat .ringfam-dot:hover { scale: 1.18; }
-
-/* The current one is ringed rather than recoloured or grown — a swatch whose
-   job is to be the ring's colour cannot be dimmed to show it is not selected,
-   and an outline is not a shadow so §1 leaves it alone. */
-.ph-flat .ringfam-dot[aria-current="true"] {
-  outline: 1.5px solid var(--ink-900);
+.ph-flat .ringfam-dot::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--rf-dot);
+  height: var(--rf-dot);
+  margin: calc(var(--rf-dot) / -2) 0 0 calc(var(--rf-dot) / -2);
+  border-radius: 50%;
+  background:
+    /* the bounce, under the lower edge */
+    radial-gradient(58% 42% at 62% 102%,
+      var(--rf-rim) 0%,
+      transparent 68%),
+    /* the specular band, and the dark sliver outboard of it */
+    linear-gradient(128deg,
+      var(--rf-sh)   0%,
+      var(--rf-hi)   var(--rf-lift),
+      var(--rf-hi)   var(--rf-hold),
+      var(--rf-body) var(--rf-fall),
+      var(--rf-body) 80%,
+      var(--rf-sh)   100%);
+}
+.ph-flat .ringfam-dot:hover { scale: 1.09; }
+.ph-flat .ringfam-dot:focus-visible {
+  outline: 2px solid var(--ph-focus);
   outline-offset: 2px;
+  border-radius: 50%;
 }
 
-/* Ceramic — glossy, and the highlight is a wet white rather than a metal one. */
-.ph-flat .ringfam-dot[data-tone="c-pink"]  { --rf-hi: #fbf1f4; --rf-body: #e2bcc7; --rf-sh: #9d7b88; }
-.ph-flat .ringfam-dot[data-tone="c-black"] { --rf-hi: #6e7783; --rf-body: #14161a; --rf-sh: #000000; }
-.ph-flat .ringfam-dot[data-tone="c-white"] { --rf-hi: #ffffff; --rf-body: #dfe2e9; --rf-sh: #aeb4c1; }
-/* Titanium — metal, so the highlight is brighter and the fall-off harder. */
-.ph-flat .ringfam-dot[data-tone="t-gold"]   { --rf-hi: #fdf0dc; --rf-body: #cfa878; --rf-sh: #6c5036; }
-.ph-flat .ringfam-dot[data-tone="t-black"]  { --rf-hi: #eceaf1; --rf-body: #2b2a36; --rf-sh: #101019; }
-.ph-flat .ringfam-dot[data-tone="t-silver"] { --rf-hi: #eef0f4; --rf-body: #a8afba; --rf-sh: #5b6371; }
+/* CERAMIC — a glaze. The band lifts almost immediately off the edge (7%), which
+   is the crisp wet line a fired surface gives, holds narrow, and falls away
+   early into a large untroubled body. */
+.ph-flat .ringfam-dot[data-tone^="c-"] {
+  --rf-lift: 7%;
+  --rf-hold: 23%;
+  --rf-fall: 51%;
+}
+
+/* TITANIUM — brushed. The band takes 15% to arrive and 70% to leave, which is
+   the same light spread along the grain instead of returned as a line. */
+.ph-flat .ringfam-dot[data-tone^="t-"] {
+  --rf-lift: 15%;
+  --rf-hold: 36%;
+  --rf-fall: 70%;
+}
+.ph-flat .ringfam-dot[data-tone^="t-"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--rf-dot);
+  height: var(--rf-dot);
+  margin: calc(var(--rf-dot) / -2) 0 0 calc(var(--rf-dot) / -2);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: var(--rf-brush);
+
+  /* THE GRAIN IS DRAWN WITH HARD STOPS, AND THAT IS NOT A STYLE CHOICE.
+
+     Two attempts failed here and both failed the same way, so it is worth
+     stating what the rasteriser actually does. A repeating-linear-gradient with
+     SOFT ramps and a period under about 3px does not come out as fine lines: the
+     browser dithers the ramp, the dither is an ordered grid, and the grid crosses
+     the lines. The swatch comes out looking like woven fabric. It is not moire
+     between two frequencies — one soft 2.4px gradient alone does it — and it
+     does not go away by choosing periods that do not divide into each other,
+     which was the first fix and made it worse by adding a second grid.
+
+     What survives the rasteriser is hard stops at 4px and above. There is no
+     ramp to dither, so the lines are lines. That sets the floor on how fine the
+     grain can be, and 4px over a 24px disc is six grooves — coarser than a real
+     brushed surface and the closest this can get without the texture turning
+     into a screen door.
+
+     The second layer is the coarse one, at 12px and soft — three times the
+     period, so it cannot beat against the first — and it is what stops six even
+     grooves reading as a hatch. It shades whole groups lighter and darker, the
+     way the pressure of a real pass varies along it.
+
+     Laid in `overlay`, so each groove lightens or darkens in proportion to what
+     is under it: the grain is bright where the specular band crosses it and
+     nearly gone in the shaded corner, which is how a groove behaves and what a
+     flat white line over the top does not do. */
+  background:
+    repeating-linear-gradient(122deg,
+      rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .26) 1.2px,
+      rgba(0, 0, 0, .14)     1.2px, rgba(0, 0, 0, .14)     2.6px,
+      rgba(255, 255, 255, 0) 2.6px, rgba(255, 255, 255, 0) 4px),
+    repeating-linear-gradient(122deg,
+      rgba(255, 255, 255, .15) 0,
+      rgba(255, 255, 255, 0)   6px,
+      rgba(0, 0, 0, .12)       12px);
+  /* The grain turns away from the eye at the rim of a curved surface. */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
+}
+
+/* The six, and the tones are sampled off each ring's own photograph rather than
+   named from memory.
+
+   Two of them are called Black and they are not the same black. The ceramic is
+   a deep gloss with no warmth in it and a cool steel reflection — Oura's own
+   Midnight, near enough. The titanium is graphite, a lighter body with a paler
+   and much wider reflection, because a brushed dark metal never gets as close
+   to black as a fired glaze does.
+
+   The highlight tints with the metal on the titaniums and does not on the
+   ceramics: a glaze reflects the room, a metal reflects the room through its own
+   colour, which is why the gold's highlight is cream rather than white.
+
+   --rf-rim, the bounce along the lower edge, is now carrying the silhouette as
+   well as the light — with the borders gone it is the only thing separating
+   White from the pill it sits on, so it runs a little deeper than a pure
+   reflection would. */
+.ph-flat .ringfam-dot[data-tone="c-pink"] {
+  --rf-hi: #fff7f9; --rf-body: #e6c2cd; --rf-sh: #a8848f; --rf-rim: #f1d5dd;
+}
+.ph-flat .ringfam-dot[data-tone="c-black"] {
+  --rf-hi: #7e8996; --rf-body: #15171b; --rf-sh: #000000; --rf-rim: #3d444e;
+}
+.ph-flat .ringfam-dot[data-tone="c-white"] {
+  --rf-hi: #ffffff; --rf-body: #dbe0e8; --rf-sh: #98a1b0; --rf-rim: #e4e9f1;
+}
+.ph-flat .ringfam-dot[data-tone="t-gold"] {
+  --rf-hi: #f8e4c4; --rf-body: #cfa878; --rf-sh: #7d5c3c; --rf-rim: #e6c99e;
+  --rf-brush: .72;
+}
+.ph-flat .ringfam-dot[data-tone="t-black"] {
+  --rf-hi: #8c8a9a; --rf-body: #2c2b36; --rf-sh: #0e0e15; --rf-rim: #4c4b59;
+  /* Overlay doubles a dark base under a white line, so graphite takes the
+     lightest hand of the three or the grain becomes the object. */
+  --rf-brush: .5;
+}
+.ph-flat .ringfam-dot[data-tone="t-silver"] {
+  --rf-hi: #eef2f7; --rf-body: #a3abb8; --rf-sh: #565e6c; --rf-rim: #ccd2db;
+  /* The one finish whose NAME is the texture, so it carries it hardest. */
+  --rf-brush: .85;
+}
+
+/* ---- TWO OBJECTS, TWO QUESTIONS. The marker says WHICH; the rule says HOW FAR.
+
+   The section's problem was never which card was showing; it was that between
+   one card and the next there was a band of scroll in which the wheel turned
+   and the screen did not answer. The showcase cannot help with that — its one
+   message is an integer and it runs its own eased turn between cards — so the
+   answer has to be next to it rather than inside it.
+
+   The first attempt made ONE object do both: a ring interpolated continuously
+   along the swatch row, never still while the reader scrolled. It moved, and it
+   was wrong — for most of every band it was floating between two swatches while
+   one of them was the card on screen, which is a control declining to say which
+   colourway you are looking at. Continuity and precision are different jobs and
+   an object asked for both delivers neither.
+
+   So: two objects, and each is unambiguous. The marker snaps to the live swatch
+   and eases across when the card turns — five movements in the section, each one
+   a real answer. The rule under the capsules fills continuously and answers
+   nothing about colour at all: it is the section's own length, drawn, and its
+   edge is moving at every pixel of scroll the reader spends here.
+
+   THE MARKER IS THE 32px CELL EXACTLY, which is Oura's construction and it is
+   better than the one it replaces for a reason worth naming: a ring at the cell
+   boundary reads as the swatch's own selected state, because the cell is the
+   button. A ring at some intermediate diameter reads as a separate object that
+   has been parked over the swatch. Theirs is 2px and dark; a hairline in the
+   page's own ink keeps the precision and loses the weight, and a hairline is
+   what everything else on this page is drawn with. */
+.ph-flat .ringfam-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--rf-cell);
+  height: var(--rf-cell);
+  margin: calc(var(--rf-cell) / -2) 0 0 calc(var(--rf-cell) / -2);
+  border-radius: 50%;
+  border: 1px solid var(--ink-900);
+  pointer-events: none;
+  z-index: 1;
+  /* Long enough to be seen crossing the gap and short enough to be finished
+     before the showcase's own turn is, so the marker leads and the ring follows
+     rather than the two arriving together and reading as one lurch. */
+  transition: transform 400ms var(--ease-frosted-out);
+}
+
+/* The rule. Hairline over the capsules' own width, filled from the left.
+
+   A 1px line is the one piece of drawing this page has left — §1 removed the
+   shadows and the blurs, and every remaining edge on the page is a hairline. So
+   the continuous element is a hairline too, rather than a bar or a track with a
+   thumb, both of which would be a new kind of object on a page that has been
+   reduced to two tones and a line.
+
+   scaleX rather than width, so the whole of it is one composited transform per
+   frame and nothing above it relayouts. No transition, for the reason the
+   marker has one: this comes straight off the scroll, so it is already exactly
+   as smooth as the reader's own wheel, and easing it would only make it lag. */
+.ph-flat .ringfam-rule {
+  display: block;
+  width: var(--rf-row, 320px);
+  height: 1px;
+  background: var(--divider);
+  overflow: hidden;
+}
+.ph-flat .ringfam-run {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink-900);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--rf-run, 0));
+}
+
+/* ---- THE INTRO COPY LEADS INTO THE PIN.
+
+   The heading and its paragraph sit one screen above the stage, and that screen
+   is exactly the travel in which the reader used to see nothing respond. It
+   moves against the page now — 44px up over the whole entry, which is about a
+   twentieth of the distance the page itself covers in the same time, so it
+   reads as depth rather than as an element sliding.
+
+   On .ringfam-head rather than on its children, because the children are what
+   the reveal system animates in and two transforms on one element is a fight
+   nobody wins. And on the head rather than anywhere nearer the stage, because a
+   transform on the ancestor of a position:sticky element is the mistake §7
+   already records having made once here. */
+.ph-flat .ringfam-head {
+  transform: translate3d(0, calc(var(--rf-in, 0) * -44px), 0);
+  will-change: transform;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ph-flat .ringfam-dot { transition: none; }
   .ph-flat .ringfam-dot:hover { scale: 1; }
+  /* Scroll-linked motion is still motion. What survives is the state: the rail
+     is simply present, the marker is simply on the live swatch, and the copy
+     above simply sits where it sits. */
+  .ph-flat .ringfam-head { transform: none; }
+  .ph-flat .ringfam-rail { translate: 0 0; transition: opacity var(--ph-dur-fast) linear; }
+  .ph-flat .ringfam-stage.is-ready .ringfam-rail { opacity: 1; translate: 0 0; }
+  .ph-flat .ringfam-mark { transition: none; }
 }
 
-/* The slide and the 8px rise are the whole motion budget of this control.
-   Switching them off leaves a thumb that simply is where it belongs and a
-   capsule that appears where it will sit — the appearing and disappearing are
-   the behaviour, not the motion, so those stay. */
-@media (prefers-reduced-motion: reduce) {
-  .ph-flat .ringfam-thumb { transition: none; }
-  .ph-flat .ringfam-tabs:not(.is-settled) { translate: -50% 0; }
-  .ph-flat .ringfam-tabs,
-  .ph-flat .ringfam-tabs.is-settled { transition: opacity var(--ph-dur-fast) linear, visibility 0s; }
-}
 .ph-flat .ringfam-frame {
   display: block;
   width: 100%;
