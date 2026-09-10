@@ -220,12 +220,18 @@
 
    IT IS THE FOURTH AND LAST BACKDROP-FILTER EXEMPTION on this page, after the
    nav, the scrim and the product bar — so like those it needs !important to
-   beat section 1's blanket removal. */
-.ph-flat .ring-marquee-play {
+   beat section 1's blanket removal.
+
+   SPLIT INTO APPEARANCE AND PLACEMENT, 2026-09-09, because there are two films
+   on this page now: the marquee at the top and the colourway band in § 9c. The
+   control is the same object on both — same 36px, same Apple fills, same two
+   glyphs on one button — and the only thing that differs is which corner it
+   parks in. Restating thirteen measured values for the second instance is how
+   two controls drift into two designs. */
+.ph-flat .ring-marquee-play,
+.ph-flat .filmband-play {
   position: absolute;
   z-index: 3;
-  top: calc(20px + var(--ph-nav-h) + 40px);
-  inset-inline-end: 40px;
   width: 36px;
   height: 36px;
   padding: 0;
@@ -241,18 +247,41 @@
   color: rgba(255, 255, 255, .8);
   transition: background-color 100ms linear, transform .2s ease, color 100ms linear;
 }
-.ph-flat .ring-marquee-play:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
-.ph-flat .ring-marquee-play:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
-.ph-flat .ring-marquee-play:focus-visible {
+.ph-flat .ring-marquee-play:hover,
+.ph-flat .filmband-play:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
+.ph-flat .ring-marquee-play:active,
+.ph-flat .filmband-play:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
+.ph-flat .ring-marquee-play:focus-visible,
+.ph-flat .filmband-play:focus-visible {
   outline: 2px solid var(--ph-focus);
   outline-offset: 3px;
 }
-.ph-flat .ring-marquee-play svg { width: 15px; height: 15px; display: block; fill: currentColor; }
+.ph-flat .ring-marquee-play svg,
+.ph-flat .filmband-play svg { width: 15px; height: 15px; display: block; fill: currentColor; }
 /* One button, two glyphs, and the state decides which is drawn — rather than
    two buttons swapped, which would lose focus every time it is pressed. */
-.ph-flat .ring-marquee-play .i-play { display: none; }
-.ph-flat .ring-marquee-play[data-paused] .i-play { display: block; }
-.ph-flat .ring-marquee-play[data-paused] .i-pause { display: none; }
+.ph-flat .ring-marquee-play .i-play,
+.ph-flat .filmband-play .i-play { display: none; }
+.ph-flat .ring-marquee-play[data-paused] .i-play,
+.ph-flat .filmband-play[data-paused] .i-play { display: block; }
+.ph-flat .ring-marquee-play[data-paused] .i-pause,
+.ph-flat .filmband-play[data-paused] .i-pause { display: none; }
+
+/* ---- placement, the marquee: Apple's own offset, under the global nav. */
+.ph-flat .ring-marquee-play {
+  top: calc(20px + var(--ph-nav-h) + 40px);
+  inset-inline-end: 40px;
+}
+/* ---- placement, the colourway band: the OTHER corner, and off the reference
+   rather than off Apple. phenomelongevity.com/products/phenometech-ceramic-ring
+   parks its band's pause control bottom-right, and it is the right corner for a
+   band rather than a hero: there is no nav to clear here, the picture's subject
+   is centred, and the foot of a full-bleed band is the one part of it that
+   never has anything else in it. */
+.ph-flat .filmband-play {
+  inset-block-end: 28px;
+  inset-inline-end: 28px;
+}
 
 @media (max-width: 900px) {
   /* Apple's own narrow value for the same offset: 28, not 40. */
@@ -1363,36 +1392,1065 @@
    rather than as a two-by-two grid with a hole in it. */
 .ph-flat .showcase-t .spec-table { grid-template-columns: minmax(0, 1fr); }
 
-/* ---- the unit breaks the number's line.
+/* ---- TWO REPAIRS RETIRED WITH THE COMPONENTS THEY REPAIRED, 2026-09-09.
 
-   .figure .n sets its <small> inline. Four of the five tiles in the second row
-   fit "4.2 index" and "6 daily" on one line; "20,000 genes" does not, so that
-   tile's number block ran to two lines and its label — and only its label —
-   dropped 30px below the other four. A row of five figures whose whole job is
-   to be five of the same thing.
+   `.figure .n small` put the unit under the number, because "20,000 genes" did
+   not fit one line in a fifth of the content width and the one tile that
+   wrapped dropped its label 30px below the other four. `.assure p:first-child`
+   removed the margin left by four empty <b> tags in the six-item tick list.
 
-   The unit goes under the number in every tile instead. It is one line taller
-   everywhere rather than two lines taller in one place, the labels sit on one
-   baseline across the row, and the unit stops being something the number has to
-   make room for. Scoped to the tiles that have units — the sleep/heart row has
-   none and is left exactly as it was. */
-.ph-flat .figure .n small {
+   Both components are gone from this page — § 9 replaced the figure rows with
+   the signal rail and the ring stage's deck, and the tick list with .pick-assure
+   — and this stylesheet serves exactly one page, so a rule that matches
+   nothing on it is dead code, not insurance. The wrapping-unit problem was
+   real, and the ring stage's own cards were measured against it before they
+   were given a 30rem column — at that width "20,000 genes" sets on one line
+   and the unit can stay inline, which is what .rcard-n small records. */
+
+/* ===========================================================================
+   9 · THE SCROLL-DRIVEN RUN · the five bands under the two product frames
+
+   WHAT WAS THERE. Five sections, each one a 48-point heading in the left
+   column of an .opener, a paragraph in the right, and then either a row of
+   five grey tiles or a tick list underneath. Measured at 1440 the run was
+   2,700px of page in which one thing happened — a photograph of a bedroom —
+   and the two figure rows were the same component twice in a row carrying two
+   sets of numbers that have nothing to do with each other. It read as a
+   specification sheet with the headings of a brochure.
+
+   THE REFERENCE IS ouraring.com/store/rings/oura-ring-4-ceramic, and what was
+   taken from it is one mechanism rather than a look. Read out of the shipped
+   page rather than from a screenshot:
+
+     · `pop-highlighted-features-section` — TWO panels, each `absolute; top:0`
+       inside a track two screens tall, with the stage `sticky; top:0; h-screen`
+       between them. The pin is not decoration there either; it is what buys
+       the second panel a screen of scroll without a second screen of page.
+     · every media well is a fixed, clipped, rounded box and the picture inside
+       it is TALLER than the box and translates —
+       `--highlights-section-media-y-from: 100%` on desktop, `0` on mobile. The
+       crop travels; the frame never moves. That is the whole parallax, and it
+       is the reason their photographs read as windows rather than as images.
+     · the product grid at the foot swaps a render for a lifestyle shot on
+       hover, which is the only place that page uses a hover for anything.
+
+   WHAT THIS PAGE DOES WITH IT. The same three moves, in this system's own two
+   grounds and one typeface, arranged so the run has a shape:
+
+     sigs    a clipped media window with the picture travelling inside it, and
+             the five signals as a hairline rail that fills in left to right on
+             the same scroll number.
+     circ    the pin, and the one thing on the page a reader will describe
+             afterwards. The copy says "closing the circle"; the section draws
+             one. Five services around a ring, the ring photographed from
+             above in the middle of it, and an arc that closes as you scroll.
+     plate   the bedroom photograph, now with the crop travelling — the breath
+             between the dark stage and the choice.
+     pick    two cards instead of two ticks, each with the ring it is actually
+             selling, drifting against each other.
+     closer  the last frame, over a photograph, rather than centred on white.
+
+   EVERY NUMBER ON SCREEN IS ONE THE COPY ALREADY CARRIED. Nothing here invents
+   a gauge, an arc against a maximum, or a unit. "94" is a heart rate and "62"
+   is milliseconds — drawing either as a dial filling toward 100 would state a
+   scale nobody signed off, so the numbers are typeset and revealed, never
+   measured. The one drawn arc is in `circ`, and it is drawing the sentence
+   above it, not a value.
+
+   HOW THE MOTION IS DRIVEN, and it is the same discipline the ring family
+   stage is written under: ONE reader, many writers. A single rAF-batched
+   scroll handler at the foot of the page measures each band once per frame and
+   publishes plain numbers as custom properties; every rule below consumes one
+   of them and nothing here has state of its own.
+
+     --sg-p   0 to 1 as `sigs` crosses the screen. The picture rides it.
+     --sg-r   per signal, 0 to 1, staggered off --sg-p. The rail fills on it.
+     --cr-in  the lead-in to the pin. The dial arrives on it.
+     --cr-d   0 to 1 across the pinned track. The arc is drawn by it.
+     --cr-r   per node, 0 to 1, lit as the arc reaches that node.
+     --pk-p   0 to 1 as `pick` crosses. The two cards drift against it.
+     --pr-p   0 to 1 as a plate crosses. Its crop travels on it.
+
+   AND EVERY ONE OF THEM HAS A FALLBACK IN THE var(). A reader who asked for
+   stillness never gets the handler — same gate shared.js uses for the reveal —
+   so the defaults are not a safety net, they are the reduced-motion design:
+   .5 for a travel (the middle of the crop) and 1 for a reveal (arrived). The
+   handler marks the bands it has taken over with `.is-lively`, so nothing is
+   ever hidden by a rule whose driver has not started.
+   ======================================================================== */
+
+/* ---- 9a · PHYSIOLOGICAL INTELLIGENCE · the window and the rail ---------- */
+
+.ph-flat .sigs-grid {
+  display: grid;
+  /* The picture takes the larger track, for the reason .showcase states: the
+     point of the arrangement is the picture. Same split, so this band reads as
+     the two product frames above it continuing rather than as a new geometry. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  column-gap: clamp(48px, 6vw, 96px);
+  align-items: center;
+}
+.ph-flat .sigs-t > :first-child { margin-top: 0; }
+/* .lede is `margin: 20px auto 0` with a centring auto and its own measure. In
+   a two-column grid the auto does nothing visible and the measure is right, so
+   only the centring is undone — the class is kept because the reveal stagger
+   in § 10 addresses it by name and a bespoke one would have to be added there
+   as well as here. */
+.ph-flat .sigs-lede { margin: 24px 0 0; }
+
+.ph-flat .sigs-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ph-r27);
+  /* The picture's own ground rather than a grey. It loads lazily and it is a
+     dark studio shot: a pale placeholder would flash white in the middle of a
+     white section and then go black. */
+  background: #0f1626;
+  /* Nearer the picture's own proportion than a landscape well would be. The
+     source is 1289 × 1600 and the column is about 605 wide at 1440, so a 620px
+     window crops a third of the ring away at top and bottom; 700 crops almost
+     nothing and the object arrives whole. A product photograph is the one kind
+     of picture a window is not allowed to reframe. */
+  height: clamp(420px, 50vw, 700px);
+}
+/* THE PICTURE IS TALLER THAN ITS WINDOW, WHICH IS THE WHOLE MECHANISM.
+
+   128% high and hung 14% above the top edge, so it overhangs the window by 14%
+   at each end. The travel is expressed against the ELEMENT, not the window —
+   a percentage in translate resolves against the transformed box — so ±8% of
+   128% is 10.2% of the window, comfortably inside the 14% of overhang there is
+   to spend. Getting that arithmetic wrong is not subtle: the frame shows a
+   strip of its own background along one edge at the end of the travel. */
+.ph-flat .sigs-media img {
+  position: absolute;
+  inset: -14% 0 auto 0;
+  width: 100%;
+  height: 128%;
+  object-fit: cover;
   display: block;
-  margin-left: 0;
-  margin-top: 2px;
+}
+.ph-flat .sigs.is-lively .sigs-media img {
+  transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 16%), 0);
 }
 
-/* ---- the assurance list stood on a line that was not there.
+/* ---- the rail. Five readings, one line, no tiles.
 
-   Four of the six items carried an empty <b></b>. `.assure b` is display:block,
-   so an empty one is still a full line box — 24px of nothing above the text,
-   which is why four items sat a line lower than the two that had a heading and
-   the checkmarks stopped agreeing with the words beside them. The empty tags
-   are gone from the markup; this is the margin that went with them. */
-.ph-flat .assure p:first-child { margin-top: 0; }
+   The five grey tiles this replaces were the site's .figures component, and it
+   is the right component for a set of independent facts. These are not that:
+   they are five readings taken at the same moment by the same device, and a
+   row of separate boxes says the opposite. One rule across the top with four
+   hairlines dividing it says one instrument with five outputs, which is what
+   the paragraph above it claims. */
+.ph-flat .sigrail {
+  list-style: none;
+  margin: clamp(56px, 6vw, 96px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--divider);
+}
+.ph-flat .sig {
+  position: relative;
+  padding: clamp(26px, 2.6vw, 38px) 0 0 clamp(16px, 1.8vw, 28px);
+  border-left: 1px solid var(--divider);
+}
+.ph-flat .sig:first-child { border-left: 0; padding-left: 0; }
+
+/* The accent runs along the top of each column as it arrives, over the shared
+   hairline. It is a reveal, not a bar chart: every one of the five draws to
+   its full width, so it states arrival and nothing about the number under it. */
+.ph-flat .sig::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: 2px;
+  background: var(--ph-accent);
+  /* Drawn, not undrawn, when nothing is driving it — the same contract every
+     other fallback on this page keeps. A reduced-motion reader is meant to get
+     the finished composition, and five invisible accent rules is the state
+     before the animation rather than the state without one. The scroll-driven
+     value is scoped to .is-lively, which is set in the same synchronous pass
+     as the first measurement, so there is no frame where it is full and then
+     empty. */
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.ph-flat .sigs.is-lively .sig::before { transform: scaleX(var(--sg-r, 1)); }
+.ph-flat .sig-n {
+  display: block;
+  /* Tabular, because five numbers on one baseline that change width would sit
+     at five different optical positions in their columns. The face has the
+     figures; phenome-glass.css turns them on globally for numeric runs and
+     this states it locally so the rule survives that file being re-scoped. */
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(44px, 5.2vw, 80px);
+  line-height: 1;
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-80-600);
+  color: var(--ph-text-1);
+}
+.ph-flat .sig-l {
+  display: block;
+  margin-top: 14px;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17);
+  letter-spacing: var(--ph-tr-17-400);
+  color: var(--ph-text-2);
+}
+.ph-flat .sigs.is-lively .sig {
+  opacity: var(--sg-r, 1);
+  transform: translate3d(0, calc((1 - var(--sg-r, 1)) * 20px), 0);
+}
+
+@media (max-width: 1023px) {
+  .ph-flat .sigs-grid { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+  /* Nearly square rather than the landscape strip a narrowed desktop window
+     becomes. The picture is a 4:5 portrait and the object fills it corner to
+     corner; a 320px band across a 342px column crops the ring down to a
+     highlight and an engraving. */
+  .ph-flat .sigs-media { height: clamp(360px, 96vw, 480px); }
+  /* AND THE PARALLAX COMES OFF, which is the reference's own call: Oura ships
+     `--highlights-section-media-y-from: 0` below lg and only turns the travel
+     on at the desktop breakpoint. The reason is the same one that made the
+     window taller — a phone window is barely bigger than the object in it, so
+     the 14% of overhang the travel needs is 14% of the product cropped away
+     for a movement nobody has the screen height to notice. Full bleed, no
+     overhang, no travel. */
+  .ph-flat .sigs-media img { inset: 0; height: 100%; }
+  .ph-flat .sigs.is-lively .sigs-media img { transform: none; }
+  /* Five columns of 80-point figures do not fit a tablet and three do not
+     divide five. Two rows of two and a hanging fifth is worse than a list, so
+     below the desktop it becomes one: the rule turns from a row of dividers
+     into a stack of them and the numbers come down a rung. */
+  .ph-flat .sigrail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ph-flat .sig { border-left: 0; padding-left: 0; }
+  .ph-flat .sig:nth-child(n+3) { border-top: 1px solid var(--divider); margin-top: 4px; }
+  .ph-flat .sig::before { display: none; }
+  .ph-flat .sig-n { font-size: clamp(40px, 8vw, 56px); }
+}
+/* One column, and the reading turns sideways with it. Five 56-point figures
+   stacked over five labels is 500px of phone for five numbers; number left,
+   label right on one baseline is the same five readings in half the page — and
+   it is the arrangement the ring stage's own deck falls back to at this width,
+   so the two lists on the page read as one idiom rather than two. */
+@media (max-width: 560px) {
+  .ph-flat .sigrail { grid-template-columns: minmax(0, 1fr); }
+  .ph-flat .sig,
+  .ph-flat .sig:nth-child(n+3) {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 0;
+    padding: 16px 0;
+    /* Bottom rules, not top ones — the rail already draws its own line above
+       the first row, and the two-column rule above hangs a top border on every
+       row from the third. Both on one row is a 2px double line. */
+    border-top: 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .ph-flat .sig-n { font-size: var(--ph-fs-40); }
+  .ph-flat .sig-l { margin-top: 0; }
+}
+
+/* ---- 9b · THE WHOLE PICTURE OF YOU · the ring turns, and the page reads
+   ------------------------------------------------------------------------
+
+   THE SECTION IS THE SENTENCE, and that part has not changed. "Phenome reads
+   them together — closing the circle" was set as a paragraph over five grey
+   tiles, which is a page telling you it closes a circle while showing you a
+   row. What changed is what the sentence is drawn AS.
+
+   THE FIRST ATTEMPT DREW A DIAGRAM: an SVG arc closing round a photograph,
+   with the five services pinned to its circumference like a clock face. It
+   worked and it was the wrong object. A diagram is a thing you read once and
+   have finished with; every one of its five labels was on screen for the whole
+   section, so the scroll had nothing left to reveal after the first second,
+   and the arc — the only thing moving — was decoration on top of a static
+   composition. It also cost a navy screen the page did not otherwise need.
+
+   THE REFERENCE IS ouraring.com/store/rings/oura-ring-5, its hero, read out of
+   the shipped page rather than from a screenshot. Three things are true of it
+   and all three are load-bearing:
+
+     · the ring is ENORMOUS — `w-[250vw]` on a phone, `115vw` on a desktop, an
+       aspect-square image whose centre is pushed off the corner of the screen
+       so that what crosses the frame is an ARC, not a ring on a page;
+     · the only thing the scroll writes is a transform — `translateY(Nsvh)`
+       plus a rotation, on a `will-change-transform` wrapper, with the origin
+       set to a corner (`origin-bottom-left`) so the rotation sweeps the arc
+       across the composition rather than spinning it in place;
+     · the copy is LAYERED against the same scroll, not laid out beside it. The
+       page passes through three complete statements — the headline, the Shop
+       control, then the product claim — in two screens of travel, each one
+       blurring and fading out as the next arrives.
+
+   So this is that, with five statements instead of three, because there are
+   five services and each is a claim of its own. The ring starts small and
+   right of the copy, turns steadily, and grows until it is an arc leaving the
+   frame; the heading holds still through all of it; the paragraph hands over
+   to the five services one at a time, in the same place on the page.
+
+   AND THE GROUND IS PALE, NOT NAVY. The band this replaces was #0a1e57, which
+   was the right answer for a diagram — a drawn line needs a dark field to be a
+   drawn line. A photograph of a polished silver ring needs the opposite: on
+   navy the object's own highlights are the only thing carrying it, and the
+   moment it grows past the screen the arc reads as a scratch. The wash is
+   --surface-sunken to --phenome-blue-100, which are the twin's own two palest
+   blues and already the page's quiet band and its recess. Nothing new is
+   introduced; the section simply spends longer in the pale end of the ramp
+   than any other on the site. */
+
+.ph-flat .section.rings {
+  padding: 0;
+  /* Both stops are phenome-glass.css's own. #f4f6fb is the page's quiet band
+     and #e6e9f2 the ramp's palest blue, so this is one step of the existing
+     scale rather than a gradient invented for one section — which is also why
+     it can be this shallow and still read as a field rather than as a flat
+     tone that failed to load. */
+  background: linear-gradient(176deg, var(--flat-band) 0%, var(--phenome-blue-100) 100%);
+}
+
+.ph-flat .rings-pin {
+  position: relative;
+  /* FIVE STATEMENTS AND AN INTRODUCTION, at roughly a third of a screen each.
+
+     The arithmetic is in the script and it is worth stating from this side
+     too: the first 24% of the track is the paragraph, and the remaining 76% is
+     divided into five equal slots. At 208svh that is 285px of wheel per
+     service on a 900px screen — about two notches, which is long enough to
+     read eleven words and short enough that nobody feels held.
+
+     Longer was tried. At 300svh each slot is 410px and the section reads as
+     five separate pages that happen to share a photograph. */
+  --rg-track: 208svh;
+  height: calc(100svh + var(--rg-track));
+}
+.ph-flat .rings-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  /* The ring is deliberately larger than the stage at the end of the track, so
+     this is what turns it into an arc rather than into a horizontal scrollbar
+     under the whole document. */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ---- the ring.
+
+   THE ORBIT IS THE FRAME, THE IMAGE IS THE MOVEMENT, and they are two elements
+   for a reason that is not tidiness: the orbit owns the position and the size
+   in viewport units, which change only on resize, and the image owns the
+   transform, which changes on every scroll frame. A browser can hand the
+   second to the compositor exactly as long as nothing in it triggers layout —
+   put the sizing on the same element and every frame is a layout.
+
+   80%, not 50%. Centred, the ring's left arc crosses the text column at every
+   size above the smallest, and a paragraph over a polished highlight is a
+   paragraph nobody finishes. At 80% of the stage its centre is off toward the
+   right edge and it is the RIGHT of the ring that leaves the frame — which is
+   also what makes it read as an object continuing past the page rather than as
+   a picture that has been cropped. */
+.ph-flat .rings-orbit {
+  position: absolute;
+  left: 80%;
+  top: 50%;
+  width: min(58vw, 820px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  /* Not `will-change` — the transform below is already on its own layer via
+     translate3d, and a second hint on the parent buys nothing but memory. */
+  pointer-events: none;
+}
+.ph-flat .rings-ring {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* THE WHOLE ANIMATION, IN ONE DECLARATION.
+
+   .34 to 1.12 of an 820px box is 279px to 918px — from an object sitting in
+   the right of the composition to one taller than the screen it is on. The cap
+   is not arbitrary: the source render is 1670px wide, so 918 CSS px is still
+   under native at 1.8× and the metal stays sharp on a retina screen. Growing
+   further would be softer, and a soft ring is worse than a smaller one.
+
+   -168 degrees rather than a full turn. The object is close to rotationally
+   symmetric, so what a reader actually sees moving is the sensor block, the
+   two charging contacts and the engraving — and those come round once in a
+   little under half a turn. A full 360 puts them back where they started,
+   which is the one rotation that reads as no rotation at all.
+
+   Both ride --rg-t with a .5 fallback, so a browser that never runs the script
+   gets the ring mid-turn at two thirds size: a composed frame, not frame one
+   of an animation that will not play. */
+.ph-flat .rings.is-lively .rings-ring {
+  transform:
+    rotate(calc(var(--rg-t, .5) * -168deg))
+    scale(calc(.34 + var(--rg-t, .5) * .78));
+}
+
+/* ---- the copy column. */
+.ph-flat .rings-copy {
+  position: relative;
+  /* Half the stage, and the ring has the other half. Not a grid: the deck
+     below is a stack of five cards in one place, and a grid track that has to
+     be as tall as its tallest card is a grid that leaves a hole under the
+     other four. */
+  width: 100%;
+}
+/* Two lines, not three. At 11ch the measure broke "The whole / picture / of
+   you." — a five-word heading set as three stacked fragments, which reads as a
+   column that ran out of room rather than as a decision. 17ch is the width at
+   which it breaks once, after "picture", which is where the sentence breaks
+   anyway. */
+.ph-flat .rings-title {
+  margin: 0;
+  max-width: 17ch;
+}
+/* The paragraph and the five services occupy the SAME BAND of the page, one
+   after the other. It is set as a fixed height rather than left to the content
+   because the five cards are absolutely positioned inside it — and because a
+   band that resized as the copy changed would move the heading above it on
+   every hand-over, which is the one thing that must not move. */
+.ph-flat .rings-well {
+  position: relative;
+  margin-top: clamp(28px, 3.4svh, 44px);
+  min-height: 210px;
+  max-width: 30rem;
+}
+/* NOT `.lede`, AND THAT IS DELIBERATE RATHER THAN AN OMISSION. The reveal
+   system in § 10 addresses .lede by name and fades it from opacity 0 to 1 on
+   the section entering — and this paragraph's opacity is already owned by the
+   scroll. Two owners on one property, and the reveal's selector is the more
+   specific of the two, so the hand-over to the first service simply would not
+   happen. It takes .opener's own type instead: 28/36, which is the rung the
+   lede is set at everywhere else on this page. */
+.ph-flat .rings-lede {
+  margin: 0;
+  max-width: 30rem;
+  font-size: var(--ph-fs-28);
+  line-height: var(--ph-lh-28);
+  color: var(--ph-text-2);
+}
+.ph-flat .rings-deck {
+  list-style: none;
+  margin: clamp(28px, 3.4svh, 44px) 0 0;
+  padding: 0;
+  max-width: 30rem;
+  /* THE DEFAULT IS A LIST, AND THAT IS THE REDUCED-MOTION DESIGN. Nothing here
+     is stacked or hidden until the script says it has taken the section over —
+     so a reader who asked for stillness, or a browser that dropped the script,
+     gets all five services as a plain list under the paragraph rather than one
+     card with four invisible ones behind it. */
+  display: grid;
+  gap: 26px;
+}
+.ph-flat .rcard { display: block; }
+.ph-flat .rcard-n {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--ph-fs-48);
+  line-height: var(--ph-lh-48);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-48-600);
+  color: var(--ph-text-1);
+}
+.ph-flat .rcard-n small {
+  /* The unit stays on the number's own line here — unlike the .figure repair
+     in § 8, this column is 30rem wide and "20,000 genes" fits it with room. */
+  margin-left: 10px;
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-400);
+  letter-spacing: var(--ph-tr-19-400);
+  color: var(--ph-tertiary);
+}
+.ph-flat .rcard-l {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--ph-fs-28);
+  line-height: var(--ph-lh-28);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-28-600);
+  color: var(--ph-text-1);
+}
+
+/* ---- and this is the same content once the script owns it: five cards in one
+   place, cross-fading. The blur is Oura's — `filter: blur(10px)` on the way in
+   and out of every layer in that hero — and it is doing real work rather than
+   being a flourish: five statements hard-cutting in the same 210px band read
+   as a slideshow, and the same five arriving out of focus read as one thought
+   resolving. 7px, not 10: this type is smaller than theirs. */
+.ph-flat .rings.is-lively .rings-lede,
+.ph-flat .rings.is-lively .rings-deck { position: absolute; inset: 0; margin: 0; }
+.ph-flat .rings.is-lively .rings-deck { display: block; }
+.ph-flat .rings.is-lively .rings-lede {
+  opacity: var(--rg-lede, 1);
+  filter: blur(calc((1 - var(--rg-lede, 1)) * 7px));
+}
+.ph-flat .rings.is-lively .rcard {
+  position: absolute;
+  inset: 0;
+  opacity: var(--rc-r, 1);
+  filter: blur(calc((1 - var(--rc-r, 1)) * 7px));
+  transform: translate3d(0, calc((1 - var(--rc-r, 1)) * 18px), 0);
+}
+
+/* ---- the ticks. Five marks, and the live one fills.
+
+   They are the answer to the only question this construction raises that a
+   list does not: how many more of these are there. Without them a reader two
+   services in has no way to know whether the section is nearly over or has
+   four more screens in it, and the honest reading of an unmarked pinned stage
+   is always "this page has stopped". Same construction as the signal rail's
+   accent, at a third the width, so the page states progress one way. */
+.ph-flat .rings-ticks {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  margin: clamp(26px, 3.2svh, 40px) 0 0;
+  padding: 0;
+}
+.ph-flat .rings-ticks li {
+  width: 34px;
+  height: 2px;
+  background: var(--border-strong);
+  overflow: hidden;
+}
+.ph-flat .rings-ticks li::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--ph-accent);
+  transform: scaleX(var(--rt-r, 0));
+  transform-origin: left center;
+}
+/* Undriven, the ticks say nothing rather than saying "all five at once" — the
+   opposite of the signal rail's fallback, and for the opposite reason: there
+   the accent is a rule over a finished figure, here it is a position in a
+   sequence, and a sequence with every step lit is not a finished state, it is
+   a broken one. So without the script they are five plain marks. */
+.ph-flat .rings:not(.is-lively) .rings-ticks { display: none; }
+
+/* ---- BELOW THE DESKTOP, AND ON A SHORT SCREEN, THERE IS NO PIN.
+
+   The construction needs two things a phone does not have: width to put a
+   700px ring beside a column of type, and height to spend three screens of
+   scroll on one section. Given neither, it is not shrunk — it is replaced by
+   the thing it was built to say. The ring becomes one photograph at the top of
+   the section, the paragraph stays a paragraph, and the five services are the
+   list they already are underneath it.
+
+   700, not 620, for the same reason the diagram before it used that number:
+   the stage subtracts a heading and a 210px copy band from the screen, and
+   under 700 what is left for the ring is less than the ring was at the START
+   of the track. */
+@media (max-width: 1023px), (max-height: 700px) {
+  .ph-flat .rings-pin { height: auto; }
+  .ph-flat .rings-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding: var(--ph-sec-top) 0 var(--ph-sec-bottom);
+  }
+  .ph-flat .rings-orbit {
+    position: static;
+    translate: none;
+    width: min(300px, 54vw);
+    margin: 0 auto clamp(32px, 6vw, 52px);
+  }
+  .ph-flat .rings.is-lively .rings-ring { transform: none; }
+  .ph-flat .rings-title { max-width: none; }
+  .ph-flat .rings-well { min-height: 0; max-width: none; }
+  .ph-flat .rings-lede,
+  .ph-flat .rings-deck { max-width: none; }
+  /* The stack comes apart with the pin. .is-lively is still on the section —
+     the script has no idea a media query exists — so every rule it switched on
+     has to be switched back here, and an absolutely-positioned card inside a
+     zero-height well is five services drawn on top of each other. */
+  .ph-flat .rings.is-lively .rings-lede,
+  .ph-flat .rings.is-lively .rings-deck {
+    position: static;
+    inset: auto;
+  }
+  .ph-flat .rings.is-lively .rings-deck {
+    display: grid;
+    margin-top: clamp(32px, 5vw, 44px);
+  }
+  .ph-flat .rings.is-lively .rings-lede { opacity: 1; filter: none; }
+  .ph-flat .rings.is-lively .rcard {
+    position: static;
+    inset: auto;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  .ph-flat .rings-ticks { display: none; }
+  .ph-flat .rings.is-lively .rings-ticks { display: none; }
+}
+
+/* A READER WHO ASKED FOR STILLNESS DOES NOT GET THE TRACK EITHER.
+
+   The script gates itself on prefers-reduced-motion and returns before it
+   touches anything, which leaves the copy correct — the list, the paragraph,
+   no stack — and the PIN still 308svh tall. Two and a bit screens of empty
+   pale blue under a section that has already finished. CSS is the only thing
+   that can see this, so CSS has to say it. */
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .rings-pin { height: auto; }
+  .ph-flat .rings-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding: var(--ph-sec-top) 0 var(--ph-sec-bottom);
+  }
+  .ph-flat .rings-orbit {
+    position: static;
+    translate: none;
+    width: min(340px, 48vw);
+    margin: 0 auto clamp(32px, 5vw, 52px);
+  }
+  .ph-flat .rings-well { min-height: 0; }
+  .ph-flat .rings-ticks { display: none; }
+}
+
+/* ---- 9c · THE COLOURWAY BAND · the breath between the ring and the choice
+   ------------------------------------------------------------------------
+
+   THIS WAS A PHOTOGRAPH OF SOMEONE ASLEEP, with the crop travelling on the
+   scroll. It is the film now, and both halves of that are decisions.
+
+   WHY THE PICTURE CHANGED. The bedroom shot was the page's one editorial
+   image and it was carrying the wrong argument at the wrong moment. It sits
+   between the ring turning (§ 9b) and Choose your ring (§ 9d) — between what
+   the product knows and which one you buy — and the reader arriving at it has
+   just been shown five services and is about to be shown two finishes. A
+   sleeping stranger answers neither question. The colourway film answers the
+   second one before it is asked: six finishes, in six places, in sixteen
+   seconds.
+
+   THE REFERENCE IS THE BRAND'S OWN SHOP PAGE —
+   phenomelongevity.com/products/phenometech-ceramic-ring — which runs this
+   exact footage as a full-bleed band: edge to edge, no radius, muted, looping,
+   `object-fit: cover`, and one pause control in the bottom-right corner. Read
+   off the shipped page: a 1080x1080 source in a 1425x660 box, so the crop is
+   severe there too.
+
+   WHERE THE CROP IS TAKEN FROM IS MEASURED, NOT CENTRED, and the first attempt
+   got this wrong. The master is 1080x1920 and a centred cut looked obviously
+   right — until the band was on screen and two of the six scenes had no ring
+   in them. Sampled every two seconds across the film, the ring's own centre
+   sits between 27% and 47% of the frame height: level with the horizon in the
+   mountains and the silk, but high in the clouds and the water, because those
+   two scenes are composed with the object falling into the top third. The
+   subject band — the rings' own edges, not their centres — is 22%-56%, and its
+   middle is 39%, not 50%.
+
+   So the file is cut to 1080x1490 starting 4px down, centred on 749px, and CSS
+   then centres inside that. At 1440 the band shows master rows 22%-56%: the
+   whole span, which is the width most of this page is designed against. Wider
+   than that the band's own aspect takes over and the ends of the range start
+   to go — at 1920 it shows 26%-52% and the clouds lose the top of the ring.
+   That is the trade a full-bleed band makes and the reference makes it harder
+   (660px tall in a 1425 viewport); it is not worth a third of the page's
+   height to close. `object-position` stays at plain `center` because the file
+   already carries the offset — doing it in CSS instead would need a different
+   percentage at every band aspect, which is a number nobody can maintain.
+
+   AND THE PARALLAX CAME OFF WITH THE PHOTOGRAPH. Every other band on this page
+   travels its crop, and that rule was written for still pictures: a photograph
+   held in a fixed frame reads as a picture, and the same photograph with the
+   crop moving reads as a window. A film is already a window. Sliding it as
+   well is two motions arguing — the subject moving inside the frame and the
+   frame moving under the subject — and on a sixteen-second cut sequence the
+   second one is just noise. The `.plate` class stays because the SPACING rules
+   in shared.css hang off it (`.plate + .section` and its sibling); `plate-par`
+   and the `data-par` hook are gone, and the parallax loop in the script now
+   drives one band rather than two.
+   ------------------------------------------------------------------------ */
+
+.ph-flat .filmband-win {
+  position: relative;
+  /* TALLER THAN THE PLATE IT REPLACES — 62vw / 900 against 58vw / 820, which
+     is 9% at 1440. Not a preference: it is the crop arithmetic below meeting
+     the band, from the other side. The subject band this film needs is 34% of
+     the master's height, and how much of the master a fixed-width band shows
+     is decided entirely by how TALL the band is. At 820 a 1440-wide band shows
+     32% and the flowers and the silk lose the bottom of the ring; at 893 it
+     shows 35% and the whole range fits. A still photograph would not have
+     cared — this is what changes when a band becomes a film. */
+  height: clamp(460px, 62vw, 900px);
+  /* What is behind the poster while it decodes, and behind the film on a
+     connection that never gets it. The film's own first frame is a warm near
+     white, so the page's quiet band is closer to it than white is. */
+  background: var(--flat-band);
+}
+.ph-flat .filmband-film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* The file is 0.72:1 and the band runs from 0.85:1 on a phone to 2.13:1 on a
+     wide desktop, so `cover` is doing between a sixth and two thirds of the
+     work. Centre in both axes — the vertical framing is already in the file,
+     for the reason set out above. */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ---- 9c-ii · THE PLATE CONSTRUCTION, still used by the closing frame ---- */
+
+/* The picture is wrapped now, and the wrapper is what the reveal fades. Before
+   this the image element was the section's only child, which made it both the
+   thing shared.js fades in and the thing this transforms — two owners on one
+   `transform`, and the later one silently wins. */
+.ph-flat .par-win {
+  position: relative;
+  overflow: hidden;
+}
+/* Same arithmetic as the signal window, and the same reason it is written
+   down: 126% high on a 13% overhang leaves ±10.3% of the element to spend and
+   this spends ±8.5%. */
+.ph-flat .par-win img {
+  position: absolute;
+  inset: -13% 0 auto 0;
+  width: 100%;
+  height: 126%;
+  object-fit: cover;
+  display: block;
+}
+.ph-flat .is-lively .par-win img {
+  transform: translate3d(0, calc((.5 - var(--pr-p, .5)) * 17%), 0);
+}
+
+/* ---- 9d · CHOOSE YOUR RING · two cards, and the ring on each one -------
+
+   THE TICK LIST WAS THE PROBLEM. Six items in a three-column .assure, the
+   first two of which were the two products with their prices and the other
+   four assurances about both — so the section that asks the reader to choose
+   between two rings showed neither of them, and put the choice in the same
+   typographic voice as "30-day returns". The two products become two cards
+   with the ring photographed in each finish, the four assurances stay as
+   assurances, and the difference between a product and a reassurance is
+   visible again.
+
+   The photographs drift against each other on the scroll: --d is +1 on one
+   card and -1 on the other, which is the only thing separating the two rules.
+   A pair of pictures moving the same way is a page scrolling; a pair moving
+   apart is two objects. */
+.ph-flat .pick-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.2vw, 32px);
+  margin-top: clamp(44px, 5vw, 72px);
+}
+.ph-flat .pick-card {
+  display: block;
+  padding-bottom: clamp(24px, 2.4vw, 34px);
+  border-radius: var(--ph-r27);
+  overflow: hidden;
+  background: var(--flat-band);
+  color: var(--ph-text-1);
+  text-decoration: none;
+}
+/* --flat-band, because the section it is in is white. That is § 2's ladder and
+   not a colour choice; the inverse rule is not written here because there is
+   no grey instance of this card on the page, and § 2 is where it goes if one
+   ever appears. */
+
+.ph-flat .pick-shot {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: clamp(300px, 30vw, 460px);
+  margin-bottom: clamp(22px, 2.2vw, 30px);
+  background: var(--ph-pill);
+}
+.ph-flat .pick-shot img {
+  position: absolute;
+  inset: -8% 0 auto 0;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  display: block;
+  /* The hover zoom rides the independent `scale` so it composes with the
+     parallax `transform` instead of replacing it. Two properties, two owners,
+     no arbitration. */
+  scale: 1;
+  transition: scale 620ms var(--ease-frosted-out);
+}
+.ph-flat .pick.is-lively .pick-shot img {
+  /* --d comes from the markup and is +1 on one card, -1 on the other. The 0
+     fallback is not decoration: an undefined custom property inside calc()
+     makes the whole declaration invalid, and an invalid transform here would
+     drop the parallax silently on both cards rather than on the one that lost
+     its attribute. 0 is "no drift", which is a state someone can see. */
+  transform: translate3d(0, calc((.5 - var(--pk-p, .5)) * var(--d, 0) * 12%), 0);
+}
+.ph-flat .pick-card:hover .pick-shot img,
+.ph-flat .pick-card:focus-visible .pick-shot img { scale: 1.035; }
+.ph-flat .pick-card:focus-visible {
+  outline: 2px solid var(--ph-focus);
+  outline-offset: 3px;
+}
+
+.ph-flat .pick-line,
+.ph-flat .pick-sub { padding-inline: clamp(24px, 2.4vw, 34px); }
+.ph-flat .pick-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ph-flat .pick-name {
+  font-size: var(--ph-h3-size);
+  line-height: var(--ph-h3-lh);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-h3-tr);
+}
+.ph-flat .pick-price {
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  color: var(--ph-text-2);
+  white-space: nowrap;
+}
+.ph-flat .pick-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17);
+  color: var(--ph-tertiary);
+}
+
+/* The four assurances take the signal rail's construction, and that is a
+   system decision rather than a repeat: both are a set of short facts of equal
+   weight under a claim, and the page now says that shape one way. */
+.ph-flat .pick-assure {
+  list-style: none;
+  margin: clamp(40px, 4vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--divider);
+}
+.ph-flat .pick-assure li {
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+  padding: clamp(36px, 3.4vw, 48px) clamp(20px, 2vw, 28px) 6px 0;
+  border-left: 1px solid var(--divider);
+}
+.ph-flat .pick-assure li:not(:first-child) { padding-left: clamp(20px, 2vw, 28px); }
+.ph-flat .pick-assure li:first-child { border-left: 0; }
+
+/* ---- THE MARK, AND WHY THERE IS ONE AT ALL.
+
+   This row was four lines of grey type divided by hairlines, and it read as a
+   footnote to the two cards above it rather than as the four reasons someone
+   actually presses Buy. The two easy fixes were both wrong: a tick beside each
+   is the component § 10 records removing (four identical marks say only "this
+   is a list", which the list already said), and setting them on a fifth tinted
+   slab under two tinted cards is a third panel in a stack of three.
+
+   So the weight goes into a mark per item and into the type, and the row stays
+   on the open page. FOUR DRAWINGS, FOUR MEANINGS — none of them is a decoration
+   that could be swapped for another:
+
+     two overlapping rings   two products, one set of readings
+     a circle struck through the universal none, against "£0"
+     three rings, graded     a set of sizes, which is what a sizer is
+     an arrow round          send it back
+
+   Three of the four are built from circles, and that is the point rather than
+   a shortage of ideas: the product is a ring, the page has just spent three
+   screens turning one, and a family of marks drawn from the same figure reads
+   as this brand's set rather than as four icons off a sheet. They stay apart
+   in silhouette — paired, struck, graded, arrowed — which is the only test a
+   24px glyph has to pass.
+
+   The disc behind each is § 2's ladder doing its usual job: a pane takes the
+   value its section does not, and on a white section that is --flat-band. It
+   is what stops a 24px line drawing from disappearing into a 1260px row. */
+.ph-flat .pa-mark {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--flat-band);
+  color: var(--ph-accent);
+}
+.ph-flat .section-gray .pa-mark { background: var(--flat-page); }
+.ph-flat .pa-mark svg { width: 30px; height: 30px; display: block; }
+/* The label comes up to the body rung and to page ink. At 17px in --ph-text-2
+   it was the same voice as a caption; these are four promises, and the reader
+   is meant to finish them. */
+.ph-flat .pa-t {
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19-loose);
+  letter-spacing: var(--ph-tr-19-400);
+  color: var(--ph-text-1);
+  text-wrap: balance;
+}
+
+@media (max-width: 900px) {
+  .ph-flat .pick-pair { grid-template-columns: minmax(0, 1fr); }
+  .ph-flat .pick-shot { height: clamp(260px, 62vw, 380px); }
+  /* Stacked, the counter-drift stops being two objects moving apart and
+     becomes two pictures in a column disagreeing about which way the page is
+     going. Same reason the signal window loses its travel here. */
+  .ph-flat .pick-shot img { inset: 0; height: 100%; }
+  .ph-flat .pick.is-lively .pick-shot img { transform: none; }
+  .ph-flat .pick-assure { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ph-flat .pick-assure li,
+  .ph-flat .pick-assure li:not(:first-child) {
+    border-left: 0;
+    padding-left: 0;
+    padding-right: 20px;
+  }
+  .ph-flat .pick-assure li:nth-child(n+3) { border-top: 1px solid var(--divider); }
+}
+@media (max-width: 520px) {
+  /* One column, and the mark moves beside the label rather than above it: four
+     52px discs each on their own line is 400px of phone spent on decoration. */
+  .ph-flat .pick-assure { grid-template-columns: minmax(0, 1fr); }
+  .ph-flat .pick-assure li,
+  .ph-flat .pick-assure li:not(:first-child) {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--divider);
+  }
+  .ph-flat .pick-assure li:first-child { border-top: 0; }
+  .ph-flat .pa-mark { width: 44px; height: 44px; }
+  .ph-flat .pa-mark svg { width: 21px; height: 21px; }
+}
+
+/* ---- 9e · STAY IN THE LOOP · a row, not a section ---------------------
+
+   It was a full .section — 144px of padding over a 48-point heading with an
+   empty half-page beside it, for one sentence and one button that go to the
+   contact page. A newsletter line is the quietest thing in the run and it was
+   taking the same room as the product. Same copy, same button, one row. */
+.ph-flat .loop { padding: clamp(72px, 7vw, 104px) 0; }
+.ph-flat .loop-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  column-gap: 64px;
+  align-items: center;
+}
+.ph-flat .loop-t .sec-title { margin: 0; }
+.ph-flat .loop-side {
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+}
+.ph-flat .loop-side .cta-actions { margin: 0; }
+
+@media (max-width: 1023px) {
+  .ph-flat .loop-row { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+}
+
+/* ---- 9f · THE LAST FRAME ----------------------------------------------
+
+   The closing band was `.cta-band`: a centred heading, a centred line and two
+   centred controls on white, which is the shape every page on this site ends
+   with. This one ends on the photograph instead — the same construction the
+   hero opens with, so the page closes in the voice it opened in.
+
+   The scrim is a left-to-right ramp rather than a flat wash. The picture's
+   subject is on the right of the frame and the copy is on the left, so the
+   only part that needs darkening is the part with type over it; a uniform
+   overlay would have cost the photograph two stops to protect four lines. */
+.ph-flat .closer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ph-flat .closer .par-win { position: absolute; inset: 0; }
+.ph-flat .closer-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 30, 87, .84) 0%,
+    rgba(10, 30, 87, .66) 36%,
+    rgba(10, 30, 87, .28) 74%,
+    rgba(10, 30, 87, .12) 100%
+  );
+}
+.ph-flat .closer-copy {
+  position: relative;
+  padding-top: clamp(112px, 13vw, 188px);
+  padding-bottom: clamp(112px, 13vw, 188px);
+}
+.ph-flat .closer-copy h2 {
+  margin: 0;
+  max-width: 15ch;
+  font-size: var(--ph-h2-size);
+  line-height: var(--ph-h2-lh);
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-h2-tr);
+  color: var(--ph-white);
+  text-wrap: balance;
+}
+.ph-flat .closer-copy p {
+  margin: 16px 0 0;
+  max-width: 42ch;
+  font-size: var(--ph-lead-size);
+  line-height: var(--ph-lead-lh);
+  letter-spacing: var(--ph-tr-21-400);
+  /* The value .band-copy already uses for a paragraph over a photograph. Not a
+     grey — the neutral ramp's mid-grey gap does not apply to white over an
+     image, and the site has settled this construction once already. */
+  color: rgba(255, 255, 255, .82);
+}
+.ph-flat .closer-copy .cta-actions { justify-content: flex-start; }
+.ph-flat .closer-copy .link-more { color: var(--ph-white); }
+
+/* THE FILLED BUTTON INVERTS HERE, and it is a contrast failure being closed
+   rather than a preference. --ph-accent is #203a85 and this scrim is #0a1e57:
+   1.6:1 between the control's fill and the ground it sits on, so the pill has
+   no findable edge and the only thing separating it from the photograph is its
+   own white label. The hero gets away with the same blue because its Buy sits
+   inside a light glass capsule — there the accent is on white, here it is on
+   navy, and the two are not the same case.
+
+   White fill, page ink: shared.css's own .btn.ghost, which is the site's
+   existing answer for a filled control that cannot use the accent. Written
+   here rather than by putting `ghost` in the markup, because `ghost` means
+   SECONDARY everywhere else on the site and this is the page's last primary
+   action. Hover and press walk the same two steps the accent does, in the
+   surface ladder instead of the brand ramp. */
+.ph-flat .closer-copy .btn {
+  background: var(--ph-white);
+  color: var(--ph-text-1) !important;
+}
+.ph-flat .closer-copy .btn:hover { background: #f2f4f9; }
+.ph-flat .closer-copy .btn:active { background: var(--flat-band); }
+
+@media (max-width: 900px) {
+  /* The ramp turns vertical with the composition: at one column the copy sits
+     over the middle of the frame rather than its left third. */
+  .ph-flat .closer-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 30, 87, .58) 0%,
+      rgba(10, 30, 87, .82) 58%,
+      rgba(10, 30, 87, .9) 100%
+    );
+  }
+}
 
 /* ---------------------------------------------------------------------------
-   9 · REVEAL · the section arrives in parts rather than as a block
+   10 · REVEAL · the section arrives in parts rather than as a block
 
    shared.js already owns the mechanism and it is a good one: nothing is hidden
    until the script has confirmed both IntersectionObserver and that the reader
@@ -1435,10 +2493,11 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
   .spec-table,
   .cta-actions,
   .showcase-img,
-  .figure,
-  .assure li,
-  .cta-band h2,
-  .cta-band p
+  .sigs-media,
+  .pick-card,
+  .pick-assure li,
+  .closer-copy h2,
+  .closer-copy p
 ) {
   opacity: 0;
   transform: translate3d(0, 18px, 0);
@@ -1453,10 +2512,11 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
   .spec-table,
   .cta-actions,
   .showcase-img,
-  .figure,
-  .assure li,
-  .cta-band h2,
-  .cta-band p
+  .sigs-media,
+  .pick-card,
+  .pick-assure li,
+  .closer-copy h2,
+  .closer-copy p
 ) {
   opacity: 1;
   transform: none;
@@ -1468,29 +2528,39 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
 html.ph-reveal body.ph-flat main > section .sec-title      { --rv-at: 0ms; }
 html.ph-reveal body.ph-flat main > section .lede,
 html.ph-reveal body.ph-flat main > section .ringfam-lede,
-html.ph-reveal body.ph-flat main > section.cta-band p      { --rv-at: 90ms; }
+html.ph-reveal body.ph-flat main > section .closer-copy p  { --rv-at: 90ms; }
 /* The photograph comes in with the paragraph, not after the button. It is the
    other half of the row, and a picture that waits for the whole text column to
    finish reads as a late asset rather than as part of the composition. */
-html.ph-reveal body.ph-flat main > section .showcase-img   { --rv-at: 120ms; }
+html.ph-reveal body.ph-flat main > section .showcase-img,
+html.ph-reveal body.ph-flat main > section .sigs-media     { --rv-at: 120ms; }
 html.ph-reveal body.ph-flat main > section .spec-table     { --rv-at: 175ms; }
 html.ph-reveal body.ph-flat main > section .cta-actions    { --rv-at: 245ms; }
 
-/* The repeating rows deal themselves out left to right, starting after the
-   paragraph above them has arrived. 55ms between tiles: enough to see the
-   direction, not enough that the fifth feels like it is waiting its turn. */
-html.ph-reveal body.ph-flat main > section .figure:nth-child(1) { --rv-at: 150ms; }
-html.ph-reveal body.ph-flat main > section .figure:nth-child(2) { --rv-at: 205ms; }
-html.ph-reveal body.ph-flat main > section .figure:nth-child(3) { --rv-at: 260ms; }
-html.ph-reveal body.ph-flat main > section .figure:nth-child(4) { --rv-at: 315ms; }
-html.ph-reveal body.ph-flat main > section .figure:nth-child(5) { --rv-at: 370ms; }
+/* WHAT THIS LIST NO LONGER NAMES, 2026-09-09. .figure ×5, .assure li ×6 and
+   .cta-band h2/p were the three repeating rows in the run below the product
+   frames, and § 9 replaced all three components: the figures became the signal
+   rail and the ring stage's deck, the assurances became .pick-assure, and the
+   centred closing band became .closer. Nothing on this page carries those
+   classes any more — this stylesheet serves one page, so a selector that
+   matches nothing on it is dead rather than defensive, and it is removed
+   rather than left for someone to maintain against a component that is gone.
+   The two typesetting repairs those components needed went with them (§ 8).
 
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(1) { --rv-at: 140ms; }
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(2) { --rv-at: 185ms; }
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(3) { --rv-at: 230ms; }
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(4) { --rv-at: 275ms; }
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(5) { --rv-at: 320ms; }
-html.ph-reveal body.ph-flat main > section .assure li:nth-child(6) { --rv-at: 365ms; }
+   The rail and the nodes are deliberately NOT in this system. They are driven
+   by the scroll handler in § 9's contract, which reveals them continuously off
+   a progress number rather than on a fixed delay after a threshold — and a
+   thing given two entrances plays the shorter one twice. */
+
+/* The two cards deal out left to right, starting after the paragraph above
+   them. Same 55ms the figures used, and the same reason for it. */
+html.ph-reveal body.ph-flat main > section .pick-card:nth-child(1) { --rv-at: 150ms; }
+html.ph-reveal body.ph-flat main > section .pick-card:nth-child(2) { --rv-at: 205ms; }
+
+html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(1) { --rv-at: 140ms; }
+html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(2) { --rv-at: 185ms; }
+html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(3) { --rv-at: 230ms; }
+html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(4) { --rv-at: 275ms; }
 
 /* The full-bleed plate keeps the shared treatment and the shared reason: it is
    one image filling a fixed, clipped box, so sliding it would show a strip of

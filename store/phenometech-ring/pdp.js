@@ -494,38 +494,11 @@
      4 · THE SIGNAL BAND
      ====================================================================== */
 
-  function signals() {
-    var chips = $$('[data-sig]');
-    var panes = $$('[data-sig-pane]');
-    if (!chips.length || !panes.length) return;
-
-    function show(key) {
-      for (var i = 0; i < chips.length; i++) {
-        chips[i].setAttribute('aria-selected', chips[i].getAttribute('data-sig') === key ? 'true' : 'false');
-      }
-      for (var j = 0; j < panes.length; j++) {
-        panes[j].classList.toggle('on', panes[j].getAttribute('data-sig-pane') === key);
-      }
-    }
-    for (var i = 0; i < chips.length; i++) {
-      (function (el) {
-        on(el, 'click', function () { show(el.getAttribute('data-sig')); });
-        /* A tablist steers with the arrow keys. Five chips, so the wrap-around
-           is worth having — the reader who reaches the end should not have to
-           reverse to see the first one. */
-        on(el, 'keydown', function (e) {
-          var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-          if (!d) return;
-          e.preventDefault();
-          var at = chips.indexOf(el);
-          var next = chips[(at + d + chips.length) % chips.length];
-          next.focus();
-          show(next.getAttribute('data-sig'));
-        });
-      })(chips[i]);
-    }
-    show(chips[0].getAttribute('data-sig'));
-  }
+  /* RETIRED 2026-09-09 with the tablist it drove. The five signals are five
+     things the ring does at once, not five alternatives, so the section shows
+     all five and there is nothing to select — see pdp.css § 2. Removed rather
+     than left to guard on its own missing elements: a no-op that still runs is
+     a thing the next reader has to prove is a no-op. */
 
   /* ==========================================================================
      5 · THE TIMELINE
@@ -781,6 +754,97 @@
     var items = $$('[data-cut-item]', fig);
     if (!hots.length || !items.length) return;
 
+    var wireSvg = $('[data-cut-wire]', fig);
+    var wirePath = wireSvg && wireSvg.querySelector('path');
+    var wireEnd = wireSvg && wireSvg.querySelector('circle');
+    var at = -1;
+
+    /* ---- THE CONNECTOR, and why it is drawn here rather than in CSS.
+
+       A dot on the photograph and a row in the list are two views of one thing,
+       and until now the only thing joining them was that they lit at the same
+       moment. The leader that tried to say so was a pseudo-element on the dot —
+       a fixed length at a fixed angle, which is all a pseudo-element can be,
+       because it cannot know where the row it belongs to has ended up. It
+       pointed vaguely rightward and stopped about 400px short of the words.
+
+       This measures both ends and draws between them. Orthogonal, in three
+       segments — out of the dot to a common elbow in the gutter, down or up the
+       gutter, then along to the row's own edge — because an elbow reads as a
+       diagram's leader and a diagonal across a product photograph reads as a
+       scratch on it. The elbow sits midway between the figure and the list, so
+       all four lines share a spine and the set reads as one apparatus.
+
+       Coordinates are in the SVG's own box, which is `inset: 0` on .pdp-cut, so
+       every rect is offset by that one origin and nothing depends on the page's
+       scroll position. Recomputed on resize, and on the font load: the rows are
+       set in a webfont and their heights move when it lands. */
+    function draw(i) {
+      if (!wirePath || !wireEnd) return;
+      var host = fig.getBoundingClientRect();
+      var hot = hots[i] && hots[i].getBoundingClientRect();
+      var row = items[i] && items[i].getBoundingClientRect();
+      var figBox = $('.pdp-cut-fig', fig);
+      var picture = figBox && figBox.getBoundingClientRect();
+      var list = $('.pdp-cut-list', fig);
+      var col = list && list.getBoundingClientRect();
+      if (!hot || !row || !picture || !col) return;
+
+      /* Below the breakpoint the two columns stack, the gutter this line would
+         run down does not exist, and a connector drawn across the stack would
+         cross the photograph. The pair is adjacent there and needs no line. */
+      if (col.left < picture.right) { wireSvg.removeAttribute('data-live'); return; }
+
+      var x0 = hot.left + hot.width / 2 - host.left;
+      var y0 = hot.top + hot.height / 2 - host.top;
+      var x1 = col.left - host.left - 10;
+      var y1 = row.top + row.height / 2 - host.top;
+      var elbow = (picture.right - host.left + x1) / 2;
+
+      /* ---- IT LEAVES THE RING RADIALLY BEFORE IT TURNS.
+
+         Straight to the elbow was the first version and it drew the line
+         across the product: the four dots sit on the ring's rim, the list is
+         always to the right, so a dot on the LEFT rim ran five hundred pixels
+         of blue over polished metal to get out. Which is the one thing a
+         callout must not do — the picture is what is being annotated.
+
+         The escape is along the radius, out of the ring's own centre through
+         the dot, to a point just outside the band. That is the shortest way
+         off the object from anywhere on it, and because every dot is on the
+         same circle the four escapes are the same length and the set reads as
+         one apparatus. Only then does it turn orthogonal for the run across
+         the gutter. */
+      var cx = picture.left + picture.width / 2 - host.left;
+      var cy = picture.top + picture.height / 2 - host.top;
+      var vx = x0 - cx, vy = y0 - cy;
+      var mag = Math.sqrt(vx * vx + vy * vy) || 1;
+      /* .54 of the picture's width from its centre: the ring's outer edge sits
+         at about .48, so this clears it by a comfortable margin without
+         reaching the edge of the figure's own box. */
+      var out = picture.width * 0.54;
+      var ex = cx + (vx / mag) * out;
+      var ey = cy + (vy / mag) * out;
+
+      var d = 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) +
+              'L' + ex.toFixed(1) + ' ' + ey.toFixed(1) +
+              'L' + elbow.toFixed(1) + ' ' + ey.toFixed(1) +
+              'L' + elbow.toFixed(1) + ' ' + y1.toFixed(1) +
+              'L' + x1.toFixed(1) + ' ' + y1.toFixed(1);
+      wirePath.setAttribute('d', d);
+      wireEnd.setAttribute('cx', x1.toFixed(1));
+      wireEnd.setAttribute('cy', y1.toFixed(1));
+
+      /* The draw-in needs the path's own length as its dash, and the length is
+         only knowable after the `d` is set. Handed to CSS as a property so the
+         keyframe stays in the stylesheet with the rest of the motion. */
+      var len = 0;
+      try { len = wirePath.getTotalLength(); } catch (err) { len = 0; }
+      wirePath.style.strokeDasharray = len ? len + ' ' + len : 'none';
+      wireSvg.style.setProperty('--wire-len', len + 'px');
+      wireSvg.setAttribute('data-live', '');
+    }
+
     function show(i) {
       for (var j = 0; j < hots.length; j++) {
         hots[j].setAttribute('aria-current', j === i ? 'true' : 'false');
@@ -791,6 +855,13 @@
         var btn = $('[data-cut-btn]', items[k]);
         if (btn) btn.setAttribute('aria-expanded', k === i ? 'true' : 'false');
       }
+      at = i;
+      /* After the row has opened, not before: the description expands on a
+         grid-template-rows transition and every row below it moves while it
+         does, so a line measured on this frame would land where the row was
+         rather than where it is going. 360ms is the transition plus a frame. */
+      draw(i);
+      setTimeout(function () { if (at === i) draw(i); }, 360);
     }
 
     function wire(el, i) {
@@ -803,6 +874,17 @@
       var btn = $('[data-cut-btn]', items[j]);
       if (btn) wire(btn, j);
     }
+
+    var queued = false;
+    on(window, 'resize', function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; if (at >= 0) draw(at); });
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { if (at >= 0) draw(at); });
+    }
+
     show(0);
   }
 
@@ -810,30 +892,11 @@
      9 · TECH SPECS
      ====================================================================== */
 
-  /* The rows are native <details>, so they open without this. What this adds is
-     the one control eight rows earn: open all, close all — and it reports which
-     it will do next rather than staying on one label. */
-  function specs() {
-    var btn = $('[data-specs-all]');
-    var rows = $$('[data-spec]');
-    if (!btn || !rows.length) return;
-
-    var label = $('span', btn);
-    function paint() {
-      var open = 0;
-      for (var i = 0; i < rows.length; i++) if (rows[i].open) open++;
-      var most = open > rows.length / 2;
-      btn.setAttribute('aria-expanded', most ? 'true' : 'false');
-      if (label) label.textContent = most ? 'Collapse all' : 'Expand all';
-    }
-    on(btn, 'click', function () {
-      var most = btn.getAttribute('aria-expanded') === 'true';
-      for (var i = 0; i < rows.length; i++) rows[i].open = !most;
-      paint();
-    });
-    for (var i = 0; i < rows.length; i++) on(rows[i], 'toggle', paint);
-    paint();
-  }
+  /* RETIRED 2026-09-09, with the accordion it drove. Tech Specs is one panel of
+     plain lists now — see pdp.css § 6 — so there is nothing to expand and no
+     control to report the state of. The function guarded on its own elements
+     and would have gone quietly dead; it is removed instead, because a no-op
+     that still runs is a thing the next reader has to prove is a no-op. */
 
   /* ==========================================================================
      10 · THE DOCK
@@ -894,12 +957,10 @@
   gallery();
   lightbox();
   buyColumn();
-  signals();
   timeline();
   filmControls();
   compare();
   cutaway();
-  specs();
   dock();
   publish();
 
