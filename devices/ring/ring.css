@@ -1506,31 +1506,54 @@
      dark studio shot: a pale placeholder would flash white in the middle of a
      white section and then go black. */
   background: #0f1626;
-  /* Nearer the picture's own proportion than a landscape well would be. The
-     source is 1289 × 1600 and the column is about 605 wide at 1440, so a 620px
-     window crops a third of the ring away at top and bottom; 700 crops almost
-     nothing and the object arrives whole. A product photograph is the one kind
-     of picture a window is not allowed to reframe. */
-  height: clamp(420px, 50vw, 700px);
+  /* THE WINDOW TAKES ITS SHAPE FROM THE FILE, not from a height that happened
+     to look right. A product photograph is the one kind of picture a window is
+     not allowed to reframe, and a fixed 700px height was reframing it: at 1440
+     the column is 604 and the image box under it 604 × 896, which is 0.674
+     against the file's 0.806, so `cover` filled the HEIGHT and took 8% off
+     each side — and then the window's own overhang took the foot of the ring
+     with it. Measured in the browser: the band on show ran 8.0%-86.1% of the
+     file while the ring ran 14.9%-90.3%. The bottom 4% of the object was gone.
+
+     The file is now 1800 × 2216 off the 3712 × 4608 master, re-margined to 12%
+     of clear ground above and below the ring, and this ratio is that file's
+     0.8123 multiplied by the 1.12 of overhang below — so the image box is
+     exactly the file's shape, `cover` has nothing to crop, and the only thing
+     that ever leaves the frame is ground. */
+  aspect-ratio: 1800 / 1979;
+  /* The column is a fraction of the viewport with no cap of its own, so past
+     about 1760 the picture would go on growing. Capped and centred instead:
+     a cap on the WIDTH rather than the height, because a height cap would put
+     the box back out of ratio and hand the sides back to `cover`. */
+  width: min(100%, 740px);
+  margin-inline: auto;
 }
 /* THE PICTURE IS TALLER THAN ITS WINDOW, WHICH IS THE WHOLE MECHANISM.
 
-   128% high and hung 14% above the top edge, so it overhangs the window by 14%
+   112% high and hung 6% above the top edge, so it overhangs the window by 6%
    at each end. The travel is expressed against the ELEMENT, not the window —
-   a percentage in translate resolves against the transformed box — so ±8% of
-   128% is 10.2% of the window, comfortably inside the 14% of overhang there is
-   to spend. Getting that arithmetic wrong is not subtle: the frame shows a
-   strip of its own background along one edge at the end of the travel. */
+   a percentage in translate resolves against the transformed box — so ±4% of
+   112% is 4.5% of the window, inside the 6% of overhang there is to spend.
+   Getting that arithmetic wrong is not subtle: the frame shows a strip of its
+   own background along one edge at the end of the travel.
+
+   WAS 128% / 14% / ±8%, AND THAT IS WHAT ATE THE RING. Those numbers ask the
+   file for 19% of clear ground at each end before the object starts — 5.4% of
+   ordinary overhang plus 8% of travel plus the margin to not land on the edge
+   — and no product shot of an object photographed to fill its frame carries
+   that. The choice was a smaller ring in a taller frame or a shorter travel,
+   and on a band whose whole subject is the object, the travel is the cheaper
+   thing to spend: at 6% / ±4% the file needs 10% of ground and it ships 12%. */
 .ph-flat .sigs-media img {
   position: absolute;
-  inset: -14% 0 auto 0;
+  inset: -6% 0 auto 0;
   width: 100%;
-  height: 128%;
+  height: 112%;
   object-fit: cover;
   display: block;
 }
 .ph-flat .sigs.is-lively .sigs-media img {
-  transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 16%), 0);
+  transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 8%), 0);
 }
 
 /* ---- the rail. Five readings, one line, no tiles.
@@ -1604,11 +1627,19 @@
 
 @media (max-width: 1023px) {
   .ph-flat .sigs-grid { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
-  /* Nearly square rather than the landscape strip a narrowed desktop window
-     becomes. The picture is a 4:5 portrait and the object fills it corner to
-     corner; a 320px band across a 342px column crops the ring down to a
-     highlight and an engraving. */
-  .ph-flat .sigs-media { height: clamp(360px, 96vw, 480px); }
+  /* THE FILE'S OWN SHAPE HERE TOO, for the reason the desktop rule gives. A
+     `clamp(360px, 96vw, 480px)` height was the landscape strip that comment
+     warns about the moment the column got wide: at the 1023px edge of this
+     query the box was about 960 × 480, twice as wide as it is tall against a
+     0.81 file, and `cover` answered by throwing away 30% of the picture at
+     each end — the ring cropped down to exactly the highlight and engraving
+     the note was written against. Capped and centred so the object stays
+     whole and the frame stays a portrait at every width in the range. */
+  .ph-flat .sigs-media {
+    aspect-ratio: 1800 / 2216;
+    height: auto;
+    width: min(100%, 520px);
+  }
   /* AND THE PARALLAX COMES OFF, which is the reference's own call: Oura ships
      `--highlights-section-media-y-from: 0` below lg and only turns the travel
      on at the desktop breakpoint. The reason is the same one that made the
