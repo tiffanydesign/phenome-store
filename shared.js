@@ -5,7 +5,7 @@
     {
       "key": "store",
       "trigger": "Store",
-      "eyebrow": "STORE MENU",
+      "eyebrow": "Store menu",
       "href": "/phenome-store/store/",
       "featured": [
         {
@@ -146,7 +146,7 @@
     {
       "key": "testing",
       "trigger": "Testing",
-      "eyebrow": "TESTING MENU",
+      "eyebrow": "Testing menu",
       "href": "",
       "featured": [],
       "columns": [
@@ -241,7 +241,7 @@
     {
       "key": "supplements",
       "trigger": "Supplements",
-      "eyebrow": "SUPPLEMENTS MENU",
+      "eyebrow": "Supplements menu",
       "href": "/phenome-store/store/supplements/",
       "featured": [],
       "columns": [
@@ -404,7 +404,7 @@
     {
       "key": "devices",
       "trigger": "Devices",
-      "eyebrow": "DEVICES MENU",
+      "eyebrow": "Devices menu",
       "href": "/phenome-store/store/devices/",
       "featured": [],
       "columns": [
@@ -488,7 +488,7 @@
     {
       "key": "app",
       "trigger": "App",
-      "eyebrow": "APP MENU",
+      "eyebrow": "App menu",
       "href": "/phenome-store/app/",
       "featured": [],
       "columns": [
@@ -579,7 +579,7 @@
     {
       "key": "science",
       "trigger": "Science",
-      "eyebrow": "SCIENCE MENU",
+      "eyebrow": "Science menu",
       "href": "/phenome-store/science/",
       "featured": [],
       "columns": [
@@ -658,7 +658,7 @@
     {
       "key": "clinic",
       "trigger": "Clinic",
-      "eyebrow": "CLINIC MENU",
+      "eyebrow": "Clinic menu",
       "href": "",
       "featured": [],
       "columns": [
@@ -705,7 +705,7 @@
     {
       "key": "support",
       "trigger": "Support",
-      "eyebrow": "SUPPORT MENU",
+      "eyebrow": "Support menu",
       "href": "/phenome-store/contact/",
       "featured": [],
       "columns": [

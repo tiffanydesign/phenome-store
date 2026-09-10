@@ -191,6 +191,12 @@
   --ph-warn-ink:    var(--status-warning-fill);
   --ph-warn-bg:     #fdf6e6;
 
+  /* 0.24px, not 0.96. The name still says `caps` because nineteen rules across
+     four stylesheets reach for it by that name; what it means changed with §2c
+     below, which takes the capitals off the whole site. 0.08em is the optical
+     correction capitals need and lower case does not — see the note there. */
+  --ph-tr-12-600-caps: 0.24px;
+
   --ph-font: var(--font-sans);
   /* The kit ships 400 / 500 / 700 and no 600. 500 rather than 700 for the
      heading role: at 80px Helvetica Neue Medium is the weight the twin's own
@@ -239,6 +245,43 @@ html, body, svg text, svg tspan, ::placeholder,
 button, input, select, textarea, optgroup {
   font-family: var(--font-sans);
 }
+
+/* ---------------------------------------------------------------------------
+   2c · NO ALL-CAPS, ANYWHERE. A system rule, decided 2026-09-09.
+
+   Sentence case everywhere. An eyebrow, an option label, a metric column, a
+   chip — all of them keep their size, their weight and their tracking role and
+   lose only the transform, so "ANOTHER LAYER OF DATA" becomes "Another layer of
+   data" without a single component being re-laid-out.
+
+   WHY THE SELECTOR IS `*` AND NOT A LIST, which is the same argument ring.css
+   §1 makes for its blanket shadow removal. The transform is set in nineteen
+   places across four stylesheets — eight in shared.css, four in this file, six
+   in pdp.css and one in ring.css — and shared.css is the captured mirror of the
+   live store and is not edited. A list would have to name all nineteen, would
+   silently stop being true the next time a component adds an overline, and
+   would still miss anything a future page sheet declares after this file. The
+   requirement is "no capitals on this site", so the selector says exactly that.
+
+   !important, for the same reason those blanket rules carry it: pdp.css and
+   ring.css load AFTER this file and set the transform at (0,2,0). Without it
+   the rule reaches shared.css and stops at the two pages that need it most.
+
+   AUDITED BEFORE IT WAS WRITTEN, so that it takes nothing away that was wanted:
+   `capitalize` and `lowercase` appear in no stylesheet, script or page on this
+   site — every text-transform in the codebase is `uppercase` or `none`. So
+   nothing legitimate is inside this rule's blast radius today, and a component
+   that genuinely needs `capitalize` tomorrow has to say so past it, which is
+   the right amount of friction for a brand rule.
+
+   THE TRACKING GOES WITH IT, and that is not optional. --ph-tr-12-600-caps is
+   0.96px on a 12px glyph — 0.08em, which is the standard optical correction for
+   capitals and is far too loose for lower case. Left alone, every overline on
+   the site would read as spaced-out sentence case, which looks like a mistake
+   rather than like a decision. It is re-pointed in the mapping block above to
+   0.24px, the same 0.02em the ladder gives 12/600 elsewhere, so all nineteen
+   places inherit the correction from the one token they already share. */
+*, *::before, *::after { text-transform: none !important; }
 
 /* ---------------------------------------------------------------------------
    2c · THE SCROLLBAR IS PART OF THE PAGE, not part of the browser.
