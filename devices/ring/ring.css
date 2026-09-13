@@ -1437,9 +1437,10 @@
    WHAT THIS PAGE DOES WITH IT. The same three moves, in this system's own two
    grounds and one typeface, arranged so the run has a shape:
 
-     sigs    a clipped media window with the picture travelling inside it, and
-             the five signals as a hairline rail that fills in left to right on
-             the same scroll number.
+     sigs    a pinned screen with the ring's own sensor face scrimmed behind
+             it, and the five readings in the middle of a ring that closes in
+             five arcs as they are read out. The reference is Ultrahuman's
+             rather than Oura's - see § 9a.
      circ    the pin, and the one thing on the page a reader will describe
              afterwards. The copy says "closing the circle"; the section draws
              one. Five services around a ring, the ring photographed from
@@ -1463,11 +1464,18 @@
    publishes plain numbers as custom properties; every rule below consumes one
    of them and nothing here has state of its own.
 
-     --sg-p   0 to 1 as `sigs` crosses the screen. The picture rides it.
-     --sg-r   per signal, 0 to 1, staggered off --sg-p. The rail fills on it.
-     --cr-in  the lead-in to the pin. The dial arrives on it.
-     --cr-d   0 to 1 across the pinned track. The arc is drawn by it.
-     --cr-r   per node, 0 to 1, lit as the arc reaches that node.
+     --sg-p   0 to 1 across `sigs`'s pinned track. The photograph and the dial
+              ride it in opposite directions; the inner arc is drawn by it.
+     --sg-r   per reading, 0 to 1 and back. Its opacity and its blur.
+     --sg-y   per reading, -.5 to +.5 across its own slot. Signed, so the
+              travel does not come back the way it went.
+     --sg-d   per arc, 0 to 1 across that reading's slot. The segment draws.
+     --rg-t   0 to 1 across `rings`'s pinned track. The ring turns and grows.
+     --rg-lede  the paragraph's own fade, out before the first service is in.
+     --rc-r   per service, 0 to 1 and back. Its opacity and its blur.
+     --rc-t   per service, -.5 to +.5 across its own slot. The card drifts
+              outward on it, in the direction its side of the ring says.
+     --rt-r   per tick, the same number the card it marks is on.
      --pk-p   0 to 1 as `pick` crosses. The two cards drift against it.
      --pr-p   0 to 1 as a plate crosses. Its crop travels on it.
 
@@ -1479,130 +1487,248 @@
    ever hidden by a rule whose driver has not started.
    ======================================================================== */
 
-/* ---- 9a · PHYSIOLOGICAL INTELLIGENCE · the window and the rail ---------- */
+/* ---- 9a · PHYSIOLOGICAL INTELLIGENCE · the dial ------------------------
 
+   WHAT WAS THERE, AND WHY IT WENT. A clipped media window with the ring's
+   inner face travelling inside it, and the five readings as a hairline rail
+   across the foot of the band — 90 Sleep, 94 Heart rate, 62 HRV, 88 Activity,
+   77 Capacity, five columns, one rule, all five on screen at once. It was
+   correct and it was quiet: the reader met the page's only set of numbers as a
+   caption strip under a photograph, read the first one, and skimmed four.
+
+   THE REFERENCE IS ultrahuman.com/us/ring-pro, its `15 days battery life`
+   screen, read out of the shipped page rather than off a screenshot. The whole
+   construction is four elements and every one of them is load-bearing:
+
+     · a 200vh `scrollWrapper` with a `sticky; top:0; h-100vh` stage inside it,
+       so the screen is held for exactly one screen of extra wheel;
+     · a full-bleed photograph behind, scrimmed almost to black — it is
+       atmosphere, not a product frame, and it is the only thing with depth;
+     · `glassCircle`, a 664px disc of rgba(0,0,0,.3) that exists for one
+       reason: to guarantee the number reads, whatever the photograph does;
+     · TWO CONCENTRIC ARCS on one 676-unit viewBox — an outer ring at r=330
+       drawn whole, and an inner one at r=300 with `stroke-dasharray` /
+       `stroke-dashoffset` written by the scroll, the SVG itself rotated -90°
+       so the arc starts at twelve o'clock — and a 180px number in the middle.
+
+   WHAT THIS BAND DOES WITH IT. The same object, in this system's ramp and its
+   one typeface, carrying five readings instead of one claim:
+
+     · the dark screen is the page's own #0a1e57, and the photograph behind it
+       is the shot the window used to frame — the ring's inner face, its
+       sensors and contacts lit. The instrument is behind the readings it took,
+       which is the one arrangement of those two things that says something;
+     · the outer ring is FIVE ARCS, not one. Each draws across its own slot of
+       the track and stays drawn, so the ring closes exactly as the fifth
+       reading lands. Five equal segments of one circle is the same sentence
+       the rail was written to say — one instrument, five outputs — said once
+       instead of five times;
+     · the inner arc is the reference's, kept: one continuous line riding the
+       whole track, which is what stops a held screen reading as a stopped one;
+     · the readings cross-fade in one place, blurred in and out, which is the
+       idiom § 9b's deck already uses on this page.
+
+   AND NOTHING HERE IS A GAUGE. The rule § 9's header sets still holds and this
+   band is where it was most at risk: an arc around a number is a dial, and a
+   dial that fills to 62 states a maximum. So the arcs are not attached to the
+   values at all — they are the POSITION IN THE SET, five segments for five
+   readings, closing as the set is read out. "94" is a heart rate and "62" is
+   milliseconds; both are typeset, neither is measured.
+
+   THE GROUND IS NAVY, AND § 9b's NOTE IS THE REASON RATHER THAN THE OBJECTION.
+   That section took its own band off #0a1e57 because a photograph of polished
+   silver growing across the frame needs a pale field — on navy its arc reads
+   as a scratch. The same note says the other half out loud: "a drawn line
+   needs a dark field to be a drawn line." This band is drawn lines over a dark
+   studio shot, which is the case that argument was making. */
+
+/* The intro is text now — the photograph has gone to the ground of the stage,
+   and using it twice in one section would be using it for nothing. Same split
+   as .showcase and the band this replaces, so the heading still sets against a
+   paragraph rather than over one. */
+.ph-flat .sigs {
+  background: var(--ph-black);
+  /* The stage below is `overflow: hidden` on its own; this is for the pin's
+     own edges, which is where a 112%-tall photograph would otherwise show. */
+  isolation: isolate;
+  /* AND THE SECTION HAS NO BOTTOM PADDING, in either state, because in both of
+     them the thing at the foot of it is a stage that closes itself. Pinned,
+     --ph-sec-bottom is 116px of flat navy hanging under the last frame of a
+     full screen; still, it is 116px added to the stage's own 132 and the rail
+     sits in the top third of a quarter-empty band. The stage's padding is the
+     one that can see what is above it, so the stage keeps it. */
+  padding-bottom: 0;
+}
 .ph-flat .sigs-grid {
   display: grid;
-  /* The picture takes the larger track, for the reason .showcase states: the
-     point of the arrangement is the picture. Same split, so this band reads as
-     the two product frames above it continuing rather than as a new geometry. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
   column-gap: clamp(48px, 6vw, 96px);
-  align-items: center;
+  align-items: start;
 }
 .ph-flat .sigs-t > :first-child { margin-top: 0; }
-/* .lede is `margin: 20px auto 0` with a centring auto and its own measure. In
-   a two-column grid the auto does nothing visible and the measure is right, so
-   only the centring is undone — the class is kept because the reveal stagger
-   in § 10 addresses it by name and a bespoke one would have to be added there
-   as well as here. */
-.ph-flat .sigs-lede { margin: 24px 0 0; }
+.ph-flat .sigs .sec-title { color: var(--ph-white); }
+/* .lede is `margin: 20px auto 0` with a centring auto and its own measure; in
+   a two-column grid the auto does nothing and the measure is right, so only
+   the centring is undone. The class is kept because § 10's reveal stagger
+   addresses it by name. The colour is .closer-copy's, which is the value this
+   site has already settled for a paragraph on a dark ground. */
+.ph-flat .sigs-lede {
+  margin: 0;
+  color: rgba(255, 255, 255, .82);
+}
 
-.ph-flat .sigs-media {
+/* ---- the stage, in the state EVERY fallback lands on.
+
+   No pin, no stack, no dial: the photograph is the band's ground, and the five
+   readings are the rail they were, in white on the navy. That is the whole
+   reduced-motion design, the no-JavaScript design, the phone design and the
+   short-screen design, and it is one composition rather than four — because
+   the pinned construction below is switched on by `.is-lively` AND a media
+   query together, and adds rather than replaces.
+
+   § 9b does the opposite and has to pay for it: every rule its script switches
+   on is switched off again in two more places, and the note there says why
+   that is dangerous — the script has no idea a media query exists. Written
+   this way round there is nothing to undo. */
+.ph-flat .sigs-pin { position: relative; }
+.ph-flat .sigs-stage {
   position: relative;
   overflow: hidden;
-  border-radius: var(--ph-r27);
-  /* The picture's own ground rather than a grey. It loads lazily and it is a
-     dark studio shot: a pale placeholder would flash white in the middle of a
-     white section and then go black. */
-  background: #0f1626;
-  /* THE WINDOW TAKES ITS SHAPE FROM THE FILE, not from a height that happened
-     to look right. A product photograph is the one kind of picture a window is
-     not allowed to reframe, and a fixed 700px height was reframing it: at 1440
-     the column is 604 and the image box under it 604 × 896, which is 0.674
-     against the file's 0.806, so `cover` filled the HEIGHT and took 8% off
-     each side — and then the window's own overhang took the foot of the ring
-     with it. Measured in the browser: the band on show ran 8.0%-86.1% of the
-     file while the ring ran 14.9%-90.3%. The bottom 4% of the object was gone.
-
-     The file is now 1800 × 2216 off the 3712 × 4608 master, re-margined to 12%
-     of clear ground above and below the ring, and this ratio is that file's
-     0.8123 multiplied by the 1.12 of overhang below — so the image box is
-     exactly the file's shape, `cover` has nothing to crop, and the only thing
-     that ever leaves the frame is ground. */
-  aspect-ratio: 1800 / 1979;
-  /* The column is a fraction of the viewport with no cap of its own, so past
-     about 1760 the picture would go on growing. Capped and centred instead:
-     a cap on the WIDTH rather than the height, because a height cap would put
-     the box back out of ratio and hand the sides back to `cover`. */
-  width: min(100%, 740px);
-  margin-inline: auto;
+  padding: clamp(72px, 9vw, 132px) 0;
 }
-/* THE PICTURE IS TALLER THAN ITS WINDOW, WHICH IS THE WHOLE MECHANISM.
+.ph-flat .sigs-ground {
+  position: absolute;
+  inset: 0;
+  /* The navy the photograph dissolves into, stated again on the box the
+     photograph is in. The picture does not fill it — see below — and what is
+     left over has to be the section's ground rather than the page's white. */
+  background: var(--ph-black);
+}
+/* THE GROUND IS A LIFE, NOT A PRODUCT SHOT, 2026-09-11.
 
-   112% high and hung 6% above the top edge, so it overhangs the window by 6%
-   at each end. The travel is expressed against the ELEMENT, not the window —
-   a percentage in translate resolves against the transformed box — so ±4% of
-   112% is 4.5% of the window, inside the 6% of overhang there is to spend.
+   IT WAS ring_inner_dark — the ring's own sensor face on a black studio
+   ground, the picture the window this section replaced used to frame. The
+   argument for it was that the instrument should be behind the readings it
+   took, and the argument against it is what it looked like at a hundred
+   percent of a screen: a 900px product photograph with a 660px drawn ring in
+   the middle of it, which is two rings, one of them silver and enormous. The
+   band stopped being a reading and became a hero shot with numbers on.
+
+   THE REFERENCE SETTLES IT, and this is the part of it that had been read
+   wrong. ultrahuman.com/us/ring-pro's battery screen does have a photograph
+   behind the dial and it is not a product shot — it is a rower's hands on an
+   oar with the ring on one finger, water behind, shot wide. Sampled off the
+   shipped page at five points across its own track, every pixel outside the
+   arc is #000: the picture is carried at an opacity that leaves it a texture
+   you would only find by looking for it. It is not there to be seen. It is
+   there so the black is not flat.
+
+   So this is a landscape photograph of someone sitting by the sea with the
+   ring on, at a third of its own strength under the band's navy — a life the
+   readings were taken during, rather than the object that took them.
+
+   AND `cover` IS RIGHT AGAIN, which the last version of this comment was
+   correct to reject and is no longer describing. That note was written against
+   a 1800x2216 portrait, where filling the width of a landscape screen scaled
+   the file 1.8x and showed a third of the ring; the sizing-by-height and the
+   radial mask that closed the file's own vertical edges both existed to work
+   around it. This file is 1400x933 and the stage is a screen: cover crops 5%
+   off the width and nothing else, there are no side edges to close, and the
+   mask went with the problem it was solving.
+
+   THE PICTURE IS TALLER THAN ITS BOX, WHICH IS WHERE THE TRAVEL COMES FROM.
+   112% high and hung 6% above the top edge, so there is 6% of overhang at each
+   end and the +/-4% below spends 4.5% of the box — inside it, with margin.
    Getting that arithmetic wrong is not subtle: the frame shows a strip of its
-   own background along one edge at the end of the travel.
-
-   WAS 128% / 14% / ±8%, AND THAT IS WHAT ATE THE RING. Those numbers ask the
-   file for 19% of clear ground at each end before the object starts — 5.4% of
-   ordinary overhang plus 8% of travel plus the margin to not land on the edge
-   — and no product shot of an object photographed to fill its frame carries
-   that. The choice was a smaller ring in a taller frame or a shorter travel,
-   and on a band whose whole subject is the object, the travel is the cheaper
-   thing to spend: at 6% / ±4% the file needs 10% of ground and it ships 12%. */
-.ph-flat .sigs-media img {
+   own ground along one edge at the end of the travel. */
+.ph-flat .sigs-ground img {
   position: absolute;
   inset: -6% 0 auto 0;
   width: 100%;
   height: 112%;
   object-fit: cover;
   display: block;
+  /* A QUARTER, AND THE SCRIM TAKES MOST OF WHAT IS LEFT. Two controls rather
+     than one because they do different jobs: this one sets how much
+     photograph there is at all, and the scrim below decides where. Set by the
+     scrim alone the picture is at full strength in the corners and gone in the
+     middle, which is a vignette on a photograph; set here as well, it is a
+     photograph that was never at full strength anywhere. */
+  opacity: .26;
 }
-.ph-flat .sigs.is-lively .sigs-media img {
-  transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 8%), 0);
+/* WHERE THE PHOTOGRAPH IS, AND WHERE IT IS NOT.
+
+   Darkest at the centre, because that is the only part of the screen with type
+   on it and a 190px figure over a horizon line is a figure with a horizon line
+   through it. Lightest at the sides, where there is nothing but ring.
+
+   The linear layer is the section's two seams: the band's top and bottom meet
+   the flat navy of the intro above and § 9b's pale gradient below, and a
+   photograph that stops dead at a section boundary reads as a plate rather
+   than as a ground. */
+.ph-flat .sigs-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 62% at 50% 50%, rgba(10, 30, 87, .93) 0%, rgba(10, 30, 87, .70) 58%, rgba(10, 30, 87, .44) 100%),
+    linear-gradient(180deg, rgba(10, 30, 87, 1) 0%, rgba(10, 30, 87, .38) 24%, rgba(10, 30, 87, .38) 76%, rgba(10, 30, 87, 1) 100%);
 }
+/* The dial is the pinned construction's object and nothing else has a use for
+   it, so it is not in the page until the pin is. */
+.ph-flat .sigs-dial { display: none; }
+.ph-flat .sigs-well { position: relative; }
 
-/* ---- the rail. Five readings, one line, no tiles.
+/* ---- THE ORDER IS THE VALUES, SMALLEST FIRST, 2026-09-11.
 
-   The five grey tiles this replaces were the site's .figures component, and it
-   is the right component for a set of independent facts. These are not that:
-   they are five readings taken at the same moment by the same device, and a
-   row of separate boxes says the opposite. One rule across the top with four
-   hairlines dividing it says one instrument with five outputs, which is what
-   the paragraph above it claims. */
+   It was the order the sentence above reads them in — sleep, heart, activity,
+   capacity — which is the right order for a rail, where all five are on screen
+   together and the grouping is what the eye uses. It is the wrong order for
+   one dial: five figures arriving one at a time in the same place are a
+   SEQUENCE, and 90, 94, 62, 88, 77 is a sequence that goes nowhere. The reader
+   has nothing to do with the second number except notice it is not the first.
+
+   62, 77, 88, 90, 94 climbs, and a climb is something to follow — the same
+   reason the arc closes rather than just moving. The cost is that HRV and
+   Heart rate end up at opposite ends of the run, which on the rail would be a
+   mistake and on the dial is not: nothing here is beside anything. */
 .ph-flat .sigrail {
   list-style: none;
-  margin: clamp(56px, 6vw, 96px) 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  border-top: 1px solid var(--divider);
+  border-top: 1px solid rgba(143, 184, 234, .28);
 }
 .ph-flat .sig {
   position: relative;
   padding: clamp(26px, 2.6vw, 38px) 0 0 clamp(16px, 1.8vw, 28px);
-  border-left: 1px solid var(--divider);
+  border-left: 1px solid rgba(143, 184, 234, .28);
 }
 .ph-flat .sig:first-child { border-left: 0; padding-left: 0; }
-
-/* The accent runs along the top of each column as it arrives, over the shared
-   hairline. It is a reveal, not a bar chart: every one of the five draws to
-   its full width, so it states arrival and nothing about the number under it. */
-.ph-flat .sig::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: -1px;
-  height: 2px;
-  background: var(--ph-accent);
-  /* Drawn, not undrawn, when nothing is driving it — the same contract every
-     other fallback on this page keeps. A reduced-motion reader is meant to get
-     the finished composition, and five invisible accent rules is the state
-     before the animation rather than the state without one. The scroll-driven
-     value is scoped to .is-lively, which is set in the same synchronous pass
-     as the first measurement, so there is no frame where it is full and then
-     empty. */
-  transform: scaleX(1);
-  transform-origin: left center;
+/* The index is the segmented ring's own content as text, and it is in the
+   markup rather than in a ::before counter because it is the only thing on
+   screen that tells a reader on the fifth reading that there is no sixth. On
+   the rail it is a quiet ordinal; in the dial it is the caption under the arc
+   that is drawing. */
+.ph-flat .sig-i {
+  display: block;
+  margin-bottom: 14px;
+  font-size: var(--ph-fs-12);
+  line-height: 1;
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-12-600-caps);
+  font-variant-numeric: tabular-nums;
+  color: var(--ph-on-brand);
 }
-.ph-flat .sigs.is-lively .sig::before { transform: scaleX(var(--sg-r, 1)); }
+.ph-flat .sig-i small {
+  font-size: inherit;
+  font-weight: var(--ph-w-400);
+  color: rgba(143, 184, 234, .5);
+}
 .ph-flat .sig-n {
   display: block;
-  /* Tabular, because five numbers on one baseline that change width would sit
-     at five different optical positions in their columns. The face has the
+  /* Tabular, because five numbers that swap in one place at 190px would jump
+     the whole composition sideways on every hand-over. The face has the
      figures; phenome-glass.css turns them on globally for numeric runs and
      this states it locally so the rule survives that file being re-scoped. */
   font-variant-numeric: tabular-nums;
@@ -1610,7 +1736,7 @@
   line-height: 1;
   font-weight: var(--ph-w-600);
   letter-spacing: var(--ph-tr-80-600);
-  color: var(--ph-text-1);
+  color: var(--ph-white);
 }
 .ph-flat .sig-l {
   display: block;
@@ -1618,52 +1744,25 @@
   font-size: var(--ph-fs-17);
   line-height: var(--ph-lh-17);
   letter-spacing: var(--ph-tr-17-400);
-  color: var(--ph-text-2);
-}
-.ph-flat .sigs.is-lively .sig {
-  opacity: var(--sg-r, 1);
-  transform: translate3d(0, calc((1 - var(--sg-r, 1)) * 20px), 0);
+  color: rgba(255, 255, 255, .82);
 }
 
 @media (max-width: 1023px) {
-  .ph-flat .sigs-grid { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
-  /* THE FILE'S OWN SHAPE HERE TOO, for the reason the desktop rule gives. A
-     `clamp(360px, 96vw, 480px)` height was the landscape strip that comment
-     warns about the moment the column got wide: at the 1023px edge of this
-     query the box was about 960 × 480, twice as wide as it is tall against a
-     0.81 file, and `cover` answered by throwing away 30% of the picture at
-     each end — the ring cropped down to exactly the highlight and engraving
-     the note was written against. Capped and centred so the object stays
-     whole and the frame stays a portrait at every width in the range. */
-  .ph-flat .sigs-media {
-    aspect-ratio: 1800 / 2216;
-    height: auto;
-    width: min(100%, 520px);
-  }
-  /* AND THE PARALLAX COMES OFF, which is the reference's own call: Oura ships
-     `--highlights-section-media-y-from: 0` below lg and only turns the travel
-     on at the desktop breakpoint. The reason is the same one that made the
-     window taller — a phone window is barely bigger than the object in it, so
-     the 14% of overhang the travel needs is 14% of the product cropped away
-     for a movement nobody has the screen height to notice. Full bleed, no
-     overhang, no travel. */
-  .ph-flat .sigs-media img { inset: 0; height: 100%; }
-  .ph-flat .sigs.is-lively .sigs-media img { transform: none; }
+  .ph-flat .sigs-grid { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
   /* Five columns of 80-point figures do not fit a tablet and three do not
      divide five. Two rows of two and a hanging fifth is worse than a list, so
-     below the desktop it becomes one: the rule turns from a row of dividers
-     into a stack of them and the numbers come down a rung. */
+     below the desktop it becomes one. */
   .ph-flat .sigrail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ph-flat .sig { border-left: 0; padding-left: 0; }
-  .ph-flat .sig:nth-child(n+3) { border-top: 1px solid var(--divider); margin-top: 4px; }
-  .ph-flat .sig::before { display: none; }
+  .ph-flat .sig:nth-child(n+3) { border-top: 1px solid rgba(143, 184, 234, .28); margin-top: 4px; }
   .ph-flat .sig-n { font-size: clamp(40px, 8vw, 56px); }
 }
 /* One column, and the reading turns sideways with it. Five 56-point figures
    stacked over five labels is 500px of phone for five numbers; number left,
    label right on one baseline is the same five readings in half the page — and
-   it is the arrangement the ring stage's own deck falls back to at this width,
-   so the two lists on the page read as one idiom rather than two. */
+   it is the arrangement § 9b's deck falls back to at this width, so the two
+   lists on the page read as one idiom rather than two. The index comes off:
+   at one reading per line the sequence is the list. */
 @media (max-width: 560px) {
   .ph-flat .sigrail { grid-template-columns: minmax(0, 1fr); }
   .ph-flat .sig,
@@ -1678,10 +1777,250 @@
        the first row, and the two-column rule above hangs a top border on every
        row from the third. Both on one row is a 2px double line. */
     border-top: 0;
-    border-bottom: 1px solid var(--divider);
+    border-bottom: 1px solid rgba(143, 184, 234, .28);
   }
+  .ph-flat .sig-i { display: none; }
   .ph-flat .sig-n { font-size: var(--ph-fs-40); }
   .ph-flat .sig-l { margin-top: 0; }
+}
+
+/* ---- and this is the same content once the script owns it AND the screen can
+   hold it: one screen, pinned, with the readings in the middle of a ring that
+   closes as they are read out.
+
+   THE TWO CONDITIONS ARE ONE CONDITION. `.is-lively` is added by the handler
+   in the same synchronous pass as the first measurement, and the handler
+   returns before it touches anything if the reader asked for stillness — so
+   the class is "a script is driving this", and the query is "there is a screen
+   to drive it on". Neither alone is enough and neither can see the other, so
+   they are written as one selector and everything the pin needs lives inside
+   it. Nothing above this line knows the pin exists.
+
+   1024 AND 701 ARE § 9b's OWN NUMBERS, deliberately: this band and that one
+   pin and unpin together. Two pinned sections in a row where one gives up at a
+   different width is a page that reads as broken at exactly one size. */
+@media (min-width: 1024px) and (min-height: 701px) {
+  .ph-flat .sigs.is-lively .sigs-pin {
+    /* FIVE READINGS, ONE SLOT EACH, AND THE SLOT IS THE WHOLE ARITHMETIC.
+
+       30svh per reading is 270px of wheel on a 900px screen — about two
+       notches, which is long enough to read a number and a word and short
+       enough that nobody feels held. § 9b spends 285px on eleven words; this
+       is two, and it is the shorter band on purpose, because it is the first
+       of two pinned sections the reader meets in a row.
+
+       The slot count is in the script as well, and the two have to agree: the
+       track length here is what the handler divides by five. */
+    --sg-track: 150svh;
+    height: calc(100svh + var(--sg-track));
+  }
+  .ph-flat .sigs.is-lively .sigs-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  /* ---- the parallax, and it is three planes rather than a gesture.
+
+     A single element sliding at a different rate from the page is a texture,
+     not a depth — the eye reads depth from RELATIVE rates, so there have to be
+     at least two and they have to disagree. There are three here, and the
+     order is the order of the composition:
+
+       the photograph  ±4% of its own height, DOWN as the page goes up. The
+                       far plane, and the only one that moves against the
+                       scroll.
+       the dial        a quarter of that, and up. It also grows a twentieth
+                       across the track, which is what stops the held screen
+                       reading as a still one between hand-overs.
+       the reading     ±19px inside its own slot, and it is the only one of
+                       the three that resets — each reading rises through the
+                       frame, so five readings in one place read as a column
+                       passing rather than as five slides. It is the smallest
+                       of the three travels on purpose: it is the only one
+                       under type, and the fifth reading holds wherever its
+                       own slot leaves it while the pin lets go.
+
+     Every one has its resting value in the var(), so the frame before the
+     first measurement is the middle of the travel rather than the start. */
+  .ph-flat .sigs.is-lively .sigs-ground img {
+    transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 8%), 0);
+  }
+  .ph-flat .sigs.is-lively .sigs-dial {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(74vmin, 660px);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    transform:
+      translate3d(0, calc((var(--sg-p, .5) - .5) * 2%), 0)
+      scale(calc(.972 + var(--sg-p, .5) * .056));
+  }
+  /* The disc is the reference's `glassCircle` and it is here for its reason,
+     not its look: a 190px number over a photograph of polished metal is a
+     number with a highlight through it. Radial rather than a flat fill so it
+     has no edge of its own — the ring is the edge. */
+  .ph-flat .sigs-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(8, 24, 70, .88) 0%,
+      rgba(8, 24, 70, .74) 54%,
+      rgba(8, 24, 70, 0) 100%
+    );
+  }
+  /* The bloom drifts the other way from the dial it sits behind, which is the
+     third disagreement and the cheapest one — it is a gradient, so it costs a
+     composited layer and nothing else. */
+  .ph-flat .sigs-bloom {
+    position: absolute;
+    inset: -16%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(143, 184, 234, .16) 0%,
+      rgba(143, 184, 234, .07) 44%,
+      rgba(143, 184, 234, 0) 70%
+    );
+    transform: translate3d(0, calc((.5 - var(--sg-p, .5)) * 5%), 0);
+  }
+
+  /* ---- the arcs.
+
+     ROTATED -90°, so nought is at twelve o'clock rather than at three. That is
+     the reference's own transform and it is not a preference: a ring that
+     starts filling from the right reads as a progress bar that has been bent.
+
+     pathLength="100" ON EVERY CIRCLE, which is what makes the rest of this
+     block readable. Without it a dash length is a fraction of 2π r and every
+     number below would be a six-figure constant that changes if the radius
+     does. With it the circumference is 100 units, one segment is 20, and the
+     script can publish a plain 0-to-1 and CSS multiplies. */
+  .ph-flat .sigs-arcs {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    fill: none;
+    overflow: visible;
+  }
+  /* The face of the instrument: the whole circle, always, at the weight of a
+     hairline. It is what the five segments are drawn ON, and without it the
+     ring before the first segment lands is not a ring. */
+  .ph-flat .sigs-rim {
+    stroke: rgba(143, 184, 234, .30);
+    stroke-width: 2.2;
+  }
+  /* FIVE SEGMENTS OF 20 UNITS, with 1.8 of that spent on the gap either side
+     of the join. The gaps are what stop it reading as one bar: a ring drawn in
+     five pieces says five readings even when all five are drawn, which is the
+     state it spends the last slot in.
+
+     THE WEIGHT IS THE REFERENCE'S, 2026-09-11. It draws its outer arc at 8
+     units of a 676 viewBox and its inner at 6; this was at 4 and 1.6, which is
+     a hairline diagram rather than an instrument, and at 660px on screen the
+     ring read as something the page had drawn faintly rather than as the
+     object the numbers sit inside. 7 and 3.4, with the rim it is drawn on at
+     2.2. The gap went 1.4 to 1.8 with it — a join that read at 4 units of
+     stroke is half a join at 7.
+
+     --sg-d is this segment's own 0-to-1, published per slot. --k is which
+     segment it is, and it is in the markup because it is a property of the
+     element rather than of where the page is. */
+  .ph-flat .sigs-seg {
+    stroke: var(--ph-on-brand);
+    stroke-width: 7;
+    /* BUTT, NOT ROUND, and it is a bug rather than a taste. A round cap on a
+       dash of length nought is a dot, so the undrawn ring was five bright
+       pips sitting at the five segment starts — a state that reads as a
+       decision and is in fact the absence of one. */
+    stroke-linecap: butt;
+    stroke-dasharray: calc(var(--sg-d, 1) * 18.2) 100;
+    stroke-dashoffset: calc(var(--k) * -20 - .9);
+    filter: drop-shadow(0 0 14px rgba(143, 184, 234, .45));
+  }
+  /* The reference's inner arc, and the job it does here is the one it does
+     there: it is the only line on the stage that never stops. The segments
+     move five times in 150svh and hold in between; this rides every pixel of
+     the track, so there is never a frame in which the wheel does nothing. */
+  .ph-flat .sigs-sweep {
+    stroke: rgba(143, 184, 234, .38);
+    stroke-width: 3.4;
+    stroke-linecap: round;
+    stroke-dasharray: calc(var(--sg-p, 1) * 100) 100;
+  }
+
+  /* ---- the readings, in one place.
+
+     The blur is § 9b's, and so is the reason: five numbers hard-cutting in the
+     same 300px of screen read as a slideshow, and the same five arriving out
+     of focus read as one instrument settling on the next reading. 7px there,
+     8 here, and the extra is what buys the overlap in the handler's note: two
+     figures sharing a frame at .3 have to be light rather than legible, and a
+     190px glyph at 6px of blur is still a glyph. */
+  .ph-flat .sigs.is-lively .sigs-well {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(48vmin, 430px);
+    translate: -50% -50%;
+    padding: 0;
+    text-align: center;
+  }
+  .ph-flat .sigs.is-lively .sigrail {
+    display: block;
+    border-top: 0;
+    /* The stack has no height of its own — every reading is absolute — so the
+       well is given the tallest one's, once, rather than collapsing to nothing
+       and letting the five hang off the centre of an empty box. */
+    min-height: clamp(200px, 30vmin, 300px);
+  }
+  .ph-flat .sigs.is-lively .sig {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    opacity: var(--sg-r, 1);
+    filter: blur(calc((1 - var(--sg-r, 1)) * 8px));
+    /* --sg-y is signed: -.5 as the reading's slot opens, +.5 as it closes. So
+       the travel does not come back the way it went, which is the difference
+       between a reading passing through the frame and a reading bouncing. */
+    transform: translate3d(0, calc(var(--sg-y, 0) * -38px), 0);
+  }
+  /* Up a rung from the rail's. 12px is right in a five-column strip and lost
+     inside a 660px ring — the type has to hold its own against a 190px figure
+     rather than against a 17px label. */
+  .ph-flat .sigs.is-lively .sig-i {
+    margin-bottom: clamp(18px, 2.4vmin, 30px);
+    font-size: clamp(13px, 1.5vmin, 16px);
+    letter-spacing: .06em;
+  }
+  .ph-flat .sigs.is-lively .sig-n {
+    font-size: clamp(84px, 14vmin, 190px);
+    letter-spacing: -.022em;
+  }
+  .ph-flat .sigs.is-lively .sig-l {
+    margin-top: clamp(14px, 2vmin, 26px);
+    font-size: clamp(21px, 3vmin, 38px);
+    line-height: 1.15;
+    letter-spacing: var(--ph-tr-28-600);
+    font-weight: var(--ph-w-600);
+    color: var(--ph-white);
+  }
 }
 
 /* ---- 9b · THE WHOLE PICTURE OF YOU · the ring turns, and the page reads
@@ -1717,10 +2056,11 @@
        blurring and fading out as the next arrives.
 
    So this is that, with five statements instead of three, because there are
-   five services and each is a claim of its own. The ring starts small and
-   right of the copy, turns steadily, and grows until it is an arc leaving the
-   frame; the heading holds still through all of it; the paragraph hands over
-   to the five services one at a time, in the same place on the page.
+   five services and each is a claim of its own. The ring sits in the middle of
+   the stage, turns steadily, and grows; the heading holds still above it
+   through all of it; the paragraph hands over to the five services one at a
+   time, and they come up alternately on the left of the ring and on the right
+   — see the note on the copy below, which is where that changed and why.
 
    AND THE GROUND IS PALE, NOT NAVY. The band this replaces was #0a1e57, which
    was the right answer for a diagram — a drawn line needs a dark field to be a
@@ -1778,16 +2118,23 @@
    second to the compositor exactly as long as nothing in it triggers layout —
    put the sizing on the same element and every frame is a layout.
 
-   80%, not 50%. Centred, the ring's left arc crosses the text column at every
-   size above the smallest, and a paragraph over a polished highlight is a
-   paragraph nobody finishes. At 80% of the stage its centre is off toward the
-   right edge and it is the RIGHT of the ring that leaves the frame — which is
-   also what makes it read as an object continuing past the page rather than as
-   a picture that has been cropped. */
+   50%, AND IT WAS 80% UNTIL 2026-09-11. The old note argued the opposite and
+   it was right about the composition it was written for: with the copy in a
+   left-hand column, a centred ring crosses that column at every size above the
+   smallest, and a paragraph over a polished highlight is a paragraph nobody
+   finishes. The copy is not in a column any more — it alternates around the
+   ring, left then right, and there is nothing in the middle of the stage for
+   the ring to cross. So the object goes where the composition now points, and
+   the section becomes symmetrical about its own subject. */
 .ph-flat .rings-orbit {
   position: absolute;
-  left: 80%;
-  top: 50%;
+  left: 50%;
+  /* 54%, NOT 50%, AND IT IS THE HEADING THAT MOVED IT. Centred on the stage,
+     the ring at full size runs 139 to 761 of a 900px screen and the heading
+     ends at 175 — the top of the metal arrives in the descenders of "picture
+     of you." The band actually available is between the heading and the ticks,
+     and its middle is 4% of a screen lower than the stage's. */
+  top: 54%;
   width: min(58vw, 820px);
   aspect-ratio: 1;
   translate: -50% -50%;
@@ -1802,11 +2149,18 @@
 }
 /* THE WHOLE ANIMATION, IN ONE DECLARATION.
 
-   .34 to 1.12 of an 820px box is 279px to 918px — from an object sitting in
-   the right of the composition to one taller than the screen it is on. The cap
-   is not arbitrary: the source render is 1670px wide, so 918 CSS px is still
-   under native at 1.8× and the metal stays sharp on a retina screen. Growing
-   further would be softer, and a soft ring is worse than a smaller one.
+   .26 to .74 of an 820px box is 213px to 607px, and the ceiling came down from
+   1.12 when the ring moved to the middle. Off to the right it could grow past
+   the frame, because what left the frame was the half of it nobody was reading
+   over; centred, the same growth swallows both columns at once. Two things
+   were measured against, not chosen: a 300px card still clears the metal at
+   the narrowest desktop this construction runs at, and the object stays inside
+   the band between the heading and the ticks. The ring in the file is 93% of
+   the frame, so the metal at .74 is 567px on a 900px screen. The floor came
+   down with the ceiling so the travel is not shorter than it was.
+
+   It is still well under the source: the render is 1670px wide, so 607 CSS px
+   is native at 2.7×, and the metal is sharper now than it was.
 
    -168 degrees rather than a full turn. The object is close to rotationally
    symmetric, so what a reader actually sees moving is the sensor block, the
@@ -1820,7 +2174,7 @@
 .ph-flat .rings.is-lively .rings-ring {
   transform:
     rotate(calc(var(--rg-t, .5) * -168deg))
-    scale(calc(.34 + var(--rg-t, .5) * .78));
+    scale(calc(.26 + var(--rg-t, .5) * .48));
 }
 
 /* ---- the copy column. */
@@ -1928,6 +2282,129 @@
   opacity: var(--rc-r, 1);
   filter: blur(calc((1 - var(--rc-r, 1)) * 7px));
   transform: translate3d(0, calc((1 - var(--rc-r, 1)) * 18px), 0);
+}
+
+/* ---- THE COPY GOES ROUND THE RING, 2026-09-11.
+
+   IT WAS A COLUMN. Heading, paragraph, five services, all in the left half of
+   the stage, each service replacing the one before it in the same 210px band
+   while the ring turned in the right half. It worked, and what it could not do
+   was tell you that anything had moved: five statements appearing at one set
+   of coordinates is a slideshow whose only cut is a cross-fade, and by the
+   third one a reader has stopped watching the place it happens.
+
+   NOW THEY ALTERNATE. The ring is in the middle and the services come up
+   beside it — first on the left, then on the right, then the left again — so
+   the thing that changes between one statement and the next is not only the
+   words but WHERE ON THE SCREEN YOU ARE READING. The eye has to cross the ring
+   to follow the sentence, which is the one movement this section was always
+   describing and had never asked anybody to make.
+
+   AND EACH ONE DRIFTS OUTWARD while it is up: the left card to the left, the
+   right card to the right, both away from the ring that is growing between
+   them. Signed off --rc-t, which the handler publishes as -.5 to +.5 across a
+   service's own slot, so the drift does not come back the way it went — a card
+   passes through its position rather than arriving at it and retreating.
+
+   WHY THE WELL GOES `position: static` FOR THIS. The paragraph and the deck
+   are both absolutely positioned, and until now they resolved against the well
+   — a 210px band sitting between the heading and the ticks, whose centre is
+   some way below the stage's. The ring is centred on the STAGE. Taking the
+   well out of the positioning chain hands both of them to .rings-copy, which
+   is pinned to the stage's four edges, so the cards and the ring share one
+   centre line and the two halves of the composition actually agree.
+
+   ALL OF IT IS IN THIS QUERY, so none of it needs undoing below. The block
+   from `max-width: 1023px` takes the section apart for the phone, and every
+   rule it has to switch off is one written outside a query — which is the
+   trap its own note warns about. Nothing added here is. */
+@media (min-width: 1024px) and (min-height: 701px) {
+  .ph-flat .rings.is-lively .rings-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(40px, 7svh, 88px);
+    padding-bottom: clamp(32px, 5svh, 64px);
+  }
+  /* Centred, and it is the only thing on the stage that never moves — which is
+     what makes the alternation read as movement rather than as disorder. */
+  .ph-flat .rings.is-lively .rings-title {
+    margin: 0 auto;
+    text-align: center;
+  }
+  /* A spacer now rather than a band: the two things it used to hold are
+     positioned against .rings-copy, and all it still does is give the flex
+     column a middle for them to be in the middle of. */
+  .ph-flat .rings.is-lively .rings-well {
+    position: static;
+    flex: 1;
+    min-height: 0;
+    max-width: none;
+  }
+  /* THE PARAGRAPH SITS UNDER THE HEADING, NOT ON THE RING'S CENTRE LINE, and
+     the centre line was tried first because it is where the cards go. It does
+     not work: at the top of the track the ring is 200px and the paragraph is
+     five lines, so the sentence is set straight across the object it is about
+     and neither can be read. Under the heading it is one centred column of
+     type on an empty ground, which is what an introduction should be, and the
+     ring is below it and about to grow.
+
+     TOP-ANCHORED, NOT CENTRED, so the block grows downward as the measure
+     narrows at smaller widths instead of climbing into the heading. And wide
+     enough to break at four lines rather than five — the fifth line is what
+     reaches the metal. */
+  .ph-flat .rings.is-lively .rings-lede {
+    position: absolute;
+    top: 21%;
+    left: 50%;
+    inset-inline-end: auto;
+    inset-block-end: auto;
+    width: min(38rem, 54vw);
+    max-width: none;
+    translate: -50% 0;
+    text-align: center;
+  }
+  .ph-flat .rings.is-lively .rings-deck { max-width: none; }
+
+  .ph-flat .rings.is-lively .rcard {
+    /* `inset` in full rather than `top` alone: the rule outside this query sets
+       all four edges to 0, and a card given only a top is a card still stuck to
+       both sides of the stage. */
+    inset: 54% auto auto 0;
+    width: min(22vw, 300px);
+    /* THE GUTTER HAS TO BE A MARGIN HERE, and it is the one thing about this
+       layout that is not obvious. .rings-copy carries the page gutter as
+       `padding-inline` — it is .wrap-wide — and an absolutely positioned child
+       resolves `left: 0` against the PADDING box, not the content box. So the
+       card hung off the viewport's own edge with the first digit of "20,000"
+       half off the screen. Same token, applied where the offsets can see it. */
+    margin-inline: var(--ph-margin);
+    translate: 0 -50%;
+    transform: translate3d(calc(var(--rc-t, 0) * var(--rc-side, -1) * 34px), 0, 0);
+  }
+  /* ODD LEFT, EVEN RIGHT — and the side is a property of which card it is, so
+     it is stated here rather than published by the handler. --rc-side carries
+     the same fact to the drift above, as -1 or 1, so one selector sets both the
+     edge the card hangs off and the direction it leaves by. */
+  .ph-flat .rings.is-lively .rcard:nth-child(odd) {
+    --rc-side: -1;
+    inset: 54% auto auto 0;
+    text-align: left;
+  }
+  .ph-flat .rings.is-lively .rcard:nth-child(even) {
+    --rc-side: 1;
+    inset: 54% 0 auto auto;
+    text-align: right;
+  }
+  /* The marks go under the middle with everything else. In the column they sat
+     under the copy and read as its footer; on a symmetrical stage a row of
+     ticks pinned to the left edge is the one element admitting the layout used
+     to be something else. */
+  .ph-flat .rings.is-lively .rings-ticks {
+    justify-content: center;
+    margin-top: 0;
+  }
 }
 
 /* ---- the ticks. Five marks, and the live one fills.
@@ -2524,7 +3001,6 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
   .spec-table,
   .cta-actions,
   .showcase-img,
-  .sigs-media,
   .pick-card,
   .pick-assure li,
   .closer-copy h2,
@@ -2543,7 +3019,6 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
   .spec-table,
   .cta-actions,
   .showcase-img,
-  .sigs-media,
   .pick-card,
   .pick-assure li,
   .closer-copy h2,
@@ -2562,9 +3037,13 @@ html.ph-reveal body.ph-flat main > section .ringfam-lede,
 html.ph-reveal body.ph-flat main > section .closer-copy p  { --rv-at: 90ms; }
 /* The photograph comes in with the paragraph, not after the button. It is the
    other half of the row, and a picture that waits for the whole text column to
-   finish reads as a late asset rather than as part of the composition. */
-html.ph-reveal body.ph-flat main > section .showcase-img,
-html.ph-reveal body.ph-flat main > section .sigs-media     { --rv-at: 120ms; }
+   finish reads as a late asset rather than as part of the composition.
+
+   .sigs-media WAS THE OTHER HALF OF THIS RULE and is gone with the component:
+   § 9a's photograph is the ground of a pinned stage now, not a framed picture
+   in a row, and a full-screen ground cannot be revealed on a delay after a
+   threshold — the section it is the ground OF is what crosses the threshold. */
+html.ph-reveal body.ph-flat main > section .showcase-img   { --rv-at: 120ms; }
 html.ph-reveal body.ph-flat main > section .spec-table     { --rv-at: 175ms; }
 html.ph-reveal body.ph-flat main > section .cta-actions    { --rv-at: 245ms; }
 
