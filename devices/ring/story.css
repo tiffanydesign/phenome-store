@@ -18,8 +18,10 @@
    at the end — because a gold ramp is Oura's material, not ours. Weight 400
    rather than the site's 600 display weight: at 80px the light cut is what
    makes the reference read as considered rather than loud, and the kit has it. */
+/* Half the block space it first had: the line and its sentence were floating
+   in a screen of white rather than introducing the film under them. */
 .ph-flat .rintro {
-  padding-block: clamp(96px, 11vw, 168px) clamp(56px, 6vw, 96px);
+  padding-block: clamp(48px, 5.5vw, 84px) clamp(28px, 3vw, 48px);
   background: var(--surface-page, #fff);
 }
 .ph-flat .rintro-in { text-align: center; }
@@ -65,6 +67,21 @@ html.ph-reveal .ph-flat .rintro.ph-r:not(.ph-in) .rintro-p {
 }
 html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
 
+/* SCRUBBED, when story.js runs: the reveal above only ever fades in, once.
+   Here each line carries its own --ri (0 → 1 → 0) from where it sits on the
+   screen, so it comes up out of a blur on the way in and goes back into one
+   as it leaves the top. The declarations are `!important` because two rules
+   already write these properties at higher specificity: shared.js's
+   grandchild reveal and the `.ph-r:not(.ph-in)` pre-state above (0-6-1).
+   Scroll is the clock, so the transition goes too. */
+html .ph-flat .rintro[data-fade] .rintro-h,
+html .ph-flat .rintro[data-fade] .rintro-p {
+  transition: none !important;
+  opacity: var(--ri, 1) !important;
+  filter: blur(calc((1 - var(--ri, 1)) * 6px)) !important;
+  transform: translate3d(0, calc((1 - var(--ri, 1)) * var(--ri-dir, 1) * 24px), 0) !important;
+}
+
 /* ---------------------------------------------------------------------------
    2 · THE SENSING FILM
    ------------------------------------------------------------------------ */
@@ -102,12 +119,12 @@ html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
 /* ---- the type. Oura sets this band in its light cut on warm cream; ours is
    white on black with the site's secondary ink for the paragraph. */
 .ph-flat .rsense-k {
-  margin: 0 0 16px;
-  font-size: 12px; line-height: 16px;
+  margin: 0 0 14px;
+  font-size: 15px; line-height: 20px;
   font-weight: var(--ph-w-600);
-  /* Capitals are typed in the markup: phenome-glass.css sets
-     `text-transform: none !important` on every element site-wide. */
-  letter-spacing: .16em;
+  /* Sentence case, no capitals: the wide tracking a capitals eyebrow wants
+     would pull lowercase apart, so it sits at the body's own spacing. */
+  letter-spacing: -0.005em;
   color: rgba(255, 255, 255, .62);
 }
 .ph-flat .rsense-h {
@@ -169,7 +186,7 @@ html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
    2b · LIVE — the pinned timeline, desktop only (story.js sets data-live)
    ------------------------------------------------------------------------ */
 
-/* THE TRACK. 560vh tall with a screen-tall sticky stage, so 460vh of scroll is
+/* THE TRACK. 640vh tall with a screen-tall sticky stage, so 540vh of scroll is
    the timeline. story.js publishes, on the section:
 
      --rs-open   0 → 1   the card opening to the full screen (before the pin)
@@ -182,7 +199,7 @@ html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
      --rl-y      signed      its travel, for the parallax
 
    and `aria-current` on the live item of each list. */
-.ph-flat .rsense[data-live] .rsense-track { height: 560vh; }
+.ph-flat .rsense[data-live] .rsense-track { height: 640vh; }
 .ph-flat .rsense[data-live] .rsense-stage {
   position: sticky; top: 0;
   height: 100vh; height: 100svh;
@@ -221,26 +238,28 @@ html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
     linear-gradient(0deg, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0) 30%);
 }
 
-/* THE MODULES. Each pair shares the stage: copy upper left, list at the right.
-   Presence is opacity and a blur; the parallax is each layer's own travel
-   multiplied by its own depth, so the list (nearer) outruns the copy. */
+/* THE MODULES, as two rounds. In each, the copy upper left fades up and holds
+   still — it does not travel — while the list at the right scrolls slowly up
+   the screen from the lower edge until its top meets the copy's top. Only then
+   does the pair leave, together. Round one fades out as a pair; round two
+   stays and is carried off by the page as the pin releases.
+
+   Presence is opacity, a blur and a short settle (--rl-in); the list's scroll
+   is --rl-y in screen heights, so its speed is the reader's own. Both layers
+   share one `top`, which is what lets the list come to rest level with the
+   heading's eyebrow. */
 .ph-flat .rsense[data-live] .rsense-layer {
   position: absolute; left: 0; right: 0;
+  top: max(calc(var(--ph-nav-h, 44px) + 7vh), 96px);
   /* Block padding only: the inline padding is .wrap-wide's gutter. */
   padding-block: 0;
   opacity: var(--rl-in, 0);
   filter: blur(calc((1 - var(--rl-in, 0)) * 6px));
-  transform: translate3d(0, calc(var(--rl-y, 0) * var(--depth, 160px)), 0);
+  transform: translate3d(0, calc(var(--rl-y, 0) * 100vh + (1 - var(--rl-in, 0)) * 20px), 0);
   will-change: transform, opacity;
   pointer-events: none;
 }
-.ph-flat .rsense[data-live] .rsense-copy {
-  --depth: 180px;
-  top: max(calc(var(--ph-nav-h, 44px) + 7vh), 96px);
-}
 .ph-flat .rsense[data-live] .rsense-side {
-  --depth: 340px;
-  top: 50%; margin-top: -210px;
   display: flex; justify-content: flex-end;
 }
 /* Both columns are held to the black either side of the case: the paragraph
@@ -261,7 +280,6 @@ html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
 /* A short desktop window cannot hold a copy block and a five-row list without
    them meeting; the list tightens first. */
 @media (max-height: 820px) {
-  .ph-flat .rsense[data-live] .rsense-side { margin-top: -180px; }
   .ph-flat .rsense[data-live] .rsense-list { gap: 14px; }
   .ph-flat .rsense[data-live] .rsense-n { font-size: 40px; }
   .ph-flat .rsense[data-live] .rsense-list--services .rsense-n { font-size: 32px; }

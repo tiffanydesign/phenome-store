@@ -9,12 +9,15 @@
                       film starts once it is mostly open — ONE play, no loop,
                       so it comes to rest on its last frame and stays there
      .00 – .10        the veil rises
-     .03 – .42        module A (Five layers) in, held, then carried out upward
-     .10 – .46        module B (the five readings), a beat behind A
-     .52 – 1          module C (Completing the circle), held to the end
-     .58 – 1          module D (the five services)
+     .02 – .09        copy A (Five layers) fades up and holds still
+     .04 – .38        list B (the five readings) scrolls up from the lower
+                      edge until its top is level with A's
+     .40 – .47        A and B fade out together
+     .51 – .58        copy C (Completing the circle) fades up and holds
+     .53 – .90        list D (the five services) scrolls up the same way
+     .90 – 1          C and D hold, then leave with the page as the pin ends
 
-   Inside B and D the live item steps through the list as the module holds.
+   Inside B and D the live item steps down the list as it scrolls.
 
    WHO GETS IT: a screen at least 901px wide and 641px tall, with motion
    allowed. Everyone else keeps the static stack — the film on its last frame
@@ -99,9 +102,10 @@
 
   function frame() {
     queued = false;
+    var vh = window.innerHeight || 1;
+    fadeIntro(vh);
     if (!live) return;
     var box = sec.getBoundingClientRect();
-    var vh = window.innerHeight || 1;
     var travel = box.height - vh;
 
     /* Before the pin: the section's top rising from the bottom of the screen to
@@ -116,18 +120,50 @@
     if (open > 0.6) play();
     if (box.top > vh) rewind();
 
-    /* Travel is signed and centred on each module's hold, so a module rises
-       through the screen as the reader scrolls: below when arriving, above
-       when leaving. The depth multiplier in story.css turns it into pixels. */
-    setLayer(layers.a, window4(p, 0.03, 0.12, 0.34, 0.42), (0.22 - p) / 0.22);
-    setLayer(layers.b, window4(p, 0.10, 0.19, 0.38, 0.46), (0.28 - p) / 0.22);
-    /* The last pair never leaves, so its travel is capped: it keeps drifting up
-       a little as the track runs out instead of sailing off the top. */
-    setLayer(layers.c, window4(p, 0.52, 0.61, 2, 3), Math.max((0.72 - p) / 0.22, -0.4));
-    setLayer(layers.d, window4(p, 0.58, 0.67, 2, 3), Math.max((0.78 - p) / 0.22, -0.4));
+    /* The copy never travels (0); the list's travel is in screen heights, from
+       RISE below its resting place up to 0, linear in scroll so it moves at
+       the reader's pace, with the last stretch eased so it settles rather
+       than stops. The last pair has no exit: the page carries it off. */
+    setLayer(layers.a, window4(p, 0.02, 0.09, 0.40, 0.47), 0);
+    setLayer(layers.b, window4(p, 0.04, 0.12, 0.40, 0.47), RISE * (1 - scrollIn(p, 0.04, 0.38)));
+    setLayer(layers.c, window4(p, 0.51, 0.58, 2, 3), 0);
+    setLayer(layers.d, window4(p, 0.53, 0.61, 2, 3), RISE * (1 - scrollIn(p, 0.53, 0.90)));
 
-    stepList(lists.b, p, 0.14, 0.40);
-    stepList(lists.d, p, 0.62, 0.96);
+    stepList(lists.b, p, 0.08, 0.38);
+    stepList(lists.d, p, 0.57, 0.90);
+  }
+
+  /* How far below its resting place a list starts, in screen heights: far
+     enough that it enters from the lower edge of the frame. */
+  var RISE = 0.62;
+  /* Linear for the first 80% of the span, then an ease-out into the rest, with
+     the two joined at matching speed so there is no visible seam. */
+  function scrollIn(p, a, b) {
+    var t = clamp((p - a) / (b - a));
+    var k = 0.8;
+    if (t <= k) return t / (k + (1 - k) / 2);
+    var u = (t - k) / (1 - k);
+    return (k + (1 - k) * (u - u * u / 2)) / (k + (1 - k) / 2);
+  }
+
+  /* ---- the introduction above the film. Each line's presence comes from
+     where its centre sits on the screen: it fades up across the lower fifth,
+     holds through the middle, and fades back out across the top fifth.
+     --ri-dir flips the settle so a line rises in from below and lifts away
+     upward. Runs on every screen size, not just when the film is live. */
+  var intro = document.querySelector('.rintro');
+  var introLines = intro ? [].slice.call(intro.querySelectorAll('.rintro-h, .rintro-p')) : [];
+  function fadeIntro(vh) {
+    if (!introLines.length) return;
+    if (calm.matches) { intro.removeAttribute('data-fade'); return; }
+    intro.setAttribute('data-fade', '');
+    for (var n = 0; n < introLines.length; n++) {
+      var r = introLines[n].getBoundingClientRect();
+      var c = (r.top + r.height / 2) / vh;
+      var v = c > 0.5 ? ease((0.98 - c) / 0.2) : ease((c - 0.02) / 0.2);
+      introLines[n].style.setProperty('--ri', v.toFixed(3));
+      introLines[n].style.setProperty('--ri-dir', c > 0.5 ? '1' : '-1');
+    }
   }
 
   var queued = false;
@@ -181,5 +217,5 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(request);
 
   decide();
-  if (!live) showEnd();
+  if (!live) { showEnd(); request(); }
 })();
