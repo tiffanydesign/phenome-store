@@ -282,8 +282,8 @@
   background: #0a1e5757;
   -webkit-backdrop-filter: blur(18px) saturate(130%); backdrop-filter: blur(18px) saturate(130%);
   box-shadow: inset 0 0 0 1px #ffffff33;
-  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  font-size: var(--ph-fs-13); font-weight: var(--ph-w-600);
+  letter-spacing: normal;
   color: #fff; white-space: nowrap;
   /* NO TEXT-SHADOW, 2026-09-09 — a site rule now. A glow behind type over a
      photograph is a legibility patch, and this tag already has the real fix
@@ -710,11 +710,11 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
      with the capitals gone (phenome-glass.css §2c) a 12px label loses the
      width capitals gave it, and a rung up puts it back. */
   font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+  font-weight: var(--ph-w-600); letter-spacing: normal;
   color: var(--ph-accent);
 }
 .pdp .pdp-opt-k span {
-  color: var(--ink-900); letter-spacing: var(--ph-tr-12-600-caps);
+  color: var(--ink-900); letter-spacing: normal;
   margin-left: auto; text-align: right;
 }
 .pdp .buy-opt + .buy-opt { margin-top: clamp(20px, 2vw, 26px); }
@@ -737,7 +737,16 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   font-size: var(--ph-fs-14); text-decoration: underline;
   text-decoration-color: #203a8547; text-underline-offset: 3px;
 }
-.pdp .buy-alt:hover { border: 0; text-decoration-color: var(--ph-accent); }
+/* It is a link, so it hovers like one. Being a `.tag` underneath, it was
+   picking up the size chips' filled navy hover — and with this rule's 0 padding
+   that pill hugged the letters and ran flush into the column's left edge, so it
+   read as half a shadow cut off. The background and ink are pinned here. */
+.pdp .buy-alt:hover,
+.pdp .buy-alt:active {
+  border: 0; background: none; box-shadow: none;
+  color: var(--ph-accent-hover);
+  text-decoration-color: var(--ph-accent);
+}
 .pdp .buy-alt.on {
   border: 0; color: var(--ink-900); font-weight: var(--ph-w-600);
   text-decoration-color: var(--ink-900);
@@ -771,8 +780,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    added, and the chosen state is the same accent-border-and-ink the size chips
    beside it already use. */
 .pdp .buy-alt { color: var(--ph-accent-link); }
-.pdp .buy-alt:hover { border-color: var(--ph-accent); }
-.pdp .buy-alt.on { border-color: var(--ph-accent); color: var(--ph-accent); }
+.pdp .buy-alt.on { border-color: var(--ph-accent); color: var(--ph-accent); background: none; }
 .pdp .buy-swatch:focus-visible,
 .pdp .buy-choice:focus-visible,
 .pdp .buy-chips .tag:focus-visible {
@@ -885,12 +893,6 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
     rgba(10, 30, 87, .26) 100%);
 }
 
-.pdp .pdp-sig-eyebrow {
-  margin: 0;
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
-  color: #a9c3ec;
-}
 /* 48/53 is seed's own heading, and this ladder's 48 rung is 48/56 — near
    enough that the token is used rather than a bespoke leading. */
 .pdp .pdp-sig-h {
@@ -1048,9 +1050,8 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   display: inline-flex; align-items: center; height: 26px; padding: 0 11px;
   border-radius: var(--ph-r56);
   background: var(--gl-tint-sunk); box-shadow: inset 0 0 0 1px var(--pdp-hair);
-  font-size: var(--ph-fs-12); line-height: 1;
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase; color: var(--ph-text-2);
+  font-size: var(--ph-fs-13); line-height: 1;
+  font-weight: var(--ph-w-600); letter-spacing: normal; color: var(--ph-text-2);
   font-variant-numeric: tabular-nums;
   transition: background var(--pdp-quick) var(--pdp-ease),
               color var(--pdp-quick) var(--pdp-ease),
@@ -1181,14 +1182,6 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
               filter 460ms 200ms var(--pdp-ease);
 }
 
-.pdp .pdp-pin-k {
-  margin: 0 0 14px;
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase;
-  /* --ph-on-brand, the site's own ink for a label on a brand ground. */
-  color: var(--ph-on-brand);
-}
 /* THE VALUE. Display size, tight, tabular — the same treatment the comparison
    below gives its figures, so a reader meets the language once and recognises
    it twice. `text-wrap: balance` because "One picture" is two words where the
@@ -1591,24 +1584,40 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp .pdp-hot {
   -webkit-appearance: none; appearance: none; cursor: pointer;
   position: absolute; left: var(--x); top: var(--y);
-  width: 34px; height: 34px; margin: -17px 0 0 -17px; padding: 0;
+  width: 38px; height: 38px; margin: -19px 0 0 -19px; padding: 0;
   border: 0; border-radius: 50%; background: none;
-  z-index: 2;
+  z-index: 3;
 }
+/* THE MARK CARRIES ITS NUMBER, 2026-09-14. The list beside the picture counts
+   01 to 04, and the marks were four identical blue dots — so the only thing
+   joining a dot to its row was a line, and the line had to be drawn to be
+   understood. Numbered, the pair is legible at rest: a reader who never hovers
+   still sees that the 3 on the ring is the 03 in the list. The line is then
+   free to be short, because it no longer has to do the matching. */
 .pdp .pdp-hot::before {
-  content: ""; position: absolute; inset: 9px;
-  border-radius: 50%; background: var(--ph-accent);
-  /* Two rings rather than one: an opaque white collar so the dot holds its edge
-     against the ring's own highlights, then the accent halo outside it. */
-  box-shadow: 0 0 0 3px #ffffffe0, 0 0 0 8px #203a8533;
-  transition: box-shadow var(--pdp-quick) var(--pdp-ease);
+  content: attr(data-n); position: absolute; inset: 8px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #fff; color: var(--ph-accent);
+  font-size: 12px; line-height: 1; font-weight: var(--ph-w-600);
+  font-variant-numeric: tabular-nums;
+  /* A white disc with an accent rim at rest; the live one inverts. The rim is
+     inset so the disc's outer edge is the same at both states and the leader,
+     which is measured to that edge, does not move when the state changes. */
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffd9;
+  transition: background var(--pdp-quick) var(--pdp-ease),
+              color var(--pdp-quick) var(--pdp-ease),
+              box-shadow var(--pdp-quick) var(--pdp-ease);
 }
-.pdp .pdp-hot:hover::before,
+.pdp .pdp-hot:hover::before {
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffe6, 0 0 0 8px #203a8526;
+}
 .pdp .pdp-hot[aria-current="true"]::before {
-  box-shadow: 0 0 0 3px #ffffffe6, 0 0 0 12px #203a8547;
+  background: var(--ph-accent); color: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffe6, 0 0 0 9px #203a8533;
 }
 .pdp .pdp-hot::after {
-  content: ""; position: absolute; inset: 9px;
+  content: ""; position: absolute; inset: 8px;
   border-radius: 50%;
   border: 2px solid var(--ph-accent);
   opacity: 0;
@@ -1628,54 +1637,104 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 .pdp .pdp-hot:focus-visible { outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: 2px; border-radius: 50%; }
 
-/* ---- THE CONNECTOR.
+/* ---- THE DIAL, 2026-09-14.
 
-   The old leader was a 1px stub on the dot: a fixed length at a fixed angle,
-   pointing in roughly the direction of the list and stopping in mid-air about
-   400px short of it. It could not do better, because a pseudo-element on the
-   dot knows nothing about where the row it belongs to has ended up.
+   WHAT IT REPLACES: a leader from the mark to the row in the list beside the
+   picture. It was tried three ways — an elbow down a shared gutter spine, a
+   radial escape then an elbow, and one straight diagonal — and all three failed
+   for the same reason: the list is outside the ring and the marks are on its
+   inner wall, so any line from one to the other has to cross the metal. The
+   diagonal crossed the band and the empty centre both, and read as a scratch.
 
-   So the line is an SVG laid over the whole two-column grid and drawn by
-   pdp.js, which can measure both ends. Orthogonal rather than diagonal — out of
-   the dot, across the gutter, then along to the row — because an elbow reads as
-   a diagram's leader and a diagonal reads as a scribble over a photograph. It
-   draws itself in on a dash offset, which is what makes it arrive as a gesture
-   from the dot toward the words rather than simply appearing.
+   THE ANSWER IS TO STOP LEAVING THE RING. Measured off the photograph, its
+   hollow is a clean white disc 62% of the picture wide, centred at 49.8% /
+   50.6%, and every mark sits on its rim. That disc is the one region of the
+   picture a line can occupy without covering the product. So:
 
-   pointer-events: none throughout: the overlay covers the dots. */
-.pdp .pdp-cut { position: relative; }
+     · a hairline TRACK, a circle concentric with the ring at 21.5% of the
+       picture's width, inside the hollow and well clear of the wall;
+     · a LEADER from the live mark straight in toward the centre, stopping on
+       the track — radial, one segment, and about 60px long at desktop, so it
+       cannot be anything but short and straight;
+     · a READOUT inside the track: the number and the name of what is being
+       pointed at, like the face of a gauge.
+
+   Every leader ends on the same circle, so the four read as one instrument
+   rather than four annotations. The list keeps the long description and is
+   joined to the marks by number and by lighting together — no line crosses
+   the gutter, and so nothing has to be hidden when the columns stack. */
 .pdp .pdp-cut-wire {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   overflow: visible;
+}
+.pdp .pdp-cut-wire .track {
+  fill: none;
+  stroke: var(--ph-accent);
+  stroke-opacity: .16;
+  stroke-width: 1;
 }
 .pdp .pdp-cut-wire path {
   fill: none;
   stroke: var(--ph-accent);
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-linejoin: round;
   opacity: 0;
 }
-.pdp .pdp-cut-wire circle { fill: var(--ph-accent); opacity: 0; }
+.pdp .pdp-cut-wire .tip { fill: var(--ph-accent); opacity: 0; }
 .pdp .pdp-cut-wire[data-live] path {
   opacity: 1;
-  animation: pdp-wire 420ms var(--pdp-ease) both;
+  animation: pdp-wire 360ms var(--pdp-ease) both;
 }
-.pdp .pdp-cut-wire[data-live] circle {
+.pdp .pdp-cut-wire[data-live] .tip {
   opacity: 1;
-  animation: pdp-wire-end 260ms var(--pdp-ease) 300ms both;
+  animation: pdp-wire-end 220ms var(--pdp-ease) 260ms both;
 }
 @keyframes pdp-wire {
   from { stroke-dashoffset: var(--wire-len); }
   to   { stroke-dashoffset: 0; }
 }
 @keyframes pdp-wire-end { from { r: 0; } to { r: 3.5; } }
+
+/* The readout. Centred on the RING, not on the figure — the photograph's
+   centre and the ring's are 0.6% apart vertically, and at a 21% track that is
+   enough to put the words visibly off the dial's axis. Sized off the figure's
+   width through a container unit so it scales with the ring it sits inside. */
+.pdp .pdp-cut-fig { container-type: inline-size; }
+.pdp .pdp-cut-dial {
+  position: absolute; left: 49.84%; top: 50.56%;
+  width: 34cqi;
+  translate: -50% -50%;
+  display: grid; justify-items: center; gap: 1.1cqi;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+}
+.pdp .pdp-cut-dial .n {
+  font-size: clamp(11px, 2.1cqi, 13px); line-height: 1;
+  font-weight: var(--ph-w-600);
+  letter-spacing: normal;
+  color: var(--ph-accent);
+  font-variant-numeric: tabular-nums;
+}
+.pdp .pdp-cut-dial .t {
+  font-size: clamp(15px, 3.4cqi, 21px); line-height: 1.22;
+  font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+.pdp .pdp-cut-dial[data-swap] > * { animation: pdp-dial-in 320ms var(--pdp-ease) both; }
+.pdp .pdp-cut-dial[data-swap] .t { animation-delay: 40ms; }
+@keyframes pdp-dial-in {
+  from { opacity: 0; translate: 0 6px; }
+  to   { opacity: 1; translate: 0 0; }
+}
 @media (prefers-reduced-motion: reduce) {
   .pdp .pdp-cut-wire[data-live] path,
-  .pdp .pdp-cut-wire[data-live] circle { animation: none; stroke-dashoffset: 0; }
+  .pdp .pdp-cut-wire[data-live] .tip { animation: none; stroke-dashoffset: 0; }
+  .pdp .pdp-cut-dial[data-swap] > * { animation: none; }
 }
 
 .pdp .pdp-cut-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; position: relative; z-index: 2; }
@@ -1692,7 +1751,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 .pdp .pdp-cut-btn .n {
   font-size: var(--ph-fs-14); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps);
+  letter-spacing: normal;
   color: var(--ph-tertiary); font-variant-numeric: tabular-nums;
   padding-top: 6px;
   transition: color var(--pdp-quick) var(--pdp-ease);
@@ -1727,124 +1786,151 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 
 /* ---------------------------------------------------------------------------
-   6 · TECH SPECS · one panel, read off Oura's own
+   6 · TECHNICAL SPECIFICATIONS · the plate runs off the page
 
-   WHAT THIS REPLACES: eight <details> rows with a right-hand metric column and
-   an "Expand all" control above them, then a nine-badge grid underneath. It was
-   a good accordion. The problem is that a specification section is the one
-   place on a product page where the reader has already decided to read — they
-   scrolled past four thousand pixels of argument to get here — and an accordion
-   answers that by hiding everything behind eight presses. The badge grid then
-   said nine of the same facts a second time, in a second visual form, on the
-   grounds that a table should not end on another row.
+   THE REFERENCE IS THE COMPANY'S OWN PREVIOUS PAGE,
+   phenomelongevity.com/products/phenometech-ring, asked for 2026-09-14. What
+   was taken from it, and what could not be:
 
-   THE REFERENCE IS ouraring.com/store/rings/oura-ring-4-ceramic, its Tech
-   Specifications panel, and it is measured rather than approximated. Read out
-   of the shipped page:
+     the plate     the charging dock shot side-on, its cable running straight
+                   out through the right edge of the PAGE rather than stopping
+                   at the edge of a box. That is the whole idea of the section:
+                   the one long line in the composition is the product's own
+                   cable, and it leaves the frame instead of being framed.
+     the title     two lines, very large, set bottom-left against the plate so
+                   the words and the dock share a baseline zone.
+     the cards     an icon, a quiet label in the secondary ink, the value in
+                   the primary ink, outlined, and What's Included as the one
+                   tinted card. Kept exactly.
 
-     ground        one rounded panel, radius 24, filling the content width
-     photograph    the charger, filling the panel's left third, and under it a
-                   nested lighter card at 40% white holding What's Included
-     heading       40 / 60, weight 400, no tracking, sentence case
-     group title   16 / 24, weight 700, with a small line glyph beside it
-     body          12 / 18, weight 400 — SMALL, and that is the whole trick:
-                   the group titles carry the structure and the values are
-                   allowed to be quiet, so eight groups fit two columns of one
-                   screen with no rules, no dividers and nothing to open
-     grid          two columns, generous row gap, no separators anywhere
+     the grid      NOT kept. The reference has eight cards of ONE value each,
+                   so a uniform 3 × 3 works for it. This page carries eleven
+                   groups and most hold three to five lines, and at uniform
+                   heights the short ones would stretch into boxes of air. So
+                   each card now leads with one headline value — the thing a
+                   reader scanning for "how long does the battery last" is
+                   looking for — and the supporting lines sit under it in a
+                   smaller, quieter voice. The two heavy groups span two rows,
+                   the short ones stack beside them, and the warranty closes
+                   the section as a full-width strip.
 
-   MAPPED ONTO THIS SYSTEM'S OWN LADDER rather than transplanted: 40/48 for the
-   heading (our 40 rung; Oura's 1.5 leading is looser than anything on this
-   site), 17/21 semibold for a group title, and 14/18 for the body — which is
-   Oura's 12/18 leading exactly, at the smallest size this type ladder has. The
-   ground is the surface ladder's, not their sand: the section is already the
-   quiet band, so the panel is white, and the nested card inverts again.
-
-   NOTHING WAS DROPPED. All eight groups are here with every value that was in
-   the table, plus the three warranty and delivery lines the badges were
-   carrying that the table never had.
+   THE LABELS ARE FULL NAMES AND SENTENCE-WEIGHT, NOT EYEBROWS. 15px in the
+   secondary ink, no tracking and no capitals: a label here names a card, it
+   is not a kicker above a headline.
    ------------------------------------------------------------------------ */
-.pdp .pdp-ts {
+.pdp .pdp-specs {
+  /* The plate is allowed past the wrapper to the right edge of the viewport,
+     and 100vw includes the scrollbar, so the section clips the overhang rather
+     than letting it scroll the page sideways. `clip`, not `hidden`: hidden
+     would make the section a scroll container and break sticky descendants. */
+  overflow-x: clip;
+}
+
+/* ---- the head. The title takes the narrow column and sits at the foot of it;
+   the plate takes the rest and runs on past the wrapper. */
+.pdp .pdp-specs-head {
   display: grid;
-  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
-  gap: clamp(32px, 4vw, 72px);
-  margin-top: clamp(30px, 3vw, 44px);
-  padding: clamp(30px, 3.4vw, 52px);
-  border-radius: var(--ph-r27);
-  background: var(--gl-tint-live);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: end;
+  gap: clamp(20px, 3vw, 48px);
 }
-
-/* ---- the side: a photograph, and the box list under it. */
-.pdp .pdp-ts-side { display: grid; align-content: start; gap: clamp(20px, 2vw, 28px); }
-.pdp .pdp-ts-shot {
-  border-radius: var(--ph-r18);
-  overflow: hidden;
-  background: var(--gl-tint-sunk);
-  aspect-ratio: 1 / 1;
-}
-.pdp .pdp-ts-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Oura's nested card is white at 40% over their sand. Ours is the recess tone
-   over the panel's white — the same one-step inversion, in this site's ladder
-   instead of theirs. */
-.pdp .pdp-ts-box {
-  border-radius: var(--ph-r18);
-  background: var(--gl-tint-sunk);
-  padding: clamp(20px, 2vw, 26px);
-}
-
-/* ---- the main column. */
-.pdp .pdp-ts-h {
-  margin: 0 0 clamp(26px, 2.6vw, 38px);
-  font-size: var(--ph-fs-40); line-height: var(--ph-lh-40);
-  /* 400, not 600, and it is the reference's own weight. A specification panel
-     is a reference document; its title announces a section rather than making
-     a claim, and at 40px the lighter weight is what tells you which of those
-     two things it is. */
-  font-weight: var(--ph-w-400);
-  letter-spacing: var(--ph-tr-40-600);
+.pdp .pdp-specs-h {
+  margin: 0;
+  padding-bottom: clamp(8px, 1.4vw, 22px);
+  font-size: clamp(40px, 5.2vw, var(--ph-fs-80, 80px));
+  line-height: 1.02;
+  font-weight: var(--ph-w-600);
+  letter-spacing: var(--ph-tr-64-600);
   color: var(--ink-900);
 }
-.pdp .pdp-ts-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(28px, 3vw, 56px);
-  row-gap: clamp(28px, 3vw, 44px);
+.pdp .pdp-specs-h span { color: var(--ph-accent); }
+
+/* THE BLEED. The wrapper is centred at --ph-content-max with --ph-margin either
+   side, so the distance from the plate's column edge to the viewport's edge is
+   that margin plus half of whatever the viewport has beyond the wrapper. The
+   plate's right margin is that distance, negative. The image's own right edge
+   is the end of the cable — the PNG was cut there — so the cable meets the
+   viewport edge and the dock stays in the column. */
+.pdp .pdp-specs-plate {
+  --bleed: calc(var(--ph-margin) + max(0px, (100vw - var(--ph-content-max) - var(--ph-margin) * 2) / 2));
+  margin-right: calc(var(--bleed) * -1);
+  min-width: 0;
 }
-.pdp .pdp-ts-k {
+.pdp .pdp-specs-plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- the grid. EIGHT CARDS, FOUR BY TWO, 2026-09-14.
+
+   The content was handed over as eight fixed groups, each a short list of
+   equal lines with no single headline figure among them, which is the
+   reference's own shape: a label and the values, nothing ranked above
+   anything else. What's Included went because In the Box says the same four
+   things. Eight in threes leaves a row of two; eight in fours is two full
+   rows, so the grid is four across and the cards follow the given order. */
+.pdp .pdp-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: clamp(28px, 3vw, 44px);
+}
+
+.pdp .pdp-spec {
+  margin: 0;
+  padding: clamp(22px, 2vw, 30px);
+  border-radius: var(--ph-r21);
+  border: 1px solid var(--ph-line, #203a8524);
+  background: #fff;
+  transition: border-color var(--pdp-quick) var(--pdp-ease);
+}
+.pdp .pdp-spec:hover { border-color: #203a8552; }
+
+/* The label row: icon and name in the secondary ink, so the values under it
+   are what the eye lands on. */
+.pdp .pdp-spec-k {
   display: flex; align-items: center; gap: 10px;
-  margin: 0 0 10px;
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
-  color: var(--ink-900);
-}
-.pdp .pdp-ts-k svg { width: 19px; height: 19px; flex: none; color: var(--ph-accent); }
-/* THE VALUES ARE ALLOWED TO BE QUIET. 14/18 in the secondary ink, no bullets,
-   no rules — the group title is the structure and this is the detail under it.
-   Everything about this section's density depends on that decision holding: at
-   17px these eight groups need two screens and start wanting dividers again. */
-.pdp .pdp-ts-l { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
-.pdp .pdp-ts-l li {
-  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  margin: 0;
+  font-size: 15px; line-height: 20px;
+  font-weight: var(--ph-w-400);
   color: var(--ph-text-2);
 }
-.pdp .pdp-ts-box-t {
-  display: flex; align-items: center; gap: 10px;
-  margin: 0 0 12px;
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-21-600);
+.pdp .pdp-spec-k svg { width: 24px; height: 24px; flex: none; color: var(--ph-accent); }
+
+/* The values. Every line is a value now, so every line takes the primary
+   ink — the reference sets its values at 17px regular in the page's darkest
+   ink, and this is that rung. */
+.pdp .pdp-spec-l {
+  margin: 16px 0 0; padding: 0; list-style: none;
+  display: grid; gap: 8px;
+}
+.pdp .pdp-spec-l li {
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
   color: var(--ink-900);
 }
-.pdp .pdp-ts-box-t svg { width: 19px; height: 19px; flex: none; color: var(--ph-accent); }
 
+/* ---- In the Box, the one tinted card — the reference's tint on its box
+   contents, moved here with them when What's Included went. */
+.pdp .pdp-spec--inbox {
+  border-color: transparent;
+  background: var(--gl-tint-sunk);
+}
+.pdp .pdp-spec--inbox .pdp-spec-l li { font-weight: var(--ph-w-600); }
+
+/* ---- narrower. Four across holds to 1180px, where the longest lines start
+   wrapping to three; then two across, which pairs the eight exactly. */
+@media (max-width: 1180px) {
+  .pdp .pdp-specs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 1023px) {
-  .pdp .pdp-ts { grid-template-columns: minmax(0, 1fr); }
-  /* The photograph and the box list go side by side rather than stacking: at
-     one column a square shot is most of a phone screen before the specs start. */
-  .pdp .pdp-ts-side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .pdp .pdp-specs-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .pdp .pdp-specs-h { padding-bottom: 0; }
+  .pdp .pdp-specs-plate { margin-left: 18%; }
 }
 @media (max-width: 719px) {
-  .pdp .pdp-ts-side { grid-template-columns: minmax(0, 1fr); }
-  .pdp .pdp-ts-grid { grid-template-columns: minmax(0, 1fr); }
+  .pdp .pdp-specs-plate { margin-left: 8%; }
+  .pdp .pdp-specs-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---------------------------------------------------------------------------

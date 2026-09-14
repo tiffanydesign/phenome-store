@@ -754,86 +754,73 @@
     var items = $$('[data-cut-item]', fig);
     if (!hots.length || !items.length) return;
 
+    var picBox = $('.pdp-cut-fig', fig);
+    var picImg = picBox && picBox.querySelector('img');
     var wireSvg = $('[data-cut-wire]', fig);
     var wirePath = wireSvg && wireSvg.querySelector('path');
-    var wireEnd = wireSvg && wireSvg.querySelector('circle');
+    var wireTip = wireSvg && wireSvg.querySelector('.tip');
+    var wireTrack = wireSvg && wireSvg.querySelector('.track');
+    var dial = $('[data-dial]', fig);
+    var dialN = dial && $('[data-dial-n]', dial);
+    var dialT = dial && $('[data-dial-t]', dial);
     var at = -1;
 
-    /* ---- THE CONNECTOR, and why it is drawn here rather than in CSS.
+    /* ---- THE RING'S OWN GEOMETRY, measured off ring_cutaway.webp (941 × 900).
+       Centre at 469, 455 px; the white hollow is 292 px in radius on every one of
+       eight rays; the outer edge is at 414 px. Stated as fractions of the image
+       WIDTH so they survive any rendered size. */
+    var RING_CX = 469 / 941;
+    var RING_CY = 455 / 900;
+    /* The track: inside the hollow (0.31) with room for the leader to be a real
+       line, and wide enough that the readout's two lines sit within it. */
+    var TRACK_R = 0.215;
 
-       A dot on the photograph and a row in the list are two views of one thing,
-       and until now the only thing joining them was that they lit at the same
-       moment. The leader that tried to say so was a pseudo-element on the dot —
-       a fixed length at a fixed angle, which is all a pseudo-element can be,
-       because it cannot know where the row it belongs to has ended up. It
-       pointed vaguely rightward and stopped about 400px short of the words.
+    /* ---- THE LEADER, and why it points inward. See pdp.css § the dial.
 
-       This measures both ends and draws between them. Orthogonal, in three
-       segments — out of the dot to a common elbow in the gutter, down or up the
-       gutter, then along to the row's own edge — because an elbow reads as a
-       diagram's leader and a diagonal across a product photograph reads as a
-       scratch on it. The elbow sits midway between the figure and the list, so
-       all four lines share a spine and the set reads as one apparatus.
-
-       Coordinates are in the SVG's own box, which is `inset: 0` on .pdp-cut, so
-       every rect is offset by that one origin and nothing depends on the page's
-       scroll position. Recomputed on resize, and on the font load: the rows are
-       set in a webfont and their heights move when it lands. */
+       Every mark is on the hollow's rim, so "toward the centre" is always into
+       empty white and never across the band. One segment from just inside the
+       mark's disc to the track, along the ring's own radius. Coordinates are in
+       the figure's box, which the SVG fills, so nothing depends on the page's
+       scroll position or on where the list has ended up. */
     function draw(i) {
-      if (!wirePath || !wireEnd) return;
-      var host = fig.getBoundingClientRect();
-      var hot = hots[i] && hots[i].getBoundingClientRect();
-      var row = items[i] && items[i].getBoundingClientRect();
-      var figBox = $('.pdp-cut-fig', fig);
-      var picture = figBox && figBox.getBoundingClientRect();
-      var list = $('.pdp-cut-list', fig);
-      var col = list && list.getBoundingClientRect();
-      if (!hot || !row || !picture || !col) return;
+      if (!wirePath || !wireTip || !picBox || !hots[i]) return;
+      var box = picBox.getBoundingClientRect();
+      var hot = hots[i].getBoundingClientRect();
+      if (!box.width) return;
 
-      /* Below the breakpoint the two columns stack, the gutter this line would
-         run down does not exist, and a connector drawn across the stack would
-         cross the photograph. The pair is adjacent there and needs no line. */
-      if (col.left < picture.right) { wireSvg.removeAttribute('data-live'); return; }
+      /* The image is `contain` in a square, and it is 941 × 900 — so it fills
+         the width and is letterboxed a few pixels top and bottom. The ring's
+         centre has to be found in the image, not assumed at the box's centre. */
+      var iw = box.width;
+      var ih = picImg && picImg.naturalWidth ? iw * picImg.naturalHeight / picImg.naturalWidth : iw * 900 / 941;
+      var top = (box.height - ih) / 2;
+      var cx = iw * RING_CX;
+      var cy = top + ih * RING_CY;
+      var r = iw * TRACK_R;
 
-      var x0 = hot.left + hot.width / 2 - host.left;
-      var y0 = hot.top + hot.height / 2 - host.top;
-      var x1 = col.left - host.left - 10;
-      var y1 = row.top + row.height / 2 - host.top;
-      var elbow = (picture.right - host.left + x1) / 2;
+      if (wireTrack) {
+        wireTrack.setAttribute('cx', cx.toFixed(1));
+        wireTrack.setAttribute('cy', cy.toFixed(1));
+        wireTrack.setAttribute('r', r.toFixed(1));
+      }
 
-      /* ---- IT LEAVES THE RING RADIALLY BEFORE IT TURNS.
-
-         Straight to the elbow was the first version and it drew the line
-         across the product: the four dots sit on the ring's rim, the list is
-         always to the right, so a dot on the LEFT rim ran five hundred pixels
-         of blue over polished metal to get out. Which is the one thing a
-         callout must not do — the picture is what is being annotated.
-
-         The escape is along the radius, out of the ring's own centre through
-         the dot, to a point just outside the band. That is the shortest way
-         off the object from anywhere on it, and because every dot is on the
-         same circle the four escapes are the same length and the set reads as
-         one apparatus. Only then does it turn orthogonal for the run across
-         the gutter. */
-      var cx = picture.left + picture.width / 2 - host.left;
-      var cy = picture.top + picture.height / 2 - host.top;
-      var vx = x0 - cx, vy = y0 - cy;
+      var hx = hot.left + hot.width / 2 - box.left;
+      var hy = hot.top + hot.height / 2 - box.top;
+      var vx = cx - hx, vy = cy - hy;
       var mag = Math.sqrt(vx * vx + vy * vy) || 1;
-      /* .54 of the picture's width from its centre: the ring's outer edge sits
-         at about .48, so this clears it by a comfortable margin without
-         reaching the edge of the figure's own box. */
-      var out = picture.width * 0.54;
-      var ex = cx + (vx / mag) * out;
-      var ey = cy + (vy / mag) * out;
+      var ux = vx / mag, uy = vy / mag;
 
-      var d = 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) +
-              'L' + ex.toFixed(1) + ' ' + ey.toFixed(1) +
-              'L' + elbow.toFixed(1) + ' ' + ey.toFixed(1) +
-              'L' + elbow.toFixed(1) + ' ' + y1.toFixed(1) +
-              'L' + x1.toFixed(1) + ' ' + y1.toFixed(1);
+      /* Out of the mark's white collar (11px disc radius + 3px collar), and onto
+         the track, which is `mag - r` in from the mark along the same ray. */
+      var gap = 14;
+      var sx = hx + ux * gap, sy = hy + uy * gap;
+      var ex = hx + ux * (mag - r), ey = hy + uy * (mag - r);
+
+      var d = 'M' + sx.toFixed(1) + ' ' + sy.toFixed(1) +
+              'L' + ex.toFixed(1) + ' ' + ey.toFixed(1);
       wirePath.setAttribute('d', d);
-      wireEnd.setAttribute('cx', x1.toFixed(1));
-      wireEnd.setAttribute('cy', y1.toFixed(1));
+      wireTip.setAttribute('cx', ex.toFixed(1));
+      wireTip.setAttribute('cy', ey.toFixed(1));
 
       /* The draw-in needs the path's own length as its dash, and the length is
          only knowable after the `d` is set. Handed to CSS as a property so the
@@ -855,13 +842,31 @@
         var btn = $('[data-cut-btn]', items[k]);
         if (btn) btn.setAttribute('aria-expanded', k === i ? 'true' : 'false');
       }
+      var changed = at !== i;
       at = i;
-      /* After the row has opened, not before: the description expands on a
-         grid-template-rows transition and every row below it moves while it
-         does, so a line measured on this frame would land where the row was
-         rather than where it is going. 360ms is the transition plus a frame. */
-      draw(i);
-      setTimeout(function () { if (at === i) draw(i); }, 360);
+
+      /* The readout takes the row's own words, so the list stays the single
+         source for the names and the dial cannot drift out of step with it. */
+      if (dial && changed) {
+        var n = $('.n', items[i]);
+        var t = $('.t', items[i]);
+        if (dialN && n) dialN.textContent = n.textContent;
+        /* U+2011 for the hyphen: the readout is two short lines in a circle,
+           and "heart- / rate" broken at the hyphen reads as two words. */
+        if (dialT && t) dialT.textContent = t.textContent.replace(/-/g, '‑');
+        dial.removeAttribute('data-swap');
+        void dial.offsetWidth;
+        dial.setAttribute('data-swap', '');
+      }
+
+      /* The leader re-draws in only when the mark changes; hovering the live
+         one again would otherwise restart the dash on every mouseenter. The
+         line lives inside the figure now, so the list's row animation cannot
+         move either end of it and there is nothing to re-measure later. */
+      if (changed) {
+        if (wireSvg) wireSvg.removeAttribute('data-live');
+        draw(i);
+      }
     }
 
     function wire(el, i) {
