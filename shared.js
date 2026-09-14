@@ -258,7 +258,7 @@
               "plain": true
             },
             {
-              "label": "Gly-NAC",
+              "label": "Gly NAC",
               "plain": true
             },
             {
@@ -308,7 +308,7 @@
           ]
         },
         {
-          "title": "Anti-Inflammatory",
+          "title": "Anti Inflammatory",
           "links": [
             {
               "label": "Curcumin",
@@ -329,7 +329,7 @@
               "todo": true
             },
             {
-              "label": "Explore anti-inflammatory ›",
+              "label": "Explore anti inflammatory ›",
               "plain": true
             }
           ],
@@ -342,7 +342,7 @@
                 "note": "Liposomal"
               },
               {
-                "label": "Multi-Collagen Powder",
+                "label": "Multi Collagen Powder",
                 "plain": true
               },
               {
@@ -1150,7 +1150,7 @@
       // line-height: the footer sets 14/18 on itself, so this 17px paragraph was
       // sitting in an 18px box — a ratio of 1.059, tighter than any heading on the
       // site and the only such pair anywhere. 25px is the tokens' loose offset for 17.
-      '<p style="font-size:17px;line-height:25px;color:var(--ink);max-width:640px;margin:0 0 36px">Whole-genome and microbiome testing for a longer, healthier life. At home, clinical-grade, and built on the science.</p>' +
+      '<p style="font-size:17px;line-height:25px;color:var(--ink);max-width:640px;margin:0 0 36px">Whole genome and microbiome testing for a longer, healthier life. At home, clinical grade, and built on the science.</p>' +
       '<div class="cols">' +
       '<div class="col"><div class="col-t">Testing</div>' +
       '<a href="/phenome-store/testing/gut-microbiome/">Gut Microbiome</a>' +
@@ -1210,9 +1210,9 @@
       '</div>' +
       '<div class="trust" style="margin-top:40px;border-bottom:0">' +
       '<span><b>ISO 15189</b> accredited lab</span>' +
-      '<span><b>GDPR</b>-compliant &amp; encrypted</span>' +
+      '<span><b>GDPR</b> compliant &amp; encrypted</span>' +
       '<span>Built on <b>Illumina</b> sequencing</span>' +
-      '<span><b>Clinician-reviewed</b> reports</span></div>' +
+      '<span><b>Clinician reviewed</b> reports</span></div>' +
       '<div class="rule"></div>' +
       '<p class="legal">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment. Samples are processed in accredited laboratories. Your data is encrypted and never sold.</p>' +
       '<div class="bar"><span>© 2026 Phenome Longevity Ltd. All rights reserved.</span>' +

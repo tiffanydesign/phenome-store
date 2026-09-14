@@ -1022,7 +1022,16 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
           backdrop-filter: blur(19px) saturate(120%);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  /* CONTENT-SIZED, NOT FIFTHS (2026-09-14, by request): every signal name has to
+     sit on ONE line. Five equal columns give each name 180px of text width and
+     "Heart rate variability" wants 239px at this size, so two of the five broke
+     to a second line and the strip read as a ragged block. The five names
+     measure 857px together against 1174px of strip, so max-content columns fit
+     them all at full size with room to spare; `space-between` spends what is
+     left on the gaps, which is also what keeps the hairlines evenly placed. */
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: space-between;
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pdp .pdp-sig-glass { background: rgba(10, 30, 87, .82); }
@@ -1048,7 +1057,10 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   font-size: clamp(20px, 1.75vw, 27px); line-height: 1.12;
   font-weight: var(--ph-w-600); letter-spacing: -0.018em;
   color: #fff;
-  text-wrap: balance;
+  /* `balance` is what was here, and balancing is the wrong instruction for a
+     name that must not wrap at all. nowrap says the thing directly, and the
+     column sizing above is what makes it safe at every width. */
+  white-space: nowrap;
 }
 
 @media (max-width: 1180px) {
@@ -1071,6 +1083,10 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   .pdp .pdp-sig-glass {
     background: rgba(255, 255, 255, .07);
     -webkit-backdrop-filter: none; backdrop-filter: none;
+    /* Back to rows here: `grid-auto-flow: column` would keep laying the five
+       out sideways past the three declared columns instead of wrapping. */
+    grid-auto-flow: row;
+    justify-content: normal;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px 0;
     min-height: 0;
@@ -1078,11 +1094,22 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   .pdp .pdp-sig-cell { gap: 14px; }
   .pdp .pdp-sig-cell:nth-child(4) { padding-left: 0; box-shadow: none; }
 }
+/* ONE PER ROW UNDER 720px. Two columns gave the longest name about 130px of
+   text width against the 178px it needs at the floor of the type ramp, so it
+   was the one place left where a name could still have broken. Turning each
+   cell on its side — glyph beside the name rather than above it — buys the
+   whole column width back, and the strip reads as a list, which is what a
+   five-item legend wants to be on a phone anyway. */
 @media (max-width: 719px) {
-  .pdp .pdp-sig-glass { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pdp .pdp-sig-cell { padding-inline: 0 12px; box-shadow: none !important; }
-  .pdp .pdp-sig-cell:nth-child(4) { padding-left: 0; }
-  .pdp .pdp-sig-cell:last-child { grid-column: 1 / -1; }
+  .pdp .pdp-sig-glass { grid-template-columns: minmax(0, 1fr); gap: 20px 0; }
+  .pdp .pdp-sig-cell {
+    flex-direction: row; align-items: center; justify-content: flex-start;
+    gap: 14px;
+    padding-inline: 0;
+    box-shadow: none !important;
+  }
+  .pdp .pdp-sig-cell svg { width: 28px; height: 28px; }
+  .pdp .pdp-sig-t { font-size: 19px; }
 }
 
 /* ---------------------------------------------------------------------------
