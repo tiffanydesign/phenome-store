@@ -88,15 +88,25 @@ html .ph-flat .rintro[data-fade] .rintro-p {
 
 /* THE STATIC FORM FIRST, because it is what every reader gets until story.js
    decides otherwise: no JavaScript, reduced motion, a phone, a short screen.
-   A black band; the film (on its last frame) at the top; the two pairs of
-   modules stacked under it. Everything moving is layered on top under
-   `[data-live]` in the next block. */
+   A black band with the film, on its last frame, inside it. Everything moving
+   is layered on top under `[data-live]` in the next block.
+
+   THE MODULES ARE GONE (2026-09-14, by request): two rounds of copy with a
+   figure list each, carried over the film. Their rules went with them —
+   .rsense-layer / -copy / -side, the type (.rsense-k / -h / -p), the lists
+   (.rsense-list / -item / -n / -l), their live windows, and the short-desktop
+   block that tightened a five-row list against a copy block. None of those
+   selectors has a element left on any page in this repo; keeping them would be
+   keeping a second, invisible design for a section that no longer has one. */
 .ph-flat .rsense {
   position: relative;
   background: #000;
   color: #fff;
 }
-.ph-flat .rsense-stage { padding-bottom: clamp(56px, 8vw, 96px); }
+/* No padding under the stage any more: the clamp that stood here was the gap
+   between the film and the first module stacked below it, and there is nothing
+   stacked below it. Left in, it read as a strip of unexplained black. */
+.ph-flat .rsense-stage { padding-bottom: 0; }
 .ph-flat .rsense-card {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -112,94 +122,26 @@ html .ph-flat .rintro[data-fade] .rintro-p {
   pointer-events: none;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, #000 100%);
 }
-.ph-flat .rsense-layer { position: relative; }
-.ph-flat .rsense-copy { padding-top: clamp(40px, 6vw, 72px); }
-.ph-flat .rsense-side { padding-top: clamp(28px, 4vw, 44px); }
-
-/* ---- the type. Oura sets this band in its light cut on warm cream; ours is
-   white on black with the site's secondary ink for the paragraph. */
-.ph-flat .rsense-k {
-  margin: 0 0 14px;
-  font-size: 15px; line-height: 20px;
-  font-weight: var(--ph-w-600);
-  /* Sentence case, no capitals: the wide tracking a capitals eyebrow wants
-     would pull lowercase apart, so it sits at the body's own spacing. */
-  letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, .62);
-}
-.ph-flat .rsense-h {
-  margin: 0;
-  max-width: 13ch;
-  font-size: clamp(38px, 4.2vw, 60px);
-  line-height: 1.06;
-  font-weight: var(--ph-w-400, 400);
-  letter-spacing: -0.022em;
-  color: #fff;
-  text-wrap: balance;
-}
-.ph-flat .rsense-p {
-  margin: 22px 0 0;
-  max-width: 30rem;
-  font-size: var(--ph-fs-17, 17px); line-height: 1.55;
-  color: rgba(255, 255, 255, .74);
-  text-wrap: pretty;
-}
-
-/* ---- the lists. Oura's feature list: a hairline on the left of each item,
-   and the live one drawn solid and bright. Here the item is a figure and a
-   label, so the figure leads. */
-.ph-flat .rsense-list {
-  margin: 0; padding: 0; list-style: none;
-  display: grid; gap: 14px;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-}
-.ph-flat .rsense-item {
-  position: relative;
-  padding: 2px 0 2px 18px;
-  display: grid; gap: 4px;
-}
-.ph-flat .rsense-item::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 1px; background: rgba(255, 255, 255, .28);
-  transition: background 360ms var(--ease-frosted-out);
-}
-.ph-flat .rsense-n {
-  font-size: clamp(34px, 3.4vw, 50px);
-  line-height: 1;
-  font-weight: var(--ph-w-400, 400);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  color: #fff;
-}
-.ph-flat .rsense-n small {
-  margin-left: 6px;
-  font-size: 13px; letter-spacing: .02em;
-  color: rgba(255, 255, 255, .6);
-}
-.ph-flat .rsense-list--services .rsense-n { font-size: clamp(28px, 2.7vw, 40px); }
-.ph-flat .rsense-l {
-  font-size: 15px; line-height: 20px;
-  color: rgba(255, 255, 255, .72);
-}
-
 /* ---------------------------------------------------------------------------
    2b · LIVE — the pinned timeline, desktop only (story.js sets data-live)
    ------------------------------------------------------------------------ */
 
-/* THE TRACK. 640vh tall with a screen-tall sticky stage, so 540vh of scroll is
+/* THE TRACK. 220vh tall with a screen-tall sticky stage, so 120vh of scroll is
    the timeline. story.js publishes, on the section:
 
      --rs-open   0 → 1   the card opening to the full screen (before the pin)
      --rs-p      0 → 1   the position along the pinned track
-     --rs-veil   0 → 1   the veil rising
 
-   and on each layer:
-
-     --rl-in     0 → 1 → 0   that module's presence
-     --rl-y      signed      its travel, for the parallax
-
-   and `aria-current` on the live item of each list. */
-.ph-flat .rsense[data-live] .rsense-track { height: 640vh; }
+   IT WAS 640vh, and the cut is the whole point of the change rather than a
+   tidy-up. 540vh of pinned scroll was the schedule the two rounds of copy
+   needed: fade a heading up, carry a five-row list from the lower edge to meet
+   it, hold, leave, and do it again. With the copy deleted there is nothing left
+   to spend that scroll on — a reader would have pushed through five screens of
+   wheel against one film that had already finished playing. 120vh holds the
+   film at full screen for about a screen and a half of travel, which is long
+   enough to watch the ring open and close and short enough that the page keeps
+   moving. */
+.ph-flat .rsense[data-live] .rsense-track { height: 220vh; }
 .ph-flat .rsense[data-live] .rsense-stage {
   position: sticky; top: 0;
   height: 100vh; height: 100svh;
@@ -222,70 +164,15 @@ html .ph-flat .rintro[data-fade] .rintro-p {
 /* The film drifts in as the track runs: a slow push-in over the whole pinned
    travel, the layer furthest back and so the slowest. */
 .ph-flat .rsense[data-live] .rsense-film {
-  /* 1.00 → 1.05: enough to feel, and the case stays inside the two columns
-     the copy and the list occupy. At +10% its glass lid reached under the list. */
+  /* 1.00 → 1.05: enough to feel and never enough to crop the ring. */
   transform: scale(calc(1 + var(--rs-p, 0) * .05)) translate3d(0, calc(var(--rs-p, 0) * -1.5%), 0);
   will-change: transform;
 }
-/* THE VEIL: black from both sides toward the ring in the middle, and a floor.
-   The last frame is already black at its edges, so what this adds is depth
-   behind the type rather than contrast the type was missing. */
-.ph-flat .rsense[data-live] .rsense-veil {
-  opacity: var(--rs-veil, 0);
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, .86) 0%, rgba(0, 0, 0, .55) 30%, rgba(0, 0, 0, 0) 48%),
-    linear-gradient(270deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, .62) 22%, rgba(0, 0, 0, 0) 38%),
-    linear-gradient(0deg, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0) 30%);
-}
-
-/* THE MODULES, as two rounds. In each, the copy upper left fades up and holds
-   still — it does not travel — while the list at the right scrolls slowly up
-   the screen from the lower edge until its top meets the copy's top. Only then
-   does the pair leave, together. Round one fades out as a pair; round two
-   stays and is carried off by the page as the pin releases.
-
-   Presence is opacity, a blur and a short settle (--rl-in); the list's scroll
-   is --rl-y in screen heights, so its speed is the reader's own. Both layers
-   share one `top`, which is what lets the list come to rest level with the
-   heading's eyebrow. */
-.ph-flat .rsense[data-live] .rsense-layer {
-  position: absolute; left: 0; right: 0;
-  top: max(calc(var(--ph-nav-h, 44px) + 7vh), 96px);
-  /* Block padding only: the inline padding is .wrap-wide's gutter. */
-  padding-block: 0;
-  opacity: var(--rl-in, 0);
-  filter: blur(calc((1 - var(--rl-in, 0)) * 6px));
-  transform: translate3d(0, calc(var(--rl-y, 0) * 100vh + (1 - var(--rl-in, 0)) * 20px), 0);
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-.ph-flat .rsense[data-live] .rsense-side {
-  display: flex; justify-content: flex-end;
-}
-/* Both columns are held to the black either side of the case: the paragraph
-   ends before the lid's left edge and the list starts after its right edge,
-   so the ring in the middle never carries type. */
-.ph-flat .rsense[data-live] .rsense-p { max-width: min(24rem, 27vw); }
-.ph-flat .rsense[data-live] .rsense-h { max-width: min(11ch, 30vw); }
-.ph-flat .rsense[data-live] .rsense-list {
-  width: min(240px, 19vw);
-  grid-template-columns: minmax(0, 1fr);
-  gap: 22px;
-}
-/* The live item: Oura's solid bar. The others fall back a step. */
-.ph-flat .rsense[data-live] .rsense-item { opacity: .5; transition: opacity 360ms var(--ease-frosted-out); }
-.ph-flat .rsense[data-live] .rsense-item[aria-current="true"] { opacity: 1; }
-.ph-flat .rsense[data-live] .rsense-item[aria-current="true"]::before { width: 2px; background: #fff; }
-
-/* A short desktop window cannot hold a copy block and a five-row list without
-   them meeting; the list tightens first. */
-@media (max-height: 820px) {
-  .ph-flat .rsense[data-live] .rsense-list { gap: 14px; }
-  .ph-flat .rsense[data-live] .rsense-n { font-size: 40px; }
-  .ph-flat .rsense[data-live] .rsense-list--services .rsense-n { font-size: 32px; }
-}
+/* THE VEIL, while pinned, is only the static floor the next block draws. The
+   rising side gradients that used to be declared here were depth behind type;
+   with the copy deleted they were a black wash across the middle of the film,
+   so they are gone and --rs-veil is no longer published. */
 
 @media (max-width: 900px) {
   .ph-flat .rsense-card { aspect-ratio: 4 / 3; }
-  .ph-flat .rsense-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
 }

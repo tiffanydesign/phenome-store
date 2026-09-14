@@ -123,9 +123,10 @@
         var n = $('.n', items[i]);
         var t = $('.t', items[i]);
         if (dialN && n) dialN.textContent = n.textContent;
-        /* U+2011 for the hyphen: the readout is two short lines in a circle,
-           and "heart- / rate" broken at the hyphen reads as two words. */
-        if (dialT && t) dialT.textContent = t.textContent.replace(/-/g, '‑');
+        /* The names carry no hyphens any more (the site sets none), so the
+           U+2011 substitution that used to stand here has nothing to convert.
+           The words go across as they are written in the list. */
+        if (dialT && t) dialT.textContent = t.textContent;
         dial.removeAttribute('data-swap');
         void dial.offsetWidth;
         dial.setAttribute('data-swap', '');

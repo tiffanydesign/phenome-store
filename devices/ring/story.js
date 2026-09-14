@@ -8,20 +8,20 @@
      before the pin   the card opens to the full screen (--rs-open), and the
                       film starts once it is mostly open — ONE play, no loop,
                       so it comes to rest on its last frame and stays there
-     .00 – .10        the veil rises
-     .02 – .09        copy A (Five layers) fades up and holds still
-     .04 – .38        list B (the five readings) scrolls up from the lower
-                      edge until its top is level with A's
-     .40 – .47        A and B fade out together
-     .51 – .58        copy C (Completing the circle) fades up and holds
-     .53 – .90        list D (the five services) scrolls up the same way
-     .90 – 1          C and D hold, then leave with the page as the pin ends
+     .00 – 1          the film pushes in slowly across the pinned travel
 
-   Inside B and D the live item steps down the list as it scrolls.
+   THE MODULES ARE GONE (2026-09-14, by request) and the schedule went with
+   them: two rounds of copy and two lists used to fade up and scroll past the
+   film on windows written here in fractions, and the veil rose under them.
+   With nothing carried over the film there is no presence to publish, no list
+   to step and nothing for a veil to sit behind — so setLayer, stepList,
+   window4, scrollIn and the veil's own ramp are all deleted rather than left
+   computing values no rule reads. What is left is the film: it opens, it
+   plays, it drifts, it holds.
 
    WHO GETS IT: a screen at least 901px wide and 641px tall, with motion
-   allowed. Everyone else keeps the static stack — the film on its last frame
-   and the modules in order — which is also the no-script page.
+   allowed. Everyone else keeps the static form — the film on its last frame
+   inside the black band — which is also the no-script page.
    ========================================================================== */
 (function () {
   'use strict';
@@ -29,28 +29,12 @@
   var sec = document.querySelector('[data-rsense]');
   if (!sec) return;
   var film = sec.querySelector('[data-rsense-film]');
-  var card = sec.querySelector('[data-rsense-card]');
-  var layers = {};
-  var ls = sec.querySelectorAll('[data-rsense-layer]');
-  for (var i = 0; i < ls.length; i++) layers[ls[i].getAttribute('data-rsense-layer')] = ls[i];
-  var lists = {
-    b: [].slice.call(sec.querySelectorAll('[data-rsense-list="b"] .rsense-item')),
-    d: [].slice.call(sec.querySelectorAll('[data-rsense-list="d"] .rsense-item'))
-  };
 
   var calm = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   var big = window.matchMedia ? matchMedia('(min-width: 901px) and (min-height: 641px)') : { matches: true };
 
   function clamp(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
   function ease(t) { t = clamp(t); return t * t * (3 - 2 * t); }
-  /* Present between `a` and `d`, arriving over [a, b] and leaving over [c, d].
-     A module that never leaves passes d = Infinity. */
-  function window4(p, a, b, c, d) {
-    if (p <= a || p >= d) return 0;
-    if (p < b) return ease((p - a) / (b - a));
-    if (p <= c) return 1;
-    return 1 - ease((p - c) / (d - c));
-  }
 
   var live = false;
   var played = false;
@@ -85,21 +69,6 @@
     } catch (e) {}
   }
 
-  function setLayer(el, presence, travel) {
-    if (!el) return;
-    el.style.setProperty('--rl-in', presence.toFixed(3));
-    el.style.setProperty('--rl-y', travel.toFixed(3));
-    el.setAttribute('aria-hidden', presence > 0.5 ? 'false' : 'true');
-  }
-  function stepList(items, p, from, to) {
-    if (!items.length) return;
-    var k = Math.floor(clamp((p - from) / (to - from)) * items.length);
-    if (k > items.length - 1) k = items.length - 1;
-    for (var j = 0; j < items.length; j++) {
-      items[j].setAttribute('aria-current', j === k ? 'true' : 'false');
-    }
-  }
-
   function frame() {
     queued = false;
     var vh = window.innerHeight || 1;
@@ -115,35 +84,9 @@
 
     sec.style.setProperty('--rs-open', open.toFixed(4));
     sec.style.setProperty('--rs-p', p.toFixed(4));
-    sec.style.setProperty('--rs-veil', ease(p / 0.10).toFixed(3));
 
     if (open > 0.6) play();
     if (box.top > vh) rewind();
-
-    /* The copy never travels (0); the list's travel is in screen heights, from
-       RISE below its resting place up to 0, linear in scroll so it moves at
-       the reader's pace, with the last stretch eased so it settles rather
-       than stops. The last pair has no exit: the page carries it off. */
-    setLayer(layers.a, window4(p, 0.02, 0.09, 0.40, 0.47), 0);
-    setLayer(layers.b, window4(p, 0.04, 0.12, 0.40, 0.47), RISE * (1 - scrollIn(p, 0.04, 0.38)));
-    setLayer(layers.c, window4(p, 0.51, 0.58, 2, 3), 0);
-    setLayer(layers.d, window4(p, 0.53, 0.61, 2, 3), RISE * (1 - scrollIn(p, 0.53, 0.90)));
-
-    stepList(lists.b, p, 0.08, 0.38);
-    stepList(lists.d, p, 0.57, 0.90);
-  }
-
-  /* How far below its resting place a list starts, in screen heights: far
-     enough that it enters from the lower edge of the frame. */
-  var RISE = 0.62;
-  /* Linear for the first 80% of the span, then an ease-out into the rest, with
-     the two joined at matching speed so there is no visible seam. */
-  function scrollIn(p, a, b) {
-    var t = clamp((p - a) / (b - a));
-    var k = 0.8;
-    if (t <= k) return t / (k + (1 - k) / 2);
-    var u = (t - k) / (1 - k);
-    return (k + (1 - k) * (u - u * u / 2)) / (k + (1 - k) / 2);
   }
 
   /* ---- the introduction above the film. Each line's presence comes from
@@ -174,18 +117,8 @@
   }
 
   function clear() {
-    var props = ['--rs-open', '--rs-p', '--rs-veil'];
+    var props = ['--rs-open', '--rs-p'];
     for (var i = 0; i < props.length; i++) sec.style.removeProperty(props[i]);
-    for (var key in layers) {
-      if (!layers.hasOwnProperty(key)) continue;
-      layers[key].style.removeProperty('--rl-in');
-      layers[key].style.removeProperty('--rl-y');
-      layers[key].removeAttribute('aria-hidden');
-    }
-    for (var name in lists) {
-      if (!lists.hasOwnProperty(name)) continue;
-      for (var j = 0; j < lists[name].length; j++) lists[name][j].removeAttribute('aria-current');
-    }
   }
 
   function decide() {
