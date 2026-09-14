@@ -949,7 +949,11 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp .pdp-sig::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
+  /* Under both washes, a flat near-black veil over the whole photograph: the
+     tiles and water were bright enough to fight the white type everywhere,
+     not just behind the copy. */
   background:
+    linear-gradient(rgba(4, 7, 14, .52), rgba(4, 7, 14, .52)),
     radial-gradient(ellipse 58% 62% at 88% 18%, rgba(10, 30, 87, .70) 0%, rgba(10, 30, 87, .44) 48%, rgba(10, 30, 87, 0) 100%),
     linear-gradient(0deg, rgba(10, 30, 87, .50) 0%, rgba(10, 30, 87, 0) 34%);
 }
@@ -985,8 +989,9 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    the left of the name, hairlines between cells, and the strip reads as a
    legend along the foot of the picture rather than a block of cards. */
 .pdp .pdp-sig-glass {
-  padding: clamp(18px, 1.8vw, 24px) clamp(20px, 2.4vw, 36px);
-  border-radius: var(--ph-r18);
+  padding: clamp(28px, 2.6vw, 40px) clamp(24px, 2.8vw, 44px);
+  min-height: clamp(172px, 14vw, 216px);
+  border-radius: var(--ph-r24, 24px);
   background: rgba(10, 30, 87, .36);
   -webkit-backdrop-filter: blur(19px) saturate(120%);
           backdrop-filter: blur(19px) saturate(120%);
@@ -997,28 +1002,32 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pdp .pdp-sig-glass { background: rgba(10, 30, 87, .82); }
 }
+/* Taller cells: the glyph rides the top edge and the name sits on the
+   baseline, so each signal reads as a small plate rather than a legend entry. */
 .pdp .pdp-sig-cell {
-  display: flex; align-items: center; gap: 14px;
-  padding-inline: clamp(12px, 1.4vw, 22px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  align-items: flex-start; gap: 24px;
+  padding-inline: clamp(14px, 1.8vw, 28px);
   min-width: 0;
 }
 .pdp .pdp-sig-cell:first-child { padding-left: 0; }
 .pdp .pdp-sig-cell:last-child { padding-right: 0; }
 .pdp .pdp-sig-cell + .pdp-sig-cell { box-shadow: inset 1px 0 0 rgba(255, 255, 255, .18); }
 .pdp .pdp-sig-cell svg {
-  width: 30px; height: 30px; flex: none; display: block;
+  width: clamp(34px, 2.8vw, 42px); height: clamp(34px, 2.8vw, 42px);
+  flex: none; display: block;
   color: #fff;
 }
 .pdp .pdp-sig-t {
   margin: 0;
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-17-400);
+  font-size: clamp(20px, 1.75vw, 27px); line-height: 1.12;
+  font-weight: var(--ph-w-600); letter-spacing: -0.018em;
   color: #fff;
+  text-wrap: balance;
 }
 
 @media (max-width: 1180px) {
-  .pdp .pdp-sig-cell { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .pdp .pdp-sig-cell svg { width: 26px; height: 26px; }
+  .pdp .pdp-sig-cell svg { width: 32px; height: 32px; }
 }
 @media (max-width: 1023px) {
   .pdp .pdp-sig {
@@ -1038,8 +1047,10 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
     background: rgba(255, 255, 255, .07);
     -webkit-backdrop-filter: none; backdrop-filter: none;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px 0;
+    gap: 28px 0;
+    min-height: 0;
   }
+  .pdp .pdp-sig-cell { gap: 14px; }
   .pdp .pdp-sig-cell:nth-child(4) { padding-left: 0; box-shadow: none; }
 }
 @media (max-width: 719px) {
@@ -1209,7 +1220,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    sticks, so the scroll spent inside the section is the timeline. pdp.js
    reads that as two numbers and writes them on the section:
 
-     --hl-veil   0 → .78   the veil's opacity
+     --hl-veil   0 → .82   the veil's opacity
      --hl-copy   0 → 1     the copy's arrival
 
    The copy lags the veil on purpose: the picture darkens first, and only once
@@ -1219,7 +1230,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    THE DEFAULTS ARE THE END STATE. With no script, or with reduced motion, the
    band is simply a darkened film with its copy on it — readable, still. */
 .pdp .pdp-hl {
-  --hl-veil: .78;
+  --hl-veil: .82;
   --hl-copy: 1;
   position: relative;
   background: #000;
@@ -1255,39 +1266,64 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   pointer-events: none;
 }
 
+/* THE TYPE, second pass. The hairlines are gone: the four highlights are held
+   apart by space and by weight alone. Each is a display-sized lead in white
+   and a quieter sentence under it, so the eye reads the four leads first as
+   one line of facts and drops to the detail only where it wants it. The right
+   column is set a half-step lower than the left, which turns a table into a
+   page — the grid still holds, it just breathes.
+
+   THE ARRIVAL. Nothing waits for anything: the heading and each highlight
+   have their own progress (--hl-copy, and --hl-i per item, written by
+   pdp.js), staggered by a small fraction of the travel and overlapping, so
+   the words come up out of a soft blur while the veil is still deepening. */
 .pdp .pdp-hl .pdp-hl-copy {
   position: relative; z-index: 1;
   width: 100%;
-  text-align: center;
-  opacity: var(--hl-copy);
-  transform: translate3d(0, calc((1 - var(--hl-copy)) * 28px), 0);
-}
-.pdp .pdp-hl-h {
-  margin: 0 auto;
-  font-size: clamp(40px, 5.4vw, 80px);
-  line-height: 1;
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-80-600);
-  color: #fff;
-  text-wrap: balance;
-}
-/* Two by two, each under a hairline, left-set inside a centred block. Four
-   across was tried and the columns were too narrow for the copy's own line
-   breaks — every highlight broke to three ragged lines. At two across each
-   holds exactly the two lines it was written as. */
-.pdp .pdp-hl-list {
-  margin: clamp(40px, 5vw, 72px) auto 0; padding: 0; list-style: none;
-  max-width: 920px;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(28px, 3vw, 44px) clamp(32px, 4vw, 64px);
+  max-width: 1120px;
   text-align: left;
 }
-.pdp .pdp-hl-list li {
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, .32);
-  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19-loose);
-  letter-spacing: var(--ph-tr-19-400);
-  color: rgba(255, 255, 255, .88);
+.pdp .pdp-hl-h {
+  margin: 0;
+  font-size: clamp(44px, 6.2vw, 96px);
+  line-height: .98;
+  font-weight: var(--ph-w-600);
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+  opacity: var(--hl-copy);
+  filter: blur(calc((1 - var(--hl-copy)) * 10px));
+  transform: translate3d(0, calc((1 - var(--hl-copy)) * 40px), 0);
+}
+.pdp .pdp-hl-list {
+  margin: clamp(48px, 6vw, 96px) 0 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(40px, 7vw, 120px);
+  row-gap: clamp(36px, 4.4vw, 64px);
+}
+.pdp .pdp-hl .pdp-hl-item {
+  --hl-i: 1;
+  display: flex; flex-direction: column; gap: 10px;
+  opacity: var(--hl-i);
+  filter: blur(calc((1 - var(--hl-i)) * 8px));
+  transform: translate3d(0, calc((1 - var(--hl-i)) * 36px), 0);
+}
+.pdp .pdp-hl .pdp-hl-item:nth-child(even) { margin-top: clamp(28px, 4vw, 64px); }
+.pdp .pdp-hl .pdp-hl-item:nth-child(3) { margin-top: calc(clamp(28px, 4vw, 64px) * -1); }
+.pdp .pdp-hl-k {
+  font-size: clamp(26px, 2.7vw, 42px);
+  line-height: 1.08;
+  font-weight: var(--ph-w-600);
+  letter-spacing: -0.022em;
+  color: #fff;
+}
+.pdp .pdp-hl-d {
+  max-width: 40ch;
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, .6);
+  text-wrap: pretty;
 }
 
 /* Bottom LEFT: the band is full-bleed, so bottom-right is exactly where the
@@ -1299,14 +1335,14 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 
 @media (max-width: 720px) {
-  .pdp .pdp-hl-list { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .pdp .pdp-hl-list li { padding-top: 14px; font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose); }
-  .pdp .pdp-hl-list br { display: none; }
+  .pdp .pdp-hl-list { grid-template-columns: minmax(0, 1fr); row-gap: 26px; margin-top: 36px; }
+  .pdp .pdp-hl .pdp-hl-item:nth-child(n) { margin-top: 0; gap: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pdp .pdp-hl[data-live] { height: auto; }
   .pdp .pdp-hl[data-live] .pdp-hl-stage { position: relative; }
-  .pdp .pdp-hl { --hl-veil: .78 !important; --hl-copy: 1 !important; }
+  .pdp .pdp-hl { --hl-veil: .8 !important; --hl-copy: 1 !important; }
+  .pdp .pdp-hl .pdp-hl-item { --hl-i: 1 !important; }
 }
 
 /* ---------------------------------------------------------------------------

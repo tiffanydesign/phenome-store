@@ -793,35 +793,68 @@
      6 · THE HIGHLIGHTS
      ====================================================================== */
 
-  /* The scroll spent inside the band is its timeline (pdp.css § 4). Three
-     beats across that travel, each eased so nothing starts or stops abruptly:
+  /* The band's timeline (pdp.css § 4) no longer starts when it pins. It
+     starts when a third of the film has come up into the window — its top at
+     two-thirds of the screen height — and runs until the pin releases, so the
+     veil is already deepening while the film is still arriving:
 
-       0    – .16   the film alone, clean
-       .12  – .52   the veil rises to .78
-       .30  – .66   the heading and all four highlights arrive together
+       0    – .58   the veil rises slowly to .82
+       .26  – .56   the heading comes up out of a blur
+       .34+ – .72   the four highlights follow, .06 apart, each overlapping
+                    the one before, so they read as one continuous arrival
 
-     and the rest of the travel holds the finished frame so it can be read.
+     and the rest holds the finished frame. Scroll arrives in wheel-sized
+     steps, so the painted values chase the target a little each frame
+     instead of jumping to it — that is what keeps the arrival continuous.
      The section only becomes tall once this runs (`data-live`); without it,
      or with reduced motion, it is one screen with the end state painted. */
   function highlights() {
     var band = $('[data-hl]');
     if (!band || still.matches) return;
     band.setAttribute('data-live', '');
+    var items = $$('.pdp-hl-item', band);
 
+    function clamp01(t) { return Math.min(Math.max(t, 0), 1); }
     function ease(t) {
-      t = Math.min(Math.max(t, 0), 1);
+      t = clamp01(t);
       return t * t * (3 - 2 * t);
     }
-    var last = -1;
+    function span(p, a, b) { return ease((p - a) / (b - a)); }
+
+    var target = 0;
+    var shown = -1;
+    var running = false;
+
+    function paint(p) {
+      band.style.setProperty('--hl-veil', (span(p, 0, 0.58) * 0.82).toFixed(3));
+      band.style.setProperty('--hl-copy', span(p, 0.26, 0.56).toFixed(3));
+      for (var i = 0; i < items.length; i++) {
+        var a = 0.34 + i * 0.06;
+        items[i].style.setProperty('--hl-i', span(p, a, a + 0.2).toFixed(3));
+      }
+    }
+    function step() {
+      var d = target - shown;
+      if (Math.abs(d) < 0.0008) {
+        shown = target;
+        paint(shown);
+        running = false;
+        return;
+      }
+      shown += d * 0.14;
+      paint(shown);
+      requestAnimationFrame(step);
+    }
+
     watch(function () {
       var r = band.getBoundingClientRect();
-      var travel = r.height - window.innerHeight;
+      var vh = window.innerHeight;
+      var travel = r.height - vh;
       if (travel <= 0) return;
-      var p = Math.min(Math.max(-r.top / travel, 0), 1);
-      if (Math.abs(p - last) < 0.002) return;
-      last = p;
-      band.style.setProperty('--hl-veil', (ease((p - 0.12) / 0.40) * 0.78).toFixed(3));
-      band.style.setProperty('--hl-copy', ease((p - 0.30) / 0.36).toFixed(3));
+      var lead = vh * 2 / 3;
+      target = clamp01((lead - r.top) / (lead + travel));
+      if (shown < 0) { shown = target; paint(shown); return; }
+      if (!running) { running = true; requestAnimationFrame(step); }
     });
   }
 
