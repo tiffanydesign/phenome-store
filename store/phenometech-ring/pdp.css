@@ -109,8 +109,19 @@
   color: var(--ink-900);
   text-wrap: balance;
 }
+/* The promise sits one clear step under the name: same ink family, half its
+   size, regular weight — a subtitle, not a second headline competing for it. */
+.pdp .pdp-head .pdp-tagline {
+  margin: 10px 0 0;
+  font-size: clamp(20px, 1.6vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: var(--ph-w-500, 500);
+  color: var(--ph-accent);
+  text-wrap: balance;
+}
 .pdp .pdp-head .lede {
-  margin: 16px 0 0; max-width: none;
+  margin: 14px 0 0; max-width: none;
   font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
   letter-spacing: var(--ph-tr-17-400);
   color: var(--ph-text-2);
@@ -734,9 +745,23 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   width: auto; justify-content: flex-start; margin-top: 12px;
   height: auto; min-height: 36px; padding: 0;
   border: 0; background: none; box-shadow: none;
-  font-size: var(--ph-fs-14); text-decoration: underline;
-  text-decoration-color: #203a8547; text-underline-offset: 3px;
+  font-size: var(--ph-fs-14); text-decoration: none;
+  /* THE HALF SHADOW, 2026-09-14. Two layers were still drawing behind the
+     words: phenome-glass.css gives every `.tag` a blur(14px) backdrop-filter,
+     which on a 36px box with no fill paints a soft edge where it meets the
+     column, and the 28%-navy underline sat under the baseline like a cast
+     shadow. Both go; the chevron carries "this is an action" instead. */
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  transition: color var(--ph-dur-base) var(--ease-frosted-out);
+  gap: 4px; align-items: center;
 }
+.pdp .buy-alt::after {
+  content: ""; width: 6px; height: 6px; margin-left: 2px;
+  border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out);
+}
+.pdp .buy-alt:hover::after { transform: translateX(2px) rotate(45deg); }
 /* It is a link, so it hovers like one. Being a `.tag` underneath, it was
    picking up the size chips' filled navy hover — and with this rule's 0 padding
    that pill hugged the letters and ran flush into the column's left edge, so it
@@ -744,12 +769,11 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp .buy-alt:hover,
 .pdp .buy-alt:active {
   border: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
   color: var(--ph-accent-hover);
-  text-decoration-color: var(--ph-accent);
 }
 .pdp .buy-alt.on {
   border: 0; color: var(--ink-900); font-weight: var(--ph-w-600);
-  text-decoration-color: var(--ink-900);
 }
 
 /* The price block loses a line and some air. "or from £16.58/mo. Free shipping
@@ -1934,74 +1958,70 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 
 /* ---------------------------------------------------------------------------
-   7 · THE DOCK · shared.js's product bar, taken off the top edge
+   7 · THE SWAP · the nav leaves, the product bar takes the top
    ------------------------------------------------------------------------ */
 
-/* shared.js builds `.ph-bar` from the hero's own CTA on every product page and
-   parks it as a full-width strip under the nav. That strip is a second navigation
-   bar, and on this page it competes with the buy column that now follows the
-   reader anyway.
-   seed's is a floating capsule at the foot: out of the reading column, visible
-   over dark bands and film, carrying a thumbnail so it says WHICH product.
-   Restyled here rather than rebuilt, so the observer, the aria-hidden toggle and
-   the tabindex handoff shared.js already wrote all keep working. */
-.pdp .ph-bar {
-  top: auto; bottom: clamp(16px, 2.4vw, 28px);
-  left: 0; right: 0; height: auto;
-  background: none; -webkit-backdrop-filter: none; backdrop-filter: none;
-  border-bottom: 0;
-  transform: translateY(10px);
-  pointer-events: none;
+/* THE SAME CHANGE devices/ring/ring.css § 3b makes, asked for by name
+   (2026-09-14): past the hero the global nav slides up and out, and
+   shared.js's product bar rises into the space it left — name and Buy, one
+   row, the only chrome on screen. It replaces the floating capsule this
+   section used to draw at the foot of the viewport: two bars carrying the same
+   product and the same button, one at each edge, would be saying it twice.
+
+   "Past the hero" is the moment the sticky buy column scrolls away with the
+   section it lives in, so the bar arrives exactly when the column's own
+   Add-to-bag stops being on screen. pdp.js sets `.is-past-hero`; shared.js
+   still owns `.on`, the aria-hidden toggle and the tabindex handoff. */
+.pdp .ph-nav {
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out);
 }
-.pdp .ph-bar.on { transform: none; }
-.pdp .ph-bar-inner {
-  width: auto; max-width: min(560px, calc(100vw - 32px));
-  margin-inline: auto; padding: 9px 9px 9px 14px;
-  border-radius: var(--ph-r56);
-  /* MORE GLASS THAN THE TOKEN, and the trade is written down because it is a
-     real one. --gl-tint-overlay is 84% white and phenome-glass.css says why:
-     84 is "the least that clears [4.5:1] on all of them with the panel still
-     visibly glass", measured for the MEGA-MENU — a sheet the size of the
-     viewport carrying 14px links over any page on the site.
-     This is a 56px capsule carrying two lines and a filled button, and it was
-     asked to read as glass rather than as a white pill. 66% with the blur
-     pushed from 24px to 40px is properly transparent: the film and the navy
-     bands travel through it. The contrast still holds — the darkest ground it
-     crosses is --phenome-blue-900, and 66% white over #0a1e57 composites to
-     #b0b6c6, against which the name's --ph-text-1 measures 5.2:1 and the 12px
-     meta line's --ph-text-2 measures 4.6:1. Both clear AA, which is the bar the
-     token was defending; what is given up is margin, not compliance.
-     The hairline is doubled to 12% because at 66% the drop alone stops being
-     able to find the capsule's edge over a bright cloud bank. */
-  background: #ffffffa8;
-  -webkit-backdrop-filter: blur(40px) saturate(165%); backdrop-filter: blur(40px) saturate(165%);
-  box-shadow: var(--gl-shadow-lift), inset 0 0 0 1px #10214b1f;
-  gap: 14px; pointer-events: auto;
+.pdp.is-past-hero .ph-nav {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out),
+              visibility 0s linear var(--ph-dur-base);
 }
-/* Where the browser cannot blur, transparency is not glass — it is illegible.
-   The one @supports on this page, and it goes back to the token's own value. */
+
+/* Apple's globalnav material, the one ring.css uses on both bars: 72% white,
+   saturate(180%) blur(20px), a hairline instead of a drop. The same substance
+   either side of the swap, so only the contents appear to change. */
+.pdp .ph-bar,
+.pdp .ph-bar.on {
+  top: 0;
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: none;
+  border-bottom: 1px solid var(--pdp-rule, rgba(0, 0, 0, .07));
+}
+@media (max-width: 900px) { .pdp .ph-bar { top: 0; } }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .pdp .ph-bar-inner { background: var(--gl-tint-overlay); }
+  .pdp .ph-bar { background: var(--gl-tint-overlay); }
 }
+.pdp .ph-bar-inner { gap: 14px; justify-content: flex-start; }
+/* pdp.js adds a thumbnail and a meta line; in a 56px bar they sit on one
+   baseline with the name instead of stacking into a capsule. */
 .pdp .ph-bar-thumb {
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 32px; height: 32px; border-radius: 50%;
   object-fit: cover; flex: none; display: block;
   background: var(--gl-tint-sunk);
   box-shadow: inset 0 0 0 1px #10214b14;
 }
-.pdp .ph-bar-txt { min-width: 0; display: grid; gap: 1px; }
-.pdp .ph-bar-name { font-size: var(--ph-fs-14); line-height: var(--ph-lh-14); }
+.pdp .ph-bar-txt {
+  min-width: 0; flex: 1 1 auto;
+  display: flex; align-items: baseline; gap: 12px;
+}
 .pdp .ph-bar-meta {
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
   color: var(--ph-text-2); font-variant-numeric: tabular-nums;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .pdp .ph-bar .btn.small { flex: none; }
-/* The design-system launcher parks bottom-right and the dock is centred, so at
-   narrow widths they meet. The dock keeps the middle and the launcher is nudged
-   above it — the same decision devices/ring/ring.css made for the marquee. */
-@media (max-width: 720px) {
-  .pdp .ds-launch { bottom: 84px; }
+@media (max-width: 560px) {
+  .pdp .ph-bar-meta { display: none; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -2125,7 +2145,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   .pdp .pdp-tl-steps { padding-left: 26px; }
   .pdp .pdp-tl-step::before { left: -26px; }
   .pdp .pdp-tl-steps::before, .pdp .pdp-tl-steps::after { left: 1px; }
-  .pdp .ph-bar-inner { padding-left: 11px; gap: 10px; }
+  .pdp .ph-bar-inner { gap: 10px; }
   .pdp .pdp-lb-cap { display: none; }
 }
 

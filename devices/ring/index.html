@@ -62,10 +62,26 @@
 <div class="ringfam-rail" role="toolbar" aria-label="Ring finish and colourway" data-ringcw-steps="">
 <div class="ringfam-groups"><div class="ringfam-group"><p class="ringfam-finish" aria-hidden="true">Ceramic</p><span class="ringfam-pill"><button class="ringfam-dot" type="button" data-tone="c-pink" data-cw-pick="c-pink" aria-label="Ceramic Ring, Pink" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" data-tone="c-black" data-cw-pick="c-black" aria-label="Ceramic Ring, Black" tabindex="-1"></button><button class="ringfam-dot" type="button" data-tone="c-white" data-cw-pick="c-white" aria-label="Ceramic Ring, White" tabindex="-1"></button></span></div><div class="ringfam-group"><p class="ringfam-finish" aria-hidden="true">Titanium</p><span class="ringfam-pill"><button class="ringfam-dot" type="button" data-tone="t-gold" data-cw-pick="t-gold" aria-label="Titanium Ring, Gold" tabindex="-1"></button><button class="ringfam-dot" type="button" data-tone="t-black" data-cw-pick="t-black" aria-label="Titanium Ring, Black" tabindex="-1"></button><button class="ringfam-dot" type="button" data-tone="t-silver" data-cw-pick="t-silver" aria-label="Titanium Ring, Silver" tabindex="-1"></button></span></div></div>
 </div>
+<!-- The two model cards that used to follow this section as their own
+     full-width showcases (Ceramic Ring, then Titanium Ring) live here now, as
+     one block that follows the finish chosen above. Ceramic is written into the
+     markup because it is the first swatch; the script swaps the name,
+     sentence and price when a titanium one is pressed. -->
+<div class="ringcw-buy">
+<div class="ringcw-buy-t">
+<h3 class="ringcw-buy-n" data-cw-model="">Ceramic Ring</h3>
+<p class="ringcw-buy-d" data-cw-desc="">A ring you’ll forget you’re wearing — until it shows you something that matters. Refined, hypoallergenic and scratch-resistant, reading your sleep, heart and recovery quietly, day and night.</p>
+</div>
+<div class="ringcw-buy-row">
+<p class="ringcw-buy-p"><span class="k">Price</span><span class="v" data-cw-price="">From £199</span></p>
+<a class="btn ringcw-buy-btn" href="/phenome-store/store/phenometech-ring/" data-cw-buy="" aria-label="Buy the Ceramic Ring">Buy</a>
+</div>
+</div>
+</div>
 </div>
 
 </div>
-</div></section><section class="section"><div class="wrap-wide showcase showcase-alt"><div class="showcase-t"><h2 class="sec-title">Ceramic Ring</h2><p class="lede" style="margin-left:0">A ring you’ll forget you’re wearing — until it shows you something that matters. Refined, hypoallergenic and scratch-resistant, reading your sleep, heart and recovery quietly, day and night.</p><div class="spec-table"><div class="spec-row"><div class="spec-k">Price</div><div class="spec-v"><span>From £199</span></div></div></div><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/phenome-store/store/">Buy</a></div></div><div class="showcase-img"><img alt="A ceramic ring worn overnight, on a hand resting on linen" decoding="async" height="1067" loading="lazy" src="/phenome-store/assets/pages/ring_ceramic_worn.webp" width="1600"/></div></div></section><section class="section section-gray"><div class="wrap-wide showcase"><div class="showcase-t"><h2 class="sec-title">Titanium Ring</h2><p class="lede" style="margin-left:0">Light enough to forget, strong enough to keep up. Aerospace-grade and durable — tracking your sleep, heart and recovery, every day, every night, on a single charge that lasts.</p><div class="spec-table"><div class="spec-row"><div class="spec-k">Price</div><div class="spec-v"><span>From £179</span></div></div></div><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="/phenome-store/store/">Buy</a></div></div><div class="showcase-img"><img alt="Two hands working dough on a floured worktop, a plain wide band on one finger" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_titanium_worn.webp" width="1400"/></div></div></section>
+</div></section>
 <section class="section sigs" data-sigs="">
 <div class="wrap-wide sigs-grid">
 <div class="sigs-t"><h2 class="sec-title">Physiological intelligence.</h2></div>
@@ -156,9 +172,45 @@
     't-silver': ['Titanium', 'Silver','Brushed grade-5 titanium, left as it comes. Four grams, and it looks it.']
   };
 
+  /* The two model cards, keyed by finish like the lifestyle frame. */
+  var MODEL = {
+    ceramic:  ['Ceramic Ring', 'A ring you’ll forget you’re wearing — until it shows you something that matters. Refined, hypoallergenic and scratch-resistant, reading your sleep, heart and recovery quietly, day and night.', 'From £199'],
+    titanium: ['Titanium Ring', 'Light enough to forget, strong enough to keep up. Aerospace-grade and durable — tracking your sleep, heart and recovery, every day, every night, on a single charge that lasts.', 'From £179']
+  };
+
   var elFinish = root.querySelector('[data-cw-finish]');
   var elName = root.querySelector('[data-cw-name]');
   var elLine = root.querySelector('[data-cw-line]');
+  var elBuy = root.querySelector('.ringcw-buy');
+  var elModel = root.querySelector('[data-cw-model]');
+  var elDesc = root.querySelector('[data-cw-desc]');
+  var elPrice = root.querySelector('[data-cw-price]');
+  var elBuyLink = root.querySelector('[data-cw-buy]');
+  var shownModel = 'ceramic';
+  var swapTimer = 0;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function paintModel(finish) {
+    var m = MODEL[finish];
+    if (elModel) elModel.textContent = m[0];
+    if (elDesc) elDesc.textContent = m[1];
+    if (elPrice) elPrice.textContent = m[2];
+    if (elBuyLink) elBuyLink.setAttribute('aria-label', 'Buy the ' + m[0]);
+  }
+  /* Only a change of FINISH swaps the card — three colours inside one finish
+     are the same ring at the same price. A short fade out and back in, so the
+     paragraph is replaced rather than jumping. */
+  function showModel(finish) {
+    if (finish === shownModel || !elBuy) return;
+    shownModel = finish;
+    if (reduce) { paintModel(finish); return; }
+    clearTimeout(swapTimer);
+    elBuy.classList.add('is-swapping');
+    swapTimer = setTimeout(function () {
+      paintModel(finish);
+      elBuy.classList.remove('is-swapping');
+    }, 180);
+  }
   var at = 0;
 
   function show(i) {
@@ -187,6 +239,7 @@
     if (elFinish) elFinish.textContent = copy[0];
     if (elName) elName.textContent = copy[1];
     if (elLine) elLine.textContent = copy[2];
+    showModel(finish);
   }
 
   for (var i = 0; i < dots.length; i++) {

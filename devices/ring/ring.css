@@ -780,6 +780,66 @@
   text-wrap: balance;
 }
 
+/* ---- the model. 2026-09-14: the Ceramic Ring and Titanium Ring showcases
+   that followed this section repeated its two photographs at full width, one
+   after the other, to add a paragraph and a price each. That copy is folded in
+   here, under the swatches, and follows the finish that is pressed — so the
+   choice and the purchase are one column instead of three sections apart.
+
+   One hairline above it: the swatches choose, this block buys, and the rule is
+   the only mark between the two jobs. The price and Buy share a row at the
+   foot, the same pairing the marquee's capsule makes at the top of the page. */
+.ph-flat .ringcw-buy {
+  display: grid;
+  gap: clamp(18px, 1.8vw, 24px);
+  padding-top: clamp(20px, 2vw, 28px);
+  border-top: 1px solid var(--divider);
+}
+.ph-flat .ringcw-buy-t { display: grid; gap: 8px; }
+.ph-flat .ringcw-buy-n {
+  margin: 0;
+  font-size: var(--ph-fs-24);
+  line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600);
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+}
+.ph-flat .ringcw-buy-d {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--ph-fs-17);
+  line-height: var(--ph-lh-17-loose, 1.55);
+  color: var(--ph-text-2);
+}
+.ph-flat .ringcw-buy-t > * { transition: opacity var(--ph-dur-base) var(--ease-frosted-out); }
+.ph-flat .ringcw-buy.is-swapping .ringcw-buy-t > *,
+.ph-flat .ringcw-buy.is-swapping .ringcw-buy-p .v { opacity: 0; }
+.ph-flat .ringcw-buy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ph-flat .ringcw-buy-p {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+}
+.ph-flat .ringcw-buy-p .k {
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  color: var(--ink-label);
+}
+.ph-flat .ringcw-buy-p .v {
+  font-size: var(--ph-fs-19);
+  line-height: var(--ph-lh-19);
+  font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+  font-variant-numeric: tabular-nums;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ringcw-buy-btn { flex: none; }
+
 /* ---- the rail. It was absolutely positioned over the frame and slid in on a
    scroll number; it is a block in the column now. Everything it carried that
    was not about that position - the cell and disc sizes, which are Oura's -
