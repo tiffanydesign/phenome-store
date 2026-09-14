@@ -647,238 +647,13 @@
 @media (max-width: 900px) { .ph-flat .ph-bar { top: 0; } }
 
 /* ---------------------------------------------------------------------------
-   4 . THE COLOURWAYS.
+   4 . THE COLOURWAY SWATCHES.
 
-   WHAT STOOD HERE: an embedded WebGL carousel from
-   tiffanydesign.github.io/Ice-works-showcase - twelve photographs riding an
-   off-screen ring in one fragment shader - pinned for six weighted bands of
-   scroll while three continuous numbers were published on every frame to keep
-   an iframe, a colour rail, a marker and a wash in step with each other.
-
-   IT HAS GONE BACK TO WHERE IT IS HOSTED. The piece is not diminished by not
-   being in a product page; it was always a showcase, and a showcase reads
-   better at full bleed on its own domain than at 12vw behind a click-guard.
-   What this page lost with it: 370svh of track, an iframe, a pointer trap and
-   a release control, all in service of turning a ring the reader could not
-   touch.
-
-   WHAT REPLACES IT is the question the section was always asking, asked flat.
-   ouraring.com/store/rings/oura-ring-4-ceramic is the reference and the shape
-   is theirs: a lifestyle frame at full bleed on one side, and on the other the
-   product on its own tinted ground with the colourway named beneath it in one
-   sentence, the swatch capsule under that. Nothing pins, nothing is held, and
-   every one of the six is one press away from every other - which is the one
-   thing six cards on a scroll track could never offer.
-
-   THE SWATCHES SURVIVED THE DEMOLITION INTACT, and they are the reason this
-   section is still worth having. .ringfam-pill and .ringfam-dot below are
-   unchanged: Oura's capsule proportions, Oura's lighting model read off their
-   own rendered swatches, and the anisotropy and grain that their all-ceramic
-   range never had to solve. See the long notes in place. The only thing that
-   changed is that they sit in the layout instead of floating over an iframe
-   on a scroll number, so the rail is static and the marker - which existed to
-   GLIDE between swatches as the track was scrubbed - is a ring on the pressed
-   button, drawn by CSS from aria-current.
+   The "Two rings" section that held these is gone (2026-09-14); the swatches
+   now sit under the photograph on each "Choose your ring" card, one capsule
+   per material (§ 9d). .ringfam-pill and .ringfam-dot keep their names and
+   everything below: Oura's capsule proportions and the material rendering.
    ------------------------------------------------------------------------ */
-.ph-flat .ringfam { padding-bottom: clamp(56px, 5vw, 88px); }
-
-.ph-flat .ringfam-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: var(--ph-gutter);
-  align-items: end;
-}
-.ph-flat .ringfam-lede {
-  margin: 0;
-  font-size: var(--ph-fs-19);
-  line-height: var(--ph-lh-19);
-  color: var(--ph-text-2);
-}
-
-/* ---- THE TWO PANES.
-
-   Oura's split is roughly even and the left frame is the taller of the two, so
-   the right column stacks under a product plate rather than beside it. Equal
-   columns here, and the left photograph takes its height from the right
-   column rather than declaring one: the copy and the capsule are what decide
-   how tall this section is, and a lifestyle frame that sets its own height
-   would leave the pane and the column disagreeing at every breakpoint. */
-.ph-flat .ringcw {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(12px, 1.4vw, 20px);
-  margin-top: clamp(32px, 3.4vw, 56px);
-  align-items: stretch;
-}
-
-/* ---- the lifestyle frame. Two photographs stacked and crossfading, keyed to
-   the FINISH rather than the colourway - see the note in the script. */
-.ph-flat .ringcw-life {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--ph-r27);
-  background: var(--flat-band);
-  min-height: clamp(420px, 44vw, 660px);
-}
-.ph-flat .ringcw-life img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
-}
-.ph-flat .ringcw-life img.on { opacity: 1; }
-
-
-.ph-flat .ringcw-side {
-  display: grid;
-  grid-template-rows: auto auto auto;
-  gap: clamp(18px, 2vw, 26px);
-  align-content: start;
-}
-
-/* ---- the plate. 3:2 because that is the cell the colourway photography was
-   rendered to, so nothing is cropped to fit a box this file invented. */
-.ph-flat .ringcw-plate {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--ph-r27);
-  background: var(--flat-band);
-  aspect-ratio: 3 / 2;
-}
-.ph-flat .ringcw-plate img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
-}
-.ph-flat .ringcw-plate img.on { opacity: 1; }
-
-/* ---- the caption. Oura's two levels and no more: a small grey line naming
-   the thing, and one sentence set large enough to be the reason you looked.
-   The small line carries the FINISH as well as the colour, because "Black" on
-   its own is true of one ring in each capsule. */
-.ph-flat .ringcw-copy { display: grid; gap: 10px; }
-.ph-flat .ringcw-k {
-  margin: 0;
-  font-size: var(--ph-fs-14);
-  line-height: var(--ph-lh-14);
-  color: var(--ink-label);
-}
-.ph-flat .ringcw-line {
-  margin: 0;
-  max-width: 30ch;
-  font-size: var(--ph-fs-28);
-  line-height: var(--ph-lh-28);
-  font-weight: var(--ph-w-400);
-  color: var(--ink-900);
-  text-wrap: balance;
-}
-
-/* ---- the model. 2026-09-14: the Ceramic Ring and Titanium Ring showcases
-   that followed this section repeated its two photographs at full width, one
-   after the other, to add a paragraph and a price each. That copy is folded in
-   here, under the swatches, and follows the finish that is pressed — so the
-   choice and the purchase are one column instead of three sections apart.
-
-   One hairline above it: the swatches choose, this block buys, and the rule is
-   the only mark between the two jobs. The price and Buy share a row at the
-   foot, the same pairing the marquee's capsule makes at the top of the page. */
-.ph-flat .ringcw-buy {
-  display: grid;
-  gap: clamp(18px, 1.8vw, 24px);
-  padding-top: clamp(20px, 2vw, 28px);
-  border-top: 1px solid var(--divider);
-}
-.ph-flat .ringcw-buy-t { display: grid; gap: 8px; }
-.ph-flat .ringcw-buy-n {
-  margin: 0;
-  font-size: var(--ph-fs-24);
-  line-height: var(--ph-lh-24);
-  font-weight: var(--ph-w-600);
-  letter-spacing: -0.01em;
-  color: var(--ink-900);
-}
-.ph-flat .ringcw-buy-d {
-  margin: 0;
-  max-width: 52ch;
-  font-size: var(--ph-fs-17);
-  line-height: var(--ph-lh-17-loose, 1.55);
-  color: var(--ph-text-2);
-}
-.ph-flat .ringcw-buy-t > * { transition: opacity var(--ph-dur-base) var(--ease-frosted-out); }
-.ph-flat .ringcw-buy.is-swapping .ringcw-buy-t > *,
-.ph-flat .ringcw-buy.is-swapping .ringcw-buy-p .v { opacity: 0; }
-.ph-flat .ringcw-buy-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.ph-flat .ringcw-buy-p {
-  margin: 0;
-  display: grid;
-  gap: 2px;
-}
-.ph-flat .ringcw-buy-p .k {
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  color: var(--ink-label);
-}
-.ph-flat .ringcw-buy-p .v {
-  font-size: var(--ph-fs-19);
-  line-height: var(--ph-lh-19);
-  font-weight: var(--ph-w-600);
-  color: var(--ink-900);
-  font-variant-numeric: tabular-nums;
-  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
-}
-.ph-flat .ringcw-buy-btn { flex: none; }
-
-/* ---- the rail. It was absolutely positioned over the frame and slid in on a
-   scroll number; it is a block in the column now. Everything it carried that
-   was not about that position - the cell and disc sizes, which are Oura's -
-   stays exactly where it was. */
-.ph-flat .ringfam-rail {
-  display: grid;
-  justify-items: start;
-  --rf-dot: 24px;
-  --rf-cell: 32px;
-}
-
-.ph-flat .ringfam-groups {
-  display: flex;
-  align-items: flex-end;
-  gap: 14px;
-  pointer-events: auto;
-}
-.ph-flat .ringfam-group {
-  display: grid;
-  gap: 8px;
-  justify-items: start;
-}
-
-/* The finish name, over its own three. Uppercase and tracked at 12px against
-   the showcase's 30px sentence case, so the two never read as the same voice —
-   this is a label on a control, and the card's own line is a product name.
-
-   It sits OUTSIDE the capsule rather than inside it. Inside, it would have to
-   share the pill with the swatches and the pill would become a small toolbar
-   with a title; outside, the pill stays one clean object and the label reads as
-   naming it, which is the relationship a caption has to a thing. */
-.ph-flat .ringfam-finish {
-  margin: 0 0 0 4px;
-  font-family: var(--ph-font);
-  font-size: var(--ph-fs-14);
-  line-height: var(--ph-lh-14);
-  font-weight: var(--ph-w-600);
-  color: var(--ink-label);
-}
 
 /* The capsule. Oura's proportions: 16px vertical padding, 20px horizontal, and
    a radius large enough to be a stadium rather than a rounded rectangle.
@@ -1150,32 +925,8 @@
 @media (prefers-reduced-motion: reduce) {
   .ph-flat .ringfam-dot { transition: none; }
   .ph-flat .ringfam-dot:hover { scale: 1; }
-  .ph-flat .ringcw-life img,
-  .ph-flat .ringcw-plate img { transition: none; }
-}
-
-/* ---- ONE COLUMN, AND THE PHOTOGRAPH GOES SECOND.
-
-   Stacked, the lifestyle frame above the plate would put two large pictures
-   between the heading and the only control in the section. The plate is the
-   one that answers the swatch, so it leads; the lifestyle frame follows the
-   capsule as the payoff rather than preceding it as an obstacle. */
-@media (max-width: 900px) {
-  .ph-flat .ringfam-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
-  .ph-flat .ringcw { grid-template-columns: minmax(0, 1fr); }
-  .ph-flat .ringcw-life { order: 2; min-height: 0; aspect-ratio: 3 / 2; }
-  .ph-flat .ringcw-side { order: 1; }
-  .ph-flat .ringcw-line { font-size: var(--ph-fs-24); line-height: var(--ph-lh-24); max-width: none; }
-}
-
-/* The two capsules side by side are six cells, two labels and a gap - about
-   420px, which is wider than a small phone. They stack rather than shrink: a
-   swatch below Oura's 32px cell stops being a comfortable touch target, and
-   the finish label is the thing that would have to go to save the width. */
-@media (max-width: 480px) {
-  .ph-flat .ringfam-groups { flex-wrap: wrap; align-items: flex-start; }
-}
-
+  .ph-flat .pick-shot img,
+  .ph-flat .pick-sub span { transition: none; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1429,14 +1180,19 @@
   gap: clamp(20px, 2.2vw, 32px);
   margin-top: clamp(44px, 5vw, 72px);
 }
+/* THE CARD IS NO LONGER AN ANCHOR (2026-09-14). It carries three swatch
+   buttons now, and a button inside a link is invalid and unusable with a
+   keyboard. So the card is a plain box, the product name is the link, and the
+   name's ::after is stretched over the whole card — the card stays one click
+   target, and the swatches sit above that layer on their own stacking order. */
 .ph-flat .pick-card {
+  position: relative;
   display: block;
   padding-bottom: clamp(24px, 2.4vw, 34px);
   border-radius: var(--ph-r27);
   overflow: hidden;
   background: var(--flat-band);
   color: var(--ph-text-1);
-  text-decoration: none;
 }
 /* --flat-band, because the section it is in is white. That is § 2's ladder and
    not a colour choice; the inverse rule is not written here because there is
@@ -1462,8 +1218,13 @@
      parallax `transform` instead of replacing it. Two properties, two owners,
      no arbitration. */
   scale: 1;
-  transition: scale 620ms var(--ease-frosted-out);
+  /* Three photographs stacked, one per colourway, crossfading on a press —
+     the same construction the colourway plate used before this moved here. */
+  opacity: 0;
+  transition: scale 620ms var(--ease-frosted-out),
+              opacity var(--ph-dur-base) var(--ease-frosted-out);
 }
+.ph-flat .pick-shot img.on { opacity: 1; }
 .ph-flat .pick.is-lively .pick-shot img {
   /* --d comes from the markup and is +1 on one card, -1 on the other. The 0
      fallback is not decoration: an undefined custom property inside calc()
@@ -1473,10 +1234,33 @@
   transform: translate3d(0, calc((.5 - var(--pk-p, .5)) * var(--d, 0) * 12%), 0);
 }
 .ph-flat .pick-card:hover .pick-shot img,
-.ph-flat .pick-card:focus-visible .pick-shot img { scale: 1.035; }
-.ph-flat .pick-card:focus-visible {
-  outline: 2px solid var(--ph-focus);
-  outline-offset: 3px;
+.ph-flat .pick-card:focus-within .pick-shot img { scale: 1.035; }
+
+/* ---- the swatches, under the photograph. One capsule per card, because the
+   card IS the material — the two labels the capsules carried in the old
+   section are the card names now, so the pill holds three colours and nothing
+   else. It sits above the stretched link and keeps a hairline of its own
+   ground, so a press lands on the button rather than on the card's link. */
+.ph-flat .pick-swatch {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  padding: 0 clamp(24px, 2.4vw, 34px) clamp(20px, 2vw, 26px);
+  /* The two sizes the discs are drawn at. They were declared on .ringfam-rail,
+     which went with the section this moved out of; the capsule reads them off
+     whatever holds it, so they are declared here instead of in .ringfam-dot,
+     which stays a component that takes its size from its container. */
+  --rf-dot: 24px;
+  --rf-cell: 32px;
+}
+/* In the card the capsule has the card's own ground behind it rather than a
+   photograph, so the white pill and its hairline would be a box drawn around
+   three discs for no reason. The discs stand on the ground directly. */
+.ph-flat .pick-swatch .ringfam-pill {
+  padding: 0;
+  background: none;
+  border: 0;
+  gap: 10px;
 }
 
 .ph-flat .pick-line,
@@ -1487,11 +1271,29 @@
   justify-content: space-between;
   gap: 16px;
 }
+/* The name is the card's link, and its ::after is the card's click target.
+   The outline is drawn on the card so a keyboard ring surrounds the thing
+   being activated rather than two words of it. */
 .ph-flat .pick-name {
   font-size: var(--ph-h3-size);
   line-height: var(--ph-h3-lh);
   font-weight: var(--ph-w-600);
   letter-spacing: var(--ph-h3-tr);
+  color: inherit;
+  text-decoration: none;
+}
+.ph-flat .pick-name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.ph-flat .pick-card:has(.pick-name:focus-visible) {
+  outline: 2px solid var(--ph-focus);
+  outline-offset: 3px;
+}
+@supports not selector(:has(*)) {
+  .ph-flat .pick-name:focus-visible { outline: 2px solid var(--ph-focus); outline-offset: 3px; }
 }
 .ph-flat .pick-price {
   font-size: var(--ph-fs-19);
@@ -1499,12 +1301,22 @@
   color: var(--ph-text-2);
   white-space: nowrap;
 }
+/* The three colour names double as the swatch's label: the chosen one takes
+   the page's ink and the other two stay tertiary, so the row says which of the
+   three discs is pressed without a second marker anywhere. */
 .ph-flat .pick-sub {
   display: block;
   margin-top: 8px;
   font-size: var(--ph-fs-17);
   line-height: var(--ph-lh-17);
   color: var(--ph-tertiary);
+}
+.ph-flat .pick-sub span {
+  transition: color var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .pick-sub span[aria-current="true"] {
+  color: var(--ink-900);
+  font-weight: var(--ph-w-600);
 }
 
 /* The four assurances take the signal rail's construction, and that is a
@@ -1744,14 +1556,8 @@
    is already working from — bring the same parts in one after another, and the
    difference between the two is most of what "considered" means on a scroll.
 
-   So the wrapper is stood down and its parts are moved instead. Two things fall
+   So the wrapper is stood down and its parts are moved instead. One thing falls
    out of that beyond the stagger:
-
-     - The colourway module arrives as three parts rather than one. It is a
-       section child, so the shared rule moved .ringcw as a slab — a lifestyle
-       frame, a product plate, a sentence and a capsule all switched on at
-       once. Moved individually they deal out left to right, which is the
-       order they are read in.
 
      - Nothing moves that the layout audit measures. The shared rule moves
        section children for a stated reason: audit_layout compares the boxes of
@@ -1769,9 +1575,6 @@ html.ph-reveal body.ph-flat main > section.ph-r > * {
 html.ph-reveal body.ph-flat main > section.ph-r :is(
   .sec-title,
   .lede,
-  .ringfam-lede,
-  .ringcw-life,
-  .ringcw-side,
   .spec-table,
   .cta-actions,
   .showcase-img,
@@ -1789,9 +1592,6 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
 html.ph-reveal body.ph-flat main > section.ph-in :is(
   .sec-title,
   .lede,
-  .ringfam-lede,
-  .ringcw-life,
-  .ringcw-side,
   .spec-table,
   .cta-actions,
   .showcase-img,
@@ -1809,13 +1609,7 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
    that the section reads as one movement with a direction to it. */
 html.ph-reveal body.ph-flat main > section .sec-title      { --rv-at: 0ms; }
 html.ph-reveal body.ph-flat main > section .lede,
-html.ph-reveal body.ph-flat main > section .ringfam-lede,
 html.ph-reveal body.ph-flat main > section .closer-copy p  { --rv-at: 90ms; }
-/* The two panes, left then right: the photograph is the half a reader looks at
-   first and the column is the half they read, so the picture leads the copy by
-   the same 90ms the copy leads a button. */
-html.ph-reveal body.ph-flat main > section .ringcw-life    { --rv-at: 90ms; }
-html.ph-reveal body.ph-flat main > section .ringcw-side    { --rv-at: 180ms; }
 /* The photograph comes in with the paragraph, not after the button. It is the
    other half of the row, and a picture that waits for the whole text column to
    finish reads as a late asset rather than as part of the composition.
