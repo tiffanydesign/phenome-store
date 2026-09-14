@@ -1220,7 +1220,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    sticks, so the scroll spent inside the section is the timeline. pdp.js
    reads that as two numbers and writes them on the section:
 
-     --hl-veil   0 → .82   the veil's opacity
+     --hl-veil   0 → .85   the veil's opacity
      --hl-copy   0 → 1     the copy's arrival
 
    The copy lags the veil on purpose: the picture darkens first, and only once
@@ -1230,12 +1230,14 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    THE DEFAULTS ARE THE END STATE. With no script, or with reduced motion, the
    band is simply a darkened film with its copy on it — readable, still. */
 .pdp .pdp-hl {
-  --hl-veil: .82;
+  --hl-veil: .85;
   --hl-copy: 1;
   position: relative;
   background: #000;
 }
-.pdp .pdp-hl[data-live] { height: 250vh; }
+/* 300vh: the veil now has its own stretch of scroll before any word arrives,
+   and the finished frame still gets a beat to be read before the pin lets go. */
+.pdp .pdp-hl[data-live] { height: 300vh; }
 .pdp .pdp-hl-stage {
   position: relative;
   height: 100vh; height: 100svh;
@@ -1295,8 +1297,30 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   filter: blur(calc((1 - var(--hl-copy)) * 10px));
   transform: translate3d(0, calc((1 - var(--hl-copy)) * 40px), 0);
 }
+/* THE DEK. The three sensing figures that once had a band of their own, set as
+   one sentence under the heading: the numerals in the heading's white and
+   weight, the words between them receding, so it reads at a glance as three
+   figures and on a second look as a sentence. */
+.pdp .pdp-hl .pdp-hl-dek {
+  --hl-dek: 1;
+  margin: clamp(18px, 1.8vw, 28px) 0 0;
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height: 1.2;
+  font-weight: var(--ph-w-400, 400);
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, .56);
+  opacity: var(--hl-dek);
+  filter: blur(calc((1 - var(--hl-dek)) * 8px));
+  transform: translate3d(0, calc((1 - var(--hl-dek)) * 30px), 0);
+}
+.pdp .pdp-hl-dek b {
+  font-weight: var(--ph-w-600);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
 .pdp .pdp-hl-list {
-  margin: clamp(48px, 6vw, 96px) 0 0; padding: 0; list-style: none;
+  margin: clamp(40px, 4.8vw, 80px) 0 0; padding: 0; list-style: none;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: clamp(40px, 7vw, 120px);
   row-gap: clamp(36px, 4.4vw, 64px);
@@ -1341,8 +1365,9 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .pdp .pdp-hl[data-live] { height: auto; }
   .pdp .pdp-hl[data-live] .pdp-hl-stage { position: relative; }
-  .pdp .pdp-hl { --hl-veil: .8 !important; --hl-copy: 1 !important; }
+  .pdp .pdp-hl { --hl-veil: .85 !important; --hl-copy: 1 !important; }
   .pdp .pdp-hl .pdp-hl-item { --hl-i: 1 !important; }
+  .pdp .pdp-hl .pdp-hl-dek { --hl-dek: 1 !important; }
 }
 
 /* ---------------------------------------------------------------------------

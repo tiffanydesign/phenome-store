@@ -674,7 +674,7 @@
          one row instead of two. No trailing full stops: it is a field, not a
          sentence. */
       if (finLabel) finLabel.textContent = f.name;
-      if (sizeLabel) sizeLabel.textContent = s.kit ? 'Sizing kit' : 'US ' + s.size;
+      if (sizeLabel) sizeLabel.textContent = s.kit ? 'Sizing kit' : s.size;
 
       /* The number fades a quarter out and back rather than snapping. 140ms,
          which is under the threshold where a reader would call it an animation
@@ -798,9 +798,11 @@
      two-thirds of the screen height — and runs until the pin releases, so the
      veil is already deepening while the film is still arriving:
 
-       0    – .58   the veil rises slowly to .82
-       .26  – .56   the heading comes up out of a blur
-       .34+ – .72   the four highlights follow, .06 apart, each overlapping
+       0    – .50   the veil deepens to .85, linearly, so every step of
+                    scroll makes it visibly darker from the very first one
+       .46  – .64   only once the veil is nearly there does the heading come
+                    up out of a blur
+       .54+ – .92   the four highlights follow, .06 apart, each overlapping
                     the one before, so they read as one continuous arrival
 
      and the rest holds the finished frame. Scroll arrives in wheel-sized
@@ -813,6 +815,7 @@
     if (!band || still.matches) return;
     band.setAttribute('data-live', '');
     var items = $$('.pdp-hl-item', band);
+    var dek = $('.pdp-hl-dek', band);
 
     function clamp01(t) { return Math.min(Math.max(t, 0), 1); }
     function ease(t) {
@@ -826,10 +829,11 @@
     var running = false;
 
     function paint(p) {
-      band.style.setProperty('--hl-veil', (span(p, 0, 0.58) * 0.82).toFixed(3));
-      band.style.setProperty('--hl-copy', span(p, 0.26, 0.56).toFixed(3));
+      band.style.setProperty('--hl-veil', (clamp01(p / 0.5) * 0.85).toFixed(3));
+      band.style.setProperty('--hl-copy', span(p, 0.46, 0.64).toFixed(3));
+      if (dek) dek.style.setProperty('--hl-dek', span(p, 0.50, 0.68).toFixed(3));
       for (var i = 0; i < items.length; i++) {
-        var a = 0.34 + i * 0.06;
+        var a = 0.54 + i * 0.06;
         items[i].style.setProperty('--hl-i', span(p, a, a + 0.2).toFixed(3));
       }
     }
@@ -841,7 +845,7 @@
         running = false;
         return;
       }
-      shown += d * 0.14;
+      shown += d * 0.2;
       paint(shown);
       requestAnimationFrame(step);
     }
