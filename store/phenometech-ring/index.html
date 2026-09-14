@@ -32,14 +32,6 @@
      ====================================================================== -->
 <section class="hero"><div class="wrap-wide">
 
-<!-- shared.css centres this above `.buy` across both tracks. Three rungs,
-     largest first: the product's name, then the promise, then what it does. -->
-<div class="buy-head pdp-head">
-<h1 class="pdp-name">PhenomeTech Ring</h1>
-<p class="pdp-tagline">Your data, on your finger.</p>
-<p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
-</div>
-
 <div class="buy">
 
 <!-- ---- the media. One 4:5 frame, seven slides, rotating on their own. The
@@ -116,6 +108,16 @@
      further down agree with this column instead of restating it. -->
 <div class="buy-col">
 
+<!-- THE HEAD SITS IN THE COLUMN (2026-09-14, by request), not centred above
+     both tracks: the hero is a left/right block again — picture on the left,
+     everything the reader reads on the right, in one column and in one order.
+     No `buy-head` class: that is shared.css's centring, and this is a column. -->
+<div class="pdp-head">
+<h1 class="pdp-name">PhenomeTech Ring</h1>
+<p class="pdp-tagline">Your data, on your finger.</p>
+<p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
+</div>
+
 <div class="buy-opt">
 <p class="pdp-opt-k">Material</p>
 <div class="buy-choices">
@@ -161,36 +163,13 @@
 <li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Syncs with your genomic &amp; microbiome data</li>
 </ul>
 
-<!-- THE THREE PANELS THAT LET THE COLUMN STICK. Everything in them was already
-     on the page — 4,000px further down, inside the specification table. Native
-     <details>, so they open with the script off. -->
-<div class="acc pdp-col-acc">
-<details class="acc-item"><summary>What's in the box</summary><div class="acc-body">
-<ul class="pdp-mini">
-<li><span><b>PhenomeTech Ring</b> in your chosen finish</span><span class="v">1</span></li>
-<li><span><b>Wireless charging dock</b></span><span class="v">1</span></li>
-<li><span><b>Charging cable</b></span><span class="v">1</span></li>
-<li><span><b>Quick start guide</b></span><span class="v">1</span></li>
-</ul>
-</div></details>
-<details class="acc-item"><summary>What it measures</summary><div class="acc-body">
-<ul class="pdp-mini">
-<li><span><b>Heart rate</b> optical sensor</span></li>
-<li><span><b>Heart rate variability</b> beat to beat variation</span></li>
-<li><span><b>Blood oxygen</b> SpO₂ sensor</span></li>
-<li><span><b>Skin temperature</b> dedicated sensor</span></li>
-<li><span><b>Movement</b> 3 axis accelerometer</span></li>
-</ul>
-</div></details>
-<details class="acc-item"><summary>Works with</summary><div class="acc-body">
-<ul class="pdp-mini">
-<li><span><b>iPhone</b></span><span class="v">iOS 16+</span></li>
-<li><span><b>Android</b></span><span class="v">10+</span></li>
-<li><span><b>Bluetooth</b></span><span class="v">5.3</span></li>
-<li><span><b>Phenome Longevity app</b> and a Phenome account</span></li>
-</ul>
-</div></details>
-</div>
+<!-- THE THREE PANELS ARE GONE (2026-09-14, by request): "What's in the box",
+     "What it measures", "Works with". Nothing is lost with them — every line
+     they held is already set out in full in the Technical Specifications
+     section below, under In the Box, Sensors, Connectivity and Compatibility.
+     They were here to give the column enough height to have sticky travel;
+     without them the column and the frame beside it finish level instead,
+     which is the arrangement this hero was asked for. -->
 
 </div>
 </div>

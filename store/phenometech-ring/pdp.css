@@ -55,13 +55,12 @@
    1 · THE HERO · a mosaic on the left, a column that sticks on the right
    ------------------------------------------------------------------------ */
 
-/* THE HEAD IS CENTRED ABOVE BOTH TRACKS AGAIN (2026-09-14), by request. It
-   spent a pass inside the column; back on top it frames the product as one
-   statement, and it lets the two tracks below start on the same line — the
-   media's top edge and the Material label — so the hero reads as a grid rather
-   than as a picture with a list hung beside it. The head is kept compact (one
-   line of name, one of promise, two of lede) so it costs ~200px, not the 448 it
-   cost in shared.css's original treatment.
+/* THE HEAD IS BACK IN THE COLUMN (2026-09-14, later the same day, by request).
+   Nothing sits above `.buy` now, so the hero is two tracks and only two: the
+   frame's top edge and the product's name start on the same line, and the
+   right-hand track carries the whole read — name, promise, lede, then the
+   three choices and the price. See the head's own block below for the sizes
+   that come with the move.
 
    The tracks: the media is a fraction and the column is fixed, so the block
    reflows continuously instead of snapping. 448 is narrow enough to read as a
@@ -81,45 +80,80 @@
    40px is enough that the frame does not touch the bar. */
 .pdp .hero { padding-top: 40px; }
 
-/* ---- the head, centred over the grid ---------------------------------------
-   shared.css:2023 already centres `.buy-head` and its lede; this sets the
-   scale. THE SIZES ARE SWAPPED (2026-09-14, by request): the promise is the
-   display line at 56, and the product's name sits above it at 24 like a
-   masthead. The name keeps the <h1> — it is still what the page is about —
-   and only its size steps down. */
-.pdp .pdp-head {
-  max-width: 760px; margin: 0 auto;
-  padding-bottom: clamp(28px, 3vw, 44px);
-  text-align: center;
+/* ---- the head, INSIDE THE COLUMN -------------------------------------------
+   MOVED BACK OFF THE TOP, 2026-09-14, by request: the hero is a left/right
+   block again — the frame on the left, and on the right one column that opens
+   with what the product is and runs straight down into how you buy it. The
+   head above both tracks framed the product as one centred statement, but it
+   also put 200px of centred type between the nav and everything, and it left
+   the column starting cold on the word "Material".
+
+   THE SIZES COME BACK DOWN WITH IT. A 56px display line is a line for a
+   760px measure; in a 448px column it wraps to four lines and stops being a
+   display. So the rungs are re-set for the column's width and the ORDER of
+   the rungs is unchanged — name, promise, lede — with the name taking the
+   weight again because at this scale it is the only one that can carry it.
+   Left-aligned, no `buy-head`: shared.css:2023 centres that class and its
+   lede, which is the one thing this arrangement must not do.
+
+   AND THE SIZES CAME PART OF THE WAY BACK UP, once the three accordion panels
+   at the foot of the column were removed. That removal took ~190px out of the
+   column and left it 76px SHORTER than the frame beside it, which is the one
+   proportion this arrangement cannot have: a right track that stops early
+   leaves the picture hanging on its own. So the head absorbs the difference —
+   a rung on the name, a rung on the promise, and the lede up to 16.5 where it
+   takes a fourth line. That is deliberate rather than incidental: the head is
+   the only block in the column whose height is free, because everything below
+   it is a control whose size is set by what it has to be able to hit.
+   The two tracks now finish level at any width where `.wrap-wide` is capped
+   (~1400 and up). Between 1024 and there the frame is a fraction of a
+   narrowing track and shortens while the column does not, so the column leads
+   — unavoidable without capping the frame, and the frame is the hero. */
+.pdp .buy-col > .pdp-head {
+  margin: 0 0 clamp(30px, 3.7vw, 53px);
+  padding-bottom: clamp(26px, 3.1vw, 44px);
+  border-bottom: 1px solid var(--pdp-hair);
+  text-align: left;
 }
 .pdp .pdp-head .pdp-name {
   margin: 0;
-  font-size: clamp(20px, 1.6vw, 24px);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: clamp(32px, 3.3vw, 48px);
+  line-height: 1.06;
+  letter-spacing: var(--ph-tr-32-600, -0.02em);
   font-weight: var(--ph-w-600);
   color: var(--ink-900);
+  text-wrap: balance;
 }
 .pdp .pdp-head .pdp-tagline {
-  margin: 8px 0 0;
-  font-size: clamp(34px, 3.9vw, 56px);
-  line-height: 1.04;
-  letter-spacing: var(--ph-tr-48-600);
+  margin: 16px 0 0;
+  /* UNITLESS LINE-HEIGHT, deliberately, where the rest of this sheet takes the
+     kit's paired tokens. `--ph-lh-19` is a fixed 23px, and the two breakpoints
+     below re-size this line — a fixed leading under a changed size is how the
+     two lines of "Your data, on your finger." came to overlap at 420. */
+  font-size: clamp(20px, 1.6vw, 23px); line-height: 1.25;
+  letter-spacing: var(--ph-tr-19-400);
   font-weight: var(--ph-w-600);
   color: var(--ph-accent);
   text-wrap: balance;
 }
 .pdp .pdp-head .lede {
-  margin: 14px auto 0; max-width: 60ch;
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose);
-  letter-spacing: var(--ph-tr-17-400);
+  margin: 18px 0 0; max-width: none;
+  /* 16.5/1.6 written out: the kit's scale jumps 14 → 17 and neither is right
+     here — 17 makes the lede argue with the promise above it, 14 reads as fine
+     print. The half-pixel is what puts the paragraph on four lines rather than
+     three, which is where the column's height comes from. */
+  font-size: 17px; line-height: 1.6;
+  letter-spacing: normal;
   color: var(--ph-text-2);
   text-wrap: pretty;
 }
-/* The column opens on Material with no rule and no padding above it, so the
-   label's cap line sits on the frame's top edge beside it. */
-.pdp .buy-col > .buy-opt:first-of-type { border-top: 0; padding-top: 0; }
-.pdp .buy-col > .buy-opt:first-of-type .pdp-opt-k { margin-top: 0; }
+/* The column's first option opens with no rule and no padding above it — the
+   head's own bottom rule is already the line between them. `:first-of-type`
+   is gone with the head that made it true: both are <div>s, so the head is
+   the first of its type now and the rule would have missed. */
+.pdp .buy-col > .buy-opt:first-child,
+.pdp .buy-col > .pdp-head + .buy-opt { border-top: 0; padding-top: 0; }
+.pdp .buy-col > .pdp-head + .buy-opt .pdp-opt-k { margin-top: 0; }
 
 /* `align-self: start` IS THE STICKY, and it took a measurement to find. The
    grid's computed `align-items` is `stretch`, not the `start` shared.css:2041
@@ -128,7 +162,20 @@
    as its row has ZERO sticky travel, which is why `position: sticky` appeared
    to do nothing at all rather than doing something wrong. Stated here, on this
    page's own selector, rather than by editing the shared sheet 82 pages read.
-   Content height is 990px; travel is the 365px the mosaic has on it. */
+
+   THE COLUMN NO LONGER ACTUALLY TRAVELS, 2026-09-14, and that is worth saying
+   out loud rather than leaving as a rule that looks live. The two tracks are
+   the SAME HEIGHT now by construction — 922 against the frame's 923 at 1440,
+   922 against 925 at 1920 — because the head above absorbs whatever the
+   controls below it do not fill. Equal heights means zero sticky travel, so
+   `sticky` does nothing today. It is kept, not deleted: it is correct the
+   moment the column shortens or the frame grows, and two tracks finishing
+   level is the right reading of a left/right block anyway. `align-self: start`
+   stays for the same reason, and because without it the column would be
+   stretched rather than measured — the bug this comment was written for.
+   Note which way the stretch runs: `.pdp-gal` has no `align-self`, so it takes
+   the row height, and below ~1400 (where the frame is a fraction of a
+   narrowing track) the column is what sets that row. */
 .pdp .buy-col { position: sticky; top: var(--pdp-stick); align-self: start; }
 
 /* WHAT THIS DELIBERATELY DOES NOT DO, because the first attempt did and it was
@@ -841,38 +888,16 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp [data-price] { transition: opacity 140ms var(--pdp-ease); }
 .pdp [data-price].swap { opacity: .25; }
 
-/* ---- the column's accordion ----------------------------------------------
-   THE REASON THE COLUMN CAN STICK. Three panels carry what the page previously
-   made a reader scroll 4,000px to find — what is in the box, what it measures,
-   what it works with — and collapsed they cost 3 x 53px. This is seed's own
-   trick and it is the one structural idea worth taking wholesale.
-   Built on shared.css's `.acc` / `.acc-item` so the +/− glyph, the rule and the
-   summary type are the site's, not this page's. */
-.pdp .pdp-col-acc { margin-top: 30px; }
-.pdp .pdp-col-acc .acc-item summary {
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
-  padding: 15px 0;
-}
-.pdp .pdp-col-acc .acc-item summary:after { font-size: var(--ph-fs-21); }
-.pdp .pdp-col-acc .acc-body { padding-bottom: 18px; }
-/* The panel's own list. A 15px column of thin rules rather than bullets: it is a
-   specification, and shared.css says a specification does not take a mark it has
-   not earned (see the .card-spec note). */
-.pdp .pdp-mini { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
-.pdp .pdp-mini li {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16px; align-items: baseline;
-  padding: 9px 0; border-top: 1px solid var(--pdp-hair);
-  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
-  color: var(--ph-text-2);
-}
-.pdp .pdp-mini li:first-child { border-top: 0; padding-top: 0; }
-.pdp .pdp-mini b { color: var(--ink-900); font-weight: var(--ph-w-600); }
-.pdp .pdp-mini .v {
-  color: var(--ink-900);
-  font-variant-numeric: tabular-nums; letter-spacing: .02em;
-  white-space: nowrap;
-}
+/* ---- the column's accordion: REMOVED 2026-09-14, with the markup it drew.
+   Three <details> panels — what's in the box, what it measures, what it works
+   with — sat at the foot of the column to give it enough height to have sticky
+   travel. They are gone by request, and the rules that styled them (.pdp-col-acc
+   and the .pdp-mini list inside it) are deleted rather than left behind: no
+   element on this page carries either class now, and a stylesheet that dresses
+   nothing is a thing the next reader has to prove is dead.
+   The content is not lost. Every line was already set out in full in § 7's
+   Technical Specifications — In the Box, Sensors, Connectivity, Compatibility —
+   which is where the panels had copied it from in the first place. */
 
 /* ---------------------------------------------------------------------------
    2 · THE SIGNAL BAND · a photograph, a frosted panel, and no tabs
@@ -1223,21 +1248,41 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
      --hl-veil   0 → .85   the veil's opacity
      --hl-copy   0 → 1     the copy's arrival
 
-   The copy lags the veil on purpose: the picture darkens first, and only once
-   there is a ground to stand on do the words arrive — all four highlights at
-   once, as one statement, rather than one at a time.
+   THE FILM IS STILL FOR THE WHOLE OF IT (2026-09-14, third pass). The
+   timeline used to open while the stage was still travelling up the screen,
+   so the picture slid under the words; it opens at the PIN now, which is what
+   makes this the reference's effect rather than an approximation of it — a
+   held frame, and nothing moving on it but the black and the type.
+
+   AND THE SMOOTHING IS HERE, NOT IN THE SCRIPT. pdp.js used to lerp the
+   painted value towards the target by a fifth each frame, which lagged a fast
+   wheel by several hundred pixels of scroll and let the copy get ahead of the
+   veil. It writes the true value every frame now, and the wheel's steps are
+   smoothed by ONE transition applied to every animated property below, at the
+   same duration and the same (linear) timing. That is the part that matters:
+   equal transitions cannot come apart, so however hard the reader flicks, the
+   veil and the words stay in the relationship the stops give them.
+   pdp.js § 6 has the stops. */
 
    THE DEFAULTS ARE THE END STATE. With no script, or with reduced motion, the
    band is simply a darkened film with its copy on it — readable, still. */
 .pdp .pdp-hl {
   --hl-veil: .85;
   --hl-copy: 1;
+  /* ONE DURATION, ONE CURVE, every scrubbed property on this band — see the
+     note above. Linear rather than an ease, because these are being driven BY
+     scroll, and an ease here would be a second acceleration competing with the
+     reader's own. 150ms is long enough to fill the gap between two wheel
+     notches and short enough that the frame still tracks the hand. */
+  --hl-smooth: 150ms linear;
   position: relative;
   background: #000;
 }
-/* 300vh: the veil now has its own stretch of scroll before any word arrives,
-   and the finished frame still gets a beat to be read before the pin lets go. */
-.pdp .pdp-hl[data-live] { height: 300vh; }
+/* 260vh, down from 300. The timeline starts at the pin now rather than 0.95vh
+   before it, so the same arrival is spent entirely inside the pinned stretch —
+   160vh of it, of which the words are up by the two-thirds mark and the rest
+   holds the finished frame before the pin lets go. */
+.pdp .pdp-hl[data-live] { height: 260vh; }
 .pdp .pdp-hl-stage {
   position: relative;
   height: 100vh; height: 100svh;
@@ -1255,6 +1300,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   /* A slow settle as the veil rises: the picture steps back as the words step
      forward. 4% over the whole travel — felt, not seen. */
   transform: scale(calc(1.04 - var(--hl-veil) * .05));
+  transition: transform var(--hl-smooth);
   will-change: transform;
 }
 /* `.pdp .pdp-hl .pdp-hl-veil`, three classes, and the third is load-bearing:
@@ -1265,6 +1311,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   position: absolute; inset: 0;
   background: #000;
   opacity: var(--hl-veil);
+  transition: opacity var(--hl-smooth);
   pointer-events: none;
 }
 
@@ -1296,6 +1343,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   opacity: var(--hl-copy);
   filter: blur(calc((1 - var(--hl-copy)) * 10px));
   transform: translate3d(0, calc((1 - var(--hl-copy)) * 40px), 0);
+  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
 }
 /* THE DEK. The three sensing figures that once had a band of their own, set as
    one sentence under the heading: the numerals in the heading's white and
@@ -1312,6 +1360,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   opacity: var(--hl-dek);
   filter: blur(calc((1 - var(--hl-dek)) * 8px));
   transform: translate3d(0, calc((1 - var(--hl-dek)) * 30px), 0);
+  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
 }
 .pdp .pdp-hl-dek b {
   font-weight: var(--ph-w-600);
@@ -1331,6 +1380,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   opacity: var(--hl-i);
   filter: blur(calc((1 - var(--hl-i)) * 8px));
   transform: translate3d(0, calc((1 - var(--hl-i)) * 36px), 0);
+  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
 }
 .pdp .pdp-hl .pdp-hl-item:nth-child(even) { margin-top: clamp(28px, 4vw, 64px); }
 .pdp .pdp-hl .pdp-hl-item:nth-child(3) { margin-top: calc(clamp(28px, 4vw, 64px) * -1); }
@@ -1876,11 +1926,15 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
     position: static; max-height: none; overflow: visible;
     padding-right: 0; margin-right: 0;
   }
-  /* Stacked, the head is no longer beside a tall picture that justified a 44px
-     headline in a narrow measure — it has the full width, so it takes the
-     site's own hero size back. */
-  .pdp .pdp-head .pdp-tagline { font-size: clamp(34px, 6.4vw, 56px); }
-  .pdp .pdp-head .lede { font-size: var(--ph-fs-19); line-height: var(--ph-lh-19-loose); max-width: 56ch; }
+  /* Stacked, the head still sits at the top of the column but the column is the
+     whole width now, so the name takes a rung back — and only the name. The
+     promise stays a supporting line under it rather than becoming the display
+     it used to be when the head lived above both tracks: the rungs keep their
+     order at every width, and only their scale moves. */
+  .pdp .buy-col > .pdp-head { margin-bottom: 30px; padding-bottom: 26px; }
+  .pdp .pdp-head .pdp-name { font-size: clamp(32px, 4.2vw, 44px); }
+  .pdp .pdp-head .pdp-tagline { font-size: var(--ph-fs-21); }
+  .pdp .pdp-head .lede { font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose); max-width: 56ch; }
   .pdp .pdp-tl { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   /* `relative`, NOT `static`, AND `top: auto`. Two bugs at 390, one after the
      other, both from this one declaration.
@@ -1919,7 +1973,10 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 }
 
 @media (max-width: 560px) {
-  .pdp .pdp-head .pdp-tagline { font-size: clamp(30px, 8.6vw, 40px); }
+  /* On a phone the head is back at the column's own scale — the 1024 rule's
+     44px name is a line for an 886px measure, not a 372px one. */
+  .pdp .pdp-head .pdp-name { font-size: clamp(26px, 7.4vw, 32px); }
+  .pdp .pdp-head .pdp-tagline { font-size: var(--ph-fs-19); }
   .pdp .pdp-head .lede { font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose); }
   .pdp .pdp-gal-nav { right: 10px; bottom: 10px; }
   .pdp .buy-swatches { gap: 13px; }

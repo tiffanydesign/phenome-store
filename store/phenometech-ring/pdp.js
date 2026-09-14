@@ -793,23 +793,47 @@
      6 · THE HIGHLIGHTS
      ====================================================================== */
 
-  /* The band's timeline (pdp.css § 4) no longer starts when it pins. It
-     starts when a third of the film has come up into the window — its top at
-     two-thirds of the screen height — and runs until the pin releases, so the
-     veil is already deepening while the film is still arriving:
+  /* The band's timeline (pdp.css § 4). REWRITTEN 2026-09-14 (third pass) after
+     the second one was reported wrong on a fast scroll — flick the wheel and
+     the words were fully up before the black arrived, which then snapped in.
+     Three separate causes, and all three are fixed here rather than retuned.
 
-       0    – .50   the veil deepens to .85, linearly, so every step of
-                    scroll makes it visibly darker from the very first one
-       .46  – .64   only once the veil is nearly there does the heading come
-                    up out of a blur
-       .54+ – .92   the four highlights follow, .06 apart, each overlapping
-                    the one before, so they read as one continuous arrival
+     1 · THE TIMELINE NOW STARTS AT THE PIN, NOT BEFORE IT. `lead` was 0.95vh,
+         so the first two thirds of the arrival happened while the stage was
+         still travelling up the screen — the film slid, the words came up on
+         it, and only a reader scrolling slowly ever saw it as intended. The
+         reference (ultrahuman.com/ring-pro) holds its picture PERFECTLY STILL
+         and moves nothing but the veil and the copy over it, which is the
+         whole effect. `lead` is 0: p opens the instant the band's top edge
+         reaches the top of the window, which is the instant the stage pins,
+         and closes when the pin releases. The film does not move at all while
+         anything is happening on it.
 
-     and the rest holds the finished frame. Scroll arrives in wheel-sized
-     steps, so the painted values chase the target a little each frame
-     instead of jumping to it — that is what keeps the arrival continuous.
-     The section only becomes tall once this runs (`data-live`); without it,
-     or with reduced motion, it is one screen with the end state painted. */
+     2 · THE LERP IS GONE. The painted value used to chase the target by a
+         fifth each frame. That is invisible on a slow scroll and is exactly
+         the reported bug on a fast one: four frames of lag against a wheel
+         flick is several hundred pixels of scroll, so the veil was painting a
+         position the reader had already left. Scroll is already coalesced to
+         one rAF by `watch()`, so the target is painted directly and the
+         wheel's steps are smoothed in CSS instead — one transition, the same
+         duration on every animated property (pdp.css § 4), so the veil and
+         the words cannot come apart no matter how fast the wheel turns.
+
+     3 · THE VEIL LEADS, AND ITS CURVE SAYS SO. It was linear against the
+         copy's smoothstep, so at the middle of the band the copy was ahead of
+         the black it needed to sit on. It is ease-OUT now — most of the
+         darkening is spent in the first third of its own span — and its span
+         opens before the heading's:
+
+       0    – .30   the veil deepens to .85, fast at first, so the frame is
+                    already a third dark before a word has arrived
+       .02  – .32   the heading rises out of its blur
+       .08  – .38   the dek follows a beat behind it
+       .15+ – .66   the four highlights, .075 apart and overlapping
+
+     and the last third holds the finished frame before the pin releases. The
+     section only becomes tall once this runs (`data-live`); without it, or
+     with reduced motion, it is one screen with the end state painted. */
   function highlights() {
     var band = $('[data-hl]');
     if (!band || still.matches) return;
@@ -823,42 +847,32 @@
       return t * t * (3 - 2 * t);
     }
     function span(p, a, b) { return ease((p - a) / (b - a)); }
+    /* Ease-out: half the darkening is done in the first quarter of the span. */
+    function front(t) { t = clamp01(t); return 1 - (1 - t) * (1 - t); }
 
-    var target = 0;
-    var shown = -1;
-    var running = false;
+    var last = -1;
 
     function paint(p) {
-      band.style.setProperty('--hl-veil', (clamp01(p / 0.5) * 0.85).toFixed(3));
-      band.style.setProperty('--hl-copy', span(p, 0.46, 0.64).toFixed(3));
-      if (dek) dek.style.setProperty('--hl-dek', span(p, 0.50, 0.68).toFixed(3));
+      band.style.setProperty('--hl-veil', (front(p / 0.30) * 0.85).toFixed(3));
+      band.style.setProperty('--hl-copy', span(p, 0.02, 0.32).toFixed(3));
+      if (dek) dek.style.setProperty('--hl-dek', span(p, 0.08, 0.38).toFixed(3));
       for (var i = 0; i < items.length; i++) {
-        var a = 0.54 + i * 0.06;
-        items[i].style.setProperty('--hl-i', span(p, a, a + 0.2).toFixed(3));
+        var a = 0.15 + i * 0.075;
+        items[i].style.setProperty('--hl-i', span(p, a, a + 0.28).toFixed(3));
       }
-    }
-    function step() {
-      var d = target - shown;
-      if (Math.abs(d) < 0.0008) {
-        shown = target;
-        paint(shown);
-        running = false;
-        return;
-      }
-      shown += d * 0.2;
-      paint(shown);
-      requestAnimationFrame(step);
     }
 
     watch(function () {
       var r = band.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var travel = r.height - vh;
+      var travel = r.height - window.innerHeight;
       if (travel <= 0) return;
-      var lead = vh * 2 / 3;
-      target = clamp01((lead - r.top) / (lead + travel));
-      if (shown < 0) { shown = target; paint(shown); return; }
-      if (!running) { running = true; requestAnimationFrame(step); }
+      /* No lead: -r.top IS the distance scrolled since the stage pinned. */
+      var p = clamp01(-r.top / travel);
+      /* A tenth of a percent is under one paint's worth of change; skipping
+         those keeps a still page from writing five custom properties a frame. */
+      if (Math.abs(p - last) < 0.001 && last >= 0) return;
+      last = p;
+      paint(p);
     });
   }
 
