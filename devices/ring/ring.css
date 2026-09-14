@@ -731,26 +731,6 @@
 }
 .ph-flat .ringcw-life img.on { opacity: 1; }
 
-/* ---- the frame's caption. Opaque white on a hairline for the same reason the
-   swatch capsule is opaque white on a hairline: it is chrome sitting over a
-   photograph, and a blurred panel would take its ink from whatever happened to
-   be behind it. Bottom left, where the photographs are quietest. */
-.ph-flat .ringcw-tag {
-  position: absolute;
-  left: clamp(14px, 1.6vw, 22px);
-  bottom: clamp(14px, 1.6vw, 22px);
-  margin: 0;
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: var(--flat-page);
-  border: 1px solid var(--divider);
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600);
-  letter-spacing: .085em;
-  text-transform: uppercase;
-  color: var(--ink-label);
-}
 
 .ph-flat .ringcw-side {
   display: grid;
@@ -834,11 +814,9 @@
 .ph-flat .ringfam-finish {
   margin: 0 0 0 4px;
   font-family: var(--ph-font);
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
   font-weight: var(--ph-w-600);
-  letter-spacing: .085em;
-  text-transform: uppercase;
   color: var(--ink-label);
 }
 
@@ -1481,10 +1459,10 @@
 .ph-flat .sig-i {
   display: block;
   margin-bottom: 14px;
-  font-size: var(--ph-fs-12);
+  font-size: var(--ph-fs-13);
   line-height: 1;
   font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps);
+  letter-spacing: normal;
   font-variant-numeric: tabular-nums;
   color: var(--ph-on-brand);
 }
@@ -1775,7 +1753,7 @@
   .ph-flat .sigs.is-lively .sig-i {
     margin-bottom: clamp(18px, 2.4vmin, 30px);
     font-size: clamp(13px, 1.5vmin, 16px);
-    letter-spacing: .06em;
+    letter-spacing: normal;
   }
   .ph-flat .sigs.is-lively .sig-n {
     font-size: clamp(84px, 14vmin, 190px);

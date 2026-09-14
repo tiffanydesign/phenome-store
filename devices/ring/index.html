@@ -51,11 +51,6 @@
 <div class="ringcw-life">
 <img class="on" data-life="ceramic" alt="A ceramic ring worn overnight, on a hand resting on linen" decoding="async" height="1067" src="/phenome-store/assets/pages/ring_ceramic_worn.webp" width="1600"/>
 <img data-life="titanium" alt="Two hands working dough on a floured worktop, a plain wide band on one finger" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_titanium_worn.webp" width="1400"/>
-<!-- The frame answers the FINISH, not the colourway: there are two
-     photographs behind six swatches. Unlabelled, a white ring on a hand
-     under a pink swatch reads as a mismatch; named, it reads as what it
-     is — the material, worn. -->
-<p class="ringcw-tag" data-cw-life-tag="">Ceramic, worn overnight</p>
 </div>
 
 <div class="ringcw-side">
@@ -152,13 +147,6 @@
      paragraph that is never shown is still read out by a screen reader that
      walks the document, and six of them under one live region is six
      descriptions of a ring the reader cannot see. */
-  /* The lifestyle frame's own caption. Two entries, because there are two
-     photographs: it is keyed to the finish like the picture it names. */
-  var LIFE = {
-    ceramic: 'Ceramic, worn overnight',
-    titanium: 'Titanium, worn all day'
-  };
-
   var COPY = {
     'c-pink':   ['Ceramic', 'Pink',   'Blush over a fired glaze, with a lilac cast in daylight. The one that does not look like a device.'],
     'c-black':  ['Ceramic', 'Black',  'Deep gloss on high-density zirconia — harder than steel at the surface, and it holds the shine.'],
@@ -171,7 +159,6 @@
   var elFinish = root.querySelector('[data-cw-finish]');
   var elName = root.querySelector('[data-cw-name]');
   var elLine = root.querySelector('[data-cw-line]');
-  var elLifeTag = root.querySelector('[data-cw-life-tag]');
   var at = 0;
 
   function show(i) {
@@ -197,7 +184,6 @@
     for (var l = 0; l < lifes.length; l++) {
       lifes[l].classList.toggle('on', lifes[l].getAttribute('data-life') === finish);
     }
-    if (elLifeTag) elLifeTag.textContent = LIFE[finish];
     if (elFinish) elFinish.textContent = copy[0];
     if (elName) elName.textContent = copy[1];
     if (elLine) elLine.textContent = copy[2];
