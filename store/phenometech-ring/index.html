@@ -24,29 +24,35 @@
 
 <!-- ==========================================================================
      1 · THE HERO
-     The head keeps its centred eyebrow / headline / lede, and .buy keeps
-     shared.css's own 1fr / 600px tracks. What changed is on both sides of that
-     grid: the left is a six-tile mosaic under one big frame instead of a
-     four-photograph carousel, and the right sticks — which it can only do
-     because the three panels at its foot are collapsed.
+     The head is centred above both tracks, and the two tracks start on the same
+     line: the media frame's top edge and the Material label are one baseline.
+     The left is one frame that rotates through the film and the stills, the
+     way ouraring.com's PDP does; the right sticks, which it can only do because
+     the three panels at its foot are collapsed.
      ====================================================================== -->
 <section class="hero"><div class="wrap-wide">
 
-<!-- shared.css centres this above `.buy` across both tracks. It is emptied
-     rather than removed — shared.js and the site's audit tooling both look for
-     `.buy-head`, and `.hero .lede` carries a centring rule that would reach the
-     copy in its new home inside the column. -->
-<div class="buy-head"></div>
+<!-- shared.css centres this above `.buy` across both tracks. Three rungs,
+     largest first: the product's name, then the promise, then what it does. -->
+<div class="buy-head pdp-head">
+<h1 class="pdp-name">PhenomeTech Ring</h1>
+<p class="pdp-tagline">Your data, on your finger.</p>
+<p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
+</div>
 
 <div class="buy">
 
-<!-- ---- the media. A 4:5 film that changes with the swatch, over six square
-     tiles three across. The first tile is the studio still of whichever finish
-     is chosen, so the plain-ground view of the product sits one glance under
-     the cinema and answers the same control. -->
+<!-- ---- the media. One 4:5 frame, seven slides, rotating on their own. The
+     first slide is the colourway film and changes with the swatch; the second
+     is the studio still of the same finish; the rest are the product shots.
+     pdp.js builds the pagination and the timer — with the script off the track
+     is a sideways scroller, so every slide is still reachable. -->
 <div class="pdp-gal">
 
-<div class="pdp-gal-main" data-gal-main="">
+<div aria-label="Product images and film" aria-roledescription="carousel" class="pdp-gal-main" data-gal-main="" role="region">
+<div class="pdp-gal-track" data-gal-track="">
+
+<div aria-label="1 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--film" data-follows="" data-slide="" role="group">
 <!-- Four clips, five finishes: Graphite and Onyx share the black scene, the
      same way they share the black studio still. No `autoplay` — pdp.js plays
      the current one and pauses the rest, so a page with no script shows a
@@ -59,50 +65,45 @@
 <video aria-label="A black ring above ink-wash mountains" data-clip="graphite" id="pdp-cw-graphite" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-graphite.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-graphite.mp4" type="video/mp4"/></video>
 <video aria-label="A white ring above a bank of cloud" data-clip="white" id="pdp-cw-white" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-white.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-white.mp4" type="video/mp4"/></video>
 <video aria-label="A silver ring resting on dark draped fabric" data-clip="silver" id="pdp-cw-silver" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-silver.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-silver.mp4" type="video/mp4"/></video>
-<span class="pdp-gal-tag" data-gal-tag=""><i></i><span>Titanium · Gold</span></span>
-<div class="pdp-gal-tools">
-<button aria-label="Pause the film" class="pdp-gal-tool pdp-gal-hold" data-gal-hold="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
-<button aria-label="Open at full size" class="pdp-gal-tool pdp-gal-zoom" data-gal-zoom="" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></button>
-</div>
 </div>
 
-<div class="pdp-gal-grid">
-<!-- The studio stills, which held the big frame through two passes. Stacked and
-     crossfading, exactly as they were, one tile down. -->
-<button aria-label="The chosen finish, in the studio" class="pdp-tile" data-lb="" data-gal-still="" type="button">
-<img alt="The PhenomeTech Ring in gold titanium, side on" data-finish="gold" decoding="async" height="1254" src="/phenome-store/assets/pages/ring_fin_gold_sq.webp" width="1254"/>
+<!-- The studio stills: stacked and crossfading with the swatch, so the
+     plain-ground view of the chosen finish is always the slide after the film. -->
+<div aria-label="2 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--still" data-follows="" data-gal-still="" data-slide="" role="group">
+<img alt="The PhenomeTech Ring in gold titanium, side on" data-finish="gold" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_gold_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in graphite titanium, side on" data-finish="graphite" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in silver titanium, side on" data-finish="silver" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in arctic white ceramic, side on" data-finish="white" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in onyx ceramic, side on" data-finish="onyx" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp" width="1254"/>
-<span class="cap" data-still-cap="">Gold</span>
-</button>
-<!-- The four-up beige still that stood here is gone. It came out of the
-     colourway film and one of its four rings is PINK — a finish this page does
-     not sell. The page's colourways are Gold, Graphite and Silver in titanium
-     and Arctic White and Onyx in ceramic, so a photograph offering a sixth was
-     a claim, not a picture. This one is silver, gold and graphite above the
-     dock: three of the five, and all three real. -->
-<button aria-label="Silver, gold and graphite rings above the charging dock" class="pdp-tile" data-lb="" type="button">
-<img alt="" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_dock_hero.webp" width="1100"/>
-<span class="cap">Ring and dock</span>
-</button>
-<button aria-label="The ring seen from the inside" class="pdp-tile" data-lb="" type="button">
-<img alt="" decoding="async" height="1000" loading="lazy" src="/phenome-store/assets/pages/ring_macro_inner.webp" width="1000"/>
-<span class="cap">Sensor side</span>
-</button>
-<button aria-label="The charging dock, open" class="pdp-tile" data-lb="" type="button">
-<img alt="" decoding="async" height="937" loading="lazy" src="/phenome-store/assets/pages/ring_case_studio.webp" width="937"/>
-<span class="cap">Charging dock</span>
-</button>
-<button aria-label="The ring and its dock on a bathroom shelf" class="pdp-tile" data-lb="" type="button">
-<img alt="" decoding="async" height="937" loading="lazy" src="/phenome-store/assets/pages/ring_scene_bath.webp" width="937"/>
-<span class="cap">Where it lives</span>
-</button>
-<button aria-label="The brushed titanium finish, close up" class="pdp-tile" data-lb="" type="button">
-<img alt="" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_metal_brushed.webp" width="1100"/>
-<span class="cap">Brushed titanium</span>
-</button>
+</div>
+<!-- Silver, gold and graphite above the dock: three of the five finishes, and
+     all three real. (The four-up beige still that once stood here showed a pink
+     ring this page does not sell.) -->
+<div aria-label="3 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
+<img alt="Silver, gold and graphite rings above the charging dock" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_dock_hero.webp" width="1100"/>
+</div>
+<div aria-label="4 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
+<img alt="The ring seen from the inside, sensor side up" decoding="async" height="1000" loading="lazy" src="/phenome-store/assets/pages/ring_macro_inner.webp" width="1000"/>
+</div>
+<div aria-label="5 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
+<img alt="The charging dock, open" decoding="async" height="937" loading="lazy" src="/phenome-store/assets/pages/ring_case_studio.webp" width="937"/>
+</div>
+<div aria-label="6 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
+<img alt="The ring and its dock on a bathroom shelf" decoding="async" height="937" loading="lazy" src="/phenome-store/assets/pages/ring_scene_bath.webp" width="937"/>
+</div>
+<div aria-label="7 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
+<img alt="The brushed titanium finish, close up" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_metal_brushed.webp" width="1100"/>
+</div>
+
+</div>
+
+<span class="pdp-gal-tag" data-gal-tag=""><i></i><span>Titanium · Gold</span></span>
+<div class="pdp-gal-tools">
+<button aria-label="Pause the slideshow" class="pdp-gal-tool pdp-gal-hold" data-gal-hold="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
+<button aria-label="Open at full size" class="pdp-gal-tool pdp-gal-zoom" data-gal-zoom="" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></button>
+</div>
+<!-- Filled by pdp.js: previous, one dot per slide, next. -->
+<div class="pdp-gal-nav" data-gal-nav="" hidden=""></div>
 </div>
 
 </div>
@@ -114,15 +115,6 @@
      object to all of them — which is also what lets the comparison table
      further down agree with this column instead of restating it. -->
 <div class="buy-col">
-
-<div class="pdp-head">
-<!-- Three rungs, largest first: the product's name, then the promise, then
-     what it does. The name was missing from the column entirely — the largest
-     type on a product page belongs to the thing being sold. -->
-<h1 class="hero-title">PhenomeTech Ring</h1>
-<p class="pdp-tagline">Your data, on your finger.</p>
-<p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
-</div>
 
 <div class="buy-opt">
 <p class="pdp-opt-k">Material</p>
@@ -226,46 +218,48 @@
 
 <!-- ==========================================================================
      3 · THE SIGNAL BAND — rebuilt on seed.com/daily-synbiotic, 2026-09-09.
-     One photograph, one frosted panel, five columns, nothing to press. The
-     measurements the panel and its type are built to are in pdp.css § 3.
+     One photograph, one frosted strip, five signals, nothing to press.
+     2026-09-14: the copy moved to the upper right and the signals to the foot,
+     so the ring in the middle of the photograph is never under type.
      ====================================================================== -->
 <section class="section pdp-sig">
 <div class="pdp-sig-bg"><img alt="" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_worn_water.webp" width="1400"/></div>
 <div class="wrap-wide pdp-sig-in">
 
+<div class="pdp-sig-copy">
 <h2 class="pdp-sig-h">More signal for your Longevity AI.</h2>
 <p class="pdp-sig-lede">The ring streams heart rate, HRV, blood oxygen, skin temperature and movement into Phenome's AI — so your microbiome and genome are read in the context of how you actually sleep, move and recover.</p>
+</div>
+
+<!-- The photograph sits here in flow on narrow screens, so the copy and the
+     five signals stack around the ring instead of over it. -->
+<div aria-hidden="true" class="pdp-sig-frame"></div>
 
 <div class="pdp-sig-glass">
 
 <div class="pdp-sig-cell">
 <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewbox="0 0 24 24"><path d="M2 12h4l2.5-6 3 12 3-8 2 2h5.5"></path></svg>
 <p class="pdp-sig-t">Heart rate</p>
-<p class="pdp-sig-d">Read from the arteries in your finger, where the signal is stronger than at the wrist.</p>
 </div>
 
 <div class="pdp-sig-cell">
 <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewbox="0 0 24 24"><path d="M3 18V9m4.5 9V5m4.5 13v-6m4.5 6V8M21 18v-4"></path></svg>
 <p class="pdp-sig-t">Heart-rate variability</p>
-<p class="pdp-sig-d">The gap between one beat and the next, and the backbone of your readiness score.</p>
 </div>
 
 <div class="pdp-sig-cell">
 <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewbox="0 0 24 24"><path d="M12 3s6 6.6 6 11a6 6 0 01-12 0c0-4.4 6-11 6-11z"></path></svg>
 <p class="pdp-sig-t">Blood oxygen</p>
-<p class="pdp-sig-d">Overnight SpO₂, read against the sleep stages recorded beside it rather than on its own.</p>
 </div>
 
 <div class="pdp-sig-cell">
 <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewbox="0 0 24 24"><path d="M10 14.8V5a2 2 0 114 0v9.8a4.5 4.5 0 11-4 0z"></path></svg>
 <p class="pdp-sig-t">Skin temperature</p>
-<p class="pdp-sig-d">A dedicated sensor against the skin. What matters is the deviation from your own baseline.</p>
 </div>
 
 <div class="pdp-sig-cell">
 <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewbox="0 0 24 24"><path d="M12 4v16M4 8v8m16-8v8M8 6v12m8-12v12"></path></svg>
 <p class="pdp-sig-t">Movement</p>
-<p class="pdp-sig-d">A 3-axis accelerometer, separating a walk from a workout and a still night from a restless one.</p>
 </div>
 
 </div>
@@ -324,7 +318,6 @@
 <video aria-label="The Phenome app's Health Monitor, listing measured biomarkers" autoplay="" id="pdp-film-tl" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-app.webp" preload="metadata"><source src="/phenome-store/assets/video/ring-app.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-app.mp4" type="video/mp4"/></video>
 <div class="pdp-filmbar" data-filmbar="#pdp-film-tl">
 <button aria-label="Pause video" class="pdp-filmbtn" data-film-play="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
-<button aria-label="Unmute video" class="pdp-filmbtn" data-film-mute="" data-muted="" type="button"><svg aria-hidden="true" class="i-off" focusable="false" viewbox="0 0 16 16"><path d="M7 2L3.6 5H1v6h2.6L7 14zM10.5 5.5l4 5m0-5l-4 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg><svg aria-hidden="true" class="i-on" focusable="false" viewbox="0 0 16 16"><path d="M7 2L3.6 5H1v6h2.6L7 14zM10.5 5a4 4 0 010 6M13 3.2a7 7 0 010 9.6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg></button>
 </div>
 </div>
 
@@ -332,45 +325,30 @@
 </div></section>
 
 <!-- ==========================================================================
-     5 · THE PINNED FILM
-
-     THE NUMBERED RAIL IS GONE, and the reason is that the numbers were lying.
-     1-2-3-4 promises a sequence, and these four are peers: a battery figure, a
-     water rating, a material, a data claim. Nothing about the second follows
-     from the first. So the marks were counting steps in a process that has no
-     steps — chrome that added a control, an index and a progress line to say
-     something untrue.
-
-     What replaces it is not a better indicator, it is no indicator. Each point
-     leads with its own value set large, and the value changing IS where you
-     are: 7 days becomes 100 metres becomes 4 grams. An overline above it names
-     the subject, which is the one job the numbers could have done and didn't.
-     Apple's own pinned product bands ship exactly this way — the copy swaps and
-     there is no rail — and the confidence is the point.
-
-     shared.js's pinned() is untouched; it still turns the section's scroll into
-     an index and toggles `.on`. Only what that class paints has changed.
+     5 · THE HIGHLIGHTS — on ultrahuman.com/ring-pro's "On the go. Off the grid."
+     A full-screen film that is first shown clean; as the reader scrolls on, a
+     near-black veil rises over it and the heading and all four highlights come
+     up together. pdp.js writes the scroll progress as --hl; pdp.css § 4 maps
+     it to the veil and the copy. Replaces the pinned one-value-at-a-time band.
      ====================================================================== -->
-<section class="section section-keep pin-sec"><div class="pin" style="--pin-steps:4"><div class="pin-stage"><div class="pin-band"><video aria-hidden="true" autoplay="" class="pin-film" id="pdp-film-pin" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-highlights.webp" preload="metadata" tabindex="-1"><source src="/phenome-store/assets/video/ring-highlights.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-highlights.mp4" type="video/mp4"/></video><div class="pin-scrim"></div></div>
-<div class="pdp-filmbar" data-filmbar="#pdp-film-pin">
+<section aria-labelledby="pdp-hl-h" class="pdp-hl" data-hl="">
+<div class="pdp-hl-stage">
+<video aria-hidden="true" autoplay="" class="pdp-hl-film" id="pdp-film-hl" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-highlights.webp" preload="metadata" tabindex="-1"><source src="/phenome-store/assets/video/ring-highlights.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-highlights.mp4" type="video/mp4"/></video>
+<div aria-hidden="true" class="pdp-hl-veil"></div>
+<div class="wrap-wide pdp-hl-copy">
+<h2 class="pdp-hl-h" id="pdp-hl-h">Get the highlights.</h2>
+<ul class="pdp-hl-list">
+<li>7-day battery life, with a roughly<br/>90-minute full charge.</li>
+<li>Water resistant to 100 metres:<br/>swim, shower, sleep.</li>
+<li>Aerospace titanium or ceramic, just<br/>4 grams on the finger.</li>
+<li>Syncs your signals with your<br/>genomic &amp; microbiome data.</li>
+</ul>
+</div>
+<div class="pdp-filmbar" data-filmbar="#pdp-film-hl">
 <button aria-label="Pause video" class="pdp-filmbtn" data-film-play="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
 </div>
-<div class="pin-inner"><div class="pin-head"><h2 class="sec-title">Get the highlights.</h2></div><div class="pin-pts">
-<div class="pin-pt" data-pin="0"><p class="pdp-pin-v">7 days</p><p class="pin-pt-t">On a single charge, and roughly ninety minutes to fill it again.</p></div>
-<div class="pin-pt" data-pin="1"><p class="pdp-pin-v">100 m</p><p class="pin-pt-t">Ten atmospheres. Swim in it, shower in it, sleep in it.</p></div>
-<!-- This point was "On the finger / 4 g". It moved off weight because the
-     comparison below leads its titanium column with the same 4 g in the same
-     display treatment — and there the number is doing real work, since the
-     gram difference between titanium and ceramic IS the comparison. A figure
-     that is the argument in one section cannot also be decoration in another.
-     Fit replaces it: eight sizes and a free kit is the thing a reader is
-     actually anxious about when buying a ring they cannot try on, it is stated
-     nowhere else on this page as a value, and the film underneath is a hand
-     wearing one. -->
-<div class="pin-pt" data-pin="2"><p class="pdp-pin-v">8 sizes</p><p class="pin-pt-t">US 6 to 13. Order a free sizing kit and decide once it is on your hand.</p></div>
-<div class="pin-pt" data-pin="3"><p class="pdp-pin-v">One picture</p><p class="pin-pt-t">Your signals, read together with your genome and your microbiome.</p></div>
 </div>
-</div></div></div></section>
+</section>
 
 <!-- ==========================================================================
      6 · TITANIUM OR CERAMIC
@@ -471,72 +449,6 @@
 
 </div>
 
-<!-- The band that replaces the three rows of the old table which said the same
-     thing in both columns.
-
-     IT NAMES THE DIMENSIONS AND DOES NOT RESTATE THEIR VALUES, and that is the
-     correction. It shipped as a fourth stat grid — 5 sensors / 100 m / 7 days /
-     Bluetooth 5.3 in display figures — which made three bands on this page
-     using one visual form to say overlapping things, and printed two numbers
-     the pinned film had already given the reader in exactly the same treatment
-     a screen earlier.
-
-     What this band is actually for is not the figures. It is the word SAME. Its
-     job is to say that nothing measured changes between the two columns above
-     it, and a list of names with ticks says that more directly than a list of
-     numbers does — a number invites you to compare it with something, which is
-     the opposite of the point being made. The figures themselves live in Tech
-     Specs, which is what a specification table is for, and the link goes there.
-     -->
-<div class="pdp-vs-same">
-<div>
-<p class="pdp-vs-same-t">Everything else is the same ring.</p>
-<p class="pdp-vs-same-s">Not similar — identical. Nothing measured changes with the material.</p>
-</div>
-<ul class="pdp-vs-same-l">
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Sensors</li>
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Water resistance</li>
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Battery life</li>
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Connectivity</li>
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Warranty</li>
-<li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>App &amp; sync</li>
-</ul>
-</div>
-
-<!-- ---- the cutaway. `ring orthographic.png` is the one asset in the shoot
-     that shows the inside of the ring, and four of the things the specification
-     table lists are visible on it. A dot on the thing, a leader out of it, and
-     a row in the list — either end drives the pair. -->
-<div class="pdp-cut" data-cut="">
-<div class="pdp-cut-fig">
-<img alt="The PhenomeTech Ring seen from above with its inner surface facing the camera, sensor modules and charging contacts visible" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
-<!-- The dial. The ring's hollow is a clean white disc 62% of the picture wide,
-     and it is the one region of the photograph a mark can occupy without
-     covering the product. The track, the leader and the readout all live
-     inside it; see pdp.css for why. -->
-<svg class="pdp-cut-wire" aria-hidden="true" focusable="false" data-cut-wire=""><circle class="track" cx="0" cy="0" r="0"/><path d=""/><circle class="tip" cx="0" cy="0" r="3.5"/></svg>
-<div class="pdp-cut-dial" aria-hidden="true" data-dial=""><span class="n" data-dial-n="">01</span><span class="t" data-dial-t="">Optical heart&#8209;rate sensor</span></div>
-<button aria-label="Optical heart-rate sensor" class="pdp-hot" data-hot="" data-n="1" style="--x:35%;--y:80%" type="button"></button>
-<button aria-label="Blood-oxygen sensor" class="pdp-hot" data-hot="" data-n="2" style="--x:74%;--y:25%" type="button"></button>
-<button aria-label="Skin-temperature sensor" class="pdp-hot" data-hot="" data-n="3" style="--x:25%;--y:26%" type="button"></button>
-<button aria-label="Charging contacts" class="pdp-hot" data-hot="" data-n="4" style="--x:54%;--y:83%" type="button"></button>
-</div>
-
-<ul class="pdp-cut-list">
-<li class="pdp-cut-item" data-cut-item="" data-on="">
-<button aria-expanded="true" class="pdp-cut-btn" data-cut-btn="" type="button"><span class="n">01</span><span><span class="t">Optical heart-rate sensor</span><span class="d"><span>Sits against the palm side of the finger, where the arteries are close to the surface — the reason a ring reads a pulse more cleanly than a wrist strap does.</span></span></span></button>
-</li>
-<li class="pdp-cut-item" data-cut-item="">
-<button aria-expanded="false" class="pdp-cut-btn" data-cut-btn="" type="button"><span class="n">02</span><span><span class="t">Blood-oxygen sensor</span><span class="d"><span>The second emitter and photodiode pair, used overnight for SpO₂ and read against the sleep stages recorded at the same time.</span></span></span></button>
-</li>
-<li class="pdp-cut-item" data-cut-item="">
-<button aria-expanded="false" class="pdp-cut-btn" data-cut-btn="" type="button"><span class="n">03</span><span><span class="t">Skin-temperature sensor</span><span class="d"><span>In contact with the skin rather than the air, so what it reports is your temperature and not the room's.</span></span></span></button>
-</li>
-<li class="pdp-cut-item" data-cut-item="">
-<button aria-expanded="false" class="pdp-cut-btn" data-cut-btn="" type="button"><span class="n">04</span><span><span class="t">Charging contacts</span><span class="d"><span>Two pads on the inner shell. The ring drops into its dock in any orientation and takes roughly 90 minutes to fill.</span></span></span></button>
-</li>
-</ul>
-</div>
 
 </div></section>
 

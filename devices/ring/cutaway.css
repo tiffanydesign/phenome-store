@@ -1,0 +1,269 @@
+/* ============================================================================
+   PhenomeTech Ring — the sensor cutaway
+   Moved here from the store PDP (store/phenometech-ring) on 2026-09-14, by
+   request, to sit under "Physiological intelligence." — the section that says
+   what the ring reads is the natural place to show where on the ring it reads
+   it. Scoped to `.ph-flat` like ring.css; loaded after it. The mechanism and
+   its history are unchanged from the PDP and documented inline.
+   ========================================================================== */
+
+/* The section: the page ground, so the cut-out photograph's white is the
+   page's white and the figure needs no frame. */
+.ph-flat .ring-cut-sec { background: #fff; }
+.ph-flat .ring-cut-sec .ring-cut { margin-top: 0; }
+/* The photograph's ground is a shade off white, which drew a faint box on this
+   page's pure white. Multiply makes its near-white ground the page's own. */
+.ph-flat .ring-cut-sec .ring-cut-fig > img { mix-blend-mode: multiply; }
+
+/* ---- the cutaway, and four things it is pointing at ----------------------
+   `ring orthographic.png` is the one asset in the drop that shows the inside of
+   the ring, and the four sensors the spec table lists are visible on it. seed
+   annotates its capsule the same way: a dot on the thing, a leader out to the
+   label. The labels are positioned in per-hotspot custom properties so the
+   markup carries the coordinates and this file carries only the mechanism. */
+.ph-flat .ring-cut {
+  margin-top: clamp(56px, 6vw, 96px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+  gap: clamp(28px, 4vw, 64px); align-items: center;
+}
+/* ---- the figure. NO FRAME, 2026-09-09.
+
+   It was a white pane with --gl-inner's 6% hairline round it, and at the width
+   this section gives it that came out as a rounded rectangle whose top and
+   bottom edges were visible above and below the ring while its sides were not —
+   a box drawn around a photograph that is already a cut-out on white. The frame
+   was added when the cutaway sat on the recess tone and needed separating from
+   it; the section is on the page ground now, the photograph's own ground IS the
+   page, and there is nothing left for a boundary to boundary. */
+.ph-flat .ring-cut-fig {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+.ph-flat .ring-cut-fig > img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* ---- the marks. Bigger, and the live one breathes.
+
+   THE DOT WAS 10px WITH A 5px HALO on a 900px photograph — about one per cent
+   of the picture's width, which is a pin, not a control. Four of them scattered
+   over a silver object at that size read as specks of dust before they read as
+   anything clickable. 16px of solid accent inside a 34px target, with the halo
+   carrying most of the visual weight, is the smallest this can be and still say
+   "press me" from reading distance.
+
+   AND THE LIVE ONE PULSES. A ring of accent expands out of the dot and fades,
+   once every 2.4 seconds — slow enough to read as breathing rather than as an
+   alarm, and drawn on a THIRD pseudo-element so the dot itself never moves.
+   That matters: the SVG connector below is anchored to the dot's centre, and a
+   dot that scaled would drag the end of its own line around. */
+.ph-flat .ring-hot {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  position: absolute; left: var(--x); top: var(--y);
+  width: 38px; height: 38px; margin: -19px 0 0 -19px; padding: 0;
+  border: 0; border-radius: 50%; background: none;
+  z-index: 3;
+}
+/* THE MARK CARRIES ITS NUMBER, 2026-09-14. The list beside the picture counts
+   01 to 04, and the marks were four identical blue dots — so the only thing
+   joining a dot to its row was a line, and the line had to be drawn to be
+   understood. Numbered, the pair is legible at rest: a reader who never hovers
+   still sees that the 3 on the ring is the 03 in the list. The line is then
+   free to be short, because it no longer has to do the matching. */
+.ph-flat .ring-hot::before {
+  content: attr(data-n); position: absolute; inset: 8px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #fff; color: var(--ph-accent);
+  font-size: 12px; line-height: 1; font-weight: var(--ph-w-600);
+  font-variant-numeric: tabular-nums;
+  /* A white disc with an accent rim at rest; the live one inverts. The rim is
+     inset so the disc's outer edge is the same at both states and the leader,
+     which is measured to that edge, does not move when the state changes. */
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffd9;
+  transition: background var(--ph-dur-fast) var(--ease-frosted-out),
+              color var(--ph-dur-fast) var(--ease-frosted-out),
+              box-shadow var(--ph-dur-fast) var(--ease-frosted-out);
+}
+.ph-flat .ring-hot:hover::before {
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffe6, 0 0 0 8px #203a8526;
+}
+.ph-flat .ring-hot[aria-current="true"]::before {
+  background: var(--ph-accent); color: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--ph-accent), 0 0 0 3px #ffffffe6, 0 0 0 9px #203a8533;
+}
+.ph-flat .ring-hot::after {
+  content: ""; position: absolute; inset: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--ph-accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.ph-flat .ring-hot[aria-current="true"]::after {
+  animation: ring-cut-breathe 2400ms var(--ease-frosted-out) infinite;
+}
+@keyframes ring-cut-breathe {
+  0%   { transform: scale(1);   opacity: .55; }
+  70%  { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+/* A pulse is decoration and says nothing the aria-current does not. */
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .ring-hot[aria-current="true"]::after { animation: none; }
+}
+.ph-flat .ring-hot:focus-visible { outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: 2px; border-radius: 50%; }
+
+/* ---- THE DIAL, 2026-09-14.
+
+   WHAT IT REPLACES: a leader from the mark to the row in the list beside the
+   picture. It was tried three ways — an elbow down a shared gutter spine, a
+   radial escape then an elbow, and one straight diagonal — and all three failed
+   for the same reason: the list is outside the ring and the marks are on its
+   inner wall, so any line from one to the other has to cross the metal. The
+   diagonal crossed the band and the empty centre both, and read as a scratch.
+
+   THE ANSWER IS TO STOP LEAVING THE RING. Measured off the photograph, its
+   hollow is a clean white disc 62% of the picture wide, centred at 49.8% /
+   50.6%, and every mark sits on its rim. That disc is the one region of the
+   picture a line can occupy without covering the product. So:
+
+     · a hairline TRACK, a circle concentric with the ring at 21.5% of the
+       picture's width, inside the hollow and well clear of the wall;
+     · a LEADER from the live mark straight in toward the centre, stopping on
+       the track — radial, one segment, and about 60px long at desktop, so it
+       cannot be anything but short and straight;
+     · a READOUT inside the track: the number and the name of what is being
+       pointed at, like the face of a gauge.
+
+   Every leader ends on the same circle, so the four read as one instrument
+   rather than four annotations. The list keeps the long description and is
+   joined to the marks by number and by lighting together — no line crosses
+   the gutter, and so nothing has to be hidden when the columns stack. */
+.ph-flat .ring-cut-wire {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+.ph-flat .ring-cut-wire .track {
+  fill: none;
+  stroke: var(--ph-accent);
+  stroke-opacity: .16;
+  stroke-width: 1;
+}
+.ph-flat .ring-cut-wire path {
+  fill: none;
+  stroke: var(--ph-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0;
+}
+.ph-flat .ring-cut-wire .tip { fill: var(--ph-accent); opacity: 0; }
+.ph-flat .ring-cut-wire[data-live] path {
+  opacity: 1;
+  animation: ring-cut-wire-draw 360ms var(--ease-frosted-out) both;
+}
+.ph-flat .ring-cut-wire[data-live] .tip {
+  opacity: 1;
+  animation: ring-cut-wire-end 220ms var(--ease-frosted-out) 260ms both;
+}
+@keyframes ring-cut-wire-draw {
+  from { stroke-dashoffset: var(--wire-len); }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes ring-cut-wire-end { from { r: 0; } to { r: 3.5; } }
+
+/* The readout. Centred on the RING, not on the figure — the photograph's
+   centre and the ring's are 0.6% apart vertically, and at a 21% track that is
+   enough to put the words visibly off the dial's axis. Sized off the figure's
+   width through a container unit so it scales with the ring it sits inside. */
+.ph-flat .ring-cut-fig { container-type: inline-size; }
+.ph-flat .ring-cut-dial {
+  position: absolute; left: 49.84%; top: 50.56%;
+  width: 34cqi;
+  translate: -50% -50%;
+  display: grid; justify-items: center; gap: 1.1cqi;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+}
+.ph-flat .ring-cut-dial .n {
+  font-size: clamp(11px, 2.1cqi, 13px); line-height: 1;
+  font-weight: var(--ph-w-600);
+  letter-spacing: normal;
+  color: var(--ph-accent);
+  font-variant-numeric: tabular-nums;
+}
+.ph-flat .ring-cut-dial .t {
+  font-size: clamp(15px, 3.4cqi, 21px); line-height: 1.22;
+  font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+.ph-flat .ring-cut-dial[data-swap] > * { animation: ring-cut-dial-in 320ms var(--ease-frosted-out) both; }
+.ph-flat .ring-cut-dial[data-swap] .t { animation-delay: 40ms; }
+@keyframes ring-cut-dial-in {
+  from { opacity: 0; translate: 0 6px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .ring-cut-wire[data-live] path,
+  .ph-flat .ring-cut-wire[data-live] .tip { animation: none; stroke-dashoffset: 0; }
+  .ph-flat .ring-cut-dial[data-swap] > * { animation: none; }
+}
+
+.ph-flat .ring-cut-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; position: relative; z-index: 2; }
+.ph-flat .ring-cut-item {
+  border-top: 1px solid var(--divider);
+}
+.ph-flat .ring-cut-item:last-child { border-bottom: 1px solid var(--divider); }
+.ph-flat .ring-cut-btn {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px;
+  width: 100%; padding: 22px 0; border: 0; background: none;
+  font: inherit; text-align: left;
+  transition: opacity var(--ph-dur-fast) var(--ease-frosted-out);
+}
+.ph-flat .ring-cut-btn .n {
+  font-size: var(--ph-fs-14); font-weight: var(--ph-w-600);
+  letter-spacing: normal;
+  color: var(--ph-tertiary); font-variant-numeric: tabular-nums;
+  padding-top: 6px;
+  transition: color var(--ph-dur-fast) var(--ease-frosted-out);
+}
+/* A RUNG UP ON BOTH, asked for 2026-09-09. The title was 19 and the body 17 in
+   a column that is nearly half the page wide with only four items in it — the
+   most airy block on the page, set at the same size as a card caption. 24 and
+   19 are the next rungs on the ladder; nothing else about the row changes. */
+.ph-flat .ring-cut-btn .t {
+  font-size: var(--ph-fs-24); line-height: var(--ph-lh-24);
+  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-24-600);
+  color: var(--ink-900);
+}
+.ph-flat .ring-cut-btn .d {
+  margin-top: 5px;
+  font-size: var(--ph-fs-19); line-height: var(--ph-lh-19-loose);
+  color: var(--ph-text-2);
+  /* Collapsed to nothing until the item is current. A grid-template-rows
+     transition, not max-height: the row is 0fr and becomes 1fr, so there is no
+     magic pixel number to get wrong when the copy changes. */
+  display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows 340ms var(--ease-frosted-out),
+              opacity 260ms var(--ease-frosted-out), margin-top 340ms var(--ease-frosted-out);
+}
+.ph-flat .ring-cut-btn .d > span { overflow: hidden; }
+.ph-flat .ring-cut-item[data-on] .ring-cut-btn .d { grid-template-rows: 1fr; opacity: 1; margin-top: 9px; }
+.ph-flat .ring-cut-item[data-on] .ring-cut-btn .n { color: var(--ph-accent); }
+.ph-flat .ring-cut-btn:not(:hover) { opacity: .78; }
+.ph-flat .ring-cut-item[data-on] .ring-cut-btn { opacity: 1; }
+.ph-flat .ring-cut-btn:focus-visible {
+  outline: var(--ph-focus-w) solid var(--ph-focus); outline-offset: 4px; border-radius: var(--ph-r8);
+}
+
+
+@media (max-width: 1024px) {
+  .ph-flat .ring-cut { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .ring-cut-btn { opacity: 1; }
+  .ph-flat .ring-cut-btn .d { grid-template-rows: 1fr; opacity: 1; margin-top: 7px; }
+}

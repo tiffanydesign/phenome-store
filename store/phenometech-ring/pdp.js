@@ -150,88 +150,301 @@
      2 · THE GALLERY
      ====================================================================== */
 
+  /* THE FRAME IS A SLIDESHOW (2026-09-14), on ouraring.com's pattern: the
+     colourway film first, then the studio still of the same finish, then the
+     product shots, advancing on their own. What decides the rules below:
+     - The film only plays while its slide is showing.
+     - A reader who points at the frame or tabs into it has taken hold of it, so
+       the countdown pauses (and resumes where it stopped) until they leave.
+     - The hold button stops the slideshow AND the film — WCAG 2.2.2 wants one
+       control for everything in the frame that moves — as does reduced motion.
+     - Choosing a finish returns the frame to the film, which is the answer to
+       "show me that colour", and restarts its dwell.
+     - Rotation pauses while the frame is off-screen or the tab is hidden. */
+  /* The film's dwell is a floor, not a fixed time: it is rounded up to whole
+     loops of the clip (see filmDwell), and it starts counting when the clip
+     is actually playing — so a slow first load never skips the film. */
+  var DWELL_FILM = 8000;
+  var DWELL_STILL = 4500;
+
   function gallery() {
     var main = $('[data-gal-main]');
     if (!main) return;
 
+    var track = $('[data-gal-track]', main);
+    var slides = $$('[data-slide]', main);
+    var navBox = $('[data-gal-nav]', main);
     var films = $$('video[data-clip]', main);
     /* `stillTile`, not `still`: the module-level `still` is the reduced-motion
        media query and shadowing it here silently broke the check below. */
     var stillTile = $('[data-gal-still]');
     var frames = stillTile ? $$('img[data-finish]', stillTile) : [];
-    var stillCap = $('[data-still-cap]');
     var tag = $('[data-gal-tag]', main);
     var tagName = tag ? $('span', tag) : null;
     var tagDot = tag ? $('i', tag) : null;
+    var n = slides.length;
+    var cur = 0;
 
-    /* The `data-live` flag hands the crossfade over from CSS to script. Until
-       it is set, `:not([data-live]) video:first-of-type` keeps the first clip's
-       poster visible, so a page whose script never runs shows a picture rather
-       than a black box. */
+    /* The `data-live` flag hands the frame over from CSS to script: the snap
+       scroller becomes a stack of translated slides, and the first clip's
+       poster stops being forced visible. */
     main.setAttribute('data-live', '');
-    if (stillTile) stillTile.setAttribute('data-live', '');
+    if (track) track.scrollLeft = 0;
 
-    /* ONLY THE CURRENT CLIP PLAYS. Four decoders running for three frames
-       nobody can see is four decoders' worth of battery, and on a phone it is
-       the difference between a hero that scrolls and one that stutters. The
-       outgoing clip is paused AFTER the crossfade rather than with it — pausing
-       first shows a frozen frame fading out, which reads as a stall — and the
-       timeout re-checks the class before pausing, so flicking back and forth
-       across the swatches cannot pause the one that is now showing. */
-    var FADE = 560;
-    /* Held by the reader, not by the code. Once it is true a swatch change
-       swaps the picture and leaves it still — which is the whole point of a
-       pause control on a thing that also changes underneath you. */
+    /* ---- pagination, built rather than shipped: without the script there is
+       nothing for it to drive. */
+    var dots = [];
+    var CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    if (navBox && n > 1) {
+      navBox.innerHTML =
+        '<button class="pdp-gal-arrow" type="button" data-gal-prev="" aria-label="Previous slide">' + CHEV + '</button>' +
+        '<div class="pdp-gal-dots"></div>' +
+        '<button class="pdp-gal-arrow" type="button" data-gal-next="" aria-label="Next slide">' +
+          CHEV.replace('M15 5l-7 7 7 7', 'M9 5l7 7-7 7') + '</button>';
+      var dotBox = $('.pdp-gal-dots', navBox);
+      for (var d = 0; d < n; d++) {
+        var b = doc.createElement('button');
+        b.type = 'button';
+        b.className = 'pdp-gal-dot';
+        b.setAttribute('aria-label', 'Show slide ' + (d + 1) + ' of ' + n);
+        b.innerHTML = '<i></i>';
+        dotBox.appendChild(b);
+        dots.push(b);
+      }
+      navBox.hidden = false;
+    }
+
+    /* ---- position. Each slide sits at its shortest wrapped offset from the
+       current one. Only the outgoing and incoming slides animate; everything
+       else snaps while off-screen, which is what stops a jump from slide 1 to
+       slide 5 dragging slides 2-4 across the frame. */
+    function offsetOf(i, c) {
+      var o = ((i - c) % n + n) % n;
+      return o > n / 2 ? o - n : o;
+    }
+    function place(prev, dir) {
+      /* Belt and braces for engines without `overflow: clip`, where the track
+         is still a scroll container and could be nudged off zero. */
+      if (track && track.scrollLeft) track.scrollLeft = 0;
+      for (var i = 0; i < n; i++) {
+        var o = offsetOf(i, cur);
+        /* A two-slide wrap has offsets that tie; `dir` breaks the tie so the
+           incoming slide arrives from the side the reader asked for. */
+        if (i === cur) o = 0;
+        else if (i === prev && dir) o = -dir;
+        var animate = i === cur || i === prev;
+        if (animate) slides[i].removeAttribute('data-snap');
+        else slides[i].setAttribute('data-snap', '');
+        slides[i].style.setProperty('--o', o);
+        slides[i].setAttribute('aria-hidden', i === cur ? 'false' : 'true');
+        slides[i].inert = i !== cur;
+      }
+      for (var k = 0; k < dots.length; k++) {
+        dots[k].setAttribute('aria-current', k === cur ? 'true' : 'false');
+      }
+      if (slides[cur].hasAttribute('data-follows')) main.setAttribute('data-follow', '');
+      else main.removeAttribute('data-follow');
+    }
+    /* Start the incoming slide from its side BEFORE enabling its transition,
+       so a slide that was parked on the far side does not sweep across. */
+    function prime(i, fromSide) {
+      slides[i].setAttribute('data-snap', '');
+      slides[i].style.setProperty('--o', fromSide);
+      void slides[i].offsetWidth;
+    }
+
+    /* ---- the countdown. setTimeout with a remainder, so pausing on hover
+       resumes where it stopped instead of restarting the slide. The dot's CSS
+       fill runs on the same `--dwell` and pauses on the same flags. */
     var held = still.matches;
-    var hold = $('[data-gal-hold]');
+    var hover = false, offscreen = false;
+    var timer = null, started = 0, remaining = 0;
+    function filmDwell() {
+      var v = $('video.on', main);
+      var d = v && v.duration;
+      if (!d || !isFinite(d)) return DWELL_FILM;
+      return Math.ceil(DWELL_FILM / (d * 1000)) * d * 1000;
+    }
+    function dwellOf(i) { return slides[i].classList.contains('pdp-slide--film') ? filmDwell() : DWELL_STILL; }
+    /* True while the film slide is up but its clip has not started: the
+       countdown waits, and the dot's fill waits with it. */
+    var waiting = false;
+    var waitGuard = 0;
+    function paused() { return held || hover || offscreen || waiting || doc.hidden; }
+    function stopTimer() {
+      if (!timer) return;
+      clearTimeout(timer); timer = null;
+      remaining = Math.max(0, remaining - (Date.now() - started));
+    }
+    function startTimer() {
+      if (timer || paused() || n < 2) return;
+      started = Date.now();
+      timer = setTimeout(function () { timer = null; go(cur + 1, 1); }, remaining);
+    }
+    function restartDwell() {
+      if (timer) { clearTimeout(timer); timer = null; }
+      var fv = slides[cur].classList.contains('pdp-slide--film') ? $('video.on', main) : null;
+      waiting = !!(fv && !held && !still.matches && (fv.paused || fv.readyState < 3));
+      /* A clip that never starts (autoplay refused, a network stall) must not
+         hold the slideshow hostage: after 4s the stills get their turn. */
+      clearTimeout(waitGuard);
+      if (waiting) {
+        var waitedOn = cur;
+        waitGuard = setTimeout(function () {
+          if (waiting && cur === waitedOn) { waiting = false; remaining = DWELL_STILL; sync(); }
+        }, 4000);
+      }
+      remaining = dwellOf(cur);
+      main.style.setProperty('--dwell', remaining + 'ms');
+      /* Re-run the dot's fill from zero: removing and re-adding the current
+         marker restarts a CSS animation without touching the others. */
+      var dot = dots[cur];
+      if (dot) { dot.setAttribute('aria-current', 'false'); void dot.offsetWidth; dot.setAttribute('aria-current', 'true'); }
+      sync();
+    }
+    /* When the waited-for clip starts (or its length becomes known), the
+       film's dwell is re-measured and the countdown begins from the top. */
+    for (var fw = 0; fw < films.length; fw++) {
+      on(films[fw], 'playing', function (e) {
+        if (!waiting || !e.target.classList.contains('on')) return;
+        restartDwell();
+      });
+    }
+    function sync() {
+      if (paused()) stopTimer(); else startTimer();
+      if (held) main.setAttribute('data-held', ''); else main.removeAttribute('data-held');
+      if (hover || offscreen || waiting) main.setAttribute('data-hover', ''); else main.removeAttribute('data-hover');
+    }
 
-    function run(f) {
+    function go(i, dir) {
+      var next = ((i % n) + n) % n;
+      if (next === cur) { restartDwell(); return; }
+      var prev = cur;
+      if (!dir) dir = offsetOf(next, prev) > 0 ? 1 : -1;
+      prime(next, dir);
+      cur = next;
+      place(prev, dir);
+      playCurrent();
+      restartDwell();
+    }
+
+    /* ---- the film plays only on its own slide */
+    var FADE = 560;
+    var currentFinish = FINISHES[0];
+    function playCurrent() {
+      var filmShowing = slides[cur] && slides[cur].classList.contains('pdp-slide--film');
       for (var i = 0; i < films.length; i++) {
         (function (v) {
-          var on = v.getAttribute('data-clip') === f.clip;
-          v.classList.toggle('on', on);
-          v.setAttribute('aria-hidden', on ? 'false' : 'true');
+          var isClip = v.getAttribute('data-clip') === currentFinish.clip;
+          var on = isClip && filmShowing;
+          v.classList.toggle('on', isClip);
+          v.setAttribute('aria-hidden', isClip ? 'false' : 'true');
           if (on) {
             /* `still.matches` is read here rather than captured at boot, so a
                reader who turns reduced-motion on mid-session gets a poster on
-               the next swatch instead of a film. */
+               the next change instead of a film. */
             if (!held && !still.matches) { try { v.play(); } catch (e) {} }
           } else if (!v.paused) {
+            /* Paused after the fade or the slide-out, never with it — pausing
+               first shows a frozen frame leaving, which reads as a stall. */
             setTimeout(function () {
-              if (!v.classList.contains('on')) { try { v.pause(); } catch (e) {} }
-            }, FADE);
+              var stillOn = v.classList.contains('on') && slides[cur].classList.contains('pdp-slide--film');
+              if (!stillOn) { try { v.pause(); } catch (e) {} }
+            }, FADE + 200);
           }
         })(films[i]);
       }
+    }
+    function run(f) {
+      currentFinish = f;
+      playCurrent();
       paintHold();
     }
 
+    /* ---- the hold button: one control for the slideshow and the film */
+    var hold = $('[data-gal-hold]');
     function paintHold() {
       if (!hold) return;
       if (held) hold.setAttribute('data-paused', '');
       else hold.removeAttribute('data-paused');
-      hold.setAttribute('aria-label', held ? 'Play the film' : 'Pause the film');
+      hold.setAttribute('aria-label', held ? 'Play the slideshow' : 'Pause the slideshow');
     }
-
     on(hold, 'click', function () {
       held = !held;
       var v = $('video.on', main);
       if (v) {
         if (held) { try { v.pause(); } catch (e) {} }
-        else { try { v.play(); } catch (e) {} }
+        else if (slides[cur].classList.contains('pdp-slide--film')) { try { v.play(); } catch (e) {} }
       }
       paintHold();
+      sync();
     });
-    /* If reduced-motion comes on mid-session the films are stopped elsewhere;
-       this keeps the button telling the truth about it. */
     if (still.addEventListener) {
       still.addEventListener('change', function () {
-        if (still.matches) { held = true; paintHold(); }
+        if (still.matches) { held = true; paintHold(); sync(); }
       });
     }
 
+    /* ---- the reader's hands on the frame */
+    on($('[data-gal-prev]', main), 'click', function () { go(cur - 1, -1); });
+    on($('[data-gal-next]', main), 'click', function () { go(cur + 1, 1); });
+    for (var q = 0; q < dots.length; q++) {
+      (function (k) { on(dots[k], 'click', function () { go(k); }); })(q);
+    }
+    on(main, 'keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, -1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, 1); }
+    });
+    /* Hover pauses only for a real pointer; on touch a tap would otherwise
+       leave the slideshow paused with no pointer ever leaving. */
+    on(main, 'pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; sync(); } });
+    on(main, 'pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; sync(); } });
+    on(main, 'focusin', function () { hover = true; sync(); });
+    on(main, 'focusout', function (e) {
+      if (!main.contains(e.relatedTarget)) { hover = false; sync(); }
+    });
+    /* Swipe. Horizontal intent only — `touch-action: pan-y` on the frame keeps
+       vertical page scrolling native. */
+    var sx = 0, sy = 0, tracking = false;
+    on(main, 'pointerdown', function (e) {
+      if (e.pointerType === 'mouse' || e.target.closest('button')) return;
+      tracking = true; sx = e.clientX; sy = e.clientY;
+    });
+    on(main, 'pointerup', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    });
+    on(main, 'pointercancel', function () { tracking = false; });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        offscreen = !entries[0].isIntersecting;
+        sync();
+      }, { threshold: 0.25 }).observe(main);
+    }
+    on(doc, 'visibilitychange', sync);
+
+    place(-1, 0);
+    paintHold();
+    sync();
+    restartDwell();
+
+    /* Exposed to the lightbox, which opens on whichever slide is showing. */
+    gallery.current = function () { return cur; };
+    gallery.slides = slides;
+
+    var booted = false;
     subscribe(function (s) {
       var f = finishById(s.finish);
+      /* A new finish returns the frame to its film. Not on boot: the first
+         publish() only paints the initial state. */
+      var changed = booted && f !== currentFinish;
+      booted = true;
+      currentFinish = f;
+      if (changed && cur !== 0) go(0, -1);
+      else if (changed) restartDwell();
       run(f);
 
       for (var i = 0; i < frames.length; i++) {
@@ -241,7 +454,6 @@
            would otherwise be five identical alt texts in a row. */
         frames[i].setAttribute('aria-hidden', isOn ? 'false' : 'true');
       }
-      if (stillCap) stillCap.textContent = f.name;
       if (tagName) tagName.textContent = MATERIALS[s.material].name + ' · ' + f.name;
       if (tagDot) {
         tagDot.style.setProperty('--rf-hi', f.hi);
@@ -255,12 +467,13 @@
      Built here rather than shipped in the markup: it is the one control on this
      page that has nothing to offer without script, so a reader who does not get
      the script should not get a dead overlay in their tab order either.
-     The item list is the gallery's own frames plus the four tiles, read from the
-     DOM at open time so it cannot drift from what is on screen. */
+     The item list is the slideshow's own slides, read from the DOM at open time
+     so it cannot drift from what is on screen, and it opens on the slide that
+     is showing. */
   function lightbox() {
-    var tiles = $$('[data-lb]');
     var main = $('[data-gal-main]');
-    if (!tiles.length && !main) return;
+    var slides = main ? $$('[data-slide]', main) : [];
+    if (!slides.length) return;
 
     var box = doc.createElement('div');
     box.className = 'pdp-lb';
@@ -293,20 +506,14 @@
        first child as the fallback for the case where the script set no state. */
     function collect() {
       items = [];
-      if (main) {
-        var film = $('video.on', main) || $('video', main);
+      for (var i = 0; i < slides.length; i++) {
+        var film = $('video.on', slides[i]) || $('video', slides[i]);
         if (film) {
-          items.push({
-            kind: 'video', el: film,
-            cap: film.getAttribute('aria-label') || ''
-          });
+          items.push({ kind: 'video', el: film, cap: film.getAttribute('aria-label') || '' });
+          continue;
         }
-      }
-      for (var i = 0; i < tiles.length; i++) {
-        var g = $('img.on', tiles[i]) || $('img', tiles[i]);
-        var c = $('.cap', tiles[i]);
-        var label = c ? c.textContent : (tiles[i].getAttribute('aria-label') || '');
-        if (g) items.push({ kind: 'img', src: g.currentSrc || g.src, cap: label });
+        var g = $('img.on', slides[i]) || $('img', slides[i]);
+        if (g) items.push({ kind: 'img', src: g.currentSrc || g.src, cap: g.getAttribute('alt') || '' });
       }
     }
 
@@ -385,12 +592,7 @@
     });
 
     var zoom = $('[data-gal-zoom]');
-    on(zoom, 'click', function () { open(0); });
-    for (var i = 0; i < tiles.length; i++) {
-      (function (n) {
-        on(tiles[n], 'click', function () { open(n + (main ? 1 : 0)); });
-      })(i);
-    }
+    on(zoom, 'click', function () { open(gallery.current ? gallery.current() : 0); });
   }
 
   /* ==========================================================================
@@ -588,13 +790,40 @@
   }
 
   /* ==========================================================================
-     6 · THE PINNED BAND
-     Nothing here. The band's four points are peers rather than steps, so the
-     numbered rail that used to index them has been removed along with the code
-     that drove it — see pdp.css §4. shared.js's own pinned() still turns the
-     section's scroll into an index and toggles `.on`; the stylesheet does the
-     rest, and this file has no business in it.
+     6 · THE HIGHLIGHTS
      ====================================================================== */
+
+  /* The scroll spent inside the band is its timeline (pdp.css § 4). Three
+     beats across that travel, each eased so nothing starts or stops abruptly:
+
+       0    – .16   the film alone, clean
+       .12  – .52   the veil rises to .78
+       .30  – .66   the heading and all four highlights arrive together
+
+     and the rest of the travel holds the finished frame so it can be read.
+     The section only becomes tall once this runs (`data-live`); without it,
+     or with reduced motion, it is one screen with the end state painted. */
+  function highlights() {
+    var band = $('[data-hl]');
+    if (!band || still.matches) return;
+    band.setAttribute('data-live', '');
+
+    function ease(t) {
+      t = Math.min(Math.max(t, 0), 1);
+      return t * t * (3 - 2 * t);
+    }
+    var last = -1;
+    watch(function () {
+      var r = band.getBoundingClientRect();
+      var travel = r.height - window.innerHeight;
+      if (travel <= 0) return;
+      var p = Math.min(Math.max(-r.top / travel, 0), 1);
+      if (Math.abs(p - last) < 0.002) return;
+      last = p;
+      band.style.setProperty('--hl-veil', (ease((p - 0.12) / 0.40) * 0.78).toFixed(3));
+      band.style.setProperty('--hl-copy', ease((p - 0.30) / 0.36).toFixed(3));
+    });
+  }
 
   /* ==========================================================================
      7 · THE FILM CONTROLS
@@ -742,157 +971,6 @@
     });
   }
 
-  /* ---- the cutaway's four marks -------------------------------------------
-     A dot on the photograph and a row in the list are two views of one thing, so
-     they share an index and either can drive it. Hover and focus both count:
-     a pointer reader points, a keyboard reader tabs, and both should light the
-     same pair. */
-  function cutaway() {
-    var fig = $('[data-cut]');
-    if (!fig) return;
-    var hots = $$('[data-hot]', fig);
-    var items = $$('[data-cut-item]', fig);
-    if (!hots.length || !items.length) return;
-
-    var picBox = $('.pdp-cut-fig', fig);
-    var picImg = picBox && picBox.querySelector('img');
-    var wireSvg = $('[data-cut-wire]', fig);
-    var wirePath = wireSvg && wireSvg.querySelector('path');
-    var wireTip = wireSvg && wireSvg.querySelector('.tip');
-    var wireTrack = wireSvg && wireSvg.querySelector('.track');
-    var dial = $('[data-dial]', fig);
-    var dialN = dial && $('[data-dial-n]', dial);
-    var dialT = dial && $('[data-dial-t]', dial);
-    var at = -1;
-
-    /* ---- THE RING'S OWN GEOMETRY, measured off ring_cutaway.webp (941 × 900).
-       Centre at 469, 455 px; the white hollow is 292 px in radius on every one of
-       eight rays; the outer edge is at 414 px. Stated as fractions of the image
-       WIDTH so they survive any rendered size. */
-    var RING_CX = 469 / 941;
-    var RING_CY = 455 / 900;
-    /* The track: inside the hollow (0.31) with room for the leader to be a real
-       line, and wide enough that the readout's two lines sit within it. */
-    var TRACK_R = 0.215;
-
-    /* ---- THE LEADER, and why it points inward. See pdp.css § the dial.
-
-       Every mark is on the hollow's rim, so "toward the centre" is always into
-       empty white and never across the band. One segment from just inside the
-       mark's disc to the track, along the ring's own radius. Coordinates are in
-       the figure's box, which the SVG fills, so nothing depends on the page's
-       scroll position or on where the list has ended up. */
-    function draw(i) {
-      if (!wirePath || !wireTip || !picBox || !hots[i]) return;
-      var box = picBox.getBoundingClientRect();
-      var hot = hots[i].getBoundingClientRect();
-      if (!box.width) return;
-
-      /* The image is `contain` in a square, and it is 941 × 900 — so it fills
-         the width and is letterboxed a few pixels top and bottom. The ring's
-         centre has to be found in the image, not assumed at the box's centre. */
-      var iw = box.width;
-      var ih = picImg && picImg.naturalWidth ? iw * picImg.naturalHeight / picImg.naturalWidth : iw * 900 / 941;
-      var top = (box.height - ih) / 2;
-      var cx = iw * RING_CX;
-      var cy = top + ih * RING_CY;
-      var r = iw * TRACK_R;
-
-      if (wireTrack) {
-        wireTrack.setAttribute('cx', cx.toFixed(1));
-        wireTrack.setAttribute('cy', cy.toFixed(1));
-        wireTrack.setAttribute('r', r.toFixed(1));
-      }
-
-      var hx = hot.left + hot.width / 2 - box.left;
-      var hy = hot.top + hot.height / 2 - box.top;
-      var vx = cx - hx, vy = cy - hy;
-      var mag = Math.sqrt(vx * vx + vy * vy) || 1;
-      var ux = vx / mag, uy = vy / mag;
-
-      /* Out of the mark's white collar (11px disc radius + 3px collar), and onto
-         the track, which is `mag - r` in from the mark along the same ray. */
-      var gap = 14;
-      var sx = hx + ux * gap, sy = hy + uy * gap;
-      var ex = hx + ux * (mag - r), ey = hy + uy * (mag - r);
-
-      var d = 'M' + sx.toFixed(1) + ' ' + sy.toFixed(1) +
-              'L' + ex.toFixed(1) + ' ' + ey.toFixed(1);
-      wirePath.setAttribute('d', d);
-      wireTip.setAttribute('cx', ex.toFixed(1));
-      wireTip.setAttribute('cy', ey.toFixed(1));
-
-      /* The draw-in needs the path's own length as its dash, and the length is
-         only knowable after the `d` is set. Handed to CSS as a property so the
-         keyframe stays in the stylesheet with the rest of the motion. */
-      var len = 0;
-      try { len = wirePath.getTotalLength(); } catch (err) { len = 0; }
-      wirePath.style.strokeDasharray = len ? len + ' ' + len : 'none';
-      wireSvg.style.setProperty('--wire-len', len + 'px');
-      wireSvg.setAttribute('data-live', '');
-    }
-
-    function show(i) {
-      for (var j = 0; j < hots.length; j++) {
-        hots[j].setAttribute('aria-current', j === i ? 'true' : 'false');
-      }
-      for (var k = 0; k < items.length; k++) {
-        if (k === i) items[k].setAttribute('data-on', '');
-        else items[k].removeAttribute('data-on');
-        var btn = $('[data-cut-btn]', items[k]);
-        if (btn) btn.setAttribute('aria-expanded', k === i ? 'true' : 'false');
-      }
-      var changed = at !== i;
-      at = i;
-
-      /* The readout takes the row's own words, so the list stays the single
-         source for the names and the dial cannot drift out of step with it. */
-      if (dial && changed) {
-        var n = $('.n', items[i]);
-        var t = $('.t', items[i]);
-        if (dialN && n) dialN.textContent = n.textContent;
-        /* U+2011 for the hyphen: the readout is two short lines in a circle,
-           and "heart- / rate" broken at the hyphen reads as two words. */
-        if (dialT && t) dialT.textContent = t.textContent.replace(/-/g, '‑');
-        dial.removeAttribute('data-swap');
-        void dial.offsetWidth;
-        dial.setAttribute('data-swap', '');
-      }
-
-      /* The leader re-draws in only when the mark changes; hovering the live
-         one again would otherwise restart the dash on every mouseenter. The
-         line lives inside the figure now, so the list's row animation cannot
-         move either end of it and there is nothing to re-measure later. */
-      if (changed) {
-        if (wireSvg) wireSvg.removeAttribute('data-live');
-        draw(i);
-      }
-    }
-
-    function wire(el, i) {
-      on(el, 'click', function () { show(i); });
-      on(el, 'mouseenter', function () { show(i); });
-      on(el, 'focus', function () { show(i); });
-    }
-    for (var i = 0; i < hots.length; i++) wire(hots[i], i);
-    for (var j = 0; j < items.length; j++) {
-      var btn = $('[data-cut-btn]', items[j]);
-      if (btn) wire(btn, j);
-    }
-
-    var queued = false;
-    on(window, 'resize', function () {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(function () { queued = false; if (at >= 0) draw(at); });
-    });
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { if (at >= 0) draw(at); });
-    }
-
-    show(0);
-  }
-
   /* ==========================================================================
      9 · TECH SPECS
      ====================================================================== */
@@ -976,7 +1054,7 @@
   timeline();
   filmControls();
   compare();
-  cutaway();
+  highlights();
   dock();
   publish();
 
@@ -987,7 +1065,7 @@
   if (still.addEventListener) {
     still.addEventListener('change', function () {
       if (!still.matches) return;
-      var films = $$('.pdp-tl-film video, .pin-film, [data-gal-main] video');
+      var films = $('.pdp-tl-film video, .pdp-hl-film, [data-gal-main] video');
       for (var i = 0; i < films.length; i++) { try { films[i].pause(); } catch (e) {} }
     });
   }

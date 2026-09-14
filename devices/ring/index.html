@@ -12,6 +12,7 @@
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/ring.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring/cutaway.css" rel="stylesheet"/>
 </head>
 <body class="ph-flat">
 <div data-ph-nav=""></div>
@@ -96,6 +97,42 @@
 </div>
 </div>
 </section>
+<!-- The sensor cutaway, moved here from the store PDP 2026-09-14: under
+     "Physiological intelligence.", the four places on the ring those signals
+     are read from. A mark on the photograph and a row in the list light
+     together; either end drives the pair. cutaway.css / cutaway.js. -->
+<section class="section ring-cut-sec"><div class="wrap-wide">
+<div class="ring-cut" data-cut="">
+<div class="ring-cut-fig">
+<img alt="The PhenomeTech Ring seen from above with its inner surface facing the camera, sensor modules and charging contacts visible" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
+<!-- The dial. The ring's hollow is a clean white disc 62% of the picture wide,
+     and it is the one region of the photograph a mark can occupy without
+     covering the product. The track, the leader and the readout all live
+     inside it; see cutaway.css for why. -->
+<svg class="ring-cut-wire" aria-hidden="true" focusable="false" data-cut-wire=""><circle class="track" cx="0" cy="0" r="0"/><path d=""/><circle class="tip" cx="0" cy="0" r="3.5"/></svg>
+<div class="ring-cut-dial" aria-hidden="true" data-dial=""><span class="n" data-dial-n="">01</span><span class="t" data-dial-t="">Optical heart&#8209;rate sensor</span></div>
+<button aria-label="Optical heart-rate sensor" class="ring-hot" data-hot="" data-n="1" style="--x:35%;--y:80%" type="button"></button>
+<button aria-label="Blood-oxygen sensor" class="ring-hot" data-hot="" data-n="2" style="--x:74%;--y:25%" type="button"></button>
+<button aria-label="Skin-temperature sensor" class="ring-hot" data-hot="" data-n="3" style="--x:25%;--y:26%" type="button"></button>
+<button aria-label="Charging contacts" class="ring-hot" data-hot="" data-n="4" style="--x:54%;--y:83%" type="button"></button>
+</div>
+
+<ul class="ring-cut-list">
+<li class="ring-cut-item" data-cut-item="" data-on="">
+<button aria-expanded="true" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">01</span><span><span class="t">Optical heart-rate sensor</span><span class="d"><span>Sits against the palm side of the finger, where the arteries are close to the surface — the reason a ring reads a pulse more cleanly than a wrist strap does.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">02</span><span><span class="t">Blood-oxygen sensor</span><span class="d"><span>The second emitter and photodiode pair, used overnight for SpO₂ and read against the sleep stages recorded at the same time.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">03</span><span><span class="t">Skin-temperature sensor</span><span class="d"><span>In contact with the skin rather than the air, so what it reports is your temperature and not the room's.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">04</span><span><span class="t">Charging contacts</span><span class="d"><span>Two pads on the inner shell. The ring drops into its dock in any orientation and takes roughly 90 minutes to fill.</span></span></span></button>
+</li>
+</ul>
+</div>
+</div></section>
 <section class="section rings" data-rings="">
 <div class="rings-pin" data-rings-pin="">
 <div class="rings-stage" data-rings-stage="">
@@ -136,6 +173,7 @@
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/devices/ring/cutaway.js"></script>
 <script>
 /* The colourway picker.
 
