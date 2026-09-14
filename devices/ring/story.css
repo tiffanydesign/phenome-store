@@ -1,0 +1,273 @@
+/* ============================================================================
+   PhenomeTech Ring — the introduction and the sensing film
+   2026-09-14, on ouraring.com/store/rings/oura-ring-4: the centred display line
+   that follows its hero, and the "Smart Sensing" film band after it. Scoped to
+   `.ph-flat` like ring.css and loaded after it. Tokens only; no new face.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1 · THE INTRODUCTION
+   ------------------------------------------------------------------------ */
+
+/* MEASURED ON THE REFERENCE: 80/88, weight 400, -2px tracking, centred in a
+   48rem measure, the ink a 141.72° gradient from near-black to gold; a 16/24
+   paragraph under it; the block arrives from 25px down out of a 5px blur.
+
+   OURS: the same geometry and the same arrival, and the gradient re-struck in
+   this site's inks — the page's navy at the start of the line, the brand blue
+   at the end — because a gold ramp is Oura's material, not ours. Weight 400
+   rather than the site's 600 display weight: at 80px the light cut is what
+   makes the reference read as considered rather than loud, and the kit has it. */
+.ph-flat .rintro {
+  padding-block: clamp(96px, 11vw, 168px) clamp(56px, 6vw, 96px);
+  background: var(--surface-page, #fff);
+}
+.ph-flat .rintro-in { text-align: center; }
+.ph-flat .rintro-h {
+  margin: 0 auto;
+  max-width: 48rem;
+  font-size: clamp(44px, 5.6vw, 80px);
+  line-height: 1.1;
+  font-weight: var(--ph-w-400, 400);
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+  color: var(--ink-900);
+  background-image: linear-gradient(141.72deg, #0a1433 -0.36%, #1c3a8a 48%, #4f7fd9 92%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Descenders ("y") sit below the line box and a clipped background stops at
+     the box; a little padding carries the gradient under them. */
+  padding-bottom: .08em;
+}
+.ph-flat .rintro-p {
+  margin: clamp(20px, 2vw, 28px) auto 0;
+  max-width: 34rem;
+  font-size: var(--ph-fs-17, 17px); line-height: 1.55;
+  color: var(--ph-text-2);
+  text-wrap: pretty;
+}
+
+/* THE ARRIVAL rides shared.js's own section reveal rather than a second
+   observer: it already fades every grandchild of a section in as the section
+   crosses the screen (`.ph-r` → `.ph-in`). This adds the blur and the rise to
+   the same two elements on the same switch. The transition is restated whole
+   because it replaces shared.css's opacity-only one on these elements. */
+html.ph-reveal .ph-flat .rintro-h,
+html.ph-reveal .ph-flat .rintro-p {
+  transition: opacity 900ms var(--ease-frosted-out),
+              filter 900ms var(--ease-frosted-out),
+              transform 900ms var(--ease-frosted-out);
+}
+html.ph-reveal .ph-flat .rintro.ph-r:not(.ph-in) .rintro-h,
+html.ph-reveal .ph-flat .rintro.ph-r:not(.ph-in) .rintro-p {
+  filter: blur(5px);
+  transform: translate3d(0, 25px, 0);
+}
+html.ph-reveal .ph-flat .rintro .rintro-p { transition-delay: 140ms; }
+
+/* ---------------------------------------------------------------------------
+   2 · THE SENSING FILM
+   ------------------------------------------------------------------------ */
+
+/* THE STATIC FORM FIRST, because it is what every reader gets until story.js
+   decides otherwise: no JavaScript, reduced motion, a phone, a short screen.
+   A black band; the film (on its last frame) at the top; the two pairs of
+   modules stacked under it. Everything moving is layered on top under
+   `[data-live]` in the next block. */
+.ph-flat .rsense {
+  position: relative;
+  background: #000;
+  color: #fff;
+}
+.ph-flat .rsense-stage { padding-bottom: clamp(56px, 8vw, 96px); }
+.ph-flat .rsense-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.ph-flat .rsense-film {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.ph-flat .rsense-veil {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, #000 100%);
+}
+.ph-flat .rsense-layer { position: relative; }
+.ph-flat .rsense-copy { padding-top: clamp(40px, 6vw, 72px); }
+.ph-flat .rsense-side { padding-top: clamp(28px, 4vw, 44px); }
+
+/* ---- the type. Oura sets this band in its light cut on warm cream; ours is
+   white on black with the site's secondary ink for the paragraph. */
+.ph-flat .rsense-k {
+  margin: 0 0 16px;
+  font-size: 12px; line-height: 16px;
+  font-weight: var(--ph-w-600);
+  /* Capitals are typed in the markup: phenome-glass.css sets
+     `text-transform: none !important` on every element site-wide. */
+  letter-spacing: .16em;
+  color: rgba(255, 255, 255, .62);
+}
+.ph-flat .rsense-h {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(38px, 4.2vw, 60px);
+  line-height: 1.06;
+  font-weight: var(--ph-w-400, 400);
+  letter-spacing: -0.022em;
+  color: #fff;
+  text-wrap: balance;
+}
+.ph-flat .rsense-p {
+  margin: 22px 0 0;
+  max-width: 30rem;
+  font-size: var(--ph-fs-17, 17px); line-height: 1.55;
+  color: rgba(255, 255, 255, .74);
+  text-wrap: pretty;
+}
+
+/* ---- the lists. Oura's feature list: a hairline on the left of each item,
+   and the live one drawn solid and bright. Here the item is a figure and a
+   label, so the figure leads. */
+.ph-flat .rsense-list {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+.ph-flat .rsense-item {
+  position: relative;
+  padding: 2px 0 2px 18px;
+  display: grid; gap: 4px;
+}
+.ph-flat .rsense-item::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: rgba(255, 255, 255, .28);
+  transition: background 360ms var(--ease-frosted-out);
+}
+.ph-flat .rsense-n {
+  font-size: clamp(34px, 3.4vw, 50px);
+  line-height: 1;
+  font-weight: var(--ph-w-400, 400);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+.ph-flat .rsense-n small {
+  margin-left: 6px;
+  font-size: 13px; letter-spacing: .02em;
+  color: rgba(255, 255, 255, .6);
+}
+.ph-flat .rsense-list--services .rsense-n { font-size: clamp(28px, 2.7vw, 40px); }
+.ph-flat .rsense-l {
+  font-size: 15px; line-height: 20px;
+  color: rgba(255, 255, 255, .72);
+}
+
+/* ---------------------------------------------------------------------------
+   2b · LIVE — the pinned timeline, desktop only (story.js sets data-live)
+   ------------------------------------------------------------------------ */
+
+/* THE TRACK. 560vh tall with a screen-tall sticky stage, so 460vh of scroll is
+   the timeline. story.js publishes, on the section:
+
+     --rs-open   0 → 1   the card opening to the full screen (before the pin)
+     --rs-p      0 → 1   the position along the pinned track
+     --rs-veil   0 → 1   the veil rising
+
+   and on each layer:
+
+     --rl-in     0 → 1 → 0   that module's presence
+     --rl-y      signed      its travel, for the parallax
+
+   and `aria-current` on the live item of each list. */
+.ph-flat .rsense[data-live] .rsense-track { height: 560vh; }
+.ph-flat .rsense[data-live] .rsense-stage {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* THE CARD OPENS. Oura's frame starts inset on the page ground with rounded
+   corners and grows to the edges as it comes up the screen; a clip-path inset
+   does that without resizing the video (no layout, no re-crop). */
+.ph-flat .rsense[data-live] {
+  background: var(--surface-page, #fff);
+}
+.ph-flat .rsense[data-live] .rsense-card {
+  position: absolute; inset: 0;
+  aspect-ratio: auto;
+  background: #000;
+  clip-path: inset(calc((1 - var(--rs-open, 1)) * 9vh) calc((1 - var(--rs-open, 1)) * 7vw) round calc((1 - var(--rs-open, 1)) * 28px));
+}
+/* The film drifts in as the track runs: a slow push-in over the whole pinned
+   travel, the layer furthest back and so the slowest. */
+.ph-flat .rsense[data-live] .rsense-film {
+  /* 1.00 → 1.05: enough to feel, and the case stays inside the two columns
+     the copy and the list occupy. At +10% its glass lid reached under the list. */
+  transform: scale(calc(1 + var(--rs-p, 0) * .05)) translate3d(0, calc(var(--rs-p, 0) * -1.5%), 0);
+  will-change: transform;
+}
+/* THE VEIL: black from both sides toward the ring in the middle, and a floor.
+   The last frame is already black at its edges, so what this adds is depth
+   behind the type rather than contrast the type was missing. */
+.ph-flat .rsense[data-live] .rsense-veil {
+  opacity: var(--rs-veil, 0);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .86) 0%, rgba(0, 0, 0, .55) 30%, rgba(0, 0, 0, 0) 48%),
+    linear-gradient(270deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, .62) 22%, rgba(0, 0, 0, 0) 38%),
+    linear-gradient(0deg, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+/* THE MODULES. Each pair shares the stage: copy upper left, list at the right.
+   Presence is opacity and a blur; the parallax is each layer's own travel
+   multiplied by its own depth, so the list (nearer) outruns the copy. */
+.ph-flat .rsense[data-live] .rsense-layer {
+  position: absolute; left: 0; right: 0;
+  /* Block padding only: the inline padding is .wrap-wide's gutter. */
+  padding-block: 0;
+  opacity: var(--rl-in, 0);
+  filter: blur(calc((1 - var(--rl-in, 0)) * 6px));
+  transform: translate3d(0, calc(var(--rl-y, 0) * var(--depth, 160px)), 0);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+.ph-flat .rsense[data-live] .rsense-copy {
+  --depth: 180px;
+  top: max(calc(var(--ph-nav-h, 44px) + 7vh), 96px);
+}
+.ph-flat .rsense[data-live] .rsense-side {
+  --depth: 340px;
+  top: 50%; margin-top: -210px;
+  display: flex; justify-content: flex-end;
+}
+/* Both columns are held to the black either side of the case: the paragraph
+   ends before the lid's left edge and the list starts after its right edge,
+   so the ring in the middle never carries type. */
+.ph-flat .rsense[data-live] .rsense-p { max-width: min(24rem, 27vw); }
+.ph-flat .rsense[data-live] .rsense-h { max-width: min(11ch, 30vw); }
+.ph-flat .rsense[data-live] .rsense-list {
+  width: min(240px, 19vw);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+/* The live item: Oura's solid bar. The others fall back a step. */
+.ph-flat .rsense[data-live] .rsense-item { opacity: .5; transition: opacity 360ms var(--ease-frosted-out); }
+.ph-flat .rsense[data-live] .rsense-item[aria-current="true"] { opacity: 1; }
+.ph-flat .rsense[data-live] .rsense-item[aria-current="true"]::before { width: 2px; background: #fff; }
+
+/* A short desktop window cannot hold a copy block and a five-row list without
+   them meeting; the list tightens first. */
+@media (max-height: 820px) {
+  .ph-flat .rsense[data-live] .rsense-side { margin-top: -180px; }
+  .ph-flat .rsense[data-live] .rsense-list { gap: 14px; }
+  .ph-flat .rsense[data-live] .rsense-n { font-size: 40px; }
+  .ph-flat .rsense[data-live] .rsense-list--services .rsense-n { font-size: 32px; }
+}
+
+@media (max-width: 900px) {
+  .ph-flat .rsense-card { aspect-ratio: 4 / 3; }
+  .ph-flat .rsense-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
+}

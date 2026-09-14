@@ -13,10 +13,96 @@
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/ring.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/cutaway.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring/story.css" rel="stylesheet"/>
 </head>
 <body class="ph-flat">
 <div data-ph-nav=""></div>
 <main><section class="hero ring-marquee"><div class="ring-marquee-media"><video aria-hidden="true" autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-ceramic-hero.webp" preload="metadata" tabindex="-1" data-ring-film=""><source src="/phenome-store/assets/video/ring-ceramic-hero.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-ceramic-hero.mp4" type="video/mp4"/></video><button class="ring-marquee-play" type="button" data-ring-play="" aria-label="Pause the film"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.5" y="1.5" width="4" height="13" rx="1.2"/><rect x="9.5" y="1.5" width="4" height="13" rx="1.2"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.4c0-.9 1-1.5 1.8-1L13.4 6c.8.5.8 1.6 0 2.1L5.8 12.7c-.8.5-1.8-.1-1.8-1V2.4Z"/></svg></button></div><div class="ring-marquee-band"><div class="ring-marquee-scrim" aria-hidden="true"></div><div class="wrap-wide ring-marquee-viewport"><div class="ring-marquee-header"><h1 class="ring-marquee-eyebrow">PhenomeTech Ring</h1></div><div class="ring-marquee-detail"><p class="ring-marquee-pricing">From £179</p><a class="ring-marquee-buy btn" href="/phenome-store/store/phenometech-ring/">Buy</a></div></div></div></section><!-- ==========================================================================
+     THE INTRODUCTION — after ouraring.com/store/rings/oura-ring-4's "Thoughtfully
+     crafted, deeply insightful": one centred display line in a gradient ink,
+     one sentence under it, and nothing to press. It rises out of a blur as the
+     section is revealed. story.css § 1.
+     ====================================================================== -->
+<section class="section rintro">
+<div class="wrap-wide rintro-in">
+<h2 class="rintro-h">Your data,<br/> on your finger.</h2>
+<p class="rintro-p">A titanium-and-ceramic smart ring that reads your sleep, heart and recovery — then closes the loop with your genome, blood and gut.</p>
+</div>
+</section>
+<!-- ==========================================================================
+     THE SENSING FILM — after Oura Ring 4's "Smart Sensing for the full picture".
+     A card that opens to the full screen, a film that plays once and holds on
+     its last frame, a black veil, and then two pairs of modules carried past
+     it at different speeds: the five readings, then the whole picture. This
+     replaces the dial band and the ring-stage band, whose copy it carries.
+     story.css § 2 / story.js. Without the script (or with reduced motion, or
+     on a small screen) it is a still of the last frame over a plain stack.
+     ====================================================================== -->
+<section class="rsense" data-rsense="" aria-labelledby="rsense-a-h">
+<div class="rsense-track">
+<div class="rsense-stage">
+<div class="rsense-card" data-rsense-card="">
+<video aria-hidden="true" class="rsense-film" data-rsense-film="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-sensing-end.webp" preload="metadata" tabindex="-1" data-poster-start="/phenome-store/assets/video/ring-sensing.webp"><source src="/phenome-store/assets/video/ring-sensing.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-sensing.mp4" type="video/mp4"/></video>
+<div aria-hidden="true" class="rsense-veil"></div>
+</div>
+
+<div class="wrap-wide rsense-layer rsense-copy" data-rsense-layer="a">
+<p class="rsense-k">FIVE LAYERS</p>
+<h2 class="rsense-h" id="rsense-a-h">Physiological intelligence.</h2>
+<p class="rsense-p">Your body never stops sending signals. The ring reads them — sleep, heart, activity and daily capacity — then reads them alongside your genes, blood and gut, for insight no wearable alone can give.</p>
+</div>
+<div class="wrap-wide rsense-layer rsense-side" data-rsense-layer="b">
+<ol class="rsense-list" data-rsense-list="b"><li class="rsense-item"><span class="rsense-n">90</span><span class="rsense-l">Sleep</span></li><li class="rsense-item"><span class="rsense-n">94</span><span class="rsense-l">Heart rate</span></li><li class="rsense-item"><span class="rsense-n">62</span><span class="rsense-l">HRV</span></li><li class="rsense-item"><span class="rsense-n">88</span><span class="rsense-l">Activity</span></li><li class="rsense-item"><span class="rsense-n">77</span><span class="rsense-l">Capacity</span></li></ol>
+</div>
+
+<div class="wrap-wide rsense-layer rsense-copy" data-rsense-layer="c">
+<p class="rsense-k">COMPLETING THE CIRCLE</p>
+<h2 class="rsense-h">The whole picture of you.</h2>
+<p class="rsense-p">A ring shows you what. Your genome, blood and gut reveal why. Phenome reads them together — closing the circle, and catching what matters before you feel it, all in one place.</p>
+</div>
+<div class="wrap-wide rsense-layer rsense-side" data-rsense-layer="d">
+<ol class="rsense-list rsense-list--services" data-rsense-list="d"><li class="rsense-item"><span class="rsense-n">20,000<small>genes</small></span><span class="rsense-l">Genomic profiling</span></li><li class="rsense-item"><span class="rsense-n">4.2<small>index</small></span><span class="rsense-l">Microbiome testing</span></li><li class="rsense-item"><span class="rsense-n">6<small>daily</small></span><span class="rsense-l">Personalised supplements</span></li><li class="rsense-item"><span class="rsense-n">1:1<small>sessions</small></span><span class="rsense-l">Expert consultations</span></li><li class="rsense-item"><span class="rsense-n">77<small>readiness</small></span><span class="rsense-l">Mobile app</span></li></ol>
+</div>
+</div>
+</div>
+</section>
+<!-- The sensor cutaway, moved here from the store PDP 2026-09-14: under
+     "Physiological intelligence.", the four places on the ring those signals
+     are read from. A mark on the photograph and a row in the list light
+     together; either end drives the pair. cutaway.css / cutaway.js. -->
+<section class="section ring-cut-sec"><div class="wrap-wide">
+<div class="ring-cut" data-cut="">
+<div class="ring-cut-fig">
+<img alt="The PhenomeTech Ring seen from above with its inner surface facing the camera, sensor modules and charging contacts visible" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
+<!-- The dial. The ring's hollow is a clean white disc 62% of the picture wide,
+     and it is the one region of the photograph a mark can occupy without
+     covering the product. The track, the leader and the readout all live
+     inside it; see cutaway.css for why. -->
+<svg class="ring-cut-wire" aria-hidden="true" focusable="false" data-cut-wire=""><circle class="track" cx="0" cy="0" r="0"/><path d=""/><circle class="tip" cx="0" cy="0" r="3.5"/></svg>
+<div class="ring-cut-dial" aria-hidden="true" data-dial=""><span class="n" data-dial-n="">01</span><span class="t" data-dial-t="">Optical heart&#8209;rate sensor</span></div>
+<button aria-label="Optical heart-rate sensor" class="ring-hot" data-hot="" data-n="1" style="--x:35%;--y:80%" type="button"></button>
+<button aria-label="Blood-oxygen sensor" class="ring-hot" data-hot="" data-n="2" style="--x:74%;--y:25%" type="button"></button>
+<button aria-label="Skin-temperature sensor" class="ring-hot" data-hot="" data-n="3" style="--x:25%;--y:26%" type="button"></button>
+<button aria-label="Charging contacts" class="ring-hot" data-hot="" data-n="4" style="--x:54%;--y:83%" type="button"></button>
+</div>
+
+<ul class="ring-cut-list">
+<li class="ring-cut-item" data-cut-item="" data-on="">
+<button aria-expanded="true" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">01</span><span><span class="t">Optical heart-rate sensor</span><span class="d"><span>Sits against the palm side of the finger, where the arteries are close to the surface — the reason a ring reads a pulse more cleanly than a wrist strap does.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">02</span><span><span class="t">Blood-oxygen sensor</span><span class="d"><span>The second emitter and photodiode pair, used overnight for SpO₂ and read against the sleep stages recorded at the same time.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">03</span><span><span class="t">Skin-temperature sensor</span><span class="d"><span>In contact with the skin rather than the air, so what it reports is your temperature and not the room's.</span></span></span></button>
+</li>
+<li class="ring-cut-item" data-cut-item="">
+<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">04</span><span><span class="t">Charging contacts</span><span class="d"><span>Two pads on the inner shell. The ring drops into its dock in any orientation and takes roughly 90 minutes to fill.</span></span></span></button>
+</li>
+</ul>
+</div>
+</div></section>
+<!-- ==========================================================================
      4 · THE COLOURWAYS
 
      WHAT THIS REPLACES: the embedded WebGL carousel from Ice-works-showcase,
@@ -83,71 +169,6 @@
 
 </div>
 </div></section>
-<section class="section sigs" data-sigs="">
-<div class="wrap-wide sigs-grid">
-<div class="sigs-t"><h2 class="sec-title">Physiological intelligence.</h2></div>
-<p class="lede sigs-lede">Your body never stops sending signals. The ring reads them — sleep, heart, activity and daily capacity — then reads them alongside your genes, blood and gut, for insight no wearable alone can give.</p>
-</div>
-<div class="sigs-pin" data-sigs-pin="">
-<div class="sigs-stage" data-sigs-stage="">
-<div class="sigs-ground" aria-hidden="true"><img alt="" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_worn.webp" width="1400" data-sigs-img=""/></div>
-<div class="sigs-scrim" aria-hidden="true"></div>
-<div class="sigs-dial" aria-hidden="true"><span class="sigs-bloom"></span><span class="sigs-face"></span><svg class="sigs-arcs" viewBox="0 0 680 680" focusable="false"><circle class="sigs-rim" cx="340" cy="340" r="330" pathLength="100"/><circle class="sigs-sweep" cx="340" cy="340" r="300" pathLength="100"/><circle class="sigs-seg" style="--k:0" cx="340" cy="340" r="330" pathLength="100"/><circle class="sigs-seg" style="--k:1" cx="340" cy="340" r="330" pathLength="100"/><circle class="sigs-seg" style="--k:2" cx="340" cy="340" r="330" pathLength="100"/><circle class="sigs-seg" style="--k:3" cx="340" cy="340" r="330" pathLength="100"/><circle class="sigs-seg" style="--k:4" cx="340" cy="340" r="330" pathLength="100"/></svg></div>
-<div class="wrap-wide sigs-well"><ol class="sigrail" data-sigs-rail=""><li class="sig" style="--i:0"><span class="sig-i">01<small>/05</small></span><span class="sig-n">62</span><span class="sig-l">HRV</span></li><li class="sig" style="--i:1"><span class="sig-i">02<small>/05</small></span><span class="sig-n">77</span><span class="sig-l">Capacity</span></li><li class="sig" style="--i:2"><span class="sig-i">03<small>/05</small></span><span class="sig-n">88</span><span class="sig-l">Activity</span></li><li class="sig" style="--i:3"><span class="sig-i">04<small>/05</small></span><span class="sig-n">90</span><span class="sig-l">Sleep</span></li><li class="sig" style="--i:4"><span class="sig-i">05<small>/05</small></span><span class="sig-n">94</span><span class="sig-l">Heart rate</span></li></ol></div>
-</div>
-</div>
-</section>
-<!-- The sensor cutaway, moved here from the store PDP 2026-09-14: under
-     "Physiological intelligence.", the four places on the ring those signals
-     are read from. A mark on the photograph and a row in the list light
-     together; either end drives the pair. cutaway.css / cutaway.js. -->
-<section class="section ring-cut-sec"><div class="wrap-wide">
-<div class="ring-cut" data-cut="">
-<div class="ring-cut-fig">
-<img alt="The PhenomeTech Ring seen from above with its inner surface facing the camera, sensor modules and charging contacts visible" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
-<!-- The dial. The ring's hollow is a clean white disc 62% of the picture wide,
-     and it is the one region of the photograph a mark can occupy without
-     covering the product. The track, the leader and the readout all live
-     inside it; see cutaway.css for why. -->
-<svg class="ring-cut-wire" aria-hidden="true" focusable="false" data-cut-wire=""><circle class="track" cx="0" cy="0" r="0"/><path d=""/><circle class="tip" cx="0" cy="0" r="3.5"/></svg>
-<div class="ring-cut-dial" aria-hidden="true" data-dial=""><span class="n" data-dial-n="">01</span><span class="t" data-dial-t="">Optical heart&#8209;rate sensor</span></div>
-<button aria-label="Optical heart-rate sensor" class="ring-hot" data-hot="" data-n="1" style="--x:35%;--y:80%" type="button"></button>
-<button aria-label="Blood-oxygen sensor" class="ring-hot" data-hot="" data-n="2" style="--x:74%;--y:25%" type="button"></button>
-<button aria-label="Skin-temperature sensor" class="ring-hot" data-hot="" data-n="3" style="--x:25%;--y:26%" type="button"></button>
-<button aria-label="Charging contacts" class="ring-hot" data-hot="" data-n="4" style="--x:54%;--y:83%" type="button"></button>
-</div>
-
-<ul class="ring-cut-list">
-<li class="ring-cut-item" data-cut-item="" data-on="">
-<button aria-expanded="true" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">01</span><span><span class="t">Optical heart-rate sensor</span><span class="d"><span>Sits against the palm side of the finger, where the arteries are close to the surface — the reason a ring reads a pulse more cleanly than a wrist strap does.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">02</span><span><span class="t">Blood-oxygen sensor</span><span class="d"><span>The second emitter and photodiode pair, used overnight for SpO₂ and read against the sleep stages recorded at the same time.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">03</span><span><span class="t">Skin-temperature sensor</span><span class="d"><span>In contact with the skin rather than the air, so what it reports is your temperature and not the room's.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">04</span><span><span class="t">Charging contacts</span><span class="d"><span>Two pads on the inner shell. The ring drops into its dock in any orientation and takes roughly 90 minutes to fill.</span></span></span></button>
-</li>
-</ul>
-</div>
-</div></section>
-<section class="section rings" data-rings="">
-<div class="rings-pin" data-rings-pin="">
-<div class="rings-stage" data-rings-stage="">
-<div class="rings-orbit" aria-hidden="true"><img alt="" class="rings-ring" decoding="async" height="1700" loading="lazy" src="/phenome-store/assets/pages/ring_top_cutout.webp" width="1670" data-rings-img=""/></div>
-<div class="wrap-wide rings-copy">
-<h2 class="sec-title rings-title">The whole picture of you.</h2>
-<div class="rings-well">
-<p class="rings-lede">A ring shows you what. Your genome, blood and gut reveal why. Phenome reads them together — closing the circle, and catching what matters before you feel it, all in one place.</p>
-<ol class="rings-deck" data-rings-deck=""><li class="rcard" style="--k:0"><span class="rcard-n">20,000<small>genes</small></span><span class="rcard-l">Genomic profiling</span></li><li class="rcard" style="--k:1"><span class="rcard-n">4.2<small>index</small></span><span class="rcard-l">Microbiome testing</span></li><li class="rcard" style="--k:2"><span class="rcard-n">6<small>daily</small></span><span class="rcard-l">Personalised supplements</span></li><li class="rcard" style="--k:3"><span class="rcard-n">1:1<small>sessions</small></span><span class="rcard-l">Expert consultations</span></li><li class="rcard" style="--k:4"><span class="rcard-n">77<small>readiness</small></span><span class="rcard-l">Mobile app</span></li></ol>
-</div>
-<ol class="rings-ticks" aria-hidden="true" data-rings-ticks=""><li style="--k:0"></li><li style="--k:1"></li><li style="--k:2"></li><li style="--k:3"></li><li style="--k:4"></li></ol>
-</div>
-</div>
-</div>
-</section>
 <section class="band plate filmband" data-filmband=""><div class="filmband-win"><video aria-hidden="true" class="filmband-film" height="1350" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-colourways.webp" preload="none" tabindex="-1" width="1080" data-filmband-film="" data-webm="/phenome-store/assets/video/ring-colourways.webm" data-mp4="/phenome-store/assets/video/ring-colourways.mp4"></video><button class="filmband-play" type="button" data-filmband-play="" aria-label="Pause the film"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.5" y="1.5" width="4" height="13" rx="1.2"/><rect x="9.5" y="1.5" width="4" height="13" rx="1.2"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.4c0-.9 1-1.5 1.8-1L13.4 6c.8.5.8 1.6 0 2.1L5.8 12.7c-.8.5-1.8-.1-1.8-1V2.4Z"/></svg></button></div></section>
 <section class="section pick" data-pick="">
 <div class="wrap-wide opener">
@@ -174,6 +195,7 @@
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
 <script src="/phenome-store/devices/ring/cutaway.js"></script>
+<script src="/phenome-store/devices/ring/story.js"></script>
 <script>
 /* The colourway picker.
 
@@ -666,165 +688,9 @@
      every frame; none of them reads another's output. */
   var writers = [];
 
-  /* ---- 9a · the dial. One progress number across a pinned track, and four
-     properties derived from it.
-
-     THE TRACK IS MEASURED OFF THE PIN, NOT THE STAGE, for the reason § 9b's
-     note gives at length: the stage is sticky, so once it has taken hold its
-     own box stops moving and reports the same number for the whole section.
-
-     FIVE EQUAL SLOTS AND NO INTRO. § 9b spends the first 24% of its track on
-     the paragraph the five services answer; this band has no such paragraph —
-     its lede is above the pin and has been read by the time the stage takes
-     hold — so the first reading is not given an entrance it does not need. It
-     is already there when the screen pins, which is the same call that note
-     makes for its own first card, arrived at from the other direction: give
-     the reader the thing they scrolled to, not the frame before it.
-
-     THE HAND-OVERS STRADDLE THE BOUNDARY RATHER THAN MEETING AT IT, and the
-     amount by which they straddle it is the only number here that was tuned
-     against the screen rather than derived.
-
-     Fading each reading out across the last FADE of its own slot and the next
-     one in across the first FADE of its own looks like a cross-fade written
-     down and is not one: at the boundary the outgoing reading has reached
-     nought and the incoming has not left it, so there is a frame of empty ring
-     between every pair. Pushed HALF a fade each way, both are at .5 as the
-     slot turns over — and at 190px two figures at half opacity in one place is
-     not a dissolve, it is a double exposure you can read both halves of.
-
-     .3 is where it stops being either. Both readings are at .3 for the frame
-     they share, under nearly 6px of blur, which is a glow the next number
-     resolves out of. § 9b meets at nought and is right to: its type is 48px, and a
-     quarter of a notch with nothing in a 210px copy band is a beat, where the
-     same quarter notch with nothing inside a closed ring is a fault.
-
-     AND READING ONE IS SHIFTED A FURTHER WHOLE FADE, which is the 1.3: it puts
-     it at 1 rather than at .3 when the stage takes hold.
-
-     AND THE LAST READING DOES NOT FADE OUT. Something has to be on screen when
-     the pin lets go, and the alternative is a reader arriving at the bottom of
-     a section to an empty ring. */
-  var sigs = document.querySelector('[data-sigs]');
-  var sigPin = document.querySelector('[data-sigs-pin]');
-  var sigStage = document.querySelector('[data-sigs-stage]');
-  if (sigs && sigPin && sigStage) {
-    var sigItems = [].slice.call(document.querySelectorAll('[data-sigs-rail] .sig'));
-    var sigArcs = [].slice.call(document.querySelectorAll('.sigs-dial .sigs-seg'));
-    var SFADE = .05;
-    sigs.classList.add('is-lively');
-    writers.push(function () {
-      var sbox = sigPin.getBoundingClientRect();
-      var shigh = sigStage.offsetHeight || 1;
-      var stravel = sbox.height - shigh;
-
-      /* Under 1024, and on a short screen, ring.css never switches the pinned
-         construction on — the band is a photograph with a rail on it and there
-         is no track to be anywhere along. travel goes to zero or negative, and
-         the answer is the finished state rather than a division nobody can see
-         the result of. */
-      var sp = stravel > 0 ? clamp(-sbox.top / stravel) : 1;
-      sigs.style.setProperty('--sg-p', sp.toFixed(4));
-
-      var sslot = 1 / (sigItems.length || 1);
-      for (var i = 0; i < sigItems.length; i++) {
-        var start = i * sslot;
-        var up = (sp - start + SFADE * (i ? .3 : 1.3)) / SFADE;
-        var down = i === sigItems.length - 1 ? 1 : (start + sslot - sp + SFADE * .3) / SFADE;
-        sigItems[i].style.setProperty('--sg-r', clamp(up < down ? up : down).toFixed(3));
-        /* Signed, and NOT clamped to the slot: a reading is still travelling
-           while it fades, which is what carries it out of the frame rather
-           than letting it stop and then disappear. */
-        sigItems[i].style.setProperty('--sg-y', ((sp - start) / sslot - .5).toFixed(3));
-        if (sigArcs[i]) sigArcs[i].style.setProperty('--sg-d', clamp((sp - start) / sslot).toFixed(3));
-      }
-    });
-  }
-
-  /* ---- 9b · the ring stage. One progress number, and everything reads it.
-
-     The track is measured off the PIN, not the stage: the stage is sticky, so
-     once it has taken hold its own box stops moving and would report the same
-     number for the whole section.
-
-     THE SLOTS. The first 24% of the track belongs to the paragraph — long
-     enough to read it, and it is the sentence the five services are answers
-     to. The remaining 76% is five equal slots, one per service. Both numbers
-     are restated in ring.css beside --rg-track, because the track length and
-     the slot count decide each other and neither file can be changed alone.
-
-     THE HAND-OVERS OVERLAP, AND UNTIL 2026-09-11 THEY DID NOT. The claim in
-     this note was that "for a moment both are partly there"; the arithmetic
-     under it said otherwise. Fading each card out across the last FADE of its
-     own slot and the next one in across the first FADE of its own puts the
-     outgoing card at nought at the exact moment the incoming one leaves it —
-     a dissolve through an empty screen, not a cross-fade.
-
-     It got away with that while every card appeared in the same place: a
-     quarter of a notch with nothing in a 210px band reads as a beat. It does
-     not get away with it now the cards alternate around the ring, where the
-     same quarter notch is the left of the screen going blank before anything
-     happens on the right, which reads as a dropped frame.
-
-     So both windows are pushed half a fade over the boundary and both cards
-     are at .5 as the slot turns over. A FULL half, where § 9a's dial can only
-     spend .3 — there, two figures at half opacity are in the same place and
-     the overlap is a double exposure; here they are on opposite sides of a
-     ring and the overlap is the hand-over itself. */
-  var pin = document.querySelector('[data-rings-pin]');
-  var stage = document.querySelector('[data-rings-stage]');
-  var band = document.querySelector('[data-rings]');
-  if (pin && stage && band) {
-    var cards = [].slice.call(document.querySelectorAll('[data-rings-deck] .rcard'));
-    var ticks = [].slice.call(document.querySelectorAll('[data-rings-ticks] li'));
-    var INTRO = .24;
-    var FADE = .055;
-    band.classList.add('is-lively');
-    writers.push(function () {
-      var box = pin.getBoundingClientRect();
-      var high = stage.offsetHeight || 1;
-      var travel = box.height - high;
-
-      /* Under 1024, and on a short screen, ring.css takes the pin down to
-         `height: auto` and the stage out of sticky — the section is a list
-         there and there is no track to be anywhere along. travel goes to zero
-         or negative, and the answer is the finished state rather than a
-         division nobody can see the result of. */
-      var p = travel > 0 ? clamp(-box.top / travel) : 1;
-
-      /* The ring turns and grows across the WHOLE track, the intro included.
-         It is the one thing on the stage that never stops, which is what makes
-         the copy hand-overs read as moments inside a movement rather than as
-         five separate events. */
-      band.style.setProperty('--rg-t', p.toFixed(4));
-
-      /* The paragraph is out before the first service is in — see the gap in
-         the arithmetic: it finishes at .20 and the first card starts at .24.
-         Four percent of the track with only the heading on screen is about a
-         fifth of a second at reading speed, and it is the beat that stops the
-         hand-over reading as a swap. */
-      band.style.setProperty('--rg-lede', clamp((.20 - p) / .08).toFixed(3));
-
-      var slot = (1 - INTRO) / (cards.length || 1);
-      for (var k = 0; k < cards.length; k++) {
-        var s = INTRO + k * slot;
-        var up = (p - s + FADE * .5) / FADE;
-        /* The last card does not fade out. Something has to be on screen when
-           the pin lets go, and the alternative is a reader arriving at the
-           bottom of the section to an empty column. */
-        var down = k === cards.length - 1 ? 1 : (s + slot - p + FADE * .5) / FADE;
-        var r = clamp(up < down ? up : down);
-        cards[k].style.setProperty('--rc-r', r.toFixed(3));
-        /* Signed, -.5 to +.5 across the service's own slot, and NOT clamped to
-           it: a card is still travelling while it fades, which is what carries
-           it out of the frame rather than letting it stop and then vanish. The
-           direction it travels in is not here — it is a property of which side
-           of the ring the card is on, so ring.css states it as --rc-side. */
-        cards[k].style.setProperty('--rc-t', ((p - s) / slot - .5).toFixed(3));
-        if (ticks[k]) ticks[k].style.setProperty('--rt-r', r.toFixed(3));
-      }
-    });
-  }
+  /* 9a (the dial) and 9b (the ring stage) were here. Both bands were replaced
+     on 2026-09-14 by the sensing film, which runs its own timeline in
+     story.js; the two writers went with them. */
 
   /* ---- 9d · the two cards, drifting apart. One number; the direction is in
      the markup, as --d on each picture, because it is a property of which card
