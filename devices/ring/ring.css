@@ -647,22 +647,38 @@
 @media (max-width: 900px) { .ph-flat .ph-bar { top: 0; } }
 
 /* ---------------------------------------------------------------------------
-   4 · THE RING FAMILY STAGE.
+   4 . THE COLOURWAYS.
 
-   An embedded WebGL carousel from tiffanydesign.github.io/Ice-works-showcase/ —
-   twelve photographs of the two rings riding an off-screen ring, drawn in one
-   fragment shader, connected by liquid bridges as they separate.
+   WHAT STOOD HERE: an embedded WebGL carousel from
+   tiffanydesign.github.io/Ice-works-showcase - twelve photographs riding an
+   off-screen ring in one fragment shader - pinned for six weighted bands of
+   scroll while three continuous numbers were published on every frame to keep
+   an iframe, a colour rail, a marker and a wash in step with each other.
 
-   THE PROBLEM THIS SECTION HAS TO SOLVE is that the embedded piece owns the
-   wheel: inside it, wheel input is rotation, not scroll. Dropped into a page
-   that must keep scrolling, an iframe like that is a trap — the pointer enters
-   it and the page stops responding, with nothing on screen explaining why.
+   IT HAS GONE BACK TO WHERE IT IS HOSTED. The piece is not diminished by not
+   being in a product page; it was always a showcase, and a showcase reads
+   better at full bleed on its own domain than at 12vw behind a click-guard.
+   What this page lost with it: 370svh of track, an iframe, a pointer trap and
+   a release control, all in service of turning a ring the reader could not
+   touch.
 
-   The answer is that the frame is INERT UNTIL ASKED. It renders and animates
-   from the moment it loads, but `pointer-events: none` means the wheel passes
-   straight through to the page. A cover invites the click that hands it the
-   wheel, and it is handed back on Escape, on the Release control, or as soon as
-   the section leaves the viewport. See the script at the foot of the page.
+   WHAT REPLACES IT is the question the section was always asking, asked flat.
+   ouraring.com/store/rings/oura-ring-4-ceramic is the reference and the shape
+   is theirs: a lifestyle frame at full bleed on one side, and on the other the
+   product on its own tinted ground with the colourway named beneath it in one
+   sentence, the swatch capsule under that. Nothing pins, nothing is held, and
+   every one of the six is one press away from every other - which is the one
+   thing six cards on a scroll track could never offer.
+
+   THE SWATCHES SURVIVED THE DEMOLITION INTACT, and they are the reason this
+   section is still worth having. .ringfam-pill and .ringfam-dot below are
+   unchanged: Oura's capsule proportions, Oura's lighting model read off their
+   own rendered swatches, and the anisotropy and grain that their all-ceramic
+   range never had to solve. See the long notes in place. The only thing that
+   changed is that they sit in the layout instead of floating over an iframe
+   on a scroll number, so the rail is static and the marker - which existed to
+   GLIDE between swatches as the track was scrubbed - is a ring on the pressed
+   button, drawn by CSS from aria-current.
    ------------------------------------------------------------------------ */
 .ph-flat .ringfam { padding-bottom: clamp(56px, 5vw, 88px); }
 
@@ -679,205 +695,122 @@
   color: var(--ph-text-2);
 }
 
-/* ---- the pin. The section holds still while the reader scrolls through the
-   three colourways, then lets go.
+/* ---- THE TWO PANES.
 
-   THE TRACK IS THE SCROLL BUDGET. `position: sticky` needs somewhere to stick
-   WITHIN, so the pin is a tall block and the stage sticks to the top of it;
-   how tall decides how much wheel a reader spends on each card. Three cards at
-   90vh apiece, plus one screen for the stage itself to occupy.
-
-   This is a scroll-driven sequence, NOT a scroll-jack: the page never takes the
-   wheel, never animates the scroll position, and never refuses to move. Every
-   turn of the wheel moves the document exactly as far as it always would — the
-   only thing that changes is that for one section the thing which moves is the
-   ring rather than the page. Flick past it and you pass it; the ring simply
-   ends on its last card. */
-.ph-flat .ringfam-pin {
-  position: relative;
-  margin-top: clamp(32px, 3.4vw, 56px);
-  /* THE TRACK IS SIX WEIGHTED BANDS, NOT SIX EQUAL ONES, and the weights are
-     the script's — 0.3 for the first card, 1 for each of the other five, which
-     is the 5.3 below. The two have to agree; there is a note at the head of the
-     script saying so from the other side.
-
-     Why the first card is worth less than a third. The reader has already been
-     looking at it for the whole screen of entry travel, framed and settled,
-     before the track even starts — so a full band on top of that was about
-     1700px of scroll in which nothing on screen moved, and a held picture stops
-     reading as a held picture after roughly half a second. It went to 0.5
-     first, which was not enough: the entry screen is the larger half of that
-     number and the fix for it is in the script, not here (see the lead-in). 0.3
-     is the point where the first turn happens soon enough after the pin to feel
-     like the section answering the wheel, and not so soon that it reads as a
-     jump-cut past a card the reader had not finished looking at.
-
-     And why the unit came down from 90svh to 62svh. At 90 a card was a full
-     screen of wheel with only its own stillness to show for it. The continuous
-     parts added in this pass — the marker crossing to the next swatch, the rule
-     filling under the capsules — mean the band no longer has to be long enough
-     to feel deliberate on its own. 62svh apiece is 328 of track rather than
-     540, and the section reads faster while showing the same six frames for as
-     long as it takes to look at one. */
-  --rf-unit: 62svh;
-  --rf-track: 5.3;
-  height: calc(100svh + var(--rf-track) * var(--rf-unit));
-}
-.ph-flat .ringfam-stage {
-  position: sticky;
-  /* Under the bar rather than below it: the stage is the whole screen while it
-     is pinned, and the bar is glass over it. */
-  top: 0;
-  /* Full-bleed, and it costs nothing to get: the stage is a direct child of
-     .section, which has vertical padding and no horizontal padding at all, so
-     it already spans the document. NOT `width: 100vw` — shared.css states the
-     rule and the reason plainly (§ .grid.rail): a viewport unit ignores the
-     scrollbar, the document starts scrolling sideways by exactly its width, and
-     the layout audit then reports every near-miss on the page at once. Measured
-     here before the rule was read: a 15px horizontal bar under the whole page.
-     The piece is composed around a circle that is mostly off-screen, so the
-     bleed is not decoration — a content column would crop the arc. */
-  /* A full screen, because a pinned band that is not one leaves the page
-     visibly held still around it — the reader sees the section above and below
-     refusing to move and reads it as a stall rather than as a stage. */
-  height: 100svh;
-  background: var(--flat-band);
-  overflow: hidden;
-}
-
-/* ---- THE COLOURWAYS MOVED INTO THE PICTURE'S OWN TEXT COLUMN.
-
-   They were a glass capsule floating in the empty band under the card: two
-   named segments, Ceramic and Titanium, with three swatches inside each. It
-   worked, and it was in the wrong place, for a reason that is only obvious once
-   the frame is looked at rather than the control. The showcase already writes a
-   text column on the left of every card — the product on one line, the
-   colourway on the next, set in its own Helvetica at 30px. A second control at
-   the bottom of the same screen naming the same two products in a second
-   typeface is the screen saying the same thing twice in two voices, and the
-   capsule had to hide itself while the ring turned to avoid covering the piece
-   it belonged to. A control that spends half its life invisible is a control in
-   the wrong place.
-
-   So the swatches join the sentence they belong to. They sit directly under the
-   showcase's own name block, on the showcase's own left margin, and read as the
-   next line of it: the product, the colourway, the six it comes in. Nothing
-   covers the card, so nothing has to hide, so the marker can glide the whole
-   time the reader is scrolling — which is the thing the section was missing.
-
-   THE ALIGNMENT IS BORROWED, NOT GUESSED. The showcase parks its name block at
-   12vw from the left of its own viewport and centres it on the vertical middle,
-   in a box three times its name size tall. Those are its numbers, restated here
-   as --rf-left and --rf-name, and the rail clears the block by half that height
-   plus a gap. The frame is full-bleed and full-height, so its vw and this
-   document's vw are the same vw — which is what makes borrowing them safe. Its
-   text scales up by half below 1024px, and so does the clearance.
-
-   ---- THE SIX ARE TWO GROUPS OF THREE, IN TWO CAPSULES, EACH WITH ITS NAME.
-
-   This started as one flat row of six with a divider in the middle and a caption
-   under it that changed as you scrolled. Three things were wrong with that and
-   the capsules fix all three at once.
-
-   A divider is the weakest possible way to say "two products". It says "there is
-   a gap here" and leaves the reader to work out what the gap means, and it
-   competes with the rule under the row, which is a line doing a different job
-   4px away. A container says it outright: these three are one thing, those three
-   are another. Oura reaches the same shape from the same problem — their finish
-   swatches live in a white rounded capsule on the product photograph — and the
-   construction is worth borrowing exactly because it is not decoration: a
-   translucent-free white pill is the one way to put small colour swatches over
-   an uncontrolled photographic background and keep them readable as colours.
-
-   The caption goes. It named the material of whichever finish was showing, which
-   meant the word "titanium" was only on screen during the half of the section
-   you had already scrolled into — a label that is absent exactly when it would
-   be answering a question. Two static labels, one over each capsule, are on
-   screen the whole time and say what each group is made of before you choose.
-
-   And the labels can be the finish names now rather than the material names,
-   because they are attached to their own three swatches rather than floating
-   under all six. "Ceramic" over three ceramic swatches is not a repeat of the
-   card's own "PhenomeTech Ceramic Ring" — it is the label of a group. */
-.ph-flat .ringfam-rail {
-  position: absolute;
-  z-index: 3;
-  left: var(--rf-left);
-  top: 50%;
-  /* Half the showcase's own name box, then the gap. */
-  margin-top: calc(var(--rf-name) * 1.5 + 34px);
-
+   Oura's split is roughly even and the left frame is the taller of the two, so
+   the right column stacks under a product plate rather than beside it. Equal
+   columns here, and the left photograph takes its height from the right
+   column rather than declaring one: the copy and the capsule are what decide
+   how tall this section is, and a lifestyle frame that sets its own height
+   would leave the pane and the column disagreeing at every breakpoint. */
+.ph-flat .ringcw {
   display: grid;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(32px, 3.4vw, 56px);
+  align-items: stretch;
+}
+
+/* ---- the lifestyle frame. Two photographs stacked and crossfading, keyed to
+   the FINISH rather than the colourway - see the note in the script. */
+.ph-flat .ringcw-life {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ph-r27);
+  background: var(--flat-band);
+  min-height: clamp(420px, 44vw, 660px);
+}
+.ph-flat .ringcw-life img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ringcw-life img.on { opacity: 1; }
+
+/* ---- the frame's caption. Opaque white on a hairline for the same reason the
+   swatch capsule is opaque white on a hairline: it is chrome sitting over a
+   photograph, and a blurred panel would take its ink from whatever happened to
+   be behind it. Bottom left, where the photographs are quietest. */
+.ph-flat .ringcw-tag {
+  position: absolute;
+  left: clamp(14px, 1.6vw, 22px);
+  bottom: clamp(14px, 1.6vw, 22px);
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--flat-page);
+  border: 1px solid var(--divider);
+  font-size: var(--ph-fs-12);
+  line-height: var(--ph-lh-12);
+  font-weight: var(--ph-w-600);
+  letter-spacing: .085em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+}
+
+.ph-flat .ringcw-side {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: clamp(18px, 2vw, 26px);
+  align-content: start;
+}
+
+/* ---- the plate. 3:2 because that is the cell the colourway photography was
+   rendered to, so nothing is cropped to fit a box this file invented. */
+.ph-flat .ringcw-plate {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ph-r27);
+  background: var(--flat-band);
+  aspect-ratio: 3 / 2;
+}
+.ph-flat .ringcw-plate img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
+}
+.ph-flat .ringcw-plate img.on { opacity: 1; }
+
+/* ---- the caption. Oura's two levels and no more: a small grey line naming
+   the thing, and one sentence set large enough to be the reason you looked.
+   The small line carries the FINISH as well as the colour, because "Black" on
+   its own is true of one ring in each capsule. */
+.ph-flat .ringcw-copy { display: grid; gap: 10px; }
+.ph-flat .ringcw-k {
+  margin: 0;
+  font-size: var(--ph-fs-14);
+  line-height: var(--ph-lh-14);
+  color: var(--ink-label);
+}
+.ph-flat .ringcw-line {
+  margin: 0;
+  max-width: 30ch;
+  font-size: var(--ph-fs-28);
+  line-height: var(--ph-lh-28);
+  font-weight: var(--ph-w-400);
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+
+/* ---- the rail. It was absolutely positioned over the frame and slid in on a
+   scroll number; it is a block in the column now. Everything it carried that
+   was not about that position - the cell and disc sizes, which are Oura's -
+   stays exactly where it was. */
+.ph-flat .ringfam-rail {
+  display: grid;
   justify-items: start;
-
-  /* The rail is a small block sitting over a frame whose whole surface is a
-     link to the product. It takes no pointer events of its own; the swatches
-     take theirs back below. */
-  pointer-events: none;
-
-  /* The showcase's own numbers. 12vw and 30/1440vw are stated in its config as
-     metaLeft and nameSize; the 1.5 is its narrowText, applied at the same
-     1024px it applies it. */
-  --rf-left: 12vw;
-  --rf-name: 2.0833vw;
-  /* OURA'S OWN SIZING, MEASURED OFF THEIR SELECTOR RATHER THAN EYEBALLED.
-     Their swatch is a 24px disc inside a 32px hit target, gap 8px, in a capsule
-     padded 16px vertical and 20px horizontal; the selected one is ringed at the
-     full 32px. Every number below is one of those.
-
-     The 32px cell is doing real work beyond the ring: 24px is under the 44px
-     a touch target wants and only just over the 24px a pointer one does, and
-     the 8px of transparent margin around each disc is what makes the row
-     comfortable to hit without spacing the colours apart visually. */
   --rf-dot: 24px;
   --rf-cell: 32px;
-
-  /* IT ARRIVES ON THE LEAD-IN, which is the same number the intro copy above
-     the pin parallaxes on — so the rail sliding in and the heading sliding out
-     are one movement seen twice, rather than two effects that happen to be near
-     each other. The window is the FRONT of the entry now, not the back: it was
-     0.34 to 1, which put the swatches on screen only in the last third of the
-     approach and left the reader looking at a lone photograph before that. It
-     is 0.06 to about 0.55 now, and the lead-in itself finishes at 55% of the
-     approach rather than at the pin (see the script), so between the two the
-     rail is up and still while the stage is still travelling. Browsers clamp
-     opacity themselves, so the line does not need a clamp() of its own.
-
-     It also waits for the showcase to say its assembly is over — six swatches
-     under a name that has not been written yet is a caption for nothing. */
-  opacity: 0;
-  translate: -18px 0;
-}
-.ph-flat .ringfam-stage.is-ready .ringfam-rail {
-  opacity: calc((var(--rf-in, 0) - 0.06) * 2.1);
-  translate: calc((1 - var(--rf-in, 0)) * -14px) 0;
 }
 
-/* ---- BELOW 1024 THE TEXT COLUMN STOPS BEING A COLUMN, so the rail leaves it.
-
-   1024 is the showcase's own narrowAt. Under it the ring's plane and radius both
-   widen and the card grows across the frame until it is sitting over the left
-   margin — the showcase's own two lines of type run under the photograph there,
-   which is its composition and not this document's to fix. What this document
-   can do is not add to it: six swatches printed over a product photograph are
-   unreadable as swatches and are covering the thing they describe.
-
-   So in that band the rail parks at the foot of the stage on the same 12vw
-   margin. It is no longer the next line of the card's own sentence, which is
-   what it is for above 1024 — but it is legible, it is on the same left edge,
-   and it is out of the picture. The 900px cut below this one takes the whole pin
-   away and shows the two photographs instead, so this covers 900 to 1024. */
-@media (max-width: 1024px) {
-  .ph-flat .ringfam-rail {
-    top: auto;
-    bottom: clamp(56px, 9vh, 96px);
-    margin-top: 0;
-  }
-}
-
-/* The two groups, side by side. The rail itself is the positioning context for
-   the marker, so everything between it and a swatch stays static. */
 .ph-flat .ringfam-groups {
   display: flex;
   align-items: flex-end;
@@ -1158,218 +1091,53 @@
    one card and the next there was a band of scroll in which the wheel turned
    and the screen did not answer. The showcase cannot help with that — its one
    message is an integer and it runs its own eased turn between cards — so the
-   answer has to be next to it rather than inside it.
+/* ---- THE PRESSED SWATCH IS RINGED AT THE CELL.
 
-   The first attempt made ONE object do both: a ring interpolated continuously
-   along the swatch row, never still while the reader scrolled. It moved, and it
-   was wrong — for most of every band it was floating between two swatches while
-   one of them was the card on screen, which is a control declining to say which
-   colourway you are looking at. Continuity and precision are different jobs and
-   an object asked for both delivers neither.
+   This is what the gliding marker was, minus the glide. A ring at the cell
+   boundary reads as the swatch's own selected state because the cell IS the
+   button; a ring at any intermediate diameter reads as a separate object
+   parked over it. Oura's is 2px and dark - a hairline in the page's own ink
+   keeps the precision and loses the weight, and a hairline is what everything
+   else on this page is drawn with.
 
-   So: two objects, and each is unambiguous. The marker snaps to the live swatch
-   and eases across when the card turns — five movements in the section, each one
-   a real answer. The rule under the capsules fills continuously and answers
-   nothing about colour at all: it is the section's own length, drawn, and its
-   edge is moving at every pixel of scroll the reader spends here.
-
-   THE MARKER IS THE 32px CELL EXACTLY, which is Oura's construction and it is
-   better than the one it replaces for a reason worth naming: a ring at the cell
-   boundary reads as the swatch's own selected state, because the cell is the
-   button. A ring at some intermediate diameter reads as a separate object that
-   has been parked over the swatch. Theirs is 2px and dark; a hairline in the
-   page's own ink keeps the precision and loses the weight, and a hairline is
-   what everything else on this page is drawn with. */
-.ph-flat .ringfam-mark {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--rf-cell);
-  height: var(--rf-cell);
-  margin: calc(var(--rf-cell) / -2) 0 0 calc(var(--rf-cell) / -2);
-  border-radius: 50%;
-  border: 1px solid var(--ink-900);
-  pointer-events: none;
-  z-index: 1;
-  /* Long enough to be seen crossing the gap and short enough to be finished
-     before the showcase's own turn is, so the marker leads and the ring follows
-     rather than the two arriving together and reading as one lurch. */
-  transition: transform 400ms var(--ease-frosted-out);
-}
-
-/* The rule. Hairline over the capsules' own width, filled from the left.
-
-   A 1px line is the one piece of drawing this page has left — §1 removed the
-   shadows and the blurs, and every remaining edge on the page is a hairline. So
-   the continuous element is a hairline too, rather than a bar or a track with a
-   thumb, both of which would be a new kind of object on a page that has been
-   reduced to two tones and a line.
-
-   scaleX rather than width, so the whole of it is one composited transform per
-   frame and nothing above it relayouts. No transition, for the reason the
-   marker has one: this comes straight off the scroll, so it is already exactly
-   as smooth as the reader's own wheel, and easing it would only make it lag. */
-.ph-flat .ringfam-rule {
-  display: block;
-  width: var(--rf-row, 320px);
-  height: 1px;
-  background: var(--divider);
-  overflow: hidden;
-}
-.ph-flat .ringfam-run {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: var(--ink-900);
-  transform-origin: 0 50%;
-  transform: scaleX(var(--rf-run, 0));
-}
-
-/* ---- THE INTRO COPY LEADS INTO THE PIN.
-
-   The heading and its paragraph sit one screen above the stage, and that screen
-   is exactly the travel in which the reader used to see nothing respond. It
-   moves against the page now — 44px up over the whole entry, which is about a
-   twentieth of the distance the page itself covers in the same time, so it
-   reads as depth rather than as an element sliding.
-
-   On .ringfam-head rather than on its children, because the children are what
-   the reveal system animates in and two transforms on one element is a fight
-   nobody wins. And on the head rather than anywhere nearer the stage, because a
-   transform on the ancestor of a position:sticky element is the mistake §7
-   already records having made once here. */
-.ph-flat .ringfam-head {
-  transform: translate3d(0, calc(var(--rf-in, 0) * -44px), 0);
-  will-change: transform;
+   inset, so it lands on the 32px cell rather than outside it, and on the
+   button rather than on ::before, which is the 24px disc and is carrying the
+   material. The !important is section 1's doing: this page strips every
+   box-shadow with a universal rule, and this one is a selected state rather
+   than a drop. */
+.ph-flat .ringfam-dot[aria-current="true"] {
+  box-shadow: inset 0 0 0 1px var(--ink-900) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ph-flat .ringfam-dot { transition: none; }
   .ph-flat .ringfam-dot:hover { scale: 1; }
-  /* Scroll-linked motion is still motion. What survives is the state: the rail
-     is simply present, the marker is simply on the live swatch, and the copy
-     above simply sits where it sits. */
-  .ph-flat .ringfam-head { transform: none; }
-  .ph-flat .ringfam-rail { translate: 0 0; transition: opacity var(--ph-dur-fast) linear; }
-  .ph-flat .ringfam-stage.is-ready .ringfam-rail { opacity: 1; translate: 0 0; }
-  .ph-flat .ringfam-mark { transition: none; }
+  .ph-flat .ringcw-life img,
+  .ph-flat .ringcw-plate img { transition: none; }
 }
 
-.ph-flat .ringfam-frame {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  /* THE POINTER GOES IN, THE WHEEL DOES NOT. Hover shading and a click on the
-     product both live inside the frame and both need real pointer events, so
-     this cannot be `none` any more. What made `none` safe was that the frame
-     would otherwise swallow the wheel — that is handled at the source instead:
-     the frame is loaded with ?driven=1 and registers no wheel listener at all
-     in that mode, so with nothing there to scroll the browser chains the scroll
-     straight to this document. See the note in the showcase's Carousel.jsx. */
-  pointer-events: auto;
-  cursor: pointer;
-}
+/* ---- ONE COLUMN, AND THE PHOTOGRAPH GOES SECOND.
 
-/* The cover. Transparent, because the piece behind it is already running and
-   hiding it would waste the best invitation there is. Only the tag is drawn. */
-.ph-flat .ringfam-guard {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  /* Centred horizontally, LOW vertically. Dead-centre was the first attempt and
-     it put the tag straight over the card — covering the single photograph the
-     invitation exists to sell. The hit area is still the whole stage; only the
-     drawn part moves out of the way. */
-  align-content: end;
-  justify-content: center;
-  padding-bottom: clamp(28px, 4vh, 52px);
-  gap: 6px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-family: var(--ph-font);
-  text-align: center;
-  transition: opacity var(--ph-dur-base) var(--ease-frosted-out);
-}
-.ph-flat .ringfam-stage.is-live .ringfam-guard { opacity: 0; pointer-events: none; }
-
-.ph-flat .ringfam-guard-tag {
-  justify-self: center;
-  padding: 10px 20px;
-  border-radius: 980px;
-  background: var(--flat-page);
-  border: 1px solid var(--border-strong);
-  font-size: var(--ph-fs-14);
-  line-height: var(--ph-lh-14);
-  font-weight: var(--ph-w-600);
-  color: var(--ph-accent);
-}
-.ph-flat .ringfam-guard:hover .ringfam-guard-tag { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
-.ph-flat .ringfam-guard-sub {
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  color: var(--ph-text-2);
-}
-
-.ph-flat .ringfam-release {
-  position: absolute;
-  right: var(--ph-margin);
-  bottom: var(--ph-margin);
-  padding: 8px 16px;
-  border-radius: 980px;
-  border: 1px solid var(--border-strong);
-  background: var(--flat-page);
-  cursor: pointer;
-  font-family: var(--ph-font);
-  font-size: var(--ph-fs-12);
-  line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600);
-  color: var(--ph-accent);
-}
-.ph-flat .ringfam-release:hover { background: var(--ph-accent); color: #fff; border-color: var(--ph-accent); }
-
-/* The two-product list that stood here is gone, 2026-09-08. It named both
-   rings under the stage with a price and a Buy for each — and the stage above
-   it now names the finish and the colour on the picture itself, with a control
-   that says there are two products and six colours in one line. The list was
-   the same three facts said again in a heavier voice, directly under the place
-   they had just been said. Removed at the source, markup and rules together,
-   rather than hidden: nothing else on the site uses these classes. */
-
-/* The stand-in. The embedded piece is a desktop WebGL experience — the author's
-   own README says so — and a phone gets the two rings as photographs instead of
-   a frame that would run hot and read as a crop of something else. */
-.ph-flat .ringfam-fallback { display: none; }
-
+   Stacked, the lifestyle frame above the plate would put two large pictures
+   between the heading and the only control in the section. The plate is the
+   one that answers the swatch, so it leads; the lifestyle frame follows the
+   capsule as the payoff rather than preceding it as an obstacle. */
 @media (max-width: 900px) {
   .ph-flat .ringfam-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
-  /* The pin goes with the stage. Hiding the stage alone would leave its track
-     behind — 370svh of empty block, which on a phone is four blank screens. */
-  .ph-flat .ringfam-pin { display: none; }
-  .ph-flat .ringfam-fallback {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: clamp(28px, 5vw, 40px);
-  }
-  .ph-flat .ringfam-fallback img {
-    display: block;
-    width: 100%;
-    height: clamp(180px, 42vw, 260px);
-    object-fit: cover;
-    border-radius: var(--ph-r18);
-  }
+  .ph-flat .ringcw { grid-template-columns: minmax(0, 1fr); }
+  .ph-flat .ringcw-life { order: 2; min-height: 0; aspect-ratio: 3 / 2; }
+  .ph-flat .ringcw-side { order: 1; }
+  .ph-flat .ringcw-line { font-size: var(--ph-fs-24); line-height: var(--ph-lh-24); max-width: none; }
 }
 
-/* A pointer-driven stage has nothing to offer a keyboard or a reduced-motion
-   reader, and the release control is the only part of it that must stay
-   reachable. Coarse pointers get the photographs for the same reason phones do:
-   the piece expects a wheel and a hover, and a touch device has neither. */
-@media (hover: none) {
-  .ph-flat .ringfam-pin { display: none; }
-  .ph-flat .ringfam-fallback { display: grid; }
+/* The two capsules side by side are six cells, two labels and a gap - about
+   420px, which is wider than a small phone. They stack rather than shrink: a
+   swatch below Oura's 32px cell stops being a comfortable touch target, and
+   the finish label is the thing that would have to go to save the width. */
+@media (max-width: 480px) {
+  .ph-flat .ringfam-groups { flex-wrap: wrap; align-items: flex-start; }
+}
+
 }
 
 /* ---------------------------------------------------------------------------
@@ -2976,10 +2744,11 @@
    So the wrapper is stood down and its parts are moved instead. Two things fall
    out of that beyond the stagger:
 
-     - The pinned stage stops being animated. It is a section child, so the
-       shared rule was putting a 24px translate on .ringfam-pin — a transform on
-       the ancestor of a position:sticky element, which is not free. It fired
-       early enough to be invisible and it should not have been there at all.
+     - The colourway module arrives as three parts rather than one. It is a
+       section child, so the shared rule moved .ringcw as a slab — a lifestyle
+       frame, a product plate, a sentence and a capsule all switched on at
+       once. Moved individually they deal out left to right, which is the
+       order they are read in.
 
      - Nothing moves that the layout audit measures. The shared rule moves
        section children for a stated reason: audit_layout compares the boxes of
@@ -2998,6 +2767,8 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
   .sec-title,
   .lede,
   .ringfam-lede,
+  .ringcw-life,
+  .ringcw-side,
   .spec-table,
   .cta-actions,
   .showcase-img,
@@ -3016,6 +2787,8 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
   .sec-title,
   .lede,
   .ringfam-lede,
+  .ringcw-life,
+  .ringcw-side,
   .spec-table,
   .cta-actions,
   .showcase-img,
@@ -3035,6 +2808,11 @@ html.ph-reveal body.ph-flat main > section .sec-title      { --rv-at: 0ms; }
 html.ph-reveal body.ph-flat main > section .lede,
 html.ph-reveal body.ph-flat main > section .ringfam-lede,
 html.ph-reveal body.ph-flat main > section .closer-copy p  { --rv-at: 90ms; }
+/* The two panes, left then right: the photograph is the half a reader looks at
+   first and the column is the half they read, so the picture leads the copy by
+   the same 90ms the copy leads a button. */
+html.ph-reveal body.ph-flat main > section .ringcw-life    { --rv-at: 90ms; }
+html.ph-reveal body.ph-flat main > section .ringcw-side    { --rv-at: 180ms; }
 /* The photograph comes in with the paragraph, not after the button. It is the
    other half of the row, and a picture that waits for the whole text column to
    finish reads as a late asset rather than as part of the composition.
