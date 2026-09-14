@@ -278,9 +278,15 @@
    band rather than a hero: there is no nav to clear here, the picture's subject
    is centred, and the foot of a full-bleed band is the one part of it that
    never has anything else in it. */
+/* BOTTOM LEFT, 2026-09-14, and only because the band changed under it. The
+   right corner was correct for an 893px band sitting in the flow; now that the
+   window fills the screen and holds there, the site's own fixed design-system
+   launcher — bottom-right, on every page — lands on the same pixels and covers
+   the control outright. The PDP's film bar was moved for this exact collision;
+   this is the same move for the same reason. */
 .ph-flat .filmband-play {
   inset-block-end: 28px;
-  inset-inline-end: 28px;
+  inset-inline-start: 28px;
 }
 
 @media (max-width: 900px) {
@@ -1104,17 +1110,47 @@
    drives one band rather than two.
    ------------------------------------------------------------------------ */
 
+/* ---- 9c-iii · THE BAND IS PINNED (2026-09-14, by request) -----------------
+   THE REFERENCE is ultrahuman.com/ring-pro's "On the go. Off the grid." band:
+   the picture behind it is held absolutely still in the window while the page
+   scrolls past it, and the sections above and below behave completely
+   normally. It is a HELD BACKGROUND, not a scene with anything switching over
+   it — there is no copy on this band and none is being added.
+
+   HOW. The section becomes two screens tall and the window inside it sticks to
+   the top of the viewport for one of them. So the band arrives filling the
+   screen, the reader keeps scrolling and the film does not move for a screen's
+   worth — which is also how it gets a proper run at its own sixteen seconds,
+   where the old 893px band was scrolled past in two flicks — and then the pin
+   releases and Choose your ring comes up against it.
+
+   TWO THINGS THAT BREAK THIS AND ARE FIXED HERE:
+
+   · `.band` in shared.css:1195 sets `overflow: hidden`, and an ancestor with
+     `overflow: hidden` IS A SCROLL CONTAINER. A sticky child sticks inside its
+     nearest scroll container, so the window would have been sticking to a box
+     that never scrolls — `position: sticky` doing nothing at all rather than
+     doing something wrong, which is the same trap the buy column hit. `clip`
+     does the identical clipping and is NOT a scroll container, so the window
+     resolves against the viewport where it belongs.
+   · THE CROP IS UNCHANGED, and that was the constraint on the height. All the
+     arithmetic above is against a band whose aspect is about 1.6:1 at 1440 —
+     which is exactly 1440x900. So a full-height window shows the same rows of
+     the master the 62vw band did, and the ring stays inside the frame in all
+     six scenes. This is the one height that could be swapped in for free.
+   ------------------------------------------------------------------------ */
+.ph-flat .filmband {
+  height: 200vh;
+  overflow: clip;
+}
 .ph-flat .filmband-win {
-  position: relative;
-  /* TALLER THAN THE PLATE IT REPLACES — 62vw / 900 against 58vw / 820, which
-     is 9% at 1440. Not a preference: it is the crop arithmetic below meeting
-     the band, from the other side. The subject band this film needs is 34% of
-     the master's height, and how much of the master a fixed-width band shows
-     is decided entirely by how TALL the band is. At 820 a 1440-wide band shows
-     32% and the flowers and the silk lose the bottom of the ring; at 893 it
-     shows 35% and the whole range fits. A still photograph would not have
-     cared — this is what changes when a band becomes a film. */
-  height: clamp(460px, 62vw, 900px);
+  position: sticky;
+  top: 0;
+  /* svh as well as vh: on a phone the dynamic viewport is what the reader
+     actually has while the address bar is showing, and a 100vh window under a
+     100svh screen is a band whose foot is never seen. */
+  height: 100vh;
+  height: 100svh;
   /* What is behind the poster while it decodes, and behind the film on a
      connection that never gets it. The film's own first frame is a warm near
      white, so the page's quiet band is closer to it than white is. */
@@ -1132,6 +1168,28 @@
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+/* A phone gives up the second screen of hold, not the pin. Two full screens of
+   scroll on a 390px window is a long time to spend holding one shot, and the
+   film's loop is the same sixteen seconds there as here. 165vh is two thirds
+   of a screen of hold, which still reads as "this is held" and does not read
+   as "the page has stopped". */
+@media (max-width: 900px) {
+  .ph-flat .filmband { height: 165vh; }
+}
+
+/* A reader who asked for less motion gets the band back in the flow. Pinning
+   is not animation, but it IS the page behaving differently from how it looks
+   like it will behave, which is the same complaint; and the band has no copy
+   to reveal, so there is nothing lost by letting it simply scroll past at the
+   height it had before. */
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .filmband { height: auto; }
+  .ph-flat .filmband-win {
+    position: relative;
+    height: clamp(460px, 62vw, 900px);
+  }
 }
 
 /* ---- 9c-ii · THE PLATE CONSTRUCTION, still used by the closing frame ---- */
