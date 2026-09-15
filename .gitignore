@@ -1,1 +1,4 @@
 .claude/
+
+# local tooling state, not part of the site
+.impeccable/
