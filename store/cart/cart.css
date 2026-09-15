@@ -1,0 +1,348 @@
+/* =============================================================================
+   store/cart/cart.css — the cart drawer (every page) and /store/cart/.
+
+   Proportions measured off seed.com's cart at 1440: a floating sheet inset 8px
+   from the right edge, 500px wide, radius 16; 96px product tiles at radius 12;
+   a tinted offer strip under the heading; a pill quantity stepper; a sticky
+   foot with the total and one full width pill. Only the palette is ours: the
+   ground is white, the strip and cards are the site tint, tiles sit on
+   phenome-blue-100 exactly as the Shop all cards do, the pill is the navy.
+
+   Every class is cx- prefixed because the drawer lives on 80 pages whose
+   sheets this file must never reach into.
+   ========================================================================== */
+
+.cx-drawer, .cx-page {
+  --cx-ink: var(--ink-900, #10214b);
+  --cx-ink-2: var(--ink-600, #4a5578);
+  --cx-line: var(--border-strong, #203a8529);
+  --cx-tint: var(--gl-tint-sunk, #f4f6fb);
+  --cx-media: var(--phenome-blue-100, #e6e9f2);
+  --cx-navy: var(--phenome-blue-900, #0a1e57);
+  --cx-accent: var(--phenome-blue-500, #203a85);
+  --cx-save: #1f7a4d;
+  --cx-mark: #e8effb;
+  --cx-mark-ink: var(--phenome-blue-500, #203a85);
+  --cx-bad: #d64545;
+  --cx-ease: cubic-bezier(.22, .8, .24, 1);
+  font-family: var(--ph-font, "helvetica-neue-lt-pro", "Helvetica Neue", Helvetica, Arial, sans-serif);
+  color: var(--cx-ink);
+}
+
+html.cx-open { overflow: hidden; }
+
+.cx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- 1. Drawer frame ---------------------------------------------------- */
+
+.cx-drawer { position: fixed; inset: 0; z-index: 2147483000; }
+
+.cx-scrim {
+  position: absolute; inset: 0;
+  background: rgba(10, 30, 87, .28);
+  opacity: 0; transition: opacity .38s var(--cx-ease);
+}
+
+.cx-panel {
+  position: absolute; top: 8px; right: 8px; bottom: 8px;
+  width: min(500px, calc(100vw - 16px));
+  display: flex; flex-direction: column;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 30px 80px -30px rgba(10, 30, 87, .45), inset 0 0 0 1px #10214b0f;
+  transform: translateX(calc(100% + 16px));
+  transition: transform .42s var(--cx-ease);
+  outline: none; overflow: hidden;
+}
+
+.cx-drawer.is-in .cx-scrim { opacity: 1; }
+.cx-drawer.is-in .cx-panel { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cx-scrim, .cx-panel { transition: none; }
+}
+
+.cx-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 16px 32px;
+}
+
+.cx-title {
+  margin: 0; font-size: 24px; line-height: 1.2; font-weight: 400; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 10px;
+}
+.cx-title span, .cx-page-title span {
+  display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 8px;
+  border-radius: 99px; background: var(--cx-tint); color: var(--cx-accent);
+  font-size: 13px; font-weight: 500; letter-spacing: 0;
+}
+
+.cx-close {
+  width: 44px; height: 44px; border: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  background: var(--cx-tint); color: var(--cx-ink);
+  transition: background .2s;
+}
+.cx-close:hover { background: var(--cx-media); }
+
+.cx-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 0 32px 24px; }
+
+.cx-foot {
+  padding: 20px 32px 24px;
+  background: #fff;
+  box-shadow: 0 -1px 0 var(--cx-line), 0 -24px 32px -24px rgba(16, 33, 75, .12);
+}
+
+/* ---- 2. Offer strip ----------------------------------------------------- */
+
+.cx-offer {
+  position: relative; margin: 0 0 4px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 15px 20px; border-radius: 12px;
+  background: var(--cx-tint); color: var(--cx-ink);
+  font-size: 14px; line-height: 1.3; font-weight: 500; text-align: center;
+}
+.cx-offer svg { flex: none; color: var(--cx-accent); }
+
+/* The discount mark. Seed draws a highlighter band; on our white ground a
+   mid blue band swallowed the text, so ours is a pale blue capsule with the
+   brand blue on it: the lightest tint that still separates from the white
+   panel, and text that clears contrast comfortably. */
+.cx-hl {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 9px; border-radius: 99px;
+  background: var(--cx-mark); color: var(--cx-mark-ink);
+  font-size: 12px; line-height: 1; font-weight: 500; letter-spacing: .005em;
+  white-space: nowrap;
+}
+.cx-offer.is-on { background: var(--cx-media); }
+
+/* ---- 3. Lines ----------------------------------------------------------- */
+
+.cx-lines { list-style: none; margin: 0; padding: 0; }
+
+.cx-line {
+  position: relative;
+  display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px;
+  padding: 16px 0; border-bottom: 1px solid var(--cx-line);
+}
+.cx-line.is-new::before {
+  content: ""; position: absolute; left: -32px; top: 16px; bottom: 16px; width: 3px;
+  border-radius: 0 3px 3px 0; background: var(--cx-accent);
+  animation: cx-mark 1.6s var(--cx-ease) forwards;
+}
+@keyframes cx-mark { 0% { transform: scaleY(0); } 20% { transform: none; } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+.cx-thumb {
+  display: block; aspect-ratio: 1; border-radius: 12px; overflow: hidden;
+  background: var(--cx-media);
+}
+.cx-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.cx-line-main { display: flex; flex-direction: column; min-width: 0; }
+
+.cx-line-name {
+  color: var(--cx-ink); text-decoration: none;
+  font-size: 17px; line-height: 1.25; font-weight: 500;
+}
+.cx-line-name:hover { color: var(--cx-accent); }
+
+.cx-line-plan { margin: 3px 0 0; font-size: 13px; line-height: 1.35; color: var(--cx-ink-2); }
+
+.cx-line-off { margin: 6px 0 0; line-height: 1; }
+
+.cx-line-foot {
+  margin-top: auto; padding-top: 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+
+.cx-price { margin: 0; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.cx-price s { margin-left: 4px; color: var(--cx-ink); opacity: .5; font-weight: 500; }
+
+.cx-step {
+  display: inline-flex; align-items: center;
+  height: 34px; border: 1px solid var(--cx-line); border-radius: 99px;
+}
+.cx-step button {
+  width: 36px; height: 100%; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center; color: var(--cx-ink); border-radius: 99px;
+}
+.cx-step button:hover { color: var(--cx-accent); background: var(--cx-tint); }
+.cx-step output { min-width: 18px; text-align: center; font-size: 14px; font-weight: 500; }
+
+/* ---- 4. Pairs well with ------------------------------------------------- */
+
+.cx-h { margin: 24px 0 12px; font-size: 15px; line-height: 1.3; font-weight: 500; }
+
+.cx-pairs { padding-bottom: 20px; border-bottom: 1px solid var(--cx-line); }
+
+.cx-pairs-row {
+  list-style: none; margin: 0 -32px; padding: 0 32px;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 272px; gap: 10px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 32px;
+  scrollbar-width: none;
+}
+.cx-pairs-row::-webkit-scrollbar { display: none; }
+
+.cx-pair {
+  scroll-snap-align: start;
+  display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; align-items: center;
+  padding: 8px; border-radius: 12px; background: var(--cx-tint);
+}
+.cx-pair-img { display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--cx-media); }
+.cx-pair-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cx-pair-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding-right: 4px; }
+.cx-pair-name {
+  color: var(--cx-ink); text-decoration: none; font-size: 14px; line-height: 1.25; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cx-pair-name:hover { color: var(--cx-accent); }
+.cx-pair-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cx-pair .cx-price { font-size: 14px; }
+
+.cx-add, .cx-btn-line {
+  height: 30px; padding: 0 16px; border-radius: 99px; cursor: pointer;
+  border: 1px solid var(--cx-navy); background: transparent; color: var(--cx-navy);
+  font: inherit; font-size: 13px; font-weight: 500;
+  transition: background .2s, color .2s;
+}
+.cx-add:hover, .cx-btn-line:hover { background: var(--cx-navy); color: #fff; }
+
+/* ---- 5. Promo code ------------------------------------------------------ */
+
+/* Measured off seed.com: label 14/500 with 8px under it; box 50px tall,
+   1px solid ink, radius 8, 16px side padding, 8px gap; input 16px with no
+   border of its own; Apply and Remove are 14/500 underlined text; the error
+   turns the box border red and sits under it in 14px. */
+.cx-promo { padding: 16px 0 20px; border-bottom: 1px solid var(--cx-line); }
+
+.cx-link {
+  display: inline; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--cx-navy);
+  text-decoration: underline; text-underline-offset: 3px; white-space: nowrap;
+}
+.cx-link:hover { color: var(--cx-accent); }
+
+.cx-promo-label {
+  display: block; margin: 0 0 8px;
+  font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--cx-ink);
+}
+
+.cx-promo-box {
+  display: flex; align-items: center; gap: 8px;
+  height: 50px; margin: 0; padding: 0 16px;
+  border: 1px solid var(--cx-navy); border-radius: 8px; background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+.cx-promo-box:focus-within { box-shadow: 0 0 0 1px var(--cx-navy); }
+.cx-promo-box input {
+  flex: 1; min-width: 0; height: 100%; padding: 0;
+  border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 16px; color: var(--cx-ink);
+}
+.cx-promo-box input::placeholder { color: var(--cx-ink-2); opacity: .7; }
+.cx-promo-box.is-on span { flex: 1; min-width: 0; font-size: 14px; line-height: 1.4; color: var(--cx-ink); }
+
+.cx-promo-box.is-bad { border-color: var(--cx-bad); }
+.cx-promo-box.is-bad:focus-within { box-shadow: 0 0 0 1px var(--cx-bad); }
+.cx-promo-err { margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: var(--cx-bad); }
+
+.cx-promo-box.is-on { animation: cx-rise .28s var(--cx-ease); }
+@keyframes cx-rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ---- 6. Sum and the pill ------------------------------------------------ */
+
+.cx-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin: 0 0 8px; font-size: 14px; line-height: 1.4; color: var(--cx-ink-2);
+}
+.cx-row span:last-child { color: var(--cx-ink); font-weight: 500; }
+.cx-save { color: var(--cx-save) !important; }
+.cx-row.cx-disc { align-items: center; color: var(--cx-ink); }
+.cx-row.cx-disc span.cx-hl { color: var(--cx-mark-ink); font-weight: 500; }
+
+.cx-total { margin: 4px 0 4px; color: var(--cx-ink); font-size: 20px; font-weight: 500; }
+.cx-total span:last-child { font-size: 20px; }
+
+.cx-fine { margin: 0 0 16px; font-size: 12px; line-height: 1.4; color: var(--cx-ink-2); }
+
+.cx-cta {
+  display: flex; align-items: center; justify-content: center;
+  height: 50px; border-radius: 99px;
+  background: var(--cx-navy); color: #fff !important; text-decoration: none;
+  font-size: 16px; font-weight: 500; letter-spacing: 0;
+  transition: background .2s, transform .2s var(--cx-ease);
+}
+.cx-cta:hover { background: var(--cx-accent); }
+.cx-cta:active { transform: scale(.985); }
+.cx-cta-inline { display: inline-flex; padding: 0 32px; }
+
+/* ---- 7. Empty ----------------------------------------------------------- */
+
+.cx-empty { padding: 48px 0 32px; text-align: center; border-bottom: 1px solid var(--cx-line); }
+.cx-empty-t { margin: 0; font-size: 24px; line-height: 1.2; }
+.cx-empty-d { margin: 8px auto 24px; max-width: 30ch; font-size: 15px; line-height: 1.45; color: var(--cx-ink-2); }
+
+/* ---- 8. /store/cart/ as a page ------------------------------------------ */
+
+.cx-page { padding: calc(var(--ph-nav-h, 44px) + 48px) 0 96px; }
+
+.cx-page-title {
+  margin: 0 0 24px; display: flex; align-items: center; gap: 12px;
+  font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08; font-weight: 400; letter-spacing: -.016em;
+}
+
+.cx-page-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: clamp(32px, 5vw, 80px); align-items: start;
+}
+.cx-page .cx-line { grid-template-columns: 128px minmax(0, 1fr); gap: 24px; padding: 24px 0; }
+.cx-page .cx-line.is-new::before { left: -16px; }
+.cx-page .cx-line-name { font-size: 19px; }
+.cx-page .cx-line-plan { font-size: 14px; }
+
+.cx-page-side { position: sticky; top: calc(var(--ph-nav-h, 44px) + 24px); }
+.cx-card { padding: 28px; border-radius: 16px; background: var(--cx-tint); }
+.cx-card .cx-promo { border-top: 1px solid var(--cx-line); margin-top: 12px; }
+.cx-card-sum { padding-top: 16px; }
+.cx-card .cx-add, .cx-card .cx-btn-line { background: #fff; }
+.cx-card .cx-btn-line:hover { background: var(--cx-navy); }
+
+.cx-page .cx-empty { max-width: 560px; margin: 0 auto; border: 0; }
+.cx-page .cx-pairs { border: 0; margin-top: 56px; }
+.cx-page .cx-h { font-size: 24px; margin-bottom: 20px; }
+.cx-page .cx-pairs-row { margin: 0; padding: 0; grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+.cx-page .cx-pair { grid-template-columns: 1fr; padding: 8px; align-items: start; }
+.cx-page .cx-pair-img { border-radius: 10px; }
+.cx-page .cx-pair-body { padding: 4px 8px 8px; }
+.cx-page .cx-pair-name { font-size: 15px; }
+
+@media (max-width: 1024px) {
+  .cx-page-grid { grid-template-columns: 1fr; }
+  .cx-page-side { position: static; }
+  .cx-page .cx-pairs-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .cx-head { padding: 16px 12px 12px 20px; }
+  .cx-scroll { padding: 0 20px 20px; }
+  .cx-foot { padding: 16px 20px 20px; }
+  .cx-line { grid-template-columns: 80px minmax(0, 1fr); gap: 12px; }
+  .cx-line.is-new::before { left: -20px; }
+  .cx-pairs-row { margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; grid-auto-columns: 250px; }
+  .cx-page .cx-line { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; }
+  .cx-page .cx-pairs-row { margin: 0; padding: 0; }
+  .cx-card { padding: 20px; }
+  .cx-offer { font-size: 13px; }
+}
+
+/* ---- 9. Nav badge ------------------------------------------------------- */
+
+.ph-nav-icon[href$="/store/cart/"] { position: relative; }
+.cx-badge {
+  position: absolute; top: 50%; left: 50%; transform: translate(3px, -13px);
+  min-width: 15px; height: 15px; padding: 0 4px; border-radius: 99px;
+  display: grid; place-items: center;
+  background: var(--phenome-blue-500, #203a85); color: #fff;
+  font-size: 9.5px; line-height: 1; font-weight: 600; letter-spacing: 0;
+  box-shadow: 0 0 0 2px #fff; pointer-events: none;
+}
+.cx-badge[hidden], .cx-foot[hidden], .cx-drawer[hidden] { display: none; }

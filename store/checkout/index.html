@@ -4,143 +4,85 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Checkout — Phenome</title>
-<meta content="Where the kit should go, and who to send the results to. Free UK delivery in 2–3 working days, in discreet packaging." name="description"/>
+<title>Checkout</title>
+<meta content="Where the kit should go, and who the results are for. Free UK delivery in 2 to 3 working days, in discreet packaging." name="description"/>
 <link rel="preconnect" href="https://use.typekit.net"/>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin/>
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<link href="/phenome-store/store/cart/cart.css" rel="stylesheet"/>
+<link href="/phenome-store/store/checkout/checkout.css" rel="stylesheet"/>
 </head>
-<body>
-<div class="ph-promo"><p class="ph-promo-inner">Welcome offer — 10% off your first order with code <b>WELCOME10</b></p></div>
-<div data-ph-nav=""></div>
-<main>
-<section class="hero">
-<div class="wrap-wide">
-<div>
-<div class="eyebrow">Checkout</div>
-<h1 class="hero-title">The last few details.</h1>
-<p class="lede" style="margin-left:0">Where the kit should go, and who to send the results to. Free UK delivery in 2–3 working days, in discreet packaging.</p>
+<body class="co">
+<header class="co-top">
+<div class="co-top-in">
+<a class="co-back" href="/phenome-store/store/cart/"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cart</span></a>
+<a class="co-brand" href="/phenome-store/index.html" aria-label="Phenome Longevity, home"><img src="/phenome-store/assets/brand/phenome-logo.svg" alt="Phenome Longevity" width="770" height="118"/></a>
+<span class="co-lock"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Secure checkout</span></span>
 </div>
+</header>
+
+<button class="co-toggle" type="button" aria-expanded="false" aria-controls="coSummary">
+<span class="co-toggle-t"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h12l-1 11H5L4 6Z" stroke-linejoin="round"/><path d="M7.5 6a2.5 2.5 0 0 1 5 0" stroke-linecap="round"/></svg><span data-toggle-label="">Show order summary</span><svg class="co-chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span class="co-toggle-total" data-total=""></span>
+</button>
+
+<main class="co-main">
+<div class="co-form-col">
+<form class="co-form" novalidate="" data-checkout="">
+<p class="co-demo">This checkout is a demonstration. Nothing is charged, no card details are collected, and no order is placed.</p>
+
+<section class="co-sec" aria-labelledby="coContact">
+<div class="co-sec-head"><h2 id="coContact">Contact</h2><a href="/phenome-store/account/">Sign in</a></div>
+<div class="co-field"><input id="coEmail" name="email" type="email" autocomplete="email" placeholder=" " required=""/><label for="coEmail">Email</label><p class="co-err" data-for="email">Enter an email address, so the results have somewhere to go.</p></div>
+<label class="co-check"><input type="checkbox" name="news"/><span>Email me with news and offers</span></label>
+</section>
+
+<section class="co-sec" aria-labelledby="coDelivery">
+<div class="co-sec-head"><h2 id="coDelivery">Delivery</h2></div>
+<div class="co-field co-select"><select id="coCountry" name="country" autocomplete="country-name"><option>United Kingdom</option></select><label for="coCountry">Country or region</label></div>
+<div class="co-pair">
+<div class="co-field"><input id="coFirst" name="first" autocomplete="given-name" placeholder=" " required=""/><label for="coFirst">First name</label><p class="co-err" data-for="first">Enter a first name.</p></div>
+<div class="co-field"><input id="coLast" name="last" autocomplete="family-name" placeholder=" " required=""/><label for="coLast">Last name</label><p class="co-err" data-for="last">Enter a last name.</p></div>
+</div>
+<div class="co-field"><input id="coAddress" name="address" autocomplete="address-line1" placeholder=" " required=""/><label for="coAddress">Address</label><p class="co-err" data-for="address">Enter an address.</p></div>
+<div class="co-field"><input id="coFlat" name="flat" autocomplete="address-line2" placeholder=" "/><label for="coFlat">Flat, building or company (optional)</label></div>
+<div class="co-pair">
+<div class="co-field"><input id="coCity" name="city" autocomplete="address-level2" placeholder=" " required=""/><label for="coCity">Town or city</label><p class="co-err" data-for="city">Enter a town or city.</p></div>
+<div class="co-field"><input id="coPost" name="postcode" autocomplete="postal-code" placeholder=" " required=""/><label for="coPost">Postcode</label><p class="co-err" data-for="postcode">Enter a postcode.</p></div>
+</div>
+<div class="co-field"><input id="coPhone" name="phone" type="tel" autocomplete="tel" placeholder=" "/><label for="coPhone">Phone, for delivery updates only (optional)</label></div>
+</section>
+
+<section class="co-sec" aria-labelledby="coMethod">
+<div class="co-sec-head"><h2 id="coMethod">Delivery method</h2></div>
+<label class="co-radio"><input type="radio" name="method" checked=""/><span class="co-radio-main"><span class="co-radio-t">Free UK delivery</span><span class="co-radio-d">2 to 3 working days, in discreet packaging</span></span><span class="co-radio-p">Free</span></label>
+</section>
+
+<section class="co-sec" aria-labelledby="coPay">
+<div class="co-sec-head"><h2 id="coPay">Payment</h2></div>
+<div class="co-pay">
+<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4" stroke-linecap="round"/></svg>
+<div><p class="co-pay-t">No payment is taken on this page.</p><p class="co-pay-d">In the live shop, payment is handled by the shop platform, away from this page. Nothing here is charged or stored.</p></div>
 </div>
 </section>
-<div class="wrap-wide"><div class="trust">
-<span><b>Free</b> UK delivery</span><span>Delivered in <b>2–3 working days</b></span>
-<span><b>Discreet</b> packaging</span><span><b>GDPR</b>-secure</span>
-</div></div>
-<section class="section">
-<div class="wrap-wide">
-<p class="lede" style="margin-left:0">This checkout is a demonstration. Nothing is charged, no card details are collected, and no order is placed.</p>
-<div class="hero-split" style="align-items:start;margin-top:48px">
-<form onsubmit="event.preventDefault();window.location.href='/phenome-store/store/checkout/confirmed/'">
-<h2 class="sec-title" style="margin-top:0;font-size:28px">Contact details</h2>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Your results are delivered to a secure profile in the Phenome app, created with the email you give here. Use one you will still have in a year.</p>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Email<input autocomplete="email" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="email"/></label>
-<div class="grid grid-2">
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">First name<input autocomplete="given-name" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Last name<input autocomplete="family-name" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-</div>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Mobile — for delivery updates only<input autocomplete="tel" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="tel"/></label>
-<h2 class="sec-title" style="margin-top:48px;font-size:28px">Delivery address</h2>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">The kit arrives in plain packaging with nothing on the outside that says what is inside. Send it wherever you will actually be.</p>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Address<input autocomplete="address-line1" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Flat, building or company — optional<input autocomplete="address-line2" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-<div class="grid grid-2">
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Town or city<input autocomplete="address-level2" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Postcode<input autocomplete="postal-code" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-</div>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Country or region<input autocomplete="country-name" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px" type="text"/></label>
-<h2 class="sec-title" style="margin-top:48px;font-size:28px">Delivery method</h2>
-<div class="card-gray" style="margin-top:16px">
-<label style="display:flex;gap:12px;align-items:flex-start">
-<input checked="" name="delivery" style="margin-top:4px" type="radio"/>
-<span>
-<span class="card-title" style="display:block;font-size:21px">Free UK delivery</span>
-<span class="body-text" style="display:block;margin-top:8px;font-size:17px;line-height:21px">Delivered in 2–3 working days. Discreet packaging.</span>
-<span class="body-text" style="display:block;margin-top:8px;font-size:17px;line-height:21px">Free</span>
-</span>
-</label>
-</div>
-<p class="body-text" style="margin-top:12px;font-size:17px;line-height:21px">This is the only delivery method the site currently publishes. Any additional options and their prices are still to be confirmed.</p>
-<h2 class="sec-title" style="margin-top:48px;font-size:28px">Payment</h2>
-<div class="card-gray" style="margin-top:16px">
-<div class="eyebrow">Demonstration only</div>
-<h3 class="card-title" style="margin-top:8px;font-size:21px">No payment is taken on this page.</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">There are no card fields here, and there are none anywhere else in this flow. Nothing is charged and no payment details are collected or stored. This page exists to show the shape of the checkout, not to take an order.</p>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">In the live shop, payment is handled away from this page by the shop platform. The provider, the accepted methods and the tax treatment are not shown here because they have not been confirmed for publication.</p>
-</div>
-<div class="cta-actions" style="justify-content:flex-start;margin-top:32px">
-<button class="btn" type="submit">Place order</button>
-<a class="link-more" href="/phenome-store/store/cart/">Back to cart</a>
-</div>
-<p class="body-text" style="margin-top:16px;font-size:14px">By placing an order you agree to our <a href="/phenome-store/legal/terms.html">Terms</a> and <a href="/phenome-store/legal/privacy.html">Privacy &amp; data</a> policy.</p>
+
+<button class="co-place" type="submit">Place order</button>
+<p class="co-legal">By placing an order you agree to our <a href="/phenome-store/legal/terms.html">Terms</a> and <a href="/phenome-store/legal/privacy.html">Privacy and data</a> policy.</p>
 </form>
-<div>
-<div class="card-gray">
-<h2 class="sec-title" style="margin-top:0;font-size:28px">Order summary</h2>
-<div style="margin-top:24px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start">
-<span>
-<span class="card-title" style="display:block;font-size:19px">Gut Microbiome Test</span>
-<span class="body-text" style="display:block;margin-top:4px;font-size:17px;line-height:21px">Subscribe &amp; Save · every 3 months · quantity 1</span>
-</span>
-<span style="font-size:17px;font-weight:600;white-space:nowrap">£119</span>
+<nav class="co-policies" aria-label="Policies"><a href="/phenome-store/devices/ring/warranty-returns/">Returns</a><a href="/phenome-store/legal/privacy.html">Privacy</a><a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/contact/">Contact</a></nav>
 </div>
-<div style="margin-top:20px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start">
-<span>
-<span class="card-title" style="display:block;font-size:19px">Carrier Screening</span>
-<span class="body-text" style="display:block;margin-top:4px;font-size:17px;line-height:21px">2 tests · one per partner · quantity 1</span>
-</span>
-<span style="font-size:17px;font-weight:600;white-space:nowrap">£398</span>
-</div>
-<div style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border)">
-<div style="display:flex;justify-content:space-between;gap:20px"><span class="body-text" style="font-size:17px;line-height:21px">Subtotal</span><span style="font-size:17px;font-weight:600">£517</span></div>
-<div style="margin-top:12px;display:flex;justify-content:space-between;gap:20px"><span class="body-text" style="font-size:17px;line-height:21px">Subscription saving</span><span style="font-size:17px;font-weight:600">–£131</span></div>
-<div style="margin-top:12px;display:flex;justify-content:space-between;gap:20px"><span class="body-text" style="font-size:17px;line-height:21px">Delivery</span><span style="font-size:17px;font-weight:600">Free</span></div>
-</div>
-<div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:20px;align-items:baseline">
-<span class="card-title" style="font-size:21px">Total</span>
-<span style="font-size:24px;line-height:var(--ph-lh-24);font-weight:600">£517</span>
-</div>
-<div style="margin-top:24px"><a class="link-more" href="/phenome-store/store/cart/">Edit your cart</a></div>
-</div>
-<div class="card-gray" style="margin-top:20px">
-<h3 class="card-title" style="font-size:21px">What arrives</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A sample collection kit per test, colour-coded, with everything needed to take the sample at home and send it back. No appointment, no clinic, no waiting room.</p>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Every result lands in the free Phenome app, on iOS and Android, with the explanation next to it.</p>
-<div style="margin-top:16px"><a class="link-more" href="/phenome-store/testing/how-it-works/">How testing works</a></div>
-</div>
-<p class="body-text" style="margin-top:20px;font-size:14px">Figures above are carried through from the cart. Prices, the subscription saving and the tax treatment are placeholders and must be confirmed before publishing.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="section section-gray">
-<div class="wrap-wide">
-<h2 class="sec-title" style="margin-top:0">Before you order</h2>
-<div class="acc" style="margin-top:32px">
-<details class="acc-item"><summary>When does the kit arrive?</summary><div class="acc-body">Free UK delivery in 2–3 working days, in discreet packaging. Activate it in the app when it arrives.</div></details>
-<details class="acc-item"><summary>Who sees my data?</summary><div class="acc-body">Your data is encrypted and never sold. Results live in your own profile in the Phenome app, and you decide who else ever sees them.</div></details>
-<details class="acc-item"><summary>Do I need anything else to use this?</summary><div class="acc-body">The free Phenome app, on iOS and Android. Every report is delivered there, and the in-app assistant answers questions about it in plain language. <a href="/phenome-store/app/">See the app</a>.</div></details>
-<details class="acc-item"><summary>Something is wrong with my order.</summary><div class="acc-body">Message the team before the kit ships and we will sort it. <a href="/phenome-store/contact/">Contact support</a>.</div></details>
-</div>
-<p class="body-text" style="margin-top:32px;font-size:17px;line-height:21px">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment.</p>
-</div>
-</section>
-<section class="cta-band">
-<div class="wrap">
-<h2>Questions before you order?</h2>
-<p>A real person will get back to you.</p>
-<div class="cta-actions">
-<a class="btn" href="/phenome-store/contact/">Talk to us</a>
-<a class="link-more" href="/phenome-store/testing/how-it-works/">How testing works</a>
-</div>
-</div>
-</section>
+
+<aside class="co-side" id="coSummary" aria-label="Order summary">
+<div class="co-side-in" data-summary=""></div>
+</aside>
 </main>
-<div data-ph-footer=""></div>
+
+<script src="/phenome-store/store/cart/cart.js"></script>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/store/checkout/checkout.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>

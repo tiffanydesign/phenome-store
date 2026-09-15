@@ -1442,4 +1442,23 @@
   carousels();
   railx();
   pinned();
+  cartKit();
+
+  /* The cart drawer rides on every page that loads this file, so 80 pages do
+     not each need their own two tags. The base comes from this script's own
+     src, the same way phenome-routes.js finds it. */
+  function cartKit() {
+    var me = document.currentScript;
+    if (!me || document.querySelector('script[src$="/store/cart/cart.js"]')) return;
+    var base = me.src.replace(/\/shared\.js.*$/, '');
+    if (!document.querySelector('link[href$="/store/cart/cart.css"]')) {
+      var l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = base + '/store/cart/cart.css';
+      document.head.appendChild(l);
+    }
+    var s = document.createElement('script');
+    s.src = base + '/store/cart/cart.js';
+    document.body.appendChild(s);
+  }
 })();
