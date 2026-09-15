@@ -48,18 +48,24 @@
 </div>
 
 <div class="bd-col">
+
+<!-- REBALANCED 2026-09-15, by request, on the buy column of
+     store/phenometech-ring: the head reads name, promise, one line of what it
+     is, and a rule; then the choices, each under a field name with its value
+     beside it; then one price card holding the total and both buttons; then
+     what is in the box. The price that stood under the head is gone, because
+     the card says the same number where the decision is made. -->
 <div class="bd-head">
-<div class="bd-head-row">
 <h1 class="bd-name">PhenomeTech Band</h1>
+<div class="bd-head-row">
+<p class="bd-tag">Your day, read as it happens.</p>
 <a class="bd-others" href="/phenome-store/devices/ring/">Ring instead</a>
 </div>
-<p class="bd-tag">Your day, read as it happens.</p>
+<p class="bd-lede">A screenless band that reads your heart, sleep, temperature and training all day, and turns it into a plan built around your genome and microbiome.</p>
 </div>
 
-<p class="bd-price"><span class="bd-price-n" data-price="">£149</span><span class="bd-price-s">Delivery, returns and the app included, no subscription</span></p>
-
 <div class="bd-opt">
-<p class="bd-opt-k"><b data-colour-label="">Sage</b> <span data-colour-note="">(ships now)</span></p>
+<p class="bd-opt-k">Colour<span><b data-colour-label="">Sage</b> <em data-colour-note="">(ships now)</em></span></p>
 <div class="bd-swatches" role="radiogroup" aria-label="Colour">
 <button aria-checked="true" class="bd-sw on" data-colour="sage" data-note="(ships now)" role="radio" style="--sw:#8fc49a" type="button" aria-label="Sage"></button>
 <button aria-checked="false" class="bd-sw" data-colour="midnight" data-note="(ships in two weeks)" role="radio" style="--sw:#203a85" type="button" aria-label="Midnight"></button>
@@ -67,20 +73,8 @@
 </div>
 </div>
 
-<div class="bd-note">
-<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l8.2 4.6v9.2L12 21.2l-8.2-4.6V7.4z M3.9 7.4L12 12l8.1-4.6 M12 12v9.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-<p><b>In the box,</b> both strap sizes (small to medium and medium to large), the charging dock and its cable.</p>
-</div>
-
-<div class="bd-toggle">
-<label for="bd-reserved">Already reserved a band?</label>
-<button class="bd-tip" type="button" aria-describedby="bd-tip-t" aria-label="What a reservation means">?</button>
-<span class="bd-tip-t" id="bd-tip-t" role="tooltip">Reserved before launch? Switch this on and your deposit comes off at checkout.</span>
-<input class="bd-switch" id="bd-reserved" data-reserved="" role="switch" type="checkbox"/>
-</div>
-
-<div class="bd-straps">
-<p class="bd-straps-k">Straps</p>
+<div class="bd-opt bd-straps">
+<p class="bd-opt-k">Straps</p>
 <p class="bd-straps-d">Each strap arrives on its own frame, so a change takes a second. Pick a spare for the gym or the evening.</p>
 <details class="bd-acc" data-straps="">
 <summary><span>Add spare straps</span><i aria-hidden="true"></i></summary>
@@ -93,13 +87,25 @@
 </details>
 </div>
 
+<div class="bd-toggle">
+<label for="bd-reserved">Already reserved a band?</label>
+<button class="bd-tip" type="button" aria-describedby="bd-tip-t" aria-label="What a reservation means">?</button>
+<span class="bd-tip-t" id="bd-tip-t" role="tooltip">Reserved before launch? Switch this on and your deposit comes off at checkout.</span>
+<input class="bd-switch" id="bd-reserved" data-reserved="" role="switch" type="checkbox"/>
+</div>
+
 <!-- Read by store/cart/cart.js: the whole choice as one line. -->
 <p class="bd-variant" data-cart-variant="" hidden="">Sage</p>
 
 <div class="bd-cta">
-<p class="bd-cta-price"><b data-price-echo="">£149</b><span>Delivery and returns included</span></p>
+<p class="bd-cta-price"><b data-price="">£149</b><span>Delivery, returns and the app included, no subscription</span></p>
 <a class="btn" href="/phenome-store/store/cart/">Add to bag</a>
 <button class="btn bd-now" data-buy-now="" type="button">Buy now</button>
+</div>
+
+<div class="bd-note">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l8.2 4.6v9.2L12 21.2l-8.2-4.6V7.4z M3.9 7.4L12 12l8.1-4.6 M12 12v9.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+<p><b>In the box,</b> both strap sizes (small to medium and medium to large), the charging dock and its cable.</p>
 </div>
 </div>
 

@@ -566,3 +566,63 @@
   .bd .bd-slide, .bd .bd-app, .bd .bd-app-img { transition: none; }
   .bd .bd-gal-dot.on::after { animation: none; transform: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   11 · THE HERO, REBALANCED (2026-09-15, by request)
+   The left and right arrangement of store/phenometech-ring's hero, so the two
+   devices buy the same way: a tall frame that finishes level with the column,
+   a fixed width column, one head with a rule under it, field names with their
+   value beside them, and a single price card. What was wrong before: an 8 by 7
+   frame 557px tall beside a column of 700 and more, which left a slab of empty
+   ground under the photograph, and the price said twice.
+   ------------------------------------------------------------------------ */
+.bd .bd-head { padding-bottom: 24px; border-bottom: 1px solid var(--divider); }
+.bd .bd-head-row { align-items: center; margin-top: 12px; }
+.bd .bd-name { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04; }
+.bd .bd-others { margin-top: 0; padding: 7px 12px; font-size: 14px; font-weight: 500; }
+.bd .bd-tag {
+  margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.25;
+  font-weight: 600; color: var(--ph-accent);
+}
+.bd .bd-lede { margin: 12px 0 0; font-size: 17px; line-height: 1.55; color: var(--ph-text-2); }
+
+.bd .bd-opt { margin-top: 26px; }
+.bd .bd-opt-k {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; color: var(--ink-900);
+}
+.bd .bd-opt-k span { font-weight: 400; color: var(--ph-text-2); }
+.bd .bd-opt-k span b { font-weight: 400; }
+.bd .bd-opt-k em { font-style: normal; font-size: 15px; }
+.bd .bd-swatches { margin-top: 14px; gap: 16px; }
+.bd .bd-sw { width: 44px; height: 44px; }
+
+.bd .bd-straps { margin-top: 26px; }
+.bd .bd-straps-d { margin: 6px 0 0; font-size: 16px; line-height: 1.5; color: var(--ph-text-2); }
+.bd .bd-acc { margin-top: 14px; }
+.bd .bd-acc summary { font-size: 16px; padding: 17px 20px; }
+.bd .bd-strap-n, .bd .bd-strap-p { font-size: 15px; }
+
+.bd .bd-toggle { margin-top: 12px; padding: 15px 20px; }
+.bd .bd-toggle label { font-size: 16px; }
+
+/* the price card: the total and its promise on top, both buttons under it */
+.bd .bd-cta {
+  grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px;
+  padding: 20px 22px 22px; border-top: 0; border-radius: 16px; background: var(--gl-tint-sunk, #f4f6fb);
+}
+.bd .bd-cta-price { grid-column: 1 / -1; margin-bottom: 4px; }
+.bd .bd-cta-price b { font-size: 40px; line-height: 46px; letter-spacing: -0.02em; }
+.bd .bd-cta-price span { margin-top: 2px; font-size: 15px; line-height: 20px; color: var(--ph-text-2); }
+.bd .bd-cta .btn { height: 52px; justify-content: center; font-size: 17px; font-weight: 600; }
+
+.bd .bd-note { margin-top: 18px; padding: 0 4px; background: none; border-radius: 0; }
+.bd .bd-note p { font-size: 16px; }
+
+@media (min-width: 1025px) {
+  .bd .bd-hero { padding-top: 40px; }
+  .bd .bd-buy { grid-template-columns: minmax(0, 1fr) 470px; gap: clamp(40px, 4vw, 64px); }
+  /* The frame's height is the column's: stretched to the row and cropped, so
+     the two tracks finish level whatever the straps panel is doing. */
+  .bd .bd-gal { aspect-ratio: auto; align-self: stretch; min-height: 640px; position: relative; top: 0; }
+}
