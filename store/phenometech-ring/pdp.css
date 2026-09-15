@@ -2062,3 +2062,96 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    page it was: a photograph, a column of options, four figures, a navy band, a
    film, two materials and a table. Every enhancement above is additive and every
    control that needs script is a <button> that shows its state in the markup. */
+
+/* ===========================================================================
+   10 · THE BUY COLUMN, REBALANCED (2026-09-15, by request)
+
+   What was wrong, measured at 1440x900:
+     · ~100px of empty ground between the lede and "Material": a 53px margin
+       under a 44px padding under the head's hairline;
+     · the three field names at 14px and the chosen value shoved to the far
+       right edge, 300px from the name it answers;
+     · "or £14.92/mo" at 12px, the smallest type in the column;
+     · the chosen size ringed by a 0.67px line, which at 44px reads as no
+       ring at all.
+
+   The column still finishes level with the frame beside it, which is the one
+   proportion this hero keeps. The height comes back from the controls rather
+   than from air: bigger type, bigger targets, one even rhythm between groups.
+
+   Placed last and wrapped in the desktop query, so the stacked layouts below
+   1024 keep the sizes their own blocks already give them. The few rules that
+   are right at every width (the ring on the chosen size, the value beside its
+   field name, the Blush tones) sit outside it.
+   ======================================================================== */
+
+/* the tones for the third ceramic, read off the Blush studio still */
+.pdp [data-tone="c-blush"] {
+  --rf-hi: #fff4f7; --rf-body: #e8bccb; --rf-sh: #a87b8c; --rf-rim: #f3d6df;
+}
+/* `hidden` on a swatch has to win over the flex display the row gives it */
+.pdp .buy-swatch[hidden] { display: none; }
+
+/* The value sits beside its name, not across the column from it. */
+.pdp .pdp-opt-k {
+  justify-content: flex-start; align-items: baseline; gap: 10px;
+  font-size: 16px; line-height: 22px; font-weight: var(--ph-w-600);
+  color: var(--ink-900);
+}
+.pdp .pdp-opt-k span {
+  margin-left: 0; text-align: left;
+  font-weight: var(--ph-w-400); color: var(--ph-text-2);
+}
+
+/* THE CHOSEN SIZE IS RINGED IN THE ACCENT AT 2.5PX. An inset shadow rather
+   than a thicker border, so the chip does not grow by 4px and push its row. */
+.pdp .buy-chips .tag.on {
+  border-color: var(--ph-accent);
+  box-shadow: inset 0 0 0 2px var(--ph-accent), 0 8px 22px -16px rgba(32, 58, 133, .55);
+  color: var(--ph-accent); font-weight: var(--ph-w-600);
+}
+.pdp .buy-price .buy-sub { font-size: 14px; line-height: 20px; color: var(--ph-text-2); }
+
+@media (min-width: 1025px) {
+  .pdp .buy { gap: clamp(40px, 4vw, 64px); grid-template-columns: minmax(0, 1fr) 470px; }
+
+  /* head: the name, the promise and the lede, then straight into the choices */
+  .pdp .buy-col > .pdp-head { margin: 0 0 30px; padding-bottom: 28px; }
+  .pdp .pdp-head .pdp-name { font-size: clamp(38px, 3.2vw, 48px); line-height: 1.04; }
+  .pdp .pdp-head .pdp-tagline { margin-top: 12px; font-size: clamp(21px, 1.6vw, 24px); }
+  .pdp .pdp-head .lede { margin-top: 14px; font-size: 17px; line-height: 1.58; }
+
+  /* one rhythm between the groups */
+  .pdp .buy-opt + .buy-opt { margin-top: 34px; }
+  .pdp .pdp-opt-k { margin-bottom: 0; }
+
+  /* material: a pair of wide rows, name left and price right */
+  .pdp .buy-choices { margin-top: 12px; gap: 12px; }
+  .pdp .buy-choice {
+    min-height: 74px; padding: 0 22px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .pdp .buy-choice .n { font-size: 20px; line-height: 26px; font-weight: var(--ph-w-600); }
+  .pdp .buy-choice .p { font-size: 18px; line-height: 24px; }
+
+  /* finish: three discs you can actually aim at */
+  .pdp .buy-swatches { margin-top: 14px; gap: 18px; }
+  .pdp .buy-swatch { width: 40px; height: 40px; }
+  .pdp .buy-swatch.on { outline-offset: 4px; }
+
+  /* size: eight equal chips across the column */
+  .pdp .buy-chips { margin-top: 12px; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+  .pdp .buy-chips .tag { min-width: 0; height: 50px; padding-inline: 0; justify-content: center; font-size: 17px; border-radius: 14px; }
+  .pdp .buy-alt { margin-top: 14px; font-size: 16px; }
+
+  /* price: the number and the monthly line both readable */
+  .pdp .buy-price { margin-top: 32px; padding: 22px 24px; border-radius: 16px; }
+  .pdp .buy-price .stat-num { font-size: 42px; line-height: 48px; }
+  .pdp .buy-price .buy-sub { margin-top: 2px; font-size: 15px; line-height: 20px; color: var(--ph-text-2); }
+  .pdp .buy-price .btn { height: 52px; padding: 0 30px; font-size: 17px; font-weight: var(--ph-w-600); }
+
+  /* the three promises */
+  .pdp .buy-col .ticks { margin-top: 22px; gap: 10px; }
+  .pdp .buy-col .ticks li { font-size: 16px; line-height: 22px; grid-template-columns: 18px 1fr; }
+  .pdp .buy-col .ticks svg { width: 17px; height: 17px; margin-top: 3px; }
+}

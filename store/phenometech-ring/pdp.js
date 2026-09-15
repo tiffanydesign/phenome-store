@@ -95,7 +95,12 @@
     { id: 'white',    name: 'Arctic White', mat: 'ceramic',  clip: 'white',
       hi: '#ffffff', body: '#dfe2e9', sh: '#aeb4c1' },
     { id: 'onyx',     name: 'Onyx',         mat: 'ceramic',  clip: 'graphite',
-      hi: '#6e7783', body: '#14161a', sh: '#000000' }
+      hi: '#6e7783', body: '#14161a', sh: '#000000' },
+    /* Blush, 2026-09-15: the third ceramic, so each material offers three and
+       the finish row can show only the chosen material's own. Its film is the
+       pink scene cut from the colourway film; its still is the studio shot. */
+    { id: 'blush',    name: 'Blush',        mat: 'ceramic',  clip: 'blush',
+      hi: '#fff4f7', body: '#e8bccb', sh: '#a87b8c' }
   ];
   var MATERIALS = {
     titanium: { name: 'Titanium', price: 179, mo: '14.92', sw: '#C6A15B' },
@@ -656,8 +661,17 @@
          left would have been funny. The `.on` outline is the only state the
          row needs — which material a finish belongs to is already answered by
          the tag on the photograph and by the card that lights up. */
+      /* ONLY THE CHOSEN MATERIAL'S THREE, 2026-09-15, by request. The row
+         used to hold all five and let a finish pick its material; now the
+         material card is the first question and the row answers it with that
+         material's own finishes. Nothing is disabled, the other three are
+         simply not in the row, so the concern above (a control that looks
+         live and is not) cannot come back. Crossing materials is still one
+         press away, on the card above. */
       for (var j = 0; j < swatches.length; j++) {
         var id = swatches[j].getAttribute('data-swatch');
+        var mine = swatches[j].getAttribute('data-mat');
+        swatches[j].hidden = !!mine && mine !== s.material;
         swatches[j].classList.toggle('on', id === s.finish);
         swatches[j].setAttribute('aria-pressed', id === s.finish ? 'true' : 'false');
       }

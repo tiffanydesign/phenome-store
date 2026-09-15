@@ -45,7 +45,7 @@
 <div class="pdp-gal-track" data-gal-track="">
 
 <div aria-label="1 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--film" data-follows="" data-slide="" role="group">
-<!-- Four clips, five finishes: Graphite and Onyx share the black scene, the
+<!-- Five clips, six finishes: Graphite and Onyx share the black scene, the
      same way they share the black studio still. No `autoplay` — pdp.js plays
      the current one and pauses the rest, so a page with no script shows a
      poster that is a frame of the same film rather than four videos fighting
@@ -57,6 +57,7 @@
 <video aria-label="A black ring above ink wash mountains" data-clip="graphite" id="pdp-cw-graphite" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-graphite.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-graphite.mp4" type="video/mp4"/></video>
 <video aria-label="A white ring above a bank of cloud" data-clip="white" id="pdp-cw-white" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-white.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-white.mp4" type="video/mp4"/></video>
 <video aria-label="A silver ring resting on dark draped fabric" data-clip="silver" id="pdp-cw-silver" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-silver.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-silver.mp4" type="video/mp4"/></video>
+<video aria-label="A blush ring turning above pink flowers" data-clip="blush" id="pdp-cw-blush" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-blush.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-blush.mp4" type="video/mp4"/></video>
 </div>
 
 <!-- The studio stills: stacked and crossfading with the swatch, so the
@@ -67,6 +68,7 @@
 <img alt="The PhenomeTech Ring in silver titanium, side on" data-finish="silver" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in arctic white ceramic, side on" data-finish="white" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white_sq.webp" width="1254"/>
 <img alt="The PhenomeTech Ring in onyx ceramic, side on" data-finish="onyx" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp" width="1254"/>
+<img alt="The PhenomeTech Ring in blush ceramic, side on" data-finish="blush" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_pink_sq.webp" width="1254"/>
 </div>
 <!-- Silver, gold and graphite above the dock: three of the five finishes, and
      all three real. (The four-up beige still that once stood here showed a pink
@@ -129,11 +131,12 @@
 <div class="buy-opt">
 <p class="pdp-opt-k">Finish<span data-finish-label="">Gold</span></p>
 <div class="buy-swatches">
-<button aria-label="Gold" aria-pressed="true" class="buy-swatch on" data-swatch="gold" data-tone="t-gold" type="button"></button>
-<button aria-label="Graphite" aria-pressed="false" class="buy-swatch" data-swatch="graphite" data-tone="t-black" type="button"></button>
-<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-swatch="silver" data-tone="t-silver" type="button"></button>
-<button aria-label="Arctic White" aria-pressed="false" class="buy-swatch" data-swatch="white" data-tone="c-white" type="button"></button>
-<button aria-label="Onyx" aria-pressed="false" class="buy-swatch" data-swatch="onyx" data-tone="c-black" type="button"></button>
+<button aria-label="Gold" aria-pressed="true" class="buy-swatch on" data-mat="titanium" data-swatch="gold" data-tone="t-gold" type="button"></button>
+<button aria-label="Graphite" aria-pressed="false" class="buy-swatch" data-mat="titanium" data-swatch="graphite" data-tone="t-black" type="button"></button>
+<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-mat="titanium" data-swatch="silver" data-tone="t-silver" type="button"></button>
+<button aria-label="Arctic White" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="white" data-tone="c-white" type="button" hidden=""></button>
+<button aria-label="Onyx" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="onyx" data-tone="c-black" type="button" hidden=""></button>
+<button aria-label="Blush" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="blush" data-tone="c-blush" type="button" hidden=""></button>
 </div>
 </div>
 
@@ -379,10 +382,12 @@
 <div class="pdp-vs-fig" data-vs-fig="ceramic">
 <img alt="The PhenomeTech Ring in arctic white ceramic, three quarter view with the sensor face showing" data-finish="white" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_white.webp" width="1400"/>
 <img alt="The PhenomeTech Ring in onyx ceramic, three quarter view with the sensor face showing" data-finish="onyx" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_black.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in blush ceramic, three quarter view with the sensor face showing" data-finish="blush" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_blush.webp" width="1400"/>
 </div>
 <div class="pdp-vs-sw">
 <button aria-label="Arctic White" class="pdp-vs-dot on" data-swatch="white" data-tone="c-white" type="button"></button>
 <button aria-label="Onyx" class="pdp-vs-dot" data-swatch="onyx" data-tone="c-black" type="button"></button>
+<button aria-label="Blush" class="pdp-vs-dot" data-swatch="blush" data-tone="c-blush" type="button"></button>
 </div>
 <p class="pdp-vs-swname" data-vs-swname="ceramic">Arctic White</p>
 
