@@ -1,0 +1,183 @@
+/* ============================================================================
+   devices/ring-lab · 28 to 37, the second half of the long story
+   Same rules as gen-a.css: the reference's section shapes, Phenome's palette.
+   The two pinned black sections (battery, sensing) are the reference's
+   300vh and 150vh scroll stages, driven from gen.js.
+   ========================================================================== */
+
+/* ---- 28 · battery, two numbers trade places ------------------------------ */
+.lab .gx-battery { position: relative; height: 300vh; background: #000; color: #fff; overflow: clip; }
+.lab .gx-bat-stage {
+  position: fixed; inset: 0; z-index: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  pointer-events: none;
+  opacity: var(--bat-o, 0); transform: translateY(var(--bat-y, 100vh));
+  visibility: var(--bat-v, hidden);
+}
+.lab .gx-bat-titles { position: relative; width: 100%; height: 9vw; min-height: 74px; display: grid; place-items: center; overflow: hidden; }
+.lab .gx-bat-t {
+  grid-area: 1 / 1; margin: 0; width: 100%; text-align: center;
+  font-size: clamp(44px, 8vw, 154px); line-height: 1.05; font-weight: 700; letter-spacing: -0.03em;
+  transition: color .3s;
+}
+.lab .gx-bat-n { color: #8fd3e8; }
+.lab .gx-bat-t.is-a { opacity: var(--a-o, 1); transform: translateY(var(--a-y, 0)); }
+.lab .gx-bat-t.is-b { opacity: var(--b-o, 0); transform: translateY(var(--b-y, 8vw)); }
+.lab .gx-bat-t.is-b .gx-bat-n { color: #a8dced; }
+.lab .gx-bat-descs { position: relative; margin-top: 2.4vw; display: grid; }
+.lab .gx-bat-d { grid-area: 1 / 1; margin: 0; text-align: center; font-size: clamp(14px, 1.45vw, 28px); color: rgba(255,255,255,.9); }
+.lab .gx-bat-d.is-a { opacity: var(--a-o, 1); }
+.lab .gx-bat-d.is-b { opacity: var(--b-o, 0); color: rgba(255,255,255,.55); }
+
+/* ---- 29 · the case is a .gx-float, dark ground ---------------------------- */
+.lab .gx-float.is-case { background: #000; }
+.lab .gx-float.is-case .gx-float-img { object-position: 60% 50%; }
+.lab .gx-float.is-case::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #000 6%, rgba(0,0,0,.72) 34%, transparent 62%); }
+.lab .gx-float-h.is-cyan { color: #9fe0f0; }
+.lab .gx-float-d.is-wide { max-width: 30vw; }
+
+/* ---- 30 · sensing, the ring grows behind its numbers ---------------------- */
+.lab .gx-chip { position: relative; height: 170vh; background: #000; color: #fff; overflow: clip; }
+.lab .gx-chip-stage { position: fixed; inset: 0; z-index: 0; display: grid; place-items: center; pointer-events: none; }
+.lab .gx-chip-img {
+  width: min(62vw, 760px); height: auto; max-height: 76vh; object-fit: contain;
+  opacity: var(--chip-o, 0); transform: scale(var(--chip-s, 1));
+  filter: drop-shadow(0 0 80px rgba(120, 190, 255, .25));
+}
+.lab .gx-chip-text {
+  position: relative; z-index: 1; width: 60vw; margin: 0 auto; padding-top: 115vh; padding-bottom: 16vh;
+  text-align: center; color: #fff;
+}
+.lab .gx-chip-t { margin: 0; font-size: clamp(26px, 2.6vw, 50px); line-height: 1.1; font-weight: 700; text-shadow: 0 0 .5vw rgba(140, 220, 255, .6); opacity: var(--t-o, 0); }
+.lab .gx-chip-d { margin: 1.2vw 0 0; font-size: clamp(14px, 1.1vw, 21px); line-height: 1.5; text-shadow: 0 0 .3vw rgba(0,0,0,.7); opacity: var(--d-o, 0); }
+.lab .gx-chip-nums { display: flex; justify-content: center; gap: 8vw; margin-top: 2.4vw; opacity: var(--n-o, 0); }
+.lab .gx-chip-nums p { margin: 0; display: grid; }
+.lab .gx-chip-nums b { font-size: clamp(40px, 4.2vw, 80px); line-height: 1; font-weight: 700; color: #9fe0f0; }
+.lab .gx-chip-nums span { margin-top: .4vw; font-size: clamp(13px, .95vw, 18px); color: rgba(255,255,255,.7); }
+
+/* ---- 32 · signal cards ----------------------------------------------------- */
+.lab .gx-cards.is-metrics { background: var(--gx-tint); padding-top: 3vw; }
+.lab .gx-card.is-metric { width: clamp(280px, 17.2vw, 330px); aspect-ratio: 330 / 290; border-radius: clamp(10px, .6vw, 12px); padding: 20px; }
+.lab .gx-card.is-photo { background: #2b2f3a; color: #fff; }
+.lab .gx-card.is-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.lab .gx-card.is-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0 30%, rgba(0,0,0,.2) 55%, rgba(0,0,0,.6)); }
+.lab .gx-card.is-metric > * { position: relative; z-index: 1; }
+.lab .gx-m-t { margin: 0; font-size: 18px; font-weight: 600; }
+.lab .gx-m-d { margin: 6px 0 0; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.72); }
+.lab .gx-m-v { position: absolute; left: 20px; bottom: 16px; margin: 0; font-size: clamp(22px, 1.6vw, 30px); font-weight: 500; color: var(--c, #fff); }
+.lab .gx-card.is-metric .gx-ui-chart { margin-top: 18px; }
+
+/* ---- 33 · biometrics ------------------------------------------------------- */
+.lab .gx-bio { background: var(--gx-tint); padding: 4vw 0 5vw; overflow: clip; }
+.lab .gx-bio-h { margin: 0 auto 2vw; width: fit-content; text-align: center; font-size: clamp(28px, 2.6vw, 50px); line-height: 1.22; font-weight: 500; letter-spacing: -0.02em; }
+.lab .gx-bio-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: 2vw; width: 82vw; max-width: 1560px; margin: 0 auto; }
+.lab .gx-bio-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.9vw; }
+.lab .gx-bio-list li { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 1vw; align-items: center; }
+.lab .gx-bio-list li:nth-child(2) { transition-delay: .06s; }
+.lab .gx-bio-list li:nth-child(3) { transition-delay: .12s; }
+.lab .gx-bio-list li:nth-child(4) { transition-delay: .18s; }
+.lab .gx-bio-list li:nth-child(5) { transition-delay: .24s; }
+.lab .gx-bio-list li:nth-child(6) { transition-delay: .3s; }
+.lab .gx-bio-list i { grid-row: 1 / 3; display: grid; place-items: center; width: clamp(30px, 2.1vw, 40px); aspect-ratio: 1; border-radius: 50%; background: var(--c); }
+.lab .gx-bio-list i svg { width: 60%; fill: #fff; }
+.lab .gx-bio-list b { font-size: clamp(16px, 1.15vw, 22px); font-weight: 600; }
+.lab .gx-bio-list span { font-size: clamp(12px, .8vw, 15px); color: #7a7f8c; }
+/* The ring holds the left two thirds and the labels stand clear in the
+   remaining third, each joined to its point by a leader line that grows to
+   fill whatever gap is left. Writing the label over the photograph, which is
+   silver on silver, makes both unreadable. */
+.lab .gx-bio-ring { position: relative; padding-right: 30%; }
+/* the cutaway render ships on white; multiplying it into the tint drops the
+   plate without a mask, since the ground is near white and the ring is not */
+.lab .gx-bio-ring img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+.lab .gx-call { position: absolute; left: var(--x); top: var(--y); right: 0; display: flex; align-items: center; opacity: 0; transform: translateX(-8px); transition: opacity .6s ease, transform .8s var(--lab-ease); }
+.lab .gx-call::after { content: ""; order: 1; flex: 1 1 auto; height: 1px; margin: 0 10px; background: #9fb4e6; }
+.lab .gx-bio.is-in .gx-call { opacity: 1; transform: none; }
+.lab .gx-bio.is-in .gx-call:nth-of-type(2) { transition-delay: .15s; }
+.lab .gx-bio.is-in .gx-call:nth-of-type(3) { transition-delay: .3s; }
+.lab .gx-bio.is-in .gx-call:nth-of-type(4) { transition-delay: .45s; }
+.lab .gx-call i { order: 0; flex: 0 0 auto; width: 9px; height: 9px; border-radius: 50%; background: #3e6ad6; box-shadow: 0 0 0 4px rgba(62, 106, 214, .18); }
+.lab .gx-call em { order: 2; flex: 0 0 auto; font-style: normal; font-size: clamp(12px, .95vw, 18px); line-height: 1.25; color: #2b2f3a; }
+
+/* ---- 34 · deeper in the app ------------------------------------------------- */
+.lab .gx-deeper { background: var(--gx-tint); padding: 3vw 0 5vw; }
+.lab .gx-deeper .gx-row-head { align-items: center; margin-bottom: 3vw; padding: 0 8.5vw; }
+.lab .gx-deeper-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2vw; width: 88vw; max-width: 1690px; margin: 0 auto; }
+.lab .gx-dp { position: relative; margin: 0; border-radius: clamp(10px, .6vw, 12px); overflow: hidden; aspect-ratio: 616 / 636; }
+.lab .gx-dp:nth-child(2) { transition-delay: .1s; }
+.lab .gx-dp img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lab .gx-dp::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.6)); }
+.lab .gx-dp.is-dark::after { background: linear-gradient(180deg, transparent 35%, rgba(4,8,22,.78)); }
+.lab .gx-dp figcaption { position: absolute; z-index: 1; left: 6%; right: 6%; bottom: 6%; text-align: center; color: #fff; }
+.lab .gx-dp b { display: block; font-size: clamp(24px, 2.2vw, 42px); line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; }
+.lab .gx-dp span { display: block; margin-top: .8vw; font-size: clamp(14px, 1.05vw, 20px); line-height: 1.35; }
+.lab .gx-dp small { display: block; margin-top: .6vw; font-size: clamp(11px, .7vw, 13px); color: rgba(255,255,255,.65); }
+
+/* ---- 35 · small features ----------------------------------------------------- */
+.lab .gx-cards.is-small { padding-top: 0; }
+.lab .gx-card.is-feat { width: clamp(240px, 17vw, 326px); min-height: clamp(160px, 9.5vw, 182px); border-radius: clamp(10px, .6vw, 12px); background: #eceff5; padding: 24px; }
+.lab .gx-card.is-feat svg { width: 40px; height: 40px; }
+.lab .gx-f-t { margin: 14px 0 0; font-size: clamp(16px, 1.15vw, 22px); font-weight: 600; }
+.lab .gx-f-d { margin: 8px 0 0; font-size: clamp(13px, .85vw, 16px); line-height: 1.4; color: #6b7080; }
+
+/* ---- 36 · split slides --------------------------------------------------------- */
+.lab .gx-cards.is-split { padding-bottom: 5vw; }
+.lab .gx-card.is-split-card { display: grid; grid-template-columns: 1fr 1fr; width: 74vw; max-width: 1420px; aspect-ratio: 1420 / 480; border-radius: clamp(10px, .6vw, 12px); background: #eceff5; }
+.lab .gx-sp-copy { position: relative; padding: 4% 6%; display: flex; flex-direction: column; }
+.lab .gx-sp-t { margin: 0; font-size: clamp(24px, 2.3vw, 44px); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; }
+.lab .gx-sp-d { margin: 1.2vw 0 0; max-width: 26em; font-size: clamp(14px, 1vw, 19px); line-height: 1.5; color: #4b5060; }
+.lab .gx-sp-glyph { margin: auto 0 0; font-size: clamp(40px, 5vw, 96px); line-height: 1; font-weight: 700; letter-spacing: -0.04em; color: #c3c8d4; }
+.lab .gx-sp-glyph small { font-size: .32em; margin-left: .18em; letter-spacing: 0; }
+.lab .gx-card.is-split-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---- 37 · which ring ------------------------------------------------------------ */
+.lab .gx-pick { background: #fff; padding: 4vw 0 6vw; }
+.lab .gx-pick .gx-sec-h { margin-bottom: 3vw; }
+.lab .gx-pick-panel { width: 62vw; max-width: 1200px; margin: 0 auto; border-radius: clamp(12px, .8vw, 16px); background: #f2f3f6; padding: 2.4vw 3vw 3vw; box-sizing: border-box; }
+.lab .gx-pick-row { display: grid; grid-template-columns: minmax(120px, .8fr) 1fr 1fr; gap: 2vw; padding: 1.5vw 0; border-top: 1px solid #dfe1e8; font-size: clamp(13px, .95vw, 17px); line-height: 1.5; color: #5a5f6d; }
+.lab .gx-pick-row b { color: var(--lab-ink); font-weight: 600; }
+.lab .gx-pick-row strong { color: var(--lab-ink); font-weight: 600; }
+.lab .gx-pick-row.is-head { border-top: 0; text-align: center; padding-top: 0; }
+.lab .gx-pick-p img { width: clamp(90px, 8vw, 150px); height: auto; border-radius: 12px; }
+.lab .gx-pick-n { margin: 1vw 0 0; font-size: clamp(15px, 1.1vw, 20px); font-weight: 600; color: var(--lab-ink); }
+.lab .gx-pick-pr { margin: .4vw 0 0; font-size: clamp(13px, .95vw, 17px); }
+.lab .gx-pick-sw { display: flex; justify-content: center; gap: 8px; margin: .9vw 0 0; }
+.lab .gx-pick-sw i { width: 14px; height: 14px; border-radius: 50%; background: var(--s); box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset; }
+.lab .gx-pick-v {
+  display: inline-flex; align-items: center; justify-content: center; margin-top: 1.4vw;
+  min-width: 96px; height: 42px; padding: 0 22px; border-radius: 99px;
+  background: #e2e4ea; color: var(--lab-ink) !important; text-decoration: none !important; font-size: 15px; font-weight: 500;
+  transition: background .2s;
+}
+.lab .gx-pick-v:hover { background: #d3d6de; }
+
+/* ---- narrow ---------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .lab .gx-battery { height: 240vh; }
+  .lab .gx-bat-titles { height: 16vw; min-height: 64px; }
+  .lab .gx-float-d.is-wide { max-width: none; }
+  .lab .gx-chip { height: 150vh; }
+  .lab .gx-chip-img { width: 90vw; }
+  .lab .gx-chip-text { width: calc(100% - 40px); padding-top: 108vh; }
+  .lab .gx-chip-d br { display: none; }
+  .lab .gx-chip-nums { gap: 18vw; }
+  .lab .gx-bio-row { grid-template-columns: 1fr; gap: 28px; width: calc(100% - 40px); }
+  .lab .gx-bio-list { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lab .gx-bio-h br { display: none; }
+  /* no room for a label beside the ring, and a leader line pointing at
+     nothing is worse than no line, so the whole callout goes */
+  .lab .gx-bio-ring { padding-right: 0; }
+  .lab .gx-call { display: none; }
+  .lab .gx-deeper .gx-row-head { margin-bottom: 24px; gap: 16px; }
+  .lab .gx-deeper-grid { grid-template-columns: 1fr; gap: 12px; width: calc(100% - 40px); }
+  .lab .gx-dp { aspect-ratio: 4 / 3.6; }
+  .lab .gx-card.is-split-card { width: calc(100vw - 40px); aspect-ratio: auto; grid-template-columns: 1fr; }
+  .lab .gx-sp-copy { padding: 26px 22px; }
+  .lab .gx-sp-glyph { margin-top: 20px; }
+  .lab .gx-card.is-split-card img { aspect-ratio: 4 / 3; }
+  .lab .gx-pick-panel { width: calc(100% - 40px); padding: 22px 16px 24px; }
+  .lab .gx-pick-row { grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 0; }
+  .lab .gx-pick-row b { grid-column: 1 / -1; }
+  .lab .gx-pick-row.is-head > :first-child { display: none; }
+  .lab .gx-pick-row.is-head { grid-template-columns: 1fr 1fr; }
+}

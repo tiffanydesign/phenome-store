@@ -99,6 +99,51 @@
   transition: background .2s linear, color .2s linear;
 }
 
+/* Each category carries one line drawn glyph ahead of its name, the same
+   glyph on the pill and on the heading it jumps to, so the two read as one
+   thing. Stroke only, in the text colour, so it inverts with the live pill. */
+.shop .shop-rail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shop .shop-rail-ic,
+.shop .shop-cat-ic {
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shop .shop-rail-ic {
+  width: 16px;
+  height: 16px;
+  margin-left: -2px;
+  opacity: .8;
+}
+
+.shop .shop-rail-link.on .shop-rail-ic { opacity: 1; }
+
+.shop .shop-cat-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shop .shop-cat-ic {
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: var(--phenome-blue-100);
+  color: var(--phenome-blue-900);
+  stroke-width: 1.5;
+}
+
 .shop .shop-rail-link:hover { background: var(--phenome-blue-100); }
 
 .shop .shop-rail-link.on {
@@ -408,6 +453,7 @@
 
 @media (max-width: 560px) {
   .shop .shop-cat-title { font-size: var(--ph-fs-21); }
+  .shop .shop-cat-ic { width: 20px; height: 20px; padding: 5px; }
   .shop .pcard-name { font-size: var(--ph-fs-14); }
   .shop .pcard-desc { display: none; }
   .shop .pcard-price { font-size: var(--ph-fs-14); }

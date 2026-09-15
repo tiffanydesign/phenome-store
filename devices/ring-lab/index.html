@@ -17,6 +17,9 @@
      Phenome's type, colour, photography and copy (lab.css). -->
 <link href="/phenome-store/devices/ring-lab/lab-nav.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring-lab/lab.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring-lab/fit.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring-lab/gen-a.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring-lab/gen-b.css" rel="stylesheet"/>
 <link rel="preload" as="image" href="/phenome-store/assets/lab/hero-rings.webp" fetchpriority="high"/>
 <!-- Motion states that start hidden are keyed to this class, so without
      script the page is simply shown. Set before first paint. -->
@@ -285,6 +288,557 @@
 </div>
 </div>
 
+<!-- 14 · TUNED TO YOU · a phone pinned in the middle, five features pass it
+     on alternate sides and its screen follows them (ringconn.com gen 2 PDP) -->
+<svg class="fit-defs" aria-hidden="true" focusable="false">
+<symbol id="fit-yes" viewBox="0 0 32 32"><path d="M7 16.5l6 6L25.5 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="fit-no" viewBox="0 0 32 32"><path d="M9 9l14 14M23 9L9 23" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="fit-ic-ring" viewBox="0 0 32 32"><ellipse cx="16" cy="14" rx="10" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 14v3c0 3.9 4.5 7 10 7s10-3.1 10-7v-3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="fit-ic-band" viewBox="0 0 32 32"><rect x="10" y="9" width="12" height="14" rx="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9l1-5h6l1 5M12 23l1 5h6l1-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="fit-ic-watch" viewBox="0 0 32 32"><rect x="8.5" y="8" width="15" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11.5 8l1-5h7l1 5M11.5 24l1 5h7l1-5M16 12.5v4l2.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="fit-show" data-fit="">
+<div class="fit-wrap">
+<h2 class="fit-title fit-rise">Tuned to you<br/>Informed by data</h2>
+
+<div class="fit-stage">
+<div class="fit-device" aria-hidden="true">
+<div class="fit-phone">
+<div class="fit-notch"></div>
+
+<!-- sleep -->
+<div class="fit-scr on" data-scr="0">
+<p class="fs-bar"><span>07:12</span><b></b></p>
+<p class="fs-head">Sleep<i></i></p>
+<p class="fs-date"><span>Mon</span><b>Today</b><span></span></p>
+<div class="fs-card is-glow">
+<div class="fs-dial" style="--p:.86;--c:#8f9bff"><b>86</b><small>Good</small></div>
+<p class="fs-k">Sleep score factors</p>
+<div class="fs-pair"><p><small>Time asleep</small><b>7<i>h</i> 31<i>min</i></b></p><p><small>Efficiency</small><b>91<i>%</i></b></p></div>
+</div>
+<div class="fs-card">
+<p class="fs-k">Sleep stages</p>
+<div class="fs-hyp"><i style="--y:0;--w:6"></i><i style="--y:2;--w:10"></i><i style="--y:3;--w:8"></i><i style="--y:1;--w:9"></i><i style="--y:2;--w:12"></i><i style="--y:3;--w:6"></i><i style="--y:1;--w:10"></i><i style="--y:2;--w:14"></i><i style="--y:0;--w:3"></i><i style="--y:1;--w:12"></i><i style="--y:2;--w:10"></i></div>
+<p class="fs-legend"><span style="--c:#dfe3ff">Awake</span><span style="--c:#8f9bff">Light</span><span style="--c:#5b6cf0">Deep</span><span style="--c:#b9a8ff">Rapid eye movement</span></p>
+</div>
+</div>
+
+<!-- stress -->
+<div class="fit-scr" data-scr="1">
+<p class="fs-bar"><span>13:40</span><b></b></p>
+<p class="fs-head">Stress<i></i></p>
+<p class="fs-date"><span>Sun</span><b>Today</b><span></span></p>
+<div class="fs-card is-glow">
+<p class="fs-k">Stress balance</p>
+<p class="fs-big" style="--c:#7fb2ff">Calm<small>62% of the day</small></p>
+<svg class="fs-line" viewBox="0 0 200 80" aria-hidden="true"><defs><linearGradient id="fs-g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb2ff" stop-opacity=".55"/><stop offset="1" stop-color="#7fb2ff" stop-opacity="0"/></linearGradient></defs><path class="fs-area" d="M0 60 C15 58 22 40 36 44 S58 20 72 30 S96 62 112 50 S140 16 156 26 S186 58 200 46 V80 H0z" fill="url(#fs-g1)"/><path d="M0 60 C15 58 22 40 36 44 S58 20 72 30 S96 62 112 50 S140 16 156 26 S186 58 200 46" fill="none" stroke="#7fb2ff" stroke-width="2"/></svg>
+<p class="fs-axis"><span>06</span><span>10</span><span>14</span><span>18</span></p>
+</div>
+<div class="fs-card">
+<div class="fs-split"><p style="--c:#7fb2ff"><small>Calm</small><b>62%</b></p><p style="--c:#c3cdf6"><small>Engaged</small><b>27%</b></p><p style="--c:#f3a3b9"><small>Stretched</small><b>11%</b></p></div>
+<p class="fs-note">A walk after lunch brought you back down fastest.</p>
+</div>
+</div>
+
+<!-- vitals -->
+<div class="fit-scr" data-scr="2">
+<p class="fs-bar"><span>08:05</span><b></b></p>
+<p class="fs-head">Vitals<i></i></p>
+<p class="fs-date"><span>Tue</span><b>Today</b><span></span></p>
+<div class="fs-card is-glow">
+<p class="fs-k">Resting heart rate</p>
+<p class="fs-big" style="--c:#ff8aa6">54<small>beats per minute</small></p>
+<svg class="fs-line" viewBox="0 0 200 70" aria-hidden="true"><path d="M0 40 L14 38 L20 22 L26 52 L32 36 L52 38 L66 34 L72 18 L78 50 L84 34 L110 36 L124 33 L130 14 L136 48 L142 32 L170 35 L184 31 L190 20 L196 42 L200 34" fill="none" stroke="#ff8aa6" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</div>
+<div class="fs-card">
+<ul class="fs-list">
+<li><span>Heart rate variability</span><b>62 ms</b></li>
+<li><span>Blood oxygen</span><b>98%</b></li>
+<li><span>Skin temperature</span><b>+0.1°</b></li>
+<li><span>Respiratory rate</span><b>14</b></li>
+</ul>
+</div>
+</div>
+
+<!-- activity -->
+<div class="fit-scr" data-scr="3">
+<p class="fs-bar"><span>18:22</span><b></b></p>
+<p class="fs-head">Activity<i></i></p>
+<p class="fs-date"><span>Wed</span><b>Today</b><span>Thu</span></p>
+<div class="fs-card is-glow">
+<div class="fs-rings"><i style="--p:.92;--c:#ffcf5a;--r:0"></i><i style="--p:.74;--c:#ff9a52;--r:1"></i><i style="--p:.58;--c:#ffe9b0;--r:2"></i></div>
+<p class="fs-k is-c">Activity score 88</p>
+<div class="fs-split"><p style="--c:#ffcf5a"><small>Steps</small><b>8,412</b></p><p style="--c:#ff9a52"><small>Calories</small><b>386</b></p><p style="--c:#ffe9b0"><small>Active</small><b>64 min</b></p></div>
+</div>
+<div class="fs-card">
+<p class="fs-k">Steps by hour</p>
+<div class="fs-bars" style="--c:#ffcf5a"><i style="--h:.05"></i><i style="--h:.08"></i><i style="--h:.3"></i><i style="--h:.62"></i><i style="--h:.2"></i><i style="--h:.12"></i><i style="--h:.44"></i><i style="--h:.18"></i><i style="--h:.1"></i><i style="--h:.26"></i><i style="--h:.9"></i><i style="--h:.72"></i><i style="--h:.3"></i><i style="--h:.12"></i><i style="--h:.06"></i></div>
+</div>
+</div>
+
+<!-- cycle -->
+<div class="fit-scr" data-scr="4">
+<p class="fs-bar"><span>07:48</span><b></b></p>
+<p class="fs-head">Cycle<i></i></p>
+<p class="fs-date"><span>Fri</span><b>Today</b><span></span></p>
+<div class="fs-card is-glow">
+<div class="fs-dial" style="--p:.5;--c:#f29cc3"><b>14</b><small>Cycle day</small></div>
+<p class="fs-k is-c">Fertile window likely</p>
+<p class="fs-note is-c">Your next period is predicted in 13 days.</p>
+</div>
+<div class="fs-card">
+<p class="fs-k">Temperature against your baseline</p>
+<svg class="fs-line" viewBox="0 0 200 60" aria-hidden="true"><path d="M0 44 C20 46 40 42 60 45 S96 40 110 30 S150 18 170 20 S192 26 200 24" fill="none" stroke="#f29cc3" stroke-width="2"/><path d="M0 36 H200" stroke="rgba(255,255,255,.25)" stroke-dasharray="3 4"/></svg>
+</div>
+</div>
+</div>
+</div>
+
+<div class="fit-items">
+<div class="fit-item is-left" data-item="0">
+<div class="fit-text">
+<p class="fit-name"><span class="fit-ic" style="--c:#5b6cf0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18v-6.5a2.5 2.5 0 0 1 2.5-2.5h13a2.5 2.5 0 0 1 2.5 2.5V18M3 15h18M6.5 9V6.5h4V9M13.5 9V6.5h4V9"/></svg></span>Sleep</p>
+<p class="fit-desc">The ring follows every layer of the night: stages, breathing, heart rate and skin temperature. See what shapes your rest, and what to change tonight.</p>
+</div>
+</div>
+<div class="fit-item is-right" data-item="1">
+<div class="fit-text">
+<p class="fit-name"><span class="fit-ic" style="--c:#6fa0ff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3.5l2.5-6 4 12 2.5-6H21"/></svg></span>Stress</p>
+<p class="fit-desc">Follow your stress balance as the day unfolds. See how your routines move it, and step back before tension builds.</p>
+</div>
+</div>
+<div class="fit-item is-left" data-item="2">
+<div class="fit-text">
+<p class="fit-name"><span class="fit-ic" style="--c:#ef6b8a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/><path d="M7 12.5h3l1.2-2.2 1.8 4 1.2-1.8H17"/></svg></span>Vitals</p>
+<p class="fit-desc">Your body speaks in quiet signals, heart rate, heart rate variability and blood oxygen. Read day and night, they show the shifts that matter against your own baseline.</p>
+</div>
+</div>
+<div class="fit-item is-right" data-item="3">
+<div class="fit-text">
+<p class="fit-name"><span class="fit-ic" style="--c:#f5b73b"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="14" cy="4.5" r="1.8"/><path d="M8 21l3.5-6.5 3 2.5V21M6 12l3-3.5h4.5l2 3.5H19M11.5 14.5L13 9"/></svg></span>Activity</p>
+<p class="fit-desc">From daily steps to structured workouts, see how your body answers effort and how quickly it recovers, so you train smarter and keep it up.</p>
+</div>
+</div>
+<div class="fit-item is-left" data-item="4">
+<div class="fit-text">
+<p class="fit-name"><span class="fit-ic" style="--c:#e889b5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none"/></svg></span>Women’s health</p>
+<p class="fit-desc">Small temperature shifts mark where you are in your cycle. The ring learns your own rhythm over time and predicts your period more closely every month.</p>
+</div>
+</div>
+</div>
+
+<div class="fit-ctrl">
+<div class="fit-rail">
+<div class="fit-dots" role="tablist" aria-label="Features"><button type="button" class="on" aria-label="Sleep"></button><button type="button" aria-label="Stress"></button><button type="button" aria-label="Vitals"></button><button type="button" aria-label="Activity"></button><button type="button" aria-label="Women’s health"></button></div>
+<div class="fit-arrows">
+<button class="fit-arr" type="button" data-fit-prev="" aria-label="Previous feature"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
+<button class="fit-arr" type="button" data-fit-next="" aria-label="Next feature"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 15 · CHOOSING THE RIGHT FIT · comparison table, the highlighted column and
+     the row names stay put when it scrolls sideways, the header follows down -->
+<div class="fit-cmp" id="compare" data-cmp="">
+<h2 class="fit-cmp-title fit-rise">Choosing the right fit? Start here</h2>
+<div class="fit-table-wrap">
+<div class="fit-table" data-cmp-scroll="">
+<div class="fit-row is-head" data-cmp-head="">
+<div class="fit-name-cell"></div>
+<div class="fit-cell is-us"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-ring"/></svg>PhenomeTech Ring Titanium</div>
+<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-ring"/></svg>PhenomeTech Ring Ceramic</div>
+<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-band"/></svg>PhenomeTech Band</div>
+<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-watch"/></svg>A typical smartwatch</div>
+</div>
+
+<div class="fit-row is-group"><div class="fit-name-cell">Pricing</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row"><div class="fit-name-cell">Product price</div><div class="fit-cell is-us">£179</div><div class="fit-cell">£199</div><div class="fit-cell">£149</div><div class="fit-cell">Varies widely</div></div>
+<div class="fit-row"><div class="fit-name-cell">Subscription fee</div><div class="fit-cell is-us">Free</div><div class="fit-cell">Free</div><div class="fit-cell">Free</div><div class="fit-cell">Often extra</div></div>
+<div class="fit-row"><div class="fit-name-cell">Read with your genome and microbiome</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div></div>
+
+<div class="fit-row is-group"><div class="fit-name-cell">Specifications</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row"><div class="fit-name-cell">Weight</div><div class="fit-cell is-us">About 4 g</div><div class="fit-cell">About 6 g</div><div class="fit-cell">24 g with strap</div><div class="fit-cell">Usually 30 g or more</div></div>
+<div class="fit-row"><div class="fit-name-cell">Battery life</div><div class="fit-cell is-us">Up to 7 days</div><div class="fit-cell">Up to 7 days</div><div class="fit-cell">Up to 7 days</div><div class="fit-cell">Often 1 to 2 days</div></div>
+<div class="fit-row"><div class="fit-name-cell">Materials</div><div class="fit-cell is-us">Grade 5 aerospace titanium</div><div class="fit-cell">High density zirconia ceramic</div><div class="fit-cell">Anodised aluminium, woven strap</div><div class="fit-cell">Aluminium or steel</div></div>
+<div class="fit-row"><div class="fit-name-cell">Water resistance</div><div class="fit-cell is-us">100 metres</div><div class="fit-cell">100 metres</div><div class="fit-cell">50 metres</div><div class="fit-cell">Usually 50 metres</div></div>
+<div class="fit-row"><div class="fit-name-cell">Screen</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
+
+<div class="fit-row is-group"><div class="fit-name-cell">Health monitoring</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row is-sub"><div class="fit-name-cell">Sleep</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row"><div class="fit-name-cell">Sleep stages</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
+<div class="fit-row"><div class="fit-name-cell">Comfortable to sleep in</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell">Sometimes</div></div>
+<div class="fit-row is-sub"><div class="fit-name-cell">Vitals</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row"><div class="fit-name-cell">Heart rate</div><div class="fit-cell is-us">Day and night</div><div class="fit-cell">Day and night</div><div class="fit-cell">Day and night</div><div class="fit-cell">Day and night</div></div>
+<div class="fit-row"><div class="fit-name-cell">Heart rate variability</div><div class="fit-cell is-us">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Periodically</div></div>
+<div class="fit-row"><div class="fit-name-cell">Blood oxygen</div><div class="fit-cell is-us">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Periodically</div></div>
+<div class="fit-row"><div class="fit-name-cell">Skin temperature</div><div class="fit-cell is-us">Continuous</div><div class="fit-cell">Continuous</div><div class="fit-cell">Continuous</div><div class="fit-cell">Varies</div></div>
+<div class="fit-row is-sub"><div class="fit-name-cell">Activity</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
+<div class="fit-row"><div class="fit-name-cell">Steps and calories</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
+<div class="fit-row"><div class="fit-name-cell">Training load and zones</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
+<div class="fit-row is-group is-line"><div class="fit-name-cell">Stress balance</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
+<div class="fit-row is-group is-line is-last"><div class="fit-name-cell">Cycle tracking</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell">Varies</div></div>
+</div>
+</div>
+</div>
+
+
+<!-- ===========================================================================
+     16 to 36 · THE LONG STORY · the body of ringconn.com/pages/ringconn-gen-2,
+     section for section and in the same order, told for the PhenomeTech Ring.
+     Styles in gen-a.css and gen-b.css, behaviour in gen.js.
+     ======================================================================== -->
+<div class="gx" data-gx="">
+
+<!-- 16 · film hero, the lines arrive on the film's clock -->
+<div class="gx-hero" data-gx-film="">
+<video class="gx-hero-v" muted="" playsinline="" preload="metadata" poster="/phenome-store/assets/lab/gen/hero.webp" aria-hidden="true"><source src="/phenome-store/assets/lab/gen/hero.mp4" type="video/mp4"/></video>
+<div class="gx-hero-shade" aria-hidden="true"></div>
+<div class="gx-hero-copy">
+<p class="gx-vt gx-hero-brand" data-at="0.4"><img src="/phenome-store/assets/brand/phenome-icon.png" alt="" width="28" height="28"/>PhenomeTech Ring</p>
+<h2 class="gx-vt gx-hero-h" data-at="1.1">The smart ring that reads your night<br/>against your genome</h2>
+<a class="gx-vt gx-btn" data-at="1.9" href="/phenome-store/store/phenometech-ring/">Shop now</a>
+</div>
+</div>
+
+<!-- 17 and 18 · the question, then the night it is about -->
+<div class="gx-ask" data-gx-ask="">
+<div class="gx-ask-head">
+<h2 class="gx-ask-h gx-grad">When did you last wake up<br/>truly rested?</h2>
+<p class="gx-ask-sub">Tired when you wake? Restless through the night?<br/>It may be more than a bad week. Your body could be telling you something<br/>about stress, recovery or the way you breathe while you sleep.</p>
+</div>
+<div class="gx-ask-media" data-gx-replay="">
+<img class="gx-ask-img" src="/phenome-store/assets/pages/plate_ring_night.webp" alt="A woman asleep in a bright bedroom, wearing the ring" loading="lazy" decoding="async"/>
+<div class="gx-glass is-a" aria-hidden="true">
+<svg viewBox="0 0 200 130"><path class="gx-draw" d="M20 110 V20 M20 110 H186"/><path class="gx-draw is-accent" d="M24 104 C60 100 70 70 98 74 S140 30 182 26"/></svg>
+<p>Deep sleep, last 30 nights</p>
+</div>
+<div class="gx-glass is-b" aria-hidden="true">
+<svg viewBox="0 0 200 150"><path class="gx-arc-t" d="M40 128 A72 72 0 1 1 160 128"/><path class="gx-arc" d="M40 128 A72 72 0 1 1 160 128"/></svg>
+<b class="gx-count" data-to="78">0</b>
+<p>Recovery this morning</p>
+</div>
+</div>
+</div>
+
+<!-- 19 · how it helps: the photograph holds still, the cards pass it -->
+<div class="gx-help">
+<h2 class="gx-sec-h gx-grad gx-in">How the PhenomeTech Ring helps</h2>
+<div class="gx-help-row">
+<div class="gx-help-img"><img src="/phenome-store/assets/pages/ring_ceramic_worn.webp" alt="A hand wearing the white ceramic ring on a linen sheet" loading="lazy" decoding="async"/></div>
+<div class="gx-help-list">
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a17 17 0 1 0 10 28A15 15 0 0 1 30 8z" fill="#8f7cff"/><path d="M33 12h7l-7 8h7" fill="none" stroke="#8f7cff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3 class="gx-slide-t">Sleep stages, every night</h3>
+<p class="gx-slide-d">Light, deep and rapid eye movement sleep, measured against your own baseline, so you can see what actually changed.</p>
+<div class="gx-ui">
+<p class="gx-ui-k">Sleep stages<span>7 h 31 min</span></p>
+<ul class="gx-stages">
+<li style="--w:.06;--c:#e5e8ff"><span>Awake 6%</span><em>27 min</em><i></i></li>
+<li style="--w:.23;--c:#9d8cff"><span>Rapid eye movement 23%</span><em>1 h 44</em><i></i></li>
+<li style="--w:.52;--c:#6d7dff"><span>Light 52%</span><em>3 h 54</em><i></i></li>
+<li style="--w:.19;--c:#3b47c9"><span>Deep 19%</span><em>1 h 26</em><i></i></li>
+</ul>
+</div>
+</div>
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c7 9 12 16 12 23a12 12 0 0 1-24 0c0-7 5-14 12-23z" fill="#ff9457"/></svg>
+<h3 class="gx-slide-t">Blood oxygen through the night</h3>
+<p class="gx-slide-d">Saturation read while you sleep, with dips flagged when they fall outside your usual range.</p>
+<div class="gx-ui">
+<div class="gx-ui-pair"><p><b>97</b><small>Average</small></p><p><b>92</b><small>Lowest</small></p></div>
+<svg class="gx-ui-chart" viewBox="0 0 300 120" aria-hidden="true"><rect x="0" y="6" width="300" height="34" fill="rgba(255,120,150,.14)"/><path d="M0 26 L10 22 L18 30 L26 18 L34 28 L42 20 L50 34 L58 22 L66 26 L74 16 L82 30 L90 22 L98 64 L104 28 L112 20 L122 32 L132 18 L140 26 L150 22 L160 36 L168 20 L178 28 L186 16 L196 30 L206 24 L214 18 L224 34 L232 22 L242 26 L252 18 L262 30 L272 22 L282 28 L300 20" fill="none" stroke="#ff7896" stroke-width="1.6"/><path d="M0 100 H300" stroke="rgba(255,255,255,.2)"/></svg>
+<p class="gx-ui-axis"><span>23:40</span><span>02:10</span><span>04:40</span><span>07:10</span></p>
+</div>
+</div>
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 30 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 12-17 22-17 22z" fill="#ff6f8f"/></svg>
+<h3 class="gx-slide-t">Heart rate variability</h3>
+<p class="gx-slide-d">How recovered your nervous system is, read overnight while nothing else is moving.</p>
+<div class="gx-ui">
+<p class="gx-ui-k">Last 7 nights<span>62 ms tonight</span></p>
+<div class="gx-ui-bars"><i style="--h:.55"></i><i style="--h:.62"></i><i style="--h:.48"></i><i style="--h:.7"></i><i style="--h:.66"></i><i style="--h:.58"></i><i style="--h:.8" class="on"></i></div>
+<p class="gx-ui-axis"><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Mon</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 20 · three numbers -->
+<div class="gx-icons">
+<div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#e9e6ff"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="15" width="28" height="18" rx="4" fill="none" stroke="#8f7cff" stroke-width="3"/><path d="M40 21v6" stroke="#8f7cff" stroke-width="3" stroke-linecap="round"/><rect x="12" y="19" width="16" height="10" rx="2" fill="#8f7cff"/></svg></span><p class="gx-icon-n">7 days</p><p class="gx-icon-l">Battery life<br/>on a single charge</p></div>
+<div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#ffeee2"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c6 8 10 14 10 20a10 10 0 0 1-20 0c0-6 4-12 10-20z" fill="#ff9457"/></svg></span><p class="gx-icon-n">100 m</p><p class="gx-icon-l">Water resistance<br/>for swims and showers</p></div>
+<div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#ffe6ec"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="21" rx="14" ry="9" fill="none" stroke="#ff6f8f" stroke-width="3"/><path d="M10 21v5c0 5 6.3 9 14 9s14-4 14-9v-5" fill="none" stroke="#ff6f8f" stroke-width="3"/></svg></span><p class="gx-icon-n">4 g</p><p class="gx-icon-l">Titanium ring<br/>at size 8</p></div>
+</div>
+
+<!-- 21 · words over a photograph -->
+<div class="gx-float is-sleep">
+<img class="gx-float-img" src="/phenome-store/assets/pages/ring_ceramic_worn.webp" alt="" loading="lazy" decoding="async"/>
+<div class="gx-float-copy gx-in">
+<h2 class="gx-float-h">Deeper sleep<br/>Deeper insight</h2>
+<p class="gx-float-d">The PhenomeTech Ring looks after your nights with</p>
+<ul class="gx-float-l"><li>Tracking of light, deep and rapid eye movement sleep</li><li>Overnight breathing, heart rate and heart rate variability</li><li>A morning read on how well you actually recovered</li></ul>
+</div>
+</div>
+
+<!-- 22 · the app's sleep cards, a row that pages sideways -->
+<div class="gx-cards is-app" data-gx-car="">
+<div class="gx-car-view"><div class="gx-car-track">
+<div class="gx-card is-ui">
+<p class="gx-ui-k">Sleep stages</p>
+<ul class="gx-stages is-card">
+<li style="--w:.06;--c:#e5e8ff"><span>Awake 6%</span><em>27 min</em><i></i></li>
+<li style="--w:.23;--c:#9d8cff"><span>Rapid eye movement 23%</span><em>1 h 44</em><i></i></li>
+<li style="--w:.52;--c:#6d7dff"><span>Light 52%</span><em>3 h 54</em><i></i></li>
+<li style="--w:.19;--c:#3b47c9"><span>Deep 19%</span><em>1 h 26</em><i></i></li>
+</ul>
+</div>
+<div class="gx-card is-ui">
+<p class="gx-ui-k">Stages through the night</p>
+<div class="gx-hyp"><i style="--y:0;--w:3"></i><i style="--y:2;--w:8"></i><i style="--y:3;--w:10"></i><i style="--y:2;--w:6"></i><i style="--y:1;--w:7"></i><i style="--y:2;--w:12"></i><i style="--y:3;--w:6"></i><i style="--y:1;--w:9"></i><i style="--y:0;--w:2"></i><i style="--y:2;--w:14"></i><i style="--y:1;--w:10"></i><i style="--y:0;--w:3"></i></div>
+<p class="gx-ui-axis"><span>23:40</span><span>01:50</span><span>04:00</span><span>07:10</span></p>
+</div>
+<div class="gx-card is-ui">
+<p class="gx-ui-k">Total time asleep</p>
+<p class="gx-card-big">7<small>h</small> 40<small>min</small></p>
+<p class="gx-card-sub">Goal 7 h</p>
+<div class="gx-time"><i style="--a:.08;--b:.36"></i><i class="is-nap" style="--a:.52;--b:.56"></i></div>
+<p class="gx-ui-axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span></p>
+</div>
+<div class="gx-card is-ui">
+<p class="gx-ui-k">Blood oxygen<span>98%</span></p>
+<svg class="gx-ui-chart" viewBox="0 0 300 150" aria-hidden="true"><path d="M0 40 L14 36 L22 52 L30 30 L40 46 L50 34 L60 58 L68 38 L80 44 L92 28 L102 50 L114 36 L124 70 L132 40 L146 34 L158 48 L170 30 L182 44 L196 36 L208 52 L220 32 L234 42 L248 30 L262 46 L276 36 L300 40" fill="none" stroke="#ff7896" stroke-width="1.8"/><path d="M0 130 H300" stroke="rgba(255,255,255,.2)"/></svg>
+</div>
+<div class="gx-card is-ui">
+<p class="gx-ui-k">Heart rate while asleep<span>52 low</span></p>
+<svg class="gx-ui-chart" viewBox="0 0 300 150" aria-hidden="true"><path d="M0 60 C40 62 60 80 100 88 S170 104 200 100 S260 70 300 58" fill="none" stroke="#ff6f8f" stroke-width="2"/><path d="M0 130 H300" stroke="rgba(255,255,255,.2)"/></svg>
+</div>
+</div></div>
+<div class="gx-car-nav"><button type="button" class="gx-car-b" data-car-prev="" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6L8.5 12l6 6"/></svg></button><button type="button" class="gx-car-b" data-car-next="" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
+</div>
+
+<!-- 23 · who it is for -->
+<div class="gx-people">
+<div class="gx-row-head gx-in">
+<h2 class="gx-sec-h gx-grad is-left">Made for the way<br/>you actually live</h2>
+<a class="gx-btn" href="/phenome-store/store/phenometech-ring/">Shop now</a>
+</div>
+<div class="gx-people-grid">
+<article class="gx-person gx-in"><img src="/phenome-store/assets/pages/hub_home_longevity.webp" alt="A woman sitting on the edge of her bed in the morning" loading="lazy" decoding="async"/><p class="gx-person-q">See which evenings lead to deeper nights, and build a routine around the ones that work for you.</p><p class="gx-person-n">For light sleepers</p></article>
+<article class="gx-person gx-in"><img src="/phenome-store/assets/pages/plate_sports_strength.webp" alt="A man training at a pull up bar" loading="lazy" decoding="async"/><p class="gx-person-q">Know when to push and when to rest, from how your body really recovered overnight.</p><p class="gx-person-n">For people who train</p></article>
+<article class="gx-person gx-in"><img src="/phenome-store/assets/pages/plate_genomic_morning.webp" alt="A woman sitting cross legged in a bright room" loading="lazy" decoding="async"/><p class="gx-person-q">Watch stress rise and settle across the day, and learn what brings you back down fastest.</p><p class="gx-person-n">For busy minds</p></article>
+<article class="gx-person gx-in"><img src="/phenome-store/assets/pages/plate_ring_allotment.webp" alt="A man carrying watering cans across an allotment" loading="lazy" decoding="async"/><p class="gx-person-q">Months of signals read beside your genome, so small changes show up early and make sense.</p><p class="gx-person-n">For the long game</p></article>
+</div>
+</div>
+
+<!-- 24 · materials film -->
+<div class="gx-vid is-materials" data-gx-film="">
+<video class="gx-vid-v" muted="" playsinline="" preload="metadata" poster="/phenome-store/assets/lab/gen/materials.webp" aria-hidden="true"><source src="/phenome-store/assets/lab/gen/materials.mp4" type="video/mp4"/></video>
+<div class="gx-vid-copy">
+<h2 class="gx-vt gx-vid-h" data-at="0.6">Strong. Light. Made to last.</h2>
+<p class="gx-vt gx-vid-k" data-at="1.4">Titanium × Ceramic</p>
+<div class="gx-vid-cols">
+<p class="gx-vt" data-at="2.2">Grade 5 aerospace titanium, the alloy aircraft are built from. Hard, light, and it does not corrode.</p>
+<p class="gx-vt" data-at="2.8">High density zirconia ceramic, harder than steel at the surface and warm against the skin within minutes.</p>
+</div>
+</div>
+</div>
+
+<!-- 25 · colourways -->
+<div class="gx-colours" data-gx-colours="">
+<div class="gx-row-head gx-in">
+<h2 class="gx-sec-h gx-grad is-left">Designed for every you</h2>
+<a class="gx-btn" href="/phenome-store/store/phenometech-ring/">Choose your ring</a>
+</div>
+<div class="gx-cw-frame">
+<div class="gx-cw-track">
+<img src="/phenome-store/assets/lab/gen/cw-gold.webp" alt="The gold titanium ring on blue silk" loading="lazy" decoding="async"/>
+<img src="/phenome-store/assets/lab/gen/cw-silver.webp" alt="The silver titanium ring on brushed metal" loading="lazy" decoding="async"/>
+<img src="/phenome-store/assets/lab/gen/cw-black.webp" alt="The black ceramic ring resting on blue stones" loading="lazy" decoding="async"/>
+<img src="/phenome-store/assets/lab/gen/cw-pink.webp" alt="The pink ceramic ring on a blue sculpted surface" loading="lazy" decoding="async"/>
+<img src="/phenome-store/assets/lab/gen/cw-white.webp" alt="The white ceramic ring resting on blue stones" loading="lazy" decoding="async"/>
+</div>
+<div class="gx-cw-pick" role="tablist" aria-label="Colourways">
+<button type="button" role="tab" class="gx-cw-b on" aria-selected="true" style="--s:linear-gradient(135deg,#f7e3b0,#c79a44 55%,#8a6424)"><i></i><span>Gold titanium</span></button>
+<button type="button" role="tab" class="gx-cw-b" aria-selected="false" style="--s:linear-gradient(135deg,#ffffff,#b9bec7 50%,#6f7680)"><i></i><span>Silver titanium</span></button>
+<button type="button" role="tab" class="gx-cw-b" aria-selected="false" style="--s:linear-gradient(135deg,#6b6f79,#1c1e23 55%,#000)"><i></i><span>Black ceramic</span></button>
+<button type="button" role="tab" class="gx-cw-b" aria-selected="false" style="--s:linear-gradient(135deg,#ffe4ec,#f2b3c6 55%,#d98aa5)"><i></i><span>Pink ceramic</span></button>
+<button type="button" role="tab" class="gx-cw-b" aria-selected="false" style="--s:linear-gradient(135deg,#ffffff,#eceef2 55%,#c9ccd3)"><i></i><span>White ceramic</span></button>
+</div>
+</div>
+</div>
+
+<!-- 26 · weight film -->
+<div class="gx-vid is-light" data-gx-film="">
+<video class="gx-vid-v" muted="" playsinline="" preload="metadata" poster="/phenome-store/assets/lab/gen/light.webp" aria-hidden="true"><source src="/phenome-store/assets/lab/gen/light.mp4" type="video/mp4"/></video>
+<div class="gx-vid-copy is-left">
+<h2 class="gx-vt gx-vid-h" data-at="0.5">Light enough<br/>to forget</h2>
+<div class="gx-vid-stats">
+<p class="gx-vt" data-at="1.3"><small>Titanium</small><b>4 g</b></p>
+<p class="gx-vt" data-at="1.9"><small>Ceramic</small><b>6 g</b></p>
+</div>
+<p class="gx-vt gx-vid-note" data-at="2.5">Weight varies with size, shown here at size 8.</p>
+</div>
+</div>
+
+<!-- 27 · comfort cards -->
+<div class="gx-comfort">
+<h2 class="gx-sec-h gx-grad gx-in">All day comfort, redefined</h2>
+<p class="gx-sec-sub gx-in">Light enough to sleep in, strong enough to live in</p>
+<div class="gx-comfort-grid">
+<figure class="gx-cf gx-in"><img src="/phenome-store/assets/pages/ring_titanium_worn.webp" alt="Hands wearing the titanium ring while kneading dough" loading="lazy" decoding="async"/><figcaption><b>4 g Featherlight</b><span>So light you stop noticing it within a day.</span></figcaption></figure>
+<figure class="gx-cf gx-in"><img src="/phenome-store/assets/pages/ring_fit_swap.webp" alt="A hand slipping the ring on in a hallway" loading="lazy" decoding="async"/><figcaption><b>Sizes 6 to 13</b><span>A free sizing kit first,<br/>so the fit is right from night one.</span></figcaption></figure>
+<figure class="gx-cf gx-in"><img src="/phenome-store/assets/pages/ring_worn_family.webp" alt="A hand wearing the black ring holding a baby’s feet" loading="lazy" decoding="async"/><figcaption><b>No subscription</b><span>Every feature is included,<br/>for as long as you wear it.</span></figcaption></figure>
+</div>
+</div>
+
+<!-- 28 · battery, two numbers trade places on a pinned black screen -->
+<div class="gx-battery" data-gx-battery="">
+<div class="gx-bat-stage">
+<div class="gx-bat-titles">
+<p class="gx-bat-t is-a"><span class="gx-bat-n">Up to 7</span> Days</p>
+<p class="gx-bat-t is-b"><span class="gx-bat-n">90</span> Minutes</p>
+</div>
+<div class="gx-bat-descs">
+<p class="gx-bat-d is-a">battery life, a full week between charges</p>
+<p class="gx-bat-d is-b">from empty to full, wherever the day ended</p>
+</div>
+</div>
+</div>
+
+<!-- 29 · the case -->
+<div class="gx-float is-case">
+<img class="gx-float-img" src="/phenome-store/assets/lab/gen/case-dark.webp" alt="" loading="lazy" decoding="async"/>
+<div class="gx-float-copy gx-in">
+<h2 class="gx-float-h is-cyan">Power on the go<br/>With the charging case</h2>
+<p class="gx-float-d is-wide">Drop the ring into its case at the end of the day and close the lid. The case carries extra charge of its own, so a long trip does not mean packing a cable for your finger.</p>
+</div>
+</div>
+
+<!-- 30 · the sensor stack scales up behind its numbers -->
+<div class="gx-chip" data-gx-chip="">
+<div class="gx-chip-stage">
+<img class="gx-chip-img" src="/phenome-store/assets/pages/ring_top_cutout.webp" alt="" loading="lazy" decoding="async"/>
+</div>
+<div class="gx-chip-text">
+<h2 class="gx-chip-t">Smarter sensing<br/>Lower power</h2>
+<p class="gx-chip-d">Five sensors read more than 50 signals, and a low power design<br/>keeps every one of them reading for a week.</p>
+<div class="gx-chip-nums"><p><b>5</b><span>sensors</span></p><p><b>50+</b><span>signals</span></p></div>
+</div>
+</div>
+
+<!-- 31 · words over a photograph -->
+<div class="gx-float is-life">
+<img class="gx-float-img" src="/phenome-store/assets/pages/ring_worn.webp" alt="" loading="lazy" decoding="async"/>
+<div class="gx-float-copy gx-in">
+<h2 class="gx-float-h">All you need<br/>All in one</h2>
+<p class="gx-float-d is-lg">Health tracking day and night,<br/>in a ring you never take off</p>
+</div>
+</div>
+
+<!-- 32 · signal cards, pictures and readings in turn -->
+<div class="gx-cards is-metrics" data-gx-car="">
+<div class="gx-car-view"><div class="gx-car-track">
+<div class="gx-card is-ui is-metric"><p class="gx-m-t">Heart rate</p><p class="gx-m-d">Understand your cardiovascular health</p><svg class="gx-ui-chart" viewBox="0 0 300 110" aria-hidden="true"><path d="M0 60 L20 58 L28 34 L36 78 L44 54 L74 56 L92 50 L100 26 L108 74 L116 52 L150 54 L168 48 L176 20 L184 70 L192 46 L230 50 L248 44 L256 28 L264 62 L272 48 L300 50" fill="none" stroke="#ff7896" stroke-width="1.8" stroke-linejoin="round"/></svg><p class="gx-m-v" style="--c:#ff7896">54 bpm</p></div>
+<div class="gx-card is-photo is-metric"><img src="/phenome-store/assets/pages/ring_worn_forest.webp" alt="" loading="lazy" decoding="async"/><p class="gx-m-t">Skin temperature</p><p class="gx-m-d">Catch early signs of change</p><p class="gx-m-v">+0.1°</p></div>
+<div class="gx-card is-ui is-metric"><p class="gx-m-t">Blood oxygen</p><p class="gx-m-d">Stay on top of oxygen through the night</p><svg class="gx-ui-chart" viewBox="0 0 300 110" aria-hidden="true"><path d="M0 40 L14 36 L22 52 L30 30 L40 46 L50 34 L60 58 L68 38 L80 44 L92 28 L102 50 L114 36 L124 66 L132 40 L146 34 L158 48 L170 30 L182 44 L196 36 L208 52 L220 32 L234 42 L248 30 L262 46 L276 36 L300 40" fill="none" stroke="#ffb35c" stroke-width="1.8"/></svg><p class="gx-m-v" style="--c:#ffb35c">98%</p></div>
+<div class="gx-card is-photo is-metric"><img src="/phenome-store/assets/pages/ring_worn_water.webp" alt="" loading="lazy" decoding="async"/><p class="gx-m-t">Movement</p><p class="gx-m-d">Follow your activity all day</p><p class="gx-m-v">8,412 steps</p></div>
+<div class="gx-card is-ui is-metric"><p class="gx-m-t">Stress balance</p><p class="gx-m-d">See when you were stretched, and when you settled</p><svg class="gx-ui-chart" viewBox="0 0 300 110" aria-hidden="true"><path d="M0 70 C30 68 40 40 70 46 S110 20 140 32 S190 80 220 64 S270 30 300 44" fill="none" stroke="#7fb2ff" stroke-width="2"/></svg><p class="gx-m-v" style="--c:#7fb2ff">Calm</p></div>
+<div class="gx-card is-photo is-metric"><img src="/phenome-store/assets/pages/ring_stones_white.webp" alt="" loading="lazy" decoding="async"/><p class="gx-m-t">Heart rate variability</p><p class="gx-m-d">A clear read on recovery</p><p class="gx-m-v">62 ms</p></div>
+</div></div>
+<div class="gx-car-nav"><button type="button" class="gx-car-b" data-car-prev="" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6L8.5 12l6 6"/></svg></button><button type="button" class="gx-car-b" data-car-next="" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
+</div>
+
+<!-- 33 · biometrics, the list on the left, the ring and its sensors on the right -->
+<div class="gx-bio" data-gx-bio="">
+<h2 class="gx-bio-h gx-grad gx-in">Biometrics, read<br/>continuously<br/>by five sensors</h2>
+<div class="gx-bio-row">
+<ul class="gx-bio-list">
+<li class="gx-in"><i style="--c:#ff6f8f"><svg viewBox="0 0 24 24"><path d="M12 20S4 15 4 9.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15 12 20 12 20z"/></svg></i><b>Heart rate</b><span>Day and night</span></li>
+<li class="gx-in"><i style="--c:#ff9457"><svg viewBox="0 0 24 24"><path d="M12 3c3.5 4.5 6 8 6 11.5a6 6 0 0 1-12 0C6 11 8.5 7.5 12 3z"/></svg></i><b>Blood oxygen</b><span>Through the night</span></li>
+<li class="gx-in"><i style="--c:#ffb35c"><svg viewBox="0 0 24 24"><path d="M10 4a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/></svg></i><b>Skin temperature</b><span>Against your baseline</span></li>
+<li class="gx-in"><i style="--c:#ff6f8f"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></i><b>Heart rate variability</b><span>Every night</span></li>
+<li class="gx-in"><i style="--c:#6d6bd8"><svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z"/></svg></i><b>Sleep stages</b><span>Light, deep and rapid eye movement</span></li>
+<li class="gx-in"><i style="--c:#3e6ad6"><svg viewBox="0 0 24 24"><circle cx="14" cy="5" r="2"/><path d="M8 21l3.5-6.5 3 2.5V21M6 12l3-3.5h4.5l2 3.5H19"/></svg></i><b>Movement</b><span>Steps, workouts and calories</span></li>
+</ul>
+<div class="gx-bio-ring">
+<img src="/phenome-store/assets/pages/ring_cutaway.webp" alt="The ring seen end on, showing its sensor windows" loading="lazy" decoding="async"/>
+<span class="gx-call" style="--x:47%;--y:17%"><i></i><em>Optical heart rate sensor</em></span>
+<span class="gx-call" style="--x:20%;--y:40%"><i></i><em>Blood oxygen sensor</em></span>
+<span class="gx-call" style="--x:26%;--y:62%"><i></i><em>Skin temperature sensor</em></span>
+<span class="gx-call" style="--x:50%;--y:86%"><i></i><em>3 axis accelerometer</em></span>
+</div>
+</div>
+</div>
+
+<!-- 34 · deeper in the app -->
+<div class="gx-deeper">
+<div class="gx-row-head gx-in">
+<div><h2 class="gx-sec-h gx-grad is-left">Ready to go deeper?</h2><p class="gx-sec-sub is-left">Explore everything the Phenome app can do</p></div>
+<a class="gx-btn" href="/phenome-store/app/">Learn more</a>
+</div>
+<div class="gx-deeper-grid">
+<figure class="gx-dp gx-in"><img src="/phenome-store/assets/pages/plate_oral_mouth.webp" alt="A smiling woman in a bright kitchen" loading="lazy" decoding="async"/><figcaption><b>Cycle insight</b><span>From period to ovulation, a clearer picture of your cycle at a glance.</span></figcaption></figure>
+<figure class="gx-dp is-dark gx-in"><img src="/phenome-store/assets/video/tile-ai.webp" alt="Hands holding a phone with the Phenome app open" loading="lazy" decoding="async"/><figcaption><b>Phenome Intelligence</b><span>Answers from your own readings, your genome and your microbiome, in plain language.</span><small>An early feature, rolling out to members in stages.</small></figcaption></figure>
+</div>
+</div>
+
+<!-- 35 · small features -->
+<div class="gx-cards is-small" data-gx-car="">
+<div class="gx-car-view"><div class="gx-car-track">
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="#ff9457" stroke-width="2.6"/><path d="M9 20h6l2.5-5 5 10 2.5-5h6" fill="none" stroke="#ff9457" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="gx-f-t">Health alerts</p><p class="gx-f-d">A timely nudge when a reading moves outside your usual range.</p></div>
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="6" width="24" height="28" rx="4" fill="#6d7dff"/><path d="M14 16h12M14 22h12M14 28h7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg><p class="gx-f-t">Weekly and yearly reports</p><p class="gx-f-d">Your progress, summed up in a few clear pages.</p></div>
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 32V10a3 3 0 0 1 3-3h13l8 8v17a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3z" fill="#ff7a59"/><path d="M14 20h12M14 26h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg><p class="gx-f-t">Notes and tags</p><p class="gx-f-d">Log a late coffee, a hard session or a symptom, and see its effect.</p></div>
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 35s11-10 11-19a11 11 0 0 0-22 0c0 9 11 19 11 19z" fill="none" stroke="#3e6ad6" stroke-width="2.6"/><circle cx="20" cy="16" r="4" fill="#3e6ad6"/></svg><p class="gx-f-t">Find my ring</p><p class="gx-f-d">Locate the ring quickly when it is somewhere nearby.</p></div>
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="12" cy="20" r="4.5" fill="#28b58a"/><circle cx="29" cy="11" r="4.5" fill="#28b58a"/><circle cx="29" cy="29" r="4.5" fill="#28b58a"/><path d="M16 18l9-5M16 22l9 5" stroke="#28b58a" stroke-width="2.4"/></svg><p class="gx-f-t">Share with your clinician</p><p class="gx-f-d">Send a clear summary to your doctor or Phenome clinician.</p></div>
+<div class="gx-card is-feat"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="17" width="22" height="16" rx="4" fill="#8f7cff"/><path d="M14 17v-4a6 6 0 0 1 12 0v4" fill="none" stroke="#8f7cff" stroke-width="2.6"/></svg><p class="gx-f-t">Private by design</p><p class="gx-f-d">Encrypted, never sold, and yours to export or delete.</p></div>
+</div></div>
+<div class="gx-car-nav"><button type="button" class="gx-car-b" data-car-prev="" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6L8.5 12l6 6"/></svg></button><button type="button" class="gx-car-b" data-car-next="" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
+</div>
+
+<!-- 36 · split slides, one at a time -->
+<div class="gx-cards is-split" data-gx-car="">
+<div class="gx-car-view"><div class="gx-car-track">
+<div class="gx-card is-split-card">
+<div class="gx-sp-copy"><h3 class="gx-sp-t">100 metres<br/>Water resistant</h3><p class="gx-sp-d">Swim, shower, wash up or sit in the sauna. The ring stays on, and keeps reading, through all of it.</p><p class="gx-sp-glyph" aria-hidden="true">100<small>m</small></p></div>
+<img src="/phenome-store/assets/pages/ring_worn_water.webp" alt="A hand wearing the white ring trailing through clear water" loading="lazy" decoding="async"/>
+</div>
+<div class="gx-card is-split-card">
+<div class="gx-sp-copy"><h3 class="gx-sp-t">Your data<br/>Always within reach</h3><p class="gx-sp-d">The ring keeps recording without your phone and syncs everything the moment you are back in range.</p><p class="gx-sp-glyph" aria-hidden="true">7<small>days</small></p></div>
+<img src="/phenome-store/assets/pages/ring_stones_blue.webp" alt="The black ring resting on blue stones" loading="lazy" decoding="async"/>
+</div>
+<div class="gx-card is-split-card">
+<div class="gx-sp-copy"><h3 class="gx-sp-t">Private<br/>By design</h3><p class="gx-sp-d">Your readings are encrypted, handled under UK GDPR, never sold, and yours to export or delete at any time.</p><p class="gx-sp-glyph" aria-hidden="true">0<small>sold</small></p></div>
+<img src="/phenome-store/assets/pages/ring_brushed_silver.webp" alt="The silver ring on brushed metal" loading="lazy" decoding="async"/>
+</div>
+</div></div>
+<div class="gx-car-nav"><button type="button" class="gx-car-b" data-car-prev="" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6L8.5 12l6 6"/></svg></button><button type="button" class="gx-car-b" data-car-next="" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button></div>
+</div>
+
+<!-- 37 · which ring -->
+<div class="gx-pick">
+<h2 class="gx-sec-h gx-grad gx-in">Which ring is right for you</h2>
+<div class="gx-pick-panel gx-in">
+<div class="gx-pick-row is-head">
+<div></div>
+<div class="gx-pick-p"><img src="/phenome-store/assets/lab/gen/pick-titanium.webp" alt="" loading="lazy" decoding="async"/><p class="gx-pick-n">PhenomeTech Ring Titanium</p><p class="gx-pick-pr">From £179</p><p class="gx-pick-sw"><i style="--s:#d6ad5c"></i><i style="--s:#c9cdd4"></i><i style="--s:#2a2c31"></i></p><a class="gx-pick-v" href="/phenome-store/store/phenometech-ring/">View</a></div>
+<div class="gx-pick-p"><img src="/phenome-store/assets/lab/gen/pick-ceramic.webp" alt="" loading="lazy" decoding="async"/><p class="gx-pick-n">PhenomeTech Ring Ceramic</p><p class="gx-pick-pr">From £199</p><p class="gx-pick-sw"><i style="--s:#f0b8c9"></i><i style="--s:#f3f4f6"></i><i style="--s:#1b1c20"></i></p><a class="gx-pick-v" href="/phenome-store/store/phenometech-ring/">View</a></div>
+</div>
+<div class="gx-pick-row"><b>Materials</b><span>Grade 5 aerospace titanium</span><span>High density zirconia ceramic</span></div>
+<div class="gx-pick-row"><b>Finish</b><span><strong>Brushed metallic</strong>, a fine grain that hides a day’s wear</span><span><strong>Smooth matte</strong>, resists scratching and fingerprints</span></div>
+<div class="gx-pick-row"><b>Weight</b><span>About 4 g at size 8</span><span>About 6 g at size 8</span></div>
+<div class="gx-pick-row"><b>Battery life</b><span>Up to 7 days<br/><br/><strong>Charging case</strong><br/><br/>About 90 minutes to full</span><span>Up to 7 days<br/><br/><strong>Charging case</strong><br/><br/>About 90 minutes to full</span></div>
+<div class="gx-pick-row"><b>Sensors</b><span>Optical heart rate, blood oxygen, skin temperature, 3 axis accelerometer</span><span>Optical heart rate, blood oxygen, skin temperature, 3 axis accelerometer</span></div>
+</div>
+</div>
+
+</div>
+
+
 </main>
 
 <dialog class="lab-modal" data-film-modal="" aria-label="The PhenomeTech Ring film">
@@ -296,6 +850,8 @@
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
 <script src="/phenome-store/devices/ring-lab/lab.js"></script>
+<script src="/phenome-store/devices/ring-lab/fit.js"></script>
+<script src="/phenome-store/devices/ring-lab/gen.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>
