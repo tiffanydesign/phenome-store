@@ -33,6 +33,7 @@
   var CAT = {};
   [
     ['/store/phenometech-ring/', 'PhenomeTech Ring', 17900, 'ring-phenometech', 'ring'],
+    ['/devices/band/', 'PhenomeTech Band', 14900, 'band-phenometech', 'band'],
     ['/store/comprehensive-genomic/', 'Comprehensive Genomic Test', 65000, 'test-genomic', 'test'],
     ['/store/carrier-screening/', 'Carrier Screening Test', 39000, 'test-carrier', 'test'],
     ['/store/newborn-screening/', 'Newborn Screening Test', 29500, 'test-newborn', 'test'],
@@ -156,6 +157,15 @@
     var p = CAT[id];
     if (!p) return null;
     var item = { id: id, plan: 'once', variant: '', unit: p.sale || p.price, was: p.sale ? p.price : null };
+
+    /* The band page writes its whole choice (colour, spare straps) into one
+       element and its running total into [data-price]. */
+    var bv = document.querySelector('[data-cart-variant]');
+    if (bv) {
+      item.variant = bv.textContent.trim();
+      item.unit = pence((document.querySelector('[data-price]') || {}).textContent) || p.price;
+      return item;
+    }
 
     var mat = document.querySelector('.buy-choice.on[data-material] .n');
     if (mat) {
@@ -458,6 +468,12 @@
     removePromo: function () { state.promo = false; save(); },
     promoOn: function () { return state.promo; }, promoCode: PROMO.code,
     clear: clear, open: open, close: close, subscribe: function (fn) { subs.push(fn); },
+    /* Add what the current page describes without opening the drawer, for a
+       Buy now control that goes straight on to checkout. */
+    addHere: function (link) { var item = resolve(link || document.body); if (item) add(item); return !!item; },
+    markReturn: function () {
+      try { sessionStorage.setItem(RETURN, location.pathname + location.search + location.hash); } catch (err) { /* no return */ }
+    },
     /* Where checkout's back control should go, and a flag so that page opens
        the drawer when it shows. Falls back to Shop all. */
     backToCart: function () {

@@ -247,6 +247,11 @@
               "href": "/phenome-store/devices/ring/compare-materials/"
             },
             {
+              "label": "PhenomeTech Band",
+              "href": "/phenome-store/devices/band/",
+              "note": "New"
+            },
+            {
               "label": "Ceramic, from £199",
               "href": "/phenome-store/devices/ring/compare-materials/"
             },
@@ -267,6 +272,10 @@
             {
               "label": "Shop the Ring",
               "href": "/phenome-store/store/phenometech-ring/"
+            },
+            {
+              "label": "Shop the Band",
+              "href": "/phenome-store/devices/band/"
             }
           ]
         },

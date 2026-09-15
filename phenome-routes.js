@@ -39,6 +39,7 @@ var ROUTES = [
   ["/clinic/what-to-expect/", "What to expect at the clinic"],
   ["/contact/", "Support"],
   ["/design-system/", "Design system"],
+  ["/devices/band/", "PhenomeTech Band"],
   ["/devices/ring/", "PhenomeTech Ring"],
   ["/devices/ring/compare-materials/", "Compare materials"],
   ["/devices/ring/find-your-size/", "Find your size"],
