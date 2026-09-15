@@ -4,20 +4,334 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>The App, Phenome</title>
+<title>The Phenome app</title>
 <meta content="The Phenome app brings your genome, microbiome and PhenomeTech Ring data together, with clear insights, trends over time and specialists a tap away." name="description"/>
 <link rel="preconnect" href="https://use.typekit.net"/>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin/>
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&amp;display=swap" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<!-- The page's own sheet, scoped to `.apx` on <body>. Layout and motion follow
+     ouraring.com/membership, with a feature bento after ringconn.com's app
+     features page. The nav, the footer, the film and every line of copy that
+     was on this page are kept; the workshop photograph is gone, by request.
+     Phenome has no membership fee, so nothing here describes one. -->
+<link href="/phenome-store/app/app.css" rel="stylesheet"/>
+<script>document.documentElement.classList.add('apx-js');</script>
 </head>
-<body>
+<body class="apx">
 <div data-ph-nav=""></div>
-<main><section class="hero"><div class="wrap-wide hero-split"><div><div class="eyebrow">The app</div><h1 class="hero-title">Your biology,<br/>in your pocket.</h1><p class="lede" style="margin-left:0">The Phenome app brings your genome, microbiome and PhenomeTech Ring data together, with clear insights, trends over time and specialists a tap away.</p><div class="cta-actions" style="justify-content:flex-start;margin-top:28px"><a class="btn" href="#">Download for iOS</a><a class="btn ghost" href="#">Download for Android</a></div></div><div class="hero-img"><video aria-label="The Phenome app on a phone, its dashboard scrolling" autoplay="" height="788" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/app_phone_poster.webp" preload="metadata" width="1400"><source src="/phenome-store/assets/video/app_phone.webm" type="video/webm"/><source src="/phenome-store/assets/video/app_phone.mp4" type="video/mp4"/></video></div></div></section><section class="section"><div class="wrap-wide"><h2 class="sec-title">Health Journal</h2><div class="figures figures-4" style="margin-top:44px;text-align:left"><div class="figure"><div class="n">77</div><div class="l">Sleep  ›</div></div><div class="figure"><div class="n">224</div><div class="l">Calories · kcal  ›</div></div><div class="figure"><div class="n">5.7k</div><div class="l">Steps  ›</div></div><div class="figure"><div class="n">8</div><div class="l">Capacity</div></div></div><div class="grid grid-3 rail" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Phenome Ring</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Phenome Band</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">All Your<br/>Devices  ›</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Date strip</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">‹ | Tue 2 | Wed, 3 | Thu 4 | ›</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Capacity</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Your load and recovery are balanced, steady, sustainable progress.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Activity</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Stay active to support your daily capacity</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Diet</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Log your meals to track your nutrition</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Habits</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Build simple habits that support you</p></div></div><div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap"><a class="tag" href="/phenome-store/app/dashboard/">Home</a><a class="tag" href="/phenome-store/app/trends/">Insights</a><a class="tag" href="/phenome-store/store/">Store</a><a class="tag" href="/phenome-store/account/">Profile</a></div></div></section><section class="section section-gray"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">Everything in one place</h2></div><p class="lede" style="margin-left:0">Your whole biology, made simple to explore and act on.</p></div></section><section class="band"><img alt="A joiner's tool board with every tool hanging in its own place above a bench, a half-finished job still in the vice." decoding="async" height="1030" loading="lazy" src="/phenome-store/assets/pages/band_app.webp" width="2400"/></section><section class="section section-black"><div class="wrap-wide"><div class="grid grid-2" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Your dashboard</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Your devices, daily rings, sleep, calories, steps, and Capacity score, with a Health Journal for Activity, Diet and Habits.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Results and reports</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Your Omics Portfolio, genome, gut, oral, proteome and transcriptome, with clear scores and downloadable PDF reports.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Trends over time</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">See how your biology and cognitive scores shift week to week, and what’s actually moving your markers.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Book a session</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Book a 1:1 with a nutrition specialist or genetic counsellor, in a tap.</p></div></div></div></section><section class="section section-gray" id="longevity-ai"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">Longevity AI</div><h2 class="sec-title">Your Longevity AI, always on.</h2></div><p class="lede" style="margin-left:0">Ask anything about your biology, like “How do my genetic variants affect my daily wellness?”, and get answers grounded in your genome, microbiome and Ring data, plus daily actions that adapt as you change.</p><div class="grid grid-3 rail" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Grounded in your data</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Personalised daily actions</h3></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Learns from every test &amp; Ring reading</h3></div></div></div></section><section class="section"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">Explore the app</h2></div><p class="lede" style="margin-left:0">Free with any Phenome test or the PhenomeTech Ring.</p><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="#">iOS</a><a class="btn ghost" href="#">Android</a></div></div></section><section class="section section-gray"><div class="wrap-wide"><h2 class="sec-title">Inside the app</h2><div class="grid grid-4 rail" style="margin-top:32px"><a class="card-gray" href="/phenome-store/app/dashboard/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px;line-height:25px">Your dashboard</h3></a><a class="card-gray" href="/phenome-store/app/results-and-reports/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px;line-height:25px">Results and reports</h3></a><a class="card-gray" href="/phenome-store/app/trends/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px;line-height:25px">Trends over time</h3></a><a class="card-gray" href="/phenome-store/app/book-a-session/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px;line-height:25px">Book a session</h3></a></div></div></section></main>
+<main>
+
+<!-- 1 · HERO · an inset card over the running film -->
+<section class="ap-hero">
+<div class="ap-hero-card">
+<div class="ap-hero-film" aria-hidden="true">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/app_phone_poster.webp" preload="metadata" aria-label="The Phenome app on a phone, its dashboard scrolling">
+<source src="/phenome-store/assets/video/app_phone.webm" type="video/webm"/>
+<source src="/phenome-store/assets/video/app_phone.mp4" type="video/mp4"/>
+</video>
+</div>
+<div class="ap-hero-shade" aria-hidden="true"></div>
+<div class="ap-hero-top">
+<p class="ap-eyebrow">The app</p>
+<h1 class="ap-h1">Your biology, in your pocket.</h1>
+<div class="ap-hero-cta">
+<a class="ap-pill is-light" href="#">Download for iOS</a>
+<a class="ap-pill is-glass" href="#">Download for Android</a>
+</div>
+</div>
+<div class="ap-hero-foot">
+<p>The Phenome app brings your genome, microbiome and PhenomeTech Ring data together, with clear insights, trends over time and specialists a tap away.</p>
+<div class="ap-ticker" aria-hidden="true">
+<ul>
+<li><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg>Free with any Phenome test or the PhenomeTech Ring</li>
+<li><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>Your data is encrypted and never sold</li>
+<li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M5 8h6"/></svg>No subscription, no hidden fees</li>
+<li><svg viewBox="0 0 16 16"><rect x="4.5" y="2" width="7" height="12" rx="1.8"/><path d="M7 12h2"/></svg>Available on iOS and Android</li>
+<li><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg>Free with any Phenome test or the PhenomeTech Ring</li>
+<li><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>Your data is encrypted and never sold</li>
+<li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M5 8h6"/></svg>No subscription, no hidden fees</li>
+<li><svg viewBox="0 0 16 16"><rect x="4.5" y="2" width="7" height="12" rx="1.8"/><path d="M7 12h2"/></svg>Available on iOS and Android</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 2 · ONE APP · a display, then the fan of phones -->
+<section class="ap-intro">
+<div class="ap-wrap">
+<p class="ap-eyebrow ap-up">Phenome app</p>
+<h2 class="ap-display ap-up d1">Everything in one place</h2>
+<p class="ap-lede ap-up d2">Your whole biology, made simple to explore and act on. Genome, microbiome, proteome and transcriptome results sit beside your Ring and Band readings, in one app you open every morning.</p>
+</div>
+
+<div class="ap-fan" data-ap-fan="">
+<div class="ap-fan-in">
+
+<!-- sleep -->
+<div class="ap-phone" data-i="-2" aria-hidden="true"><div class="ap-scr">
+<p class="ap-s-top"><span>Sleep</span><span>Tue 2</span></p>
+<div class="ap-s-card is-glow"><p class="ap-s-k">Sleep score <small>Good</small></p><p class="ap-s-big">77</p>
+<div class="ap-s-hyp"><i style="--h:.35;--w:6"></i><i style="--h:.7;--w:9"></i><i style="--h:1;--w:6"></i><i style="--h:.6;--w:10"></i><i style="--h:.9;--w:7"></i><i style="--h:.45;--w:8"></i><i style="--h:.95;--w:5"></i><i style="--h:.55;--w:9"></i><i style="--h:.3;--w:6"></i></div></div>
+<div class="ap-s-card"><p class="ap-s-k">Time asleep <small>7 h 31</small></p><div class="ap-s-bar" style="--p:.82;--c:#8f9bff"><i></i></div></div>
+<div class="ap-s-card"><p class="ap-s-k">Deep sleep <small>1 h 42</small></p><div class="ap-s-bar" style="--p:.6;--c:#5b6cf0"><i></i></div></div>
+<div class="ap-s-card"><p class="ap-s-k">Resting heart rate <small>54</small></p><p class="ap-s-d">Deep sleep came early, a good sign for recovery.</p></div>
+<div class="ap-s-tabs"><b>Home</b><span>Insights</span><span>Store</span><span>Profile</span></div>
+</div></div>
+
+<!-- results -->
+<div class="ap-phone" data-i="-1" aria-hidden="true"><div class="ap-scr is-light">
+<p class="ap-s-top"><span>Results and reports</span></p>
+<div class="ap-s-card"><p class="ap-s-k">Omics Portfolio</p><p class="ap-s-d">Clear scores, and a PDF for every report.</p>
+<ul class="ap-s-omics"><li>Genome<b>92</b></li><li>Gut<b>78</b></li><li>Oral<b>84</b></li><li>Proteome<b>71</b></li><li>Transcriptome<b>80</b></li></ul></div>
+<div class="ap-s-card"><p class="ap-s-k">Download PDF report</p><p class="ap-s-d">Comprehensive Genomic Test</p></div>
+<div class="ap-s-tabs"><span>Home</span><b>Insights</b><span>Store</span><span>Profile</span></div>
+</div></div>
+
+<!-- home, the Health Journal -->
+<div class="ap-phone is-main" data-i="0" aria-hidden="true"><div class="ap-scr is-dark-logo">
+<p class="ap-s-top"><span>Health Journal</span><img alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></p>
+<div class="ap-s-dev"><span>Phenome Ring</span><span>Phenome Band</span><span>All your devices ›</span></div>
+<p class="ap-s-dates"><span>‹</span><span>Tue 2</span><b>Wed 3</b><span>Thu 4</span><span>›</span></p>
+<div class="ap-s-rings">
+<div class="ap-s-ring"><i style="--p:.77;--c:#8f9bff"></i><b>77</b><span>Sleep ›</span></div>
+<div class="ap-s-ring"><i style="--p:.45;--c:#ffb35c"></i><b>224</b><span>Calories ›</span></div>
+<div class="ap-s-ring"><i style="--p:.57;--c:#6ee7a8"></i><b>5.7k</b><span>Steps ›</span></div>
+<div class="ap-s-ring"><i style="--p:.8;--c:#7fd4ff"></i><b>8</b><span>Capacity</span></div>
+</div>
+<div class="ap-s-card is-glow"><p class="ap-s-k">Capacity <small>8</small></p><p class="ap-s-d">Your load and recovery are balanced, steady, sustainable progress.</p></div>
+<div class="ap-s-card"><p class="ap-s-k">Activity</p><p class="ap-s-d">Stay active to support your daily capacity</p></div>
+<div class="ap-s-card"><p class="ap-s-k">Diet</p><p class="ap-s-d">Log your meals to track your nutrition</p></div>
+<div class="ap-s-card"><p class="ap-s-k">Habits</p><p class="ap-s-d">Build simple habits that support you</p></div>
+<div class="ap-s-tabs"><b>Home</b><span>Insights</span><span>Store</span><span>Profile</span></div>
+</div></div>
+
+<!-- trends -->
+<div class="ap-phone" data-i="1" aria-hidden="true"><div class="ap-scr is-light">
+<p class="ap-s-top"><span>Trends over time</span><span>12 weeks</span></p>
+<div class="ap-s-card"><p class="ap-s-k">Cognitive score</p><p class="ap-s-big" style="color:#203a85">84</p>
+<svg class="ap-s-line" viewBox="0 0 200 60" aria-hidden="true"><path d="M0 48 C24 46 36 40 58 42 S96 30 118 26 S160 18 200 12" fill="none" stroke="#203a85" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+<div class="ap-s-card"><p class="ap-s-k">Gut diversity</p><div class="ap-s-bar" style="--p:.72;--c:#28b58a"><i></i></div><p class="ap-s-d">Up since you added more fibre.</p></div>
+<div class="ap-s-card"><p class="ap-s-k">Resting heart rate</p><div class="ap-s-bar" style="--p:.54;--c:#ef6b8a"><i></i></div><p class="ap-s-d">Down 3 beats over the quarter.</p></div>
+<div class="ap-s-tabs"><span>Home</span><b>Insights</b><span>Store</span><span>Profile</span></div>
+</div></div>
+
+<!-- Longevity AI -->
+<div class="ap-phone" data-i="2" aria-hidden="true"><div class="ap-scr">
+<p class="ap-s-top"><span>Longevity AI</span><span>Always on</span></p>
+<p class="ap-s-bubble is-me">How do my genetic variants affect my daily wellness?</p>
+<p class="ap-s-bubble">Two of your variants slow how you clear caffeine. Your Ring shows lighter sleep on days you have coffee after noon.</p>
+<p class="ap-s-bubble">Try your last coffee before 12 this week, and I will compare your deep sleep on Sunday.</p>
+<div class="ap-s-card"><p class="ap-s-k">Today’s action</p><p class="ap-s-d">Last coffee before noon</p></div>
+<div class="ap-s-tabs"><span>Home</span><b>Insights</b><span>Store</span><span>Profile</span></div>
+</div></div>
+
+</div>
+</div>
+
+<div class="ap-wrap">
+<div class="ap-three">
+<div class="ap-up">
+<div class="ap-shot" aria-hidden="true"><div class="ap-phone"><div class="ap-scr is-dark-logo">
+<p class="ap-s-top"><span>Health Journal</span><img alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></p>
+<div class="ap-s-rings"><div class="ap-s-ring"><i style="--p:.77;--c:#8f9bff"></i><b>77</b><span>Sleep</span></div><div class="ap-s-ring"><i style="--p:.45;--c:#ffb35c"></i><b>224</b><span>Calories</span></div><div class="ap-s-ring"><i style="--p:.57;--c:#6ee7a8"></i><b>5.7k</b><span>Steps</span></div><div class="ap-s-ring"><i style="--p:.8;--c:#7fd4ff"></i><b>8</b><span>Capacity</span></div></div>
+<div class="ap-s-card is-glow"><p class="ap-s-k">Capacity <small>8</small></p><p class="ap-s-d">Your load and recovery are balanced.</p></div>
+</div></div></div>
+<h3>Your dashboard</h3>
+<p>Your devices, daily rings, sleep, calories, steps, and Capacity score, with a Health Journal for Activity, Diet and Habits.</p>
+</div>
+<div class="ap-up d1">
+<div class="ap-shot" aria-hidden="true"><div class="ap-phone"><div class="ap-scr is-light">
+<p class="ap-s-top"><span>Omics Portfolio</span></p>
+<div class="ap-s-card"><ul class="ap-s-omics"><li>Genome<b>92</b></li><li>Gut<b>78</b></li><li>Oral<b>84</b></li><li>Proteome<b>71</b></li></ul></div>
+</div></div></div>
+<h3>Results and reports</h3>
+<p>Your Omics Portfolio, genome, gut, oral, proteome and transcriptome, with clear scores and downloadable PDF reports.</p>
+</div>
+<div class="ap-up d2">
+<div class="ap-shot" aria-hidden="true"><div class="ap-phone"><div class="ap-scr is-light">
+<p class="ap-s-top"><span>Trends over time</span></p>
+<div class="ap-s-card"><p class="ap-s-k">Cognitive score</p><p class="ap-s-big" style="color:#203a85">84</p><svg class="ap-s-line" viewBox="0 0 200 60" aria-hidden="true"><path d="M0 48 C24 46 36 40 58 42 S96 30 118 26 S160 18 200 12" fill="none" stroke="#203a85" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+</div></div></div>
+<h3>Trends over time</h3>
+<p>See how your biology and cognitive scores shift week to week, and what’s actually moving your markers.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 4 · LONGEVITY AI · a display, an image beside a paragraph and chips -->
+<section class="ap-evolve" id="longevity-ai" data-ap-evolve="">
+<div class="ap-wrap">
+<h2 class="ap-display ap-up">Your Longevity AI, always on.</h2>
+<div class="ap-evolve-row">
+<div class="ap-evolve-img ap-up">
+<img class="on" data-shot="sleep" alt="A woman resting on a bed in a bright room" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_devices.webp"/>
+<img data-shot="genome" alt="A woman sitting cross legged in a bright bedroom" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp"/>
+<img data-shot="gut" alt="A woman laughing in her kitchen, holding a bowl of salad" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_gut_bowl.webp"/>
+<img data-shot="activity" alt="A strength session at home" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_sports_strength.webp"/>
+<img data-shot="diet" alt="A bowl of fresh food on a kitchen table" decoding="async" loading="lazy" src="/phenome-store/assets/pages/hub_gutguide_everyday.webp"/>
+<img data-shot="habits" alt="A hand wearing the ring on a walk by the water" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn.webp"/>
+</div>
+<div class="ap-evolve-copy ap-up d1">
+<p class="ap-eyebrow">Longevity AI</p>
+<h3>Grounded in your data. Personalised daily actions. Learns from every test and Ring reading.</h3>
+<p>Ask anything about your biology, like “How do my genetic variants affect my daily wellness?”, and get answers grounded in your genome, microbiome and Ring data, plus daily actions that adapt as you change.</p>
+<div class="ap-chips">
+<button class="ap-chip on" data-shot="sleep" type="button" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4a8 8 0 1 0 4 12A7 7 0 0 1 16 4z"/></svg>Sleep and recovery</button>
+<button class="ap-chip" data-shot="genome" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12M8 7h8M8 17h8"/></svg>Your genome</button>
+<button class="ap-chip" data-shot="gut" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="7" r="2"/><circle cx="14" cy="16" r="4"/></svg>Gut microbiome</button>
+<button class="ap-chip" data-shot="activity" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="14" cy="4.5" r="1.8"/><path d="M8 21l3.5-6.5 3 2.5V21M6 12l3-3.5h4.5l2 3.5H19"/></svg>Activity</button>
+<button class="ap-chip" data-shot="diet" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h16a8 8 0 0 1-16 0zM9 9c0-2 1.5-3 1.5-5M14 9c0-2 1.5-3 1.5-5"/></svg>Diet</button>
+<button class="ap-chip" data-shot="habits" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4L19 7"/></svg>Habits</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 5 · REAL INSIGHT · three cards -->
+<section class="ap-stories">
+<div class="ap-wrap">
+<h2 class="ap-display ap-up">Real days, real insight</h2>
+<div class="ap-story-grid">
+<article class="ap-story ap-up"><span class="ap-tag">Capacity</span><blockquote>“Your load and recovery are balanced, steady, sustainable progress.”</blockquote><p class="ap-story-by"><i><img alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></i><span>Health Journal<small>Wednesday morning</small></span></p></article>
+<article class="ap-story ap-up d1"><span class="ap-tag">Sleep</span><blockquote>“Deep sleep came early, a good sign for recovery. Keep the evening light and you will hold the streak.”</blockquote><p class="ap-story-by"><i><img alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></i><span>PhenomeTech Ring<small>After a night’s wear</small></span></p></article>
+<article class="ap-story ap-up d2"><span class="ap-tag">Gut</span><blockquote>“Your gut diversity is up since you added more fibre. Keep it going and we will recheck in three months.”</blockquote><p class="ap-story-by"><i><img alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></i><span>Longevity AI<small>Read with your Gut Microbiome Test</small></span></p></article>
+</div>
+</div>
+</section>
+
+<!-- 6 · LIVE TILES · two rows drifting -->
+<section class="ap-tiles" aria-label="Readings the app keeps for you">
+<ul class="ap-tile-row">
+<li class="ap-tile"><p>Sleep</p><small>Good</small><svg viewBox="0 0 160 54"><path d="M0 40 C20 38 30 20 50 24 S90 44 110 30 S140 10 160 14"/></svg><b>77</b></li>
+<li class="ap-tile"><p>Calories</p><small>Today</small><b>224<span>kcal</span></b></li>
+<li class="ap-tile"><p>Steps</p><small>Goal 8,000</small><svg viewBox="0 0 160 54"><path d="M0 27h160" stroke-dasharray="2 6"/><path d="M0 27h112"/></svg><b>5.7k</b></li>
+<li class="ap-tile"><p>Capacity</p><small>Balanced</small><b>8</b></li>
+<li class="ap-tile"><p>Heart rate</p><small>15 min ago</small><svg viewBox="0 0 160 54"><path d="M0 30h30l8-16 10 32 8-16h104"/></svg><b>54<span>bpm</span></b></li>
+<li class="ap-tile"><p>Deep sleep</p><small>Above your usual</small><b>1 h 42</b></li>
+<li class="ap-tile"><p>Blood oxygen</p><small>Overnight</small><b>98<span>%</span></b></li>
+<li class="ap-tile"><p>Sleep</p><small>Good</small><svg viewBox="0 0 160 54"><path d="M0 40 C20 38 30 20 50 24 S90 44 110 30 S140 10 160 14"/></svg><b>77</b></li>
+<li class="ap-tile"><p>Calories</p><small>Today</small><b>224<span>kcal</span></b></li>
+<li class="ap-tile"><p>Steps</p><small>Goal 8,000</small><svg viewBox="0 0 160 54"><path d="M0 27h160" stroke-dasharray="2 6"/><path d="M0 27h112"/></svg><b>5.7k</b></li>
+<li class="ap-tile"><p>Capacity</p><small>Balanced</small><b>8</b></li>
+<li class="ap-tile"><p>Heart rate</p><small>15 min ago</small><svg viewBox="0 0 160 54"><path d="M0 30h30l8-16 10 32 8-16h104"/></svg><b>54<span>bpm</span></b></li>
+<li class="ap-tile"><p>Deep sleep</p><small>Above your usual</small><b>1 h 42</b></li>
+<li class="ap-tile"><p>Blood oxygen</p><small>Overnight</small><b>98<span>%</span></b></li>
+</ul>
+<ul class="ap-tile-row">
+<li class="ap-tile"><p>Heart rate variability</p><small>Recovering</small><svg viewBox="0 0 160 54"><path d="M0 34 C24 34 30 16 54 20 S96 40 120 26 S148 18 160 20"/></svg><b>62<span>ms</span></b></li>
+<li class="ap-tile"><p>Skin temperature</p><small>Your baseline</small><b>+0.1°</b></li>
+<li class="ap-tile"><p>Stress</p><small>Calm</small><svg viewBox="0 0 160 54"><path d="M0 40h40M60 30h40M120 20h40"/></svg><b>Calm</b></li>
+<li class="ap-tile"><p>Gut diversity</p><small>Trending up</small><b>High</b></li>
+<li class="ap-tile"><p>Biological age</p><small>2.1 years younger</small><b>38.4</b></li>
+<li class="ap-tile"><p>Cognitive score</p><small>12 weeks</small><svg viewBox="0 0 160 54"><path d="M0 46 C30 44 50 34 80 30 S130 14 160 10"/></svg><b>84</b></li>
+<li class="ap-tile"><p>Cycle day</p><small>Follicular phase</small><b>9</b></li>
+<li class="ap-tile"><p>Heart rate variability</p><small>Recovering</small><svg viewBox="0 0 160 54"><path d="M0 34 C24 34 30 16 54 20 S96 40 120 26 S148 18 160 20"/></svg><b>62<span>ms</span></b></li>
+<li class="ap-tile"><p>Skin temperature</p><small>Your baseline</small><b>+0.1°</b></li>
+<li class="ap-tile"><p>Stress</p><small>Calm</small><svg viewBox="0 0 160 54"><path d="M0 40h40M60 30h40M120 20h40"/></svg><b>Calm</b></li>
+<li class="ap-tile"><p>Gut diversity</p><small>Trending up</small><b>High</b></li>
+<li class="ap-tile"><p>Biological age</p><small>2.1 years younger</small><b>38.4</b></li>
+<li class="ap-tile"><p>Cognitive score</p><small>12 weeks</small><svg viewBox="0 0 160 54"><path d="M0 46 C30 44 50 34 80 30 S130 14 160 10"/></svg><b>84</b></li>
+<li class="ap-tile"><p>Cycle day</p><small>Follicular phase</small><b>9</b></li>
+</ul>
+</section>
+
+<!-- 7 · FEATURE BENTO · after ringconn's phone led feature rows -->
+<section class="ap-bento-sec">
+<div class="ap-wrap">
+<div class="ap-bento-head">
+<h2 class="ap-h2 ap-up">Everything the app can do</h2>
+<p class="ap-lede ap-up d1">Every Ring and Band reading, every test result and every plan, read together and kept in one place for as long as you want it.</p>
+</div>
+<div class="ap-bento">
+<article class="ap-b is-film ap-up">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/app/app-monitor.webp" preload="metadata" aria-label="The Health Monitor screen of the Phenome app, with readings lifting off it" role="img"><source src="/phenome-store/assets/app/app-monitor.mp4" type="video/mp4"/></video>
+<div class="ap-b-copy"><h3>Health Monitor</h3><p>Steps, calories, stress, sleep, blood oxygen and more, read by the Ring and Band and gathered on one screen.</p></div>
+</article>
+<article class="ap-b is-ai ap-up d1">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/tile-ai.webp" preload="metadata" aria-hidden="true"><source src="/phenome-store/assets/video/tile-ai.webm" type="video/webm"/><source src="/phenome-store/assets/video/tile-ai.mp4" type="video/mp4"/></video>
+<div class="ap-b-copy" style="color:#fff"><h3>Longevity AI</h3><p style="color:rgba(255,255,255,.8)">Answers from your own readings, in plain language.</p></div>
+</article>
+<article class="ap-b ap-up d2"><span class="ap-b-ping" aria-hidden="true"></span><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><h3>Find my ring</h3><p>See where your ring was last synced when it is somewhere nearby.</p></article>
+<article class="ap-b ap-up"><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V6a2 2 0 0 1 2-2h8l4 4v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2zM10 12h6M10 16h4"/></svg></span><h3>Notes and tags</h3><p>Log a late coffee, a hard session or a symptom, and see its effect.</p></article>
+<article class="ap-b ap-up d1"><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 11l7.4-3.8M8.3 13l7.4 3.8"/></svg></span><h3>Share with your clinician</h3><p>Send a clear summary, or book a 1:1 with a nutrition specialist or genetic counsellor, in a tap.</p></article>
+<article class="ap-b is-wide ap-up"><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Weekly and yearly reports</h3><p>Your progress, summed up in a few clear pages, with what moved your markers and what to try next.</p></article>
+<article class="ap-b is-dark ap-up d1"><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Private by design</h3><p>Encrypted, never sold, and yours to export or delete.</p></article>
+<article class="ap-b is-dark ap-up d2"><span class="ap-b-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span><h3>No subscription</h3><p>No hidden fees. Every feature comes with your test or your Ring.</p></article>
+</div>
+</div>
+</section>
+
+<!-- 8 · PRIVACY -->
+<section class="ap-privacy">
+<div class="ap-up">
+<h2 class="ap-display">Your privacy always comes first</h2>
+<p>Trusting us with your biology is a serious decision. Your data is encrypted, handled under UK GDPR, never sold, and yours to export or delete at any time.</p>
+<a class="ap-pill" href="/phenome-store/legal/privacy.html">Read our privacy policy</a>
+</div>
+<div class="ap-privacy-img ap-up d1"><img alt="A family together at home, one of them wearing the ring" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn_family.webp"/></div>
+</section>
+
+<!-- 9 · QUESTIONS -->
+<section class="ap-faq">
+<div class="ap-wrap">
+<h2 class="ap-h2 ap-up">Frequently asked questions</h2>
+<div class="ap-faq-list">
+<details class="ap-q ap-up" open=""><summary>Is the Phenome app free?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>Yes. The app is free with any Phenome test or the PhenomeTech Ring. There is no subscription and nothing to pay to unlock a feature.</p></div></div></details>
+<details class="ap-q ap-up"><summary>Do I need a PhenomeTech Ring to use the app?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>No. Your results, reports and Longevity AI work on their own. Adding the Ring or the Band brings in sleep, heart rate and activity, so your insight updates day to day.</p></div></div></details>
+<details class="ap-q ap-up"><summary>Which phones does the app work on?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>iPhone with iOS 16 or later, and Android phones with Android 10 or later.</p></div></div></details>
+<details class="ap-q ap-up"><summary>How does Longevity AI use my data?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>It answers from your own genome, microbiome and Ring readings first, then from the research behind them. It is for wellness and information, and is not a diagnosis.</p></div></div></details>
+<details class="ap-q ap-up"><summary>Can I share my results with my doctor?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>Yes. Download any report as a PDF, send a summary, or book a session with a nutrition specialist or genetic counsellor from the app.</p></div></div></details>
+<details class="ap-q ap-up"><summary>What happens to my data if I stop using the app?<i aria-hidden="true"></i></summary><div class="ap-q-b"><div><p>It stays yours. Export it or delete it whenever you choose. We never sell it or share it without your consent.</p></div></div></details>
+</div>
+</div>
+</section>
+
+<!-- 10 · START -->
+<section class="ap-start">
+<div class="ap-wrap">
+<div class="ap-start-grid">
+<div class="ap-up">
+<h2 class="ap-h2">Explore the app</h2>
+<p>Free with any Phenome test or the PhenomeTech Ring.</p>
+<div class="ap-start-cta"><a class="ap-pill is-blue" href="#">iOS</a><a class="ap-pill" href="#">Android</a></div>
+</div>
+<div class="ap-start-img ap-up d1"><img alt="A hand wearing the white ceramic ring on a linen sheet" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_ceramic_worn.webp"/></div>
+</div>
+</div>
+</section>
+
+<!-- 11 · INSIDE THE APP -->
+<section class="ap-inside">
+<div class="ap-wrap">
+<h2 class="ap-up">Inside the app</h2>
+<div class="ap-inside-grid">
+<a class="ap-feat ap-up" href="/phenome-store/app/book-a-session/">
+<img alt="Two people talking at a table during a session" decoding="async" loading="lazy" src="/phenome-store/assets/pages/app_booking_talk.webp"/>
+<span class="ap-tag">Book a session</span>
+<div class="ap-feat-copy"><h3>Specialists a tap away</h3><p>Book a 1:1 with a nutrition specialist or genetic counsellor, in a tap.</p><span class="ap-pill is-light">Book a session</span></div>
+</a>
+<div class="ap-side">
+<a class="ap-up d1" href="/phenome-store/app/dashboard/"><h3>Your dashboard</h3><div class="ap-side-meta"><span>Home</span><i class="ap-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
+<a class="ap-up d2" href="/phenome-store/app/results-and-reports/"><h3>Results and reports</h3><div class="ap-side-meta"><span>Insights</span><i class="ap-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
+<a class="ap-up d3" href="/phenome-store/app/trends/"><h3>Trends over time</h3><div class="ap-side-meta"><span>Insights</span><i class="ap-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
+</div>
+</div>
+</div>
+</section>
+
+</main>
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/app/app.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>
