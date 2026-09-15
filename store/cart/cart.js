@@ -4,8 +4,10 @@
    The flow is taken from seed.com: a buy button never leaves the page it is
    on. It adds the line and opens a drawer from the right, and the drawer's
    Checkout is the only way forward to /store/checkout/, which is a separate,
-   distraction free page. /store/cart/ still exists, as the same cart laid out
-   full page, for a direct visit and for the nav icon's href.
+   distraction free page. There is no cart PAGE: /store/cart/ was deleted on
+   the user's call, and every link that still points at it only opens the
+   drawer. Leaving checkout by its back control returns to the page the
+   reader came from with the drawer open again (see RETURN below).
 
    Injected by shared.js, so no page carries its own <script> for it. State is
    localStorage only: there is no shop backend behind this mirror, and a real
@@ -19,6 +21,11 @@
   var BASE = self ? self.src.replace(/\/store\/cart\/cart\.js.*$/, '').replace(/^[a-z]+:\/\/[^/]*/i, '') : '/phenome-store';
   var KEY = 'phenome.cart.v1';
   var PROMO = { code: 'Welcome10', rate: 0.10 };
+  /* RETURN: the page Checkout was opened from, so checkout's back control can
+     go back to it. REOPEN: a one shot flag telling that page to open the
+     drawer when it shows again. Both are sessionStorage, per tab. */
+  var RETURN = 'phenome.cart.return';
+  var REOPEN = 'phenome.cart.reopen';
 
   /* ---- catalogue ----------------------------------------------------------
      Copied from the Shop all cards (store/index.html), so the cart shows the
@@ -267,10 +274,11 @@
       '<a class="cx-cta" href="' + BASE + '/store/checkout/">Checkout</a>';
   }
 
+  /* Empty means empty: no recommendations, and the one control closes the
+     drawer so the reader stays on the page they were browsing. */
   function emptyHTML() {
-    return '<div class="cx-empty"><p class="cx-empty-t">Your cart is empty.</p>' +
-      '<p class="cx-empty-d">Tests, the ring and supplements all start from the store.</p>' +
-      '<a class="cx-cta cx-cta-inline" href="' + BASE + '/store/">Shop all</a></div>';
+    return '<div class="cx-empty"><p class="cx-empty-t">Your cart is empty</p>' +
+      '<button type="button" class="cx-cta cx-cta-inline" data-close>Continue shopping</button></div>';
   }
 
   /* ---- behaviour shared by both hosts ------------------------------------- */
@@ -338,7 +346,12 @@
       '<div class="cx-scroll"></div><footer class="cx-foot"></footer></aside>';
     document.body.appendChild(drawer);
     panel = drawer.querySelector('.cx-panel');
-    drawer.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) close(); });
+    drawer.addEventListener('click', function (e) {
+      if (e.target.closest('[data-close]')) { close(); return; }
+      if (e.target.closest('.cx-cta[href]')) {
+        try { sessionStorage.setItem(RETURN, location.pathname + location.search + location.hash); } catch (err) { /* no return */ }
+      }
+    });
     drawer.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { close(); return; }
       if (e.key !== 'Tab') return;
@@ -357,12 +370,13 @@
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest('.cx-line');
     var focusStep = focusKey && document.activeElement.getAttribute('data-step');
     focusKey = focusKey && focusKey.getAttribute('data-key');
-    drawer.querySelector('.cx-title').innerHTML = 'Your cart' + (t.count ? ' <span>' + t.count + '</span>' : '');
+    drawer.querySelector('.cx-title').innerHTML = 'Your cart <span>' + t.count + '</span>';
     drawer.querySelector('.cx-scroll').innerHTML = t.count
       ? offerHTML(t) + '<ul class="cx-lines">' + state.lines.map(lineHTML).join('') + '</ul>' + pairsHTML(4) + promoHTML()
-      : emptyHTML() + pairsHTML(3);
+      : emptyHTML();
     drawer.querySelector('.cx-foot').innerHTML = t.count ? sumHTML(t) : '';
     drawer.querySelector('.cx-foot').hidden = !t.count;
+    panel.classList.toggle('is-empty', !t.count);
     markFlash(drawer);
     focusPromo(drawer);
     if (focusKey) {
@@ -385,24 +399,6 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  /* ---- the full page at /store/cart/ -------------------------------------- */
-  function paintPage(root) {
-    var t = totals();
-    root.innerHTML = t.count
-      ? '<div class="cx-page-grid"><div class="cx-page-main">' +
-          '<h1 class="cx-page-title">Your cart <span>' + t.count + '</span></h1>' + offerHTML(t) +
-          '<ul class="cx-lines">' + state.lines.map(lineHTML).join('') + '</ul></div>' +
-        '<aside class="cx-page-side"><div class="cx-card">' +
-          '<p class="cx-row"><span>Subtotal</span><span>' + money(t.was) + '</span></p>' +
-          discountsHTML(t) +
-          '<p class="cx-row"><span>Delivery</span><span>Free</span></p>' +
-          promoHTML() + '<div class="cx-card-sum">' + sumHTML(t, true) + '</div></div></aside></div>' +
-        pairsHTML(4)
-      : '<h1 class="cx-page-title">Your cart</h1>' + emptyHTML() + pairsHTML(4);
-    markFlash(root);
-    focusPromo(root);
-  }
-
   /* ---- boot --------------------------------------------------------------- */
   function badge() {
     var n = totals().count;
@@ -416,28 +412,16 @@
   }
 
   function boot() {
-    var page = document.querySelector('[data-cart-page]');
     subs.push(badge);
     badge();
 
-    if (page) {
-      wire(page, function () { paintPage(page); });
-      paintPage(page);
-    }
-
     /* Capture phase, so this runs before anything a page script put on the
-       same button. Only plain left clicks: a modified click still opens the
-       full cart page in a new tab, as the href says. */
+       same button. Modified clicks are caught too: the cart page is gone, so
+       there is nothing for a new tab to open. */
     document.addEventListener('click', function (e) {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (e.defaultPrevented || e.button > 1) return;
       var a = e.target.closest && e.target.closest('a[href$="/store/cart/"]');
       if (!a || a.closest('.cx-drawer')) return;
-      if (page) {
-        if (a.classList.contains('ph-nav-icon')) return;
-        e.preventDefault();
-        var hit = resolve(a); if (hit) add(hit);
-        return;
-      }
       e.preventDefault();
       if (!a.classList.contains('ph-nav-icon')) {
         var item = resolve(a);
@@ -445,6 +429,20 @@
       }
       open();
     }, true);
+    document.addEventListener('auxclick', function (e) {
+      if (e.button === 1 && e.target.closest && e.target.closest('a[href$="/store/cart/"]')) e.preventDefault();
+    }, true);
+
+    /* Back from checkout. pageshow fires both on a fresh load and when the
+       browser restores this page from its back/forward cache, where boot()
+       does not run again; the cart may have changed on checkout meanwhile
+       (a promo applied), so state is re-read before the drawer paints. */
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) { state = load(); repaint(); }
+      var again = false;
+      try { again = sessionStorage.getItem(REOPEN) === '1'; sessionStorage.removeItem(REOPEN); } catch (err) { /* none */ }
+      if (again && !document.querySelector('[data-checkout]')) open();
+    });
 
     /* Another tab changed the cart. */
     window.addEventListener('storage', function (e) {
@@ -459,7 +457,15 @@
     totals: totals, money: money, minus: minus, planLabel: planLabel, applyPromo: applyPromo,
     removePromo: function () { state.promo = false; save(); },
     promoOn: function () { return state.promo; }, promoCode: PROMO.code,
-    clear: clear, open: open, close: close, subscribe: function (fn) { subs.push(fn); }
+    clear: clear, open: open, close: close, subscribe: function (fn) { subs.push(fn); },
+    /* Where checkout's back control should go, and a flag so that page opens
+       the drawer when it shows. Falls back to Shop all. */
+    backToCart: function () {
+      var to = null;
+      try { to = sessionStorage.getItem(RETURN); sessionStorage.setItem(REOPEN, '1'); } catch (err) { /* none */ }
+      return to || BASE + '/store/';
+    },
+    returnUrl: function () { try { return sessionStorage.getItem(RETURN); } catch (err) { return null; } }
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

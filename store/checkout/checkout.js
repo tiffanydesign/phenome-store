@@ -3,8 +3,9 @@
 
    Checkout is seed.com's shape: nothing on the page leads anywhere but
    forward or back to the cart. The summary on the right is the live cart,
-   including its promo code, so editing either one shows in both. An empty
-   cart has nothing to check out and is sent back to /store/cart/.
+   including its promo code, so editing either one shows in both. The back
+   control, and an empty cart, return to the page checkout was opened from
+   with the cart drawer open there; there is no cart page.
 
    Place order validates, writes the order to sessionStorage, empties the cart
    and goes to /store/checkout/confirmed/, which reads the order back.
@@ -55,8 +56,35 @@
     var aside = document.getElementById('coSummary');
     var promoOpen = false;
 
+    /* Back to the cart means back to the page the reader opened checkout from,
+       with the drawer open on it. When that page is the previous history
+       entry, history.back() is used, so the browser restores it where the
+       reader left it, scroll position included; otherwise it is navigated to.
+       A direct visit with no recorded page lands on Shop all. */
+    function backToCart(replace) {
+      var to = C.backToCart();
+      var prev = '';
+      try {
+        var r = document.referrer && new URL(document.referrer);
+        if (r && r.origin === location.origin) prev = r.pathname + r.search + r.hash;
+      } catch (err) { /* no referrer */ }
+      if (!replace && prev && prev === to && history.length > 1) history.back();
+      else if (replace) location.replace(to);
+      else location.href = to;
+    }
+    var back = document.querySelector('.co-back');
+    if (back) {
+      back.setAttribute('href', C.returnUrl() || C.base + '/store/');
+      back.addEventListener('click', function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        backToCart(false);
+      });
+    }
+
+    /* Nothing to check out: go back rather than show an empty form. */
     if (!C.lines().length) {
-      location.replace(C.base + '/store/cart/');
+      backToCart(true);
       return;
     }
 

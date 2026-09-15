@@ -60,7 +60,6 @@ var ROUTES = [
   ["/sitemap/", "Sitemap"],
   ["/store/", "Store"],
   ["/store/carrier-screening/", "Carrier Screening Test"],
-  ["/store/cart/", "Your bag"],
   ["/store/checkout/", "Checkout"],
   ["/store/checkout/confirmed/", "Order confirmed"],
   ["/store/comprehensive-genomic/", "Comprehensive Genomic Test"],
