@@ -58,6 +58,10 @@
               "href": "/phenome-store/store/"
             },
             {
+              "label": "Explore for Ring (Lab)",
+              "href": "/phenome-store/devices/ring-lab/"
+            },
+            {
               "label": "Genetic tests",
               "href": "/phenome-store/store/genetic/"
             },
@@ -243,13 +247,13 @@
               "href": "/phenome-store/devices/ring/"
             },
             {
-              "label": "Titanium, from £179",
-              "href": "/phenome-store/devices/ring/compare-materials/"
-            },
-            {
               "label": "PhenomeTech Band",
               "href": "/phenome-store/devices/band/",
               "note": "New"
+            },
+            {
+              "label": "Titanium, from £179",
+              "href": "/phenome-store/devices/ring/compare-materials/"
             },
             {
               "label": "Ceramic, from £199",
