@@ -20,6 +20,11 @@
 <link href="/phenome-store/devices/ring-lab/fit.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring-lab/gen-a.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring-lab/gen-b.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring-lab/sam.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring-lab/plx.css" rel="stylesheet"/>
 <link rel="preload" as="image" href="/phenome-store/assets/lab/hero-rings.webp" fetchpriority="high"/>
 <!-- Motion states that start hidden are keyed to this class, so without
      script the page is simply shown. Set before first paint. -->
@@ -839,6 +844,641 @@
 </div>
 
 
+<!-- ===========================================================================
+     38 to 50 · THE SHOWCASE · the body of samsung.com/us/rings/galaxy-ring,
+     section for section and in the same order, told for the PhenomeTech Ring:
+     the section rail, the statement over a film, the pinned sensor plate, the
+     health cards, the score, the fitness cards, the battery circles, the three
+     charger states, the sizing steps, the colourway picker, the water claim
+     and the connected slides. Styles in sam.css, behaviour in sam.js.
+     ======================================================================== -->
+<div class="sam" data-sam="">
+
+<nav class="sam-rail" data-sam-rail="" aria-label="Sections of the showcase">
+<a href="#sam-wellness">Wellness</a>
+<a href="#sam-health">Health</a>
+<a href="#sam-fitness">Fitness</a>
+<a href="#sam-battery">Battery</a>
+<a href="#sam-sizing">Sizing</a>
+<a href="#sam-colour">Colour</a>
+</nav>
+
+<!-- 38 · the statement, the film under it, four things it is -->
+<section class="sam-sec is-dark sam-open" id="sam-wellness">
+<div class="sam-wrap">
+<div class="sam-head2">
+<div>
+<p class="sam-eyebrow sam-up">Wellness</p>
+<h2 class="sam-h sam-up d1">The design you want.<br/>The insight you need.</h2>
+</div>
+<p class="sam-sub sam-up d2">One seamless band in grade 5 titanium or high density zirconia ceramic. Five sensors reading through the night. And every signal answered against the genome you were born with, rather than an average one.</p>
+</div>
+<div class="sam-film sam-up d3">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/sam/colourways.webp" preload="metadata" aria-label="Four PhenomeTech Rings turning slowly on a pale blue ground" role="img"><source src="/phenome-store/assets/lab/sam/colourways.mp4" type="video/mp4"/></video>
+</div>
+<ul class="sam-chips">
+<li class="sam-up"><b>A seamless body</b><span>One unbroken band, with no seam to catch and no coating to wear through.</span></li>
+<li class="sam-up d1"><b>About 4 g</b><span>Light enough to forget you put it on, and to keep on every night.</span></li>
+<li class="sam-up d2"><b>Five sensors</b><span>More than 50 signals, read continuously rather than sampled now and then.</span></li>
+<li class="sam-up d3"><b>Read with your genome</b><span>Every reading is answered beside your whole genome and your gut microbiome.</span></li>
+</ul>
+</div>
+</section>
+
+<!-- 39 · the sensor plate, pinned. The ring grows, its names arrive round it -->
+<div class="sam-sensors" data-sam-sensors="">
+<div class="sam-sensors-track">
+<div class="sam-sensors-pin">
+<div class="sam-sensors-glow" aria-hidden="true"></div>
+<div class="sam-sensors-copy">
+<p class="sam-eyebrow">Engineering</p>
+<h2 class="sam-h">Five sensors.<br/>Deeper understanding.</h2>
+</div>
+<div class="sam-sensors-stage">
+<img alt="The PhenomeTech Ring seen face on, its sensors visible inside the band" decoding="async" loading="lazy" src="/phenome-store/assets/lab/sam/ring-top.webp"/>
+<span class="sam-pin" style="--x:50%;--y:6%;--c:#ff7896"><i></i>Optical heart rate</span>
+<span class="sam-pin" style="--x:12%;--y:40%;--c:#ffb35c"><i></i>Blood oxygen</span>
+<span class="sam-pin" style="--x:22%;--y:88%;--c:#7fb2ff"><i></i>Skin temperature</span>
+<span class="sam-pin" style="--x:86%;--y:66%;--c:#9f8bff"><i></i>3 axis accelerometer</span>
+</div>
+<div class="sam-sensors-foot">
+<p><b>More than 50 signals</b>, read through the day and the night, and never sampled only when you ask.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 40 · the assistant that reads them -->
+<section class="sam-sec is-dark">
+<div class="sam-wrap">
+<div class="sam-head2">
+<div>
+<p class="sam-eyebrow sam-up">Phenome Intelligence</p>
+<h2 class="sam-h is-md sam-up d1">The longer you wear it,<br/>the better it reads you.</h2>
+</div>
+<p class="sam-sub sam-up d2">A health assistant that answers from your own readings first, then from the research behind them, in plain language and with its sources shown.</p>
+</div>
+<div class="sam-split-row">
+<div class="sam-shot sam-up">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-app.webp" preload="none" aria-label="The Phenome app moving through a night of readings" role="img"><source src="/phenome-store/assets/video/ring-app.mp4" type="video/mp4"/></video>
+</div>
+<div>
+<ul class="sam-list">
+<li class="sam-up"><b>Answers, not dashboards</b><span>Ask why last night was restless, what changed this week and what to try tonight. The charts are there if you want them.</span></li>
+<li class="sam-up d1"><b>Your own baseline</b><span>Nothing is judged against a population average. A reading only counts as a change when it changes for you.</span></li>
+<li class="sam-up d2"><b>Everything in one picture</b><span>Ring signals, whole genome, gut microbiome and blood markers, read together rather than side by side.</span></li>
+<li class="sam-up d3"><b>Private by design</b><span>Encrypted, handled under UK GDPR, never sold, and yours to export or delete at any time.</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 41 · health, the cards that pass the reader -->
+<section class="sam-sec is-paper" id="sam-health">
+<div class="sam-wrap">
+<div class="sam-head2">
+<div>
+<p class="sam-eyebrow sam-up">Health</p>
+<h2 class="sam-h sam-up d1">Your own<br/>health dashboard</h2>
+</div>
+<p class="sam-sub sam-up d2">Sleep, vitals, stress and your cycle, gathered in one place and written in sentences. Every card here is a reading the ring takes while you get on with the day.</p>
+</div>
+
+<div class="sam-cards" data-sam-car="">
+<div class="sam-cards-head">
+<p class="sam-note" style="margin:0">Readings shown are an example of a typical week.</p>
+<div class="sam-arrows">
+<button class="sam-arr" data-sam-prev="" type="button" aria-label="Previous cards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
+<button class="sam-arr" data-sam-next="" type="button" aria-label="Next cards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
+</div>
+</div>
+<div class="sam-track">
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">Sleep score</p>
+<div class="sam-dial" style="--p:.86;--c:#8f9bff" aria-hidden="true"><b>86</b></div>
+</div>
+<div class="sam-card-txt"><b>Every stage of the night</b><span>Time in light, deep and rapid eye movement sleep, with one score each morning for how well you actually recovered.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-sleep.webp"/></div>
+<div class="sam-card-txt"><b>Comfortable to sleep in</b><span>About 4 g on the finger, with nothing to press into the back of your hand and no screen to wake you.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">Resting heart rate</p>
+<p class="sam-read-v">54<small>beats per minute</small></p>
+<svg viewBox="0 0 280 80" aria-hidden="true"><path d="M0 50 L20 48 L28 26 L36 68 L44 44 L86 46 L104 40 L112 16 L120 64 L128 42 L170 44 L188 38 L196 14 L204 66 L212 40 L254 44 L268 38 L280 46" fill="none" stroke="#ff8aa6" stroke-width="2" stroke-linejoin="round"/></svg>
+</div>
+<div class="sam-card-txt"><b>Keep a finger on your pulse</b><span>Heart rate read day and night, with a nudge when the rhythm moves outside the range that is usual for you.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-stress.webp"/></div>
+<div class="sam-card-txt"><b>Stress balance</b><span>How your heart answers the day, hour by hour, with a clear read of when you were stretched and when you settled.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">Blood oxygen, overnight</p>
+<p class="sam-read-v">98<small>per cent</small></p>
+<div class="sam-read-bars" style="--c:#ffb35c" aria-hidden="true"><i style="--h:.62"></i><i style="--h:.78"></i><i style="--h:.7"></i><i style="--h:.9"></i><i style="--h:.84"></i><i style="--h:.72"></i><i style="--h:.95"></i><i style="--h:.8"></i><i style="--h:.66"></i><i style="--h:.88"></i></div>
+</div>
+<div class="sam-card-txt"><b>Breathing through the night</b><span>Oxygen followed while you sleep, so a run of shallow nights shows up as a pattern rather than a one off.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-cycle.webp"/></div>
+<div class="sam-card-txt"><b>Know your cycle better</b><span>Small temperature shifts mark each phase, and the prediction sharpens with every month you wear the ring.</span></div>
+</article>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- 42 · one number, counted up -->
+<section class="sam-sec sam-score">
+<div class="sam-wrap">
+<div class="sam-score-row">
+<div>
+<h2 class="sam-h sam-up">Get your score.<br/>Own the day.</h2>
+<p class="sam-sub sam-up d1">One number each morning, built from how you slept, how hard yesterday was and how your heart answered both. It says whether today is a day to push or a day to hold back.</p>
+<p class="sam-note sam-up d2">Readiness is for wellness and information only, and is not a medical assessment.</p>
+</div>
+<div class="sam-phone sam-up d1">
+<div class="sam-phone-screen">
+<p class="sam-ph-k">Readiness</p>
+<p class="sam-ph-big"><span data-count="78">78</span></p>
+<p class="sam-ph-tag">Ready to go</p>
+<ul class="sam-ph-rows">
+<li><span>Sleep</span><b>86</b></li>
+<li><span>Heart rate variability</span><b>62 ms</b></li>
+<li><span>Resting heart rate</span><b>54</b></li>
+<li><span>Yesterday’s load</span><b>Moderate</b></li>
+</ul>
+<p class="sam-ph-note">A good day for a harder session. Keep the evening light and you will hold the streak.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 43 · fitness -->
+<section class="sam-sec is-dark" id="sam-fitness">
+<div class="sam-wrap">
+<div class="sam-head2">
+<div>
+<p class="sam-eyebrow sam-up">Fitness</p>
+<h2 class="sam-h sam-up d1">Ready, set,<br/>already tracked</h2>
+</div>
+<p class="sam-sub sam-up d2">Walks and runs are recognised on their own, so nothing is lost to a session you forgot to start. What you do between sessions counts toward the same goal.</p>
+</div>
+
+<div class="sam-cards" data-sam-car="">
+<div class="sam-cards-head">
+<p class="sam-note" style="margin:0">Swipe, or use the arrows.</p>
+<div class="sam-arrows">
+<button class="sam-arr" data-sam-prev="" type="button" aria-label="Previous cards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
+<button class="sam-arr" data-sam-next="" type="button" aria-label="Next cards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
+</div>
+</div>
+<div class="sam-track">
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">Steps today</p>
+<p class="sam-read-v">8,412</p>
+<div class="sam-read-bars" style="--c:#ffcf5a" aria-hidden="true"><i style="--h:.08"></i><i style="--h:.3"></i><i style="--h:.62"></i><i style="--h:.2"></i><i style="--h:.44"></i><i style="--h:.18"></i><i style="--h:.26"></i><i style="--h:.9"></i><i style="--h:.72"></i><i style="--h:.3"></i></div>
+</div>
+<div class="sam-card-txt"><b>Counted without asking</b><span>Movement all day, indoors and out, added to a goal that adapts to how you slept the night before.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-movement.webp"/></div>
+<div class="sam-card-txt"><b>Recognised on its own</b><span>Start walking or running and the ring picks it up, so the session is on record before you think about it.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">Recovery this morning</p>
+<div class="sam-dial" style="--p:.78;--c:#6ee7a8" aria-hidden="true"><b>78</b></div>
+</div>
+<div class="sam-card-txt"><b>How quickly you came back</b><span>Heart rate variability overnight shows what yesterday cost you and how much of it you have already paid back.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-readiness.webp"/></div>
+<div class="sam-card-txt"><b>When to push</b><span>Strain, sleep and heart rate variability in one daily read, so a hard week is a choice rather than an accident.</span></div>
+</article>
+
+<article class="sam-card">
+<div class="sam-card-fig sam-read">
+<p class="sam-read-k">This week</p>
+<p class="sam-read-v">4<small>sessions</small></p>
+<svg viewBox="0 0 280 80" aria-hidden="true"><path d="M0 62 C34 58 46 34 78 40 S122 16 152 30 S206 68 238 52 S268 30 280 38" fill="none" stroke="#7fb2ff" stroke-width="2.4"/></svg>
+</div>
+<div class="sam-card-txt"><b>The long line</b><span>Weeks and months laid end to end, so the trend is visible even when a single day is not.</span></div>
+</article>
+
+</div>
+</div>
+
+<div class="sam-bleed sam-up"><img alt="A hand wearing the ring on a walk through woodland" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn_forest.webp"/></div>
+</div>
+</section>
+
+<!-- 44 · battery -->
+<section class="sam-sec sam-bat" id="sam-battery">
+<div class="sam-wrap sam-centre">
+<p class="sam-eyebrow sam-up">Battery</p>
+<h2 class="sam-h sam-up d1">Less charging.<br/>More tracking.</h2>
+<p class="sam-sub sam-up d2">Put it on and forget it. A week of wear between charges, and a case that carries a charge of its own, so a long trip does not mean packing a cable for your finger.</p>
+<div class="sam-bat-stage sam-up d3">
+<div class="sam-bat-circle"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_titanium_worn.webp"/></div>
+<div class="sam-bat-circle is-mid"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn.webp"/></div>
+<div class="sam-bat-circle"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_ceramic_worn.webp"/></div>
+<p class="sam-bat-num"><span class="sam-bat-n" data-count="7">7</span><span class="sam-bat-u"><small>Up to</small><b>Days</b></span></p>
+</div>
+<p class="sam-note sam-up">Seven days is typical wear at size 8. Heavy workout tracking shortens it.</p>
+</div>
+</section>
+
+<!-- 45 · the case, three states -->
+<section class="sam-sec sam-case" data-sam-case="">
+<div class="sam-wrap">
+<div class="sam-case-row">
+<div class="sam-case-stage sam-up">
+<img alt="The charging case, open, with the ring cradle inside" decoding="async" loading="lazy" src="/phenome-store/assets/lab/sam/case-3q.webp"/>
+<span class="sam-case-led" aria-hidden="true"></span>
+</div>
+<div>
+<h2 class="sam-h is-md sam-up">Power that travels<br/>with it</h2>
+<p class="sam-sub sam-up d1">A pocket case with a magnetic lid, a status light on the front and enough charge of its own for the week after the week you are on.</p>
+<div class="sam-case-tabs" role="tablist" aria-label="What the case light means">
+<button class="sam-case-tab" data-case-state="" data-led="#7fb2ff" data-zoom="1.05" role="tab" type="button" aria-selected="true"><b>Lid open</b><span>A soft welcome light comes up as the lid lifts, and the ring settles into the cradle the right way up.</span></button>
+<button class="sam-case-tab" data-case-state="" data-led="#6ee7a8" data-zoom="1" role="tab" type="button" aria-selected="false"><b>A short press</b><span>One press on the front shows how much charge is left in the case, without opening the app.</span></button>
+<button class="sam-case-tab" data-case-state="" data-led="#ffb35c" data-zoom="0.97" role="tab" type="button" aria-selected="false"><b>Hold for 3 seconds</b><span>Holding the same button starts pairing, which is all the setup there is on the first day.</span></button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 46 · sizing -->
+<section class="sam-sec is-paper" id="sam-sizing">
+<div class="sam-wrap">
+<div class="sam-head2">
+<div>
+<p class="sam-eyebrow sam-up">Sizing</p>
+<h2 class="sam-h sam-up d1">A sizing kit<br/>for your best fit</h2>
+</div>
+<p class="sam-sub sam-up d2">Fingers change through the day and through the year. The kit holds every size from 6 to 13, so you choose the one that is still comfortable after a night’s sleep.</p>
+</div>
+<div class="sam-kit sam-up"><img alt="The sizing kit, with one sample ring in every size" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_size.webp"/></div>
+<ul class="sam-steps">
+<li class="sam-step sam-up"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 21V10h14v11M17 13h6l4 4v4h-10"/><circle cx="9" cy="24" r="2.6"/><circle cx="22" cy="24" r="2.6"/></svg><p>Step 1</p><b>The kit arrives</b><span>Order the ring and choose the sizing kit. It ships first, and it is free.</span></li>
+<li class="sam-step sam-up d1"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="13" rx="9" ry="6"/><path d="M7 13v4c0 3.3 4 6 9 6s9-2.7 9-6v-4"/></svg><p>Step 2</p><b>Wear one for a day</b><span>Try the size that fits the finger you want to wear it on, and keep it on overnight.</span></li>
+<li class="sam-step sam-up d2"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M10 16.5L14 20.5L22 12.5"/></svg><p>Step 3</p><b>Confirm the size</b><span>Tell us which one you settled on from your account, or reply to the email we send.</span></li>
+<li class="sam-step sam-up d3"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 11l12-6 12 6v10l-12 6-12-6z"/><path d="M4 11l12 6 12-6M16 17v10"/></svg><p>Step 4</p><b>Your ring ships</b><span>The ring is made up in the size you confirmed and sent out, next day and free.</span></li>
+</ul>
+</div>
+</section>
+
+<!-- 47 · the colourways -->
+<section class="sam-sec sam-colour" id="sam-colour" data-sam-colour="">
+<div class="sam-wrap">
+<h2 class="sam-h sam-up">Feels like nothing.<br/>Goes with everything.</h2>
+<p class="sam-sub sam-up d1">Three finishes in grade 5 titanium and three in high density zirconia ceramic. One shape, so the fit and the sensors are the same whichever you choose.</p>
+
+<div class="sam-panels sam-up d2">
+<div class="sam-panel">
+<img alt="The gold ring on folded blue silk" data-for="gold" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-gold.webp"/>
+<img alt="The silver ring on brushed metal" data-for="silver" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-silver.webp"/>
+<img alt="The graphite ring resting on blue stones" data-for="graphite" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-black.webp"/>
+<img alt="The arctic white ring resting on blue stones" data-for="white" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-white.webp"/>
+<img alt="The onyx ring resting on blue stones" data-for="onyx" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-black.webp"/>
+<img alt="The blush ring on folded blue silk" data-for="blush" decoding="async" loading="lazy" src="/phenome-store/assets/lab/gen/cw-pink.webp"/>
+</div>
+<div class="sam-panel">
+<img alt="The gold ring, side on, in the studio" data-for="gold" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_gold_sq.webp"/>
+<img alt="The silver ring, side on, in the studio" data-for="silver" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver_sq.webp"/>
+<img alt="The graphite ring, side on, in the studio" data-for="graphite" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp"/>
+<img alt="The arctic white ring, side on, in the studio" data-for="white" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white_sq.webp"/>
+<img alt="The onyx ring, side on, in the studio" data-for="onyx" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp"/>
+<img alt="The blush ring, side on, in the studio" data-for="blush" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_fin_pink_sq.webp"/>
+</div>
+</div>
+
+<div class="sam-swatches" role="group" aria-label="Choose a finish">
+<button class="sam-sw" data-sam-sw="gold" data-name="Gold" data-mat="Titanium" style="--s:linear-gradient(145deg,#f0d8ad,#c6a15b 55%,#8a6a35)" type="button" aria-pressed="true" aria-label="Gold titanium"></button>
+<button class="sam-sw" data-sam-sw="silver" data-name="Silver" data-mat="Titanium" style="--s:linear-gradient(145deg,#f2f4f7,#c9cdd4 55%,#8e949e)" type="button" aria-pressed="false" aria-label="Silver titanium"></button>
+<button class="sam-sw" data-sam-sw="graphite" data-name="Graphite" data-mat="Titanium" style="--s:linear-gradient(145deg,#5c5f69,#2a2c31 55%,#111318)" type="button" aria-pressed="false" aria-label="Graphite titanium"></button>
+<button class="sam-sw" data-sam-sw="white" data-name="Arctic White" data-mat="Ceramic" style="--s:linear-gradient(145deg,#ffffff,#e6e9ee 60%,#c3c8d1)" type="button" aria-pressed="false" aria-label="Arctic white ceramic"></button>
+<button class="sam-sw" data-sam-sw="onyx" data-name="Onyx" data-mat="Ceramic" style="--s:linear-gradient(145deg,#4a4e57,#17181c 55%,#050608)" type="button" aria-pressed="false" aria-label="Onyx ceramic"></button>
+<button class="sam-sw" data-sam-sw="blush" data-name="Blush" data-mat="Ceramic" style="--s:linear-gradient(145deg,#fbe1e8,#e7b9c6 58%,#c08fa0)" type="button" aria-pressed="false" aria-label="Blush ceramic"></button>
+</div>
+<p class="sam-cname" data-sam-cname="">Gold</p>
+<p class="sam-cmat" data-sam-cmat="">Titanium</p>
+</div>
+</section>
+
+<!-- 48 · water -->
+<div class="sam-water">
+<div class="sam-water-img" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn_water.webp"/></div>
+<div class="sam-water-in">
+<h2 class="sam-h sam-up">Not afraid<br/>of the water</h2>
+<p class="sam-sub sam-up d1" style="margin-inline:auto">Swim, shower, wash up or sit in the sauna. The band is one piece with nothing to let water in, and the reading carries on through all of it.</p>
+<p class="sam-water-n sam-up d2"><span data-count="100">100</span><small>metres</small></p>
+</div>
+</div>
+
+<!-- 49 · the rest of the system -->
+<section class="sam-sec">
+<div class="sam-wrap sam-centre">
+<h2 class="sam-h is-md sam-up">It joins up with<br/>everything else you have</h2>
+<div class="sam-slides" data-sam-slides="">
+<div class="sam-track">
+
+<div class="sam-slide">
+<div class="sam-slide-fig"><img alt="The ring and its case on a bathroom shelf" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_scene_bath.webp"/></div>
+<div style="text-align:left">
+<h3 class="sam-h is-sm">Find it when it wanders</h3>
+<p class="sam-sub">A ring is small and a bathroom shelf is large. Ask the app and it points you at where the ring last was, and how long ago that was.</p>
+</div>
+</div>
+
+<div class="sam-slide">
+<div class="sam-slide-fig"><img alt="A hand wearing the ring on an allotment" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_allotment.webp"/></div>
+<div style="text-align:left">
+<h3 class="sam-h is-sm">It works without your phone</h3>
+<p class="sam-sub">On the fells, the allotment or a long flight, the ring keeps recording on its own and syncs everything the moment you are back in range.</p>
+</div>
+</div>
+
+<div class="sam-slide">
+<div class="sam-slide-fig"><img alt="Hands holding a phone with the Phenome app open" decoding="async" loading="lazy" src="/phenome-store/assets/video/tile-ai.webp"/></div>
+<div style="text-align:left">
+<h3 class="sam-h is-sm">One account, one record</h3>
+<p class="sam-sub">Your ring, your genome, your microbiome and your blood results sit in one place, encrypted, and go with you if you ever decide to leave.</p>
+</div>
+</div>
+
+</div>
+<div class="sam-dots" data-sam-dots="" role="group" aria-label="Choose a slide"></div>
+</div>
+</div>
+</section>
+
+<!-- 50 · the close -->
+<section class="sam-sec sam-close">
+<div class="sam-wrap">
+<h2 class="sam-h sam-up">Longevity by design</h2>
+<p class="sam-sub sam-up d1" style="margin-inline:auto">From £179, with delivery, returns and the app included, and no subscription for any of it.</p>
+<p class="sam-up d2" style="margin:0">
+<a class="sam-cta" href="/phenome-store/store/phenometech-ring/">Buy now</a>
+<a class="sam-cta is-ghost" href="#compare">Compare the range</a>
+</p>
+</div>
+</section>
+
+</div>
+
+
+<!-- ===========================================================================
+     51 to 60 · THE LAB · the body of ultrahuman.com/global/performance-lab,
+     section for section and in the same order, told for the PhenomeTech Ring
+     and the tests read beside it. Styles in plx.css, behaviour in plx.js.
+     ======================================================================== -->
+<div class="plx" data-plx="">
+
+<!-- 51 · hero · the film, the promise, the figures, the running line -->
+<section class="px-hero">
+<div class="px-hero-card">
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/hero.webp" preload="metadata" aria-hidden="true"><source src="/phenome-store/assets/lab/plx/hero.mp4" type="video/mp4"/></video>
+<div class="px-hero-copy">
+<p class="px-label">Phenome Lab, on your finger</p>
+<h2 class="px-display">Longevity lab</h2>
+<p class="px-body">Built for longevity and everyday performance, and read against your genome.</p>
+<a class="px-btn is-white" href="/phenome-store/store/phenometech-ring/">Shop the ring</a>
+</div>
+<ul class="px-figs">
+<li><b>50+</b><span>Signals</span></li>
+<li><b>Up to 7 days</b><span>On one charge</span></li>
+<li><b>One year</b><span>Of direction</span></li>
+</ul>
+</div>
+<div class="px-run" aria-hidden="true">
+<ul>
+<li>Sleep stages</li><li>Heart rate</li><li>Heart rate variability</li><li>Blood oxygen</li><li>Skin temperature</li><li>Stress balance</li><li>Readiness</li><li>Cycle tracking</li><li>Whole genome</li><li>Gut microbiome</li><li>Oral microbiome</li><li>Biological age</li>
+<li>Sleep stages</li><li>Heart rate</li><li>Heart rate variability</li><li>Blood oxygen</li><li>Skin temperature</li><li>Stress balance</li><li>Readiness</li><li>Cycle tracking</li><li>Whole genome</li><li>Gut microbiome</li><li>Oral microbiome</li><li>Biological age</li>
+</ul>
+</div>
+</section>
+
+<!-- 52 · the sentence, lit word by word -->
+<section class="px-say" data-px-say="">
+<div class="px-say-pin">
+<p>More than 50 signals are read across sleep, heart, oxygen, temperature and movement, then read beside your whole genome and your gut microbiome. Mapped into the systems that shape how you move, sleep, eat, recover and live.</p>
+</div>
+</section>
+
+<!-- 53 · what we read · the dashboard rises, the photograph opens -->
+<section class="px-read" data-px-read="">
+<div class="px-read-pin">
+<div class="px-read-head">
+<p class="px-label">What we read</p>
+<h2 class="px-display">50+ signals. One complete picture.</h2>
+<a class="px-btn" href="/phenome-store/app/">See the app</a>
+</div>
+<div class="px-rows" aria-hidden="true">
+<div class="px-row"><span>Sleep architecture</span><span>Resting heart rate</span><span>Heart rate variability</span><span>Blood oxygen</span><span>Skin temperature</span><span>Stress balance</span><span>Cycle phase</span><span>Readiness</span><span>Steps and calories</span><span>Recovery</span><span>Sleep architecture</span><span>Resting heart rate</span></div>
+<div class="px-row"><span>Whole genome</span><span>Carrier status</span><span>Pharmacogenomics</span><span>Gut diversity</span><span>Oral microbiome</span><span>Metabolism</span><span>Immunity</span><span>Biological age</span><span>Traits and wellness</span><span>Ancestry</span><span>Whole genome</span><span>Carrier status</span></div>
+</div>
+<div class="px-photo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/sam/family.webp"/></div>
+<div class="px-stage">
+<div class="px-tablet" aria-hidden="true">
+<div class="px-dash">
+<div class="px-dash-l">
+<small>Phenome Lab</small><b>Your report</b>
+<img alt="" src="/phenome-store/assets/lab/sam/ring-top.webp"/>
+<div class="px-dash-age"><strong>38.4</strong><small>biological age</small></div>
+</div>
+<div class="px-dash-r">
+<small>System scores</small>
+<div class="px-dash-sys">Sleep and recovery<span class="px-grade">A</span><i style="--p:.86;--c:#5b6cf0"></i></div>
+<div class="px-dash-sys">Heart and vitals<span class="px-grade">A</span><i style="--p:.82;--c:#ef6b8a"></i></div>
+<div class="px-dash-sys">Metabolism<span class="px-grade is-b">B</span><i style="--p:.64;--c:#ffb35c"></i></div>
+<div class="px-dash-sys">Gut microbiome<span class="px-grade is-b">B</span><i style="--p:.68;--c:#28b58a"></i></div>
+<div class="px-dash-sys">Stress balance<span class="px-grade">A</span><i style="--p:.8;--c:#7fb2ff"></i></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 54 · the framework -->
+<section class="px-frame">
+<div class="px-orbit" aria-hidden="true"><video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/orbit.webp" preload="none"><source src="/phenome-store/assets/lab/plx/orbit.mp4" type="video/mp4"/></video></div>
+<p class="px-label px-up">The framework</p>
+<h2 class="px-display px-up d1">Biological age</h2>
+<p class="px-body px-up d2">One number built from your physiology and your genome. Your ring reads sleep, heart rate variability, temperature and movement every night; your tests add the blueprint and the microbes you live with. Together they give your pace of ageing, tracked over months, and the measure that moves when your habits do.</p>
+</section>
+
+<!-- 55 · the system · items left, the picture held right -->
+<section class="px-sys" data-px-sys="">
+<div class="px-sys-list">
+<div class="px-sys-rail" aria-hidden="true"><i></i></div>
+<article class="px-sys-item on">
+<h3 class="px-display">Phenome Intelligence</h3>
+<p class="px-body">Readings produce data. Phenome Intelligence produces meaning. Every signal from your ring is read beside your genome, your microbiome and your blood results, then answered in plain language.</p>
+<em>The result is not a report. It is a direction.</em>
+</article>
+<article class="px-sys-item">
+<h3 class="px-display">System scores</h3>
+<p class="px-body">A grade for every system in your body. See where you are ahead, where you are falling behind, and where attention is due, updated as you wear the ring.</p>
+</article>
+<article class="px-sys-item">
+<h3 class="px-display">The Phenome app</h3>
+<p class="px-body">All your health data. One dashboard. Full context. Reports, raw results and every reading live in a single view, each with a clear interpretation.</p>
+</article>
+<article class="px-sys-item">
+<h3 class="px-display">Action plan</h3>
+<p class="px-body">All your data leads to one answer: what next. Your top priorities, the habits most likely to move your markers, the retests to book and an early flag on anything that changes. What to do this week, this quarter and this year.</p>
+</article>
+<article class="px-sys-item">
+<h3 class="px-display">Specialists, a tap away</h3>
+<p class="px-body">Book a 1:1 with a nutrition specialist or a genetic counsellor in the app, so the conversation starts from your own results rather than a blank page.</p>
+</article>
+</div>
+<div class="px-sys-hold" aria-hidden="true">
+<div class="px-vis on"><img class="px-mark" alt="" src="/phenome-store/assets/brand/phenome-icon.png"/></div>
+<div class="px-vis">
+<div class="px-glass"><div class="px-glass-ring">A</div><h4>System scores</h4>
+<p class="px-glass-row">Sleep and recovery<b>A</b></p><p class="px-glass-row">Heart and vitals<b>A</b></p><p class="px-glass-row">Metabolism<b class="is-b">B</b></p><p class="px-glass-row">Gut microbiome<b class="is-b">B</b></p><p class="px-glass-row">Stress balance<b>A</b></p></div>
+</div>
+<div class="px-vis"><img class="is-cover" alt="" src="/phenome-store/assets/video/tile-ai.webp"/><span class="px-tagdot" style="--x:18%;--y:22%">Sleep</span><span class="px-tagdot" style="--x:62%;--y:30%">Genome</span><span class="px-tagdot" style="--x:24%;--y:60%">Gut microbiome</span></div>
+<div class="px-vis">
+<div class="px-tasks">
+<div class="px-task"><b>Book a genetic counsellor</b><span class="is-now">This month</span><small>Talk through your carrier results</small></div>
+<div class="px-task"><b>Last coffee before noon</b><span>This week</span><small>Your variants slow caffeine clearance</small></div>
+<div class="px-task"><b>Add 30 g of fibre a day</b><span>This quarter</span><small>To lift your gut diversity</small></div>
+<div class="px-task"><b>Retest your gut microbiome</b><span>In three months</span><small>See how far it has moved</small></div>
+</div>
+</div>
+<div class="px-vis"><img class="is-cover" alt="" src="/phenome-store/assets/pages/app_booking_talk.webp"/></div>
+</div>
+</section>
+
+<!-- 56 · how it compares -->
+<section class="px-light px-cmp">
+<p class="px-label px-up">How it compares</p>
+<h2 class="px-display px-up d1">Beyond a standard wearable</h2>
+<div class="px-table px-up d2" role="table" aria-label="Phenome compared with a standard wearable">
+<div class="px-tr is-head" role="row"><span role="columnheader">What you get</span><span role="columnheader">Phenome</span><span role="columnheader">A standard wearable</span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 2c0 4 6 4 6 8s-6 4-6 4M11 2c0 4-6 4-6 8"/></svg>Whole genome sequencing</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-no" aria-label="No"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="5" cy="6" r="2"/><circle cx="11" cy="5" r="1.5"/><circle cx="9" cy="11" r="2.5"/></svg>Gut and oral microbiome</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-no" aria-label="No"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h3l1.5-3.5 3 7L11 8h3"/></svg>Readings read against your genome</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-no" aria-label="No"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l1.6 4.4L14 8l-4.4 1.6L8 14l-1.6-4.4L2 8l4.4-1.6z"/></svg>Longevity AI</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell">Often extra</span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="5" r="2.5"/><path d="M3 14c.8-3 2.6-4.5 5-4.5s4.2 1.5 5 4.5"/></svg>Specialist sessions</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-no" aria-label="No"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11 2.5a5.5 5.5 0 1 0 2.5 8.5A4.5 4.5 0 0 1 11 2.5z"/></svg>Sleep stages</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 10c2 0 2-4 4-4s2 4 4 4 2-4 4-4"/></svg>Heart rate variability overnight</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell">Varies</span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3a1.5 1.5 0 0 1 3 0v6.3a3 3 0 1 1-3 0z"/></svg>Skin temperature and cycle tracking</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell">Varies</span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>Biological age</span><span role="cell"><i class="px-yes" aria-label="Yes"></i></span><span role="cell"><i class="px-no" aria-label="No"></i></span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="5" width="11" height="6" rx="1.5"/><path d="M14 7v2"/></svg>Battery life</span><span role="cell">Up to 7 days</span><span role="cell">Often 1 to 2 days</span></div>
+<div class="px-tr" role="row"><span role="cell"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M5.5 8h5"/></svg>Subscription</span><span role="cell">None</span><span role="cell">Often required</span></div>
+</div>
+</section>
+
+<!-- 57 · choose the device -->
+<section class="px-light px-plans">
+<p class="px-label px-up">Devices</p>
+<h2 class="px-display px-up d1">Choose the one that fits your year</h2>
+<a class="px-btn px-up d2" href="/phenome-store/store/devices/">View all devices</a>
+<div class="px-plan-grid">
+<article class="px-plan px-up">
+<h3 class="px-display">Band</h3>
+<p class="px-plan-price">£149</p>
+<p>A screenless band that reads your heart, sleep, temperature and training all day, with training load and zones.</p>
+<a class="px-btn is-ghost" href="/phenome-store/devices/band/">Choose the band</a>
+<h5>Includes</h5>
+<ul><li>Both strap sizes</li><li>Charging dock and cable</li><li>Training load and zones</li><li>Water resistant to 50 metres</li><li>The app, no subscription</li></ul>
+<a class="px-plan-foot" href="#compare">Compare devices</a>
+</article>
+<article class="px-plan is-top px-up d1">
+<span class="px-plan-flag">Our lightest</span>
+<h3 class="px-display">Ring, titanium</h3>
+<p class="px-plan-price">£179</p>
+<p>Grade 5 aerospace titanium at about 4 g, brushed to hide a day’s wear, in gold, graphite or silver.</p>
+<a class="px-btn" href="/phenome-store/store/phenometech-ring/">Choose titanium</a>
+<h5>Includes</h5>
+<ul><li>About 4 g at size 8</li><li>Charging case</li><li>Water resistant to 100 metres</li><li>Free sizing kit</li><li>The app, no subscription</li></ul>
+<a class="px-plan-foot" href="#compare">Compare devices</a>
+</article>
+<article class="px-plan px-up d2">
+<h3 class="px-display">Ring, ceramic</h3>
+<p class="px-plan-price">£199</p>
+<p>High density zirconia ceramic with a smooth matte finish that resists scratches, in arctic white, onyx or blush.</p>
+<a class="px-btn is-ghost" href="/phenome-store/store/phenometech-ring/">Choose ceramic</a>
+<h5>Includes</h5>
+<ul><li>About 6 g at size 8</li><li>Charging case</li><li>Water resistant to 100 metres</li><li>Free sizing kit</li><li>Medical grade inner shell</li></ul>
+<a class="px-plan-foot" href="#compare">Compare devices</a>
+</article>
+</div>
+</section>
+
+<!-- 58 · the process -->
+<section class="px-light">
+<div class="px-proc">
+<div class="px-proc-head">
+<p class="px-label">The process</p>
+<h2 class="px-display">One ring. One week.<br/>Your year, mapped.</h2>
+</div>
+<ol class="px-steps">
+<li class="px-step px-up"><small>01</small><h3 class="px-display">Choose your ring</h3><p>Titanium or ceramic, in six finishes, from £179.</p><a class="px-btn" href="/phenome-store/store/phenometech-ring/">Shop now</a></li>
+<li class="px-step px-up"><small>02</small><h3 class="px-display">A free sizing kit</h3><p>Every size from 6 to 13, so you choose the one that is still comfortable after a night’s sleep.</p></li>
+<li class="px-step px-up"><small>03</small><h3 class="px-display">Wear it tonight</h3><p>The ring starts reading your sleep, heart and temperature from the first night, and learns your baseline over the first week.</p></li>
+<li class="px-step px-up"><small>04</small><h3 class="px-display">Read with your genome</h3><p>Add a Comprehensive Genomic or Gut Microbiome Test, and every reading is read beside it.</p></li>
+<li class="px-step px-up"><small>05</small><h3 class="px-display">Talk to a specialist</h3><p>Results reviewed with a nutrition specialist or genetic counsellor. Clear signals. Precise next steps.</p></li>
+<li class="px-step px-up"><small>06</small><h3 class="px-display">Track progress</h3><p>Retest. Compare. See how your biology has moved.</p></li>
+</ol>
+</div>
+</section>
+
+<!-- 59 · from the studio -->
+<section class="px-films" data-px-films="">
+<p class="px-label px-up">From the studio</p>
+<h2 class="px-display px-up d1">Made to be worn, every day</h2>
+<div class="px-film-wrap">
+<button class="px-film-arrow is-prev" type="button" aria-label="Previous films"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg></button>
+<div class="px-film-track">
+<article class="px-film" data-name="Titanium, turned"><video loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/film-turn.webp" preload="none"><source src="/phenome-store/assets/lab/plx/film-turn.mp4" type="video/mp4"/></video><button class="px-film-play" type="button" aria-label="Play Titanium, turned"><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg></button><p>Titanium, turned in the light</p></article>
+<article class="px-film" data-name="The charging case"><video loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/film-case.webp" preload="none"><source src="/phenome-store/assets/lab/plx/film-case.mp4" type="video/mp4"/></video><button class="px-film-play" type="button" aria-label="Play The charging case"><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg></button><p>The charging case, lid up</p></article>
+<article class="px-film" data-name="Ceramic finishes"><video loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/film-ceramic.webp" preload="none"><source src="/phenome-store/assets/lab/plx/film-ceramic.mp4" type="video/mp4"/></video><button class="px-film-play" type="button" aria-label="Play Ceramic finishes"><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg></button><p>Ceramic and titanium, side by side</p></article>
+<article class="px-film" data-name="Seamless, side on"><video loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/film-side.webp" preload="none"><source src="/phenome-store/assets/lab/plx/film-side.mp4" type="video/mp4"/></video><button class="px-film-play" type="button" aria-label="Play Seamless, side on"><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg></button><p>One seamless band, side on</p></article>
+<article class="px-film" data-name="The light reveal"><video loop="" muted="" playsinline="" poster="/phenome-store/assets/lab/plx/film-reveal.webp" preload="none"><source src="/phenome-store/assets/lab/plx/film-reveal.mp4" type="video/mp4"/></video><button class="px-film-play" type="button" aria-label="Play The light reveal"><svg class="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 3h3v10H4zM9 3h3v10H9z"/></svg></button><p>A status light, and a full charge</p></article>
+</div>
+<button class="px-film-arrow is-next" type="button" aria-label="Next films"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg></button>
+</div>
+</section>
+
+<!-- 60 · the clinic -->
+<section class="px-place">
+<img alt="" aria-hidden="true" decoding="async" loading="lazy" src="/phenome-store/assets/pages/clinic_hero.webp"/>
+<div class="px-place-in">
+<p class="px-label px-up">The Phenome Clinic</p>
+<h2 class="px-display px-up d1">A calmer place for better health.</h2>
+<a class="px-btn px-up d2" href="/phenome-store/clinic/book/">Register your interest</a>
+</div>
+</section>
+
+</div>
+
 </main>
 
 <dialog class="lab-modal" data-film-modal="" aria-label="The PhenomeTech Ring film">
@@ -852,6 +1492,8 @@
 <script src="/phenome-store/devices/ring-lab/lab.js"></script>
 <script src="/phenome-store/devices/ring-lab/fit.js"></script>
 <script src="/phenome-store/devices/ring-lab/gen.js"></script>
+<script src="/phenome-store/devices/ring-lab/sam.js"></script>
+<script src="/phenome-store/devices/ring-lab/plx.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>

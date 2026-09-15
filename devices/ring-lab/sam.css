@@ -1,0 +1,542 @@
+/* ============================================================================
+   devices/ring-lab · 38 to 50 · THE SHOWCASE
+
+   The body of samsung.com/us/rings/galaxy-ring, section for section and in the
+   same order, told for the PhenomeTech Ring.
+
+   What is taken from the reference: the rhythm of near black and near white
+   grounds; the sticky section rail under the product bar with the eyebrow of
+   the section it is on lit; a display line set very large and very tight over
+   a quiet grey paragraph; statements that arrive on the scroll with a short
+   stagger; the pinned sensor plate; the three circular photographs with the
+   battery numeral between them; the three state charger tabs; the four step
+   sizing cards; the two panel colourway picker with a ringed swatch under it;
+   and the slide carousels with a round arrow at each shoulder.
+
+   What is Phenome's: the type (Outfit, not the reference's own face), the
+   colour, every photograph and every word. The reference's blue pill becomes
+   the site's accent, its mid grey becomes the site's --ph-text-2.
+
+   Copy rule, as everywhere on this page: no dashes, no all caps.
+
+   Motion that starts hidden is scoped to `.lab-js`, which the document sets
+   before first paint, so a page whose script never runs is simply the page.
+   ========================================================================== */
+
+.lab .sam {
+  --sam-ink: #05070f;
+  --sam-paper: #f4f5f7;
+  --sam-grey: #6b7080;
+  --sam-grey-dark: #9aa0ae;
+  --sam-line: rgba(0, 0, 0, .1);
+  --sam-line-dark: rgba(255, 255, 255, .16);
+  --sam-ease: cubic-bezier(.16, 1, .3, 1);
+  --sam-rail-h: 52px;
+  --sam-pad: clamp(72px, 8vw, 148px);
+  --sam-gut: clamp(20px, 5.4vw, 96px);
+  position: relative;
+  color: var(--sam-ink);
+  background: #fff;
+}
+
+/* ---- the section rail ------------------------------------------------------
+   The reference pins a second bar of section names under its product bar and
+   lights the one the reader is inside. This page already has a product bar,
+   `.ph-bar`, which lab-nav.css pulls to the top of the window past the hero, so
+   the rail sits at exactly its height and the two read as one piece of chrome.
+   It only appears once the showcase starts, which is what `.is-live` is for. */
+.lab .sam-rail {
+  position: sticky; top: 56px; z-index: 40;
+  display: flex; justify-content: center; gap: clamp(14px, 2.4vw, 44px);
+  height: var(--sam-rail-h); padding: 0 16px; box-sizing: border-box;
+  overflow-x: auto; scrollbar-width: none;
+  background: rgba(10, 12, 20, .86);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--sam-line-dark);
+}
+.lab .sam-rail::-webkit-scrollbar { display: none; }
+.lab .sam-rail a {
+  position: relative; display: flex; align-items: center; flex: 0 0 auto;
+  font-size: 14px; line-height: 1; font-weight: 500; letter-spacing: .01em;
+  color: rgba(255, 255, 255, .62); text-decoration: none !important;
+  transition: color .25s ease;
+}
+.lab .sam-rail a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: #fff; transform: scaleX(0); transform-origin: 50% 50%;
+  transition: transform .35s var(--sam-ease);
+}
+.lab .sam-rail a:hover { color: #fff; }
+.lab .sam-rail a.on { color: #fff; }
+.lab .sam-rail a.on::after { transform: scaleX(1); }
+@media (max-width: 900px) { .lab .sam-rail { top: 52px; justify-content: flex-start; } }
+
+/* ---- shared furniture ---------------------------------------------------- */
+.lab .sam-sec { position: relative; padding: var(--sam-pad) var(--sam-gut); }
+/* Section heights here are in vw, so they land on fractions of a pixel and the
+   white of `.sam` showed through the seam as a hairline between two dark
+   grounds. One pixel of overlap closes it at every width. */
+.lab .sam > :not(.sam-rail) + :not(.sam-rail) { margin-top: -1px; }
+.lab .sam-sec.is-dark { background: var(--sam-ink); color: #fff; }
+.lab .sam-sec.is-paper { background: var(--sam-paper); }
+.lab .sam-wrap { max-width: 1440px; margin: 0 auto; }
+
+.lab .sam-eyebrow {
+  margin: 0 0 clamp(16px, 1.6vw, 26px);
+  font-size: 14px; line-height: 1; font-weight: 600; letter-spacing: .14em;
+  color: var(--ph-accent);
+}
+.lab .sam-sec.is-dark .sam-eyebrow { color: #7fb2ff; }
+
+.lab .sam-h {
+  margin: 0;
+  font-size: clamp(36px, 4.6vw, 76px); line-height: 1.04;
+  font-weight: 600; letter-spacing: -0.035em; text-wrap: balance;
+}
+.lab .sam-h.is-md { font-size: clamp(30px, 3.4vw, 54px); letter-spacing: -0.03em; }
+.lab .sam-h.is-sm { font-size: clamp(24px, 2.2vw, 36px); letter-spacing: -0.025em; }
+.lab .sam-sub {
+  margin: clamp(20px, 2vw, 30px) 0 0; max-width: 62ch;
+  font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5; color: var(--sam-grey);
+}
+.lab .sam-sec.is-dark .sam-sub { color: var(--sam-grey-dark); }
+.lab .sam-centre { text-align: center; }
+.lab .sam-centre .sam-sub { margin-inline: auto; }
+
+/* The reference's two track head: the display on the left, the paragraph set
+   small and level with it on the right. It collapses to one column early,
+   because a 76px line and a 17px paragraph side by side need real width. */
+.lab .sam-head2 {
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: clamp(28px, 4vw, 90px); align-items: start;
+}
+.lab .sam-head2 .sam-sub { margin-top: .4em; }
+@media (max-width: 1000px) { .lab .sam-head2 { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+.lab .sam-note {
+  margin: clamp(22px, 2.4vw, 34px) 0 0;
+  font-size: 13px; line-height: 1.6; color: var(--sam-grey);
+}
+.lab .sam-sec.is-dark .sam-note { color: rgba(255, 255, 255, .5); }
+
+/* the reveal. One transition, one class, everything else is a delay. */
+.lab-js .lab .sam-up { opacity: 0; transform: translateY(38px); transition: opacity .85s ease, transform 1.05s var(--sam-ease); }
+.lab-js .lab .sam-up.is-in { opacity: 1; transform: none; }
+.lab-js .lab .sam-up.d1 { transition-delay: .09s; }
+.lab-js .lab .sam-up.d2 { transition-delay: .18s; }
+.lab-js .lab .sam-up.d3 { transition-delay: .27s; }
+.lab-js .lab .sam-up.d4 { transition-delay: .36s; }
+
+/* the round shoulder arrows every carousel here uses */
+.lab .sam-arrows { display: flex; gap: 12px; }
+.lab .sam-arr {
+  display: grid; place-items: center; width: 46px; height: 46px; padding: 0;
+  border: 1px solid var(--sam-line); border-radius: 50%; cursor: pointer;
+  background: #fff; color: var(--sam-ink);
+  transition: background .2s ease, border-color .2s ease, opacity .2s ease, transform .3s var(--sam-ease);
+}
+.lab .sam-arr svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lab .sam-arr:hover { background: var(--sam-paper); }
+.lab .sam-arr:active { transform: scale(.94); }
+.lab .sam-arr[disabled] { opacity: .3; cursor: default; }
+.lab .sam-sec.is-dark .sam-arr { background: rgba(255, 255, 255, .1); border-color: var(--sam-line-dark); color: #fff; }
+.lab .sam-sec.is-dark .sam-arr:hover { background: rgba(255, 255, 255, .2); }
+
+/* every track in this block scrolls sideways and snaps, so with the script off
+   each carousel is still a scroller and every card is still reachable */
+.lab .sam-track {
+  display: flex; gap: clamp(12px, 1.4vw, 22px);
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+.lab .sam-track::-webkit-scrollbar { display: none; }
+.lab .sam-track > * { flex: 0 0 auto; scroll-snap-align: start; }
+
+/* ---------------------------------------------------------------------------
+   38 · WELLNESS · the statement, the film, four things it is
+   ------------------------------------------------------------------------ */
+.lab .sam-open { padding-bottom: clamp(48px, 5vw, 84px); }
+.lab .sam-film {
+  position: relative; margin: clamp(44px, 5vw, 86px) 0 0;
+  border-radius: clamp(14px, 1.4vw, 26px); overflow: hidden;
+  background: #dfe4ee; aspect-ratio: 16 / 9;
+}
+.lab .sam-film video,
+.lab .sam-film img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.lab .sam-chips {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 40px); margin: clamp(44px, 4.6vw, 80px) 0 0; padding: 0; list-style: none;
+}
+.lab .sam-chips li { padding-top: 20px; border-top: 1px solid var(--sam-line-dark); }
+.lab .sam-chips b { display: block; font-size: clamp(16px, 1.25vw, 19px); font-weight: 600; letter-spacing: -0.01em; }
+.lab .sam-chips span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--sam-grey-dark); }
+@media (max-width: 880px) { .lab .sam-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------------------------------------------------------------------------
+   39 · SENSORS · the plate is pinned, the ring grows, the names arrive round it
+   ------------------------------------------------------------------------ */
+.lab .sam-sensors { position: relative; background: var(--sam-ink); color: #fff; }
+.lab .sam-sensors-track { height: 320vh; }
+.lab .sam-sensors-pin {
+  position: sticky; top: 0; height: 100svh; min-height: 620px;
+  display: grid; place-items: center; overflow: hidden;
+}
+.lab .sam-sensors-glow {
+  position: absolute; width: min(120vw, 1500px); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(70, 110, 220, .34), transparent 62%);
+  opacity: calc(.3 + var(--sp, 0) * .7);
+}
+.lab .sam-sensors-copy {
+  position: absolute; top: clamp(90px, 12vh, 150px); left: 0; right: 0;
+  text-align: center; padding: 0 var(--sam-gut); z-index: 3;
+  opacity: calc(1 - var(--sp, 0) * 1.6);
+  transform: translateY(calc(var(--sp, 0) * -40px));
+}
+.lab .sam-sensors-stage {
+  position: relative; width: min(74vmin, 640px); aspect-ratio: 1;
+  transform: scale(calc(.62 + var(--sp, 0) * .58));
+  transition: transform .1s linear;
+}
+.lab .sam-sensors-stage img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.lab .sam-pin {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 10px; white-space: nowrap;
+  font-size: clamp(12px, 1vw, 15px); font-weight: 500; letter-spacing: -0.01em;
+  padding: 9px 16px 9px 12px; border-radius: 99px;
+  background: rgba(255, 255, 255, .1); border: 1px solid var(--sam-line-dark);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  opacity: 0; transition: opacity .5s ease, transform .6s var(--sam-ease);
+}
+.lab .sam-pin i {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--c, #7fb2ff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c, #7fb2ff) 26%, transparent);
+}
+.lab .sam-sensors-pin.is-lit .sam-pin { opacity: 1; }
+.lab .sam-sensors-pin.is-lit .sam-pin:nth-of-type(2) { transition-delay: .08s; }
+.lab .sam-sensors-pin.is-lit .sam-pin:nth-of-type(3) { transition-delay: .16s; }
+.lab .sam-sensors-pin.is-lit .sam-pin:nth-of-type(4) { transition-delay: .24s; }
+.lab .sam-sensors-foot {
+  position: absolute; left: 0; right: 0; bottom: clamp(40px, 7vh, 88px);
+  text-align: center; padding: 0 var(--sam-gut); z-index: 3;
+  opacity: var(--sp, 0);
+}
+.lab .sam-sensors-foot p { margin: 0; font-size: clamp(15px, 1.2vw, 19px); color: var(--sam-grey-dark); }
+.lab .sam-sensors-foot b { color: #fff; font-weight: 600; }
+@media (max-width: 760px) {
+  .lab .sam-sensors-track { height: 240vh; }
+  .lab .sam-pin { font-size: 11px; padding: 7px 12px 7px 9px; }
+}
+
+/* ---------------------------------------------------------------------------
+   40 · INTELLIGENCE · one picture, the words beside it
+   ------------------------------------------------------------------------ */
+.lab .sam-split-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(30px, 4.4vw, 90px); align-items: center;
+  margin-top: clamp(40px, 4.4vw, 76px);
+}
+.lab .sam-split-row.is-flip > :first-child { order: 2; }
+.lab .sam-shot {
+  border-radius: clamp(14px, 1.4vw, 24px); overflow: hidden; background: #10131c;
+  aspect-ratio: 4 / 5;
+}
+.lab .sam-shot.is-wide { aspect-ratio: 4 / 3; }
+.lab .sam-shot img,
+.lab .sam-shot video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lab .sam-list { margin: clamp(26px, 2.6vw, 40px) 0 0; padding: 0; list-style: none; }
+.lab .sam-list li { padding: 18px 0; border-top: 1px solid var(--sam-line-dark); }
+.lab .sam-sec:not(.is-dark) .sam-list li { border-top-color: var(--sam-line); }
+.lab .sam-list b { display: block; font-size: clamp(16px, 1.25vw, 19px); font-weight: 600; }
+.lab .sam-list span { display: block; margin-top: 6px; font-size: 14px; line-height: 1.55; color: var(--sam-grey); }
+.lab .sam-sec.is-dark .sam-list span { color: var(--sam-grey-dark); }
+@media (max-width: 900px) {
+  .lab .sam-split-row { grid-template-columns: minmax(0, 1fr); }
+  .lab .sam-split-row.is-flip > :first-child { order: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   41 · HEALTH · the phone, then the cards that pass it
+   ------------------------------------------------------------------------ */
+.lab .sam-cards { margin-top: clamp(40px, 4.4vw, 74px); }
+.lab .sam-cards-head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  margin-bottom: clamp(22px, 2.4vw, 36px);
+}
+.lab .sam-card {
+  width: clamp(240px, 25vw, 340px); box-sizing: border-box;
+  border-radius: clamp(14px, 1.2vw, 22px); overflow: hidden;
+  background: #fff; border: 1px solid var(--sam-line);
+  display: flex; flex-direction: column;
+}
+.lab .sam-sec.is-dark .sam-card { background: #0f1320; border-color: var(--sam-line-dark); }
+.lab .sam-card-fig { aspect-ratio: 4 / 5; background: #e9ecf2; }
+.lab .sam-sec.is-dark .sam-card-fig { background: #141a2a; }
+.lab .sam-card-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lab .sam-card-txt { padding: clamp(18px, 1.5vw, 26px); }
+.lab .sam-card-txt b { display: block; font-size: clamp(16px, 1.2vw, 19px); font-weight: 600; letter-spacing: -0.01em; }
+.lab .sam-card-txt span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--sam-grey); }
+.lab .sam-sec.is-dark .sam-card-txt span { color: var(--sam-grey-dark); }
+
+/* the reading a card carries instead of a photograph */
+.lab .sam-read {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(20px, 1.8vw, 30px); box-sizing: border-box;
+  background: linear-gradient(160deg, #161d31, #0b0f1a);
+}
+.lab .sam-read-k { margin: 0; font-size: 13px; letter-spacing: .04em; color: rgba(255, 255, 255, .6); }
+.lab .sam-read-v { margin: 6px 0 0; font-size: clamp(42px, 4.4vw, 68px); line-height: .96; font-weight: 600; letter-spacing: -0.04em; color: #fff; }
+.lab .sam-read-v small { font-size: .32em; font-weight: 500; letter-spacing: -0.01em; margin-left: .35em; color: rgba(255, 255, 255, .6); }
+.lab .sam-read svg { display: block; width: 100%; height: auto; margin-top: 18px; }
+.lab .sam-read-bars { display: flex; align-items: flex-end; gap: 4px; height: 86px; margin-top: 18px; }
+.lab .sam-read-bars i { flex: 1; border-radius: 3px; background: var(--c, #7fb2ff); height: calc(var(--h) * 100%); opacity: .85; }
+.lab .sam-dial {
+  position: relative; width: 132px; height: 132px; margin: 8px 0 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--c, #7fb2ff) calc(var(--p) * 360deg), rgba(255, 255, 255, .12) 0);
+  display: grid; place-items: center;
+}
+.lab .sam-dial::after { content: ''; position: absolute; inset: 11px; border-radius: 50%; background: #0d111c; }
+.lab .sam-dial b { position: relative; z-index: 1; font-size: 34px; font-weight: 600; letter-spacing: -0.03em; color: #fff; }
+
+/* ---------------------------------------------------------------------------
+   42 · THE SCORE · one number, counted up, on a quiet ground
+   ------------------------------------------------------------------------ */
+.lab .sam-score { background: var(--sam-paper); }
+.lab .sam-score-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: clamp(30px, 4.4vw, 88px); align-items: center; margin-top: clamp(36px, 4vw, 66px);
+}
+.lab .sam-phone {
+  position: relative; width: 100%; max-width: 380px; margin-inline: auto;
+  aspect-ratio: 9 / 19; border-radius: 42px; padding: 11px; box-sizing: border-box;
+  background: #0b0d14; box-shadow: 0 40px 90px -40px rgba(9, 16, 40, .5);
+}
+.lab .sam-phone-screen {
+  position: relative; width: 100%; height: 100%; border-radius: 32px; overflow: hidden;
+  background: linear-gradient(170deg, #eef2fb, #fff 40%);
+  padding: 30px 22px 22px; box-sizing: border-box; color: #0b1020;
+}
+.lab .sam-phone-screen::before {
+  content: ''; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  width: 86px; height: 22px; border-radius: 99px; background: #0b0d14;
+}
+.lab .sam-ph-k { margin: 26px 0 0; font-size: 13px; letter-spacing: .04em; color: #737a8c; }
+.lab .sam-ph-big { margin: 4px 0 0; font-size: 74px; line-height: 1; font-weight: 600; letter-spacing: -0.05em; }
+.lab .sam-ph-tag { margin: 2px 0 0; font-size: 17px; font-weight: 600; color: var(--ph-accent); }
+.lab .sam-ph-rows { margin: 24px 0 0; padding: 0; list-style: none; }
+.lab .sam-ph-rows li { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-top: 1px solid rgba(0, 0, 0, .07); font-size: 14px; }
+.lab .sam-ph-rows b { font-weight: 600; }
+.lab .sam-ph-note { margin: 20px 0 0; font-size: 13px; line-height: 1.5; color: #737a8c; }
+@media (max-width: 900px) { .lab .sam-score-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   43 · FITNESS · cards, then one photograph the width of the page
+   ------------------------------------------------------------------------ */
+.lab .sam-bleed {
+  margin: clamp(44px, 5vw, 86px) calc(var(--sam-gut) * -1) 0;
+  aspect-ratio: 21 / 9; overflow: hidden; background: #dfe3ea;
+}
+.lab .sam-bleed img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------------------------------------------------------------------------
+   44 · BATTERY · three circles, the numeral counting between them
+   ------------------------------------------------------------------------ */
+.lab .sam-bat { background: var(--sam-ink); color: #fff; overflow: hidden; }
+.lab .sam-bat-stage {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: clamp(10px, 2.2vw, 44px); margin-top: clamp(40px, 5vw, 86px);
+}
+.lab .sam-bat-circle {
+  position: relative; width: clamp(140px, 23vw, 360px); aspect-ratio: 1;
+  border-radius: 50%; overflow: hidden; background: #11151f; flex: 0 0 auto;
+}
+.lab .sam-bat-circle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The middle circle is the ring itself: a photograph seen through the band, so
+   the reference's charging animation becomes the product doing the framing. */
+.lab .sam-bat-circle.is-mid { width: clamp(170px, 27vw, 420px); }
+.lab .sam-bat-circle.is-mid::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  border: clamp(14px, 2.6vw, 42px) solid #1a1e28;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .1);
+  background: linear-gradient(140deg, rgba(255, 255, 255, .22), transparent 42%);
+}
+/* Under the circles, as the reference sets it: the numeral on its own line
+   with the unit stacked beside it, never over a photograph. */
+.lab .sam-bat-num {
+  flex: 0 0 100%; margin: clamp(10px, 1.4vw, 24px) 0 0;
+  display: flex; align-items: flex-end; justify-content: center; gap: 14px;
+}
+.lab .sam-bat-n { font-size: clamp(64px, 9vw, 150px); line-height: .82; font-weight: 600; letter-spacing: -0.06em; }
+.lab .sam-bat-u { display: block; }
+.lab .sam-bat-u small { display: block; font-size: clamp(13px, 1.1vw, 17px); color: var(--sam-grey-dark); }
+.lab .sam-bat-u b { display: block; font-size: clamp(22px, 2.4vw, 40px); font-weight: 600; letter-spacing: -0.03em; }
+@media (max-width: 720px) {
+  .lab .sam-bat-stage { gap: 6px; }
+  .lab .sam-bat-circle:first-child,
+  .lab .sam-bat-circle:last-child { display: none; }
+  .lab .sam-bat-circle.is-mid { width: min(74vw, 380px); }
+}
+
+/* ---- 45 · the case, three states ---------------------------------------- */
+.lab .sam-case { background: var(--sam-ink); color: #fff; }
+.lab .sam-case-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: clamp(30px, 4.4vw, 80px); align-items: center; margin-top: clamp(36px, 4vw, 66px);
+}
+.lab .sam-case-stage {
+  position: relative; border-radius: clamp(14px, 1.4vw, 24px); overflow: hidden;
+  background: radial-gradient(70% 70% at 50% 40%, #1b2030, #06080e);
+  aspect-ratio: 4 / 3; display: grid; place-items: center;
+}
+.lab .sam-case-stage img { width: 62%; height: auto; display: block; transition: transform .8s var(--sam-ease); }
+.lab .sam-case-led {
+  position: absolute; left: 50%; bottom: 17%; transform: translateX(-50%);
+  width: 10px; height: 10px; border-radius: 50%; background: var(--led, #7fb2ff);
+  box-shadow: 0 0 22px 6px color-mix(in srgb, var(--led, #7fb2ff) 60%, transparent);
+  animation: sam-led 1.8s ease-in-out infinite;
+}
+@keyframes sam-led { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.lab .sam-case-tabs { display: flex; flex-direction: column; gap: 10px; margin-top: clamp(24px, 2.6vw, 38px); padding: 0; }
+.lab .sam-case-tab {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  padding: 18px 22px; border-radius: 14px; box-sizing: border-box;
+  background: rgba(255, 255, 255, .05); border: 1px solid transparent; color: inherit;
+  font: inherit; transition: background .25s ease, border-color .25s ease;
+}
+.lab .sam-case-tab b { display: block; font-size: clamp(16px, 1.2vw, 19px); font-weight: 600; }
+.lab .sam-case-tab span { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--sam-grey-dark); }
+.lab .sam-case-tab:hover { background: rgba(255, 255, 255, .09); }
+.lab .sam-case-tab.on { background: rgba(255, 255, 255, .12); border-color: rgba(127, 178, 255, .6); }
+@media (max-width: 900px) { .lab .sam-case-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   46 · SIZING · the kit, then four steps
+   ------------------------------------------------------------------------ */
+.lab .sam-kit {
+  margin-top: clamp(38px, 4.4vw, 74px); border-radius: clamp(14px, 1.4vw, 26px);
+  overflow: hidden; background: #fff; aspect-ratio: 16 / 7;
+}
+.lab .sam-kit img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.lab .sam-steps {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 26px); margin: clamp(28px, 3vw, 46px) 0 0; padding: 0; list-style: none;
+}
+.lab .sam-step {
+  padding: clamp(22px, 2vw, 34px); box-sizing: border-box;
+  background: #fff; border-radius: clamp(12px, 1.1vw, 20px); border: 1px solid var(--sam-line);
+}
+.lab .sam-step svg { width: 30px; height: 30px; fill: none; stroke: var(--sam-ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lab .sam-step p { margin: 18px 0 0; font-size: 13px; letter-spacing: .04em; color: var(--sam-grey); }
+.lab .sam-step b { display: block; margin-top: 4px; font-size: clamp(17px, 1.35vw, 21px); font-weight: 600; letter-spacing: -0.02em; }
+.lab .sam-step span { display: block; margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--sam-grey); }
+@media (max-width: 980px) { .lab .sam-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .lab .sam-steps { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   47 · COLOUR · two panels, a swatch row, the name under it
+   ------------------------------------------------------------------------ */
+.lab .sam-colour { background: var(--sam-paper); text-align: center; }
+.lab .sam-colour .sam-sub,
+.lab .sam-close .sam-sub { margin-inline: auto; }
+.lab .sam-panels {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(14px, 1.6vw, 28px); margin-top: clamp(40px, 4.6vw, 78px);
+}
+.lab .sam-panel {
+  position: relative; border-radius: clamp(12px, 1.2vw, 20px); overflow: hidden;
+  background: #eceef2; aspect-ratio: 1;
+}
+.lab .sam-panel img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0; transform: scale(1.03);
+  transition: opacity .55s ease, transform .9s var(--sam-ease);
+}
+.lab .sam-panel img.on { opacity: 1; transform: none; }
+.lab .sam-swatches {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(14px, 1.4vw, 22px);
+  margin: clamp(30px, 3vw, 46px) 0 0; padding: 0;
+}
+.lab .sam-sw {
+  position: relative; width: 34px; height: 34px; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 1px solid rgba(0, 0, 0, .14); background: var(--s);
+  transition: transform .25s var(--sam-ease);
+}
+.lab .sam-sw::after {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid var(--ph-accent); opacity: 0; transform: scale(.82);
+  transition: opacity .25s ease, transform .3s var(--sam-ease);
+}
+.lab .sam-sw:hover { transform: scale(1.09); }
+.lab .sam-sw.on::after { opacity: 1; transform: none; }
+.lab .sam-sw:focus-visible { outline: 2px solid var(--ph-accent); outline-offset: 5px; }
+.lab .sam-cname { margin: clamp(20px, 2vw, 28px) 0 0; font-size: clamp(17px, 1.35vw, 21px); font-weight: 600; letter-spacing: -0.01em; }
+.lab .sam-cmat { margin: 6px 0 0; font-size: 14px; color: var(--sam-grey); }
+@media (max-width: 720px) { .lab .sam-panels { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   48 · WATER · one photograph, the claim over it
+   ------------------------------------------------------------------------ */
+.lab .sam-water {
+  position: relative; min-height: 92svh; display: grid; place-items: center;
+  padding: var(--sam-pad) var(--sam-gut); color: #fff; overflow: hidden; background: #060a14;
+}
+.lab .sam-water-img { position: absolute; inset: 0; }
+.lab .sam-water-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(.58) saturate(1.05); }
+.lab .sam-water-in { position: relative; text-align: center; max-width: 900px; }
+.lab .sam-water-n {
+  margin: clamp(26px, 3vw, 44px) 0 0; display: flex; align-items: baseline; justify-content: center; gap: 10px;
+  font-size: clamp(56px, 9vw, 148px); line-height: .9; font-weight: 600; letter-spacing: -0.06em;
+}
+.lab .sam-water-n small { font-size: .24em; font-weight: 500; letter-spacing: -0.01em; }
+
+/* ---------------------------------------------------------------------------
+   49 · CONNECTED · three slides, one at a time
+   ------------------------------------------------------------------------ */
+.lab .sam-slides { margin-top: clamp(36px, 4vw, 66px); }
+.lab .sam-slide {
+  width: 100%; box-sizing: border-box;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(26px, 4vw, 76px); align-items: center;
+  padding: clamp(26px, 3vw, 52px); border-radius: clamp(14px, 1.4vw, 24px);
+  background: #fff; border: 1px solid var(--sam-line);
+}
+.lab .sam-slide-fig { border-radius: clamp(12px, 1vw, 18px); overflow: hidden; background: #e9ecf2; aspect-ratio: 4 / 3; }
+.lab .sam-slide-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lab .sam-dots { display: flex; justify-content: center; gap: 9px; margin-top: clamp(22px, 2.2vw, 32px); }
+/* Every dot is the long pill's width and a clip shows only its middle 8px, so
+   the stretch to the chosen state is a repaint, never a reflow of the row. */
+.lab .sam-dots { gap: 0; }
+.lab .sam-dots button {
+  width: 26px; height: 8px; padding: 0; border: 0; border-radius: 99px; cursor: pointer;
+  background: rgba(0, 0, 0, .18);
+  clip-path: inset(0 9px round 99px);
+  transition: background .25s ease, clip-path .3s var(--sam-ease);
+}
+.lab .sam-dots button.on { clip-path: inset(0 0 round 99px); background: var(--ph-accent); }
+@media (max-width: 860px) { .lab .sam-slide { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   50 · THE CLOSE
+   ------------------------------------------------------------------------ */
+.lab .sam-close { background: var(--sam-ink); color: #fff; text-align: center; }
+.lab .sam-close .sam-h { max-width: 18ch; margin-inline: auto; }
+.lab .sam-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 56px; padding: 0 34px; margin-top: clamp(26px, 2.8vw, 40px);
+  border-radius: 99px; background: var(--ph-accent); color: #fff !important;
+  font-size: 17px; font-weight: 600; text-decoration: none !important;
+  transition: background .25s ease, transform .3s var(--sam-ease);
+}
+.lab .sam-cta:hover { background: var(--ph-accent-hover); }
+.lab .sam-cta:active { transform: scale(.97); }
+.lab .sam-cta.is-ghost { background: rgba(255, 255, 255, .12); margin-left: 10px; }
+.lab .sam-cta.is-ghost:hover { background: rgba(255, 255, 255, .2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-js .lab .sam-up { opacity: 1; transform: none; transition: none; }
+  .lab .sam-track { scroll-behavior: auto; }
+  .lab .sam-case-led { animation: none; opacity: 1; }
+}
