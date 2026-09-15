@@ -70,8 +70,12 @@
 .nadp main > section.nd-hero { padding: 16px 0 clamp(56px, 6vw, 96px); }
 .nadp .nd-hero-grid {
   max-width: var(--nd-bleed); margin-inline: auto; padding-inline: var(--nd-gut);
-  display: grid; grid-template-columns: minmax(0, 1fr) clamp(380px, 31vw, 470px);
-  gap: clamp(24px, 2.4vw, 40px); align-items: start;
+  /* 31vw capped at 470 put a 44px headline and a four-line paragraph into a
+     track narrower than the paragraph wanted; 34vw/520 gives the claim ~40
+     characters a line and drops the paragraph from five lines to four without
+     costing the mosaic a tile. */
+  display: grid; grid-template-columns: minmax(0, 1fr) clamp(400px, 34vw, 520px);
+  gap: clamp(28px, 2.8vw, 48px); align-items: start;
 }
 
 .nadp .nd-gal { display: grid; grid-template-columns: 1fr 1fr; gap: var(--nd-gut); }
@@ -110,17 +114,91 @@
 .nadp .nd-facts-r b { font-weight: 700; white-space: nowrap; }
 .nadp .nd-facts-foot { display: block; margin-top: 7px; font-size: 10px; line-height: 1.35; opacity: .75; }
 
-/* The decision column: shared supp-* rules, re-sized for a narrower track. */
+/* The decision column: shared supp-* rules, re-sized for a narrower track.
+
+   TYPE SCALE. The shared sheet is written for a 620px-wide column on a two-up
+   hero; dropped into this 500px track its steps collapse — the price (h2, 48px)
+   came out LARGER than the product name (44px), and the spec subtitle (17px)
+   larger than the paragraph it introduces (16px). Both inversions are corrected
+   here, and nowhere else, so the other 26 supplement pages keep their own sheet.
+
+     44px  name          the one thing that owns the column
+     26px  claim         the hook, a step below the name
+     21px  stat value    the three proofs, now above body text
+     17px  option title / option price
+     16px  paragraph
+     15px  subtitle      metadata, demoted below body on purpose
+     14px  rate · price note · guarantee
+     12px  stat label · fine print
+
+   RHYTHM. Four steps instead of one undifferentiated 16-28px band:
+     6px  inside a pair (value/label, price/note)
+    14px  inside a group (name -> subtitle -> rating)
+    22px  between groups
+    26px + a hairline  between the story and the decision.
+   The hairline above the price is the only new rule in the column, and it is
+   the one that makes "why" and "buy" read as two blocks rather than one list. */
 .nadp .nd-buy { padding-top: 8px; }
-.nadp .nd-buy .supp-badge { margin-top: 0; }
-.nadp .nd-buy .supp-name { font-size: clamp(34px, 2.9vw, 46px); line-height: 1.04; letter-spacing: -.025em; }
-.nadp .nd-buy .supp-claim { font-size: clamp(21px, 1.6vw, 25px); line-height: 1.22; margin-top: 24px; }
-.nadp .nd-buy .supp-para { font-size: 16px; line-height: 1.55; }
-.nadp .nd-buy .supp-stats { padding: 16px 20px; gap: 12px; }
-.nadp .nd-buy .supp-stat-v { font-size: 18px; line-height: 1.25; }
-.nadp .nd-buy .supp-stat-l { font-size: 13px; line-height: 1.3; }
-.nadp .nd-buy .supp-price { transition: opacity .2s; }
+/* THE REASON THE RHYTHM ABOVE COULD NOT BE SEEN. The column is a flex column,
+   so margins do not collapse: every heading and paragraph was adding the UA's
+   own margin-bottom (0.67-1em, so 13px under the fine print and 30px under the
+   price) on top of the margin-top written here. The spacing therefore scaled
+   with each element's font-size instead of with its role — 37px after the name,
+   36px after the price, 25px after the guarantee, none of them chosen. Zeroed
+   here so the four steps above are the only spacing in the column. */
+.nadp .nd-buy > *, .nadp .nd-buy .supp-stat > * { margin-bottom: 0; }
+.nadp .nd-buy .supp-badge {
+  margin-top: 0; padding: 0 12px; min-height: 28px;
+  font-size: 12.5px; line-height: 1.2; font-weight: 600; letter-spacing: .04em;
+}
+.nadp .nd-buy .supp-name {
+  margin-top: 14px; font-size: clamp(34px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -.025em;
+}
+/* Non-breaking spaces in the markup keep a middot from opening a line; this
+   keeps the whole spec string on one line wherever the column allows it. */
+.nadp .nd-buy .supp-subtitle { margin-top: 8px; font-size: 15px; line-height: 1.45; text-wrap: pretty; }
+.nadp .nd-buy .supp-rate { margin-top: 14px; gap: 8px; }
+.nadp .nd-buy .supp-stars { font-size: 13px; }
+/* max-width off: a 26ch cap inside a 500px track left a ragged right edge with
+   nothing beside it. The column IS the measure here. */
+.nadp .nd-buy .supp-claim {
+  max-width: none; margin-top: 22px;
+  font-size: clamp(22px, 1.8vw, 27px); line-height: 1.26; letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.nadp .nd-buy .supp-para { margin-top: 14px; font-size: 16px; line-height: 1.62; max-width: none; }
+
+/* The proof strip. It was a tinted panel, and the tint (#f4f6fb, the site's one
+   tint) is close enough to white that on this page it never read as a panel —
+   it only pushed the three figures 20px in from the paragraph above them, so
+   the column had two left edges. Dropped to a rule and the column's own edge:
+   the figures line up with every other line of text, and the hairline here plus
+   the one above the price band the column into identity / proof / decision. */
+.nadp .nd-buy .supp-stats {
+  margin-top: 22px; padding: 18px 0 0; gap: 16px;
+  background: none; border-radius: 0; border-top: 1px solid var(--nd-rule);
+}
+.nadp .nd-buy .supp-stat-v { margin-top: 0; font-size: 21px; line-height: 1.15; letter-spacing: -.015em; }
+.nadp .nd-buy .supp-stat-l { margin-top: 5px; font-size: 12px; line-height: 1.3; letter-spacing: .015em; }
+
+/* The decision starts here — hence the rule, and hence a price that no longer
+   shouts over the product name. */
+.nadp .nd-buy .supp-price {
+  width: 100%; margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--nd-rule);
+  font-size: 30px; line-height: 1.1; letter-spacing: -.02em;
+  transition: opacity .2s;
+}
 .nadp .nd-buy .supp-price.is-swap { opacity: .25; }
+.nadp .nd-buy .supp-pnote { margin-top: 6px; font-size: 14px; }
+.nadp .nd-buy .supp-opts { margin-top: 18px; gap: 8px; }
+.nadp .nd-buy .supp-opt { padding: 13px 16px; }
+.nadp .nd-buy .supp-opt-t { font-size: 16px; line-height: 1.3; }
+.nadp .nd-buy .supp-opt-s { margin-top: 2px; font-size: 13px; line-height: 1.35; }
+.nadp .nd-buy .supp-opt-p { font-size: 17px; line-height: 1.3; }
+/* A 469px-wide button 44px tall reads as a bar, not a button. */
+.nadp .nd-buy .supp-cta { margin-top: 18px; min-height: 54px; font-size: 17px; font-weight: 600; }
+.nadp .nd-buy .supp-gtee { margin-top: 18px; padding: 14px 16px; font-size: 13.5px; line-height: 1.45; }
+.nadp .nd-buy .supp-fine { margin-top: 12px; font-size: 12.5px; line-height: 1.4; }
 .nadp .nd-rate-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--nd-rule); }
 .nadp .nd-rate-link:hover { color: var(--nd-navy); text-decoration-color: currentColor; }
 
@@ -633,6 +711,9 @@
   .nadp .nd-collage { gap: 10px; }
 }
 @media (max-width: 560px) {
+  /* shared.css drops the three figures into one column here; without the tint
+     panel behind them the shared 24px gap reads as three loose fragments. */
+  .nadp .nd-buy .supp-stats { gap: 12px; padding-top: 16px; }
   .nadp .nd-ess-hero { padding-inline: 20px; }
   .nadp .nd-ess-panel { grid-template-columns: minmax(0, 1fr); margin-inline: -4px; padding: 24px 20px; }
   .nadp .nd-ess-panel li { display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
