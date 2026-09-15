@@ -557,6 +557,12 @@
     return h + '</div></div></div>';
   }
 
+  /* hide() lives inside the nav block below, and the search overlay — which is built
+     after it, from its own function — has to be able to shut an open mega-menu before
+     it takes the bar over. One assignment out of that scope is cheaper than hoisting
+     the whole panel machine up here, and it stays a no-op on a page with no nav. */
+  var closeMenus = function () {};
+
   var nav = document.querySelector('[data-ph-nav]');
   if (nav) {
     /* Each panel sits inside its own .ph-item, after its trigger. That one
@@ -624,7 +630,7 @@
     nav.outerHTML =
       '<header class="ph-nav" id="phNav">' +
       '<div class="ph-nav-inner">' +
-      '<a class="ph-brand" href="/phenome-store/index.html" aria-label="Phenome Longevity — home">' +
+      '<a class="ph-brand" href="/phenome-store/index.html" aria-label="Phenome Longevity, home">' +
       '<img src="/phenome-store/assets/brand/phenome-logo.svg" alt="Phenome Longevity" width="770" height="118"></a>' +
       /* The design's top row is seven: Store, Testing, Supplements, Devices, App,
          Science, Support. Clinic sits on the RIGHT as an outlined pill and
@@ -642,7 +648,10 @@
          developer halleder." They are NOT href="#" — each points at the real page
          that already exists, so nothing here is a dead control. The search page
          has no working search and the cart has no state; the developer wires both. */
-      '<a class="ph-nav-icon" href="/phenome-store/hub/search/" aria-label="Search">' +
+      /* Still a real link to a real page. searchKit() below takes the click and opens
+         the overlay instead; if that script never runs, the control still goes
+         somewhere rather than sitting there doing nothing. */
+      '<a class="ph-nav-icon" data-ph-search href="/phenome-store/hub/search/" aria-label="Search">' +
       '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
       'stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
       '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg></a>' +
@@ -695,6 +704,20 @@
       openedBy = null;
       document.documentElement.classList.remove('ph-menu-open');
     }
+
+    /* Panels AND the drawer. Below 901 the search glass sits next to the burger, so
+       the two overlays can be asked for one after the other; the drawer is a
+       full-screen sheet and leaving it open underneath the search sheet gives the
+       reader two menus and one Escape. */
+    closeMenus = function () {
+      hide(true);
+      var drawer = document.getElementById('phLinks');
+      if (drawer && drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        var b = document.getElementById('phBurger');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      }
+    };
 
     var hoverable = window.matchMedia('(hover: hover) and (min-width: 901px)');
 
@@ -1359,7 +1382,11 @@
     var cta = hero.querySelector('a.btn');
     if (!cta || !cta.getAttribute('href')) return;
 
-    var name = (document.title || '').split('—')[0].trim();
+    /* The site suffix is separated by a comma now, not an em dash: the copy pass of
+       2026-09-15 took every joining dash out of the visible text, <title> included.
+       Split on the same character the titles are actually written with, or this reads
+       "Carrier Screening Test, Phenome Longevity" as the product's whole name. */
+    var name = (document.title || '').split(',')[0].trim();
     if (!name) return;
 
     var bar = document.createElement('div');
@@ -1369,9 +1396,25 @@
     bar.setAttribute('aria-hidden', 'true');
     var inner = document.createElement('div');
     inner.className = 'ph-bar-inner';
-    var n = document.createElement('span');
+    /* The name is a control now, not a caption. This bar only exists once the hero is
+       off screen, which is precisely when a reader wants the top of the page back, and
+       the name is the largest thing in it — people were already clicking it. A <button>
+       rather than an <a href="#top">: there is no #top anchor to point at and a bare
+       "#" writes a history entry that Back then has to be pressed twice to escape.
+       It carries a real accessible name so it is not a mystery control to a reader who
+       cannot see which product page they are on. */
+    var n = document.createElement('button');
+    n.type = 'button';
     n.className = 'ph-bar-name';
     n.textContent = name;
+    /* `title`, not `aria-label`. Two pages rewrite this element's textContent after
+       shared.js has run (ring-lab renames it, the PDP and the Band re-parent it), and
+       an aria-label would then be announcing a product name the button no longer
+       shows. A title leaves the visible words as the accessible name — which is what
+       "label in name" asks for anyway — and adds the hint on top of it. */
+    n.setAttribute('title', 'Back to top');
+    n.setAttribute('tabindex', '-1');
+    n.addEventListener('click', toTop);
     var a = document.createElement('a');
     a.className = 'btn small';
     a.setAttribute('href', cta.getAttribute('href'));
@@ -1387,7 +1430,540 @@
       bar.classList.toggle('on', off);
       bar.setAttribute('aria-hidden', off ? 'false' : 'true');
       a.setAttribute('tabindex', off ? '0' : '-1');
+      n.setAttribute('tabindex', off ? '0' : '-1');
     }, { threshold: 0 }).observe(hero);
+  }
+
+  /* ---- Back to the top ----------------------------------------------------
+     One way up, shared by the product bar's name and the floating button below, so the
+     two can never disagree about what "back to top" means.
+
+     scrollTo() is given an object, which older Safari does not accept — it wants two
+     numbers and throws on the object form — so the fallback is not decoration. And the
+     smooth behaviour is dropped for a reader who asked for less motion: on a page this
+     long, a smooth scroll is several seconds of the whole viewport moving. */
+  function toTop() {
+    var still = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try {
+      window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  /* ---- The floating way up -------------------------------------------------
+     A disc in the bottom-right corner that appears once the page has been scrolled
+     past its first screen — the point at which the nav's own logo has been gone long
+     enough that a reader has to hunt for a way back.
+
+     One viewport is the threshold the brief asked for, and it is read from the window
+     on every check rather than cached: a phone that turns, or a desktop window that is
+     dragged taller, changes what "one screen" means.
+
+     It is built here rather than written into 84 pages, and it is built by script on
+     purpose — a button that scrolls is useless without script, so shipping it in the
+     markup would leave one more dead control on a page where JavaScript failed. It
+     sits in the corner the design system's own launcher already occupies, and stacks
+     above it; see .ph-top in shared.css for how the two share the corner. */
+  function backToTop() {
+    if (!('requestAnimationFrame' in window)) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ph-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    /* Hidden from the reading order while it is off screen, the same contract the
+       product bar keeps: a control nobody can see must not be the next Tab stop. */
+    btn.hidden = true;
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" ' +
+      'focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M12 19V6"></path><path d="M5.5 12.5 12 6l6.5 6.5"></path></svg>';
+    btn.addEventListener('click', function () {
+      toTop();
+      /* Focus has to go somewhere a reader can carry on from, and the button is about
+         to disappear under them. The document itself is the top of the page. */
+      var brand = document.querySelector('.ph-brand');
+      if (brand) brand.focus({ preventScroll: true });
+    });
+    document.body.appendChild(btn);
+
+    var queued = false, shown = false;
+    function paint() {
+      queued = false;
+      var past = (window.pageYOffset || document.documentElement.scrollTop || 0) >
+                 window.innerHeight;
+      if (past === shown) return;
+      shown = past;
+      /* hidden first, then the class, so the disc has a box to animate out of; and
+         the other way round on the way out, so it fades before it leaves. */
+      if (past) { btn.hidden = false; requestAnimationFrame(function () { btn.classList.add('on'); }); }
+      else { btn.classList.remove('on'); }
+    }
+    btn.addEventListener('transitionend', function (e) {
+      if (e.propertyName === 'opacity' && !shown) btn.hidden = true;
+    });
+    function tick() { if (!queued) { queued = true; requestAnimationFrame(paint); } }
+
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick, { passive: true });
+    paint();
+  }
+
+  /* ---- The search overlay --------------------------------------------------
+     The glass in the bar used to navigate to /hub/search/, a page with a static list of
+     nine results for "bloating" and no field that does anything. Clicking search and
+     LOSING the page you were reading, to arrive somewhere that cannot search, is the
+     worst of both. Apple's bar does the opposite: the glass opens over the page, the
+     bar's own links step aside, and a field arrives already holding somewhere to go.
+
+     This is that, with our own content in it. Three things make it Apple's rather than
+     a generic dropdown, and each one is a decision:
+
+     · It opens with QUICK LINKS already listed. An empty panel asks the reader to
+       think of something; a panel with six destinations in it answers the question
+       most people came to ask without a keystroke.
+
+     · Typing REPLACES that list with matches, ranked — an exact label first, then a
+       label that starts with what was typed, then a word inside it, then a substring,
+       then the keywords and the section the link lives in. Apple's list reorders the
+       same way, which is why the thing you meant is nearly always first.
+
+     · A query that matches NOTHING collapses the list, exactly as apple.com does, and
+       says so in one quiet line rather than falling back to the quick links. Silently
+       showing unrelated links after a miss is how a search loses trust.
+
+     The index is READ OFF THE MENU, not authored twice: every product card, every
+     column link and every panel in PH_MENU becomes a row here, so a link cannot exist
+     in search and be missing from the site, or move in one and not the other. The
+     extras below are the pages the bar has no panel for — the Hub, the account, the
+     legal pages — and they are the only rows written by hand. */
+  var PH_FIND_EXTRA = [
+    { label: 'Shop all', href: '/phenome-store/store/', section: 'Store',
+      keys: 'store shop buy everything products' },
+    { label: 'Longevity Hub', href: '/phenome-store/hub/', section: 'Explore',
+      keys: 'articles guides reading blog' },
+    { label: 'The Longevity Seat', href: '/phenome-store/hub/podcast/', section: 'Explore',
+      keys: 'podcast episodes listen audio' },
+    { label: 'The gut health guide', href: '/phenome-store/hub/gut-guide/', section: 'Explore',
+      keys: 'bloating digestion ibs microbiome guide' },
+    { label: 'Search the Hub', href: '/phenome-store/hub/search/', section: 'Explore',
+      keys: 'find results' },
+    { label: 'Find your test', href: '/phenome-store/quiz/', section: 'Store',
+      keys: 'quiz recommend where to start not sure goal' },
+    { label: 'Your account', href: '/phenome-store/account/', section: 'Support',
+      keys: 'sign in log in login profile' },
+    { label: 'Track an order', href: '/phenome-store/account/orders/', section: 'Support',
+      keys: 'delivery shipping dispatch parcel where is my order' },
+    { label: 'Activate a kit', href: '/phenome-store/account/activate/', section: 'Support',
+      keys: 'register barcode sample code' },
+    { label: 'Your bag', href: '/phenome-store/store/cart/', section: 'Store',
+      keys: 'basket cart checkout' },
+    { label: 'Checkout', href: '/phenome-store/store/checkout/', section: 'Store',
+      keys: 'pay payment order' },
+    { label: 'The App', href: '/phenome-store/app/', section: 'Explore',
+      keys: 'iphone android dashboard longevity ai' },
+    { label: 'Your dashboard', href: '/phenome-store/app/dashboard/', section: 'Explore',
+      keys: 'app scores home' },
+    { label: 'Results and reports', href: '/phenome-store/app/results-and-reports/', section: 'Explore',
+      keys: 'pdf report omics portfolio findings' },
+    { label: 'Trends over time', href: '/phenome-store/app/trends/', section: 'Explore',
+      keys: 'app history charts progress' },
+    { label: 'Book a session', href: '/phenome-store/app/book-a-session/', section: 'Explore',
+      keys: 'genetic counsellor appointment call consultation' },
+    { label: 'The Clinic', href: '/phenome-store/clinic/', section: 'Company',
+      keys: 'london in person visit' },
+    { label: 'What to expect at the clinic', href: '/phenome-store/clinic/what-to-expect/', section: 'Company',
+      keys: 'visit appointment first time' },
+    { label: 'Register your interest', href: '/phenome-store/clinic/book/', section: 'Company',
+      keys: 'clinic waiting list enquire' },
+    { label: 'Science', href: '/phenome-store/science/', section: 'Explore',
+      keys: 'research evidence method' },
+    { label: 'Whole genome sequencing', href: '/phenome-store/science/whole-genome-sequencing/', section: 'Explore',
+      keys: 'wgs dna genome illumina' },
+    { label: 'Multiomics', href: '/phenome-store/science/multiomics/', section: 'Explore',
+      keys: 'layers proteome transcriptome' },
+    { label: 'Systems biology', href: '/phenome-store/science/systems-biology/', section: 'Explore',
+      keys: 'networks pathways' },
+    { label: 'Our research', href: '/phenome-store/science/our-research/', section: 'Explore',
+      keys: 'papers publications studies' },
+    { label: 'About', href: '/phenome-store/about/', section: 'Company',
+      keys: 'who we are company story lab' },
+    { label: 'Careers', href: '/phenome-store/careers/', section: 'Company',
+      keys: 'jobs hiring roles work with us' },
+    { label: 'Press', href: '/phenome-store/press/', section: 'Company',
+      keys: 'media news coverage' },
+    { label: 'Contact us', href: '/phenome-store/contact/', section: 'Support',
+      keys: 'help support email phone customer service' },
+    { label: 'Privacy and data', href: '/phenome-store/legal/privacy.html', section: 'Support',
+      keys: 'gdpr encryption deletion consent' },
+    { label: 'Terms', href: '/phenome-store/legal/terms.html', section: 'Support',
+      keys: 'legal conditions' },
+    { label: 'Sitemap', href: '/phenome-store/sitemap/', section: 'Support',
+      keys: 'all pages index' },
+    { label: 'Design system', href: '/phenome-store/design-system/', section: 'Company',
+      keys: 'tokens type colour components' }
+  ];
+
+  /* Words people type that are nowhere in a link's own label. Nobody searches for
+     "Gut Microbiome Test" — they search for "bloating", which is the word that sent
+     them looking. These attach to rows the menu has already produced and change
+     nothing a reader sees: a row is matched on them and still listed under its own
+     signed-off name. Keyed by href, so a page that moves takes its words with it. */
+  var PH_FIND_KEYS = {
+    '/phenome-store/store/phenometech-ring/':
+      'sleep heart rate hrv recovery readiness wearable titanium ceramic finger',
+    '/phenome-store/devices/ring/':
+      'sleep heart rate hrv recovery readiness wearable titanium ceramic finger',
+    '/phenome-store/devices/band/': 'wearable wrist steps screen sleep activity',
+    '/phenome-store/store/gut-microbiome/':
+      'bloating digestion ibs stool bacteria diversity fibre',
+    '/phenome-store/testing/gut-microbiome/':
+      'bloating digestion ibs stool bacteria diversity fibre',
+    '/phenome-store/testing/oral-microbiome/': 'mouth saliva gums teeth breath',
+    '/phenome-store/store/comprehensive-genomic/':
+      'dna genome sequencing wgs variants risk panels',
+    '/phenome-store/testing/comprehensive-genomic/':
+      'dna genome sequencing wgs variants risk panels',
+    '/phenome-store/testing/carrier-screening/':
+      'family planning inherited recessive partner pregnancy',
+    '/phenome-store/testing/newborn-screening/': 'baby infant newborn paediatric',
+    '/phenome-store/testing/sports-performance/':
+      'training athlete fitness recovery endurance injury',
+    '/phenome-store/store/supplements/': 'nad capsules powder vitamins collagen'
+  };
+
+  /* Six, because seven starts to read as a menu rather than a shortcut. Each one names
+     BOTH the destination and the wording it should be listed under: several of these
+     pages are reachable from the bar under a second label — /quiz/ is "Not sure where
+     to start" inside the Store panel, which is a fine thing to hover over and a poor
+     thing to read at the top of a search sheet. Both halves are checked against the
+     index when the list is built, so a quick link cannot outlive the page it names. */
+  var PH_FIND_QUICK = [
+    { href: '/phenome-store/store/', label: 'Shop all' },
+    { href: '/phenome-store/store/phenometech-ring/', label: 'PhenomeTech Ring' },
+    { href: '/phenome-store/quiz/', label: 'Find your test' },
+    { href: '/phenome-store/hub/', label: 'Longevity Hub' },
+    { href: '/phenome-store/account/orders/', label: 'Track an order' },
+    { href: '/phenome-store/account/activate/', label: 'Activate a kit' }
+  ];
+
+  function searchKit() {
+    var header = document.getElementById('phNav');
+    if (!header) return;
+    var btn = header.querySelector('[data-ph-search]');
+    var inner = header.querySelector('.ph-nav-inner');
+    if (!btn || !inner) return;
+
+    /* ---- the index -------------------------------------------------------- */
+    /* ONE row per destination. The same page is often reachable from the bar under two
+       wordings — /quiz/ is both "Not sure where to start" and "Find your test" — and a
+       list that offers the reader the same page twice under two names is a list they
+       have to read twice. A later add() MERGES into the row that is already there and
+       keeps both sets of keywords, so nothing that used to match stops matching.
+
+       Which LABEL survives is the whole reason for the third argument. Inside the menu
+       pass the first one wins: /store/phenometech-ring/ is listed as both "PhenomeTech
+       Ring" and "Ceramic Ring" (one page, two materials) and last-wins would file the
+       Ring under the ceramic. The curated extras below then override, because that is
+       what they are for. */
+    var index = [], byHref = {};
+    function add(label, href, section, keys, rename) {
+      if (!label || !href) return;
+      var row = byHref[href];
+      if (row) {
+        if (rename) { row.label = label; row.lab = label.toLowerCase(); }
+        row.keys = (row.keys + ' ' + (keys || '')).trim().toLowerCase();
+        row.hay = (row.hay + ' ' + label + ' ' + (keys || '')).toLowerCase();
+        return;
+      }
+      row = { label: label, href: href, section: section || '',
+              keys: (keys || '').toLowerCase(),
+              hay: (label + ' ' + (section || '') + ' ' + (keys || '')).toLowerCase(),
+              lab: label.toLowerCase() };
+      byHref[href] = row;
+      index.push(row);
+    }
+    PH_MENU.forEach(function (p) {
+      if (p.href) add(p.trigger, p.href, p.trigger, '');
+      (p.featured || []).forEach(function (f) {
+        add(f.name, f.href, p.trigger, f.price || '');
+      });
+      (p.columns || []).forEach(function (c) {
+        (c.links || []).forEach(function (l) {
+          add(l.label, l.href, p.trigger + ' · ' + c.title, '');
+        });
+      });
+    });
+    PH_FIND_EXTRA.forEach(function (e) { add(e.label, e.href, e.section, e.keys, true); });
+    Object.keys(PH_FIND_KEYS).forEach(function (href) {
+      var row = byHref[href];
+      if (!row) return;   /* the page left the menu; its words leave with it */
+      row.keys = (row.keys + ' ' + PH_FIND_KEYS[href]).trim();
+      row.hay = row.hay + ' ' + PH_FIND_KEYS[href];
+    });
+
+    var quick = [];
+    PH_FIND_QUICK.forEach(function (q) {
+      var row = byHref[q.href];
+      if (row && row.label === q.label) quick.push(row);
+    });
+    if (!quick.length) quick = index.slice(0, 6);
+
+    /* ---- the ranking ------------------------------------------------------
+       Lower is better, and every term in the query has to land somewhere or the row is
+       out: typing "ring size" must not surface every page with the word "ring" in it.
+       The row's score is the WORST of its terms' scores, so a row that only just
+       matches one word cannot be lifted above a row that matches both well. */
+    function score(item, terms) {
+      var worst = 0;
+      for (var i = 0; i < terms.length; i++) {
+        var q = terms[i], s;
+        if (item.lab === q) s = 0;
+        else if (item.lab.indexOf(q) === 0) s = 1;
+        else if ((' ' + item.lab).indexOf(' ' + q) !== -1) s = 2;
+        else if (item.lab.indexOf(q) !== -1) s = 3;
+        else if ((' ' + item.keys).indexOf(' ' + q) !== -1) s = 4;
+        /* WORD START in the haystack, never a bare substring. The keywords carry words
+           like "hiring", and a bare indexOf put Careers in the results for "ring" —
+           one row of nonsense is enough to make a reader stop trusting the list. */
+        else if ((' ' + item.hay).indexOf(' ' + q) !== -1) s = 5;
+        else return -1;
+        if (s > worst) worst = s;
+      }
+      return worst;
+    }
+
+    function results(query) {
+      var q = query.trim().toLowerCase();
+      if (!q) return null;
+      var terms = q.split(/\s+/), out = [], i;
+      for (i = 0; i < index.length; i++) {
+        var s = score(index[i], terms);
+        if (s !== -1) out.push({ item: index[i], s: s, i: i });
+      }
+      out.sort(function (a, b) { return a.s - b.s || a.i - b.i; });
+      return out.slice(0, 8).map(function (r) { return r.item; });
+    }
+
+    /* ---- the overlay ------------------------------------------------------ */
+    var box = document.createElement('div');
+    box.className = 'ph-search';
+    box.hidden = true;
+    box.innerHTML =
+      '<div class="ph-search-bar">' +
+      '<div class="ph-search-field">' +
+      '<svg class="ph-search-glass" viewBox="0 0 20 20" width="18" height="18" ' +
+      'aria-hidden="true" focusable="false" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
+      '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg>' +
+      '<input class="ph-search-input" id="phSearchInput" type="text" ' +
+      'autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" ' +
+      'placeholder="Search phenome.com" aria-label="Search phenome.com" ' +
+      'role="combobox" aria-expanded="true" aria-controls="phSearchList" ' +
+      'aria-autocomplete="list">' +
+      '<button class="ph-search-clear" type="button" aria-label="Clear the search" hidden>' +
+      '<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true" ' +
+      'focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+      'stroke-linecap="round"><path d="M6 6l8 8M14 6l-8 8"></path></svg></button>' +
+      '</div>' +
+      '<button class="ph-search-close" type="button">Cancel</button>' +
+      '</div>' +
+      '<div class="ph-search-sheet">' +
+      '<div class="ph-search-sheet-inner">' +
+      '<p class="ph-search-head" id="phSearchHead">Quick links</p>' +
+      '<ul class="ph-search-list" id="phSearchList" role="listbox" ' +
+      'aria-labelledby="phSearchHead"></ul>' +
+      '</div></div>';
+    inner.appendChild(box);
+
+    var scrim = document.createElement('div');
+    scrim.className = 'ph-search-scrim';
+    scrim.hidden = true;
+    document.body.appendChild(scrim);
+
+    var input = box.querySelector('.ph-search-input');
+    var clear = box.querySelector('.ph-search-clear');
+    var list = box.querySelector('.ph-search-list');
+    var head = box.querySelector('.ph-search-head');
+    var cancel = box.querySelector('.ph-search-close');
+    var rows = [], active = -1, isOpen = false;
+
+    /* The matched run is marked inside the label so the reader can see WHY a row is
+       there. Built from text nodes rather than a string of HTML: a label is site copy
+       and site copy is never concatenated into innerHTML in this file. */
+    function label(item, terms) {
+      var span = document.createElement('span');
+      span.className = 'ph-search-label';
+      var text = item.label, low = item.lab, at = -1, len = 0, i;
+      for (i = 0; i < terms.length; i++) {
+        var p = low.indexOf(terms[i]);
+        if (p !== -1 && (at === -1 || p < at)) { at = p; len = terms[i].length; }
+      }
+      if (at === -1) { span.textContent = text; return span; }
+      span.appendChild(document.createTextNode(text.slice(0, at)));
+      var b = document.createElement('b');
+      b.textContent = text.slice(at, at + len);
+      span.appendChild(b);
+      span.appendChild(document.createTextNode(text.slice(at + len)));
+      return span;
+    }
+
+    function draw(items, terms) {
+      list.textContent = '';
+      rows = [];
+      active = -1;
+      items.forEach(function (item, n) {
+        var li = document.createElement('li');
+        li.setAttribute('role', 'presentation');
+        var a = document.createElement('a');
+        a.className = 'ph-search-row';
+        a.href = item.href;
+        a.id = 'phSearchRow-' + n;
+        a.setAttribute('role', 'option');
+        a.setAttribute('aria-selected', 'false');
+        a.innerHTML =
+          '<svg class="ph-search-row-glass" viewBox="0 0 20 20" width="15" height="15" ' +
+          'aria-hidden="true" focusable="false" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
+          '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg>';
+        a.appendChild(label(item, terms || []));
+        if (item.section) {
+          var s = document.createElement('span');
+          s.className = 'ph-search-sec';
+          s.textContent = item.section;
+          a.appendChild(s);
+        }
+        a.addEventListener('mouseenter', function () { mark(n); });
+        li.appendChild(a);
+        list.appendChild(li);
+        rows.push(a);
+      });
+    }
+
+    function empty(query) {
+      list.textContent = '';
+      rows = [];
+      active = -1;
+      var li = document.createElement('li');
+      li.className = 'ph-search-none';
+      li.textContent = 'No suggestions for “' + query.trim() + '”';
+      list.appendChild(li);
+    }
+
+    function mark(n) {
+      if (active > -1 && rows[active]) {
+        rows[active].classList.remove('on');
+        rows[active].setAttribute('aria-selected', 'false');
+      }
+      active = n;
+      if (active > -1 && rows[active]) {
+        rows[active].classList.add('on');
+        rows[active].setAttribute('aria-selected', 'true');
+        input.setAttribute('aria-activedescendant', rows[active].id);
+        return;
+      }
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function render() {
+      var q = input.value;
+      clear.hidden = !q;
+      var found = results(q);
+      if (found === null) {
+        head.textContent = 'Quick links';
+        head.hidden = false;
+        draw(quick, []);
+        return;
+      }
+      if (!found.length) {
+        head.hidden = true;
+        empty(q);
+        return;
+      }
+      head.textContent = 'Suggestions';
+      head.hidden = false;
+      draw(found, q.trim().toLowerCase().split(/\s+/));
+    }
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      closeMenus();
+      box.hidden = false;
+      scrim.hidden = false;
+      document.documentElement.classList.add('ph-search-open');
+      btn.setAttribute('aria-expanded', 'true');
+      input.value = '';
+      render();
+      /* After the class, so the field is laid out before it is focused — focusing a
+         zero-width input scrolls the bar sideways on iOS. */
+      requestAnimationFrame(function () { input.focus(); });
+    }
+
+    function close(back) {
+      if (!isOpen) return;
+      isOpen = false;
+      box.hidden = true;
+      scrim.hidden = true;
+      document.documentElement.classList.remove('ph-search-open');
+      btn.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      if (back !== false) btn.focus();
+    }
+
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (isOpen) close(); else open();
+    });
+
+    input.addEventListener('input', render);
+    clear.addEventListener('click', function () {
+      input.value = '';
+      render();
+      input.focus();
+    });
+    cancel.addEventListener('click', function () { close(); });
+    scrim.addEventListener('click', function () { close(); });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!rows.length) return;
+        e.preventDefault();
+        var n = active + (e.key === 'ArrowDown' ? 1 : -1);
+        if (n < 0) n = rows.length - 1;
+        if (n >= rows.length) n = 0;
+        mark(n);
+        return;
+      }
+      if (e.key === 'Enter') {
+        /* Enter with nothing highlighted takes the first row, which is the ranking's
+           own best answer — the same bargain Apple's field makes. With no rows at all
+           it does nothing: there is no results page to send a query to, and sending
+           the reader somewhere that cannot answer them is the behaviour this overlay
+           replaced. */
+        var go = rows[active > -1 ? active : 0];
+        if (!go) { e.preventDefault(); return; }
+        e.preventDefault();
+        location.href = go.getAttribute('href');
+        return;
+      }
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+    });
+
+    /* Escape anywhere, and a click that lands outside the bar. The nav's own Escape
+       handler runs on the document too and closes a panel first; this one is only
+       reached when no panel is open, because opening the overlay closed them all. */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) close();
+    });
+    document.addEventListener('focusin', function (e) {
+      if (isOpen && !box.contains(e.target) && e.target !== btn) close(false);
+    });
   }
 
   /* The shop rails' arrows.
@@ -1451,6 +2027,8 @@
   figures();
   rails();
   watchStill();
+  searchKit();
+  backToTop();
   productBar();
   carousels();
   railx();
