@@ -78,12 +78,6 @@
               "href": "/phenome-store/store/phenometech-ring/"
             },
             {
-              "label": "Shop by goal",
-              "href": "/phenome-store/store/shop-by-goal/",
-              "todo": true,
-              "small": true
-            },
-            {
               "label": "Not sure where to start",
               "href": "/phenome-store/quiz/",
               "small": true
@@ -102,42 +96,12 @@
               "href": "/phenome-store/account/activate/"
             },
             {
-              "label": "Free sizing kit",
-              "href": "/phenome-store/store/free-sizing-kit/",
-              "todo": true
-            },
-            {
               "label": "Shipping and returns",
               "href": "/phenome-store/devices/ring/warranty-returns/"
             },
             {
               "label": "Contact us",
               "href": "/phenome-store/contact/"
-            }
-          ]
-        },
-        {
-          "title": "Shop by goal",
-          "links": [
-            {
-              "label": "Sleep and recovery",
-              "href": "/phenome-store/store/shop-by-goal/sleep-and-recovery/",
-              "todo": true
-            },
-            {
-              "label": "Energy and focus",
-              "href": "/phenome-store/store/shop-by-goal/energy-and-focus/",
-              "todo": true
-            },
-            {
-              "label": "Immune and everyday balance",
-              "href": "/phenome-store/store/shop-by-goal/immune-and-everyday-balance/",
-              "todo": true
-            },
-            {
-              "label": "Movement and performance",
-              "href": "/phenome-store/store/shop-by-goal/movement-and-performance/",
-              "todo": true
             }
           ]
         }
@@ -212,27 +176,12 @@
           "title": "More from testing",
           "links": [
             {
-              "label": "What you will learn",
-              "href": "/phenome-store/testing/what-you-will-learn/",
-              "todo": true
-            },
-            {
               "label": "Whole genome sequencing",
               "href": "/phenome-store/science/whole-genome-sequencing/"
             },
             {
-              "label": "Built on Illumina",
-              "href": "/phenome-store/testing/built-on-illumina/",
-              "todo": true
-            },
-            {
               "label": "Results & counselling",
               "href": "/phenome-store/app/results-and-reports/"
-            },
-            {
-              "label": "Testing FAQs",
-              "href": "/phenome-store/testing/faqs/",
-              "todo": true
             }
           ]
         }
@@ -252,26 +201,6 @@
               "label": "NAD+",
               "href": "/phenome-store/supplements/nad/",
               "note": "Liposomal"
-            },
-            {
-              "label": "NAD+ Boost",
-              "plain": true
-            },
-            {
-              "label": "Gly NAC",
-              "plain": true
-            },
-            {
-              "label": "Mitochondria Boost",
-              "plain": true
-            },
-            {
-              "label": "Carnitine Performance+",
-              "plain": true
-            },
-            {
-              "label": "Explore energy & cognition ›",
-              "plain": true
             }
           ]
         },
@@ -279,31 +208,12 @@
           "title": "Immunity & Respiratory",
           "links": [
             {
-              "label": "Vitamin C",
-              "plain": true,
-              "note": "Liposomal"
-            },
-            {
-              "label": "Sambucus Gummies",
-              "plain": true
-            },
-            {
-              "label": "Throat Lozenges",
-              "plain": true
-            },
-            {
               "label": "Quercetin",
-              "href": "/phenome-store/supplements/quercetin-capsules/",
-              "todo": true
+              "href": "/phenome-store/supplements/quercetin-capsules/"
             },
             {
               "label": "Propolis",
-              "href": "/phenome-store/supplements/propolis-throat-lozenges/",
-              "todo": true
-            },
-            {
-              "label": "Explore immunity ›",
-              "plain": true
+              "href": "/phenome-store/supplements/propolis-throat-lozenges/"
             }
           ]
         },
@@ -311,93 +221,10 @@
           "title": "Anti Inflammatory",
           "links": [
             {
-              "label": "Curcumin",
-              "plain": true,
-              "note": "Liposomal"
-            },
-            {
-              "label": "Joint Boost",
-              "plain": true
-            },
-            {
-              "label": "FlexiCream",
-              "plain": true
-            },
-            {
               "label": "Bromelain",
-              "href": "/phenome-store/supplements/bromelain-capsules/",
-              "todo": true
-            },
-            {
-              "label": "Explore anti inflammatory ›",
-              "plain": true
+              "href": "/phenome-store/supplements/bromelain-capsules/"
             }
-          ],
-          "below": {
-            "title": "Skin & Beauty",
-            "links": [
-              {
-                "label": "Vollagen",
-                "plain": true,
-                "note": "Liposomal"
-              },
-              {
-                "label": "Multi Collagen Powder",
-                "plain": true
-              },
-              {
-                "label": "Explore skin & beauty ›",
-                "plain": true
-              }
-            ]
-          }
-        },
-        {
-          "title": "Everyday Essentials",
-          "links": [
-            {
-              "label": "Iron",
-              "plain": true,
-              "note": "Liposomal"
-            },
-            {
-              "label": "Magnesium",
-              "plain": true,
-              "note": "Liposomal"
-            },
-            {
-              "label": "D3 + K2",
-              "plain": true,
-              "note": "Liposomal"
-            },
-            {
-              "label": "Explore essentials ›",
-              "plain": true
-            }
-          ],
-          "below": {
-            "title": "More from supplements",
-            "links": [
-              {
-                "label": "Bundles",
-                "plain": true
-              },
-              {
-                "label": "Subscribe & save",
-                "plain": true
-              },
-              {
-                "label": "Why liposomal",
-                "href": "/phenome-store/supplements/why-these-formulas/",
-                "todo": true
-              },
-              {
-                "label": "Supplement FAQs",
-                "href": "/phenome-store/supplements/faqs/",
-                "todo": true
-              }
-            ]
-          }
+          ]
         }
       ]
     },
@@ -424,22 +251,12 @@
               "href": "/phenome-store/devices/ring/compare-materials/"
             },
             {
-              "label": "Finishes",
-              "href": "/phenome-store/devices/ring/design/"
-            },
-            {
               "label": "Find your size",
               "href": "/phenome-store/devices/ring/find-your-size/"
             },
             {
               "label": "Compare materials",
               "href": "/phenome-store/devices/ring/compare-materials/",
-              "small": true
-            },
-            {
-              "label": "Ring FAQs",
-              "href": "/phenome-store/devices/ring/faqs/",
-              "todo": true,
               "small": true
             }
           ]
@@ -450,11 +267,6 @@
             {
               "label": "Shop the Ring",
               "href": "/phenome-store/store/phenometech-ring/"
-            },
-            {
-              "label": "Free sizing kit",
-              "href": "/phenome-store/store/free-sizing-kit/",
-              "todo": true
             }
           ]
         },
@@ -462,20 +274,8 @@
           "title": "More from devices",
           "links": [
             {
-              "label": "Sleep and recovery",
-              "href": "/phenome-store/devices/ring/what-it-measures/"
-            },
-            {
-              "label": "Design",
-              "href": "/phenome-store/devices/ring/design/"
-            },
-            {
               "label": "How it works",
               "href": "/phenome-store/devices/ring/how-it-works/"
-            },
-            {
-              "label": "Battery and charging",
-              "href": "/phenome-store/devices/ring/battery-charging/"
             },
             {
               "label": "Warranty and returns",
@@ -514,18 +314,6 @@
             {
               "label": "Book a session",
               "href": "/phenome-store/app/book-a-session/"
-            },
-            {
-              "label": "Download for iOS",
-              "href": "/phenome-store/app/download/",
-              "todo": true,
-              "small": true
-            },
-            {
-              "label": "Download for Android",
-              "href": "/phenome-store/app/download/",
-              "todo": true,
-              "small": true
             }
           ]
         },
@@ -539,27 +327,12 @@
             {
               "label": "Activate a kit",
               "href": "/phenome-store/account/activate/"
-            },
-            {
-              "label": "Pair your Ring",
-              "href": "/phenome-store/app/pair-your-ring/",
-              "todo": true
-            },
-            {
-              "label": "Import past results",
-              "href": "/phenome-store/app/import-past-results/",
-              "todo": true
             }
           ]
         },
         {
           "title": "More from app",
           "links": [
-            {
-              "label": "Connected data",
-              "href": "/phenome-store/app/connected-data/",
-              "todo": true
-            },
             {
               "label": "Specialist sessions",
               "href": "/phenome-store/app/book-a-session/"
@@ -607,11 +380,6 @@
               "href": "/phenome-store/hub/"
             },
             {
-              "label": "The experts",
-              "href": "/phenome-store/science/the-experts/",
-              "todo": true
-            },
-            {
               "label": "Meet the team",
               "href": "/phenome-store/about/",
               "small": true
@@ -620,83 +388,6 @@
               "label": "Partner with us",
               "href": "/phenome-store/careers/",
               "small": true
-            }
-          ]
-        },
-        {
-          "title": "Partnerships",
-          "links": [
-            {
-              "label": "Illumina",
-              "href": "/phenome-store/science/partners/illumina/",
-              "todo": true
-            },
-            {
-              "label": "Academic collaborations",
-              "href": "/phenome-store/science/partners/academic/",
-              "todo": true
-            },
-            {
-              "label": "Clinical partners",
-              "href": "/phenome-store/science/partners/clinical/",
-              "todo": true
-            }
-          ]
-        },
-        {
-          "title": "Published work",
-          "links": [
-            {
-              "label": "Standards and accreditation",
-              "href": "/phenome-store/science/standards-and-accreditation/",
-              "todo": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "clinic",
-      "trigger": "Clinic",
-      "eyebrow": "Clinic menu",
-      "href": "",
-      "featured": [],
-      "columns": [
-        {
-          "title": "Explore clinic",
-          "links": [
-            {
-              "label": "Phenome Longevity Center",
-              "plain": true
-            },
-            {
-              "label": "Programmes",
-              "plain": true
-            },
-            {
-              "label": "Consultations",
-              "plain": true
-            },
-            {
-              "label": "The clinical team",
-              "plain": true
-            }
-          ]
-        },
-        {
-          "title": "Book",
-          "links": [
-            {
-              "label": "Book a consultation",
-              "plain": true
-            },
-            {
-              "label": "Free pre consultation",
-              "plain": true
-            },
-            {
-              "label": "Locations",
-              "plain": true
             }
           ]
         }
@@ -766,16 +457,6 @@
         {
           "title": "Helpful topics",
           "links": [
-            {
-              "label": "Sample collection guide",
-              "href": "/phenome-store/support/sample-collection-guide/",
-              "todo": true
-            },
-            {
-              "label": "Reading your report",
-              "href": "/phenome-store/support/reading-your-report/",
-              "todo": true
-            },
             {
               "label": "Ring sizing",
               "href": "/phenome-store/devices/ring/find-your-size/"
