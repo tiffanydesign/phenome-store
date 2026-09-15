@@ -866,7 +866,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   overflow: hidden; white-space: nowrap;
   color: var(--phenome-blue-500) !important;
   font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  letter-spacing: var(--ph-tr-12-600-caps);
   text-decoration: none !important;
   /* THE OVERLAY TIER, not the live tier, and it is the mega-menu's argument
      again: this control is fixed to the window on 82 pages, so it travels over
@@ -991,7 +991,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   overflow: hidden; white-space: nowrap;
   font-family: var(--ph-font); font-size: var(--ph-fs-12);
   font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
-  text-transform: uppercase; color: var(--phenome-blue-500);
+  color: var(--phenome-blue-500);
   background: var(--gl-tint-overlay);
   -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
   /* The lift shadow and the hairline, not the resting drop. A floating tool is
@@ -1079,7 +1079,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 }
 .ph-routes-kicker {
   margin: 0 0 6px; font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  letter-spacing: var(--ph-tr-12-600-caps);
   color: var(--phenome-blue-500);
 }
 .ph-routes-head h2 {
@@ -1125,7 +1125,7 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
   margin: 0 0 6px; padding-bottom: 6px;
   border-bottom: 1px solid var(--divider);
   font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps); text-transform: uppercase;
+  letter-spacing: var(--ph-tr-12-600-caps);
   color: var(--phenome-blue-500);
 }
 .ph-routes-sec h3 b {

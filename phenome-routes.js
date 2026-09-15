@@ -74,7 +74,7 @@ var ROUTES = [
   ["/store/phenometech-ring/", "PhenomeTech Ring"],
   ["/store/sports-performance/", "Sports Performance Test"],
   ["/store/supplements/", "Supplements"],
-  ["/supplements/", "Supplements — moved to the store"],
+  ["/supplements/", "Supplements, moved to the store"],
   ["/supplements/broccoli-complex-capsules/", "Broccoli Complex Capsules"],
   ["/supplements/bromelain-capsules/", "Bromelain Capsules"],
   ["/supplements/carnitine-performance/", "Carnitine Performance+"],
