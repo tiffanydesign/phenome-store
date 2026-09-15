@@ -3974,176 +3974,134 @@ html.ph-drift .hero-img img, html.ph-drift .hero-figure img {
    the same hairline. The one thing it does NOT borrow is the panel's shadow — the
    sheet is full-bleed and meets the page edge to edge, so there is nothing for a drop
    to separate it from. `elevation YOK` holds wherever it can. */
+/* REBUILT ON support.apple.com's global search, 2026-09-15, by request.
+   The bar is left alone: the wordmark, the links and the icons stay where they
+   are, and a panel drops from under the bar holding one large borderless field
+   and the quick links. Everything below the panel is frosted, not dimmed, so
+   the page is still there but cannot be read or clicked through.
+   What is deliberately missing, all by request: a placeholder, a Cancel button,
+   a glyph on each link, and the section name that used to sit at a row's end.
+   The links are set at the size of their own heading, and a hovered row takes a
+   wash of the brand blue rather than grey. */
 .ph-search {
-  position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+  position: absolute; left: 0; right: 0; top: 100%;
   z-index: 2;
-  /* The overlay brings its OWN ground rather than borrowing the bar's. Three pages
-     retint the nav from the film running behind it — /devices/ring/ samples the frame
-     four times a second — and a search field sitting on a tint that is currently a
-     dark studio shot is a field nobody can read. Taking the row as well as the sheet
-     is also what apple.com does: the bar stops being the bar for as long as the
-     search is open. */
-  background: rgba(255,255,255,.96);
-  backdrop-filter: saturate(180%) blur(30px);
-  -webkit-backdrop-filter: saturate(180%) blur(30px);
 }
-/* And the ink with it. Those same pages reach every anchor in the bar with
-   `.ph-flat .ph-nav a` and a --nav-ink that goes white over a dark frame, which would
-   print these rows white on this white. Said at a specificity they cannot reach, so
-   the sheet's ink is always the sheet's. */
-.ph-nav .ph-search .ph-search-input,
-.ph-nav .ph-search .ph-search-row { color: var(--ph-text-1); }
-.ph-nav .ph-search .ph-search-head,
-.ph-nav .ph-search .ph-search-sec,
-.ph-nav .ph-search .ph-search-none,
-.ph-nav .ph-search .ph-search-glass,
-.ph-nav .ph-search .ph-search-row-glass { color: var(--ph-text-2); }
-.ph-nav .ph-search .ph-search-close { color: var(--ph-accent-link); }
-.ph-nav .ph-search .ph-search-close:hover { color: var(--ph-accent-hover); }
-/* The same container formula as .ph-nav-inner and .wrap-wide, so the field starts on
-   the wordmark's left line and the sheet's rows start on the field's. */
-.ph-search-bar,
+.ph-search[hidden] { display: none; }
+.ph-search-sheet {
+  position: relative;
+  background: rgba(251, 252, 254, .97);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  backdrop-filter: saturate(180%) blur(30px);
+  box-shadow: 0 1px 0 rgba(16, 33, 75, .06);
+  max-height: calc(100vh - var(--ph-nav-h)); overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: ph-search-drop .42s cubic-bezier(.2, .8, .2, 1) both;
+}
+/* The same container formula as .ph-nav-inner and .wrap-wide, so the field
+   starts on the wordmark's left line. */
 .ph-search-sheet-inner {
   width: 100%; max-width: calc(var(--ph-content-max) + var(--ph-margin) * 2);
   margin-inline: auto; padding-inline: var(--ph-margin);
+  padding-block: 34px 56px;
 }
-.ph-search-bar { height: 100%; display: flex; align-items: center; gap: 16px; }
+
+/* The field: no box, no rule, no fill. The glass and the type are the field. */
 .ph-search-field {
-  flex: 1 1 auto; min-width: 0;
-  display: flex; align-items: center; gap: 10px;
-  height: 32px; padding: 0 10px;
-  border-radius: var(--ph-r8);
-  /* A field on a bar that is already 80% white cannot be white: it would disappear.
-     A 5% ink wash reads as an inset on every ground this bar travels over. */
-  background: rgba(0,0,0,.05);
+  display: flex; align-items: center; gap: 14px;
+  height: 56px; padding: 0;
+  background: none; border: 0; border-radius: 0;
 }
-.ph-search-glass { flex: 0 0 auto; color: var(--ph-text-2); }
-.ph-search-input {
-  flex: 1 1 auto; min-width: 0;
-  border: 0; background: none; padding: 0; margin: 0;
-  font: inherit; font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
-  letter-spacing: normal; color: var(--ph-text-1);
+.ph-nav .ph-search .ph-search-glass { flex: 0 0 auto; width: 26px; height: 26px; color: var(--ph-text-2); }
+.ph-nav .ph-search .ph-search-input {
+  flex: 1 1 auto; min-width: 0; height: 100%;
+  border: 0; background: none; padding: 0; margin: 0; box-shadow: none;
+  font: inherit; font-size: clamp(24px, 2.3vw, 32px); line-height: 1.2;
+  font-weight: var(--ph-w-600); letter-spacing: -0.015em;
+  color: var(--ph-text-1); caret-color: var(--ph-accent);
 }
-.ph-search-input::placeholder { color: var(--ph-text-2); opacity: 1; }
-/* The browser's own clear affordance would sit next to ours and do the same job. */
 .ph-search-input::-webkit-search-decoration,
 .ph-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.ph-search-input:focus,
 .ph-search-input:focus-visible { outline: none; }
-.ph-search-field:focus-within { background: rgba(0,0,0,.07); }
 .ph-search-clear {
   flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px; padding: 0; border: 0; border-radius: 980px;
-  background: rgba(0,0,0,.28); color: var(--ph-white); cursor: pointer;
+  width: 28px; height: 28px; padding: 0; border: 0; border-radius: 980px;
+  background: rgba(16, 33, 75, .1); color: var(--ph-text-1); cursor: pointer;
+  transition: background var(--ph-dur-fast) var(--ph-ease);
 }
 /* A class that sets `display` outranks the UA sheet's `[hidden] { display: none }`,
-   so every control in this file that carries a display AND is toggled by the `hidden`
-   property has to say so itself. The clear button shipped visible on an empty field
-   for exactly this reason. */
+   so a control that carries a display and is toggled by `hidden` has to say so. */
 .ph-search-clear[hidden] { display: none; }
-.ph-search-clear:hover { background: rgba(0,0,0,.42); }
-.ph-search-close {
-  flex: 0 0 auto; border: 0; background: none; padding: 0 2px; cursor: pointer;
-  font: inherit; font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
-  letter-spacing: normal; color: var(--ph-accent-link);
-}
-.ph-search-close:hover { color: var(--ph-accent-hover); }
+.ph-search-clear:hover { background: rgba(16, 33, 75, .18); }
 
-.ph-search-sheet {
-  position: absolute; top: 100%; left: 0; right: 0;
-  /* Denser than the bar's own 80%: the sheet carries eight rows of 17px text and it
-     opens over whatever the page is showing, which on a product page is a running
-     film. At 92% the film was still legible through the list. */
-  background: rgba(255,255,255,.96);
-  backdrop-filter: saturate(180%) blur(30px);
-  -webkit-backdrop-filter: saturate(180%) blur(30px);
-  border-bottom: 1px solid rgba(0,0,0,.07);
-  max-height: calc(100vh - var(--ph-nav-h)); overflow-y: auto;
-}
-.ph-search-sheet-inner { padding-block: 16px 24px; }
-.ph-search-head {
-  margin: 0 0 6px; padding-inline: 10px;
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-12-600-caps);
+/* The heading and its links are one size, 17, by request. The heading is told
+   apart by ink and weight, never by being smaller. */
+.ph-nav .ph-search .ph-search-head {
+  margin: 30px 0 8px;
+  font-size: 17px; line-height: 24px; font-weight: var(--ph-w-400);
+  letter-spacing: normal; text-transform: none;
   color: var(--ph-text-2);
 }
-/* The sheet is full-bleed but the LIST is not. Run to the container's own width and a
-   row's label sits at x=130 with its section marker at x=1310, a foot of empty paper
-   between two things that belong to each other; the highlight behind a hovered row
-   becomes a 1180px band for a three-word label. 640 is the reading measure the rest of
-   the site uses for a column of short lines, and it keeps the pair together. */
-.ph-search-head, .ph-search-list { max-width: 640px; }
-.ph-search-list { list-style: none; margin: 0; padding: 0; }
-.ph-search-row {
-  display: flex; align-items: center; gap: 12px;
-  min-height: 40px; padding: 8px 10px;
-  border-radius: var(--ph-r8); color: var(--ph-text-1);
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+.ph-search-list { list-style: none; margin: 0 0 0 -12px; padding: 0; max-width: 680px; }
+.ph-nav .ph-search .ph-search-row {
+  display: flex; align-items: center;
+  min-height: 42px; padding: 9px 12px;
+  border-radius: 10px; color: var(--ph-text-1);
+  font-size: 17px; line-height: 24px; font-weight: var(--ph-w-500, 500);
+  text-decoration: none;
+  transition: background-color var(--ph-dur-fast) var(--ph-ease), color var(--ph-dur-fast) var(--ph-ease);
 }
 .ph-search-row:hover { text-decoration: none; }
-/* Pointer and keyboard land on the SAME state — the script marks a row on mouseenter
-   and on ArrowDown, so there is one highlight in the list and never two. */
-.ph-search-row.on { background: rgba(0,0,0,.05); }
-.ph-search-row-glass { flex: 0 0 auto; color: var(--ph-text-2); }
-.ph-search-label { flex: 1 1 auto; min-width: 0; }
-/* The run that matched, marked so the reader can see WHY the row is in the list.
-   Weight only, no colour: a blue fragment inside a black label reads as a second
-   link inside the link. */
-.ph-search-label b { font-weight: var(--ph-w-600); }
-.ph-search-sec {
-  flex: 0 0 auto; margin-left: auto; padding-left: 12px;
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
-  color: var(--ph-text-2); white-space: nowrap;
+/* Pointer and keyboard land on the SAME state: the script marks a row on
+   mouseenter and on ArrowDown, so there is one highlight and never two. */
+.ph-nav .ph-search .ph-search-row.on {
+  background: rgba(32, 58, 133, .08);
+  color: var(--phenome-blue-500, var(--ph-accent));
 }
-/* A query that matches nothing collapses the list, the way apple.com's does, and says
-   so once. The alternative — quietly falling back to the quick links — answers a
-   question the reader did not ask and hides the fact that nothing was found. */
-.ph-search-none {
-  padding: 10px; color: var(--ph-text-2);
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+.ph-search-label { flex: 1 1 auto; min-width: 0; }
+/* The run that matched, marked so the reader can see why the row is there. */
+.ph-search-label b { font-weight: var(--ph-w-600); }
+.ph-nav .ph-search .ph-search-none {
+  padding: 9px 12px; color: var(--ph-text-2);
+  font-size: 17px; line-height: 24px;
 }
 
-/* The bar's own contents step aside rather than being torn out: opacity keeps their
-   boxes, so the row does not reflow and the wordmark does not jump on the way back. */
-html.ph-search-open .ph-nav .ph-brand,
-html.ph-search-open .ph-nav .ph-links,
-html.ph-search-open .ph-nav .ph-nav-end {
-  opacity: 0; pointer-events: none;
-}
-.ph-nav .ph-brand, .ph-nav .ph-links, .ph-nav .ph-nav-end {
-  transition: opacity var(--ph-dur-fast) var(--ph-ease);
-}
-/* The product bar is the one piece of chrome that would otherwise sit ON TOP of the
-   veil, because it is fixed at z-index 99 and the veil is under the nav at 98. */
+/* Below the panel, the page is frosted rather than darkened. */
 html.ph-search-open .ph-bar { opacity: 0; visibility: hidden; }
 .ph-search-scrim {
   position: fixed; inset: 0; z-index: 98;
-  background: rgba(0,0,0,.24);
-  animation: ph-search-veil var(--ph-dur-fast) var(--ph-ease) both;
+  background: rgba(236, 239, 246, .38);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  animation: ph-search-veil .32s var(--ph-ease) both;
 }
+.ph-search-scrim[hidden] { display: none; }
 @keyframes ph-search-veil { from { opacity: 0; } to { opacity: 1; } }
-.ph-search-sheet { animation: ph-search-drop var(--ph-dur-base) var(--ph-ease) both; }
+/* The panel unrolls from the bar, and its contents follow a beat behind. */
 @keyframes ph-search-drop {
-  from { opacity: 0; transform: translateY(-8px); }
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+.ph-search-field,
+.ph-search-head,
+.ph-search-list { animation: ph-search-rise .5s cubic-bezier(.2, .8, .2, 1) both; }
+.ph-search-head { animation-delay: .06s; }
+.ph-search-list { animation-delay: .1s; }
+@keyframes ph-search-rise {
+  from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ph-search-sheet { animation: none; }
-  .ph-search-scrim { animation: none; }
+  .ph-search-sheet, .ph-search-scrim,
+  .ph-search-field, .ph-search-head, .ph-search-list { animation: none; }
 }
-/* Below 901 the margin is small and the field plus Cancel is the whole bar, which is
-   exactly what apple.com does at that width. */
 @media (max-width: 900px) {
-  .ph-search-bar { gap: 12px; }
-  /* The section marker drops UNDER the label rather than out of the row. It was
-     hidden here at first, and two of the site's pages carry the same name — there is
-     a Gut Microbiome Test in the store and another in testing — so the phone was
-     being shown the same row twice with nothing to tell them apart. */
-  .ph-search-row { flex-wrap: wrap; row-gap: 2px; align-items: baseline; }
-  /* The SECTION takes the full line, not the label — give it to the label and the
-     glyph is left alone on the first row with the words underneath it. The 27px is
-     the glyph's 15 plus the row's 12 of gap, so the second line starts under the
-     first letter rather than under the icon. */
-  .ph-search-sec { flex: 1 0 100%; margin-left: 27px; padding-left: 0; }
+  .ph-search-sheet-inner { padding-block: 22px 36px; }
+  .ph-search-field { height: 48px; gap: 12px; }
+  .ph-nav .ph-search .ph-search-glass { width: 22px; height: 22px; }
+  .ph-nav .ph-search .ph-search-head { margin-top: 20px; }
+  .ph-search-sheet { max-height: calc(100svh - 48px); }
 }
 
 /* ==========================================================================

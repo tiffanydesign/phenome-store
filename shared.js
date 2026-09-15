@@ -58,10 +58,6 @@
               "href": "/phenome-store/store/"
             },
             {
-              "label": "Explore for Ring (Lab)",
-              "href": "/phenome-store/devices/ring-lab/"
-            },
-            {
               "label": "Genetic tests",
               "href": "/phenome-store/store/genetic/"
             },
@@ -923,7 +919,8 @@
       '<a href="/phenome-store/account/orders/">Track an order</a>' +
       '<a href="/phenome-store/account/activate/">Activate a kit</a>' +
       '<a href="/phenome-store/legal/privacy.html">Privacy &amp; data</a>' +
-      '<a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/sitemap/">Sitemap</a></div>' +
+      '<a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/sitemap/">Sitemap</a>' +
+      '<a href="/phenome-store/devices/ring-lab/">Lab</a></div>' +
       '</div>' +
       '<div class="trust" style="margin-top:40px;border-bottom:0">' +
       '<span><b>ISO 15189</b> accredited lab</span>' +
@@ -1745,6 +1742,15 @@
         if (s !== -1) out.push({ item: index[i], s: s, i: i });
       }
       out.sort(function (a, b) { return a.s - b.s || a.i - b.i; });
+      /* ONE ROW PER NAME. With the section marker gone from the row, two pages that
+         share a name (the Gut Microbiome Test in the store and in testing) would be
+         two identical lines. The better ranked one stays. */
+      var seen = {};
+      out = out.filter(function (r) {
+        if (seen[r.item.lab]) return false;
+        seen[r.item.lab] = true;
+        return true;
+      });
       return out.slice(0, 8).map(function (r) { return r.item; });
     }
 
@@ -1752,8 +1758,17 @@
     var box = document.createElement('div');
     box.className = 'ph-search';
     box.hidden = true;
+    /* REBUILT ON support.apple.com's search, 2026-09-15, by request. The bar stays
+       where it is and a panel drops from under it: one large borderless field with
+       no placeholder, then the quick links, set at the same size as their heading
+       and with nothing beside them, no glyph and no section name. There is no
+       Cancel; the glass in the bar, Escape, and a click on the frosted page all
+       close it. */
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', 'Search');
     box.innerHTML =
-      '<div class="ph-search-bar">' +
+      '<div class="ph-search-sheet">' +
+      '<div class="ph-search-sheet-inner">' +
       '<div class="ph-search-field">' +
       '<svg class="ph-search-glass" viewBox="0 0 20 20" width="18" height="18" ' +
       'aria-hidden="true" focusable="false" fill="none" stroke="currentColor" ' +
@@ -1761,7 +1776,7 @@
       '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg>' +
       '<input class="ph-search-input" id="phSearchInput" type="text" ' +
       'autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" ' +
-      'placeholder="Search phenome.com" aria-label="Search phenome.com" ' +
+      'aria-label="Search" ' +
       'role="combobox" aria-expanded="true" aria-controls="phSearchList" ' +
       'aria-autocomplete="list">' +
       '<button class="ph-search-clear" type="button" aria-label="Clear the search" hidden>' +
@@ -1769,10 +1784,6 @@
       'focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" ' +
       'stroke-linecap="round"><path d="M6 6l8 8M14 6l-8 8"></path></svg></button>' +
       '</div>' +
-      '<button class="ph-search-close" type="button">Cancel</button>' +
-      '</div>' +
-      '<div class="ph-search-sheet">' +
-      '<div class="ph-search-sheet-inner">' +
       '<p class="ph-search-head" id="phSearchHead">Quick links</p>' +
       '<ul class="ph-search-list" id="phSearchList" role="listbox" ' +
       'aria-labelledby="phSearchHead"></ul>' +
@@ -1788,7 +1799,6 @@
     var clear = box.querySelector('.ph-search-clear');
     var list = box.querySelector('.ph-search-list');
     var head = box.querySelector('.ph-search-head');
-    var cancel = box.querySelector('.ph-search-close');
     var rows = [], active = -1, isOpen = false;
 
     /* The matched run is marked inside the label so the reader can see WHY a row is
@@ -1824,18 +1834,7 @@
         a.id = 'phSearchRow-' + n;
         a.setAttribute('role', 'option');
         a.setAttribute('aria-selected', 'false');
-        a.innerHTML =
-          '<svg class="ph-search-row-glass" viewBox="0 0 20 20" width="15" height="15" ' +
-          'aria-hidden="true" focusable="false" fill="none" stroke="currentColor" ' +
-          'stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
-          '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg>';
         a.appendChild(label(item, terms || []));
-        if (item.section) {
-          var s = document.createElement('span');
-          s.className = 'ph-search-sec';
-          s.textContent = item.section;
-          a.appendChild(s);
-        }
         a.addEventListener('mouseenter', function () { mark(n); });
         li.appendChild(a);
         list.appendChild(li);
@@ -1927,7 +1926,6 @@
       render();
       input.focus();
     });
-    cancel.addEventListener('click', function () { close(); });
     scrim.addEventListener('click', function () { close(); });
 
     input.addEventListener('keydown', function (e) {
