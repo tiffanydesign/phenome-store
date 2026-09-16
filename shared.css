@@ -499,9 +499,18 @@ textarea:focus-visible, details:focus-visible {
 .section-black p { color: var(--ph-tertiary); }
 
 /* ---- Type ---- */
+/* THE OVERLINE IS A PROMISE LINE NOW, 2026-09-16, by request.
+
+   It was 12px at +0.96px of tracking, which is the setting a caps overline
+   takes — the letters were sentence case but the TYPESETTING was the all caps
+   device, and the page read that way. The Band has no overline at all; it has
+   one line under the name, at 600 in the brand blue, saying what the thing is
+   for, and that is the shape the whole store takes now: a size up, tracking
+   back to normal, the same blue. See the text ladder in phenome-glass.css § 3
+   for the four inks and the four sizes this belongs to. */
 .eyebrow {
-  font-size: var(--ph-fs-12); font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-tr-12-600-caps); color: var(--ph-accent-link);
+  font-size: 15px; line-height: 20px; font-weight: var(--ph-w-600);
+  letter-spacing: -0.005em; color: var(--ph-tone-promise, var(--ph-accent-link));
 }
 h1.hero-title {
   margin: 14px 0 0; font-size: var(--ph-h1-size); line-height: var(--ph-h1-lh);
@@ -4076,6 +4085,30 @@ html.ph-search-open .ph-bar { opacity: 0; visibility: hidden; }
   backdrop-filter: blur(20px) saturate(140%);
   animation: ph-search-veil .32s var(--ph-ease) both;
 }
+
+/* THE WELCOME BAR UNDER THE FROST, 2026-09-16 by request.
+
+   The scrim already covered it — it is a static band and the scrim is z-index
+   98 — and it still read as a hard blue stripe across an otherwise even sheet
+   of frost. The reason is that a blur has nothing to work with: the band is
+   ONE flat colour edge to edge, so blurring it returns the same flat colour,
+   and a 38% pale veil over Phenome Blue is still unmistakably Phenome Blue.
+   Everything else on the page dissolves; the one element that cannot dissolve
+   is the one element whose job was to be noticed.
+
+   So the band steps back on its own while the search is open, to the same
+   pale blue grey the frost resolves the rest of the page to, and its ink and
+   its code chip fade with it. The scrim then lands on a viewport that is one
+   even tone, which is what "uniform" means here. It is a transition, not a
+   swap, so closing the search brings the offer back rather than blinking it
+   on. `html.ph-search-open` is already set for the product bar above, so this
+   costs no new state. */
+.ph-promo {
+  transition: background-color var(--ph-dur-base, .32s) var(--ph-ease),
+              color var(--ph-dur-base, .32s) var(--ph-ease);
+}
+html.ph-search-open .ph-promo { background: #e7ebf4; color: rgba(16, 33, 75, .30); }
+html.ph-search-open .ph-promo b { background: rgba(16, 33, 75, .06); color: inherit; }
 .ph-search-scrim[hidden] { display: none; }
 @keyframes ph-search-veil { from { opacity: 0; } to { opacity: 1; } }
 /* The panel unrolls from the bar, and its contents follow a beat behind. */

@@ -12,7 +12,7 @@
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
   function money(p) { return '£' + (p % 100 ? (p / 100).toFixed(2) : String(p / 100)); }
 
-  var COLOURS = { sage: { name: 'Sage', hex: '#8fc49a' }, midnight: { name: 'Midnight', hex: '#203a85' }, sand: { name: 'Sand', hex: '#d9c7a4' } };
+  var COLOURS = { sage: { name: 'Sage', hex: '#4f9e72' }, midnight: { name: 'Midnight', hex: '#1d3aa0' }, sand: { name: 'Sand', hex: '#c79a52' } };
   var BASE_PRICE = 14900;
   var state = { colour: 'sage', straps: [], extra: 0 };
   var subs = [];

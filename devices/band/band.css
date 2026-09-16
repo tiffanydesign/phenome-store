@@ -129,18 +129,10 @@
 @keyframes bd-dot { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 .bd .bd-col { padding-top: 2px; }
-.bd .bd-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .bd .bd-name {
   margin: 0; font-size: clamp(30px, 2.9vw, 42px); line-height: 1.06; font-weight: 600;
   letter-spacing: -0.02em; color: var(--ink-900);
 }
-.bd .bd-others {
-  flex: none; margin-top: 4px; padding: 8px 14px; border-radius: 10px; font-size: 15px;
-  color: var(--ink-900) !important; text-decoration: none !important;
-  box-shadow: inset 0 0 0 1px var(--border-strong); transition: background-color .2s ease;
-}
-.bd .bd-others:hover { background: var(--gl-tint-sunk); }
-.bd .bd-tag { margin: 6px 0 0; font-size: 17px; color: var(--ink-600); }
 .bd .bd-price { margin: 26px 0 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
 .bd .bd-price-n { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-900); font-variant-numeric: tabular-nums; }
 .bd .bd-price-s { font-size: 14px; color: var(--ink-600); }
@@ -149,15 +141,51 @@
 .bd .bd-opt-k { margin: 0; font-size: 16px; color: var(--ink-900); }
 .bd .bd-opt-k b { font-weight: 600; }
 .bd .bd-opt-k span { color: var(--ink-600); font-size: 14px; }
+/* THE PIGMENT SPHERES, rebuilt 2026-09-16 by request: no frame of any kind,
+   a ball that reads as a material rather than a colour chip, and richer
+   pigment than the pastel the page opened with.
+
+   Four layers make the ball: a specular highlight at the upper left, a soft
+   bounce at the lower right, the rim light the ground throws back, and the
+   pigment itself running light at the top to dark at the bottom. The drop is
+   tinted with the pigment, so a sphere sits on the page instead of floating
+   over a grey smudge.
+
+   SELECTION IS NOT A RING. A ring is a border, which is the one thing this
+   control is not allowed to have, so the chosen ball lifts, keeps a deeper
+   drop, and takes a white tick struck through its centre. */
 .bd .bd-swatches { display: flex; gap: 14px; margin-top: 14px; }
 .bd .bd-sw {
-  width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
-  background: radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .45), transparent 55%), var(--sw);
-  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .14), 0 0 0 3px #fff, 0 0 0 4px transparent;
-  transition: box-shadow .25s ease, transform .25s var(--bd-ease);
+  position: relative; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%;
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+  background:
+    radial-gradient(circle at 33% 27%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 38%),
+    radial-gradient(circle at 68% 80%, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 44%),
+    radial-gradient(circle at 50% 112%, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 50%),
+    linear-gradient(170deg,
+      color-mix(in oklab, var(--sw) 84%, #fff) 0%,
+      var(--sw) 46%,
+      color-mix(in oklab, var(--sw) 74%, #000) 100%);
+  box-shadow:
+    0 6px 14px -6px color-mix(in oklab, var(--sw) 62%, #000),
+    inset 0 -7px 11px -8px rgba(0, 0, 0, .55);
+  transition: box-shadow .3s ease, transform .3s var(--bd-ease);
 }
-.bd .bd-sw:hover { transform: scale(1.06); }
-.bd .bd-sw.on { box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .14), 0 0 0 3px #fff, 0 0 0 5px var(--phenome-blue-500); }
+.bd .bd-sw::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 13px; height: 7px; border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+  border-radius: 1px; transform: translateY(-1px) rotate(-45deg) scale(.35); opacity: 0;
+  transition: opacity .2s ease, transform .35s var(--bd-ease);
+}
+.bd .bd-sw:hover { transform: translateY(-2px) scale(1.06); }
+.bd .bd-sw.on {
+  transform: translateY(-2px) scale(1.09);
+  box-shadow:
+    0 12px 22px -9px color-mix(in oklab, var(--sw) 70%, #000),
+    inset 0 -8px 12px -8px rgba(0, 0, 0, .55);
+}
+.bd .bd-sw.on::after { opacity: 1; transform: translateY(-1px) rotate(-45deg) scale(1); }
+.bd .bd-sw:focus-visible { outline: 2px solid var(--phenome-blue-400); outline-offset: 4px; }
 
 .bd .bd-note {
   display: flex; gap: 14px; margin-top: 22px; padding: 18px 20px;
@@ -225,7 +253,13 @@
 .bd .bd-strap input { position: absolute; opacity: 0; pointer-events: none; }
 .bd .bd-strap-img {
   width: 34px; height: 46px; border-radius: 8px;
-  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .18) 0 2px, transparent 2px 5px), linear-gradient(var(--sw), var(--sw2, var(--sw)));
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .16) 0 2px, rgba(255, 255, 255, 0) 2px 5px),
+    linear-gradient(160deg,
+      color-mix(in oklab, var(--sw) 86%, #fff),
+      var(--sw2, var(--sw)) 55%,
+      color-mix(in oklab, var(--sw2, var(--sw)) 78%, #000));
+  box-shadow: 0 4px 10px -6px color-mix(in oklab, var(--sw) 60%, #000);
 }
 .bd .bd-strap-n { font-size: 14px; line-height: 1.3; color: var(--ink-900); }
 .bd .bd-strap-p { font-size: 14px; color: var(--ink-600); font-variant-numeric: tabular-nums; }
@@ -500,7 +534,10 @@
   width: min(1100px, calc(100vw - 48px)); margin: 0 auto;
   display: grid; grid-template-columns: minmax(240px, 330px) 1fr; gap: clamp(32px, 8vw, 118px);
 }
-.bd .bd-faq-h { margin: 0 0 24px; font-size: clamp(44px, 5vw, 64px); font-weight: 600; letter-spacing: -0.03em; color: var(--ink-900); }
+/* line-height is STATED. shared.css gives h2 a fixed 56px box, and this heading
+   reaches 64px, so a title that runs to two lines overlaps itself. The Band
+   never showed it because its own heading is one word. */
+.bd .bd-faq-h { margin: 0 0 24px; font-size: clamp(44px, 5vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink-900); }
 .bd .bd-faq-tabs { display: flex; flex-direction: column; }
 .bd .bd-faq-tab {
   display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;
@@ -570,10 +607,11 @@
    frame 557px tall beside a column of 700 and more, which left a slab of empty
    ground under the photograph, and the price said twice.
    ------------------------------------------------------------------------ */
-.bd .bd-head { padding-bottom: 24px; border-bottom: 1px solid var(--divider); }
-.bd .bd-head-row { align-items: center; margin-top: 12px; }
+/* NO RULE under the head, by request 2026-09-16. The space does the dividing:
+   a hairline between a lede and the first field name was drawing a line
+   through a column that is already one continuous decision. */
+.bd .bd-head { padding-bottom: 20px; }
 .bd .bd-name { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04; }
-.bd .bd-others { margin-top: 0; padding: 7px 12px; font-size: 14px; font-weight: 500; }
 .bd .bd-tag {
   margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.25;
   font-weight: 600; color: var(--ph-accent);

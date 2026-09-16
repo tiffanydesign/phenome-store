@@ -446,6 +446,7 @@
           <div class="ds-sec-h"><span class="n">01</span><h2>Typeface</h2></div>
 
           <p class="ds-note">Helvetica Neue LT Pro, set site wide by <span class="ds-tok">--font-sans</span>.</p>
+          <p class="ds-note"><b>One family, and no second one.</b> Display, heading, body and figure all come from this face. A page that wants a different voice takes it from size and from ink, never from a serif. Two pages carried Newsreader until 2026-09-16, Science for its numerals and its italics and the App page for its display line and its pull quote. Both are back on the one family, and the Google Fonts request that fetched the second face is gone from both.</p>
 
           <div class="ds-block">
             <div class="ds-face gl">
@@ -499,6 +500,45 @@
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:14px;line-height:1;font-weight:400">Longevity, measured at home, over years</div><div class="ds-rung-m"><span>small</span><b>14/18</b><span>0</span><span>400</span></div></div>
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:12px;line-height:1;font-weight:500;letter-spacing:.06em;">Longevity, measured at home</div><div class="ds-rung-m"><span>overline</span><b>12/16</b><span>+.06em</span><span>500</span></div></div>
           </div>
+
+          <div class="ds-block">
+            <p class="ds-sub">The statement ladder</p>
+            <p class="ds-note" style="margin-top:0">The twelve rungs above say what sizes exist. This says <b>which one a line gets</b>, and it
+              is the Band page&rsquo;s answer, taken for the whole store on 2026-09-16. Four rungs carry every statement on a page, and the
+              rule that picks between them is about what the line is doing, not about how important it feels.</p>
+            <ul class="ds-spec">
+              <li><b>Display &middot; <span class="ds-tok">.ph-display</span></b><span>clamp(44px, 8.4vw, 132px) &middot; 700 &middot; &minus;.035em &middot; two lines, two tone. A section&rsquo;s whole argument. Section 09 has the rest.</span></li>
+              <li><b>Solid &middot; <span class="ds-tok">.ph-solid</span></b><span>clamp(34px, 4.4vw, 60px) &middot; 600 &middot; &minus;.020em &middot; a section&rsquo;s name. One or two words, one ink, never two tone.</span></li>
+              <li><b>Name &middot; <span class="ds-tok">.ph-name</span></b><span>clamp(32px, 3.2vw, 48px) &middot; 600 &middot; &minus;.020em &middot; the product or the page itself, at the head of a decision column.</span></li>
+              <li><b>Promise &middot; <span class="ds-tok">.ph-promise</span></b><span>clamp(20px, 1.6vw, 24px) &middot; 600 &middot; &minus;.010em &middot; the one line under a name that says what the thing is for.</span></li>
+              <li><b>Support &middot; <span class="ds-tok">.ph-support</span></b><span>17/1.55 &middot; 400 &middot; the lede, the description, the caption. Everything that explains rather than announces.</span></li>
+              <li><b>Field &middot; <span class="ds-tok">.ph-field</span></b><span>16/22 &middot; name at 600, value at 400 beside it on one baseline. Every choice in a decision column.</span></li>
+            </ul>
+          </div>
+
+          <div class="ds-block">
+            <p class="ds-sub">The overline is a promise line</p>
+            <p class="ds-note" style="margin-top:0"><span class="ds-tok">.eyebrow</span> was 12/16 at +.06em, which is the setting a
+              <em>capitalised</em> overline takes. The letters were sentence case but the typesetting was the all caps device, and the page
+              read that way. It is 15/20 at &minus;.005em in Blue 500 now: a size up, tracking back to normal, and the same job the Band&rsquo;s one
+              blue line does under its product name. The 12 rung is still on the ladder for the places that genuinely need a caption.</p>
+            <div class="ds-dsp-solid" style="margin-top:18px">
+              <div>
+                <div class="ds-dsp-panel on-day" style="min-height:150px;display:block;padding:26px">
+                  <p style="margin:0;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;color:#203a85">Gut microbiome test</p>
+                  <p style="margin:10px 0 0;font-size:34px;line-height:1.05;font-weight:600;letter-spacing:-.02em;color:#10214b">Your gut, fully understood</p>
+                </div>
+                <p class="ds-dsp-cap">Before &middot; 12/16 at +.06em &middot; the caps device on sentence case</p>
+              </div>
+              <div>
+                <div class="ds-dsp-panel on-day" style="min-height:150px;display:block;padding:26px">
+                  <p style="margin:0;font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.005em;color:#203a85">Gut microbiome test</p>
+                  <p style="margin:8px 0 0;font-size:34px;line-height:1.05;font-weight:600;letter-spacing:-.02em;color:#10214b">Your gut, fully understood</p>
+                </div>
+                <p class="ds-dsp-cap">After &middot; 15/20 at &minus;.005em &middot; a promise line, set as one</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- ========================================================= 03 -->
@@ -541,7 +581,41 @@
             </div>
           </div>
 
-          
+          <div class="ds-block">
+            <p class="ds-sub">Text inks &middot; what carries colour, and what does not</p>
+            <p class="ds-note" style="margin-top:0">The swatches above are the palette. These four are the whole of it that text is allowed to
+              use, and they are the Band page&rsquo;s, promoted on 2026-09-16. <b>Nothing outside this list carries type colour.</b> A heading that
+              picks its own grey, or a paragraph that borrows the link blue, has left the system.</p>
+            <ul class="ds-spec">
+              <li><b><span class="ds-tok">--ph-tone-head</span> &middot; Ink 900</b><span>Every heading, every figure, every price. The default, and the only ink a number is set in.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-promise</span> &middot; Blue 500</b><span>The promise line, and nothing else. This is the one line on a light page set in the brand colour, which is what keeps it meaning something.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-body</span> &middot; Ink 600</b><span>Ledes, descriptions, captions, the value beside a field name. Everything that explains.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-quiet</span> &middot; Ink 400</b><span>Legends, and the small print under a control.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-lead</span> &middot; Blue 200</b><span>Not a fifth ink: the heading ink <em>held back</em>, for the display&rsquo;s first line. White at 55% on a dark ground.</span></li>
+            </ul>
+            <p class="ds-note">On a dark ground the whole ladder inverts under one class, <span class="ds-tok">.on-night</span> &mdash; head to white, promise
+              and body to Blue 200 &mdash; so a section that changes its ground changes one class rather than nine colours.</p>
+            <div class="ds-dsp" style="margin-top:22px">
+              <div>
+                <div class="ds-dsp-panel on-day" style="display:block;padding:28px">
+                  <p style="margin:0;font-size:32px;line-height:1.04;font-weight:600;letter-spacing:-.02em;color:#10214b">PhenomeTech Band</p>
+                  <p style="margin:10px 0 0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-.01em;color:#203a85">Your day, read as it happens.</p>
+                  <p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:#4a5578">A screenless band that reads your heart, sleep, temperature and training all day.</p>
+                  <p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:#8b93ad">Delivery, returns and the app included, no subscription</p>
+                </div>
+                <p class="ds-dsp-cap">Light ground &middot; head, promise, body, quiet</p>
+              </div>
+              <div>
+                <div class="ds-dsp-panel on-night" style="display:block;padding:28px">
+                  <p style="margin:0;font-size:32px;line-height:1.04;font-weight:600;letter-spacing:-.02em;color:#fff">PhenomeTech Band</p>
+                  <p style="margin:10px 0 0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-.01em;color:#a9b5d9">Your day, read as it happens.</p>
+                  <p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:#a9b5d9">A screenless band that reads your heart, sleep, temperature and training all day.</p>
+                  <p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:rgba(255,255,255,.55)">Delivery, returns and the app included, no subscription</p>
+                </div>
+                <p class="ds-dsp-cap">Dark ground &middot; the same four, inverted by .on-night</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- ========================================================= 04 -->

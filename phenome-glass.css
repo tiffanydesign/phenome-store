@@ -402,6 +402,93 @@ html {
 .ph-display.is-left,
 .bd .bd-display.is-left { align-items: flex-start; text-align: left; }
 
+/* ---- the text ladder ------------------------------------------------------
+   PROMOTED FROM devices/band, 2026-09-16, by request: the Band settled a
+   question the rest of the store kept answering page by page — how big a line
+   is, what weight it takes, and which of the four inks it is written in — and
+   this is that answer stated once, for every page.
+
+   ONE FAMILY. Helvetica Neue LT Pro carries display, heading, body and figure.
+   There is no second face anywhere in the system, and a page that wants a
+   different voice gets it from size and ink, never from a serif. (science/ and
+   app/ both carried Newsreader until this date, the first for its numerals and
+   italics, the second for its display line and its pull quote. Both are back on
+   the one family and the Google Fonts request is gone from both.)
+
+   FOUR SIZES OF STATEMENT, and the rule that picks between them:
+
+     display   clamp(44px, 8.4vw, 132px)  700  -0.035em   .ph-display
+               a section's whole argument, two lines, two tone.
+     solid     clamp(34px, 4.4vw, 60px)   600  -0.020em   .ph-solid / .bd-h2
+               a section's NAME. One or two words. Never two tone — a colour
+               shift across three words reads as an error, not as emphasis.
+     name      clamp(32px, 3.2vw, 48px)   600  -0.020em   .ph-name
+               the product or page itself, at the top of a decision column.
+     promise   clamp(20px, 1.6vw, 24px)   600  -0.010em   .ph-promise
+               the one line under a name that says what it is FOR. This is
+               the only line on a light page set in the brand blue.
+
+   FOUR INKS, and nothing else is allowed to carry text colour:
+
+     --ph-tone-head     ink 900    every heading, every figure, every price
+     --ph-tone-promise  blue 500   the promise line, and only the promise line
+     --ph-tone-body     ink 600    ledes, descriptions, captions, field values
+     --ph-tone-quiet    ink 400    legends and the small print under a control
+
+   plus --ph-tone-lead, which is not a fifth ink but the SAME heading ink held
+   back: blue 200 against ink on a light ground, white at 55% on a dark one.
+   It exists for .ph-display's first line and for nothing else.
+
+   On a dark ground the ladder inverts as a block, under .on-night — heading
+   to white, promise and body to blue 200 — so a section that changes ground
+   changes one class rather than nine colours.
+   ------------------------------------------------------------------------ */
+:root {
+  --ph-tone-head:    var(--ink-900);
+  --ph-tone-promise: var(--phenome-blue-500);
+  --ph-tone-body:    var(--ink-600);
+  --ph-tone-quiet:   var(--ink-400);
+  --ph-tone-lead:    var(--phenome-blue-200);
+}
+
+.ph-solid {
+  margin: 0; font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05;
+  font-weight: 600; letter-spacing: -0.02em; color: var(--ph-tone-head);
+  text-wrap: balance;
+}
+.ph-name {
+  margin: 0; font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04;
+  font-weight: 600; letter-spacing: -0.02em; color: var(--ph-tone-head);
+}
+.ph-promise {
+  margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.25;
+  font-weight: 600; letter-spacing: -0.01em; color: var(--ph-tone-promise);
+}
+.ph-support {
+  margin: 12px 0 0; font-size: 17px; line-height: 1.55;
+  color: var(--ph-tone-body);
+}
+/* A field name with its value beside it, the shape every choice in the Band's
+   decision column takes: name at 600 in the heading ink, value at 400 in the
+   body ink, both on one baseline. */
+.ph-field {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin: 0; font-size: 16px; line-height: 22px; font-weight: 600;
+  color: var(--ph-tone-head);
+}
+.ph-field > span { font-weight: 400; color: var(--ph-tone-body); }
+.ph-field > span b { font-weight: 400; }
+.ph-field em { font-style: normal; font-size: 15px; color: var(--ph-tone-quiet); }
+
+/* The inversion. One class on the section, not nine colours on its children. */
+.on-night {
+  --ph-tone-head:    #ffffff;
+  --ph-tone-promise: var(--phenome-blue-200);
+  --ph-tone-body:    var(--phenome-blue-200);
+  --ph-tone-quiet:   rgba(255, 255, 255, .55);
+  --ph-tone-lead:    rgba(255, 255, 255, .55);
+}
+
 /* ---------------------------------------------------------------------------
    4 · THE GROUND · WHITE, 2026-09-07.
 
