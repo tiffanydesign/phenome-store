@@ -19,7 +19,7 @@
   function $$(s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); }
   function money(p) { return '£' + (p % 100 ? (p / 100).toFixed(2) : String(p / 100)); }
 
-  var state = { price: 14400, plan: 'Subscribe & save (save 20%)' };
+  var state = { price: 14400, plan: 'Subscribe and save (save 20%)' };
   var subs = [];
   function publish() { subs.forEach(function (fn) { fn(state); }); }
 
