@@ -292,13 +292,12 @@
     txt.appendChild(name);
     txt.appendChild(meta);
     planSubs.push(function (c) {
-      meta.textContent = c.price + ' · ' + (c.value === 'subscribe' ? 'Delivered monthly' : 'One time purchase') + ' · 30 sachets';
+      meta.textContent = c.price + ', ' + (c.value === 'subscribe' ? 'delivered monthly' : 'one time purchase') + ', 30 sachets';
     });
   }
 
-  /* ---- 2 · essentials: photo drift, liposome callouts -------------------- */
+  /* ---- 2 · essentials: photo drift --------------------------------------- */
   function essentials() {
-    onceInView($('[data-lipo]'), 'is-in');
     var bg = $('[data-drift]');
     if (!bg || still.matches) return;
     var box = bg.parentNode;

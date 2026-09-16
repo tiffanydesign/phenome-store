@@ -86,20 +86,27 @@
   width: 100%; margin-inline: auto;
   max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
   padding-inline: var(--ph-margin, 90px);
-  display: grid; grid-template-columns: minmax(0, 1fr) clamp(420px, 34vw, 500px);
-  gap: clamp(36px, 3.4vw, 56px); align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) clamp(408px, 32vw, 476px);
+  gap: clamp(32px, 3vw, 48px); align-items: stretch;
 }
 
 /* ---- the gallery, store/phenometech-ring's hero frame ---------------------
-   One 4:5 frame, five slides rotating on their own, a navy glass pill in the
-   bottom right with previous, a dot per slide and next, the current dot
-   filling over the slide's dwell. The column beside it is taller than the
-   frame, so the cell stretches to the row and the frame rides sticky inside
-   it: the two start level and finish level. */
-.nadp .nd-gal { align-self: stretch; }
+   Five slides rotating on their own, a navy glass pill in the bottom right
+   with previous, a dot per slide and next, the current dot filling over the
+   slide's dwell.
+
+   THE FRAME IS THE ROW, 2026-09-16. It was a 4:5 crop riding sticky inside a
+   stretched cell, which only ever matched the decision column at its top and
+   bottom edges: 850px of photograph beside 1471px of copy, with 620px of the
+   frame's track left empty as you scrolled. The column beside it is folded now
+   (see the buy column's accordion), so the frame drops the ratio, the sticky
+   and the viewport cap and simply takes the grid row's height. Whatever the
+   reader opens on the right, the two columns are the same height, and the
+   photograph gets every pixel of it. `object-fit: cover` on a portrait source
+   (1200 x 2133) means the taller frame crops less, not more. */
+.nadp .nd-gal { align-self: stretch; min-height: 0; }
 .nadp .nd-gal-main {
-  position: sticky; top: 76px;
-  aspect-ratio: 4 / 5; max-height: calc(100vh - 150px); width: 100%;
+  position: relative; height: 100%; min-height: 560px; width: 100%;
   border-radius: var(--nd-r-lg); overflow: hidden;
   background: var(--nd-soft); touch-action: pan-y;
 }
@@ -134,9 +141,20 @@
   display: grid; place-items: center; color: #fff;
   background: radial-gradient(120% 90% at 20% 0%, var(--nd-navy-2), var(--nd-navy) 70%);
 }
+/* The panel is sized off the frame, not off the page: in the two column hero
+   the frame is now the full height of the decision column, and a 440px card
+   floating in 1140px of navy read as a mistake. cqw/cqh let it grow with the
+   frame it sits in and stay the same card at every other width. */
+@media (min-width: 1181px) { .nadp .nd-gal-main { container-type: size; container-name: ndframe; } }
 .nadp .nd-facts {
   display: block; width: min(80%, 440px); padding: 22px 24px; text-align: left;
   border: 1px solid rgba(255, 255, 255, .7);
+}
+@container ndframe (min-height: 940px) {
+  .nadp .nd-facts { width: min(78%, 520px); padding: 30px 34px; }
+  .nadp .nd-facts-h { font-size: 34px; padding-bottom: 14px; }
+  .nadp .nd-facts-r { padding: 13px 0; font-size: 19px; }
+  .nadp .nd-facts-foot { margin-top: 16px; font-size: 16px; }
 }
 .nadp .nd-facts-h { display: block; font-size: clamp(24px, 2vw, 30px); line-height: 1.15; font-weight: 700; padding-bottom: 10px; border-bottom: 8px solid #fff; }
 .nadp .nd-facts-r {
@@ -220,7 +238,7 @@
 
    RHYTHM. Four steps instead of one undifferentiated 16-28px band:
      6px  inside a pair (value/label, price/note)
-    14px  inside a group (name -> subtitle -> rating)
+    14px  inside a group (name -> pill -> subtitle -> rating)
     22px  between groups
     26px + a hairline  between the story and the decision.
    The hairline above the price is the only new rule in the column, and it is
@@ -234,16 +252,20 @@
    36px after the price, 25px after the guarantee, none of them chosen. Zeroed
    here so the four steps above are the only spacing in the column. */
 .nadp .nd-buy > *, .nadp .nd-buy .supp-stat > * { margin-bottom: 0; }
-.nadp .nd-buy .supp-badge {
-  margin-top: 0; padding: 0 12px; min-height: 28px;
-  font-size: 15px; line-height: 1.2; font-weight: 600; letter-spacing: .04em;
-}
+/* THE NAME COMES FIRST, 2026-09-16. The format pill used to open the column,
+   so the first thing in the hero was a piece of packaging metadata and the
+   product name arrived second. The name owns the column now and the pill sits
+   under it with the spec line, where the two of them read as one caption. */
 .nadp .nd-buy .supp-name {
-  margin-top: 14px; font-size: clamp(34px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -.025em;
+  margin-top: 0; font-size: clamp(34px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -.025em;
+}
+.nadp .nd-buy .supp-badge {
+  margin-top: 14px; padding: 0 12px; min-height: 28px;
+  font-size: 15px; line-height: 1.2; font-weight: 600; letter-spacing: .04em;
 }
 /* Non-breaking spaces in the markup keep a middot from opening a line; this
    keeps the whole spec string on one line wherever the column allows it. */
-.nadp .nd-buy .supp-subtitle { margin-top: 8px; font-size: 15px; line-height: 1.45; text-wrap: pretty; }
+.nadp .nd-buy .supp-subtitle { margin-top: 10px; font-size: 15px; line-height: 1.45; text-wrap: pretty; }
 .nadp .nd-buy .supp-rate { margin-top: 14px; gap: 8px; }
 .nadp .nd-buy .supp-stars { font-size: 16px; }
 /* max-width off: a 26ch cap inside a 500px track left a ragged right edge with
@@ -291,7 +313,26 @@
 
 /* Accordions (Seed's Benefits / Ingredients and every list below). */
 .nadp .nd-acc { width: 100%; }
-.nadp .nd-buy-acc { margin-top: 28px; }
+/* The buy column's four folds carry everything that used to be set out in
+   full under the button, so they are the last thing above the cross sell and
+   they read as a list of questions, not as fine print. */
+/* `name` on the four <details> makes them exclusive, which is also what keeps
+   the promise above: one open body is at most ~160px, so the frame beside them
+   grows by that and no more. Four open at once would have made it a sliver. */
+.nadp .nd-buy-acc { margin-top: 26px; }
+.nadp .nd-buy-acc .nd-acc-item > summary { padding: 17px 0; }
+.nadp .nd-buy-acc .nd-acc-body > p:first-child { margin-top: 0; }
+/* The hook moved inside the first fold, 2026-09-16. At 27px it was the second
+   largest thing in the column and it sat above the price doing the work of a
+   headline; folded away it becomes the lead sentence of the explanation it was
+   always introducing, a step above the body and a step below the summary. */
+.nadp .nd-buy-acc .supp-claim {
+  margin: 0 0 12px; max-width: none;
+  font-size: 20px; line-height: 1.32; letter-spacing: -.008em;
+  font-weight: 500; color: var(--nd-navy); text-wrap: pretty;
+}
+.nadp .nd-buy-acc .supp-gtee { margin-top: 0; }
+.nadp .nd-buy-acc .supp-fine { margin-top: 12px; font-size: 15px; line-height: 1.45; }
 .nadp .nd-acc-item { border-bottom: 1px solid var(--nd-rule); }
 .nadp .nd-acc-item:first-child { border-top: 1px solid var(--nd-rule); }
 .nadp .nd-acc-item > summary {
@@ -366,52 +407,26 @@
 .nadp .nd-ess-panel h3 { margin-top: 28px; font-size: 19px; line-height: 1.25; font-weight: 600; color: #fff; }
 .nadp .nd-ess-panel p { margin-top: 10px; font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, .86); max-width: 30ch; }
 
-.nadp .nd-ess-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.7fr); gap: var(--nd-gut); margin-top: var(--nd-gut); }
-.nadp .nd-ess-img { position: relative; margin: 0; border-radius: var(--nd-r-lg); overflow: hidden; min-height: 520px; background: var(--nd-soft); }
-.nadp .nd-ess-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 46%; }
-.nadp .nd-ess-img figcaption {
-  position: absolute; left: 16px; bottom: 16px; padding: 8px 14px; border-radius: 99px;
-  background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  font-size: 16px; font-weight: 600; color: var(--nd-navy);
-}
+/* THE DELIVERY BAND. It was a 1:2.7 row, a photograph on the left and a dark
+   card on the right holding a spinning liposome diagram. Both pictures were
+   cut, so the row is a single card at full width and the split moved inside
+   it: the two tone display on the left, the argument and the link to the
+   comparison table on the right, the pair centred against each other. The
+   glow stays at 85% because that is now behind the paragraph. */
+.nadp .nd-ess-row { margin-top: var(--nd-gut); }
 .nadp .nd-lipo {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 32px;
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: center; gap: clamp(32px, 5vw, 88px);
   border-radius: var(--nd-r-lg); color: #fff; overflow: hidden;
-  padding: clamp(32px, 4vw, 64px);
+  padding: clamp(36px, 4.4vw, 72px) clamp(32px, 4vw, 64px);
   background: radial-gradient(90% 120% at 85% 50%, #1b3a93 0%, var(--nd-navy) 62%);
 }
-.nadp .nd-lipo-h { font-size: clamp(24px, 2.3vw, 36px); line-height: 1.06; }
-.nadp .nd-lipo-h.is-left { max-width: 26ch; }
-.nadp .nd-lipo-copy p { margin-top: 20px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .82); max-width: 36ch; }
+.nadp .nd-lipo-h { font-size: clamp(26px, 2.8vw, 44px); line-height: 1.06; }
+.nadp .nd-lipo-h.is-left { max-width: 18ch; }
+.nadp .nd-lipo-copy p { font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, .82); max-width: 42ch; }
 .nadp .nd-lipo-copy .nd-link { margin-top: 24px; }
-.nadp .nd-lipo-vis { position: relative; width: 100%; max-width: 440px; justify-self: end; }
-.nadp .nd-lipo-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.nadp .nd-lipo-ring { transform-origin: 200px 200px; animation: nd-spin 90s linear infinite; }
-.nadp .nd-head { fill: #a9b5d9; }
-.nadp .nd-head-in { fill: #7185bd; }
-.nadp .nd-tail { stroke: rgba(255, 255, 255, .28); stroke-width: 1.4; stroke-linecap: round; }
-.nadp .nd-mol circle { fill: var(--nd-sky); }
-.nadp .nd-mol circle + circle { fill: #fff; opacity: .9; }
-.nadp .nd-mol path { stroke: #fff; stroke-width: 1.5; opacity: .7; }
-.nadp .nd-mol { animation: nd-bob 6s ease-in-out infinite; animation-delay: calc(var(--i) * -.7s); }
-.nadp .nd-callline {
-  fill: none; stroke: rgba(255, 255, 255, .55); stroke-width: 1;
-  stroke-dasharray: 420; stroke-dashoffset: 420; transition: stroke-dashoffset 1.2s var(--nd-ease);
-}
-.nadp .nd-call {
-  position: absolute; font-size: 16px; line-height: 1; font-weight: 600; color: #fff; white-space: nowrap;
-  opacity: 0; translate: 0 6px; transition: opacity .6s .5s, translate .6s .5s var(--nd-ease);
-}
-.nadp .nd-call-a { right: 0; top: calc(15% - 22px); }
-.nadp .nd-call-b { right: 0; top: calc(82.5% - 22px); }
-.nadp .nd-call-c { left: 0; top: calc(10% - 22px); }
-.nadp .nd-lipo-vis.is-in .nd-callline { stroke-dashoffset: 0; }
-.nadp .nd-lipo-vis.is-in .nd-call { opacity: 1; translate: 0 0; }
-.nadp .nd-lipo-vis.is-in .nd-call-b { transition-delay: .7s; }
-.nadp .nd-lipo-vis.is-in .nd-call-c { transition-delay: .9s; }
 
 @keyframes nd-spin { to { rotate: 360deg; } }
-@keyframes nd-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
 @keyframes nd-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
 
 /* ---------------------------------------------------------------------------
@@ -750,13 +765,13 @@
    ------------------------------------------------------------------------ */
 @media (max-width: 1180px) {
   .nadp .nd-hero-grid { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-gal-main { position: relative; top: 0; max-height: none; aspect-ratio: 1 / 1; max-width: 760px; }
+  /* Single column: nothing to match heights with, so the ratio comes back. */
+  .nadp .nd-gal-main { height: auto; min-height: 0; aspect-ratio: 1 / 1; max-width: 760px; }
   .nadp .nd-buy { max-width: 640px; }
   .nadp .nd-ess-panel { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
   .nadp .nd-ess-panel h3 { margin-top: 16px; }
-  .nadp .nd-ess-row, .nadp .nd-lipo { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-ess-img { min-height: 420px; }
-  .nadp .nd-lipo-vis { justify-self: center; }
+  .nadp .nd-lipo { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .nadp .nd-lipo-h.is-left { max-width: 26ch; }
   .nadp .nd-compare-grid, .nadp .nd-std-grid { grid-template-columns: minmax(0, 1fr); }
   .nadp .nd-compare .nd-h2 { max-width: none; }
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
@@ -797,7 +812,6 @@
   .nadp .nd-ess-panel p { margin-top: 4px; }
   .nadp .nd-dist li { grid-template-columns: 34px minmax(0, 1fr) 40px; }
   .nadp .nd-dist { width: 100%; }
-  .nadp .nd-call { font-size: 15px; }
   .nadp .nd-howto { display: flex; }
   .nadp .ph-bar-meta { display: none; }
   .nadp .nd-pair { grid-template-columns: 72px 1fr; }
@@ -805,7 +819,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nadp .nd-lipo-ring, .nadp .nd-mol, .nadp .nd-still-dots, .nadp .nd-end-sachet { animation: none; }
+  .nadp .nd-still-dots, .nadp .nd-end-sachet { animation: none; }
   .nadp .nd-step { opacity: 1; }
   .nadp .nd-table [role="row"] { opacity: 1; translate: none; }
 }
