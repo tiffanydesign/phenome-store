@@ -1374,15 +1374,12 @@
   padding-top: clamp(112px, 13vw, 188px);
   padding-bottom: clamp(112px, 13vw, 188px);
 }
+/* The closing line is the kit's two tone display now (2026-09-16, by request),
+   so the weight, the tracking and the two inks come from .ph-display and all
+   this rule still says is how big it is over this photograph. */
 .ph-flat .closer-copy h2 {
   margin: 0;
-  max-width: 15ch;
-  font-size: var(--ph-h2-size);
-  line-height: var(--ph-h2-lh);
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-h2-tr);
-  color: var(--ph-white);
-  text-wrap: balance;
+  font-size: clamp(38px, 4.6vw, 72px);
 }
 .ph-flat .closer-copy p {
   margin: 16px 0 0;
@@ -1547,3 +1544,28 @@ html.ph-reveal body.ph-flat main > section.band.ph-r > * {
   transition: opacity var(--ph-dur-reveal) var(--ph-ease);
 }
 html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
+
+/* ===========================================================================
+   § 10 · THE LAB BLOCK — devices/ring-lab sections 2 to 8, standing on this
+   page from 2026-09-16 (see the note above the `.lab` div in index.html).
+
+   Almost nothing belongs here: the block is drawn by lab.css, which the page
+   loads, and the wrapper div carries the `.lab` class every rule in that sheet
+   is written against. All this section does is size the one thing that is NOT
+   the lab's — the headlines, which are the kit's two tone display on this page
+   and the lab's own single ink .lab-h2 over there. The lab's compositions were
+   measured around a 34 to 64px heading, so the display is held to that band
+   rather than taking its own clamp(44, 8.4vw, 132).
+   ======================================================================== */
+.ph-flat .lab .ph-display { font-size: clamp(34px, 4.2vw, 62px); }
+.ph-flat .lab .lab-offgrid-text .ph-display,
+.ph-flat .lab .lab-case .ph-display { font-size: clamp(38px, 4.8vw, 74px); }
+
+/* The label above a display is the same held back line the display's own first
+   line is, so it stops competing with it: the kit's lead ink, not full white. */
+.ph-flat .lab .lab-textblock .lab-label { color: rgba(255, 255, 255, .55); }
+.ph-flat .lab .lab-textblock:not(.is-dark) .lab-label { color: var(--ph-tone-lead); }
+
+/* The display is a flex column, so the gap it wants under it is its own
+   margin, not the .lab-h2 paragraph spacing lab.css set for a block heading. */
+.ph-flat .lab .lab-textblock .lab-desc { margin-top: 24px; }

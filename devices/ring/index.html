@@ -14,59 +14,181 @@
 <link href="/phenome-store/devices/ring/ring.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/bio.css" rel="stylesheet"/>
 <script>document.documentElement.classList.add('rbio-js');</script>
-<link href="/phenome-store/devices/ring/story.css" rel="stylesheet"/>
+<!-- Sections 2 to 8 of devices/ring-lab stand on this page (see the note above
+     the `.lab` block), so they are drawn by the lab's own sheet and script.
+     Every rule in it is scoped `.lab ...`, and the wrapper div carries that
+     class, so nothing here reaches the rest of the page. -->
+<link href="/phenome-store/devices/ring-lab/lab.css" rel="stylesheet"/>
+<script>document.documentElement.classList.add('lab-js');</script>
 </head>
 <body class="ph-flat">
 <div data-ph-nav=""></div>
 <main><section class="hero ring-marquee"><div class="ring-marquee-media"><video aria-hidden="true" autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-ceramic-hero.webp" preload="metadata" tabindex="-1" data-ring-film=""><source src="/phenome-store/assets/video/ring-ceramic-hero.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-ceramic-hero.mp4" type="video/mp4"/></video><button class="ring-marquee-play" type="button" data-ring-play="" aria-label="Pause the film"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.5" y="1.5" width="4" height="13" rx="1.2"/><rect x="9.5" y="1.5" width="4" height="13" rx="1.2"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.4c0-.9 1-1.5 1.8-1L13.4 6c.8.5.8 1.6 0 2.1L5.8 12.7c-.8.5-1.8-.1-1.8-1V2.4Z"/></svg></button></div><div class="ring-marquee-band"><div class="ring-marquee-scrim" aria-hidden="true"></div><div class="wrap-wide ring-marquee-viewport"><div class="ring-marquee-header"><h1 class="ring-marquee-eyebrow">PhenomeTech Ring</h1></div><div class="ring-marquee-detail"><p class="ring-marquee-pricing">From £179</p><a class="ring-marquee-buy btn" href="/phenome-store/store/phenometech-ring/">Add to cart</a></div></div></div></section><!-- ==========================================================================
-     THE INTRODUCTION — after ouraring.com/store/rings/oura-ring-4's "Thoughtfully
-     crafted, deeply insightful": one centred display line in a gradient ink,
-     one sentence under it, and nothing to press. It rises out of a blur as the
-     section is revealed. story.css § 1.
+     THE CASE, THE ASSISTANT AND THE ENGINEERING — 2026-09-16, by request.
+
+     What stood here was two screens: "Your data, on your finger." (a centred
+     gradient display line that rose out of a blur, story.css § 1) and the
+     pinned sensing film below it (story.css § 2 / story.js). Both are deleted,
+     and both sheets with them, because everything they said is said again on
+     this page: the film's subject is the biometrics band directly below, and
+     the opening line is the hero's own promise a screen later.
+
+     In their place stand devices/ring-lab's sections 2 to 8, moved here whole:
+     the charging case sequence, its six features, the magnetic charge, the
+     Phenome Intelligence carousel, the design statement, the off grid window
+     and the engineering facts. They keep the lab's layout and motion, so they
+     keep the lab's sheet and script — this block is wrapped in a `.lab` div so
+     that every `.lab ...` rule in lab.css resolves against it, and nothing had
+     to be copied. A `<div>`, not a `<section>`: shared.js transforms the
+     children of `main > section`, which would break the off grid photograph,
+     which is `position: fixed`.
+
+     THE ONE DEPARTURE FROM THE LAB is the headlines. Every statement here is
+     the kit's two tone display, .ph-display (phenome-glass.css § 3), the way
+     the rest of this page now reads; the lab keeps its own single ink .lab-h2.
+     Sizes are in ring.css § 10.
      ====================================================================== -->
-<section class="section rintro">
-<div class="wrap-wide rintro-in">
-<h2 class="rintro-h">Your data,<br/> on your finger.</h2>
-<p class="rintro-p">A titanium and ceramic smart ring that reads your sleep, heart and recovery, then closes the loop with your genome, blood and gut.</p>
-</div>
-</section>
-<!-- ==========================================================================
-     THE SENSING FILM — after Oura Ring 4's "Smart Sensing for the full picture".
-     A card that opens to the full screen and a film that plays once and holds
-     on its last frame. story.css § 2 / story.js.
+<div class="lab rlab">
 
-     THE OVERLAID COPY IS GONE (2026-09-14, by request). What stood here was two
-     rounds of type carried over the film at different speeds: "Five layers ·
-     Physiological intelligence." with the five readings up the right, then
-     "Completing the circle · The whole picture of you." with the five services.
-     Both rounds are deleted, left column and right, so the ring opening and
-     closing is the only thing in the frame.
+<!-- charging case · copy, then a pinned frame sequence -->
+<div class="lab-case" data-case="">
+<div class="lab-textblock is-dark">
+<p class="lab-label">Charging case</p>
+<h2 class="ph-display"><span class="ph-display-lead">Power</span><span>In your pocket</span></h2>
+<p class="lab-desc">The ring travels in a case that charges it. Drop it in at the end of the day, close the lid, and it is full again in about 90 minutes, wherever the day ended.</p>
+</div>
+<div class="lab-seq-track">
+<div class="lab-seq-pin"><canvas class="lab-seq" data-seq="case" data-frames="97" data-src="/phenome-store/assets/lab/seq-case/f{n}.webp" width="1280" height="720" aria-label="The charging case opening to show the ring inside" role="img"></canvas></div>
+</div>
+</div>
 
-     THE VEIL WENT WITH THEM, and that is the point rather than housekeeping: it
-     was two side gradients and a floor, drawn to put depth behind type. With no
-     type to sit on it, it was only a black wash over the middle of the film.
-     The static bottom fade below stays — that is the film meeting the band.
+<!-- case features · six items, two columns -->
+<div class="lab-casefeat">
+<ul class="lab-featlist">
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><rect x="7" y="7" width="22" height="22" rx="6"/><circle cx="18" cy="18" r="5"/></svg><p class="lab-ft">Every size fits</p><p class="lab-fd">One cradle holds every ring from size 6 to 13</p></li>
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M6 18h4l3 -6 4 12 4 -9 3 3h6"/></svg><p class="lab-ft">Magnetic cradle</p><p class="lab-fd">The ring settles into place on its own, the right way up</p></li>
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="3"/><path d="M11 11a10 10 0 0 0 0 14M25 11a10 10 0 0 1 0 14M7 7a15.5 15.5 0 0 0 0 22M29 7a15.5 15.5 0 0 1 0 22"/></svg><p class="lab-ft">Status light</p><p class="lab-fd">A soft light on the front shows the charge of the ring and the case</p></li>
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="20" r="6"/><path d="M18 5v5M8 9l3 3M28 9l-3 3M5 20h4M27 20h4"/></svg><p class="lab-ft">Full in about 90 minutes</p><p class="lab-fd">From empty to a week of wear before your coffee has cooled</p></li>
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M13 8h10v6l-3 3v11h-4V17l-3 -3z"/><path d="M16 11h4"/></svg><p class="lab-ft">USB C charging</p><p class="lab-fd">Charge the case from the cable in the box or any laptop</p></li>
+<li><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="11"/><path d="M12 15h12M12 21h12"/></svg><p class="lab-ft">Travel ready</p><p class="lab-fd">A magnetic lid that stays shut in a bag, a pocket or a carry on</p></li>
+</ul>
+</div>
 
-     What the copy said is not lost. "Physiological intelligence" is the sensor
-     cutaway directly below; the whole-picture round is the page's own closing
-     section. Nothing here was the only place either was stated.
-     ====================================================================== -->
-<section class="rsense" data-rsense="" aria-hidden="true">
-<div class="rsense-track">
-<div class="rsense-stage">
-<div class="rsense-card" data-rsense-card="">
-<video aria-hidden="true" class="rsense-film" data-rsense-film="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-sensing-end.webp" preload="metadata" tabindex="-1" data-poster-start="/phenome-store/assets/video/ring-sensing.webp"><source src="/phenome-store/assets/video/ring-sensing.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-sensing.mp4" type="video/mp4"/></video>
-<div aria-hidden="true" class="rsense-veil"></div>
+<!-- magnetic charging · a sequence that plays as it crosses the screen -->
+<div class="lab-snap" data-snap="">
+<div class="lab-textblock is-dark">
+<h2 class="ph-display"><span class="ph-display-lead">Magnetic charging,</span><span>One click</span></h2>
+<p class="lab-desc">The ring drops into the cradle and the magnets finish the job. Wireless contact, no pins to line up, and a charge that is gentle on the battery over years of nights.</p>
+</div>
+<div class="lab-snap-stage"><canvas class="lab-seq is-square" data-seq="snap" data-frames="71" data-reverse="" data-src="/phenome-store/assets/lab/seq-snap/f{n}.webp" width="900" height="900" aria-label="The ring settling into its charging cradle" role="img"></canvas></div>
+</div>
+
+<!-- phenome intelligence · glowing frame, card carousel. The lab's "Introducing"
+     label is the display's own lead line here, which is what that line is. -->
+<div class="lab-intel">
+<div class="lab-intel-glow" aria-hidden="true"></div>
+<div class="lab-textblock is-dark">
+<h2 class="ph-display"><span class="ph-display-lead">Introducing</span><span>Phenome Intelligence</span></h2>
+<p class="lab-desc">A health assistant that reads your ring beside your genome, your microbiome and your blood results, and answers in plain language about the body you actually have.</p>
+</div>
+<div class="lab-carousel" data-carousel="">
+<button class="lab-car-btn is-prev" data-car-prev="" type="button" aria-label="Previous card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
+<div class="lab-car-view" data-car-view="">
+<ul class="lab-car-track" data-car-track="">
+<li class="lab-card">
+<div class="lab-card-media"><video autoplay="" loop="" muted="" playsinline="" poster="" preload="metadata" src="/phenome-store/assets/lab/video/insight-card.mp4" aria-hidden="true"></video></div>
+<p class="lab-card-t">Health as a conversation</p>
+<p class="lab-card-b">No charts to decode. Ask why last night was restless, what changed this week, and what to try tonight.</p>
+</li>
+<li class="lab-card">
+<div class="lab-card-media is-ui">
+<div class="ui-chat">
+<p class="ui-chat-q">How can I help you?</p>
+<div class="ui-chat-in"><span data-type="Why is my heart rate higher this week?"></span><i aria-hidden="true"></i></div>
+</div>
+</div>
+<p class="lab-card-t">Ask anything, in your words</p>
+<p class="lab-card-b">Questions are answered from your own readings first, then from the research behind them, with the sources shown.</p>
+</li>
+<li class="lab-card">
+<div class="lab-card-media is-ui">
+<div class="ui-nodes">
+<span class="ui-node n1">Genome</span><span class="ui-node n2">Microbiome</span><span class="ui-node n3">Ring signals</span><span class="ui-node n4">Blood results</span>
+<svg viewBox="0 0 300 300" aria-hidden="true"><path d="M70 70 H150 V150 M230 80 H150 V150 M70 230 H150 V150 M230 220 H150 V150"/></svg>
+<b class="ui-core" aria-hidden="true"></b>
+</div>
+</div>
+<p class="lab-card-t">Everything in one picture</p>
+<p class="lab-card-b">Ring data meets your whole genome, your gut microbiome and your blood markers, read together rather than side by side.</p>
+</li>
+<li class="lab-card">
+<div class="lab-card-media is-ui">
+<div class="ui-modes">
+<span class="ui-mode on">Quick answer</span><span class="ui-mode">Deep review</span>
+<div class="ui-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+</div>
+<p class="lab-card-t">Two modes, one system</p>
+<p class="lab-card-b">A quick answer for today, or a deep review of months of data when you want to see the long trend.</p>
+</li>
+<li class="lab-card">
+<div class="lab-card-media is-ui">
+<div class="ui-lock"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="26" rx="6"/><path d="M22 28v-7a10 10 0 0 1 20 0v7"/><circle cx="32" cy="41" r="3"/></svg><p>Encrypted, and yours</p></div>
+</div>
+<p class="lab-card-t">Private by design</p>
+<p class="lab-card-b">Your data is encrypted, handled under UK GDPR, never sold, and yours to export or delete at any time.</p>
+</li>
+</ul>
+</div>
+<button class="lab-car-btn is-next" data-car-next="" type="button" aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
+<div class="lab-car-dots" data-car-dots="" aria-hidden="true"></div>
+</div>
+</div>
+
+<!-- design · light ground, one large ring -->
+<div class="lab-design">
+<div class="lab-textblock">
+<p class="lab-label">Design</p>
+<h2 class="ph-display is-ink"><span class="ph-display-lead">Ceramic and titanium,</span><span>Made to last</span></h2>
+<p class="lab-desc">A single seamless band in grade 5 titanium or high density zirconia ceramic, with a medical grade inner shell and a finish that shrugs off scratches.</p>
+</div>
+<div class="lab-design-img lab-in"><img alt="The PhenomeTech Ring in black ceramic, turned to show its sensors" decoding="async" loading="lazy" src="/phenome-store/assets/lab/ring-black-angle.webp"/></div>
+</div>
+
+<!-- off the grid · fixed photograph, the tint deepens, the copy arrives -->
+<div class="lab-offgrid" data-offgrid="">
+<div class="lab-offgrid-img" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_allotment.webp"/></div>
+<div class="lab-offgrid-tint" aria-hidden="true"></div>
+<div class="lab-offgrid-text">
+<h2 class="ph-display"><span class="ph-display-lead">Off the grid.</span><span>Still on record.</span></h2>
+<p class="lab-desc">On the allotment, the fells or a long flight, the ring keeps recording without your phone and syncs everything the moment you are back in range. Nothing you did goes missing.</p>
+</div>
+</div>
+
+<!-- engineering · ring left, four facts right -->
+<div class="lab-eng">
+<div class="lab-textblock">
+<p class="lab-label">Engineering</p>
+<h2 class="ph-display is-ink"><span class="ph-display-lead">Performance</span><span>Inside out</span></h2>
+</div>
+<div class="lab-eng-grid">
+<div class="lab-eng-img"><img alt="The inside of the ring, showing its sensors and electronics" decoding="async" loading="lazy" src="/phenome-store/assets/lab/ring-inside.webp"/></div>
+<div class="lab-eng-list">
+<div class="lab-eng-item lab-in"><p class="lab-card-t">Sensors</p><p class="lab-card-b">Optical heart rate, blood oxygen and skin temperature sensors with a 3 axis accelerometer, reading through the night.</p></div>
+<div class="lab-eng-item lab-in"><p class="lab-card-t">Connectivity</p><p class="lab-card-b">Bluetooth 5.3 for steady, low power syncing with iOS 16 or later and Android 10 or later.</p></div>
+<div class="lab-eng-item lab-in"><p class="lab-card-t">Charging</p><p class="lab-card-b">Wireless charging with up to 7 days per charge and about 90 minutes from empty to full.</p></div>
+<div class="lab-eng-item lab-in"><p class="lab-card-t">Built for water</p><p class="lab-card-b">Water resistant to 100 metres, so it stays on for the swim, the shower and the sauna.</p></div>
 </div>
 </div>
 </div>
-</section>
+
+</div>
 <!-- § 9 · BIOMETRICS, 2026-09-16 by request: devices/ring-lab § 33 in place
      of the sensor cutaway. What the ring reads on the left; the ring and the
      sensors those readings come from on the right. The colourway film that
      used to follow it is deleted. bio.css / bio.js. -->
 <section class="rbio" data-rbio="">
-<h2 class="rbio-h">Biometrics, read<br/>continuously<br/>by five sensors</h2>
+<h2 class="rbio-h ph-display is-ink"><span class="ph-display-lead">Biometrics, read continuously</span><span>By five sensors</span></h2>
 <div class="rbio-row">
 <ul class="rbio-list">
 <li><i style="--c:#ff6f8f"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20S4 15 4 9.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15 12 20 12 20z"/></svg></i><b>Heart rate</b><span>Day and night</span></li>
@@ -113,7 +235,7 @@
 <section class="closer" data-par="">
 <div class="par-win closer-win"><img alt="Two hands resting on ferns, a plain wide band on one finger" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_worn_forest.webp" width="1400" data-par-img=""/></div>
 <div class="closer-scrim" aria-hidden="true"></div>
-<div class="wrap closer-copy"><h2>Wear it and forget it.</h2><p>Free sizer, 30 day returns, two year warranty.</p><div class="cta-actions"><a class="btn" href="/phenome-store/store/phenometech-ring/">Add to cart</a><a class="link-more" href="/phenome-store/devices/ring/find-your-size/">Find your size</a></div></div>
+<div class="wrap closer-copy"><h2 class="ph-display is-left"><span class="ph-display-lead">Wear it</span><span>And forget it.</span></h2><p>Free sizer, 30 day returns, two year warranty.</p><div class="cta-actions"><a class="btn" href="/phenome-store/store/phenometech-ring/">Add to cart</a><a class="link-more" href="/phenome-store/devices/ring/find-your-size/">Find your size</a></div></div>
 </section>
 <section class="section section-gray loop">
 <div class="wrap-wide loop-row"><div class="loop-t"><h2 class="sec-title">Stay in the loop.</h2></div><div class="loop-side"><p class="lede" style="margin:0">Longevity insight, product updates, and the science behind the ring, straight to your inbox.</p><div class="cta-actions"><a class="btn" href="/phenome-store/contact/">Subscribe</a></div></div></div>
@@ -124,7 +246,7 @@
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
 <script src="/phenome-store/devices/ring/bio.js"></script>
-<script src="/phenome-store/devices/ring/story.js"></script>
+<script src="/phenome-store/devices/ring-lab/lab.js"></script>
 <script>
 /* The colourway swatches on the two "Choose your ring" cards.
 
