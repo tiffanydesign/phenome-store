@@ -27,15 +27,9 @@
   font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; font-weight: 600;
   letter-spacing: -0.02em; text-align: center; color: var(--ink-900);
 }
-.bd .bd-display {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  margin: 0; font-weight: 700; letter-spacing: -0.035em;
-  font-size: clamp(44px, 8.4vw, 132px); line-height: .98; color: #fff;
-}
-.bd .bd-display.is-ink { color: var(--ink-900); }
-.bd .bd-display.is-left { align-items: flex-start; text-align: left; }
-.bd .bd-display .bd-dim { color: rgba(255, 255, 255, .55); font-size: .62em; line-height: 1.1; }
-.bd .bd-display.is-ink .bd-dim { color: var(--phenome-blue-200); }
+/* .bd-display and .bd-dim now live in phenome-glass.css § 3 alongside
+   .ph-display, which is the same headline promoted to the site kit. Only the
+   per section sizes below are this page's own. */
 
 /* ---------------------------------------------------------------------------
    0 · THE SWAP · past the hero the global nav leaves and the product bar

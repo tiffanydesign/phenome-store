@@ -384,6 +384,27 @@
   .ds-seg button, .ds-stage { transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* 09 · display headline · the two panels this section is demonstrated on.
+   The headline itself is not styled here: it is .ph-display from the kit. */
+.ds-dsp { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-dsp-panel {
+  display: grid; align-content: center; min-height: 300px;
+  padding: clamp(22px, 2.4vw, 34px); border-radius: 18px; overflow: hidden;
+}
+.ds-dsp-panel.on-night { background: radial-gradient(120% 120% at 18% 0%, #12246a 0%, #070c24 68%); }
+.ds-dsp-panel.on-day   { background: #fff; box-shadow: inset 0 0 0 1px var(--ph-line, #203a8529); }
+.ds-dsp-panel .ph-display { font-size: clamp(22px, 2.2vw, 34px); }
+#s09 .ds-tok { white-space: nowrap; }
+.ds-dsp-cap {
+  margin: 12px 0 0; font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  letter-spacing: var(--ph-tr-12-600); font-weight: var(--ph-w-600); color: var(--ink-400);
+}
+.ds-dsp-solid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-dsp-solid .ph-display { font-size: clamp(24px, 2.4vw, 38px); }
+@media (max-width: 860px) {
+  .ds-dsp, .ds-dsp-solid { grid-template-columns: minmax(0, 1fr); }
+}
 </style>
 </head>
 <body class="ds-page">
@@ -414,7 +435,7 @@
           <li><a href="#s04"><b>04</b>Surfaces</a></li>
           <li><a href="#s05"><b>05</b>Elevation &amp; motion</a></li>
           <li><a href="#s06"><b>06</b>Components</a></li>
-          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li>
+          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li><li><a href="#s09"><b>09</b>Display headline</a></li>
         </ol>
       </nav>
 
@@ -424,7 +445,7 @@
         <section class="ds-sec" id="s01">
           <div class="ds-sec-h"><span class="n">01</span><h2>Typeface</h2></div>
 
-          <p class="ds-note">Helvetica Neue LT Pro, set site-wide by <span class="ds-tok">--font-sans</span>.</p>
+          <p class="ds-note">Helvetica Neue LT Pro, set site wide by <span class="ds-tok">--font-sans</span>.</p>
 
           <div class="ds-block">
             <div class="ds-face gl">
@@ -571,7 +592,7 @@
               <li><b>Fill</b><span>one flat white, uniform through the pane</span></li>
               <li><b>Backdrop</b><span>blur(24px) saturate(140%) · thin tier 14px</span></li>
               <li><b>Shadow</b><span>0 8px 24px −18px · #4664a0 22%</span></li>
-              <li><b>Recess</b><span>one flat blue-grey wash · no drop, no rim</span></li>
+              <li><b>Recess</b><span>one flat blue grey wash · no drop, no rim</span></li>
             </ul>
           </div>
         </section>
@@ -640,7 +661,7 @@
               </a>
               <div class="card-gray">
                 <h3 class="card-title" style="margin:0 0 8px;font-size:21px;font-weight:500">Recess</h3>
-                <p style="margin:0;font-size:14px;color:var(--ink-600)">One flat blue-grey wash.</p>
+                <p style="margin:0;font-size:14px;color:var(--ink-600)">One flat blue grey wash.</p>
               </div>
             </div>
           </div>
@@ -680,22 +701,22 @@
           </div>
         </section><section class="ds-sec" id="s08"><div class="ds-sec-h"><span class="n">08</span><h2>Logo</h2></div>
 
-<p class="ds-note">Phenome Brand Guideline pp.3&ndash;10, carried across from the clinic portal&rsquo;s own design system so the two products state the same rules.</p>
-<p class="ds-note">This site ships <span class="ds-tok">assets/brand/phenome-logo.svg</span> &mdash; the full coloured lockup already in the masthead &mdash; and one raster icon. The white cut below is that same file inverted, which for a one-colour mark is the same artwork; it is not a separate asset. Cuts the guideline defines but this site does not carry are named as missing rather than approximated.</p>
+<p class="ds-note">Phenome Brand Guideline pp.3 to 10, carried across from the clinic portal&rsquo;s own design system so the two products state the same rules.</p>
+<p class="ds-note">This site ships <span class="ds-tok">assets/brand/phenome-logo.svg</span>, the full coloured lockup already in the masthead, and one raster icon. The white cut below is that same file inverted, which for a one colour mark is the same artwork; it is not a separate asset. Cuts the guideline defines but this site does not carry are named as missing rather than approximated.</p>
 
 <div class="ds-block">
 <p class="ds-sub">Full logo</p>
 <p class="ds-note" style="margin-top:0">The primary version, used in most applications. Full colour on white or light grounds only; the white monochrome cut on dark or photographic grounds (p.3, p.6).</p>
 <div class="ds-logo-grid">
-<div class="ds-logo-cell"><img alt="Phenome Longevity, full colour" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured &mdash; on white</span></div>
-<div class="ds-logo-cell on-tint"><img alt="Phenome Longevity, full colour on the tinted ground" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured &mdash; on #f4f6fb</span></div>
-<div class="ds-logo-cell on-dark"><img alt="Phenome Longevity, white cut" class="full mono" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Mono white &mdash; on dark</span></div>
+<div class="ds-logo-cell"><img alt="Phenome Longevity, full colour" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured, on white</span></div>
+<div class="ds-logo-cell on-tint"><img alt="Phenome Longevity, full colour on the tinted ground" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured, on #f4f6fb</span></div>
+<div class="ds-logo-cell on-dark"><img alt="Phenome Longevity, white cut" class="full mono" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Mono white, on dark</span></div>
 </div>
 </div>
 
 <div class="ds-block">
 <p class="ds-sub">Icon</p>
-<p class="ds-note" style="margin-top:0">The simplified mark, for compact spaces &mdash; favicons, wearables, a collapsed rail (p.4).</p>
+<p class="ds-note" style="margin-top:0">The simplified mark, for compact spaces, favicons, wearables, a collapsed rail (p.4).</p>
 <div class="ds-logo-grid">
 <div class="ds-logo-cell"><img alt="Phenome icon, full colour" class="icon" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Coloured</span></div>
 <div class="ds-logo-cell on-dark"><img alt="Phenome icon, white cut" class="icon mono" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Mono white</span></div>
@@ -705,23 +726,78 @@
 
 <div class="ds-block">
 <p class="ds-sub">Monochrome</p>
-<p class="ds-note" style="margin-top:0">For single-colour print and busy or photographic grounds (p.5). Approved cuts are Phenome blue, black and white. Blue and white exist here; <b>no solid-black cut is carried on this site.</b></p>
+<p class="ds-note" style="margin-top:0">For single colour print and busy or photographic grounds (p.5). Approved cuts are Phenome blue, black and white. Blue and white exist here; <b>no solid black cut is carried on this site.</b></p>
 </div>
 
 <div class="ds-block">
 <p class="ds-sub">Clearspace</p>
-<div class="ds-clear"><div class="ds-clear-in"><img alt="The logo inside its keep-out area" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/></div></div>
-<p class="ds-note">Keep the area around the logo free of text, images and other graphic elements at all times (p.7). The guideline leaves its own clearspace unit as an unfilled placeholder, so <b>no multiple is encoded here</b> &mdash; the box above states the rule, not a measurement.</p>
+<div class="ds-clear"><div class="ds-clear-in"><img alt="The logo inside its keep out area" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/></div></div>
+<p class="ds-note">Keep the area around the logo free of text, images and other graphic elements at all times (p.7). The guideline leaves its own clearspace unit as an unfilled placeholder, so <b>no multiple is encoded here</b>, the box above states the rule, not a measurement.</p>
 </div>
 
 <div class="ds-block">
-<p class="ds-sub">Misuse &mdash; do not</p>
-<ul class="ds-dont"><li>Crop the logo</li><li>Change the size or position of the icon and logotype</li><li>Change the transparency of the logo</li><li>Distort the logo</li><li>Use drop shadows or any other effects</li><li>Readjust any spacing of the logotype</li><li>Use different colours</li><li>Rotate any part of the logo</li><li>Re-create it in any other typeface</li><li>Outline the logotype</li></ul>
+<p class="ds-sub">Misuse, do not</p>
+<ul class="ds-dont"><li>Crop the logo</li><li>Change the size or position of the icon and logotype</li><li>Change the transparency of the logo</li><li>Distort the logo</li><li>Use drop shadows or any other effects</li><li>Readjust any spacing of the logotype</li><li>Use different colours</li><li>Rotate any part of the logo</li><li>Recreate it in any other typeface</li><li>Outline the logotype</li></ul>
 </div>
 
 <div class="ds-block">
-<p class="ds-sub">Sub-brand lockups</p>
-<p class="ds-note" style="margin-top:0">The guideline defines lockups for the other product lines &mdash; Phenome Omics, Phenome Longevity Wearables/Tech, Phenome Longevity Supplements/Phenome+ (p.10). <b>None are carried on this site</b>, including for the wearables and supplements pages that would use them.</p>
+<p class="ds-sub">Sub brand lockups</p>
+<p class="ds-note" style="margin-top:0">The guideline defines lockups for the other product lines, Phenome Omics, Phenome Longevity Wearables/Tech, Phenome Longevity Supplements/Phenome+ (p.10). <b>None are carried on this site</b>, including for the wearables and supplements pages that would use them.</p>
+</div>
+</section>
+
+<!-- ========================================================= 09 -->
+<section class="ds-sec" id="s09">
+<div class="ds-sec-h"><span class="n">09</span><h2>Display headline</h2></div>
+
+<p class="ds-note">The largest statement a page is allowed to make, drawn first for the Band page and now carried by the kit as <span class="ds-tok">.ph-display</span>. Two lines stacked, the first held back, the second at full contrast, so one sentence carries its own emphasis without a rule, a colour block or a second weight.</p>
+<p class="ds-note">On dark grounds the lead line is white at 55%. On light grounds it is <span class="ds-tok">--phenome-blue-200</span> against the ink. Nothing else changes between the two.</p>
+
+<div class="ds-block">
+<p class="ds-sub">Two tone, the default</p>
+<div class="ds-dsp">
+<div>
+<div class="ds-dsp-panel on-night">
+<h3 class="ph-display"><span class="ph-display-lead">Tested through whole days</span><span>Not only the workout</span></h3>
+</div>
+<p class="ds-dsp-cap">Dark ground · lead at white 55% · second line white</p>
+</div>
+<div>
+<div class="ds-dsp-panel on-day">
+<h3 class="ph-display is-ink"><span class="ph-display-lead">Read your</span><span>Biomarkers</span></h3>
+</div>
+<p class="ds-dsp-cap">Light ground · lead at blue 200 · second line ink 900</p>
+</div>
+</div>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">When it is solid instead</p>
+<p class="ds-note" style="margin-top:0">A statement long enough to break over two lines is set two tone. A single word, or a line short enough to read at a glance, is set solid in the Specifications ink and takes no lead line, because a colour shift across three words reads as an error rather than emphasis.</p>
+<div class="ds-dsp-solid" style="margin-top:22px">
+<div>
+<div class="ds-dsp-panel on-day" style="min-height:190px">
+<h3 class="ph-display is-ink">Specifications</h3>
+</div>
+<p class="ds-dsp-cap">One word · solid ink 900</p>
+</div>
+<div>
+<div class="ds-dsp-panel on-night" style="min-height:190px">
+<h3 class="ph-display">Questions</h3>
+</div>
+<p class="ds-dsp-cap">One word · solid white</p>
+</div>
+</div>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Modifiers</p>
+<ul class="ds-spec">
+<li><b>.is-ink</b><span>Light grounds. Ink 900 with a blue 200 lead.</span></li>
+<li><b>.is-even</b><span>Both lines at one size. Contrast alone separates them.</span></li>
+<li><b>.is-left</b><span>Left aligned rather than centred.</span></li>
+</ul>
+<p class="ds-note">Size is set by the section that holds it, not by the component. The kit ships the ceiling, <span class="ds-tok">clamp(44px, 8.4vw, 132px)</span>; pages step it down where the headline sits beside other content.</p>
 </div>
 </section>
 

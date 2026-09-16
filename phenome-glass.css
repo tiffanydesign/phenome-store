@@ -358,6 +358,50 @@ html {
   font-feature-settings: "tnum" 1;
 }
 
+/* ---- the two tone display headline ---------------------------------------
+   The largest statement a page is allowed to make. It was drawn for
+   devices/band and is promoted here because every product page wants the same
+   voice: two stacked lines, the first held back, the second at full contrast,
+   so one sentence carries its own emphasis without a rule, a colour block or a
+   second weight.
+
+     .ph-display                the pair. Dark grounds by default.
+       .ph-display-lead         the held back line. Always the FIRST line.
+     .ph-display.is-ink         light grounds.
+     .ph-display.is-even        both lines at one size; contrast alone separates.
+     .ph-display.is-left        left aligned rather than centred.
+
+   The rule that decides whether a headline gets this treatment at all:
+   a statement long enough to break over two lines is set two tone. A single
+   word, or a line short enough to read at a glance, is set SOLID in the
+   Specifications ink (.bd-h2 / .nd-h2 / .sec-title) and takes no lead line,
+   because a colour shift across three words reads as an error, not emphasis.
+
+   Legacy selectors: devices/band still ships .bd-display / .bd-dim in its own
+   markup, so both names resolve to this one definition.
+   ------------------------------------------------------------------------ */
+.ph-display,
+.bd .bd-display {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  margin: 0; font-weight: 700; letter-spacing: -0.035em; line-height: .98;
+  font-size: clamp(44px, 8.4vw, 132px);
+  color: #fff;
+}
+.ph-display .ph-display-lead,
+.bd .bd-display .bd-dim {
+  font-size: .62em; line-height: 1.1;
+  color: rgba(255, 255, 255, .55);
+}
+.ph-display.is-even .ph-display-lead {
+  font-size: 1em; color: rgba(255, 255, 255, .58);
+}
+.ph-display.is-ink,
+.bd .bd-display.is-ink { color: var(--ink-900); }
+.ph-display.is-ink .ph-display-lead,
+.bd .bd-display.is-ink .bd-dim { color: var(--phenome-blue-200); }
+.ph-display.is-left,
+.bd .bd-display.is-left { align-items: flex-start; text-align: left; }
+
 /* ---------------------------------------------------------------------------
    4 · THE GROUND · WHITE, 2026-09-07.
 

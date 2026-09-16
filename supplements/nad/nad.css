@@ -50,6 +50,15 @@
   font-size: clamp(32px, 3.5vw, 52px); line-height: 1.08; letter-spacing: -.022em;
   font-weight: 500; color: var(--nd-navy); text-wrap: balance;
 }
+
+/* .nd-h2 is the page's SOLID heading, the one a short line or a single word
+   takes. Anything long enough to break over two lines is set instead in the
+   kit's two tone display, .ph-display (phenome-glass.css § 3), which is sized
+   down here: the Band page can run it to 132px because it stands alone, this
+   page carries copy beside it. */
+.nadp .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
+.nadp .ph-display.is-left { max-width: 22ch; }
+
 .nadp .nd-sub { margin-top: 20px; font-size: 17px; line-height: 1.5; color: var(--nd-ink); }
 
 .nadp .nd-link {
@@ -265,10 +274,7 @@
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(180deg, rgba(10, 30, 87, .42) 0%, rgba(10, 30, 87, .06) 38%, rgba(10, 30, 87, .5) 100%);
 }
-.nadp .nd-ess-h {
-  max-width: 17ch; font-size: clamp(34px, 3.6vw, 56px); line-height: 1.05;
-  letter-spacing: -.025em; font-weight: 500; color: #fff; text-wrap: balance;
-}
+.nadp .nd-ess-h { max-width: 20ch; font-size: clamp(32px, 3.8vw, 62px); }
 .nadp .nd-ess-panel {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
   margin-top: 40px; padding: clamp(28px, 3vw, 44px) clamp(24px, 3vw, 48px);
@@ -296,7 +302,8 @@
   padding: clamp(32px, 4vw, 64px);
   background: radial-gradient(90% 120% at 85% 50%, #1b3a93 0%, var(--nd-navy) 62%);
 }
-.nadp .nd-lipo-h { font-size: clamp(28px, 2.5vw, 38px); line-height: 1.12; letter-spacing: -.02em; font-weight: 500; color: #fff; max-width: 16ch; }
+.nadp .nd-lipo-h { font-size: clamp(24px, 2.3vw, 36px); line-height: 1.06; }
+.nadp .nd-lipo-h.is-left { max-width: 26ch; }
 .nadp .nd-lipo-copy p { margin-top: 20px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .82); max-width: 36ch; }
 .nadp .nd-lipo-copy .nd-link { margin-top: 24px; }
 .nadp .nd-lipo-vis { position: relative; width: 100%; max-width: 440px; justify-self: end; }
@@ -516,7 +523,7 @@
    8 · QUESTIONS
    ------------------------------------------------------------------------ */
 .nadp .nd-faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
-.nadp .nd-faq .nd-h2 { font-size: clamp(36px, 3.9vw, 58px); }
+.nadp .nd-faq .ph-display { font-size: clamp(34px, 3.9vw, 58px); }
 .nadp .nd-faq-list:not(.is-all) [data-more] { display: none; }
 .nadp .nd-faq-list .nd-acc-body p { max-width: 62ch; }
 .nadp .nd-viewall {
