@@ -275,11 +275,12 @@ html:not(.lab-js) .lab .lab-featlist li { opacity: 1; transform: none; }
 /* ---------------------------------------------------------------------------
    8 · ENGINEERING
    ------------------------------------------------------------------------ */
+/* THE DRAWN BACKDROP IS GONE, 2026-09-16 by request: three concentric circles,
+   a cross and two diagonals, at 15% behind the section, drifting with the
+   scroll. It was technical drawing as decoration, and with a photograph of the
+   ring's actual internals sitting on top of it the section was carrying two
+   answers to the same question. The markup went with the rule. */
 .lab .lab-eng { position: relative; background: #fff; padding-bottom: 130px; overflow: hidden; }
-.lab .lab-eng-lines {
-  position: absolute; left: 50%; top: 0; width: 974px; transform: translate(-50%, calc(var(--eng-p, .5) * -140px)); opacity: .15; pointer-events: none;
-}
-.lab .lab-eng-lines g { fill: none; stroke: var(--phenome-blue-300); stroke-width: 1; }
 .lab .lab-eng-grid {
   position: relative; width: min(1200px, calc(100vw - 48px)); margin: 72px auto 0;
   display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;

@@ -1,0 +1,485 @@
+/* ============================================================================
+   devices/ring-lab · bdx · THE BAND DESIGN, ARCHIVED
+
+   Moved here 2026-09-16, by request: everything the PhenomeTech Band page ran
+   between "What is in the box" and "Specifications" is kept intact in the lab,
+   where the store's design work is stored, so the arrangement survives the
+   Band page being cut back to its hero, its coach, its insights, its proof and
+   a shorter specification block.
+
+   Scoped to `.bdx` on a wrapper div rather than to <body>, because this page
+   already carries five other design studies. Every rule below is the Band's
+   own, with `.bd` swapped for `.bdx`; the tokens at the top are the ones
+   devices/band/band.css declares on its body, repeated here for the same
+   reason — the wrapper has to stand on its own.
+   ========================================================================== */
+
+.bdx {
+  --bd-ink: #0a1233;
+  --bd-night: #070c24;
+  --bd-edge: max(24px, calc((100vw - 1260px) / 2));
+  --bd-mid: min(1160px, calc(100vw - 48px));
+  --bd-r: 22px;
+  --bd-ease: cubic-bezier(.16, 1, .3, 1);
+  background: #fff;
+  display: block;
+}
+
+.bdx .bd-h2 {
+  margin: 0 auto;
+  font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; font-weight: 600;
+  letter-spacing: -0.02em; text-align: center; color: var(--ink-900);
+}
+
+/* The two tone display pair. phenome-glass.css § 3 declares it for `.bd`, which
+   is a body class, so the archive states it again for its own wrapper. */
+.bdx .bd-display {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  margin: 0; font-weight: 700; letter-spacing: -0.035em; line-height: .98;
+  font-size: clamp(44px, 8.4vw, 132px);
+  color: #fff;
+}
+.bdx .bd-display .bd-dim { font-size: .62em; line-height: 1.1; color: rgba(255, 255, 255, .55); }
+.bdx .bd-display.is-ink { color: var(--ink-900); }
+.bdx .bd-display.is-ink .bd-dim { color: var(--phenome-blue-200); }
+.bdx .bd-display.is-left { align-items: flex-start; text-align: left; }
+
+/* ---------------------------------------------------------------------------
+   2 · BOX
+   ------------------------------------------------------------------------ */
+.bdx .bd-box { padding: 96px 0 0; }
+.bdx .bd-box-panel {
+  margin: 48px auto 0; width: calc(100% - 2 * clamp(0px, 1vw, 12px));
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  padding: clamp(40px, 7vw, 110px) var(--bd-edge) clamp(44px, 6vw, 90px);
+  border-radius: 40px 40px 0 0;
+  /* flat, and exactly the ground the product shots were lit on (240, 239, 242),
+     so the photographs have no visible edge */
+  background: #f0eff2;
+}
+.bdx .bd-box-item { position: relative; margin: 0; display: grid; justify-items: center; }
+.bdx .bd-box-item img { grid-area: 1 / 1; width: min(100%, 300px); aspect-ratio: 1; object-fit: contain; transition: opacity .45s ease, transform .6s var(--bd-ease); }
+.bdx .bd-box-item[data-box-colour] img { opacity: 0; }
+.bdx .bd-box-item[data-box-colour] img.is-on { opacity: 1; }
+.bdx .bd-box-item:hover img { transform: translateY(-6px); }
+.bdx .bd-box-item figcaption { margin-top: 18px; font-size: 19px; color: var(--ink-900); text-align: center; }
+
+/* ---------------------------------------------------------------------------
+   3 · A WHOLE DAY · marquee
+   ------------------------------------------------------------------------ */
+.bdx .bd-day { background: var(--bd-night); color: #fff; padding: clamp(72px, 9vw, 130px) 0 clamp(80px, 9vw, 130px); overflow: clip; }
+.bdx .bd-day-head { padding-inline: 24px; }
+.bdx .bd-marquee { margin-top: clamp(48px, 6vw, 84px); overflow: clip; }
+.bdx .bd-marquee-row {
+  display: flex; gap: 16px; width: max-content; margin: 0; padding: 0; list-style: none;
+  animation: bd-marquee var(--mq-s, 60s) linear infinite;
+}
+.bdx .bd-marquee:hover .bd-marquee-row { animation-play-state: paused; }
+@keyframes bd-marquee { to { transform: translateX(calc(-50% - 8px)); } }
+.bdx .bd-day-card {
+  position: relative; flex: none; width: clamp(280px, 39vw, 560px); aspect-ratio: 567 / 520;
+  border-radius: 28px; overflow: hidden; background: #1a2140;
+}
+.bdx .bd-day-card.is-wide { width: clamp(340px, 52vw, 750px); }
+.bdx .bd-day-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--bd-ease); }
+.bdx .bd-day-card:hover img { transform: scale(1.05); }
+.bdx .bd-day-card::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7, 12, 36, 0) 45%, rgba(7, 12, 36, .72) 100%);
+}
+.bdx .bd-day-chip {
+  position: absolute; top: 20px; left: 20px; z-index: 1; padding: 8px 14px; border-radius: 99px;
+  font-size: 14px; color: #fff; background: rgba(7, 12, 36, .42);
+  -webkit-backdrop-filter: blur(14px) saturate(150%); backdrop-filter: blur(14px) saturate(150%);
+}
+.bdx .bd-day-chip b { font-weight: 600; margin-left: 4px; }
+.bdx .bd-day-meta, .bdx .bd-day-t { position: absolute; left: 32px; right: 32px; z-index: 1; margin: 0; }
+.bdx .bd-day-meta { bottom: 88px; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, .85); }
+.bdx .bd-day-t { bottom: 30px; font-size: clamp(30px, 3.4vw, 50px); line-height: 1.05; font-weight: 700; letter-spacing: -0.02em; }
+
+/* ---------------------------------------------------------------------------
+   4 · SIGNALS
+   ------------------------------------------------------------------------ */
+.bdx .bd-sig { padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 7vw, 110px); }
+.bdx .bd-sig-head { padding-inline: 24px; }
+.bdx .bd-sig .bd-display { font-size: clamp(44px, 7vw, 108px); }
+.bdx .bd-sig-grid {
+  width: var(--bd-mid); margin: clamp(40px, 5vw, 72px) auto 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.bdx .bd-sig-card {
+  position: relative; aspect-ratio: 1; border-radius: 28px; overflow: hidden; background: #e9ebef;
+  isolation: isolate;
+}
+.bdx .bd-sig-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--bd-ease); }
+.bdx .bd-sig-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10, 18, 51, .55) 100%);
+  transition: opacity .5s ease;
+}
+.bdx .bd-sig-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: 0 36px 34px; text-align: center; color: #fff;
+  transform: translateY(calc(var(--dy, 0px))); transition: transform .6s var(--bd-ease);
+}
+.bdx .bd-sig-copy h3 { margin: 0; font-size: clamp(22px, 2.3vw, 32px); font-weight: 700; letter-spacing: -0.01em; }
+/* the description opens on a 0fr to 1fr grid row, not an animated max-height */
+.bdx .bd-sig-copy { display: grid; grid-template-rows: auto 0fr; transition: grid-template-rows .6s var(--bd-ease), transform .6s var(--bd-ease); }
+.bdx .bd-sig-copy p {
+  margin: 0 auto; padding-top: 10px; max-width: 34ch; min-height: 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .88);
+  opacity: 0; overflow: hidden; transition: opacity .4s ease;
+}
+@media (hover: hover) {
+  .bdx .bd-sig-card:hover img { transform: scale(1.06); }
+  .bdx .bd-sig-card:hover .bd-sig-copy { grid-template-rows: auto 1fr; }
+  .bdx .bd-sig-card:hover .bd-sig-copy p { opacity: 1; }
+  .bdx .bd-sig-card:hover::after { opacity: 1.4; background: linear-gradient(180deg, transparent 35%, rgba(10, 18, 51, .7) 100%); }
+}
+@media (hover: none) { .bdx .bd-sig-copy { grid-template-rows: auto 1fr; } .bdx .bd-sig-copy p { opacity: 1; } }
+
+/* ---------------------------------------------------------------------------
+   5 · COACH · the growing circle
+   ------------------------------------------------------------------------ */
+.bdx .bd-coach { position: relative; height: 230vh; background: #fff; }
+.bdx .bd-coach-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: clip; }
+.bdx .bd-coach-h {
+  position: absolute; left: 50%; top: 42%; width: min(92vw, 980px); margin: 0; text-align: center;
+  transform: translate(-50%, calc(-50% - var(--c-lift, 0px)));
+  font-size: clamp(46px, 7.6vw, 118px); line-height: 1.02; font-weight: 700; letter-spacing: -0.035em;
+  color: var(--ink-900);
+}
+.bdx .bd-orb {
+  position: absolute; inset: 0; background: var(--bd-night);
+  clip-path: circle(var(--orb-r, 0px) at 50% calc(100% + var(--orb-drop, 30vh)));
+  will-change: clip-path;
+}
+.bdx .bd-orb-in {
+  position: absolute; left: 50%; top: 50%; width: 92vw; text-align: center; color: #fff;
+  transform: translate(-50%, calc(-50% + var(--orb-copy, 40px)));
+}
+.bdx .bd-orb-k { margin: 0; font-size: clamp(22px, 2.6vw, 38px); font-weight: 400; }
+.bdx .bd-orb-t {
+  margin: 4px 0 0; font-size: clamp(56px, 8.4vw, 124px); line-height: 1.02; font-weight: 700; letter-spacing: -0.035em;
+  background: var(--bd-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   6 · MICRO INSIGHTS · round carousel
+   ------------------------------------------------------------------------ */
+/* The carousel rides up over the empty lower third of the coach stage, on a
+   ground that is transparent where it overlaps, so there is no seam and no
+   dead screen of ink between "Micro insights" and the first circle. */
+.bdx .bd-apps {
+  position: relative; z-index: 1; margin-top: -34vh; padding: 0 0 clamp(90px, 10vw, 150px); overflow: clip; color: #fff;
+  background: linear-gradient(180deg, transparent 0, var(--bd-night) 34vh);
+}
+.bdx .bd-apps-stage { position: relative; height: calc(var(--app) + 260px); --app: clamp(220px, 26vw, 376px); --gap: clamp(20px, 2vw, 26px); }
+.bdx .bd-apps-glow {
+  position: absolute; left: 50%; top: 42%; width: 900px; height: 700px; transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(113, 133, 189, .32), rgba(32, 58, 133, .12) 55%, transparent 100%);
+  pointer-events: none;
+}
+.bdx .bd-apps-track { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; touch-action: pan-y; }
+.bdx .bd-app {
+  position: absolute; left: 50%; top: 0; width: var(--app); margin-left: calc(var(--app) / -2);
+  transform: translateX(calc(var(--o, 0) * (var(--app) + var(--gap))));
+  transition: transform .9s var(--bd-ease); text-align: center;
+}
+.bdx .bd-app.is-jump { transition: none; }
+.bdx .bd-app-img {
+  display: block; width: 100%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; overflow: hidden;
+  background: #1a2140; cursor: pointer; transition: transform .9s var(--bd-ease), filter .6s ease;
+  filter: saturate(.85) brightness(.9);
+}
+.bdx .bd-app-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bdx .bd-app.on .bd-app-img { filter: none; transform: scale(1.02); }
+.bdx .bd-app-t { margin: 30px 0 0; font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; color: rgba(255, 255, 255, .22); transition: color .6s ease; }
+.bdx .bd-app-d { margin: 12px auto 0; max-width: 30ch; font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, .16); transition: color .6s ease; }
+.bdx .bd-app.on .bd-app-t { color: #fff; }
+.bdx .bd-app.on .bd-app-d { color: rgba(255, 255, 255, .82); }
+.bdx .bd-apps-dots { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: flex; gap: 8px; }
+.bdx .bd-apps-dots i { width: 6px; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .25); transition: width .4s var(--bd-ease), background-color .3s; }
+.bdx .bd-apps-dots i.on { width: 22px; background: #fff; }
+
+/* ---------------------------------------------------------------------------
+   7 · PROOF
+   ------------------------------------------------------------------------ */
+.bdx .bd-proof {
+  position: relative; margin-top: -1px;
+  padding: clamp(70px, 8vw, 110px) 0 clamp(70px, 8vw, 120px);
+  background: linear-gradient(180deg, var(--bd-night) 0%, #2b3558 26%, #9aa3bd 48%, #eef1f7 70%, #fff 100%);
+}
+.bdx .bd-proof .bd-display { font-size: clamp(40px, 5.6vw, 84px); }
+.bdx .bd-proof .bd-display .bd-dim { font-size: 1em; color: rgba(255, 255, 255, .58); }
+.bdx .bd-bento {
+  margin-top: 22px; display: grid; gap: 16px;
+  grid-template-columns: 2.5fr 1fr 1fr; grid-auto-rows: clamp(420px, 44vw, 620px);
+}
+.bdx .bd-bento-card { position: relative; border-radius: 28px; overflow: hidden; background: #1a2140; color: #fff; }
+.bdx .bd-bento-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--bd-ease); }
+.bdx .bd-bento-card:hover > img { transform: scale(1.04); }
+.bdx .bd-bento-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 12, 36, .18), transparent 40%, rgba(7, 12, 36, .6)); }
+.bdx .bd-panel {
+  position: absolute; z-index: 1; top: 18px; left: 18px; right: 18px; padding: 16px 18px; border-radius: 16px;
+  color: var(--ink-900); background: rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+  transform: translateY(12px); opacity: 0; transition: transform .8s var(--bd-ease), opacity .6s ease;
+}
+.bdx .bd-bento-card.is-big .bd-panel { left: 22%; right: auto; width: min(420px, 60%); top: 26px; }
+.bdx .bd-bento.is-in .bd-panel { transform: none; opacity: 1; }
+.bdx .bd-bento.is-in .bd-bento-card:nth-child(2) .bd-panel { transition-delay: .15s; }
+.bdx .bd-bento.is-in .bd-bento-card:nth-child(3) .bd-panel { transition-delay: .3s; }
+.bdx .bd-panel-k { margin: 0; font-size: 13px; font-weight: 600; color: var(--ink-600); }
+.bdx .bd-panel-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.bdx .bd-panel-stats p { margin: 0; padding: 12px; border-radius: 10px; background: #fff; }
+.bdx .bd-panel-stats b { display: block; font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bdx .bd-panel-stats span { font-size: 12px; color: var(--ink-600); }
+.bdx .bd-panel svg { display: block; width: 100%; height: 76px; margin-top: 10px; overflow: visible; }
+.bdx .bd-panel svg path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 1.8s var(--bd-ease) .3s; }
+.bdx .bd-panel svg .ref { stroke: var(--phenome-blue-200); stroke-width: 4; }
+.bdx .bd-panel svg .band { stroke: var(--phenome-blue-500); }
+.bdx .bd-bento.is-in .bd-panel svg path { stroke-dashoffset: 0; }
+.bdx .bd-panel-leg { margin: 8px 0 0; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-600); }
+.bdx .bd-panel-leg i { width: 10px; height: 3px; border-radius: 2px; background: var(--phenome-blue-500); }
+.bdx .bd-panel-leg i.ref { margin-left: 8px; background: var(--phenome-blue-200); height: 5px; }
+.bdx .bd-bars { display: flex; align-items: flex-end; gap: 6px; height: 70px; margin-top: 12px; }
+.bdx .bd-bars i { flex: 1; height: 100%; border-radius: 4px; background: var(--phenome-blue-500); transform-origin: bottom; transform: scaleY(.05); transition: transform 1s var(--bd-ease); }
+.bdx .bd-bento.is-in .bd-bars i { transform: scaleY(var(--h)); }
+.bdx .bd-bento.is-in .bd-bars i:nth-child(2) { transition-delay: .45s; }
+.bdx .bd-bento.is-in .bd-bars i:nth-child(3) { transition-delay: .5s; }
+.bdx .bd-bento.is-in .bd-bars i:nth-child(4) { transition-delay: .55s; }
+.bdx .bd-bento.is-in .bd-bars i:nth-child(5) { transition-delay: .6s; }
+.bdx .bd-bento.is-in .bd-bars i:nth-child(6) { transition-delay: .65s; }
+.bdx .bd-bento-copy { position: absolute; z-index: 1; left: 30px; right: 30px; bottom: 28px; }
+.bdx .bd-bento-copy h3 { margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; }
+.bdx .bd-bento-card:not(.is-big) .bd-bento-copy { left: 24px; right: 24px; }
+.bdx .bd-bento-card:not(.is-big) .bd-bento-copy h3 { font-size: clamp(21px, 1.8vw, 26px); }
+.bdx .bd-bento-copy p { margin: 12px 0 0; max-width: 34ch; font-size: 18px; line-height: 1.45; color: rgba(255, 255, 255, .88); }
+
+/* ---- 7b · the three proofs, as an accordion --------------------------------
+   Asked for by name (2026-09-16), against lunazone.com/products/luna-band: the
+   three pictures under the heading open as the cursor crosses them. Measured on
+   the reference in a browser rather than guessed at — the open panel takes
+   flex-grow 2.5 against 1, over 500ms, its photograph rests at scale 1.05, and
+   the writing on it arrives by fading up through 20px. Those are the numbers
+   below; the curve and the 620ms are ours, because every other transition on
+   this page is already --bd-ease and a snappier 500ms next to them reads as a
+   different page.
+
+   ONE DIFFERENCE FROM THE REFERENCE, deliberately. Luna's closed panels say
+   nothing at all — three photographs and no way to know which is which until
+   you have swept the cursor over all of them. Each closed card here keeps its
+   title, so the section can be read without being played with; what opening
+   adds is the evidence, which is the part that needs the room.
+
+   Everything hangs off one number, `--bd-open`, set in exactly one place below
+   and inherited by every child that has an opinion about it. That is what keeps
+   the width, the photograph, the glass panel, the drawn line, the bars and the
+   type all moving on the same 620ms instead of drifting into six animations.
+   Custom properties are not interpolated here — `--bd-open` flips 0 to 1 — but
+   the properties computed FROM it are, which is why each one still carries its
+   own transition.
+
+   Scoped to a pointer that can hover and to the width where three cards side by
+   side are still wide enough to read. Below that, and on a touch screen where
+   there is no hover to give, § 10 keeps the stacked grid with every card open.
+   ------------------------------------------------------------------------ */
+@media (min-width: 1025px) and (hover: hover) {
+  .bdx .bd-bento {
+    display: flex; align-items: stretch;
+    height: clamp(420px, 44vw, 620px);
+  }
+  .bdx .bd-bento-card {
+    --bd-open: 0;
+    flex: 1 1 0; min-width: 0;
+    flex-grow: calc(1 + var(--bd-open) * 1.5);
+    transition: flex-grow .62s var(--bd-ease);
+  }
+  /* THE ONE PLACE the state is decided. At rest the first card is the open one,
+     so the section never greets a reader as three equal slivers; from the moment
+     the cursor is inside the row, the card under it is. :has() is what lets the
+     row know that one of its children is hovered — where it is missing the first
+     clause simply drops out, the row rests as equal thirds, and hover still
+     works, which is a plainer section rather than a broken one. */
+  .bdx .bd-bento:not(:has(.bd-bento-card:hover)):not(:has(.bd-bento-card:focus-visible)) .bd-bento-card.is-big,
+  .bdx .bd-bento-card:hover,
+  .bdx .bd-bento-card:focus-visible { --bd-open: 1; }
+
+  /* The cards are made focusable in the markup so this is reachable from the
+     keyboard; the ring is drawn on the card itself, inside its own rounding. */
+  .bdx .bd-bento-card:focus-visible { outline: 2px solid var(--ph-focus, #0071e3); outline-offset: 3px; }
+
+  /* The photograph rests slightly into the frame on the open card, so the image
+     is not simply revealed wider — it settles. Replaces the flat :hover scale,
+     which fired on the closed cards too. */
+  .bdx .bd-bento-card > img,
+  .bdx .bd-bento-card:hover > img {
+    transform: scale(calc(1 + var(--bd-open) * .05));
+    transition: transform .62s var(--bd-ease);
+  }
+
+  /* One position for all three panels. The old 22% offset belonged to a card
+     whose width never changed; on a card that is growing it would drift across
+     the photograph for the whole 620ms. A fixed left and a fixed width also mean
+     the numbers inside never re-wrap mid-movement. */
+  .bdx .bd-bento-card .bd-panel,
+  .bdx .bd-bento-card.is-big .bd-panel {
+    top: 22px; left: 22px; right: auto; width: min(420px, calc(100% - 44px));
+  }
+  /* Stacked delays are right for a section arriving on scroll and wrong for a
+     cursor, which expects the panel it just asked for, not the third one. */
+  .bdx .bd-bento.is-in .bd-bento-card:nth-child(2) .bd-panel,
+  .bdx .bd-bento.is-in .bd-bento-card:nth-child(3) .bd-panel { transition-delay: 0s; }
+  .bdx .bd-bento.is-in .bd-panel {
+    opacity: var(--bd-open);
+    transform: translateY(calc((1 - var(--bd-open)) * 14px));
+    transition: transform .62s var(--bd-ease), opacity .45s var(--bd-ease);
+  }
+
+  /* The line draws and the bars rise AS the card opens, rather than having both
+     already played themselves out behind a panel nobody could see. Same number,
+     so the evidence lands exactly as the room for it finishes arriving. */
+  .bdx .bd-bento.is-in .bd-panel svg path {
+    stroke-dashoffset: calc(400 * (1 - var(--bd-open)));
+    transition: stroke-dashoffset 1.1s var(--bd-ease) .12s;
+  }
+  .bdx .bd-bento.is-in .bd-bars i,
+  .bdx .bd-bento.is-in .bd-bars i:nth-child(n) {
+    transform: scaleY(calc(.05 + (var(--h) - .05) * var(--bd-open)));
+    transition: transform .7s var(--bd-ease) .1s;
+  }
+
+  /* The title is the one thing a closed card keeps, so it only grows; the
+     sentence under it is what the extra width was for, and it waits there. */
+  .bdx .bd-bento-card .bd-bento-copy,
+  .bdx .bd-bento-card:not(.is-big) .bd-bento-copy { left: 26px; right: 26px; }
+  .bdx .bd-bento-card .bd-bento-copy h3,
+  .bdx .bd-bento-card:not(.is-big) .bd-bento-copy h3 {
+    font-size: calc(clamp(20px, 1.7vw, 25px) + var(--bd-open) * 8px);
+    transition: font-size .62s var(--bd-ease);
+  }
+  .bdx .bd-bento-copy p {
+    opacity: var(--bd-open);
+    transform: translateY(calc((1 - var(--bd-open)) * 12px));
+    transition: opacity .45s var(--bd-ease) .06s, transform .62s var(--bd-ease);
+  }
+}
+
+/* Stillness, meant properly: the accordion is a state, not a flourish, so it
+   still opens — it just stops travelling to get there. Everything that was a
+   movement becomes an instant change of state, and the widths, which are the
+   information, are the one thing left alone. */
+@media (min-width: 1025px) and (hover: hover) and (prefers-reduced-motion: reduce) {
+  .bdx .bd-bento-card > img,
+  .bdx .bd-bento-card:hover > img { transform: none; }
+  .bdx .bd-bento.is-in .bd-panel { transform: none; }
+  .bdx .bd-bento-copy p { transform: none; }
+  .bdx .bd-bento-card,
+  .bdx .bd-bento.is-in .bd-panel,
+  .bdx .bd-bento.is-in .bd-panel svg path,
+  .bdx .bd-bento.is-in .bd-bars i,
+  .bdx .bd-bento-card .bd-bento-copy h3,
+  .bdx .bd-bento-copy p { transition: none; }
+}
+
+.bdx .bd-fits {
+  margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--divider);
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+}
+.bdx .bd-fit { display: flex; flex-direction: column; gap: 16px; padding: 12px; border-radius: 18px; transition: background-color .3s ease; }
+.bdx .bd-fit:hover { background: var(--gl-tint-sunk); }
+.bdx .bd-fit img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: var(--phenome-blue-100); }
+.bdx .bd-fit p { margin: 0; flex: 1; font-size: 17px; line-height: 1.4; color: var(--ink-900); }
+.bdx .bd-pill {
+  align-self: flex-start; padding: 10px 28px; border-radius: 99px; font-size: 15px;
+  color: var(--ink-900) !important; text-decoration: none !important;
+  box-shadow: inset 0 0 0 1.5px var(--ink-900); transition: background-color .2s ease, color .2s ease;
+}
+.bdx .bd-pill:hover { background: var(--ink-900); color: #fff !important; }
+
+/* ---------------------------------------------------------------------------
+   8 · SPECIFICATIONS
+   ------------------------------------------------------------------------ */
+.bdx .bd-specs { padding: clamp(70px, 8vw, 110px) 0; background: var(--gl-tint-sunk); }
+.bdx .bd-specs-grid {
+  width: min(1280px, calc(100vw - 48px)); margin: clamp(36px, 4vw, 56px) auto 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4.5vw, 58px); align-items: start;
+}
+.bdx .bd-specs-img { margin: 0; position: sticky; top: 90px; border-radius: 20px; overflow: hidden; aspect-ratio: 1200 / 1490; max-height: calc(100vh - 120px); }
+.bdx .bd-specs-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bdx .bd-spec { border-top: 1px solid var(--border-strong); }
+.bdx .bd-spec:last-child { border-bottom: 1px solid var(--border-strong); }
+.bdx .bd-spec summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 26px 0;
+  list-style: none; cursor: pointer; font-size: clamp(19px, 1.6vw, 23px); font-weight: 600; color: var(--ink-900);
+}
+.bdx .bd-spec summary::-webkit-details-marker { display: none; }
+.bdx .bd-spec summary i { background: transparent; }
+.bdx .bd-spec > div { overflow: hidden; }
+.bdx .bd-spec ul { margin: 0; padding: 0 0 26px; list-style: none; display: grid; gap: 10px; }
+.bdx .bd-spec li { position: relative; padding-left: 18px; font-size: 17px; line-height: 1.45; color: var(--ink-600); }
+.bdx .bd-spec li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--phenome-blue-300); }
+
+/* ---------------------------------------------------------------------------
+   9 · QUESTIONS
+   ------------------------------------------------------------------------ */
+.bdx .bd-faq { padding: clamp(80px, 9vw, 130px) 0; }
+/* The question list itself is the shared component, `.acc.is-faq` in
+   shared.css (2026-09-16). What stays here is the band's own padding and
+   the width its column is centred in. The tabbed two column panel that
+   used to live here, and the heading rule it carried, are gone: the
+   heading's numbers moved into the kit as `.faq-h`. */
+.bdx .bd-faq-wrap { width: min(1100px, calc(100vw - 48px)); margin: 0 auto; }
+
+/* ---------------------------------------------------------------------------
+   10 · NARROW WIDTHS
+   ------------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .bdx .bd-buy { grid-template-columns: 1fr; }
+  .bdx .bd-gal { position: relative; top: 0; aspect-ratio: 1; }
+  .bdx .bd-bento { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(360px, 60vw, 520px); }
+  .bdx .bd-bento-card.is-big { grid-column: 1 / -1; }
+  .bdx .bd-fits { grid-template-columns: repeat(3, 1fr); }
+  .bdx .bd-specs-grid { grid-template-columns: 1fr; }
+  .bdx .bd-specs-img { position: relative; top: 0; aspect-ratio: 4 / 3; max-height: none; }
+}
+@media (max-width: 760px) {
+  .bdx .bd-box-panel { gap: 10px; border-radius: 28px 28px 0 0; padding-inline: 16px; }
+  .bdx .bd-box-item figcaption { font-size: 14px; line-height: 1.3; margin-top: 10px; }
+  .bdx .bd-sig-grid { grid-template-columns: 1fr; }
+  .bdx .bd-sig-copy { padding: 0 22px 24px; }
+  .bdx .bd-bento { grid-template-columns: 1fr; }
+  .bdx .bd-bento-card.is-big .bd-panel { left: 18px; right: 18px; width: auto; }
+  .bdx .bd-fits { grid-template-columns: 1fr 1fr; }
+  .bdx .bd-coach { height: 190vh; }
+  .bdx .bd-day-meta { bottom: 70px; font-size: 15px; left: 22px; }
+  .bdx .bd-day-t { left: 22px; bottom: 24px; }
+}
+@media (max-width: 560px) {
+  .bdx .bd-acc-b { grid-template-columns: 1fr; }
+  .bdx .bd-cta { grid-template-columns: 1fr 1fr; }
+  .bdx .bd-cta-price { grid-column: 1 / -1; }
+  .bdx .bd-panel-stats b { font-size: 20px; }
+  .bdx .bd-fits { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bdx .bd-marquee-row { animation: none; }
+  .bdx .bd-marquee { overflow-x: auto; }
+  .bdx .bd-slide, .bdx .bd-app, .bdx .bd-app-img { transition: none; }
+  .bdx .bd-gal-dot.on::after { animation: none; transform: none; }
+}
+
+/* The chevron on a specification row. Its base rule lives in the Band's hero
+   block, which did not travel with these sections, so it is stated here: the
+   same 8px arrow on the same curve, and § 8 above already turns its plate off. */
+.bdx .bd-spec summary i {
+  flex: none; width: 30px; height: 30px; border-radius: 8px; position: relative;
+  background: transparent;   /* § 8 above says the same; a spec row has no plate */
+}
+.bdx .bd-spec summary i::before {
+  content: ""; position: absolute; left: 50%; top: 45%; width: 8px; height: 8px;
+  border: solid var(--ink-900); border-width: 0 1.6px 1.6px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform .35s var(--bd-ease), top .35s var(--bd-ease);
+}
+.bdx .bd-spec[open] summary i::before { top: 58%; transform: translate(-50%, -50%) rotate(225deg); }

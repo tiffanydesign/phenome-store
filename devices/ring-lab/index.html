@@ -25,7 +25,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring-lab/plx.css" rel="stylesheet"/>
-<link rel="preload" as="image" href="/phenome-store/assets/lab/hero-rings.webp" fetchpriority="high"/>
+<!-- The archived Band design, scoped to the `.bdx` wrapper at the foot of the
+     page. Loaded last so it can stand on its own tokens. -->
+<link href="/phenome-store/devices/ring-lab/bdx.css" rel="stylesheet"/>
 <!-- Motion states that start hidden are keyed to this class, so without
      script the page is simply shown. Set before first paint. -->
 <script>document.documentElement.classList.add('lab-js');</script>
@@ -33,42 +35,6 @@
 <body class="lab">
 <div data-ph-nav=""></div>
 <main>
-
-<!-- 0 · HERO · name, promise, two pills, the product rising under them -->
-<section class="hero lab-hero" data-lab-hero="">
-<div class="lab-hero-media" aria-hidden="true"><img alt="" decoding="async" fetchpriority="high" height="1981" src="/phenome-store/assets/lab/hero-rings.webp" width="2400"/></div>
-<div class="lab-hero-text">
-<h1 class="lab-hero-name lab-rise">PhenomeTech Ring</h1>
-<p class="lab-hero-tag lab-rise">Longevity by design</p>
-<div class="lab-hero-cta lab-rise">
-<a class="btn lab-pill" href="/phenome-store/store/phenometech-ring/">Add to cart</a>
-<button class="lab-pill is-soft" data-film-open="" type="button">Watch the film</button>
-</div>
-</div>
-</section>
-
-<!-- 1 · BATTERY · pinned dial, the number counts with the scroll -->
-<div class="lab-battery" data-battery="">
-<div class="lab-battery-pin">
-<div class="lab-battery-bg" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/ring_worn_water.webp"/></div>
-<div class="lab-dial">
-<div class="lab-dial-glass" aria-hidden="true"></div>
-<svg class="lab-dial-arcs" viewBox="0 0 676 676" aria-hidden="true">
-<circle class="lab-arc-track" cx="338" cy="338" r="330"/>
-<circle class="lab-arc" cx="338" cy="338" r="330"/>
-<circle class="lab-arc-mid" cx="338" cy="338" r="300"/>
-</svg>
-<div class="lab-dial-text">
-<p class="lab-label">Up to</p>
-<p class="lab-counter" data-count="">7</p>
-<div class="lab-dial-units">
-<p class="lab-unit is-a">days battery life</p>
-<p class="lab-unit is-b">metres<br/>water resistant</p>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 <!-- 2 · CHARGING CASE · copy, then a pinned frame sequence -->
 <div class="lab-case" data-case="">
@@ -187,7 +153,6 @@
 
 <!-- 8 · ENGINEERING · ring left, four facts right -->
 <div class="lab-eng">
-<svg class="lab-eng-lines" viewBox="0 0 974 1385" aria-hidden="true"><g><circle cx="487" cy="560" r="420"/><circle cx="487" cy="560" r="300"/><circle cx="487" cy="560" r="180"/><path d="M0 560H974M487 0V1385M130 200L844 920M844 200L130 920"/></g></svg>
 <div class="lab-textblock">
 <p class="lab-label">Engineering</p>
 <h2 class="lab-h2 is-xl">Performance<br/>inside out</h2>
@@ -209,59 +174,6 @@
 <div class="lab-film-over">
 <h2 class="lab-film-h">Built for serious health tracking</h2>
 <button class="lab-pill is-glass" data-film-open="" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5l9 5.5-9 5.5z"/></svg>Watch the film</button>
-</div>
-</div>
-
-<!-- 10 · APP · phone, four tabs, the highlight slides -->
-<div class="lab-app" data-app="">
-<div class="lab-textblock">
-<p class="lab-label">Phenome app</p>
-<h2 class="lab-h2">Actionable health insights</h2>
-</div>
-<div class="lab-phone">
-<div class="lab-phone-screen">
-<div class="app-scr on" data-scr="0">
-<p class="app-k">Sleep score</p><p class="app-big">86</p><p class="app-s">7 h 31 in bed, 1 h 42 deep</p>
-<div class="app-hyp" aria-hidden="true"><i style="--h:.3;--w:8"></i><i style="--h:.7;--w:12"></i><i style="--h:.95;--w:6"></i><i style="--h:.55;--w:14"></i><i style="--h:.85;--w:9"></i><i style="--h:.4;--w:10"></i><i style="--h:.9;--w:7"></i><i style="--h:.6;--w:12"></i><i style="--h:.25;--w:8"></i></div>
-<p class="app-note">Deep sleep came early, a good sign for recovery.</p>
-</div>
-<div class="app-scr" data-scr="1">
-<p class="app-k">Vitals</p>
-<ul class="app-vitals"><li><span>Resting heart rate</span><b>54</b></li><li><span>Heart rate variability</span><b>62 ms</b></li><li><span>Blood oxygen</span><b>98%</b></li><li><span>Skin temperature</span><b>+0.1°</b></li></ul>
-<p class="app-note">All four are within your usual range.</p>
-</div>
-<div class="app-scr" data-scr="2">
-<p class="app-k">Readiness</p><div class="app-ring" style="--p:.78" aria-hidden="true"><b>78</b></div>
-<p class="app-note">A good day for a harder session. Keep the evening light.</p>
-</div>
-<div class="app-scr" data-scr="3">
-<p class="app-k">Biological age</p><p class="app-big">38.4</p><p class="app-s">2.1 years younger than your birthday</p>
-<svg class="app-line" viewBox="0 0 200 70" aria-hidden="true"><path d="M0 20 C30 22 50 30 80 34 S130 46 160 50 S190 56 200 58"/></svg>
-<p class="app-note">Read against your genome and six months of sleep.</p>
-</div>
-</div>
-<div class="lab-tabs" role="tablist" aria-label="App screens">
-<span class="lab-tab-hl" aria-hidden="true"></span>
-<button aria-selected="true" class="lab-tab on" data-tab="0" role="tab" type="button">Sleep</button>
-<button aria-selected="false" class="lab-tab" data-tab="1" role="tab" type="button">Vitals</button>
-<button aria-selected="false" class="lab-tab" data-tab="2" role="tab" type="button">Readiness</button>
-<button aria-selected="false" class="lab-tab" data-tab="3" role="tab" type="button"><span class="lab-pulse" aria-hidden="true"><i></i><i></i><i></i></span>Longevity</button>
-</div>
-</div>
-</div>
-
-<!-- 11 · FEATURES · three column cards -->
-<div class="lab-feat">
-<h2 class="lab-h2">Everything that matters</h2>
-<div class="lab-feat-grid">
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-sleep.webp"/><p class="lab-card-t">Sleep score</p><p class="lab-card-b">Time in every stage, resting heart rate through the night and a single score each morning that says how well you actually recovered, not just how long you lay down.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-readiness.webp"/><p class="lab-card-t">Readiness</p><p class="lab-card-b">Strain, sleep and heart rate variability combined into one daily number, so you know when to push and when to hold back.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-stress.webp"/><p class="lab-card-t">Stress balance</p><p class="lab-card-b">How your heart answers the day, hour by hour, with a clear read of when you were stretched and when you settled.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-movement.webp"/><p class="lab-card-t">Movement</p><p class="lab-card-b">Steps, workouts and the everyday activity between them, counted toward a goal that adapts to how you slept.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-age.webp"/><p class="lab-card-t">Biological age</p><p class="lab-card-b">One number built from your physiology and your genome, tracked over months so you can see habits move it.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-insight.webp"/><p class="lab-card-t">Genome linked insight</p><p class="lab-card-b">Signals read in the context of your whole genome and microbiome, so advice is about your body rather than an average one.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-cycle.webp"/><p class="lab-card-t">Cycle tracking</p><p class="lab-card-b">Temperature shifts mark each phase of your cycle, and predictions sharpen with every month you wear the ring.</p></article>
-<article class="lab-fcard lab-in"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/lab/feat-heart.webp"/><p class="lab-card-t">Heart health</p><p class="lab-card-b">Overnight heart rhythm and blood oxygen read against your own baseline, with changes flagged early and explained.</p></article>
 </div>
 </div>
 
@@ -446,68 +358,12 @@
 </div>
 </div>
 
-<!-- 15 · CHOOSING THE RIGHT FIT · comparison table, the highlighted column and
-     the row names stay put when it scrolls sideways, the header follows down -->
-<div class="fit-cmp" id="compare" data-cmp="">
-<h2 class="fit-cmp-title fit-rise">Choosing the right fit? Start here</h2>
-<div class="fit-table-wrap">
-<div class="fit-table" data-cmp-scroll="">
-<div class="fit-row is-head" data-cmp-head="">
-<div class="fit-name-cell"></div>
-<div class="fit-cell is-us"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-ring"/></svg>PhenomeTech Ring Titanium</div>
-<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-ring"/></svg>PhenomeTech Ring Ceramic</div>
-<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-band"/></svg>PhenomeTech Band</div>
-<div class="fit-cell"><svg class="fit-dev" aria-hidden="true"><use href="#fit-ic-watch"/></svg>A typical smartwatch</div>
-</div>
-
-<div class="fit-row is-group"><div class="fit-name-cell">Pricing</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row"><div class="fit-name-cell">Product price</div><div class="fit-cell is-us">£179</div><div class="fit-cell">£199</div><div class="fit-cell">£149</div><div class="fit-cell">Varies widely</div></div>
-<div class="fit-row"><div class="fit-name-cell">Subscription fee</div><div class="fit-cell is-us">Free</div><div class="fit-cell">Free</div><div class="fit-cell">Free</div><div class="fit-cell">Often extra</div></div>
-<div class="fit-row"><div class="fit-name-cell">Read with your genome and microbiome</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div></div>
-
-<div class="fit-row is-group"><div class="fit-name-cell">Specifications</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row"><div class="fit-name-cell">Weight</div><div class="fit-cell is-us">About 4 g</div><div class="fit-cell">About 6 g</div><div class="fit-cell">24 g with strap</div><div class="fit-cell">Usually 30 g or more</div></div>
-<div class="fit-row"><div class="fit-name-cell">Battery life</div><div class="fit-cell is-us">Up to 7 days</div><div class="fit-cell">Up to 7 days</div><div class="fit-cell">Up to 7 days</div><div class="fit-cell">Often 1 to 2 days</div></div>
-<div class="fit-row"><div class="fit-name-cell">Materials</div><div class="fit-cell is-us">Grade 5 aerospace titanium</div><div class="fit-cell">High density zirconia ceramic</div><div class="fit-cell">Anodised aluminium, woven strap</div><div class="fit-cell">Aluminium or steel</div></div>
-<div class="fit-row"><div class="fit-name-cell">Water resistance</div><div class="fit-cell is-us">100 metres</div><div class="fit-cell">100 metres</div><div class="fit-cell">50 metres</div><div class="fit-cell">Usually 50 metres</div></div>
-<div class="fit-row"><div class="fit-name-cell">Screen</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
-
-<div class="fit-row is-group"><div class="fit-name-cell">Health monitoring</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row is-sub"><div class="fit-name-cell">Sleep</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row"><div class="fit-name-cell">Sleep stages</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
-<div class="fit-row"><div class="fit-name-cell">Comfortable to sleep in</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell">Sometimes</div></div>
-<div class="fit-row is-sub"><div class="fit-name-cell">Vitals</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row"><div class="fit-name-cell">Heart rate</div><div class="fit-cell is-us">Day and night</div><div class="fit-cell">Day and night</div><div class="fit-cell">Day and night</div><div class="fit-cell">Day and night</div></div>
-<div class="fit-row"><div class="fit-name-cell">Heart rate variability</div><div class="fit-cell is-us">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Periodically</div></div>
-<div class="fit-row"><div class="fit-name-cell">Blood oxygen</div><div class="fit-cell is-us">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Overnight</div><div class="fit-cell">Periodically</div></div>
-<div class="fit-row"><div class="fit-name-cell">Skin temperature</div><div class="fit-cell is-us">Continuous</div><div class="fit-cell">Continuous</div><div class="fit-cell">Continuous</div><div class="fit-cell">Varies</div></div>
-<div class="fit-row is-sub"><div class="fit-name-cell">Activity</div><div class="fit-cell is-us"></div><div class="fit-cell"></div><div class="fit-cell"></div><div class="fit-cell"></div></div>
-<div class="fit-row"><div class="fit-name-cell">Steps and calories</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
-<div class="fit-row"><div class="fit-name-cell">Training load and zones</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-no"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
-<div class="fit-row is-group is-line"><div class="fit-name-cell">Stress balance</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div></div>
-<div class="fit-row is-group is-line is-last"><div class="fit-name-cell">Cycle tracking</div><div class="fit-cell is-us"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell"><svg class="fit-mk"><use href="#fit-yes"/></svg></div><div class="fit-cell">Varies</div></div>
-</div>
-</div>
-</div>
-
-
 <!-- ===========================================================================
      16 to 36 · THE LONG STORY · the body of ringconn.com/pages/ringconn-gen-2,
      section for section and in the same order, told for the PhenomeTech Ring.
      Styles in gen-a.css and gen-b.css, behaviour in gen.js.
      ======================================================================== -->
 <div class="gx" data-gx="">
-
-<!-- 16 · film hero, the lines arrive on the film's clock -->
-<div class="gx-hero" data-gx-film="">
-<video class="gx-hero-v" muted="" playsinline="" preload="metadata" poster="/phenome-store/assets/lab/gen/hero.webp" aria-hidden="true"><source src="/phenome-store/assets/lab/gen/hero.mp4" type="video/mp4"/></video>
-<div class="gx-hero-shade" aria-hidden="true"></div>
-<div class="gx-hero-copy">
-<p class="gx-vt gx-hero-brand" data-at="0.4"><img src="/phenome-store/assets/brand/phenome-icon.png" alt="" width="28" height="28"/>PhenomeTech Ring</p>
-<h2 class="gx-vt gx-hero-h" data-at="1.1">The smart ring that reads your night<br/>against your genome</h2>
-<a class="gx-vt gx-btn" data-at="1.9" href="/phenome-store/store/phenometech-ring/">Shop now</a>
-</div>
-</div>
 
 <!-- 17 and 18 · the question, then the night it is about -->
 <div class="gx-ask" data-gx-ask="">
@@ -578,16 +434,6 @@
 <div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#e9e6ff"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="15" width="28" height="18" rx="4" fill="none" stroke="#8f7cff" stroke-width="3"/><path d="M40 21v6" stroke="#8f7cff" stroke-width="3" stroke-linecap="round"/><rect x="12" y="19" width="16" height="10" rx="2" fill="#8f7cff"/></svg></span><p class="gx-icon-n">7 days</p><p class="gx-icon-l">Battery life<br/>on a single charge</p></div>
 <div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#ffeee2"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c6 8 10 14 10 20a10 10 0 0 1-20 0c0-6 4-12 10-20z" fill="#ff9457"/></svg></span><p class="gx-icon-n">100 m</p><p class="gx-icon-l">Water resistance<br/>for swims and showers</p></div>
 <div class="gx-icon gx-in"><span class="gx-icon-c" style="--c:#ffe6ec"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="21" rx="14" ry="9" fill="none" stroke="#ff6f8f" stroke-width="3"/><path d="M10 21v5c0 5 6.3 9 14 9s14-4 14-9v-5" fill="none" stroke="#ff6f8f" stroke-width="3"/></svg></span><p class="gx-icon-n">4 g</p><p class="gx-icon-l">Titanium ring<br/>at size 8</p></div>
-</div>
-
-<!-- 21 · words over a photograph -->
-<div class="gx-float is-sleep">
-<img class="gx-float-img" src="/phenome-store/assets/pages/ring_ceramic_worn.webp" alt="" loading="lazy" decoding="async"/>
-<div class="gx-float-copy gx-in">
-<h2 class="gx-float-h">Deeper sleep<br/>Deeper insight</h2>
-<p class="gx-float-d">The PhenomeTech Ring looks after your nights with</p>
-<ul class="gx-float-l"><li>Tracking of light, deep and rapid eye movement sleep</li><li>Overnight breathing, heart rate and heart rate variability</li><li>A morning read on how well you actually recovered</li></ul>
-</div>
 </div>
 
 <!-- 22 · the app's sleep cards, a row that pages sideways -->
@@ -1241,7 +1087,7 @@
 <p class="sam-sub sam-up d1" style="margin-inline:auto">From £179, with delivery, returns and the app included, and no subscription for any of it.</p>
 <p class="sam-up d2" style="margin:0">
 <a class="sam-cta" href="/phenome-store/store/phenometech-ring/">Add to cart</a>
-<a class="sam-cta is-ghost" href="#compare">Compare the range</a>
+<a class="sam-cta is-ghost" href="/phenome-store/store/devices/#compare">Compare the range</a>
 </p>
 </div>
 </section>
@@ -1408,7 +1254,7 @@
 <a class="px-btn is-ghost" href="/phenome-store/devices/band/">Choose the band</a>
 <h5>Includes</h5>
 <ul><li>Both strap sizes</li><li>Charging dock and cable</li><li>Training load and zones</li><li>Water resistant to 50 metres</li><li>The app, no subscription</li></ul>
-<a class="px-plan-foot" href="#compare">Compare devices</a>
+<a class="px-plan-foot" href="/phenome-store/store/devices/#compare">Compare devices</a>
 </article>
 <article class="px-plan is-top px-up d1">
 <span class="px-plan-flag">Our lightest</span>
@@ -1418,7 +1264,7 @@
 <a class="px-btn" href="/phenome-store/store/phenometech-ring/">Choose titanium</a>
 <h5>Includes</h5>
 <ul><li>About 4 g at size 8</li><li>Charging case</li><li>Water resistant to 100 metres</li><li>Free sizing kit</li><li>The app, no subscription</li></ul>
-<a class="px-plan-foot" href="#compare">Compare devices</a>
+<a class="px-plan-foot" href="/phenome-store/store/devices/#compare">Compare devices</a>
 </article>
 <article class="px-plan px-up d2">
 <h3 class="px-display">Ring, ceramic</h3>
@@ -1427,7 +1273,7 @@
 <a class="px-btn is-ghost" href="/phenome-store/store/phenometech-ring/">Choose ceramic</a>
 <h5>Includes</h5>
 <ul><li>About 6 g at size 8</li><li>Charging case</li><li>Water resistant to 100 metres</li><li>Free sizing kit</li><li>Medical grade inner shell</li></ul>
-<a class="px-plan-foot" href="#compare">Compare devices</a>
+<a class="px-plan-foot" href="/phenome-store/store/devices/#compare">Compare devices</a>
 </article>
 </div>
 </section>
@@ -1479,6 +1325,159 @@
 
 </div>
 
+<!-- ===========================================================================
+     61 to 67 · THE BAND DESIGN, ARCHIVED · moved here 2026-09-16 by request.
+
+     This is devices/band as it ran between "What is in the box" and
+     "Specifications", kept whole: the box panel, the whole day marquee, the
+     photographic biomarker grid, the growing dark circle, the round insight
+     carousel, the bento proof and the specification accordion. The Band page
+     itself now carries a shorter story, so the arrangement is stored in the
+     lab rather than lost. Styles in bdx.css, behaviour in bdx.js; both are the
+     Band's own with `.bd` swapped for the `.bdx` wrapper below.
+     ======================================================================== -->
+<div class="bdx" data-bdx="">
+
+<!-- 61 · what is in the box -->
+<section class="bd-box">
+<h2 class="bd-h2">What is in the box</h2>
+<div class="bd-box-panel">
+<figure class="bd-box-item"><img alt="The charging dock and its cable" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/><figcaption>Charging dock and USB C cable</figcaption></figure>
+<figure class="bd-box-item" data-box-colour=""><img alt="The band on its frame" data-colour="sage" class="is-on" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-band-sage.webp" width="900"/><figcaption>PhenomeTech Band</figcaption></figure>
+<figure class="bd-box-item" data-box-colour=""><img alt="The spare strap" data-colour="sage" class="is-on" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-strap-sage.webp" width="900"/><figcaption>Spare strap, medium to large</figcaption></figure>
+</div>
+</section>
+
+<!-- 62 · a whole day · the athlete marquee, told as hours instead of names -->
+<section class="bd-day">
+<div class="bd-day-head">
+<h2 class="bd-display"><span class="bd-dim">Tested through whole days</span><span>Not only the workout</span></h2>
+</div>
+<div class="bd-marquee" data-marquee="">
+<ul class="bd-marquee-row">
+<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp"/><span class="bd-day-chip">Resting heart rate <b>54</b></span><p class="bd-day-meta">6.45 am, at home</p><p class="bd-day-t">Morning stretch</p></li>
+<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_sports_strength.webp"/><span class="bd-day-chip">Training load <b>Moderate</b></span><p class="bd-day-meta">7.30 am, living room</p><p class="bd-day-t">Strength before work</p></li>
+<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/band_clinic_expect.webp"/><span class="bd-day-chip">Stress <b>Settling</b></span><p class="bd-day-meta">8.15 am, the commute</p><p class="bd-day-t">Calm on the train</p></li>
+<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/hub_home_longevity.webp"/><span class="bd-day-chip">Swim pace <b>2.05 per 100 m</b></span><p class="bd-day-meta">12.30 pm, the lido</p><p class="bd-day-t">Lunchtime lengths</p></li>
+<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/sports_hero.webp"/><span class="bd-day-chip">Elevation <b>640 m</b></span><p class="bd-day-meta">Saturday, the fells</p><p class="bd-day-t">A long hill day</p></li>
+<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_night.webp"/><span class="bd-day-chip">Deep sleep <b>1 h 42</b></span><p class="bd-day-meta">11.20 pm, lights out</p><p class="bd-day-t">Recovery overnight</p></li>
+</ul>
+</div>
+</section>
+
+<!-- 63 · signals · two by two photographic cards, title on the photograph -->
+<section class="bd-sig">
+<div class="bd-sig-head"><h2 class="bd-display is-ink"><span class="bd-dim">Read your</span><span>Biomarkers</span></h2></div>
+<div class="bd-sig-grid">
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-sleep.webp"/><div class="bd-sig-copy"><h3>Understand your sleep</h3><p>Light, deep and dream sleep, the debt you carry into tomorrow, and the bedtime that pays it back.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-cycle.webp"/><div class="bd-sig-copy"><h3>Follow your cycle</h3><p>Temperature shifts mark each phase, so predictions sharpen with every month you wear it.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-temp.webp"/><div class="bd-sig-copy"><h3>Skin temperature</h3><p>Nightly change against your own baseline, often the first sign that something is on its way.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-training.webp"/><div class="bd-sig-copy"><h3>Train with intent</h3><p>Workouts detected on their own, with load, effect and the recovery each one asks for.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-vo2.webp"/><div class="bd-sig-copy"><h3>Cardio fitness</h3><p>An estimate of your VO₂ max from everyday runs and walks, one of the strongest markers of healthy ageing.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-hrv.webp"/><div class="bd-sig-copy"><h3>Heart rate variability</h3><p>How ready your nervous system is today, read overnight while nothing else is moving.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-oxygen.webp"/><div class="bd-sig-copy"><h3>Blood oxygen</h3><p>Saturation through the night, with dips flagged when they fall outside your usual range.</p></div></article>
+<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-heart.webp"/><div class="bd-sig-copy"><h3>Heart rate</h3><p>Continuous, day and night, from your lowest sleeping beat to your hardest interval.</p></div></article>
+</div>
+</section>
+
+<!-- 64 · the coach · a big line, then a dark circle that grows with the scroll -->
+<section class="bd-coach" data-coach="">
+<div class="bd-coach-stage">
+<h2 class="bd-coach-h bd-display is-ink"><span class="bd-dim">With Phenome</span><span>By your side</span></h2>
+<div class="bd-orb" data-orb="">
+<div class="bd-orb-in">
+<p class="bd-orb-t bd-display"><span class="bd-dim">Powered by</span><span>Phenome insights</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 65 · phenome insights · round carousel, the centre one lit -->
+<section class="bd-apps" aria-label="Phenome insights">
+<div class="bd-apps-stage" data-apps="" aria-roledescription="carousel">
+<div class="bd-apps-glow" aria-hidden="true"></div>
+<ul class="bd-apps-track" data-apps-track="">
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-caffeine.webp"/></button><p class="bd-app-t">Caffeine window</p><p class="bd-app-d">The hours when a coffee will not cost you tonight's deep sleep, tuned to how your genes clear caffeine.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-hybrid.webp"/></button><p class="bd-app-t">Hybrid training</p><p class="bd-app-d">Interval sessions that mix running and strength, paced by your heart rate zones.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-jetlag.webp"/></button><p class="bd-app-t">Jet lag reset</p><p class="bd-app-d">When to seek light, sleep and eat, planned from your flight times and your body clock.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-clock.webp"/></button><p class="bd-app-t">Body clock</p><p class="bd-app-d">Maps your natural rhythm so sleep, meals and training fall where your body wants them.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-hydration.webp"/></button><p class="bd-app-t">Hydration</p><p class="bd-app-d">A daily target that rises with heat, sweat and training, and what it does for your recovery.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-fitness.webp"/></button><p class="bd-app-t">Fitness age</p><p class="bd-app-d">How old your heart and lungs behave, and the habits that bring the number down.</p></li>
+<li class="bd-app"><button class="bd-app-img" type="button" tabindex="-1" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/app-supplements.webp"/></button><p class="bd-app-t">Supplement timing</p><p class="bd-app-d">When to take your Phenome supplements, set against your sleep, training and genome report.</p></li>
+</ul>
+<div class="bd-apps-dots" data-apps-dots="" aria-hidden="true"></div>
+</div>
+</section>
+
+<!-- 66 · proof · dark to light ground, three card bento, then where the band
+     fits in the rest of Phenome. Figures are placeholders for layout. -->
+<section class="bd-proof">
+<div class="wrap-wide">
+<h2 class="bd-display is-left"><span class="bd-dim">Accuracy you can check</span><span>Rigorously tested</span></h2>
+<div class="bd-bento">
+<article class="bd-bento-card is-big" tabindex="0">
+<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-leap.webp"/>
+<div class="bd-panel">
+<p class="bd-panel-k">Running, against a chest strap</p>
+<div class="bd-panel-stats">
+<p><b>1.7</b><span>bpm mean error</span></p>
+<p><b>0.98</b><span>correlation</span></p>
+<p><b>917</b><span>matched readings</span></p>
+</div>
+</div>
+<div class="bd-bento-copy"><h3>All day wear testing</h3><p>Every reading paired with a clinical reference, across rest, work and hard effort.</p></div>
+</article>
+<article class="bd-bento-card" tabindex="0">
+<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-ride.webp"/>
+<div class="bd-panel is-chart">
+<p class="bd-panel-k">Indoor cycling, heart rate</p>
+<svg viewBox="0 0 240 90" aria-hidden="true" preserveAspectRatio="none"><path class="ref" d="M0 78 C20 70 30 52 50 50 S80 40 100 36 S140 30 160 26 S200 22 240 18"/><path class="band" d="M0 80 C20 72 32 55 50 51 S82 42 100 37 S138 29 160 27 S202 21 240 19"/></svg>
+<p class="bd-panel-leg"><i class="band"></i>Band <i class="ref"></i>Reference</p>
+</div>
+<div class="bd-bento-copy"><h3>Steady on the bike</h3></div>
+</article>
+<article class="bd-bento-card" tabindex="0">
+<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-track.webp"/>
+<div class="bd-panel is-bars">
+<p class="bd-panel-k">Sprint intervals</p>
+<div class="bd-bars" aria-hidden="true"><i style="--h:.42"></i><i style="--h:.78"></i><i style="--h:.55"></i><i style="--h:.92"></i><i style="--h:.64"></i><i style="--h:.86"></i></div>
+</div>
+<div class="bd-bento-copy"><h3>Quick to catch a sprint</h3></div>
+</article>
+</div>
+
+<div class="bd-fits">
+<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/ring-phenometech.webp"/><p>Wear the Ring at night and the Band by day, one account reads both.</p><a class="bd-pill" href="/phenome-store/devices/ring/">Read more</a></article>
+<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/test-genomic.webp"/><p>Your genome sets the baseline every heartbeat is read against.</p><a class="bd-pill" href="/phenome-store/store/comprehensive-genomic/">Read more</a></article>
+<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/test-gut.webp"/><p>See how sleep and training move with your gut microbiome.</p><a class="bd-pill" href="/phenome-store/store/gut-microbiome/">Read more</a></article>
+<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/supp-nad.webp"/><p>Supplement timing that follows the day you actually had.</p><a class="bd-pill" href="/phenome-store/supplements/nad/">Read more</a></article>
+<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/video/app_phone_poster.webp"/><p>All of it in the Phenome app, with a clinician a message away.</p><a class="bd-pill" href="/phenome-store/app/">Read more</a></article>
+</div>
+</div>
+</section>
+
+<!-- 67 · specifications · photograph left, accordion right -->
+<section class="bd-specs">
+<h2 class="bd-h2">Specifications</h2>
+<div class="bd-specs-grid">
+<figure class="bd-specs-img"><img alt="The band worn through a working day" decoding="async" height="1490" loading="lazy" src="/phenome-store/assets/band/spec-worn.webp" width="1200"/></figure>
+<div class="bd-specs-list" data-acc-group="">
+<details class="bd-spec" open=""><summary>Biomarkers<i aria-hidden="true"></i></summary><div><ul><li>Heart rate, day and night</li><li>Heart rate variability</li><li>Blood oxygen</li><li>Skin temperature</li><li>Sleep stages and respiratory rate</li><li>Movement, steps and calories</li></ul></div></details>
+<details class="bd-spec"><summary>Material<i aria-hidden="true"></i></summary><div><ul><li>Anodised aluminium frame</li><li>Woven recycled polyester strap</li><li>Hypoallergenic sensor window</li></ul></div></details>
+<details class="bd-spec"><summary>Weight<i aria-hidden="true"></i></summary><div><ul><li>Core 11 g</li><li>With strap 24 g</li></ul></div></details>
+<details class="bd-spec"><summary>Battery life<i aria-hidden="true"></i></summary><div><ul><li>Up to 7 days per charge</li><li>Full charge in about 60 minutes</li></ul></div></details>
+<details class="bd-spec"><summary>Fitness and performance<i aria-hidden="true"></i></summary><div><ul><li>Automatic workout detection</li><li>Training load, effect and recovery time</li><li>Heart rate zones and cardio fitness</li></ul></div></details>
+<details class="bd-spec"><summary>Water resistance<i aria-hidden="true"></i></summary><div><ul><li>Water resistant to 50 m</li><li>Safe for swimming and showers</li></ul></div></details>
+<details class="bd-spec"><summary>Sensors<i aria-hidden="true"></i></summary><div><ul><li>Optical heart rate, green, red and infrared light</li><li>Skin temperature sensor</li><li>Six axis motion sensor</li></ul></div></details>
+<details class="bd-spec"><summary>Location<i aria-hidden="true"></i></summary><div><ul><li>Routes recorded through your phone's location</li></ul></div></details>
+<details class="bd-spec"><summary>App and compatibility<i aria-hidden="true"></i></summary><div><ul><li>Phenome Longevity app</li><li>Syncs with your genomic and microbiome data</li><li>Bluetooth Low Energy</li></ul></div></details>
+<details class="bd-spec"><summary>Strap<i aria-hidden="true"></i></summary><div><ul><li>Small to medium, 130 to 170 mm wrist</li><li>Medium to large, 160 to 210 mm wrist</li><li>Frames swap in one click</li></ul></div></details>
+</div>
+</div>
+</section>
+
+</div>
+
 </main>
 
 <dialog class="lab-modal" data-film-modal="" aria-label="The PhenomeTech Ring film">
@@ -1494,6 +1493,7 @@
 <script src="/phenome-store/devices/ring-lab/gen.js"></script>
 <script src="/phenome-store/devices/ring-lab/sam.js"></script>
 <script src="/phenome-store/devices/ring-lab/plx.js"></script>
+<script src="/phenome-store/devices/ring-lab/bdx.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>
