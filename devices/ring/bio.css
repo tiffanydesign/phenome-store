@@ -1,0 +1,96 @@
+/* ============================================================================
+   devices/ring · § 9 · BIOMETRICS, READ CONTINUOUSLY BY FIVE SENSORS
+
+   2026-09-16, by request: the sensor cutaway (a dial drawn in the ring's
+   hollow, four marks and an expanding list) is replaced by devices/ring-lab
+   § 33, which is ringconn.com's biometrics band. What it reads on the left,
+   the ring and where on it those readings come from on the right, each
+   sensor named in the gutter at the end of a leader line.
+
+   Sizes are the lab's, raised to this page's ladder: the lab set the readings'
+   second line at 12 to 15px and the sensor names at 12 to 18px, which is the
+   size of a caption on a phone. Nothing here is set under 17px.
+   ========================================================================= */
+
+.ph-flat .rbio {
+  --rbio-grad: linear-gradient(135deg, #9fbaff 0%, #6d8ee6 27%, #0f2560 60%, #9fbaff 83%, #6d8ee6 100%);
+  --rbio-ease: cubic-bezier(.16, 1, .3, 1);
+  background: #fff;
+  padding: clamp(80px, 8vw, 140px) 0 clamp(90px, 9vw, 150px);
+  overflow: clip;
+}
+
+.ph-flat .rbio-h {
+  margin: 0 auto clamp(40px, 4vw, 72px); width: fit-content; max-width: calc(100% - 40px);
+  text-align: center; font-size: clamp(36px, 3.6vw, 60px); line-height: 1.14; font-weight: 500; letter-spacing: -0.025em;
+  background: var(--rbio-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+.ph-flat .rbio-row {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center; gap: clamp(28px, 3vw, 56px);
+  width: 100%; max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
+  margin: 0 auto; padding-inline: var(--ph-margin, 90px);
+}
+
+.ph-flat .rbio-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(22px, 2.2vw, 34px); }
+.ph-flat .rbio-list li {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto;
+  column-gap: clamp(16px, 1.4vw, 22px); row-gap: 2px; align-items: center;
+}
+.ph-flat .rbio-list i {
+  grid-row: 1 / 3; display: grid; place-items: center;
+  width: clamp(44px, 3.4vw, 52px); aspect-ratio: 1; border-radius: 50%; background: var(--c);
+}
+.ph-flat .rbio-list i svg { width: 56%; fill: #fff; }
+.ph-flat .rbio-list i svg.is-line { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ph-flat .rbio-list b { font-size: clamp(20px, 1.6vw, 25px); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; color: var(--ph-text-1, #10214b); }
+.ph-flat .rbio-list span { font-size: 17px; line-height: 1.4; color: var(--ph-text-2, #4a5578); }
+
+/* The ring holds the left two thirds and the names stand clear in the last
+   third, each joined to its point by a leader that grows to fill the gap:
+   written over the photograph they are silver on silver. */
+.ph-flat .rbio-ring { position: relative; padding-right: 32%; }
+/* The render ships on white, on a white band, and multiply keeps any off white edge of the plate from showing. */
+.ph-flat .rbio-ring img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+.ph-flat .rbio-call {
+  position: absolute; left: var(--x); top: var(--y); right: 0; transform: translateY(-50%);
+  display: flex; align-items: center;
+}
+.ph-flat .rbio-call::after { content: ""; order: 1; flex: 1 1 auto; height: 1px; margin: 0 12px; background: #9fb4e6; }
+.ph-flat .rbio-call i { order: 0; flex: none; width: 11px; height: 11px; border-radius: 50%; background: #3e6ad6; box-shadow: 0 0 0 5px rgba(62, 106, 214, .18); }
+.ph-flat .rbio-call em {
+  order: 2; flex: none; max-width: 11em; font-style: normal;
+  font-size: clamp(17px, 1.25vw, 20px); line-height: 1.3; font-weight: 500; color: var(--ph-text-1, #10214b);
+}
+
+/* Entry: the list rises in a stagger, then the sensors are named in turn. */
+.rbio-js .ph-flat .rbio-list li { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform 1s var(--rbio-ease); }
+.rbio-js .ph-flat .rbio-call { opacity: 0; transform: translate(-8px, -50%); transition: opacity .6s ease, transform .8s var(--rbio-ease); }
+.rbio-js .ph-flat .rbio.is-in .rbio-list li { opacity: 1; transform: none; }
+.rbio-js .ph-flat .rbio.is-in .rbio-call { opacity: 1; transform: translateY(-50%); }
+.ph-flat .rbio-list li:nth-child(2) { transition-delay: .06s; }
+.ph-flat .rbio-list li:nth-child(3) { transition-delay: .12s; }
+.ph-flat .rbio-list li:nth-child(4) { transition-delay: .18s; }
+.ph-flat .rbio-list li:nth-child(5) { transition-delay: .24s; }
+.ph-flat .rbio-list li:nth-child(6) { transition-delay: .30s; }
+.ph-flat .rbio-call:nth-of-type(1) { transition-delay: .35s; }
+.ph-flat .rbio-call:nth-of-type(2) { transition-delay: .5s; }
+.ph-flat .rbio-call:nth-of-type(3) { transition-delay: .65s; }
+.ph-flat .rbio-call:nth-of-type(4) { transition-delay: .8s; }
+
+@media (max-width: 900px) {
+  .ph-flat .rbio-row { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .ph-flat .rbio-h br { display: none; }
+  .ph-flat .rbio-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .ph-flat .rbio-ring { padding-right: 0; max-width: 520px; margin: 0 auto; }
+  .ph-flat .rbio-call { display: none; }
+}
+@media (max-width: 520px) {
+  .ph-flat .rbio-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rbio-js .ph-flat .rbio-list li, .rbio-js .ph-flat .rbio-call { transition: none; }
+}

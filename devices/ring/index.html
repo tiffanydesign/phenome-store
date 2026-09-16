@@ -12,7 +12,8 @@
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/ring.css" rel="stylesheet"/>
-<link href="/phenome-store/devices/ring/cutaway.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring/bio.css" rel="stylesheet"/>
+<script>document.documentElement.classList.add('rbio-js');</script>
 <link href="/phenome-store/devices/ring/story.css" rel="stylesheet"/>
 </head>
 <body class="ph-flat">
@@ -60,43 +61,30 @@
 </div>
 </div>
 </section>
-<!-- The sensor cutaway, moved here from the store PDP 2026-09-14: under
-     "Physiological intelligence.", the four places on the ring those signals
-     are read from. A mark on the photograph and a row in the list light
-     together; either end drives the pair. cutaway.css / cutaway.js. -->
-<section class="section ring-cut-sec"><div class="wrap-wide">
-<div class="ring-cut" data-cut="">
-<div class="ring-cut-fig">
-<img alt="The PhenomeTech Ring seen from above with its inner surface facing the camera, sensor modules and charging contacts visible" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
-<!-- The dial. The ring's hollow is a clean white disc 62% of the picture wide,
-     and it is the one region of the photograph a mark can occupy without
-     covering the product. The track, the leader and the readout all live
-     inside it; see cutaway.css for why. -->
-<svg class="ring-cut-wire" aria-hidden="true" focusable="false" data-cut-wire=""><circle class="track" cx="0" cy="0" r="0"/><path d=""/><circle class="tip" cx="0" cy="0" r="3.5"/></svg>
-<div class="ring-cut-dial" aria-hidden="true" data-dial=""><span class="n" data-dial-n="">01</span><span class="t" data-dial-t="">Optical heart rate sensor</span></div>
-<button aria-label="Optical heart rate sensor" class="ring-hot" data-hot="" data-n="1" style="--x:35%;--y:80%" type="button"></button>
-<button aria-label="Blood oxygen sensor" class="ring-hot" data-hot="" data-n="2" style="--x:74%;--y:25%" type="button"></button>
-<button aria-label="Skin temperature sensor" class="ring-hot" data-hot="" data-n="3" style="--x:25%;--y:26%" type="button"></button>
-<button aria-label="Charging contacts" class="ring-hot" data-hot="" data-n="4" style="--x:54%;--y:83%" type="button"></button>
-</div>
-
-<ul class="ring-cut-list">
-<li class="ring-cut-item" data-cut-item="" data-on="">
-<button aria-expanded="true" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">01</span><span><span class="t">Optical heart rate sensor</span><span class="d"><span>Sits against the palm side of the finger, where the arteries are close to the surface, the reason a ring reads a pulse more cleanly than a wrist strap does.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">02</span><span><span class="t">Blood oxygen sensor</span><span class="d"><span>The second emitter and photodiode pair, used overnight for SpO₂ and read against the sleep stages recorded at the same time.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">03</span><span><span class="t">Skin temperature sensor</span><span class="d"><span>In contact with the skin rather than the air, so what it reports is your temperature and not the room's.</span></span></span></button>
-</li>
-<li class="ring-cut-item" data-cut-item="">
-<button aria-expanded="false" class="ring-cut-btn" data-cut-btn="" type="button"><span class="n">04</span><span><span class="t">Charging contacts</span><span class="d"><span>Two pads on the inner shell. The ring drops into its dock in any orientation and takes roughly 90 minutes to fill.</span></span></span></button>
-</li>
+<!-- § 9 · BIOMETRICS, 2026-09-16 by request: devices/ring-lab § 33 in place
+     of the sensor cutaway. What the ring reads on the left; the ring and the
+     sensors those readings come from on the right. The colourway film that
+     used to follow it is deleted. bio.css / bio.js. -->
+<section class="rbio" data-rbio="">
+<h2 class="rbio-h">Biometrics, read<br/>continuously<br/>by five sensors</h2>
+<div class="rbio-row">
+<ul class="rbio-list">
+<li><i style="--c:#ff6f8f"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20S4 15 4 9.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15 12 20 12 20z"/></svg></i><b>Heart rate</b><span>Day and night</span></li>
+<li><i style="--c:#ff9457"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3.5 4.5 6 8 6 11.5a6 6 0 0 1-12 0C6 11 8.5 7.5 12 3z"/></svg></i><b>Blood oxygen</b><span>Through the night</span></li>
+<li><i style="--c:#ffb35c"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/></svg></i><b>Skin temperature</b><span>Against your baseline</span></li>
+<li><i style="--c:#ff6f8f"><svg class="is-line" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></i><b>Heart rate variability</b><span>Every night</span></li>
+<li><i style="--c:#6d6bd8"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z"/></svg></i><b>Sleep stages</b><span>Light, deep and rapid eye movement</span></li>
+<li><i style="--c:#3e6ad6"><svg class="is-line" viewBox="0 0 24 24" aria-hidden="true"><circle cx="14" cy="5" r="2"/><path d="M8 21l3.5-6.5 3 2.5V21M6 12l3-3.5h4.5l2 3.5H19"/></svg></i><b>Movement</b><span>Steps, workouts and calories</span></li>
 </ul>
+<div class="rbio-ring">
+<img alt="The PhenomeTech Ring seen end on, showing its sensor windows" decoding="async" height="900" loading="lazy" src="/phenome-store/assets/pages/ring_cutaway.webp" width="941"/>
+<span class="rbio-call" style="--x:47%;--y:17%"><i></i><em>Optical heart rate sensor</em></span>
+<span class="rbio-call" style="--x:20%;--y:40%"><i></i><em>Blood oxygen sensor</em></span>
+<span class="rbio-call" style="--x:26%;--y:62%"><i></i><em>Skin temperature sensor</em></span>
+<span class="rbio-call" style="--x:50%;--y:86%"><i></i><em>3 axis accelerometer</em></span>
 </div>
-</div></section>
-<section class="band plate filmband" data-filmband=""><div class="filmband-win"><video aria-hidden="true" class="filmband-film" height="1350" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-colourways.webp" preload="none" tabindex="-1" width="1080" data-filmband-film="" data-webm="/phenome-store/assets/video/ring-colourways.webm" data-mp4="/phenome-store/assets/video/ring-colourways.mp4"></video><button class="filmband-play" type="button" data-filmband-play="" aria-label="Pause the film"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.5" y="1.5" width="4" height="13" rx="1.2"/><rect x="9.5" y="1.5" width="4" height="13" rx="1.2"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.4c0-.9 1-1.5 1.8-1L13.4 6c.8.5.8 1.6 0 2.1L5.8 12.7c-.8.5-1.8-.1-1.8-1V2.4Z"/></svg></button></div></section>
+</div>
+</section>
 <section class="section pick" data-pick="">
 <div class="wrap-wide opener">
 <div class="opener-t"><h2 class="sec-title">Choose your ring.</h2></div>
@@ -135,7 +123,7 @@
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
-<script src="/phenome-store/devices/ring/cutaway.js"></script>
+<script src="/phenome-store/devices/ring/bio.js"></script>
 <script src="/phenome-store/devices/ring/story.js"></script>
 <script>
 /* The colourway swatches on the two "Choose your ring" cards.
@@ -596,136 +584,6 @@
      every band under it. Measuring before it lands leaves each one a few
      pixels out until the next wheel notch. */
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(request);
-})();
-
-/* THE COLOURWAY BAND'S FILM — the same three rules the marquee's film runs
-   under, plus two this one needs because of where it sits on the page.
-
-   THE SHARED THREE, and they are the marquee script's, one screen up:
-     · a looping product shot is decoration, so the system's reduced-motion
-       preference decides whether it plays — done in script because `autoplay`
-       is an attribute and CSS cannot decline it;
-     · THE BUTTON OUTRANKS THE PREFERENCE, in both directions. Someone who has
-       asked their system for less motion and then presses play has said
-       something more specific than the preference did;
-     · the film is aria-hidden and the control is not: one button, two glyphs,
-       labelled with the action it performs rather than the state it is in, so
-       it keeps focus across presses.
-
-   THE TWO THIS ONE ADDS, both because it is ten thousand pixels down the page
-   rather than at the top of it:
-
-     IT IS NOT FETCHED UNTIL IT IS COMING. 2.8MB of H.264 requested on load
-     competes with the marquee's own film for the connection, and the marquee
-     is the thing on screen. `preload="none"` plus sources held in attributes
-     means nothing is requested until an observer says the band is one screen
-     away — which is about a second of scrolling at reading speed, enough for
-     the first frames to arrive before the poster is replaced.
-
-     AND IT STOPS WHEN IT LEAVES. A sixteen-second loop decoding behind the
-     footer is a laptop fan and nothing else. Same observer, both directions.
-     `chosen` is not consulted here: pausing an off-screen film is not
-     overriding the reader's choice, and the same choice is honoured again the
-     moment the band comes back. */
-(function () {
-  var band = document.querySelector('[data-filmband]');
-  var film = document.querySelector('[data-filmband-film]');
-  if (!band || !film) return;
-
-  var btn = document.querySelector('[data-filmband-play]');
-  var quiet = window.matchMedia
-    ? matchMedia('(prefers-reduced-motion: reduce)')
-    : { matches: false };
-  var chosen = false;   /* the button has been pressed; the preference stands down */
-  var wants = false;    /* the band is on screen */
-  var wired = false;
-
-  /* The sources are attached once, in the order the marquee's are: webm first,
-     so a browser that has VP9 never fetches the H.264. */
-  function wire() {
-    if (wired) return;
-    wired = true;
-    add(film.getAttribute('data-webm'), 'video/webm');
-    add(film.getAttribute('data-mp4'), 'video/mp4');
-    film.load();
-  }
-  function add(src, type) {
-    if (!src) return;
-    var s = document.createElement('source');
-    s.src = src;
-    s.type = type;
-    film.appendChild(s);
-  }
-
-  function reflect() {
-    if (!btn) return;
-    var paused = film.paused;
-    /* The attribute drives the glyph in CSS; the label states what pressing it
-       will DO. "Play"/"Pause" as a label for the current STATE is the classic
-       inversion and it makes the control unusable without sight of the icon. */
-    if (paused) btn.setAttribute('data-paused', '');
-    else btn.removeAttribute('data-paused');
-    btn.setAttribute('aria-label', paused ? 'Play the film' : 'Pause the film');
-  }
-
-  function play() {
-    wire();
-    var p = film.play();
-    /* A rejected play() is not an error here — a browser may refuse autoplay
-       even muted, and the poster plus the control are a complete design. */
-    if (p && p.catch) p.catch(function () {});
-  }
-
-  /* The one place the three inputs are resolved, so there is no second opinion
-     about whether the film should be running: it plays when the band is on
-     screen AND either the reader asked for it or the system did not ask for
-     stillness. */
-  function apply() {
-    if (!wants) { film.pause(); return; }
-    if (quiet.matches && !chosen) { wire(); film.pause(); return; }
-    if (film.paused && !(chosen && film.hasAttribute('data-held'))) play();
-  }
-
-  if (window.IntersectionObserver) {
-    var seen = new IntersectionObserver(function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        wants = entries[i].isIntersecting;
-        /* Fetch on the way in, one screen early — see rootMargin. */
-        if (wants) wire();
-        apply();
-      }
-    }, { rootMargin: '100% 0px' });
-    seen.observe(band);
-  } else {
-    /* No observer: a band that never plays is worse than one that loads early. */
-    wants = true;
-    apply();
-  }
-
-  if (btn) {
-    btn.addEventListener('click', function () {
-      chosen = true;
-      if (film.paused) {
-        film.removeAttribute('data-held');
-        play();
-      } else {
-        /* Held by the reader, as opposed to paused by leaving the screen —
-           apply() reads this so coming back does not undo the press. */
-        film.setAttribute('data-held', '');
-        film.pause();
-      }
-    });
-  }
-
-  /* Every path that can change the state, not just the button. */
-  film.addEventListener('play', reflect);
-  film.addEventListener('pause', reflect);
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) film.pause(); else apply();
-  });
-  if (quiet.addEventListener) quiet.addEventListener('change', apply);
-
-  reflect();
 })();
 </script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>

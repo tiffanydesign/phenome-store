@@ -228,8 +228,7 @@
    glyphs on one button — and the only thing that differs is which corner it
    parks in. Restating thirteen measured values for the second instance is how
    two controls drift into two designs. */
-.ph-flat .ring-marquee-play,
-.ph-flat .filmband-play {
+.ph-flat .ring-marquee-play {
   position: absolute;
   z-index: 3;
   width: 36px;
@@ -247,48 +246,24 @@
   color: rgba(255, 255, 255, .8);
   transition: background-color 100ms linear, transform .2s ease, color 100ms linear;
 }
-.ph-flat .ring-marquee-play:hover,
-.ph-flat .filmband-play:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
-.ph-flat .ring-marquee-play:active,
-.ph-flat .filmband-play:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
-.ph-flat .ring-marquee-play:focus-visible,
-.ph-flat .filmband-play:focus-visible {
+.ph-flat .ring-marquee-play:hover:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
+.ph-flat .ring-marquee-play:active:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
+.ph-flat .ring-marquee-play:focus-visible:focus-visible {
   outline: 2px solid var(--ph-focus);
   outline-offset: 3px;
 }
-.ph-flat .ring-marquee-play svg,
-.ph-flat .filmband-play svg { width: 15px; height: 15px; display: block; fill: currentColor; }
+.ph-flat .ring-marquee-play svg svg { width: 15px; height: 15px; display: block; fill: currentColor; }
 /* One button, two glyphs, and the state decides which is drawn — rather than
    two buttons swapped, which would lose focus every time it is pressed. */
-.ph-flat .ring-marquee-play .i-play,
-.ph-flat .filmband-play .i-play { display: none; }
-.ph-flat .ring-marquee-play[data-paused] .i-play,
-.ph-flat .filmband-play[data-paused] .i-play { display: block; }
-.ph-flat .ring-marquee-play[data-paused] .i-pause,
-.ph-flat .filmband-play[data-paused] .i-pause { display: none; }
+.ph-flat .ring-marquee-play .i-play .i-play { display: none; }
+.ph-flat .ring-marquee-play[data-paused] .i-play[data-paused] .i-play { display: block; }
+.ph-flat .ring-marquee-play[data-paused] .i-pause[data-paused] .i-pause { display: none; }
 
 /* ---- placement, the marquee: Apple's own offset, under the global nav. */
 .ph-flat .ring-marquee-play {
   top: calc(20px + var(--ph-nav-h) + 40px);
   inset-inline-end: 40px;
 }
-/* ---- placement, the colourway band: the OTHER corner, and off the reference
-   rather than off Apple. phenomelongevity.com/products/phenometech-ceramic-ring
-   parks its band's pause control bottom-right, and it is the right corner for a
-   band rather than a hero: there is no nav to clear here, the picture's subject
-   is centred, and the foot of a full-bleed band is the one part of it that
-   never has anything else in it. */
-/* BOTTOM LEFT, 2026-09-14, and only because the band changed under it. The
-   right corner was correct for an 893px band sitting in the flow; now that the
-   window fills the screen and holds there, the site's own fixed design-system
-   launcher — bottom-right, on every page — lands on the same pixels and covers
-   the control outright. The PDP's film bar was moved for this exact collision;
-   this is the same move for the same reason. */
-.ph-flat .filmband-play {
-  inset-block-end: 28px;
-  inset-inline-start: 28px;
-}
-
 @media (max-width: 900px) {
   /* Apple's own narrow value for the same offset: 28, not 40. */
   .ph-flat .ring-marquee-play {
@@ -485,8 +460,8 @@
   border-radius: 980px;
   background: var(--ph-accent);
   color: #fff !important;
-  font-size: var(--ph-fs-14);
-  line-height: var(--ph-lh-14);
+  font-size: 16px;
+  line-height: 1.2;
   font-weight: var(--ph-w-600);
   text-decoration: none;
   transition: background var(--ph-dur-base) var(--ease-frosted-out);
@@ -1047,142 +1022,9 @@
    2026-09-14 by the sensing film — see story.css — and their rules went
    with them. */
 
-/* ---- 9c · THE COLOURWAY BAND · the breath between the ring and the choice
-   ------------------------------------------------------------------------
-
-   THIS WAS A PHOTOGRAPH OF SOMEONE ASLEEP, with the crop travelling on the
-   scroll. It is the film now, and both halves of that are decisions.
-
-   WHY THE PICTURE CHANGED. The bedroom shot was the page's one editorial
-   image and it was carrying the wrong argument at the wrong moment. It sits
-   between the ring turning (§ 9b) and Choose your ring (§ 9d) — between what
-   the product knows and which one you buy — and the reader arriving at it has
-   just been shown five services and is about to be shown two finishes. A
-   sleeping stranger answers neither question. The colourway film answers the
-   second one before it is asked: six finishes, in six places, in sixteen
-   seconds.
-
-   THE REFERENCE IS THE BRAND'S OWN SHOP PAGE —
-   phenomelongevity.com/products/phenometech-ceramic-ring — which runs this
-   exact footage as a full-bleed band: edge to edge, no radius, muted, looping,
-   `object-fit: cover`, and one pause control in the bottom-right corner. Read
-   off the shipped page: a 1080x1080 source in a 1425x660 box, so the crop is
-   severe there too.
-
-   WHERE THE CROP IS TAKEN FROM IS MEASURED, NOT CENTRED, and the first attempt
-   got this wrong. The master is 1080x1920 and a centred cut looked obviously
-   right — until the band was on screen and two of the six scenes had no ring
-   in them. Sampled every two seconds across the film, the ring's own centre
-   sits between 27% and 47% of the frame height: level with the horizon in the
-   mountains and the silk, but high in the clouds and the water, because those
-   two scenes are composed with the object falling into the top third. The
-   subject band — the rings' own edges, not their centres — is 22%-56%, and its
-   middle is 39%, not 50%.
-
-   So the file is cut to 1080x1490 starting 4px down, centred on 749px, and CSS
-   then centres inside that. At 1440 the band shows master rows 22%-56%: the
-   whole span, which is the width most of this page is designed against. Wider
-   than that the band's own aspect takes over and the ends of the range start
-   to go — at 1920 it shows 26%-52% and the clouds lose the top of the ring.
-   That is the trade a full-bleed band makes and the reference makes it harder
-   (660px tall in a 1425 viewport); it is not worth a third of the page's
-   height to close. `object-position` stays at plain `center` because the file
-   already carries the offset — doing it in CSS instead would need a different
-   percentage at every band aspect, which is a number nobody can maintain.
-
-   AND THE PARALLAX CAME OFF WITH THE PHOTOGRAPH. Every other band on this page
-   travels its crop, and that rule was written for still pictures: a photograph
-   held in a fixed frame reads as a picture, and the same photograph with the
-   crop moving reads as a window. A film is already a window. Sliding it as
-   well is two motions arguing — the subject moving inside the frame and the
-   frame moving under the subject — and on a sixteen-second cut sequence the
-   second one is just noise. The `.plate` class stays because the SPACING rules
-   in shared.css hang off it (`.plate + .section` and its sibling); `plate-par`
-   and the `data-par` hook are gone, and the parallax loop in the script now
-   drives one band rather than two.
-   ------------------------------------------------------------------------ */
-
-/* ---- 9c-iii · THE BAND IS PINNED (2026-09-14, by request) -----------------
-   THE REFERENCE is ultrahuman.com/ring-pro's "On the go. Off the grid." band:
-   the picture behind it is held absolutely still in the window while the page
-   scrolls past it, and the sections above and below behave completely
-   normally. It is a HELD BACKGROUND, not a scene with anything switching over
-   it — there is no copy on this band and none is being added.
-
-   HOW. The section becomes two screens tall and the window inside it sticks to
-   the top of the viewport for one of them. So the band arrives filling the
-   screen, the reader keeps scrolling and the film does not move for a screen's
-   worth — which is also how it gets a proper run at its own sixteen seconds,
-   where the old 893px band was scrolled past in two flicks — and then the pin
-   releases and Choose your ring comes up against it.
-
-   TWO THINGS THAT BREAK THIS AND ARE FIXED HERE:
-
-   · `.band` in shared.css:1195 sets `overflow: hidden`, and an ancestor with
-     `overflow: hidden` IS A SCROLL CONTAINER. A sticky child sticks inside its
-     nearest scroll container, so the window would have been sticking to a box
-     that never scrolls — `position: sticky` doing nothing at all rather than
-     doing something wrong, which is the same trap the buy column hit. `clip`
-     does the identical clipping and is NOT a scroll container, so the window
-     resolves against the viewport where it belongs.
-   · THE CROP IS UNCHANGED, and that was the constraint on the height. All the
-     arithmetic above is against a band whose aspect is about 1.6:1 at 1440 —
-     which is exactly 1440x900. So a full-height window shows the same rows of
-     the master the 62vw band did, and the ring stays inside the frame in all
-     six scenes. This is the one height that could be swapped in for free.
-   ------------------------------------------------------------------------ */
-.ph-flat .filmband {
-  height: 200vh;
-  overflow: clip;
-}
-.ph-flat .filmband-win {
-  position: sticky;
-  top: 0;
-  /* svh as well as vh: on a phone the dynamic viewport is what the reader
-     actually has while the address bar is showing, and a 100vh window under a
-     100svh screen is a band whose foot is never seen. */
-  height: 100vh;
-  height: 100svh;
-  /* What is behind the poster while it decodes, and behind the film on a
-     connection that never gets it. The film's own first frame is a warm near
-     white, so the page's quiet band is closer to it than white is. */
-  background: var(--flat-band);
-}
-.ph-flat .filmband-film {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  /* The file is 0.72:1 and the band runs from 0.85:1 on a phone to 2.13:1 on a
-     wide desktop, so `cover` is doing between a sixth and two thirds of the
-     work. Centre in both axes — the vertical framing is already in the file,
-     for the reason set out above. */
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-/* A phone gives up the second screen of hold, not the pin. Two full screens of
-   scroll on a 390px window is a long time to spend holding one shot, and the
-   film's loop is the same sixteen seconds there as here. 165vh is two thirds
-   of a screen of hold, which still reads as "this is held" and does not read
-   as "the page has stopped". */
-@media (max-width: 900px) {
-  .ph-flat .filmband { height: 165vh; }
-}
-
-/* A reader who asked for less motion gets the band back in the flow. Pinning
-   is not animation, but it IS the page behaving differently from how it looks
-   like it will behave, which is the same complaint; and the band has no copy
-   to reveal, so there is nothing lost by letting it simply scroll past at the
-   height it had before. */
-@media (prefers-reduced-motion: reduce) {
-  .ph-flat .filmband { height: auto; }
-  .ph-flat .filmband-win {
-    position: relative;
-    height: clamp(460px, 62vw, 900px);
-  }
-}
+/* ---- 9c was the colourway film band, pinned under the sensor section. It
+   was deleted 2026-09-16 by request, with its script, and the sensor
+   section above it is now bio.css. */
 
 /* ---- 9c-ii · THE PLATE CONSTRUCTION, still used by the closing frame ---- */
 
