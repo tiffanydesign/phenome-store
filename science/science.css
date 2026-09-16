@@ -10,9 +10,10 @@
 
    The layout vocabulary is this site's, carried over from the Oura shaped
    build that preceded it: an inset dark hero card, a full bleed photograph
-   that holds still while glass cards pass over it, a dragged carousel with a
-   progress rule, a dark featured study beside three stacked cards, a split
-   close. The navy, the cool paper and every word are Phenome's.
+   that holds still while glass cards pass over it, a dragged carousel on the
+   ring-lab ground with a nine chapter rail, a dark featured study beside three
+   stacked cards, a split close. The navy, the white ground and every word are
+   Phenome's.
 
    TYPE. One family. The contrast a second face used to draw — the held back
    half of a statement against the half that lands — is drawn in COLOUR by the
@@ -25,7 +26,10 @@
    ========================================================================== */
 
 .sci {
-  --sci-paper: #f3f5fa;
+  /* The page ground is white. A tint this pale reads as a wash over a whole
+     page rather than as a surface, so the cool blues stay where they mean
+     something: cards, photo plates, recesses. Nothing large. */
+  --sci-paper: #fff;
   --sci-card: #e6ebf4;
   --sci-ink: #0a1233;
   --sci-night: #0b1024;
@@ -133,7 +137,6 @@
 .sci .sci-gene-copy .sci-lede { max-width: 42ch; }
 .sci .sci-gene-fig { margin: 0; }
 .sci .sci-gene-fig img { display: block; width: 100%; height: auto; }
-.sci .sci-gene-fig figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .01em; color: var(--sci-grey); }
 
 .sci .sci-say {
   display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -141,12 +144,14 @@
   margin-top: clamp(56px, 6vw, 96px); padding-top: clamp(28px, 3vw, 44px);
   border-top: 1px solid var(--sci-line);
 }
-.sci .sci-say .sci-eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
-.sci .sci-say-lead { margin: 18px 0 0; font-size: clamp(21px, 2.1vw, 30px); line-height: 1.32; letter-spacing: -0.02em; color: var(--sci-ink); }
-.sci .sci-say > p:last-child { margin: 18px 0 0; font-size: 16px; line-height: 1.6; color: var(--sci-grey); }
+/* The statement that opens the second half of the section is set in the same
+   voice as the one that opens the first: the display pair, at the section
+   heading's size, in the page's ink. An eyebrow could not carry it. */
+.sci .sci-say-h { grid-column: 1 / -1; }
+.sci .sci-say-lead { margin: 0; font-size: clamp(21px, 2.1vw, 30px); line-height: 1.32; letter-spacing: -0.02em; color: var(--sci-ink); }
+.sci .sci-say > p:last-child { margin: 0; font-size: 16px; line-height: 1.6; color: var(--sci-grey); }
 @media (max-width: 860px) {
   .sci .sci-gene-grid, .sci .sci-say { grid-template-columns: minmax(0, 1fr); }
-  .sci .sci-say > p:last-child { margin-top: 4px; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -175,20 +180,45 @@
    4 · WHAT YOU CAN LEARN · nine readings on a dragged track
 
    Nine slides is too many for a grid and too few for a list, so they are a
-   track: one reading fills the frame, the rest are visibly waiting at the
-   edge. The photography is all dark scientific render, which is why the band
-   is night and the media bleeds to the card edge; the two that are drawn
-   rather than lit take a plate (.is-plate, white) or none (.is-plain, the
-   artwork is already white on transparent).
+   track: cards of one width, three in the frame and the fourth cut by the
+   edge, dragged or paged. The ground, the glow and the card language are
+   devices/ring-lab's Phenome Intelligence band, brought over intact so the two
+   places in this store where a dark carousel runs read as one idea. The
+   heading keeps the page's own left aligned display pair.
+
+   The photography is all dark scientific render, which is why the band is
+   night and the media bleeds to the card edge; the two that are drawn rather
+   than lit take a plate (.is-plate, white) or none (.is-plain, the artwork is
+   already white on transparent and sits on the card's own gradient).
    ------------------------------------------------------------------------ */
-.sci .sci-learn { background: var(--sci-night); color: #fff; padding: clamp(70px, 7vw, 116px) 0 clamp(60px, 6vw, 96px); }
+.sci .sci-learn {
+  position: relative; isolation: isolate; overflow: hidden; color: #fff;
+  /* black at the top, handed over to the page's night at the foot so the
+     section below starts where this one finishes rather than cutting it */
+  background: linear-gradient(180deg, #03050c 0%, #03050c 84%, var(--sci-night) 100%);
+  padding: clamp(70px, 7vw, 116px) 0 clamp(56px, 5.6vw, 92px);
+}
+/* the band is lit from its own edges, not from a light source in the picture */
+.sci .sci-learn-glow {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  box-shadow: inset 0 0 90px 24px rgba(79, 114, 217, .55), inset 0 0 220px 60px rgba(138, 174, 255, .16);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
+  animation: sci-glow 7s ease-in-out infinite alternate;
+}
+.sci .sci-learn-glow::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(60% 45% at 50% 38%, rgba(79, 114, 217, .22), transparent 70%);
+}
+@keyframes sci-glow { from { opacity: .75; } to { opacity: 1; } }
+
 .sci .sci-learn-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(20px, 4vw, 60px); align-items: end; }
 .sci .sci-learn-head .sci-h2 { font-size: clamp(32px, 4.2vw, 62px); }
 .sci .sci-learn-head p { margin: 0 0 8px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .72); }
 
-.sci .sci-car { margin-top: clamp(32px, 3.4vw, 50px); }
+.sci .sci-car { position: relative; margin-top: clamp(34px, 3.6vw, 54px); --card: clamp(268px, 29.7vw, 427px); }
 .sci .sci-car-track {
-  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+  display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory;
   padding: 0 var(--sci-gut); scroll-padding-inline: var(--sci-gut);
   scrollbar-width: none; cursor: grab;
 }
@@ -199,42 +229,84 @@
   .sci .sci-car-track { padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); scroll-padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); }
 }
 
-.sci .sci-read {
-  flex: 0 0 auto; width: min(86vw, 940px); scroll-snap-align: start;
-  display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1fr);
-  border-radius: 14px; overflow: hidden; background: #141b3a;
+.sci .sci-read { flex: 0 0 auto; width: var(--card); scroll-snap-align: start; }
+.sci .sci-read-media {
+  position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(160deg, #0d1531 0%, #060a1a 100%);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07);
 }
-.sci .sci-read-media { position: relative; background: #0d1330; }
 .sci .sci-read-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
 .sci .sci-read-media.is-plate { background: #fff; }
 .sci .sci-read-media.is-plate img, .sci .sci-read-media.is-plain img { object-fit: contain; padding: clamp(18px, 2.4vw, 34px); box-sizing: border-box; }
-.sci .sci-read-media.is-plain { background: #0d1330; }
-.sci .sci-read-copy { padding: clamp(26px, 2.8vw, 42px); }
-.sci .sci-read-n { display: block; font-size: 14px; font-weight: 600; letter-spacing: .04em; color: var(--phenome-blue-300); }
-.sci .sci-read-copy h3 { margin: 14px 0 0; max-width: 20ch; font-size: clamp(22px, 2vw, 30px); line-height: 1.2; font-weight: 400; letter-spacing: -0.02em; }
-.sci .sci-read-copy p { margin: 16px 0 0; font-size: 15px; line-height: 1.62; color: rgba(255, 255, 255, .76); }
+
+/* The count is not a footnote to the title, it is the first word of it: same
+   size, same line, set in the blue, hanging so a wrapped title stays square. */
+.sci .sci-read-t {
+  display: flex; gap: .5em; margin: 20px 0 0; min-height: 2.52em;
+  font-size: clamp(19px, 1.5vw, 21px); line-height: 1.26; font-weight: 500; letter-spacing: -0.02em;
+}
+.sci .sci-read-n { flex: none; color: var(--phenome-blue-300); font-variant-numeric: tabular-nums; }
+.sci .sci-read > p { margin: 14px 0 0; font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, .72); }
 @media (max-width: 860px) {
   .sci .sci-learn-head { grid-template-columns: minmax(0, 1fr); }
-  .sci .sci-read { grid-template-columns: minmax(0, 1fr); width: 84vw; }
-  .sci .sci-read-media { aspect-ratio: 4 / 3; }
+  .sci .sci-car { --card: min(82vw, 420px); }
 }
 
-/* the foot of any track on this page: a counter, a rule, two arrows */
-.sci .sci-car-foot { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); margin-top: 30px; }
-.sci .sci-car-count { margin: 0; display: flex; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
-.sci .sci-car-count b { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
-.sci .sci-car-count span { font-size: 14px; color: rgba(255, 255, 255, .55); }
-.sci .sci-car-rule { position: relative; flex: 1; height: 1px; background: rgba(255, 255, 255, .22); }
-.sci .sci-car-rule i { position: absolute; left: 0; top: -1px; height: 3px; width: var(--rule-w, 30%); transform: translateX(var(--rule-x, 0%)); background: #fff; border-radius: 2px; }
-.sci .sci-car-arrows { display: flex; gap: 10px; }
+/* the two glass keys sit on the media, at its middle, as on ring-lab */
 .sci .sci-car-btn {
-  display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%;
-  background: rgba(255, 255, 255, .14); color: #fff; cursor: pointer; transition: background .2s ease, opacity .2s ease;
+  position: absolute; top: calc(var(--card) / 2); z-index: 2; margin-top: -22px;
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .12); color: #fff; cursor: pointer;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  transition: background .2s ease, opacity .2s ease;
 }
 .sci .sci-car-btn:hover { background: rgba(255, 255, 255, .26); }
-.sci .sci-car-btn[disabled] { opacity: .35; cursor: default; }
-.sci .sci-car-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sci .sci-car-btn[disabled] { opacity: .25; cursor: default; }
+.sci .sci-car-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sci .sci-car-btn.is-prev { left: 12px; }
+.sci .sci-car-btn.is-next { right: 12px; }
+@media (max-width: 860px) { .sci .sci-car-btn { display: none; } }
+
+/* ---- the rail ------------------------------------------------------------
+   Nine dots would be nine specks, and nine specks say nothing about how much
+   of the set is still to come. So the bar is one bar cut into nine chapters,
+   and it fills as the readings arrive in the frame: the chapters behind you
+   are solid, the one entering fills as it comes. Each chapter is a key to its
+   own reading, and the chapter the counter names stands up. */
+.sci .sci-car-foot { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 36px); margin-top: clamp(28px, 3vw, 44px); }
+.sci .sci-car-count { margin: 0; display: flex; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
+.sci .sci-car-count b { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
+.sci .sci-car-count span { font-size: 14px; color: rgba(255, 255, 255, .55); }
+.sci .sci-car-rail { flex: 1; display: flex; gap: clamp(5px, .6vw, 9px); }
+/* Both the fill and the standing up are one property, transform: the bar is
+   drawn at its full 5px and held at --t of that, so nothing here touches
+   layout. --f is the fill, written by the script; --t is the thickness. */
+.sci .sci-car-seg {
+  flex: 1; position: relative; height: 24px; padding: 0; border: 0; background: none;
+  cursor: pointer; -webkit-appearance: none; appearance: none; --t: .6;
+}
+.sci .sci-car-seg::before,
+.sci .sci-car-seg i {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 5px; margin-top: -2.5px;
+  border-radius: 99px;
+}
+.sci .sci-car-seg::before {
+  background: rgba(255, 255, 255, .18);
+  transform: scaleY(var(--t)); transform-origin: center;
+  transition: background .25s ease, transform .35s var(--sci-ease);
+}
+.sci .sci-car-seg i {
+  background: #fff; transform: scaleX(var(--f, 0)) scaleY(var(--t)); transform-origin: left center;
+  transition: transform .5s var(--sci-ease);
+}
+.sci .sci-car-seg:hover::before { background: rgba(255, 255, 255, .4); }
+/* the standing chapter is told apart by its weight alone, with no glow on it */
+.sci .sci-car-seg.is-on { --t: 1; }
+.sci .sci-car-seg:focus-visible { outline: 2px solid var(--phenome-blue-300); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .sci .sci-learn-glow { animation: none; }
+  .sci .sci-car-seg i { transition: none; }
+}
 
 /* ---------------------------------------------------------------------------
    5 · WHY IT MATTERS · the photograph holds, five cards pass over it
@@ -423,8 +495,11 @@
 /* ---------------------------------------------------------------------------
    11 · THE CLOSE · words left, photograph right, the paper rounds off
    ------------------------------------------------------------------------ */
+/* The close used to round the paper off against a white base. The page is that
+   base now, so the corners and the hairline under them have nothing left to
+   describe and the section simply ends. */
 .sci .sci-close-wrap { background: #fff; }
-.sci .sci-close { background: var(--sci-paper); border-radius: 0 0 clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px); box-shadow: 0 1px 0 var(--sci-line); padding: clamp(60px, 6vw, 96px) 0 clamp(50px, 5vw, 80px); }
+.sci .sci-close { background: var(--sci-paper); padding: clamp(60px, 6vw, 96px) 0 clamp(50px, 5vw, 80px); }
 .sci .sci-close-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(30px, 4vw, 60px); align-items: center; }
 .sci .sci-close-copy { padding-left: clamp(0px, 3vw, 44px); }
 .sci .sci-close-copy .sci-h3 { max-width: 14ch; font-size: clamp(30px, 3.2vw, 46px); }

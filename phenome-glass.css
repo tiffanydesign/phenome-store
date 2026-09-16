@@ -899,25 +899,22 @@ a.card:active, a.ph-prod:active { box-shadow: var(--gl-shadow-press), var(--gl-i
   color: #fff;
 }
 
-/* ---- the footer. A LIGHT band the width of the page, and the rule above it
-   is the divider rather than the strong border: it separates two of our own
-   surfaces, not a surface from the page.
+/* ---- the footer. WHITE, like the page, and separated from it by a line.
 
-   It was the recess wash, --gl-tint-sunk, which is 18% of a blue-grey — and a
-   recess is the wrong direction for the last thing on the page. The wash
-   composites to about #cfdced down there, where the page has already run to
-   the cool end of its own gradient, so the footer arrived as the bluest and
-   heaviest surface on a page that spends the rest of its height getting
-   lighter. Six columns of navy link text then sit on it.
+   It was the recess wash, --gl-tint-sunk, and it was the last large pale blue
+   left on the site: the tallest block on every one of 92 pages, the bluest
+   surface on a page that spends the rest of its height white, with six columns
+   of navy link text sitting on it. A tint that wide stops reading as a surface
+   and starts reading as a second page ground, which is the one thing #f4f6fb
+   is not allowed to be (see --surface-page, § 1).
 
-   It was 40% white, which over the old blue field landed near #e9f0f8 — a
-   band, because the page it sat on was a gradient. On a white page the same
-   40% is white on white and the footer stops being a band at all, so it takes
-   the recess tone outright. #f4f6fb is the ONE other value on the page now,
-   which is the point: the footer and .section-gray are the same surface, and
-   the eye should read them as the same surface. */
+   So the band goes and a hairline does the work instead. A footer needs to be
+   told apart from the copy above it, not lifted onto its own sheet, and one
+   divider says that without spending a colour on it. #f4f6fb keeps its job at
+   the scale it was demoted to: cards, rows, recesses, .section-gray. */
 .ph-footer {
-  background: var(--gl-tint-sunk);
+  background: var(--surface-page, #fff);
+  border-top: 1px solid var(--divider);
 }
 .ph-footer .rule { background: var(--divider); }
 

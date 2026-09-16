@@ -4,7 +4,7 @@
      · in the longevity section the photograph holds while the glass cards
        travel up the right hand column with the scroll,
      · the nine readings drag, page with their arrows, and draw their position
-       on a rule and a counter.
+       on a counter and a nine chapter rail that is also nine keys.
    Every block guards on its own elements. */
 (function () {
   'use strict';
@@ -75,44 +75,70 @@
   })();
 
   /* ---- 4 · the nine readings ----------------------------------------------
-     One slide fills the frame, so the arrows page by exactly one and the
-     counter names the slide whose left edge the track is resting on. */
+     The arrows page by exactly one card, the counter names the card whose left
+     edge the track is resting on, and the rail below is that same bar cut into
+     nine chapters: a chapter fills as its reading arrives in the frame, so the
+     white length is how much of the set has been seen rather than how far the
+     scrollbar has travelled. Every chapter is also a key to its own reading. */
   (function readings() {
     var box = $('[data-sci-car]');
     if (!box) return;
     var track = $('.sci-car-track', box);
-    var rule = $('.sci-car-rule', box);
+    var rail = $('[data-car-rail]', box);
     var count = $('[data-car-i]', box);
     var prev = $('[data-car-prev]', box);
     var next = $('[data-car-next]', box);
     if (!track) return;
     var slides = $$(':scope > *', track);
+    var smooth = calm.matches ? 'auto' : 'smooth';
 
+    function pad() {
+      var cs = getComputedStyle(track);
+      return (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    }
+    function gap() { return parseFloat(getComputedStyle(track).columnGap) || 18; }
     function step() {
       var card = track.firstElementChild;
       if (!card) return track.clientWidth;
-      return card.getBoundingClientRect().width + 12;
+      return card.getBoundingClientRect().width + gap();
     }
+    function two(n) { var s = String(n); return s.length < 2 ? '0' + s : s; }
+
+    /* the rail is built here, not in the markup, because a chapter that cannot
+       be clicked is a decoration and this page does not ship decorations */
+    var segs = [];
+    if (rail && slides.length) {
+      slides.forEach(function (slide, i) {
+        var b = doc.createElement('button');
+        b.type = 'button';
+        b.className = 'sci-car-seg';
+        var title = $('.sci-read-t', slide);
+        b.setAttribute('aria-label', 'Reading ' + two(i + 1) + (title ? ', ' + title.textContent.replace(/^\d+\s*/, '') : ''));
+        b.appendChild(doc.createElement('i'));
+        b.addEventListener('click', function () { track.scrollTo({ left: i * step(), behavior: smooth }); });
+        segs.push(rail.appendChild(b));
+      });
+    }
+
     function paint() {
       var max = track.scrollWidth - track.clientWidth;
-      var visible = track.clientWidth / Math.max(track.scrollWidth, 1);
-      var p = max > 0 ? track.scrollLeft / max : 0;
-      if (rule) {
-        rule.style.setProperty('--rule-w', (visible * 100).toFixed(2) + '%');
-        /* translateX is a share of the thumb's own width, so the far end is
-           reached when the thumb has moved (1 / visible − 1) of itself. */
-        rule.style.setProperty('--rule-x', (p * (1 / Math.max(visible, .01) - 1) * 100).toFixed(2) + '%');
-      }
+      var s = step();
+      var lead = clamp(Math.round(track.scrollLeft / s), 0, slides.length - 1);
+      /* how many cards deep the right hand edge of the frame is standing */
+      var seen = track.scrollLeft / s + (track.clientWidth - pad() + gap()) / s;
+      if (max > 0 && track.scrollLeft >= max - 2) seen = slides.length;
+      segs.forEach(function (seg, i) {
+        seg.firstChild.style.setProperty('--f', clamp(seen - i, 0, 1).toFixed(3));
+        seg.classList.toggle('is-on', i === lead);
+        seg.setAttribute('aria-current', i === lead ? 'true' : 'false');
+      });
       if (count && slides.length) {
-        var i = clamp(Math.round(track.scrollLeft / step()) + 1, 1, slides.length);
-        var s = String(i);
-        var t = s.length < 2 ? '0' + s : s;
+        var t = two(lead + 1);
         if (count.textContent !== t) count.textContent = t;
       }
       if (prev) prev.disabled = track.scrollLeft <= 2;
       if (next) next.disabled = track.scrollLeft >= max - 2;
     }
-    var smooth = calm.matches ? 'auto' : 'smooth';
     if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: smooth }); });
     if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: smooth }); });
     track.addEventListener('scroll', paint, { passive: true });
