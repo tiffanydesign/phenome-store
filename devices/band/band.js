@@ -218,55 +218,19 @@
     onScroll(frame);
   }
 
-  /* ---- 3 · round carousel ------------------------------------------------- */
+  /* ---- 3 · marquee: the row is doubled so the loop closes on itself, and
+     the speed is set from its width so a wide screen does not race. -------- */
   function apps() {
-    var stage = $('[data-apps]');
-    if (!stage) return;
-    var items = $$('.bd-app', stage);
-    var n = items.length, cur = 0, timer = 0, visible = false;
-    var dotsBox = $('[data-apps-dots]', stage);
-    var dots = items.map(function () { var i = doc.createElement('i'); dotsBox.appendChild(i); return i; });
-
-    function offset(i) {
-      var o = i - cur;
-      if (o > n / 2) o -= n;
-      if (o < -n / 2) o += n;
-      return o;
-    }
-    var last = items.map(function (it, i) { return offset(i); });
-    function paint() {
-      items.forEach(function (it, i) {
-        var o = offset(i);
-        /* an item wrapping from one edge to the other jumps without sliding across */
-        it.classList.toggle('is-jump', Math.abs(o - last[i]) > 1);
-        it.style.setProperty('--o', o);
-        it.classList.toggle('on', o === 0);
-        last[i] = o;
-      });
-      dots.forEach(function (d, i) { d.classList.toggle('on', i === cur); });
-    }
-    function go(i) { cur = (i + n) % n; paint(); schedule(); }
-    function schedule() {
-      clearTimeout(timer);
-      if (still.matches || !visible) return;
-      timer = setTimeout(function () { go(cur + 1); }, 3200);
-    }
-    items.forEach(function (it, i) { $('.bd-app-img', it).addEventListener('click', function () { go(i); }); });
-
-    var x0 = null;
-    stage.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
-    stage.addEventListener('pointerup', function (e) {
-      if (x0 === null) return;
-      var dx = e.clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    var row = $('[data-mq-row]');
+    if (!row) return;
+    $$('li', row).forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      row.appendChild(c);
     });
-    stage.addEventListener('mouseenter', function () { clearTimeout(timer); });
-    stage.addEventListener('mouseleave', schedule);
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; schedule(); }, { threshold: 0.3 }).observe(stage);
-    } else { visible = true; }
-    paint();
+    function speed() { row.style.setProperty('--mq-s', Math.max(40, row.scrollWidth / 2 / 55) + 's'); }
+    speed();
+    window.addEventListener('resize', speed);
   }
 
   /* ---- 4 · bento panels draw in once ------------------------------------- */
