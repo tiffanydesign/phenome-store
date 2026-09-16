@@ -1692,24 +1692,41 @@ html.ph-reveal .ph-in .step:nth-child(6) .step-mark { transition-delay: 350ms; }
      `min(1180px, 92vw)`, which is 40px inboard of the content at 1440 and 23px outboard
      at 1024. Widest panel measured 781px of content, so 805px — the narrowest this ever
      computes, at a 901px viewport — clears it with 24px to spare and no child overflows. */
+  /* THE PANEL IS A FULL BLEED SHEET, 2026-09-16 by request.
+
+     It was a centred card 10px under the bar, on the page's content width, with
+     a border, an 18px radius and a two part drop. What was asked for is the
+     behaviour the search glass already has: the sheet reaches both edges of the
+     window, the page under it is frosted rather than covered, and the two
+     overlays the bar can open stop being two different objects.
+
+     `left: 0; right: 0` resolves against .ph-nav, because .ph-item is
+     position:static in this block — the same containing block that used to make
+     the centring arithmetic work, doing less work now. The shadow, the border
+     and the radius go with the card; a sheet that meets the window has no edge
+     to raise. The ground and the blur are in phenome-glass.css beside the
+     search sheet's, so the two cannot drift apart.
+
+     The drop is the search sheet's own keyframe, so the menu and the search
+     unroll at the same speed on the same curve. */
   .ph-panel {
-    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    width: calc(100% - var(--ph-margin) * 2); max-width: var(--ph-content-max);
-    margin-top: 10px;
-    /* DECIDED 2026-08-13 (Bugra): the panel keeps its shadow. tokens `elevation YOK`
-       is about cards sitting on a ground; an overlay dropdown is not that, and the
-       token set has no rule for overlay chrome. The border stays at .06 because the
-       shadow is what separates the panel — raised to var(--ph-line) it would draw a
-       visible hairline the design never had. Both were measured: with the shadow
-       removed the panel's edge falls to 1.04:1 against the page behind it, which is
-       why the shadow cannot simply be deleted. */
-    background: var(--ph-white); border: 1px solid rgba(0,0,0,.06);
-    border-radius: var(--ph-r18);
-    box-shadow: 0 30px 80px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.05);
-    max-height: calc(100vh - var(--ph-nav-h) - 32px); overflow-y: auto;
-    animation: ph-panel-in .16s ease-out;
+    position: absolute; top: 100%; left: 0; right: 0; transform: none;
+    width: auto; max-width: none; margin-top: 0;
+    background: var(--ph-white); border: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 0 rgba(16, 33, 75, .06);
+    max-height: calc(100vh - var(--ph-nav-h)); overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: ph-search-drop .42s cubic-bezier(.2, .8, .2, 1) both;
   }
-  .ph-panel-inner { padding: 26px 30px 30px; }
+  /* The same container formula as .ph-nav-inner, .wrap-wide and
+     .ph-search-sheet-inner, so the panel's first column starts on the
+     wordmark's left line and its last ends on the Clinic pill's right one. */
+  .ph-panel-inner {
+    width: 100%; max-width: calc(var(--ph-content-max) + var(--ph-margin) * 2);
+    margin-inline: auto; padding-inline: var(--ph-margin);
+    padding-block: 34px 44px;
+  }
   /* The product card the client's frame draws — see the measurements at .ph-card-img
      below for where every number comes from and why it is scoped to this block.
      One class is enough here: `.ph-links a`'s padding and hairline are declared in the
@@ -1732,7 +1749,20 @@ html.ph-reveal .ph-in .step:nth-child(6) .step-mark { transition-delay: 350ms; }
 @media (min-width: 901px) and (max-width: 1023px) {
   .ph-links { gap: var(--ph-gutter); }
 }
-@keyframes ph-panel-in { from { opacity: 0; transform: translate(-50%, -6px); } }
+/* `ph-panel-in` is gone with the centred card it animated: it faded a box in
+   from translate(-50%, -6px), and a full bleed sheet is neither centred by a
+   transform nor something that should appear from nowhere. The sheet uses
+   `ph-search-drop` (declared with the search overlay below) and its contents
+   follow a beat behind on `ph-search-rise`, which is the same pair the search
+   glass opens with. */
+.ph-panel-eyebrow,
+.ph-panel-cards,
+.ph-panel-cols { animation: ph-search-rise .5s cubic-bezier(.2, .8, .2, 1) both; }
+.ph-panel-cards { animation-delay: .06s; }
+.ph-panel-cols { animation-delay: .1s; }
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel, .ph-panel-eyebrow, .ph-panel-cards, .ph-panel-cols { animation: none; }
+}
 
 .ph-panel-eyebrow {
   font-size: var(--ph-fs-12); letter-spacing: .08em;
@@ -2753,8 +2783,16 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
 .ph-panel-cols {
   display: grid; grid-template-columns: repeat(var(--ph-cols, 3), 1fr); gap: 30px;
 }
+/* THE COLUMN TITLE IS A HEADING NOW, 2026-09-16 by request: 17/21 at 600 in the
+   primary ink, up from 12/16 regular in the second. It was a rung BELOW the
+   links it introduced, which is the one thing a heading may not be, and on a
+   sheet that now runs the full width of the window a 12px grey line had nothing
+   to hold its column together. The links under it are untouched at 14/18 — the
+   ask was for the sub categories to grow, not for the products to. */
 .ph-panel-col-t {
-  font-size: var(--ph-fs-12); color: var(--ph-text-2); margin-bottom: 12px;
+  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+  font-weight: var(--ph-w-600); color: var(--ph-text-1);
+  margin-bottom: 14px;
 }
 /* A second titled block stacked under a column. It is a heading in the middle of a
    list, so it needs the space above that the first one gets from the column top. */
@@ -4178,7 +4216,12 @@ html.ph-drift .hero-img img, html.ph-drift .hero-figure img {
 .ph-search[hidden] { display: none; }
 .ph-search-sheet {
   position: relative;
-  background: rgba(251, 252, 254, .97);
+  /* WHITE, 2026-09-16 by request. It was rgba(251, 252, 254, .97) — a blue an
+     eighth of a step off white, invisible on its own and unmistakable next to
+     the white page it drops over. The mega-menu sheet now carries the same
+     value, in phenome-glass.css, so the two overlays the bar opens are one
+     material. */
+  background: rgba(255, 255, 255, .96);
   -webkit-backdrop-filter: saturate(180%) blur(30px);
   backdrop-filter: saturate(180%) blur(30px);
   box-shadow: 0 1px 0 rgba(16, 33, 75, .06);
@@ -4255,15 +4298,25 @@ html.ph-drift .hero-img img, html.ph-drift .hero-figure img {
   font-size: 17px; line-height: 24px;
 }
 
-/* Below the panel, the page is frosted rather than darkened. */
-html.ph-search-open .ph-bar { opacity: 0; visibility: hidden; }
-.ph-search-scrim {
+/* Below the panel, the page is frosted rather than darkened.
+
+   THE MEGA-MENU USES THE SAME VEIL, 2026-09-16 by request. It is one class with
+   two names rather than two frosts that would drift: shared.js hangs
+   .ph-menu-scrim on <body> while a panel is open exactly as it hangs
+   .ph-search-scrim while the search is. The tint went from rgba(236, 239, 246)
+   — a pale blue, which is what made the open bar read as blue however white the
+   sheet above it was — to white at the same weight. */
+html.ph-search-open .ph-bar,
+html.ph-menu-open .ph-bar { opacity: 0; visibility: hidden; }
+.ph-search-scrim,
+.ph-menu-scrim {
   position: fixed; inset: 0; z-index: 98;
-  background: rgba(236, 239, 246, .38);
+  background: rgba(255, 255, 255, .42);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);
   animation: ph-search-veil .32s var(--ph-ease) both;
 }
+.ph-menu-scrim[hidden] { display: none; }
 
 /* THE WELCOME BAR UNDER THE FROST, 2026-09-16 by request.
 
@@ -4286,8 +4339,15 @@ html.ph-search-open .ph-bar { opacity: 0; visibility: hidden; }
   transition: background-color var(--ph-dur-base, .32s) var(--ph-ease),
               color var(--ph-dur-base, .32s) var(--ph-ease);
 }
-html.ph-search-open .ph-promo { background: #e7ebf4; color: rgba(16, 33, 75, .30); }
-html.ph-search-open .ph-promo b { background: rgba(16, 33, 75, .06); color: inherit; }
+/* NEUTRAL, 2026-09-16: #e7ebf4 was the pale blue the frost resolved the page to
+   while the ground was still blue. The frost is white now, so the band steps
+   back to the neutral rung one off white instead, and the viewport under an
+   open overlay is one even tone again. The mega-menu is held to the same rule,
+   because it opens over the same band. */
+html.ph-search-open .ph-promo,
+html.ph-menu-open .ph-promo { background: var(--ph-surface); color: rgba(16, 33, 75, .30); }
+html.ph-search-open .ph-promo b,
+html.ph-menu-open .ph-promo b { background: rgba(16, 33, 75, .06); color: inherit; }
 .ph-search-scrim[hidden] { display: none; }
 @keyframes ph-search-veil { from { opacity: 0; } to { opacity: 1; } }
 /* The panel unrolls from the bar, and its contents follow a beat behind. */

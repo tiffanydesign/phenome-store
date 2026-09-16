@@ -587,27 +587,50 @@ body {
   border-bottom: 0;
 }
 
-/* ---- the mega-menu. THE ONE OPAQUE SURFACE IN THE SYSTEM.
+/* ---- the mega-menu. THE SAME SHEET THE SEARCH OVERLAY DROPS, 2026-09-16.
 
-   It was the overlay tier, 84% white, and 84% is the least that clears the 4.5
-   rule over every ground the menu can open on — which is the right number for a
-   pane and the wrong idea for this one. A menu is not a surface you are meant
-   to see through; whatever is behind it at 16% is not information, it is
-   interference, and on a dark hero or a running film it is interference that
-   moves. So this one stops being glass.
+   It was an opaque card in #f7f9fd, a pale blue held over from the days when
+   the menu floated as a rounded panel under the bar. Two things were asked for
+   and they are one change: the ground is WHITE, and the panel behaves like the
+   sheet the search glass drops — edge to edge across the bar, frosted rather
+   than opaque, with the page behind it blurred out by a scrim instead of being
+   covered by a card.
 
-   #f7f9fd rather than white: it is the composite the nav bar above it already
-   reads as, so the panel drops out of the bar rather than out of a brighter
-   sheet stuck under it — and it is the value this file's own no-backdrop
-   fallback has always used for exactly this element. The blur goes with the
-   transparency; there is nothing left behind it to bend. */
+   The argument the old note made against glass still holds where it was aimed:
+   whatever sits behind a menu at 16% is interference, not information. The
+   answer here is the search overlay's own, which is better than opacity — the
+   scrim frosts the WHOLE page, so there is nothing legible left behind the
+   sheet to interfere with, and 96% white over 30px of blur is a white ground by
+   any measurement while still reading as glass at its edges.
+
+   No border, no rounding and no drop: a sheet that meets both edges of the
+   window has nothing to be separated from. One hairline under it, which is the
+   line the search sheet draws too. */
 .ph-panel {
-  background: #f7f9fd !important;
-  -webkit-backdrop-filter: none; backdrop-filter: none;
+  background: rgba(255, 255, 255, .96) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(30px); backdrop-filter: saturate(180%) blur(30px);
   border: 0 !important;
-  box-shadow: 0 18px 48px -24px #4664a05c, var(--gl-shadow-panel) !important;
+  box-shadow: 0 1px 0 rgba(16, 33, 75, .06) !important;
 }
-.ph-card { background: var(--gl-tint-sunk); }
+/* The product card inside the panel, and the well its photograph sits in. Both
+   were the recess wash, and once the sheet went white they were the last pale
+   blue left in the bar.
+
+   THE VALUES ARE WRITTEN OUT rather than taken from --ph-surface and --ph-pill,
+   and that is not an oversight: this file remaps both of those to
+   --surface-sunken, so the tokens that used to mean "neutral grey" are the pale
+   blue everywhere on the site. That mapping is right for a page — a recess on a
+   Phenome page is meant to carry the hue — and wrong for the one surface that
+   was asked to hold no blue at all. Scoped to the panel so nothing else moves.
+
+   #F5F5F7 and #EBEBEF are shared.css's own untinted ramp, one step apart, which
+   is the separation the card needs from the sheet and the well from the card. */
+.ph-panel .ph-card { background: #F5F5F7; }
+.ph-panel .ph-card-img {
+  background: #EBEBEF;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: none;
+}
 
 /* ---- panes. Everything shared.css drew as a white or grey card.
 

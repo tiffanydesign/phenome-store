@@ -676,6 +676,32 @@
       if (tog) tog.setAttribute('aria-expanded', state ? 'true' : 'false');
     }
 
+    /* THE VEIL UNDER AN OPEN PANEL, 2026-09-16 by request. The panel is a full
+       bleed sheet now, the same one the search glass drops, so the page under it
+       is frosted the same way rather than left legible around a floating card.
+       One element, created on the first open and reused, and only at the widths
+       where the panel IS that sheet — below 901 the panel is an accordion inside
+       the drawer, which is already a full screen overlay of its own. */
+    var wideBar = window.matchMedia('(min-width: 901px)');
+    var menuScrim = null;
+    function veil(on) {
+      if (on && !wideBar.matches) { on = false; }
+      if (on) {
+        if (!menuScrim) {
+          menuScrim = document.createElement('div');
+          menuScrim.className = 'ph-menu-scrim';
+          menuScrim.setAttribute('aria-hidden', 'true');
+          /* A click on the veil closes the menu, which is what a reader expects
+             of anything covering the page. */
+          menuScrim.addEventListener('click', function () { hide(true); });
+          document.body.appendChild(menuScrim);
+        }
+        menuScrim.hidden = false;
+      } else if (menuScrim) {
+        menuScrim.hidden = true;
+      }
+    }
+
     function show(key) {
       clearTimeout(closeT);
       if (open === key) return;
@@ -689,16 +715,18 @@
          needs a ground under it, so the nav drops to its solid state while it is up
          and returns to white when it closes. */
       document.documentElement.classList.add('ph-menu-open');
+      veil(true);
     }
 
     function hide(immediate) {
-      if (!open) { if (immediate) document.documentElement.classList.remove('ph-menu-open'); return; }
+      if (!open) { if (immediate) { document.documentElement.classList.remove('ph-menu-open'); veil(false); } return; }
       var panel = header.querySelector('[data-panel="' + open + '"]');
       if (panel) panel.hidden = true;
       mark(open, false);
       open = null;
       openedBy = null;
       document.documentElement.classList.remove('ph-menu-open');
+      veil(false);
     }
 
     /* Panels AND the drawer. Below 901 the search glass sits next to the burger, so
