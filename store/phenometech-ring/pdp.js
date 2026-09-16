@@ -717,91 +717,20 @@
      a thing the next reader has to prove is a no-op. */
 
   /* ==========================================================================
-     5 · THE TIMELINE
+     5 · THE TIMELINE · RETIRED 2026-09-16
+
+     The stepper this drove is gone: the section takes the kit's timeline
+     component now (phenome-glass.css § 9), which shared.js drives for every
+     page that carries one. What went with it was ~85 lines that clicked,
+     focused and scroll-selected four buttons, plus setFill(), which measured a
+     ratio to move the rail from one dot to the next.
+
+     None of it is re-implemented here, because none of it is wanted: the kit
+     version fills continuously and lights cumulatively, which is the argument
+     the section was making all along. Removed rather than left guarding on its
+     own missing [data-tl] — a no-op that still runs is a thing the next reader
+     has to prove is a no-op.
      ====================================================================== */
-
-  function timeline() {
-    var wrap = $('[data-tl]');
-    if (!wrap) return;
-    var steps = $$('[data-tl-step]', wrap);
-    var rail = $('[data-tl-rail]', wrap);
-    if (!steps.length) return;
-
-    /* A reader who asked for less motion gets every step lit and no film. The
-       rail is filled to its end so it does not read as a progress bar stuck at
-       zero. */
-    if (still.matches) {
-      for (var s = 0; s < steps.length; s++) steps[s].setAttribute('aria-current', 'true');
-      if (rail) rail.style.setProperty('--p', 1);
-      return;
-    }
-
-    /* THE FILM DOES NOT FOLLOW THE STEPS, and that is a decision rather than an
-       omission. The first version cut the clip into four windows and seeked
-       between them on every step change. Two things were wrong with it. The
-       footage that belongs beside this section is one continuous shot — the
-       Health Monitor's biomarker rows peeling out one after another, which is
-       the section's whole argument in moving form — and chopping it into 1.6s
-       loops destroyed the only thing it had to say. And seed's own version of
-       this section, which is where the arrangement comes from, runs ONE clip
-       independently of the step: the film sets the register, the steps carry the
-       progression. So the film loops, and the four windows and the `data-t`
-       attribute that fed them are gone rather than left in as machinery nothing
-       drives. */
-    var cur = -1;
-
-    /* A RATIO, NOT A PIXEL LENGTH, because the CSS scales the bar rather than
-       growing it — animating `height` costs a layout pass on every frame of the
-       420ms for a bar that moves nothing around it.
-       The fill still reaches the CURRENT NODE and is still measured rather than
-       divided into equal quarters: the steps carry different amounts of copy,
-       so quarters would put the line above or below the dot it is supposed to
-       arrive at. The 15 is the node's own offset inside its step; the 12s are
-       the inset the rail's own ::before and ::after both start and end at, so
-       the ratio is taken against the bar's box rather than the container's. */
-    function setFill(i) {
-      var INSET = 12, NODE = 15;
-      var span = steps[0].parentNode.clientHeight - INSET * 2;
-      if (span <= 0) return;
-      var at = steps[i].offsetTop - steps[0].offsetTop + NODE - INSET;
-      rail.style.setProperty('--p', Math.min(Math.max(at / span, 0), 1));
-    }
-
-    function goto(i) {
-      if (i === cur) return;
-      cur = i;
-      for (var j = 0; j < steps.length; j++) {
-        steps[j].setAttribute('aria-current', j === i ? 'true' : 'false');
-      }
-      if (rail) setFill(i);
-    }
-
-    for (var i = 0; i < steps.length; i++) {
-      (function (n) {
-        /* Clicking a step lights it and nothing else. It does NOT scroll: the
-           section is already on screen — that is how the step got clicked — and
-           taking the scroll here would fight a reader who is mid-flick. The
-           scroll reader below takes over again on the next frame they move, so
-           a click is a peek rather than a mode. */
-        on(steps[n], 'click', function () { goto(n); });
-        on(steps[n], 'focus', function () { goto(n); });
-      })(i);
-    }
-
-    /* Scroll-driven, and it READS the scroll rather than taking it — the same
-       rule shared.js writes for its pinned band. The current step is the last
-       one whose node has crossed the line 46% down the viewport: a line, not
-       the nearest midpoint, so the sequence only ever moves forward as you
-       scroll down and backward as you scroll up. */
-    watch(function () {
-      var line = window.innerHeight * 0.46;
-      var pick = 0;
-      for (var j = 0; j < steps.length; j++) {
-        if (steps[j].getBoundingClientRect().top <= line) pick = j;
-      }
-      goto(pick);
-    });
-  }
 
   /* ==========================================================================
      6 · THE HIGHLIGHTS
@@ -1139,7 +1068,6 @@
   gallery();
   lightbox();
   buyColumn();
-  timeline();
   filmControls();
   compare();
   highlights();
@@ -1153,7 +1081,10 @@
   if (still.addEventListener) {
     still.addEventListener('change', function () {
       if (!still.matches) return;
-      var films = $('.pdp-tl-film video, .pdp-hl-film, [data-gal-main] video');
+      /* querySelectorAll, not $. $ is querySelector here, so `films.length`
+         was undefined and this loop had never run once — the films kept
+         playing for a reader who asked them to stop. */
+      var films = doc.querySelectorAll('.ph-tl-big video, .pdp-hl-film, [data-gal-main] video');
       for (var i = 0; i < films.length; i++) { try { films[i].pause(); } catch (e) {} }
     });
   }

@@ -435,7 +435,7 @@
           <li><a href="#s04"><b>04</b>Surfaces</a></li>
           <li><a href="#s05"><b>05</b>Elevation and motion</a></li>
           <li><a href="#s06"><b>06</b>Components</a></li>
-          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li><li><a href="#s09"><b>09</b>Display headline</a></li><li><a href="#s10"><b>10</b>Buy and Add to cart</a></li>
+          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li><li><a href="#s09"><b>09</b>Display headline</a></li><li><a href="#s10"><b>10</b>Buy and Add to cart</a></li><li><a href="#s11"><b>11</b>The timeline</a></li>
         </ol>
       </nav>
 
@@ -929,6 +929,55 @@
 <div class="ds-block">
 <p class="ds-sub">The test</p>
 <p class="ds-note" style="margin-top:0">Read the <span class="ds-tok">href</span>. If it points at a product page, the label is <b>Buy</b>. If it points at <span class="ds-tok">/store/cart/</span> or runs a cart script, the label is <b>Add to cart</b>. An explore page never says Add to cart, because an explore page has nothing configured to add.</p>
+</div>
+</section>
+
+<!-- ========================================================= 11 -->
+<section class="ds-sec" id="s11">
+<div class="ds-sec-h"><span class="n">11</span><h2>The timeline</h2></div>
+
+<p class="ds-note">The shape this store reaches for whenever it has to answer <b>when does this start working</b>. A rail fills with the scroll; every stage the line passes lights and stays lit, so what the reader watches is an accumulation rather than a selection. Drawn first for NAD, promoted to the kit on 2026-09-16 as <span class="ds-tok">.ph-tl</span>.</p>
+<p class="ds-note">It was promoted because it had been drawn twice. NAD had this. The Ring had a stepper wearing the same clothes: four buttons, one lit at a time, the other three dimmed, and a fill that jumped from dot to dot. The second one says <em>pick a stage</em>; the first says <em>it builds</em>, which is the argument both sections were making. There is one of them now and both pages take it.</p>
+
+<div class="ds-block">
+<p class="ds-sub">Live</p>
+<div class="ph-tl" style="margin-top:22px">
+<div class="ph-tl-steps" data-ph-tl>
+<span class="ph-tl-rail" aria-hidden="true"><i></i></span>
+<div class="ph-tl-step"><p class="ph-tl-step-h"><span class="ph-tl-pill">Night 1</span>The first stage</p><ul><li>Lit as the line reaches it</li><li>And lit from then on</li></ul></div>
+<div class="ph-tl-step"><p class="ph-tl-step-h"><span class="ph-tl-pill">Week 1</span>The second</p><ul><li>The rail is measured dot to dot</li><li>Never divided into equal parts</li></ul></div>
+<div class="ph-tl-step"><p class="ph-tl-step-h"><span class="ph-tl-pill">Month 3</span>The last</p><ul><li>Because the stages carry different amounts of copy</li></ul></div>
+<p class="ph-tl-foot">The line under the stages, for what the timings actually are.</p>
+</div>
+<div class="ph-tl-media">
+<figure class="ph-tl-big" style="background:var(--phenome-blue-900)"><figcaption>The caption strip, on glass</figcaption></figure>
+<figure class="ph-tl-sm" data-ph-float="-1" style="background:var(--gl-tint-sunk)"></figure>
+<figure class="ph-tl-round" data-ph-float="1" style="background:var(--phenome-blue-100)"></figure>
+</div>
+</div>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">The parts</p>
+<ul class="ds-spec">
+<li><b>.ph-tl</b><span>The two column grid. One column at 1023 and under.</span></li>
+<li><b>.ph-tl-steps</b><span>The rail column. Carries <span class="ds-tok">data-ph-tl</span>, which is what shared.js looks for and what opts the stages in to dimming.</span></li>
+<li><b>.ph-tl-rail</b><span>A hairline with an <span class="ds-tok">&lt;i&gt;</span> inside it. The fill scales rather than grows, so a frame of scroll costs a composite and not a layout.</span></li>
+<li><b>.ph-tl-step</b><span>One stage. Gains <span class="ds-tok">.on</span> and keeps it. Never a button.</span></li>
+<li><b>.ph-tl-pill</b><span>Night 1, Week 1, Month 3. Navy chip, white text, inside the stage&rsquo;s heading.</span></li>
+<li><b>.ph-tl-media</b><span>The collage. <span class="ds-tok">.ph-tl-big</span> spans both columns at 16:10 and holds a caption; <span class="ds-tok">.ph-tl-sm</span> is 4:3 and <span class="ds-tok">.ph-tl-round</span> is a circle. Add <span class="ds-tok">data-ph-float</span> to drift a tile.</span></li>
+<li><b>.ph-tl-note</b><span>The chip under the rail, for the one instruction the section ends on.</span></li>
+</ul>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Rules for reusing it</p>
+<p class="ds-note" style="margin-top:0"><b>Change the words and the pictures. Do not change the interaction.</b> A page supplies stages, bullets, three images and a caption, and gets the rest. Nothing about the fill, the dots, the cumulative lighting or the drift is a per page decision, and a page that wants a different one of those is asking for a second component rather than a setting on this one.</p>
+<ul class="ds-spec">
+<li><b>The stages are not selectable</b><span>Nobody picks month three, they arrive at it. Buttons would add four tab stops in front of text that is already read straight through.</span></li>
+<li><b>The big tile takes a film too</b><span>The tile does not care what it holds. A portrait film covers rather than contains, or it is a strip between two margins.</span></li>
+<li><b>Stillness</b><span>Under <span class="ds-tok">prefers-reduced-motion</span> every stage is lit and the rail is full. A progress line frozen at zero reads as broken.</span></li>
+</ul>
 </div>
 </section>
 

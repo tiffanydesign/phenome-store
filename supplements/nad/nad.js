@@ -310,58 +310,14 @@
     });
   }
 
-  /* ---- 3 · timeline: the rail fills with the scroll ---------------------- */
-  function timeline() {
-    var box = $('[data-steps]');
-    if (!box) return;
-    var rail = $('.nd-rail', box);
-    var fill = $('i', rail);
-    var steps = $$('.nd-step', box);
-    if (!steps.length) return;
-
-    function layout() {
-      /* The rail runs dot to dot: from the first step's marker to the last's. */
-      var first = steps[0].offsetTop + 14;
-      var last = steps[steps.length - 1].offsetTop + 14;
-      rail.style.top = first + 'px';
-      rail.style.bottom = 'auto';
-      rail.style.height = Math.max(0, last - first) + 'px';
-    }
-    layout();
-    window.addEventListener('resize', layout);
-    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(layout);
-
-    if (still.matches) {
-      fill.style.setProperty('--p', 1);
-      steps.forEach(function (s) { s.classList.add('on'); });
-      return;
-    }
-    var lastP = -1;
-    onFrame(function () {
-      var line = window.innerHeight * 0.62;
-      var r = rail.getBoundingClientRect();
-      var p = r.height ? Math.min(Math.max((line - r.top) / r.height, 0), 1) : 0;
-      if (Math.abs(p - lastP) < 0.001) return;
-      lastP = p;
-      fill.style.setProperty('--p', p.toFixed(4));
-      steps.forEach(function (s, i) {
-        var on = i === 0 ? (line - r.top) > -40 : p >= (i / (steps.length - 1)) - 0.001;
-        s.classList.toggle('on', on);
-      });
-    });
-
-    /* Collage tiles drift a little against each other. */
-    var floats = $$('[data-float]');
-    onFrame(function () {
-      var vh = window.innerHeight;
-      floats.forEach(function (f) {
-        var r = f.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) return;
-        var c = (r.top + r.height / 2 - vh / 2) / vh;
-        f.style.translate = '0 ' + (c * 28 * +f.getAttribute('data-float')).toFixed(1) + 'px';
-      });
-    });
-  }
+  /* ---- 3 · timeline · MOVED TO shared.js 2026-09-16 -----------------------
+     The rail, its fill, the cumulative lighting and the collage drift are the
+     kit's now (phenome-glass.css § 9, shared.js § the timeline), because
+     store/phenometech-ring needed the same section and had grown a different
+     one. Every number over there is this function's; nothing was retuned in
+     the move. The markup swapped .nd-* for .ph-tl-* and data-steps for
+     data-ph-tl, which is what the shared driver looks for.
+     ------------------------------------------------------------------------ */
 
   /* ---- 8 · FAQ: View all -------------------------------------------------- */
   function faq() {
@@ -451,7 +407,6 @@
   dock();
   plans();
   essentials();
-  timeline();
   onceInView($('.nd-table'), 'is-in', '0px 0px -10% 0px');
   faq();
   reviews();

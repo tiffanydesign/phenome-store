@@ -1364,6 +1364,143 @@ a, button, summary, [role="button"], .btn, .pill, .tag, .atile-link {
 }
 
 /* ---------------------------------------------------------------------------
+   9 · THE TIMELINE · a rail that fills with the scroll, beside a collage.
+
+   PROMOTED FROM supplements/nad 2026-09-16, by request, and promoted for one
+   reason: it is the shape this store reaches for whenever it has to answer
+   "when does this start working", and it had been drawn twice, differently.
+   nad had this — a rail that fills continuously, every stage lighting as the
+   line passes it and STAYING lit, so the section reads as an accumulation.
+   store/phenometech-ring had a stepper wearing the same clothes: four buttons,
+   one lit at a time, the rest dimmed, and a fill that jumped from dot to dot.
+   The second one says "pick a stage". The first one says "it builds", which is
+   the argument both sections are actually making.
+
+   So there is one of them now, it is this one, and both pages take it. The
+   markup and every number below are nad's, unchanged; only the names are new,
+   and the tokens they read were already kit tokens behind nad's own aliases.
+
+   THE STRUCTURE, and a page supplies nothing but words and pictures:
+
+     .ph-tl                       the section's two column grid
+       .ph-tl-steps[data-ph-tl]   the rail column
+         .ph-tl-rail > i          the hairline, and the fill that scales in it
+         .ph-tl-step(.on)         one stage. Lit cumulatively, never exclusively
+           .ph-tl-step-h          the pill and the stage's name, one baseline
+             .ph-tl-pill          "Week 1", "Night 1". Navy chip, white text
+           ul > li                disc bullets, what arrives at that stage
+         .ph-tl-foot              the honest line about what the timings are
+       .ph-tl-media               the collage
+         .ph-tl-big               spans both columns, 16:10, carries a caption
+         .ph-tl-sm                4:3
+         .ph-tl-round             a circle
+
+   THE STEPS ARE NOT BUTTONS and must not become them. There is nothing to
+   choose here: a reader does not select month three, they arrive at it, and
+   the scroll is the only input the section needs. Buttons would also put four
+   tab stops in front of a list of plain text that is already fully in the
+   accessibility tree and already fully readable with no script at all.
+
+   NO SCRIPT, NO PROBLEM: shared.js § the timeline adds `.on` and drives --p.
+   Without it every step sits at 34% opacity, which is legible but wrong, so
+   the un-driven state is handled explicitly at the foot of this section rather
+   than left to chance — the rail column opts IN to dimming by carrying
+   `data-ph-tl`, and the script is what the attribute promises.
+   ------------------------------------------------------------------------ */
+.ph-tl {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: clamp(40px, 6vw, 110px); align-items: center;
+  margin-top: clamp(48px, 5vw, 80px);
+}
+
+.ph-tl-steps { position: relative; padding-left: 44px; }
+.ph-tl-rail {
+  position: absolute; left: 4px; top: 14px; bottom: 96px; width: 1px;
+  background: #d5dbea;
+}
+/* SCALED, NOT GROWN. The fill occupies the rail's whole extent and scales from
+   its top edge, so a frame of scroll costs a composite rather than a layout. */
+.ph-tl-rail i {
+  position: absolute; inset: 0; background: var(--phenome-blue-900);
+  transform-origin: top; transform: scaleY(var(--p, 0));
+}
+
+.ph-tl-step {
+  position: relative; padding-bottom: 36px;
+  transition: opacity .5s var(--ease-frosted-out, cubic-bezier(.16, 1, .3, 1));
+}
+[data-ph-tl] .ph-tl-step { opacity: .34; }
+[data-ph-tl] .ph-tl-step.on { opacity: 1; }
+.ph-tl-step::before {
+  content: ""; position: absolute; left: -44px; top: 10px;
+  width: 9px; height: 9px; border-radius: 50%; background: #c3cadf;
+  transition: background .4s, scale .4s var(--ease-frosted-out, cubic-bezier(.16, 1, .3, 1));
+}
+.ph-tl-step.on::before { background: var(--phenome-blue-900); scale: 1.2; }
+
+.ph-tl-step-h {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;
+  margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600;
+  color: var(--phenome-blue-900);
+}
+.ph-tl-pill {
+  display: inline-flex; align-items: center; height: 30px; padding: 0 13px;
+  border-radius: 99px; background: var(--phenome-blue-900); color: #fff;
+  font-size: 16px; font-weight: 600;
+}
+.ph-tl-step ul { margin: 12px 0 0; padding-left: 20px; }
+.ph-tl-step li { list-style: disc; font-size: 16px; line-height: 1.65; color: var(--ph-text-1); }
+.ph-tl-foot { margin: 0; font-size: 16px; line-height: 1.4; color: var(--ph-text-2); }
+
+/* ---- the collage. Three tiles, and the two small ones drift against the big
+   one under [data-ph-float] (shared.js). A page that has a film rather than a
+   photograph puts it in .ph-tl-big; the tile does not care which it holds. */
+.ph-tl-media {
+  display: grid; grid-template-columns: 1.55fr 1fr;
+  gap: clamp(16px, 1.4vw, 24px); align-items: start;
+}
+.ph-tl-media figure { margin: 0; overflow: hidden; background: var(--phenome-blue-100); }
+.ph-tl-media img,
+.ph-tl-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph-tl-big { position: relative; grid-column: 1 / -1; aspect-ratio: 16 / 10; border-radius: 28px; }
+.ph-tl-big figcaption {
+  position: absolute; left: 50%; bottom: 20px; translate: -50% 0;
+  width: max-content; max-width: calc(100% - 40px);
+  padding: 10px 16px; border-radius: 10px; background: rgba(10, 30, 87, .72);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: #fff; font-size: 15px; line-height: 1.35; font-weight: 600; text-align: center;
+}
+.ph-tl-sm { aspect-ratio: 4 / 3; border-radius: 28px; }
+.ph-tl-round { aspect-ratio: 1; border-radius: 50%; }
+
+/* ---- the closing chip. One instruction, under the rail. */
+.ph-tl-note {
+  display: inline-flex; align-items: center; gap: 18px; margin-top: 24px;
+  padding: 14px 28px; border-radius: 20px; background: var(--gl-tint-sunk);
+}
+.ph-tl-note p { display: grid; gap: 2px; margin: 0; font-size: 15px; line-height: 1.4; color: var(--ph-text-1); }
+.ph-tl-note b { font-size: 16px; color: var(--phenome-blue-900); }
+
+@media (max-width: 1023px) {
+  .ph-tl { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+/* The gutter narrows, and the two numbers that place the dot move together:
+   the step's padding and the dot's negative offset are the same figure, which
+   is what puts the dot's box at x=0 of the column. The RAIL does not move with
+   them — it is one pixel at the dot's centre, 4px in, at every width. */
+@media (max-width: 640px) {
+  .ph-tl-media { gap: 10px; }
+  .ph-tl-steps { padding-left: 30px; }
+  .ph-tl-step::before { left: -30px; }
+}
+/* Stillness: every stage lit, the rail full. A progress line frozen at zero
+   reads as broken, which is worse than no line at all. */
+@media (prefers-reduced-motion: reduce) {
+  [data-ph-tl] .ph-tl-step { opacity: 1; }
+  .ph-tl-step, .ph-tl-step::before { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
    8 · Fallbacks
    Almost nothing is left to fall back to: with the page white the tiers in
    section 1 are opaque already, so a browser with no backdrop-filter now sees

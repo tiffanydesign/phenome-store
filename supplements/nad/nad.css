@@ -432,56 +432,21 @@
 /* ---------------------------------------------------------------------------
    3 · BENEFITS OVER TIME
    ------------------------------------------------------------------------ */
-.nadp .nd-time-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
-  gap: clamp(40px, 6vw, 110px); align-items: center; margin-top: clamp(48px, 5vw, 80px);
-}
-.nadp .nd-steps { position: relative; padding-left: 44px; }
-.nadp .nd-rail { position: absolute; left: 4px; top: 14px; bottom: 96px; width: 1px; background: #d5dbea; }
-.nadp .nd-rail i {
-  position: absolute; inset: 0; background: var(--nd-navy);
-  transform-origin: top; transform: scaleY(var(--p, 0));
-}
-.nadp .nd-step { position: relative; padding-bottom: 36px; opacity: .34; transition: opacity .5s var(--nd-ease); }
-.nadp .nd-step::before {
-  content: ""; position: absolute; left: -44px; top: 10px; width: 9px; height: 9px; border-radius: 50%;
-  background: #c3cadf; transition: background .4s, scale .4s var(--nd-ease);
-}
-.nadp .nd-step.on { opacity: 1; }
-.nadp .nd-step.on::before { background: var(--nd-navy); scale: 1.2; }
-.nadp .nd-step-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 18px; line-height: 1.3; font-weight: 600; color: var(--nd-navy); }
-.nadp .nd-pill {
-  display: inline-flex; align-items: center; height: 30px; padding: 0 13px; border-radius: 99px;
-  background: var(--nd-navy); color: #fff; font-size: 16px; font-weight: 600;
-}
-.nadp .nd-step ul { margin: 12px 0 0; padding-left: 20px; }
-.nadp .nd-step li { list-style: disc; font-size: 16px; line-height: 1.65; color: var(--nd-ink); }
-.nadp .nd-foot { font-size: 16px; line-height: 1.4; color: var(--nd-ink-2); }
+/* THE TIMELINE ITSELF IS THE KIT'S NOW, phenome-glass.css § 9, promoted out of
+   this file on 2026-09-16 so that store/phenometech-ring could take it too.
+   Fifty lines left with it — the grid, the rail and its fill, the step and its
+   node, the pill, the list, the collage tiles and the caption — and none of
+   them are re-stated here, because a second copy is how the ring came to have
+   a different one in the first place.
 
-.nadp .nd-collage { display: grid; grid-template-columns: 1.55fr 1fr; gap: var(--nd-gut); align-items: start; }
-.nadp .nd-collage figure { margin: 0; overflow: hidden; background: var(--nd-soft); }
-.nadp .nd-collage img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.nadp .nd-col-big { position: relative; grid-column: 1 / -1; aspect-ratio: 16 / 10; border-radius: var(--nd-r-lg); }
-.nadp .nd-col-big img { object-position: 50% 30%; }
-.nadp .nd-col-big figcaption {
-  position: absolute; left: 50%; bottom: 20px; translate: -50% 0; width: max-content; max-width: calc(100% - 40px);
-  padding: 10px 16px; border-radius: 10px; background: rgba(10, 30, 87, .72);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  color: #fff; font-size: 15px; line-height: 1.35; font-weight: 600; text-align: center;
-}
-.nadp .nd-col-sm { aspect-ratio: 4 / 3; border-radius: var(--nd-r-lg); }
-.nadp .nd-col-sm img { object-position: 50% 82%; }
-.nadp .nd-col-circle { aspect-ratio: 1; border-radius: 50%; }
-.nadp .nd-col-circle img { object-position: 50% 40%; }
+   What is left below is what is true of THIS page and nothing else: where each
+   photograph is cropped, and the two sachets leaning on the how to use chip. */
+.nadp .ph-tl-big img { object-position: 50% 30%; }
+.nadp .ph-tl-sm img { object-position: 50% 82%; }
+.nadp .ph-tl-round img { object-position: 50% 40%; }
 
-.nadp .nd-howto {
-  display: inline-flex; align-items: center; gap: 18px; margin-top: 24px;
-  padding: 14px 28px 14px 18px; border-radius: var(--nd-r-md); background: var(--nd-sunk);
-}
 .nadp .nd-howto-sachet { width: 30px; height: 49px; rotate: -8deg; filter: drop-shadow(0 4px 6px rgba(10, 30, 87, .2)); }
 .nadp .nd-howto-sachet + .nd-howto-sachet { margin-left: -26px; rotate: 6deg; }
-.nadp .nd-howto p { display: grid; gap: 2px; font-size: 15px; line-height: 1.4; color: var(--nd-ink); }
-.nadp .nd-howto b { font-size: 16px; color: var(--nd-navy); }
 
 /* ---------------------------------------------------------------------------
    4 · FORMULA
@@ -777,7 +742,7 @@
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 1024px) {
-  .nadp .nd-time-grid, .nadp .nd-formula-grid { grid-template-columns: minmax(0, 1fr); }
+  .nadp .nd-formula-grid { grid-template-columns: minmax(0, 1fr); }
   .nadp .nd-still { max-width: 420px; }
   .nadp .nd-rv { grid-template-columns: minmax(0, 1fr) auto; }
   .nadp .nd-rv-main { grid-column: 1 / -1; grid-row: 2; }
@@ -798,7 +763,6 @@
   .nadp .nd-tr > :nth-child(3), .nadp .nd-th > :nth-child(3) { font-size: 15px; }
   .nadp .nd-chip { height: auto; padding: 4px 8px; font-size: 15px; white-space: normal; text-align: center; border-radius: 10px; }
   .nadp .nd-dist { padding-left: 0; border-left: 0; }
-  .nadp .nd-collage { gap: 10px; }
 }
 @media (max-width: 560px) {
   /* shared.css drops the three figures into one column here; without the tint
@@ -812,7 +776,7 @@
   .nadp .nd-ess-panel p { margin-top: 4px; }
   .nadp .nd-dist li { grid-template-columns: 34px minmax(0, 1fr) 40px; }
   .nadp .nd-dist { width: 100%; }
-  .nadp .nd-howto { display: flex; }
+  .nadp .ph-tl-note { display: flex; }
   .nadp .ph-bar-meta { display: none; }
   .nadp .nd-pair { grid-template-columns: 72px 1fr; }
   .nadp .nd-pair img { width: 72px; height: 72px; }
@@ -820,6 +784,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nadp .nd-still-dots, .nadp .nd-end-sachet { animation: none; }
-  .nadp .nd-step { opacity: 1; }
   .nadp .nd-table [role="row"] { opacity: 1; translate: none; }
 }

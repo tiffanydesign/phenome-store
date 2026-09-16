@@ -1399,6 +1399,98 @@
     });
   }
 
+  /* THE TIMELINE · a rail that fills with the scroll (phenome-glass.css § 9).
+
+     PROMOTED FROM supplements/nad/nad.js 2026-09-16 with the component it
+     drives, so the two pages that carry a "when does this start working"
+     section cannot drift apart again. Every number below is nad's.
+
+     WHY THE RAIL IS MEASURED RATHER THAN DIVIDED. The stages carry different
+     amounts of copy, so four equal quarters would put the line above or below
+     the dot it is meant to arrive at. The rail is set to run dot to dot — from
+     the first step's marker to the last's — and progress is read against that
+     box. Re-measured on resize and again once the webfont has loaded, because
+     the fallback face sets to a different height and every offset moves with
+     it.
+
+     THE LINE IS AT 62% OF THE VIEWPORT, which is below the middle on purpose:
+     a stage should light as the reader reaches it, not once it has already
+     gone past. The first stage is the exception and lights a little early
+     (-40px), so the section never greets anyone with four dimmed stages.
+
+     It READS the scroll, it never takes it. No pinning, no scroll hijack, no
+     preventDefault: the wheel, a fling, PageDown and the scrollbar all behave
+     exactly as they do everywhere else. */
+  function timelines() {
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var boxes = [].slice.call(document.querySelectorAll('[data-ph-tl]'));
+    var floats = [].slice.call(document.querySelectorAll('[data-ph-float]'));
+    if (!boxes.length && !floats.length) return;
+    if (!('requestAnimationFrame' in window)) return;
+
+    var frames = [];
+    boxes.forEach(function (box) {
+      var rail = box.querySelector('.ph-tl-rail');
+      var fill = rail && rail.querySelector('i');
+      var steps = [].slice.call(box.querySelectorAll('.ph-tl-step'));
+      if (!rail || !fill || steps.length < 2) return;
+
+      function layout() {
+        var first = steps[0].offsetTop + 14;
+        var last = steps[steps.length - 1].offsetTop + 14;
+        rail.style.top = first + 'px';
+        rail.style.bottom = 'auto';
+        rail.style.height = Math.max(0, last - first) + 'px';
+      }
+      layout();
+      window.addEventListener('resize', layout);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+
+      if (still.matches) {
+        fill.style.setProperty('--p', 1);
+        steps.forEach(function (s) { s.classList.add('on'); });
+        return;
+      }
+
+      var last = -1;
+      frames.push(function () {
+        var line = window.innerHeight * 0.62;
+        var r = rail.getBoundingClientRect();
+        var p = r.height ? Math.min(Math.max((line - r.top) / r.height, 0), 1) : 0;
+        if (Math.abs(p - last) < 0.001) return;
+        last = p;
+        fill.style.setProperty('--p', p.toFixed(4));
+        steps.forEach(function (s, i) {
+          var on = i === 0 ? (line - r.top) > -40 : p >= (i / (steps.length - 1)) - 0.001;
+          s.classList.toggle('on', on);
+        });
+      });
+    });
+
+    /* The collage tiles drift a little against each other, which is what stops
+       three rectangles reading as a contact sheet. Opt in per tile with
+       data-ph-float, whose value is the direction and the multiplier. */
+    if (floats.length && !still.matches) {
+      frames.push(function () {
+        var vh = window.innerHeight;
+        floats.forEach(function (f) {
+          var r = f.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) return;
+          var c = (r.top + r.height / 2 - vh / 2) / vh;
+          f.style.translate = '0 ' + (c * 28 * +f.getAttribute('data-ph-float')).toFixed(1) + 'px';
+        });
+      });
+    }
+
+    if (!frames.length) return;
+    var queued = false;
+    function paint() { queued = false; frames.forEach(function (f) { f(); }); }
+    function tick() { if (!queued) { queued = true; requestAnimationFrame(paint); } }
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick);
+    paint();
+  }
+
   function productBar() {
     if (!('IntersectionObserver' in window)) return;
 
@@ -2067,6 +2159,7 @@
   carousels();
   railx();
   pinned();
+  timelines();
   faq();
   cartKit();
 

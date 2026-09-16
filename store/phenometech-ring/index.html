@@ -302,61 +302,84 @@
 </section>
 
 <!-- ==========================================================================
-     4 · THE TIMELINE
-     WHAT THIS REPLACES: two grey cards side by side, "Sleep, decoded." and
-     "Recovery, quantified.", each with three lines and a "Learn more" that went
-     to `#`. They said what the ring measures. They did not say the thing a
-     wearable actually has to say, which is that it is worth little on night one
-     and a lot by month three — so both headlines survive here as the first two
-     steps of a timeline that says it.
+     4 · THE TIMELINE · rebuilt 2026-09-16, by request, one to one on
+     supplements/nad § 3 ("Benefits that build over time"). The component now
+     lives in the kit, phenome-glass.css § 9, driven by shared.js; this page
+     supplies nothing but the words and the pictures.
 
-     The film beside them is the app's own Health Monitor with its biomarker
-     rows peeling out one by one — the section's argument in moving form. It
-     runs independently of the step, which is what seed's does too.
+     WHAT CHANGED, and it is the interaction rather than the content. This was
+     a STEPPER: four buttons, one lit at a time with the other three dimmed,
+     and a rail that jumped from dot to dot as the current one changed. It
+     asked the reader to pick a stage. But nobody picks month three — they
+     arrive at it, and the section's whole argument is that the thing gets
+     better the longer it is worn. nad's version says that and this one did
+     not: the rail fills continuously, and every stage the line passes lights
+     AND STAYS LIT, so what the reader sees accumulate is the point.
+
+     The buttons are gone with the choosing. Four tab stops in front of four
+     paragraphs of plain text bought nothing, and the text was always fully in
+     the accessibility tree.
+
+     THE FILM KEEPS ITS PLACE, in the collage's big tile. nad puts a
+     photograph there; the tile does not care which it holds, and the app's own
+     Health Monitor peeling its biomarker rows out one after another is this
+     section's argument in moving form. Its pause control comes with it.
      ====================================================================== -->
-<section class="section"><div class="wrap-wide">
-<div class="opener">
-<div class="opener-t"><h2 class="sec-title">Useful on night one.<br/>Far more by month three.</h2></div>
-<p class="lede" style="margin-left:0">Every reading is measured against your own baseline rather than an average, so the ring has to build one first. Here is what arrives, and roughly when.</p>
+<section class="section pdp-when" id="how"><div class="wrap-wide">
+
+<header class="pdp-when-head">
+<h2 class="ph-display is-ink pdp-when-h"><span class="ph-display-lead">Useful on night one</span><span>Far more by month three</span></h2>
+<p class="pdp-when-sub">Every reading is measured against your own baseline rather than an average, so the ring has to build one first. Here is what arrives, and roughly when.</p>
+<a class="link-more" href="#specs">What the ring measures</a>
+</header>
+
+<div class="ph-tl">
+
+<div class="ph-tl-steps" data-ph-tl="">
+<span class="ph-tl-rail" aria-hidden="true"><i></i></span>
+
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Night 1</span>Sleep, decoded</p>
+<ul><li>Time in every stage</li><li>Resting heart rate through the night</li><li>A sleep score waiting each morning</li></ul>
 </div>
 
-<div class="pdp-tl" data-tl="">
-<div class="pdp-tl-steps" data-tl-rail="">
-
-<button aria-current="true" class="pdp-tl-step" data-tl-step="" type="button">
-<span class="pdp-tl-when">Night 1</span>
-<p class="pdp-tl-t">Sleep, decoded.</p>
-<ul class="pdp-tl-l"><li>Time in every stage</li><li>Resting heart rate through the night</li><li>A sleep score waiting each morning</li></ul>
-</button>
-
-<button aria-current="false" class="pdp-tl-step" data-tl-step="" type="button">
-<span class="pdp-tl-when">Week 1</span>
-<p class="pdp-tl-t">Recovery, quantified.</p>
-<ul class="pdp-tl-l"><li>A daily readiness score from strain, sleep and heart rate variability</li><li>When to push and when to hold back</li><li>Enough nights to know what normal looks like for you</li></ul>
-</button>
-
-<button aria-current="false" class="pdp-tl-step" data-tl-step="" type="button">
-<span class="pdp-tl-when">Month 1</span>
-<p class="pdp-tl-t">Trends, not days.</p>
-<ul class="pdp-tl-l"><li>Skin temperature as a deviation from your baseline</li><li>Overnight blood oxygen read against sleep stages</li><li>One bad night stops looking like a trend</li></ul>
-</button>
-
-<button aria-current="false" class="pdp-tl-step" data-tl-step="" type="button">
-<span class="pdp-tl-when">Month 3</span>
-<p class="pdp-tl-t">Read in context.</p>
-<ul class="pdp-tl-l"><li>Months of continuous signal, not a snapshot</li><li>Joined to your genomic and microbiome data</li><li>Read together by Phenome</li></ul>
-</button>
-
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Week 1</span>Recovery, quantified</p>
+<ul><li>A daily readiness score from strain, sleep and heart rate variability</li><li>When to push and when to hold back</li><li>Enough nights to know what normal looks like for you</li></ul>
 </div>
 
-<div class="pdp-tl-film" data-tl-film="">
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Month 1</span>Trends, not days</p>
+<ul><li>Skin temperature as a deviation from your baseline</li><li>Overnight blood oxygen read against sleep stages</li><li>One bad night stops looking like a trend</li></ul>
+</div>
+
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Month 3</span>Read in context</p>
+<ul><li>Months of continuous signal, not a snapshot</li><li>Joined to your genomic and microbiome data</li><li>Read together by Phenome</li></ul>
+</div>
+
+<p class="ph-tl-foot">Timings are what a consistently worn ring gives. Wear it less and the baseline takes longer.</p>
+</div>
+
+<div class="ph-tl-media">
+<figure class="ph-tl-big">
 <video aria-label="The Phenome app's Health Monitor, listing measured biomarkers" autoplay="" id="pdp-film-tl" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-app.webp" preload="metadata"><source src="/phenome-store/assets/video/ring-app.webm" type="video/webm"/><source src="/phenome-store/assets/video/ring-app.mp4" type="video/mp4"/></video>
 <div class="pdp-filmbar" data-filmbar="#pdp-film-tl">
 <button aria-label="Pause video" class="pdp-filmbtn" data-film-play="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
 </div>
+<figcaption>Every stage above, read in one place each morning</figcaption>
+</figure>
+<figure class="ph-tl-sm" data-ph-float="-1"><img alt="The ring worn on a hand resting in water" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/ring_worn_water.webp" width="1400"/></figure>
+<figure class="ph-tl-round" data-ph-float="1"><img alt="The inside of the ring, sensor side up" decoding="async" height="1000" loading="lazy" src="/phenome-store/assets/pages/ring_macro_inner.webp" width="1000"/></figure>
 </div>
 
 </div>
+
+<div class="ph-tl-note">
+<svg aria-hidden="true" class="pdp-when-ic" focusable="false" viewbox="0 0 32 32" fill="none"><ellipse cx="16" cy="13.5" rx="9.5" ry="6" stroke="currentColor" stroke-width="2.2"/><path d="M6.5 13.5v4.6c0 3.3 4.25 6 9.5 6s9.5-2.7 9.5-6v-4.6" stroke="currentColor" stroke-width="2.2"/></svg>
+<p><b>How to wear it</b><span>On the index or middle finger, overnight and through the day.</span></p>
+</div>
+
 </div></section>
 
 <!-- ==========================================================================

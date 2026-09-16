@@ -1270,122 +1270,43 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
    3 · THE TIMELINE · a rail that fills, against a film that holds still
    ------------------------------------------------------------------------ */
 
-/* WHAT THIS REPLACES: two grey cards, side by side, each with a headline, three
-   lines and a dead "Learn more". They said what the ring measures. They did not
-   say the thing a wearable actually has to say, which is that it is worth
-   nothing on day one and worth something on day ninety.
-   So it is seed's "benefits that build over time", verbatim as an arrangement:
-   four steps down the left against one video on the right that stays put. The
-   two old headlines survive as the first two steps' titles. */
-.pdp .pdp-tl {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .82fr);
-  gap: clamp(32px, 5vw, 88px); align-items: start;
-  margin-top: clamp(40px, 4vw, 64px);
-}
+/* ---- 3b · WHEN IT STARTS WORKING · the kit timeline, phenome-glass.css § 9.
 
-/* ---- the rail. Two absolutely-positioned lines, not a border on each step:
-   the fill has to be able to cross a step boundary mid-way, and a per-step
-   border cannot. */
-.pdp .pdp-tl-steps { position: relative; padding-left: 34px; }
-.pdp .pdp-tl-steps::before,
-.pdp .pdp-tl-steps::after {
-  content: ""; position: absolute; left: 5px; width: 2px; border-radius: 1px;
-}
-.pdp .pdp-tl-steps::before {
-  top: 12px; bottom: 12px; background: var(--pdp-rule);
-}
-/* THE FILL IS SCALED, NOT GROWN. It animated `height` first, which is a layout
-   property: every frame of the 420ms costs a layout pass and a repaint even
-   though the bar is absolutely positioned and moves nothing around it. The bar
-   occupies the rail's full extent and `scaleY` from its top edge does the same
-   thing on the compositor. pdp.js therefore hands over a RATIO rather than a
-   pixel length — see the note there for why the ratio is measured off the
-   nodes rather than divided into equal quarters. */
-.pdp .pdp-tl-steps::after {
-  top: 12px; bottom: 12px;
-  background: var(--ph-accent);
-  transform-origin: 50% 0;
-  transform: scaleY(var(--p, 0));
-  transition: transform 420ms var(--pdp-ease);
-}
+   WHAT WAS HERE: 116 lines drawing a stepper — .pdp-tl, .pdp-tl-steps with two
+   absolutely positioned rules, .pdp-tl-step as a button at 38% opacity with a
+   hover state and a focus ring, a .pdp-tl-when chip that inverted on the
+   current step, and a sticky 4:5 film beside it. All of it drew, differently,
+   the thing supplements/nad already had. The component is the kit's now and
+   both pages take it, so what is left here is only what is true of THIS page.
 
-.pdp .pdp-tl-step {
-  position: relative; display: block; width: 100%;
-  -webkit-appearance: none; appearance: none;
-  border: 0; background: none; font: inherit; text-align: left;
-  padding: 0 0 clamp(28px, 3vw, 40px); cursor: pointer;
-  /* A step that is not current is faded, not hidden. seed fades to a grey; here
-     it is the same ink at 38%, which keeps the whole list readable to anyone who
-     wants to read ahead — and readable to a screen reader always. */
-  opacity: .38;
-  transition: opacity 340ms var(--pdp-ease);
-}
-.pdp .pdp-tl-step:last-child { padding-bottom: 0; }
-.pdp .pdp-tl-step[aria-current="true"] { opacity: 1; }
-.pdp .pdp-tl-step:hover { opacity: .72; }
-.pdp .pdp-tl-step[aria-current="true"]:hover { opacity: 1; }
-.pdp .pdp-tl-step:focus-visible {
-  outline: var(--ph-focus-w) solid var(--ph-focus);
-  outline-offset: 6px; border-radius: var(--ph-r8);
-}
-/* The node. It sits ON the rail, so its ground is the page's rather than
-   transparent — a 2px line running through a dot reads as a mistake. */
-.pdp .pdp-tl-step::before {
-  content: ""; position: absolute; left: -34px; top: 9px;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--surface-page);
-  box-shadow: inset 0 0 0 2px var(--pdp-rule);
-  transition: box-shadow 340ms var(--pdp-ease);
-}
-.pdp .pdp-tl-step[aria-current="true"]::before {
-  box-shadow: inset 0 0 0 6px var(--ph-accent);
-}
-.pdp .section-gray .pdp-tl-step::before { background: var(--gl-tint-sunk); }
+   Three things are, and they are all about the film. -------------------- */
 
-.pdp .pdp-tl-when {
-  display: inline-flex; align-items: center; height: 26px; padding: 0 11px;
-  border-radius: var(--ph-r56);
-  background: var(--gl-tint-sunk); box-shadow: inset 0 0 0 1px var(--pdp-hair);
-  font-size: var(--ph-fs-13); line-height: 1;
-  font-weight: var(--ph-w-600); letter-spacing: normal; color: var(--ph-text-2);
-  font-variant-numeric: tabular-nums;
-  transition: background var(--pdp-quick) var(--pdp-ease),
-              color var(--pdp-quick) var(--pdp-ease),
-              box-shadow var(--pdp-quick) var(--pdp-ease);
-}
-.pdp .pdp-tl-step[aria-current="true"] .pdp-tl-when {
-  background: var(--ph-accent); color: #fff; box-shadow: none;
-}
-.pdp .pdp-tl-t {
-  margin: 13px 0 0;
-  font-size: var(--ph-fs-28); line-height: var(--ph-lh-28);
-  font-weight: var(--ph-w-600); letter-spacing: var(--ph-tr-28-600);
-  color: var(--ink-900);
-}
-.pdp .pdp-tl-l { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
-.pdp .pdp-tl-l li {
-  display: grid; grid-template-columns: 15px minmax(0, 1fr); gap: 9px;
-  font-size: var(--ph-fs-17); line-height: var(--ph-lh-17);
+/* The section's own head, centred over the grid the way nad's is. */
+.pdp .pdp-when-head { text-align: center; }
+.pdp .pdp-when-h { font-size: clamp(34px, 4.4vw, 68px); }
+.pdp .pdp-when-sub {
+  margin: 20px auto 0; max-width: 62ch;
+  font-size: clamp(19px, 1.4vw, 21px); line-height: 1.55;
   color: var(--ph-text-2);
 }
-.pdp .pdp-tl-l li::before {
-  content: ""; width: 5px; height: 5px; margin: 8px 0 0 4px;
-  border-radius: 50%; background: var(--ph-line);
-}
-.pdp .pdp-tl-step[aria-current="true"] .pdp-tl-l li::before { background: var(--ph-accent); }
+.pdp .pdp-when-head .link-more { margin-top: 18px; display: inline-block; }
 
-/* ---- the film. Sticky, 4:5, and it never becomes the reason the section is
-   tall — the steps are. */
-.pdp .pdp-tl-film {
-  position: sticky; top: calc(var(--ph-nav-h) + 56px);
-  border-radius: var(--ph-r18); overflow: hidden;
-  background: var(--gl-tint-sunk);
-  box-shadow: var(--gl-shadow), var(--gl-inner);
-  aspect-ratio: 4 / 5;
-}
-.pdp .pdp-tl-film video,
-.pdp .pdp-tl-film img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* THE BIG TILE HOLDS A FILM, not a photograph, so two things move. Its pause
+   control sits bottom right inside the same tile, and the caption is centred
+   in the same strip — 96px of clearance rather than the component's 40 keeps
+   the two off each other at every width the tile takes. */
+.pdp .ph-tl-big figcaption { max-width: calc(100% - 96px); }
+/* THE FILM IS COVERED, NOT CONTAINED, and the choice is the whole reason the
+   film could stay in a tile drawn for a landscape photograph. Contained, a
+   900x1124 portrait inside 16:10 is a strip of phone between two navy margins
+   that take more than half the tile. Covered, the crop keeps the middle band
+   of the screen at the tile's full width, which is where the Health Monitor's
+   rows peel out — the only part of the frame this section is quoting. Object
+   position holds that band rather than the default centre. */
+.pdp .ph-tl-big { background: var(--phenome-blue-900); }
+.pdp .ph-tl-big video { object-position: 50% 42%; }
 
+.pdp .pdp-when-ic { width: 32px; height: 32px; flex: none; color: var(--ph-accent); }
 /* The film's two controls, and they are the same object as devices/ring's
    .ring-marquee-play — same 32px disc, same dark glass, same two glyphs in one
    button. A second play button design on one site is a second design. */
@@ -2247,21 +2168,6 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   .pdp .pdp-head .pdp-name { font-size: clamp(32px, 4.2vw, 44px); }
   .pdp .pdp-head .pdp-tagline { font-size: var(--ph-fs-21); }
   .pdp .pdp-head .lede { font-size: var(--ph-fs-17); line-height: var(--ph-lh-17-loose); max-width: 56ch; }
-  .pdp .pdp-tl { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-  /* `relative`, NOT `static`, AND `top: auto`. Two bugs at 390, one after the
-     other, both from this one declaration.
-     `static` took away the film's positioned ancestor, so the play/mute bar
-     inside it — which is absolute — escaped to the initial containing block and
-     parked itself over the bottom-right corner of the page as a stray floating
-     control. A film that is not sticky still has to be the frame its own
-     controls sit in, so it keeps a position.
-     Then `relative` inherited the sticky rule's `top: calc(--ph-nav-h + 56px)`,
-     and a relative offset MOVES THE PAINT WITHOUT MOVING THE BOX: the film was
-     drawn 100px below its own layout position and covered the first step's
-     pill and headline, while the steps still began where its box had ended.
-     `top: auto` is the whole fix and it is the kind that has to be written
-     down, because `position: relative` looks like it withdraws the offset. */
-  .pdp .pdp-tl-film { position: relative; top: auto; order: -1; aspect-ratio: 4 / 3; }
 }
 
 @media (max-width: 860px) {
@@ -2311,9 +2217,6 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
      every width and the chips share the row evenly. */
   .pdp .buy-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .pdp .buy-chips .tag { min-width: 0; }
-  .pdp .pdp-tl-steps { padding-left: 26px; }
-  .pdp .pdp-tl-step::before { left: -26px; }
-  .pdp .pdp-tl-steps::before, .pdp .pdp-tl-steps::after { left: 1px; }
   .pdp .ph-bar-inner { gap: 10px; }
   .pdp .pdp-lb-cap { display: none; }
 }
@@ -2339,7 +2242,6 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   }
   .pdp .pdp-gal-main img { transition: none; }
   .pdp .pdp-gal-zoom { opacity: 1; }
-  .pdp .pdp-tl-step { opacity: 1; }
   .pdp .ph-bar { transform: none; }
 }
 
