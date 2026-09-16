@@ -179,6 +179,70 @@
 </div></section>
 
 <!-- ==========================================================================
+     2a · THE FIGURES — ported from /devices/ring-lab/ (§ 20, "three numbers"),
+     2026-09-16, by request, and put here rather than anywhere else for a
+     reason: the signal band below it is about what the ring READS, and a
+     reader who has just left the buy column still has no idea what the object
+     ITSELF is. Three facts — a week, a hundred metres, four grams — answer
+     that in one line before the page starts talking about biomarkers.
+
+     WHAT WAS TAKEN FROM THE LAB PAGE: the shape exactly — a pale strip, three
+     equal cells, a tinted disc with a line glyph in it, the figure under the
+     disc and a two-line label under the figure, hairlines between the cells.
+     The copy is the lab's own, word for word.
+
+     WHAT CHANGED, and both are the house's rules rather than taste:
+     · THE THREE TINTS ARE COOL. The lab runs violet, orange and pink, which
+       is right on a page that is its own world and wrong on a PDP whose next
+       screen is a navy photograph. The trio here is walked along the brand
+       ramp — a blue, a water teal and a titanium violet — so the strip reads
+       as the same document as the band under it.
+     · THE FIGURE IS NOT COUNTED. shared.js § "Figures that count" states the
+       floor in writing: a number under ten is "a twitch, not a measurement",
+       and two of these three are 7 and 4. So the arrival is drawn instead —
+       see pdp.css § 2a — and no digit is ever rewritten.
+
+     NO SCRIPT. The whole thing keys off shared.js's own section reveal
+     (`section.ph-in`), which means a browser with no IntersectionObserver and
+     a reader who asked for stillness both get the finished strip on the first
+     paint, with nothing to wait for and nothing to fail.
+     ====================================================================== -->
+<section class="section pdp-figs">
+<div class="wrap-wide">
+<ul class="pdp-figs-row">
+
+<li class="pdp-fig" style="--fig-tint:#e4ebfd;--fig-ink:#2f58c7">
+<span class="pdp-fig-c">
+<svg aria-hidden="true" class="pdp-fig-sweep" focusable="false" viewbox="0 0 120 120"><circle cx="60" cy="60" fill="none" r="57.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></circle></svg>
+<svg aria-hidden="true" class="pdp-fig-g" focusable="false" viewbox="0 0 48 48"><rect fill="none" height="18" rx="4" stroke="currentColor" stroke-width="3" width="28" x="8" y="15"></rect><path d="M40 21v6" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path><rect class="pdp-fig-cell" fill="currentColor" height="10" rx="2" width="16" x="12" y="19"></rect></svg>
+</span>
+<p class="pdp-fig-n">7 days</p>
+<p class="pdp-fig-l">Battery life<br/>on a single charge</p>
+</li>
+
+<li class="pdp-fig" style="--fig-tint:#dff0f7;--fig-ink:#1b7ea3">
+<span class="pdp-fig-c">
+<svg aria-hidden="true" class="pdp-fig-sweep" focusable="false" viewbox="0 0 120 120"><circle cx="60" cy="60" fill="none" r="57.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></circle></svg>
+<svg aria-hidden="true" class="pdp-fig-g" focusable="false" viewbox="0 0 48 48"><path d="M24 8c6 8 10 14 10 20a10 10 0 0 1-20 0c0-6 4-12 10-20z" fill="currentColor"></path></svg>
+</span>
+<p class="pdp-fig-n">100 m</p>
+<p class="pdp-fig-l">Water resistance<br/>for swims and showers</p>
+</li>
+
+<li class="pdp-fig" style="--fig-tint:#eae6f6;--fig-ink:#5f4bab">
+<span class="pdp-fig-c">
+<svg aria-hidden="true" class="pdp-fig-sweep" focusable="false" viewbox="0 0 120 120"><circle cx="60" cy="60" fill="none" r="57.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></circle></svg>
+<svg aria-hidden="true" class="pdp-fig-g" focusable="false" viewbox="0 0 48 48"><ellipse cx="24" cy="21" fill="none" rx="14" ry="9" stroke="currentColor" stroke-width="3"></ellipse><path d="M10 21v5c0 5 6.3 9 14 9s14-4 14-9v-5" fill="none" stroke="currentColor" stroke-width="3"></path></svg>
+</span>
+<p class="pdp-fig-n">4 g</p>
+<p class="pdp-fig-l">Titanium ring<br/>at size 8</p>
+</li>
+
+</ul>
+</div>
+</section>
+
+<!-- ==========================================================================
      3 · THE SIGNAL BAND — rebuilt on seed.com/daily-synbiotic, 2026-09-09.
      One photograph, one frosted strip, five signals, nothing to press.
      2026-09-14: the copy moved to the upper right and the signals to the foot,
@@ -303,12 +367,30 @@
      signal section, folded in here as one sentence so none of them repeats a
      highlight below it. -->
 <p class="pdp-hl-dek"><b>5</b> sensors reading <b>50+</b> signals, <b>24/7</b>.</p>
+<!-- THE FOUR ARRIVE TOGETHER AND LIGHT ONE AT A TIME (2026-09-16, by request).
+     The list itself is unchanged — same four leads, same four sentences. What
+     changed is what the scroll does with them: they used to fade up in a
+     stagger and then simply sit there for the last third of a 260vh band,
+     which is a long pin to hold a still frame. Now each one carries a rule
+     that draws itself across the head of the item as the reader reaches it,
+     and the item brightens from a quarter to full as it does.
+
+     It is the site's OWN gesture, not a new one: shared.css's
+     `html.ph-reveal .figure::before` draws exactly this rule under exactly
+     this kind of number, on the accent. The only difference here is that it
+     is scrubbed by the scroll rather than fired by an observer, because this
+     band is pinned and there is a timeline to hang it on. See pdp.css § 4. -->
 <ul class="pdp-hl-list">
 <li class="pdp-hl-item"><span class="pdp-hl-k">7 day battery.</span><span class="pdp-hl-d">A full charge in roughly 90 minutes.</span></li>
 <li class="pdp-hl-item"><span class="pdp-hl-k">100 m water resistant.</span><span class="pdp-hl-d">Swim, shower, sleep.</span></li>
 <li class="pdp-hl-item"><span class="pdp-hl-k">Just 4 grams.</span><span class="pdp-hl-d">Aerospace titanium or ceramic, on the finger.</span></li>
 <li class="pdp-hl-item"><span class="pdp-hl-k">Synced to your biology.</span><span class="pdp-hl-d">Your genes and gut, in the same picture.</span></li>
 </ul>
+<!-- Four ticks, one per highlight, filling as each lights. A pinned band is
+     the one place on this page where the reader cannot see how much is left,
+     and this is the cheapest honest answer to that. Decorative: every word it
+     stands for is already on the screen beside it. -->
+<div aria-hidden="true" class="pdp-hl-rail"><i></i><i></i><i></i><i></i></div>
 </div>
 <div class="pdp-filmbar" data-filmbar="#pdp-film-hl">
 <button aria-label="Pause video" class="pdp-filmbtn" data-film-play="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>

@@ -845,8 +845,23 @@
        .08  – .38   the dek follows a beat behind it
        .15+ – .66   the four highlights, .075 apart and overlapping
 
-     and the last third holds the finished frame before the pin releases. The
-     section only becomes tall once this runs (`data-live`); without it, or
+     THE LAST THIRD USED TO HOLD A FINISHED FRAME (fixed 2026-09-16). Everything
+     above lands by .66 and the pin does not release until 1.0, which is 85vh of
+     held scroll spent on a picture the reader finished reading a third of a
+     screen ago — the single most common reason a pinned band reads as broken.
+     So a SECOND pass runs over the same four items across that stretch, one at
+     a time, and nothing new is introduced to carry it: each item lights, and
+     the rule at its head draws across (pdp.css § 4).
+
+       .34  – .54   the rail fades in under the list
+       .42+ – .92   the four light in turn, .13 apart, .11 each
+
+     The four stops are sequential rather than overlapping — this pass is the
+     slow reading, and two leads brightening at once is the fast one again. The
+     last lands at .92, which leaves a beat of finished frame before the pin
+     releases rather than a third of the section of it.
+
+     The section only becomes tall once this runs (`data-live`); without it, or
      with reduced motion, it is one screen with the end state painted. */
   function highlights() {
     var band = $('[data-hl]');
@@ -854,6 +869,11 @@
     band.setAttribute('data-live', '');
     var items = $$('.pdp-hl-item', band);
     var dek = $('.pdp-hl-dek', band);
+    /* One tick per highlight, and the rail is trimmed to the list rather than
+       trusted to match it: the markup ships four of each, and a fifth item
+       added later should not light a tick that is not there — or leave one
+       dark that is. */
+    var ticks = $$('.pdp-hl-rail i', band);
 
     function clamp01(t) { return Math.min(Math.max(t, 0), 1); }
     function ease(t) {
@@ -869,10 +889,17 @@
     function paint(p) {
       band.style.setProperty('--hl-veil', (front(p / 0.30) * 0.85).toFixed(3));
       band.style.setProperty('--hl-copy', span(p, 0.02, 0.32).toFixed(3));
+      band.style.setProperty('--hl-rail', span(p, 0.34, 0.54).toFixed(3));
       if (dek) dek.style.setProperty('--hl-dek', span(p, 0.08, 0.38).toFixed(3));
       for (var i = 0; i < items.length; i++) {
         var a = 0.15 + i * 0.075;
         items[i].style.setProperty('--hl-i', span(p, a, a + 0.28).toFixed(3));
+        /* The second pass. Written as a string once and set on both the item
+           and its tick, so the rule at the head of the item and the tick at
+           the foot of the band can never disagree about where the reader is. */
+        var lit = span(p, 0.42 + i * 0.13, 0.42 + i * 0.13 + 0.11).toFixed(3);
+        items[i].style.setProperty('--hl-lit', lit);
+        if (ticks[i]) ticks[i].style.setProperty('--hl-lit', lit);
       }
     }
 
