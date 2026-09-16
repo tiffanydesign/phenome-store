@@ -1,0 +1,69 @@
+/* ============================================================================
+   devices/ring-lab · the archived "Inside the app" panel
+
+   ARCHIVED 2026-09-16, by request. This was section 11 of /app/, the slate
+   panel that closed the page: a tall photographic card for Book a session
+   beside three link cards into the app. It was deleted there because the nav
+   and the feature bento already reach all four destinations, and it is kept
+   here whole, the way the Band and the science accordion are kept here.
+
+   Self contained on purpose. It carries its own copies of the four app tokens
+   it used (`--ap-*`) so that nothing here depends on app/app.css, which no
+   longer describes this layout. Scoped to the `.apxd` wrapper.
+   ========================================================================== */
+
+.apxd {
+  --ap-ink: #0a1233;
+  --ap-slate: #1b2a52;
+  --ap-sunk: var(--gl-tint-sunk, #f4f6fb);
+  --ap-grey: #5f6680;
+  --ap-ease: cubic-bezier(.16, 1, .3, 1);
+  --ap-gut: clamp(20px, 3.3vw, 48px);
+  --ap-max: 1344px;
+}
+
+.apxd .ap-wrap { max-width: var(--ap-max); margin: 0 auto; padding: 0 var(--ap-gut); }
+
+.apxd .ap-inside { background: var(--ap-slate); color: #fff; padding: clamp(56px, 6vw, 90px) 0; }
+.apxd .ap-inside h2 { margin: 0 0 28px; font-size: 18px; font-weight: 600; letter-spacing: .02em; }
+.apxd .ap-inside-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; }
+
+.apxd .ap-feat { position: relative; display: block; min-height: 460px; border-radius: 6px; overflow: hidden; color: #fff !important; text-decoration: none !important; background: #0f1733; }
+.apxd .ap-feat img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ap-ease); }
+.apxd .ap-feat::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 12, 30, 0) 35%, rgba(8, 12, 30, .8)); }
+.apxd .ap-feat:hover img { transform: scale(1.04); }
+.apxd .ap-feat-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: clamp(20px, 2.2vw, 30px); }
+.apxd .ap-feat-copy h3 { margin: 0; max-width: 18ch; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; font-weight: 400; letter-spacing: -0.02em; }
+.apxd .ap-feat-copy p { margin: 10px 0 18px; max-width: 46ch; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .82); }
+
+.apxd .ap-tag { align-self: flex-start; padding: 5px 10px; border-radius: 4px; background: var(--ap-ink); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .03em; }
+.apxd .ap-feat .ap-tag { position: absolute; top: 18px; left: 18px; z-index: 1; background: #fff; color: var(--ap-ink); }
+
+.apxd .ap-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 44px; padding: 0 22px; border-radius: 99px; border: 0; cursor: pointer;
+  font-size: 15px; font-weight: 500; text-decoration: none !important;
+  background: var(--ap-ink); color: #fff !important;
+  transition: background .25s ease, transform .3s var(--ap-ease);
+}
+.apxd .ap-pill.is-light { background: #fff; color: var(--ap-ink) !important; }
+.apxd .ap-pill.is-light:hover { background: #e8edf8; }
+
+.apxd .ap-side { display: grid; gap: 12px; }
+.apxd .ap-side a { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; padding: 20px; border-radius: 6px; background: var(--ap-sunk); color: var(--ap-ink) !important; text-decoration: none !important; transition: background .25s ease; }
+.apxd .ap-side a:hover { background: #eef2fb; }
+.apxd .ap-side a:hover .ap-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
+.apxd .ap-side h3 { margin: 0; font-size: 20px; font-weight: 400; }
+.apxd .ap-side-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.apxd .ap-side-meta span { font-size: 15px; line-height: 1.5; color: var(--ap-grey); }
+
+.apxd .ap-arrow {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--ap-ink); color: #fff; flex: none; transition: transform .45s var(--ap-ease), background .25s ease;
+}
+.apxd .ap-arrow svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 900px) {
+  .apxd .ap-inside-grid { grid-template-columns: minmax(0, 1fr); }
+  .apxd .ap-feat { min-height: 380px; }
+}
