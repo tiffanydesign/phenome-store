@@ -178,4 +178,123 @@
       track.classList.remove('is-drag');
     });
   })();
+  /* ---- 8 · how the kits work: the rail fills with the scroll ------------- */
+  (function steps() {
+    var box = $('[data-sci-steps]');
+    if (!box) return;
+    var rail = $('.sci-rail', box);
+    var fill = $('i', rail);
+    var items = $$('.sci-step', box);
+    if (!items.length) return;
+    function layout() {
+      var first = items[0].offsetTop + 18;
+      var last = items[items.length - 1].offsetTop + 18;
+      rail.style.top = first + 'px';
+      rail.style.height = Math.max(0, last - first) + 'px';
+    }
+    layout();
+    window.addEventListener('resize', layout);
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(layout);
+    if (calm.matches) {
+      fill.style.setProperty('--p', 1);
+      items.forEach(function (s) { s.classList.add('on'); });
+      return;
+    }
+    var lastP = -1;
+    writers.push(function () {
+      var line = window.innerHeight * 0.62;
+      var r = rail.getBoundingClientRect();
+      var p = r.height ? clamp((line - r.top) / r.height, 0, 1) : 0;
+      if (Math.abs(p - lastP) < 0.001) return;
+      lastP = p;
+      fill.style.setProperty('--p', p.toFixed(4));
+      items.forEach(function (s, i) {
+        var on = i === 0 ? (line - r.top) > -40 : p >= (i / (items.length - 1)) - 0.001;
+        s.classList.toggle('on', on);
+      });
+    });
+    var floats = $$('[data-sci-float]');
+    writers.push(function () {
+      var vh = window.innerHeight;
+      floats.forEach(function (f) {
+        var r = f.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var c = (r.top + r.height / 2 - vh / 2) / vh;
+        f.style.translate = '0 ' + (c * 28 * +f.getAttribute('data-sci-float')).toFixed(1) + 'px';
+      });
+    });
+    request();
+  })();
+
+  /* ---- 11 · the team: cards open sideways, arrows page, a bio dialog ------ */
+  (function team() {
+    var sec = $('[data-sci-team]');
+    if (!sec) return;
+    var track = $('[data-team-track]', sec);
+    var cards = $$('[data-tm]', sec);
+    var bar = $('[data-team-bar]', sec);
+    var prev = $('[data-team-prev]', sec);
+    var next = $('[data-team-next]', sec);
+    var smooth = calm.matches ? 'auto' : 'smooth';
+
+    function close(c) {
+      c.classList.remove('is-open');
+      $('.sci-tm-toggle', c).setAttribute('aria-expanded', 'false');
+      $('.sci-tm-more', c).tabIndex = -1;
+    }
+    cards.forEach(function (c) {
+      var t = $('.sci-tm-toggle', c);
+      t.addEventListener('click', function () {
+        var open = !c.classList.contains('is-open');
+        cards.forEach(close);
+        if (!open) return;
+        c.classList.add('is-open');
+        t.setAttribute('aria-expanded', 'true');
+        $('.sci-tm-more', c).tabIndex = 0;
+        /* bring the widened card fully into view once it has grown */
+        setTimeout(function () {
+          var tr = track.getBoundingClientRect(), cr = c.getBoundingClientRect();
+          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+          if (cr.right > tr.right) track.scrollBy({ left: cr.right - tr.right + pad, behavior: smooth });
+          else if (cr.left < tr.left + pad) track.scrollBy({ left: cr.left - tr.left - pad, behavior: smooth });
+        }, calm.matches ? 0 : 620);
+      });
+    });
+
+    function step() { return (cards[0] ? cards[0].getBoundingClientRect().width : 300) + 16; }
+    function paint() {
+      var max = track.scrollWidth - track.clientWidth;
+      var vis = track.scrollWidth ? track.clientWidth / track.scrollWidth : 1;
+      var p = max > 0 ? track.scrollLeft / max : 1;
+      if (bar) bar.style.setProperty('--p', (vis + (1 - vis) * p).toFixed(3));
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max - 2;
+    }
+    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: smooth }); });
+    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: smooth }); });
+    track.addEventListener('scroll', paint, { passive: true });
+    track.addEventListener('transitionend', paint);
+    window.addEventListener('resize', paint);
+    paint();
+
+    var dlg = $('[data-bio-dialog]');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var body = $('[data-bio-body]', dlg);
+    var opener = null;
+    $$('[data-bio-open]', sec).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var tpl = $('template[data-bio="' + b.getAttribute('data-bio-open') + '"]', sec);
+        if (!tpl) return;
+        body.innerHTML = '';
+        body.appendChild(tpl.content.cloneNode(true));
+        opener = b;
+        dlg.showModal();
+        dlg.scrollTop = 0;
+      });
+    });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.closest('[data-bio-close]')) dlg.close();
+    });
+    dlg.addEventListener('close', function () { if (opener) opener.focus(); });
+  })();
 })();
