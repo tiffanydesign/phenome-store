@@ -1,0 +1,69 @@
+/* ============================================================================
+   devices/ring-lab · sacc · "Why your genes matter", the pinned photograph
+
+   RESTORED 2026-09-16, by request, from science/ as it shipped at 148ddc3:
+   a photograph of a room holds still for two and a half screens while five
+   glass cards travel up the right hand column over it. The science page moved
+   on to a timeline for the same words; this is the original arrangement,
+   kept here in the lab where the store's design studies live.
+
+   Every rule is the science page's own, with `.sci` swapped for the `.sacc`
+   wrapper, and the tokens that page's body supplied are repeated below so the
+   band stands on its own. Behaviour in sacc.js.
+   ========================================================================== */
+
+.sacc {
+  --sci-night: #0b1024;
+  --sci-max: 1344px;
+  --sci-gut: clamp(20px, 3.3vw, 48px);
+  display: block;
+}
+.sacc .sci-h2 { margin: 0; font-size: clamp(34px, 4.7vw, 68px); }
+.sacc .sci-eyebrow { margin: 0 0 14px; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.005em; }
+
+.sacc .sci-acc { position: relative; height: 240vh; color: #fff; background: var(--sci-night); }
+.sacc .sci-acc-pin { position: sticky; top: 0; height: 100svh; min-height: 640px; overflow: hidden; }
+.sacc .sci-acc-bg { position: absolute; inset: 0; }
+.sacc .sci-acc-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(calc(1.04 + var(--acc-p, 0) * .04));
+}
+/* The photograph is a bright room, so the scrim carries the whole contrast for
+   the headline: a strong left wash for the words, a lighter right one for the
+   cards, and a top down pass so nothing floats on a window. */
+.sacc .sci-acc-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 10, 26, .9) 0%, rgba(6, 10, 26, .74) 26%, rgba(6, 10, 26, .34) 62%, rgba(6, 10, 26, .58) 100%),
+    linear-gradient(180deg, rgba(6, 10, 26, .3), transparent 30%, transparent 70%, rgba(6, 10, 26, .3));
+}
+.sacc .sci-acc-in {
+  position: relative; height: 100%; max-width: var(--sci-max); margin: 0 auto;
+  padding: clamp(50px, 6vw, 88px) var(--sci-gut);
+  box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: clamp(24px, 4vw, 64px);
+}
+.sacc .sci-acc-copy { display: flex; flex-direction: column; justify-content: space-between; }
+.sacc .sci-acc-copy .sci-h2 { font-size: clamp(32px, 4.2vw, 60px); max-width: 13ch; }
+.sacc .sci-acc-note { max-width: 420px; }
+.sacc .sci-acc-note .sci-eyebrow { margin-bottom: 10px; font-size: 15px; line-height: 1.35; letter-spacing: -0.005em; color: #fff; }
+.sacc .sci-acc-note p { margin: 0; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .84); }
+.sacc .sci-acc-kicker { margin-top: 18px !important; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .22); font-size: 14px !important; font-weight: 500; letter-spacing: .01em; color: rgba(255, 255, 255, .62) !important; }
+.sacc .sci-acc-cards { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
+.sacc .sci-acc-track { display: flex; flex-direction: column; gap: 14px; transform: translateY(var(--acc-y, 0px)); will-change: transform; }
+.sacc .sci-glass {
+  position: relative; padding: 22px 22px 20px; border-radius: 14px; color: #fff;
+  background: rgba(16, 24, 56, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(22px) saturate(140%); backdrop-filter: blur(22px) saturate(140%);
+}
+.sacc .sci-glass b { display: block; font-weight: 600; font-size: 14px; letter-spacing: .04em; color: var(--phenome-blue-200, #c3d0f0); }
+.sacc .sci-glass p { margin: 10px 0 0; font-size: 19px; line-height: 1.26; font-weight: 400; letter-spacing: -0.015em; }
+.sacc .sci-glass small { display: block; margin-top: 10px; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .74); }
+@media (max-width: 860px) {
+  .sacc .sci-acc { height: auto; }
+  .sacc .sci-acc-pin { position: static; height: auto; min-height: 0; }
+  .sacc .sci-acc-in { grid-template-columns: minmax(0, 1fr); padding-block: clamp(56px, 9vw, 80px); }
+  .sacc .sci-acc-copy { gap: 24px; }
+  .sacc .sci-acc-cards { -webkit-mask-image: none; mask-image: none; }
+  .sacc .sci-acc-track { transform: none; }
+}

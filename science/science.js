@@ -1,8 +1,8 @@
 /* science · behaviour for the Science page.
      · sections settle in as they arrive,
      · the hero photograph eases back as the card scrolls away,
-     · the five reasons light one at a time on a rail that fills as it is read,
-       and the collage beside them drifts a little against the scroll,
+     · in the longevity section the photograph holds while the glass cards
+       travel up the right hand column with the scroll,
      · the comparison rows arrive a beat behind their card,
      · the nine readings drag, page with their arrows, and draw their position
        on a counter and a nine chapter rail that is also nine keys.
@@ -50,63 +50,29 @@
     request();
   })();
 
-  /* ---- 5 · the five reasons, on a rail that fills -------------------------
-     Carried over from supplements/nad with the band itself. The rail runs
-     marker to marker rather than edge to edge, so the line starts and stops
-     exactly where the first and last dots are; the fill is measured against a
-     reading line 62% down the window, which is where a reader's eye actually
-     is rather than where the top of the viewport is. */
-  (function reasons() {
-    var box = $('[data-sci-steps]');
-    if (!box) return;
-    var rail = $('.sci-rail', box);
-    var fill = rail && $('i', rail);
-    var steps = $$('.sci-step', box);
-    if (!rail || !fill || !steps.length) return;
+  /* ---- 5 · the glass cards travel over a photograph that holds ------------
+     Restored 2026-09-16. The track moves from the foot of its column to the
+     head of it across the section's travel, so the first card is arriving as
+     the photograph pins and the last has settled by the time it releases. */
+  (function accuracy() {
+    var sec = $('[data-sci-acc]');
+    if (!sec) return;
+    var pin = $('.sci-acc-pin', sec);
+    var col = $('.sci-acc-cards', sec);
+    var track = $('.sci-acc-track', sec);
+    if (!pin || !col || !track) return;
+    var wide = matchMedia('(min-width: 861px)');
 
-    function layout() {
-      var first = steps[0].offsetTop + 15;
-      var last = steps[steps.length - 1].offsetTop + 15;
-      rail.style.top = first + 'px';
-      rail.style.height = Math.max(0, last - first) + 'px';
-    }
-    layout();
-    addEventListener('resize', layout);
-    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(layout);
-
-    if (calm.matches) {
-      fill.style.setProperty('--p', 1);
-      steps.forEach(function (s) { s.classList.add('on'); });
-      return;
-    }
-    var lastP = -1;
     writers.push(function () {
-      var line = innerHeight * 0.62;
-      var r = rail.getBoundingClientRect();
-      var p = r.height ? clamp((line - r.top) / r.height, 0, 1) : 0;
-      if (Math.abs(p - lastP) < 0.001) return;
-      lastP = p;
-      fill.style.setProperty('--p', p.toFixed(4));
-      steps.forEach(function (s, i) {
-        var on = i === 0 ? (line - r.top) > -40 : p >= (i / (steps.length - 1)) - 0.001;
-        s.classList.toggle('on', on);
-      });
-    });
-    request();
-  })();
-
-  /* ---- 5b · the collage tiles drift a little against each other ----------- */
-  (function collage() {
-    var floats = $$('[data-sci-float]');
-    if (!floats.length || calm.matches) return;
-    writers.push(function () {
-      var vh = innerHeight;
-      floats.forEach(function (f) {
-        var r = f.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) return;
-        var c = (r.top + r.height / 2 - vh / 2) / vh;
-        f.style.translate = '0 ' + (c * 28 * +f.getAttribute('data-sci-float')).toFixed(1) + 'px';
-      });
+      if (!wide.matches || calm.matches) { track.style.removeProperty('--acc-y'); return; }
+      var r = sec.getBoundingClientRect();
+      var travel = r.height - innerHeight;
+      var p = travel > 0 ? clamp(-r.top / travel, 0, 1) : 0;
+      var from = col.clientHeight * 0.55;
+      var to = Math.min(0, col.clientHeight - track.scrollHeight);
+      var y = from + (to - from) * p;
+      track.style.setProperty('--acc-y', y.toFixed(1) + 'px');
+      pin.style.setProperty('--acc-p', p.toFixed(3));
     });
     request();
   })();
