@@ -1,0 +1,557 @@
+/* ============================================================================
+   contact · page sheet, scoped to body.ctc
+
+   Structure and interaction follow ultrahuman.com/global/performance-lab/contact
+   section by section: one split above the fold with a six frame gallery on the
+   left and a single scrolling information column on the right, the address and
+   the opening hours stacked in that column as labelled blocks, a wide short
+   Google map strip under them with an "Open in Google Maps" link, and a phone
+   number that floats over the page as a pill you can copy plus a disc that
+   dials. Nothing else on that page is a section, and nothing else is one here.
+
+   Everything the reference does with type, this file does with the Phenome
+   ladder instead. The reference sets its labels in a condensed italic display
+   face at 12px capitals; we have one family, four statement sizes and four
+   inks (phenome-glass.css § 3), so a label is sentence case at 600 in the
+   heading ink and the promise line is the only blue on a white page. That was
+   settled for the whole store on 2026-09-16 when the capitals overline was
+   retired, and this page is the first one drawn after it.
+
+   Three traps from the shared sheets shape this file:
+   - shared.css reveals `main > section > *` with a transform. The gallery track
+     therefore moves on the independent `translate` property, which the reveal
+     cannot overwrite, and the arrows and dots sit OUTSIDE that first child so
+     a section that has not been revealed yet still has working controls.
+   - phenome-glass.css forces `text-transform: none !important`, so capitals
+     would have to be typed. None are.
+   - tokens.json records `elevation YOK`. Nothing on the page lifts. The only
+     shadows in this file are on the two floating controls, which have no
+     ground of their own, and they use the system's own lift and press.
+   ========================================================================= */
+
+.ctc {
+  --ctc-rule:  var(--divider, #203a8514);
+  --ctc-edge:  var(--border-strong, #203a8529);
+  --ctc-sunk:  var(--gl-tint-sunk, #f4f6fb);
+  --ctc-ink:   var(--ph-tone-head, #10214b);
+  --ctc-body:  var(--ph-tone-body, #4a5578);
+  --ctc-quiet: var(--ph-tone-quiet, #8b93ad);
+  --ctc-blue:  var(--phenome-blue-500, #203a85);
+  --ctc-ease:  var(--ease-frosted-out, cubic-bezier(.16, 1, .3, 1));
+  background: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   1 · THE SPLIT
+
+   The reference gives the gallery and the information column one row each of
+   equal width and lets the taller of the two set the height. Both tracks are
+   floored at zero: 1fr carries an automatic min-content minimum, and the map
+   iframe plus one long address line would otherwise push the grid wider than
+   the page.
+
+   96px of top padding rather than the hero's 84: there is no eyebrow sitting
+   on a grey wash here, the page opens on white, and the gallery's top edge
+   needs the extra clearance from the 44px bar to read as a deliberate margin
+   rather than as a near miss.
+   ------------------------------------------------------------------------ */
+.ctc-split-sec { padding: clamp(28px, 5vw, 96px) 0 clamp(64px, 7vw, 112px); }
+
+.ctc-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 4.4vw, 72px);
+  align-items: start;
+}
+
+/* ---------------------------------------------------------------------------
+   2 · THE GALLERY
+
+   Six frames on a track, one visible, moved by `translate` alone. A crossfade
+   was drawn first and thrown out: these are six views of the same building at
+   the same colour temperature, and dissolving between them read as a fault in
+   the image rather than as a change of frame.
+
+   4 / 5 is the reference's own ratio, measured off its shipped page at 1440
+   (600 x 745). It holds at every width, so the column never jumps height when
+   a frame with a different intrinsic size arrives.
+   ------------------------------------------------------------------------ */
+/* The gallery is STICKY and the column beside it is not. The reference can set
+   both columns loose because its right hand column is four short blocks; ours
+   carries the four doors, the address, the hours and the map, and at 1440 that
+   is nearly twice the gallery's height. Left loose, the photographs scroll away
+   in the first second and the reader spends the rest of the page beside an
+   empty half.
+
+   It takes TWO elements, and the reason is the one thing about sticky inside a
+   grid that is not obvious: a sticky box travels inside its containing block,
+   and for a grid item that block is its own grid area. Under `align-items:
+   start` the item is not stretched, so its area is exactly its own height and
+   there is nowhere to travel — which is what the first draft of this did, and
+   it scrolled away like everything else. So `.ctc-gal` is the item, stretched
+   to the full row, and the sticky box is the child inside it.
+
+   Sticky is also safe under shared.css's reveal: that rule animates `transform`
+   on this element's PARENT and lands on `transform: none`, which does not
+   create a containing block, so the only window in which sticky is suspended is
+   the 620ms of the reveal itself, before anything has scrolled. */
+.ctc-gal { align-self: stretch; }
+.ctc-gal-stick { position: sticky; top: calc(var(--ph-nav-h, 44px) + 24px); }
+@media (max-width: 1080px) { .ctc-gal-stick { position: relative; top: auto; } }
+
+.ctc-gal-frame {
+  position: relative;
+  /* `width: 100%` is not redundant next to `aspect-ratio`. With `width: auto`
+     the ratio is free to resolve the box from EITHER axis, so `min-height`
+     below turned into a min-WIDTH of 475px at 390 and pushed the whole page
+     sideways. The width is stated, and the ratio then only ever decides the
+     height. */
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  /* The frame is capped so that IT AND ITS CAPTION both fit on the screen the
+     sticky column is pinned to: 116 above it BEFORE it pins (72 of section
+     padding under the 44px bar), 36 of caption rail below it, and 98 of
+     clearance under that, which is where the floating number sits. The unpinned
+     figure is the one that has to be used — it is the larger, and it is the
+     state the page opens in. Left uncapped, a 4/5 frame at this column width is
+     741px tall and the caption runs under the pill. object-fit: cover absorbs the
+     change in ratio, so nothing is distorted, only cropped. svh, not vh: on a
+     phone browser vh is the height with the toolbars HIDDEN, which is not the
+     height anything is being looked at. */
+  max-height: calc(100svh - 250px);
+  min-height: 380px;
+  border-radius: var(--ph-r27, 27px);
+  overflow: hidden;
+  background: var(--ctc-sunk);
+  /* The hairline is the pane boundary the glass layer gives every surface, not
+     an elevation. A photograph that runs to a soft edge on a white page loses
+     its corner radius at the top, where these interiors are almost white. */
+  box-shadow: var(--gl-inner, inset 0 0 0 1px #10214b0f);
+  touch-action: pan-y;
+  cursor: grab;
+}
+.ctc-gal-frame:active { cursor: grabbing; }
+
+.ctc-track {
+  /* The list reset is load bearing, not housekeeping: a <ul> arrives with 40px
+     of inline padding and 16px of block margin, and inside a flex track that
+     pushes every frame off its own corner radius. */
+  margin: 0; padding: 0; list-style: none;
+  display: flex;
+  height: 100%;
+  translate: calc(var(--i, 0) * -100%) 0;
+  transition: translate 620ms var(--ctc-ease);
+}
+.ctc-track > li {
+  flex: 0 0 100%;
+  list-style: none;
+  height: 100%;
+}
+.ctc-track img {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+  /* The frames are dragged, and a browser's own image drag would start a file
+     drag halfway through the gesture and leave the track mid travel. */
+  -webkit-user-drag: none; user-select: none;
+}
+
+/* The two arrows. Discs, not chevrons on the photograph: the interiors are
+   pale and a bare chevron disappeared into three of the six frames. Same
+   geometry as the site's floating tools (46px, 980px radius, the overlay tint
+   over the blur) because that is what a control with no ground of its own
+   already looks like on this site. */
+.ctc-gal-btn {
+  position: absolute; top: 50%; translate: 0 -50%;
+  z-index: 2;
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 980px;
+  cursor: pointer;
+  color: var(--ctc-blue);
+  background: var(--gl-tint-overlay, #ffffffd6);
+  -webkit-backdrop-filter: var(--gl-blur, blur(24px) saturate(140%));
+  backdrop-filter: var(--gl-blur, blur(24px) saturate(140%));
+  box-shadow: var(--gl-shadow-lift, 0 14px 34px -18px #4664a04d),
+              var(--gl-inner, inset 0 0 0 1px #10214b0f);
+  transition: opacity 220ms var(--ctc-ease), box-shadow 220ms var(--ctc-ease);
+}
+.ctc-gal-prev { left: 16px; }
+.ctc-gal-next { right: 16px; }
+.ctc-gal-btn svg { width: 18px; height: 18px; display: block; fill: none;
+                   stroke: currentColor; stroke-width: 1.7;
+                   stroke-linecap: round; stroke-linejoin: round; }
+.ctc-gal-btn:active { box-shadow: var(--gl-shadow-press, 0 3px 9px -10px #4664a03d),
+                                  var(--gl-inner, inset 0 0 0 1px #10214b0f); }
+/* At the ends the arrow stays in the tab order and stays announced, it simply
+   has nothing to travel to. Removing it would move the other arrow. */
+.ctc-gal-btn[disabled] { opacity: .35; cursor: default; }
+
+/* The caption and the dots share one line UNDER the frame. Over the photograph
+   the dots need a scrim to stay legible, and a scrim is a shadow with a
+   different name. On one line they read as a single caption rail: what you are
+   looking at on the left, where you are in the set on the right. */
+.ctc-gal-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  margin-top: 16px;
+}
+.ctc-gal-dots { display: flex; gap: 8px; flex: 0 0 auto; }
+.ctc-gal-dot {
+  width: 7px; height: 7px; padding: 0;
+  border: 0; border-radius: 980px;
+  cursor: pointer;
+  background: var(--phenome-blue-200, #a9b5d9);
+  transition: background 220ms var(--ctc-ease), width 320ms var(--ctc-ease);
+}
+.ctc-gal-dot[aria-current="true"] { width: 26px; background: var(--ctc-blue); }
+
+/* One quiet line saying what the frame is. The reference carries no caption,
+   and it does not need one: its six frames are six corners of a room a reader
+   is standing in. Ours are six different places, and an uncaptioned set of
+   them is a mood board. Quiet ink, the small print rung. */
+.ctc-gal-cap {
+  margin: 0;
+  font-size: 15px; line-height: 20px;
+  color: var(--ctc-quiet);
+  min-height: 20px;
+}
+
+/* ---------------------------------------------------------------------------
+   3 · THE INFORMATION COLUMN
+
+   One column, no cards. The four ways to reach us were four grey cards in a
+   two by two grid, which is the shape this site uses for four THINGS TO
+   CHOOSE BETWEEN. These are not alternatives, they are one list of doors, and
+   the reference sets its equivalent as a plain stack of labelled lines. So do
+   we: a rule, a name, a line under it, and an arrow where the line is live.
+   ------------------------------------------------------------------------ */
+.ctc-col > :first-child { margin-top: 0; }
+
+.ctc-title {
+  margin: 12px 0 0;
+  font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04;
+  font-weight: 600; letter-spacing: -0.02em;
+  color: var(--ctc-ink);
+  text-wrap: balance;
+}
+.ctc-lede {
+  margin: 16px 0 0;
+  max-width: 46ch;
+  font-size: 17px; line-height: 1.55;
+  color: var(--ctc-body);
+}
+/* An address inside a sentence is still the promise ink: it is the one live
+   thing in the paragraph, and underlining it on rest would give a line of body
+   copy a second texture it does not need. */
+.ctc-lede a { color: var(--ctc-blue); font-weight: 600; text-decoration: none; }
+.ctc-lede a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* A block head. The ladder's four statement sizes are for whole sections, and
+   "Reach us" is not a section, it is the name of a stack inside one. It takes
+   the promise rung's size and weight in the HEADING ink, because the blue on a
+   light page is reserved for the promise line and this is not one. */
+.ctc-block { margin-top: clamp(40px, 4.2vw, 60px); }
+.ctc-h {
+  margin: 0 0 4px;
+  font-size: clamp(21px, 1.7vw, 24px); line-height: 1.25;
+  font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ctc-ink);
+}
+
+.ctc-rows { margin: 0; padding: 0; list-style: none; }
+.ctc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--ctc-rule);
+  text-decoration: none;
+  color: inherit;
+}
+.ctc-rows > li:last-child .ctc-row { border-bottom: 1px solid var(--ctc-rule); }
+.ctc-row-k {
+  font-size: 17px; line-height: 22px; font-weight: 600;
+  color: var(--ctc-ink);
+  transition: color 180ms var(--ctc-ease);
+}
+.ctc-row-v {
+  margin: 4px 0 0;
+  font-size: 16px; line-height: 23px;
+  color: var(--ctc-body);
+}
+.ctc-row-go {
+  grid-column: 2; grid-row: 1 / span 2;
+  align-self: center;
+  width: 16px; height: 16px;
+  color: var(--phenome-blue-200, #a9b5d9);
+  transition: color 180ms var(--ctc-ease), translate 180ms var(--ctc-ease);
+}
+.ctc-row-go svg { width: 100%; height: 100%; display: block; fill: none;
+                  stroke: currentColor; stroke-width: 1.7;
+                  stroke-linecap: round; stroke-linejoin: round; }
+a.ctc-row:hover .ctc-row-k { color: var(--ctc-blue); }
+a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
+
+/* The address and the hours. `.ctc-lines` is the address exactly as it would be
+   written on an envelope, one line per line, rather than the slash joined run
+   it used to be, and `.ctc-hours` is the reference's own shape: a name, the
+   days, the times, and an italic note under it for the thing a reader would
+   otherwise turn up and discover. */
+.ctc-lines {
+  margin: 0; font-style: normal;
+  font-size: 17px; line-height: 27px;
+  color: var(--ctc-body);
+}
+.ctc-lines a { color: inherit; text-decoration: none; }
+.ctc-lines a:hover { color: var(--ctc-blue); }
+
+.ctc-hours { margin: 0; padding: 0; }
+.ctc-hours dt {
+  margin-top: 22px;
+  font-size: 16px; line-height: 22px; font-weight: 600;
+  color: var(--ctc-ink);
+}
+.ctc-hours dt:first-of-type { margin-top: 14px; }
+.ctc-hours dd {
+  margin: 4px 0 0;
+  font-size: 16px; line-height: 23px;
+  color: var(--ctc-body);
+}
+.ctc-note {
+  margin: 4px 0 0;
+  font-size: 15px; line-height: 21px;
+  color: var(--ctc-quiet);
+}
+/* Four names on one wrapping line rather than four rows. They are a set of
+   places the brand already is, not four more doors to choose between, and
+   giving them the row treatment would have put them at the weight of the three
+   inboxes above. */
+.ctc-social { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.ctc-social a {
+  font-size: 16px; line-height: 23px;
+  color: var(--ctc-blue);
+  text-decoration: none;
+}
+.ctc-social a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- the map -----------------------------------------------------------
+   A strip, not a square. The reference's map is 626 x 85 and that ratio is the
+   whole idea: it is not a map you navigate, it is the proof that the address
+   above it is a real place, sized so it never competes with the column it ends.
+   Ours runs a little taller because our column is narrower, so 85px would have
+   cropped the pin and the road name off the same view.
+
+   `loading="lazy"` on the iframe is not a nicety: a Google Maps embed is the
+   heaviest thing on this page by an order of magnitude, and it sits below the
+   fold on every width. ------------------------------------------------------ */
+.ctc-map {
+  margin-top: 22px;
+  border-radius: var(--ph-r18, 18px);
+  overflow: hidden;
+  aspect-ratio: 16 / 6;
+  background: var(--ctc-sunk);
+  box-shadow: var(--gl-inner, inset 0 0 0 1px #10214b0f);
+}
+.ctc-map iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+.ctc-maplink {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px;
+  font-size: 16px; line-height: 22px; font-weight: 600;
+  color: var(--ctc-blue);
+  text-decoration: none;
+}
+.ctc-maplink svg { width: 14px; height: 14px; fill: none; stroke: currentColor;
+                   stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+                   transition: translate 180ms var(--ctc-ease); }
+.ctc-maplink:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ctc-maplink:hover svg { translate: 2px -2px; }
+
+/* `.ctc-placeholder` stood here: the standing note that the details on this
+   page were not real yet. Every detail on it now comes from
+   phenomelongevity.com, so the note and its rule are gone rather than kept
+   around unused. */
+
+/* ---------------------------------------------------------------------------
+   4 · THE MESSAGE FORM
+
+   The reference has no form, so this section is the site's own and it is drawn
+   to the site's own rules. It was a dark band with four identical 48px inputs,
+   one of which was a text input asking for a message and another a text input
+   with a typed "▾" in its placeholder pretending to be a menu. Both are real
+   controls now. The band is the sunken tint rather than navy: the reference's
+   contact page never goes dark, and neither should the one moment on ours
+   where somebody is being asked to type.
+   ------------------------------------------------------------------------ */
+.ctc-form-sec { background: var(--ctc-sunk); }
+
+/* The head sits BESIDE the form, not above it. Stacked, a 720px card under a
+   1260px heading left 450px of empty tint down the right of the section and
+   the page ended on an unbalanced half. The split is not a new geometry: it is
+   1.05fr / 1fr at a 64px gap, which is what `.opener` and `.hero-split` in
+   shared.css already are, so this section reads as the echo of the one above
+   it rather than as a fourth arrangement. */
+.ctc-form-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 4.4vw, 64px);
+  align-items: start;
+}
+.ctc-form-head { position: sticky; top: calc(var(--ph-nav-h, 44px) + 40px); }
+.ctc-form-head .ctc-title { font-size: clamp(30px, 3.4vw, 48px); }
+.ctc-form-head .ctc-lede { margin-top: 18px; }
+
+@media (max-width: 1080px) {
+  .ctc-form-split { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .ctc-form-head { position: relative; top: auto; }
+}
+
+.ctc-form {
+  padding: clamp(24px, 2.6vw, 36px);
+  background: #fff;
+  border-radius: var(--ph-r21, 21px);
+  box-shadow: var(--gl-inner, inset 0 0 0 1px #10214b0f);
+}
+.ctc-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.ctc-field { display: block; margin-top: 18px; }
+.ctc-pair > .ctc-field { margin-top: 0; }
+.ctc-field > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px; line-height: 20px; font-weight: 600;
+  color: var(--ctc-ink);
+}
+.ctc-field input,
+.ctc-field select,
+.ctc-field textarea {
+  width: 100%;
+  padding: 0 16px;
+  height: 52px;
+  font-family: inherit;
+  font-size: 17px; line-height: 24px;
+  color: var(--ctc-ink);
+  background: #fff;
+  border: 1px solid var(--ctc-edge);
+  border-radius: var(--ph-r12, 12px);
+  transition: border-color 180ms var(--ctc-ease);
+}
+.ctc-field textarea {
+  height: auto; min-height: 148px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+/* The one control that is not a box you type in gets the one chevron on the
+   page, drawn rather than typed, so it cannot be mistaken for placeholder text
+   the way the "▾" it replaces was. */
+.ctc-field select {
+  appearance: none;
+  padding-right: 44px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23203a85' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+.ctc-field input::placeholder,
+.ctc-field textarea::placeholder { color: var(--ctc-quiet); }
+.ctc-field input:hover,
+.ctc-field select:hover,
+.ctc-field textarea:hover { border-color: var(--phenome-blue-300, #7185bd); }
+
+.ctc-actions {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 16px;
+  margin-top: 26px;
+}
+.ctc-sent {
+  margin: 0;
+  font-size: 16px; line-height: 22px; font-weight: 600;
+  color: var(--ctc-blue);
+}
+.ctc-sent[hidden] { display: none; }
+
+/* ---------------------------------------------------------------------------
+   5 · THE FLOATING NUMBER
+
+   The reference's is bottom RIGHT. Ours cannot be: the site already parks the
+   design system launcher and the site map in that corner as one dock, and a
+   third floating object there would be a pile. Bottom left is the only free
+   corner on every page of this site, and it is the reading edge, which for a
+   phone number is the better half anyway.
+
+   Two controls, not one, because they are two different acts. The pill copies
+   the number, for somebody reading on a laptop with the phone in their hand.
+   The disc dials it, for somebody reading on the phone.
+   ------------------------------------------------------------------------ */
+.ctc-call {
+  position: fixed; z-index: 90;
+  left: max(20px, env(safe-area-inset-left));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 10px;
+}
+.ctc-call-num,
+.ctc-call-go {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 46px;
+  border: 0; border-radius: 980px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px; line-height: 20px; font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ctc-blue);
+  background: var(--gl-tint-overlay, #ffffffd6);
+  -webkit-backdrop-filter: var(--gl-blur, blur(24px) saturate(140%));
+  backdrop-filter: var(--gl-blur, blur(24px) saturate(140%));
+  box-shadow: var(--gl-shadow-lift, 0 14px 34px -18px #4664a04d),
+              var(--gl-inner, inset 0 0 0 1px #10214b0f);
+  transition: box-shadow 220ms var(--ctc-ease), color 180ms var(--ctc-ease);
+}
+.ctc-call-num { padding: 0 18px; font-variant-numeric: tabular-nums; }
+.ctc-call-go { width: 46px; }
+.ctc-call-go svg { width: 19px; height: 19px; display: block; fill: none;
+                   stroke: currentColor; stroke-width: 1.6;
+                   stroke-linecap: round; stroke-linejoin: round; }
+.ctc-call-num:active,
+.ctc-call-go:active { box-shadow: var(--gl-shadow-press, 0 3px 9px -10px #4664a03d),
+                                  var(--gl-inner, inset 0 0 0 1px #10214b0f); }
+/* The confirmation replaces the number in place rather than arriving as a
+   toast somewhere else on the screen. The thing that changed is the thing that
+   was pressed, so that is where the answer belongs. */
+.ctc-call-num.is-copied { color: var(--phenome-blue-700, #142b6e); }
+
+/* ---------------------------------------------------------------------------
+   6 · NARROWER SCREENS
+
+   1080 is where the two columns stop being two readable measures rather than
+   where any device is: below it the information column falls under the gallery
+   and the gallery stops being a portrait, because a 4/5 frame at full width on
+   a phone is taller than the screen and the address never gets seen.
+   ------------------------------------------------------------------------ */
+@media (max-width: 1080px) {
+  .ctc-split { grid-template-columns: minmax(0, 1fr); row-gap: clamp(36px, 6vw, 56px); }
+  .ctc-gal-frame { aspect-ratio: 4 / 3; }
+  .ctc-map { aspect-ratio: 16 / 5; }
+}
+@media (max-width: 720px) {
+  .ctc-pair { grid-template-columns: minmax(0, 1fr); }
+  .ctc-gal-frame { aspect-ratio: 5 / 4; }
+  .ctc-gal-btn { width: 40px; height: 40px; }
+  .ctc-gal-prev { left: 10px; }
+  .ctc-gal-next { right: 10px; }
+  /* The number keeps the disc and loses the pill. There is no clipboard worth
+     having on a phone when the disc beside it dials, and 240px of floating
+     control across a 390px screen covers the copy it is meant to support. */
+  .ctc-call-num { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctc-track { transition: none; }
+  .ctc-gal-dot, .ctc-row-go, .ctc-maplink svg { transition: none; }
+}

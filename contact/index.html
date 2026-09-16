@@ -11,13 +11,235 @@
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<!-- The page's own sheet, scoped to `.ctc` on <body>. Layout and interaction
+     follow ultrahuman.com/global/performance-lab/contact; every size, ink and
+     radius is a Phenome token. -->
+<link href="/phenome-store/contact/contact.css" rel="stylesheet"/>
+<link rel="preload" as="image" href="/phenome-store/assets/pages/about.webp" fetchpriority="high"/>
 </head>
-<body>
+<body class="ctc">
 <div data-ph-nav=""></div>
-<main><section class="hero"><div class="wrap-wide hero-split"><div><div class="eyebrow">Contact</div><h1 class="hero-title">We’re here to help.</h1><p class="lede" style="margin-left:0">Questions about your ring, an order, or your results? Reach the right team below, a real person will get back to you.</p></div><div class="hero-img"><img alt="One person at an oak table in a bright room, listening on the phone" height="933" src="/phenome-store/assets/pages/contact_hero.webp" width="1400"/></div></div></section><section class="section"><div class="wrap-wide"><p class="lede" style="margin-left:0">Phone, email and hours shown are placeholders, confirm real contact details before publishing.</p><div class="grid grid-2" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Message us</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Chat with our team in the Phenome app, seven days a week.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Email us</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">hello@phenomelongevity.com, a reply within 24 hours.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Call us</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">+44 20 1234 5678, Monday to Friday, 9am to 6pm GMT.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Book a consultation</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Speak with a specialist about your results and next steps.</p></div></div></div></section><section class="section section-black"><div class="wrap-wide"><div class="eyebrow">Send a message</div><h2 class="sec-title">Drop us a line.</h2><form onsubmit="event.preventDefault();this.querySelector('[data-sent]').style.display='block'" style="margin-top:24px;max-width:640px"><label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Name<input placeholder="Your name" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/></label><label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Email<input placeholder="you@email.com" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/></label><label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Topic<input placeholder="Choose a topic  ▾" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/></label><label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Message<input placeholder="How can we help?" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/></label><div style="margin-top:20px"><button class="btn" type="submit">Send message</button></div><p data-sent="" style="display:none;margin-top:16px;color:var(--navy)">Thanks, we usually reply within one working day.</p></form></div></section><section class="section"><div class="wrap-wide"><p class="lede" style="margin-left:0">Our team is based in London. Drop by, or send something our way.</p><p class="body-text" style="margin-top:16px;font-size:19px;line-height:23px">Placeholder location and address, replace with your real office and an embedded map before publishing.</p><div class="grid grid-2" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Phenome Longevity headquarters</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">1 Science Park, King’s Cross / London N1C 4AG, United Kingdom / Monday to Friday · 9am to 6pm</p><a class="link-more card-more" href="#">Get directions</a></div></div></div></section><section class="cta-band section-gray section-close"><div class="wrap"><h2>The best time to start was years ago.</h2><p>The second best time is today.</p><div class="cta-actions"><a class="btn" href="/phenome-store/quiz/">Find your test</a><a class="link-more" href="/phenome-store/testing/compare/">Compare all tests</a></div></div></section></main>
+
+<main>
+
+<!-- ==========================================================================
+     1 · THE SPLIT
+     The reference's whole page: a gallery on the left, and on the right one
+     column carrying the name of the page, the ways to reach us, the address,
+     the hours and the map. No cards, no grid, no second colour.
+     ======================================================================= -->
+<section class="ctc-split-sec">
+  <div class="wrap-wide ctc-split">
+
+    <div class="ctc-gal" data-gal="">
+     <div class="ctc-gal-stick">
+      <div class="ctc-gal-frame" data-gal-frame="">
+        <!-- The order is the page's argument, not the folder's. The first frame
+             used to be the one of somebody on the telephone, which opened a
+             contact page that offers no telephone line on the one promise it
+             cannot keep. It is still here, at five, where its caption says what
+             that call actually is: a consultation somebody booked. -->
+        <ul class="ctc-track" data-gal-track="">
+          <li><img alt="A long oak meeting table with two chairs and an open notebook, by a tall window" fetchpriority="high" height="933" src="/phenome-store/assets/pages/about.webp" width="1400"/></li>
+          <li><img alt="A soft armchair beside a low table in a warm, daylit waiting room" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/clinic_visit.webp" width="1400"/></li>
+          <li><img alt="Two people talking across a kitchen table, a glass of water in front of each" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/app_booking_talk.webp" width="1400"/></li>
+          <li><img alt="Someone sitting at a table with a laptop and a cup of coffee, a door open behind them" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/booking.webp" width="1400"/></li>
+          <li><img alt="One person at an oak table in a bright room, listening on a call" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/contact_hero.webp" width="1400"/></li>
+          <li><img alt="An empty consulting room with a single pale chair and morning light across the floor" decoding="async" height="933" loading="lazy" src="/phenome-store/assets/pages/clinic_hero.webp" width="1400"/></li>
+        </ul>
+        <button class="ctc-gal-btn ctc-gal-prev" type="button" data-gal-step="-1" aria-label="Previous image"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M12.25 4 6.5 10l5.75 6"/></svg></button>
+        <button class="ctc-gal-btn ctc-gal-next" type="button" data-gal-step="1" aria-label="Next image"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7.75 4 13.5 10l-5.75 6"/></svg></button>
+      </div>
+      <div class="ctc-gal-foot">
+        <p class="ctc-gal-cap" data-gal-cap="" aria-live="polite">Where the team meets, twenty four floors above London Bridge.</p>
+        <div class="ctc-gal-dots" data-gal-dots="" role="tablist" aria-label="Choose an image"></div>
+      </div>
+      <!-- The captions travel with the slides rather than with the markup: one
+           list, read once, so a frame and its line can never fall out of step. -->
+      <script type="application/json" data-gal-captions="">[
+        "Where the team meets, twenty four floors above London Bridge.",
+        "The waiting room at the London clinic.",
+        "A consultation, with your results on the table.",
+        "Book a session from your account, any hour.",
+        "A consultation taken at home, in your own kitchen.",
+        "Quiet rooms, booked one at a time."
+      ]</script>
+     </div>
+    </div>
+
+    <div class="ctc-col">
+      <div class="eyebrow">Contact</div>
+      <h1 class="ctc-title">We’re here to help.</h1>
+      <p class="ctc-lede">Questions about your ring, an order, or your results? Reach the right team below, a real person will get back to you.</p>
+
+      <!-- The three inboxes, in the order phenomelongevity.com lists them, and
+           the reason it gives for splitting them at all. There is no telephone
+           row and no telephone number anywhere on this page: the company does
+           not publish one, on the contact page or in its Shopify contact
+           information, and a support line nobody answers is worse than none. -->
+      <div class="ctc-block">
+        <h2 class="ctc-h">Reach us</h2>
+        <p class="ctc-lede" style="margin-top:10px">Reaching the right inbox gets you a faster answer, so pick the one that matches your enquiry.</p>
+        <ul class="ctc-rows" style="margin-top:18px">
+          <li>
+            <a class="ctc-row" href="mailto:hello@phenomelongevity.com">
+              <span class="ctc-row-k">Customer care</span>
+              <span class="ctc-row-go"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <p class="ctc-row-v">hello@phenomelongevity.com, for your ring, an order, a kit or your results.</p>
+            </a>
+          </li>
+          <li>
+            <a class="ctc-row" href="mailto:info@phenomelongevity.com">
+              <span class="ctc-row-k">Partnership enquiries</span>
+              <span class="ctc-row-go"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <p class="ctc-row-v">info@phenomelongevity.com, for professional, trade and research enquiries.</p>
+            </a>
+          </li>
+          <li>
+            <a class="ctc-row" href="mailto:social@phenomelongevity.com">
+              <span class="ctc-row-k">Social and media enquiries</span>
+              <span class="ctc-row-go"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <p class="ctc-row-v">social@phenomelongevity.com, for press, creators and partnerships in media.</p>
+            </a>
+          </li>
+          <li>
+            <a class="ctc-row" href="/phenome-store/app/">
+              <span class="ctc-row-k">Message us</span>
+              <span class="ctc-row-go"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <p class="ctc-row-v">Chat with our team in the Phenome app, seven days a week.</p>
+            </a>
+          </li>
+          <li>
+            <a class="ctc-row" href="/phenome-store/clinic/">
+              <span class="ctc-row-k">Book a consultation</span>
+              <span class="ctc-row-go"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+              <p class="ctc-row-v">Speak with a specialist about your results and next steps.</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ctc-block">
+        <h2 class="ctc-h">Find us</h2>
+        <p class="ctc-lede" style="margin-top:10px">Our team is based in London. Drop by, or send something our way.</p>
+        <address class="ctc-lines" style="margin-top:18px">
+          Phenome Longevity, London headquarters<br/>
+          The Shard, floors 24 and 25<br/>
+          32 London Bridge Street<br/>
+          London SE1 9SG, United Kingdom
+        </address>
+
+        <!-- The hours block that stood here carried invented times. The company
+             publishes none, so it is a Follow us block instead: four links that
+             are real, in the order the official site lists them. -->
+        <dl class="ctc-hours">
+          <dt>Follow us</dt>
+          <dd class="ctc-social">
+            <a href="https://www.instagram.com/phenomelongevity/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.youtube.com/channel/UC8lh1c_uibqFIYiTphVcWZw" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.tiktok.com/@phenomelongevity" target="_blank" rel="noopener">TikTok</a>
+            <a href="https://uk.linkedin.com/company/phenome-longevity" target="_blank" rel="noopener">LinkedIn</a>
+          </dd>
+        </dl>
+
+        <div class="ctc-map">
+          <!-- The real address, as a search rather than as coordinates: The
+               Shard is a named place Google resolves to one labelled pin, which
+               is more use to somebody finding the door than a bare marker at a
+               latitude. No API key is needed for this embed. -->
+          <iframe title="A map of the Phenome Longevity headquarters at The Shard, London Bridge" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=The%20Shard%2C%2032%20London%20Bridge%20Street%2C%20London%20SE1%209SG&amp;z=16&amp;output=embed"></iframe>
+        </div>
+        <a class="ctc-maplink" href="https://www.google.com/maps/search/?api=1&amp;query=The+Shard%2C+32+London+Bridge+Street%2C+London+SE1+9SG" target="_blank" rel="noopener">Open in Google Maps<svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M4 10 10 4M4.6 4H10v5.4"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     2 · SEND A MESSAGE
+     The site's own section. The reference carries no form, so this one is
+     drawn to the house rules instead: the sunken tint under a white card, real
+     controls, and the same measure as the column above it.
+     ======================================================================= -->
+<section class="section ctc-form-sec">
+  <div class="wrap-wide ctc-form-split">
+    <div class="ctc-form-head">
+      <div class="eyebrow">Partnership and professional enquiries</div>
+      <h2 class="ctc-title">Drop us a line.</h2>
+      <p class="ctc-lede">For work rather than for an order. Clinics, laboratories, retailers, researchers and media all come through here, and the industry you pick decides who reads it.</p>
+      <p class="ctc-lede" style="margin-top:14px">If this is about your own ring, a kit or your results, customer care answers faster: <a href="mailto:hello@phenomelongevity.com">hello@phenomelongevity.com</a>.</p>
+    </div>
+    <!-- The fields are the ones phenomelongevity.com's own enquiry form asks
+         for, in its order, with its industry list. -->
+    <form class="ctc-form" data-ctc-form="">
+      <div class="ctc-pair">
+        <label class="ctc-field"><span>Name</span><input name="name" type="text" autocomplete="name" placeholder="Your name"/></label>
+        <label class="ctc-field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@email.com"/></label>
+      </div>
+      <label class="ctc-field"><span>Which industry best describes your work?</span><select name="industry">
+        <option value="">Choose an industry</option>
+        <option>Healthcare</option>
+        <option>Biotechnology</option>
+        <option>Pharmaceuticals</option>
+        <option>Nutraceuticals</option>
+        <option>Research and academia</option>
+        <option>Wellness</option>
+        <option>Preventive medicine</option>
+        <option>Functional medicine</option>
+        <option>Nutrition</option>
+        <option>Technology</option>
+        <option>Artificial intelligence</option>
+        <option>Wearable technology</option>
+        <option>Digital health</option>
+        <option>Fitness</option>
+        <option>Sports science</option>
+        <option>Lifestyle</option>
+        <option>Retail</option>
+        <option>Consumer health</option>
+        <option>Public health</option>
+        <option>Education</option>
+        <option>Data science</option>
+        <option>Health store</option>
+        <option>Pharmacy</option>
+        <option>Grocery</option>
+        <option>Gym and health club</option>
+        <option>Spa</option>
+        <option>Cafe and coffee shop</option>
+        <option>Office</option>
+        <option>Other</option>
+      </select></label>
+      <div class="ctc-pair" style="margin-top:18px">
+        <label class="ctc-field"><span>Company name</span><input name="company" type="text" autocomplete="organization" placeholder="Your company"/></label>
+        <label class="ctc-field"><span>Phone number</span><input name="phone" type="tel" autocomplete="tel" placeholder="Where we can reach you"/></label>
+      </div>
+      <label class="ctc-field"><span>Message</span><textarea name="message" rows="5" placeholder="How can we help?"></textarea></label>
+      <div class="ctc-actions">
+        <button class="btn" type="submit">Send message</button>
+        <p class="ctc-sent" data-sent="" hidden="">Thanks, we usually reply within one working day.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="cta-band section-gray section-close"><div class="wrap"><h2>The best time to start was years ago.</h2><p>The second best time is today.</p><div class="cta-actions"><a class="btn" href="/phenome-store/quiz/">Find your test</a><a class="link-more" href="/phenome-store/testing/compare/">Compare all tests</a></div></div></section>
+
+</main>
+
+<!-- The address to write to, floating. Bottom left, because the dock owns
+     bottom right. The reference floats a telephone number here; Phenome
+     publishes no telephone number, so the thing that travels with the reader is
+     the inbox, and the two acts are the same two: the pill copies it, the disc
+     opens a message. -->
+<div class="ctc-call">
+  <button class="ctc-call-num" type="button" data-copy="hello@phenomelongevity.com" aria-label="Copy our customer care address">hello@phenomelongevity.com</button>
+  <a class="ctc-call-go" href="mailto:hello@phenomelongevity.com" aria-label="Email customer care"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="2.2" y="4.2" width="15.6" height="11.6" rx="2"/><path d="m2.6 5.4 7.4 5.4 7.4-5.4"/></svg></a>
+</div>
+
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/contact/contact.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>
