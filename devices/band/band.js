@@ -12,9 +12,12 @@
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
   function money(p) { return '£' + (p % 100 ? (p / 100).toFixed(2) : String(p / 100)); }
 
-  var COLOURS = { sage: { name: 'Sage', hex: '#4f9e72' }, midnight: { name: 'Midnight', hex: '#1d3aa0' }, sand: { name: 'Sand', hex: '#c79a52' } };
+  /* ONE COLOUR, 2026-09-16 by request. The map stays a map rather than a
+     constant: the control is still a radiogroup, the cart line still reads the
+     name from here, and a second colour is one entry away. */
+  var COLOURS = { black: { name: 'Black', hex: '#141414' } };
   var BASE_PRICE = 14900;
-  var state = { colour: 'sage', straps: [], extra: 0 };
+  var state = { colour: 'black', straps: [], extra: 0 };
   var subs = [];
   function publish() { subs.forEach(function (fn) { fn(state); }); }
 
@@ -75,10 +78,7 @@
       if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true);
     });
 
-    /* choosing a colour brings the studio still back to the front */
-    subs.push(function (s) {
-      $$('[data-studio] img', gal).forEach(function (im) { im.classList.toggle('is-on', im.getAttribute('data-colour') === s.colour); });
-    });
+    /* choosing a colour brings the product plate back to the front */
     $$('.bd-sw').forEach(function (b) { b.addEventListener('click', function () { if (cur !== 0) go(0, true); }); });
 
     paint();
@@ -93,8 +93,6 @@
       b.addEventListener('click', function () {
         state.colour = b.getAttribute('data-colour');
         sws.forEach(function (o) { var on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-checked', on ? 'true' : 'false'); });
-        var note = $('[data-colour-note]');
-        if (note) note.textContent = b.getAttribute('data-note') || '';
         publish();
       });
       b.addEventListener('keydown', function (e) {
@@ -114,9 +112,6 @@
       });
     });
 
-    var reserved = $('[data-reserved]');
-    if (reserved) reserved.addEventListener('change', publish);
-
     subs.push(function (s) {
       var c = COLOURS[s.colour];
       var label = $('[data-colour-label]'); if (label) label.textContent = c.name;
@@ -125,10 +120,8 @@
       var v = $('[data-cart-variant]');
       if (v) {
         v.textContent = c.name +
-          (s.straps.length ? ', spare ' + (s.straps.length === 1 ? 'strap' : 'straps') + ' in ' + s.straps.join(' and ') : '') +
-          (reserved && reserved.checked ? ', reserved' : '');
+          (s.straps.length ? ', spare ' + (s.straps.length === 1 ? 'strap' : 'straps') + ' in ' + s.straps.join(' and ') : '');
       }
-      $$('[data-box-colour] img').forEach(function (im) { im.classList.toggle('is-on', im.getAttribute('data-colour') === s.colour); });
     });
 
     var now = $('[data-buy-now]');
@@ -165,7 +158,7 @@
     });
 
     /* over the dark bands the bar turns to ink so it never floats as a white slab */
-    var darks = $$('.bd-day, .bd-coach, .bd-apps');
+    var darks = $$('.bd-coach, .bd-apps');
     if (!darks.length) return;
     function tone() {
       var y = 28, dark = false;
@@ -194,21 +187,7 @@
     fn();
   }
 
-  /* ---- 3 · marquee: the row is doubled so the loop has no seam ------------ */
-  function marquee() {
-    var m = $('[data-marquee]');
-    if (!m) return;
-    var row = $('.bd-marquee-row', m);
-    $$('li', row).forEach(function (li) {
-      var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); row.appendChild(c);
-    });
-    /* a constant speed whatever the viewport: about 70px per second */
-    var fix = function () { row.style.setProperty('--mq-s', Math.max(30, row.scrollWidth / 2 / 70) + 's'); };
-    fix();
-    window.addEventListener('resize', fix);
-  }
-
-  /* ---- 5 · the dark circle grows with the scroll -------------------------- */
+  /* ---- 2 · the dark circle grows with the scroll -------------------------- */
   function coach() {
     var sec = $('[data-coach]');
     if (!sec) return;
@@ -239,7 +218,7 @@
     onScroll(frame);
   }
 
-  /* ---- 6 · round carousel ------------------------------------------------- */
+  /* ---- 3 · round carousel ------------------------------------------------- */
   function apps() {
     var stage = $('[data-apps]');
     if (!stage) return;
@@ -290,7 +269,7 @@
     paint();
   }
 
-  /* ---- 7 · bento panels draw in once ------------------------------------- */
+  /* ---- 4 · bento panels draw in once ------------------------------------- */
   function bento() {
     var b = $('.bd-bento');
     if (!b) return;
@@ -302,41 +281,11 @@
     io.observe(b);
   }
 
-  /* ---- 8 · specifications: one open at a time, animated height ------------ */
-  function specs() {
-    var list = $$('[data-acc-group] details');
-    list.forEach(function (d) {
-      var sum = $('summary', d), panel = $('div', d);
-      sum.addEventListener('click', function (e) {
-        e.preventDefault();
-        var opening = !d.open;
-        list.forEach(function (o) { if (o !== d && o.open) animate(o, false); });
-        animate(d, opening);
-      });
-      function animate(el, open) {
-        var p = $('div', el);
-        if (still.matches) { el.open = open; return; }
-        if (open) {
-          el.open = true;
-          var h = p.scrollHeight;
-          p.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
-        } else {
-          var h2 = p.scrollHeight;
-          var a = p.animate([{ height: h2 + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 300, easing: 'ease' });
-          a.onfinish = function () { el.open = false; };
-        }
-      }
-      if (!panel) return;
-    });
-  }
-
   gallery();
   buyColumn();
   dock();
-  marquee();
   coach();
   apps();
   bento();
-  specs();
   publish();
 })();

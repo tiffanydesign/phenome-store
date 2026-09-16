@@ -14,10 +14,11 @@
 <!-- The page's own sheet, loaded last and scoped to `.bd` on <body>, the same
      convention as devices/ring/ring.css and store/phenometech-ring/pdp.css.
      Layout and interaction follow lunazone.com/products/luna-band; the palette,
-     type and chrome are Phenome's. EVERY PHOTOGRAPH IN assets/band/ IS A
-     PLACEHOLDER taken from that reference page, to be replaced by our own. -->
+     type and chrome are Phenome's. The three photographs in the gallery are
+     placeholders, stood in from a supplier's own product shots, to be replaced
+     by our own studio work. -->
 <link href="/phenome-store/devices/band/band.css" rel="stylesheet"/>
-<link rel="preload" as="image" href="/phenome-store/assets/band/hero-studio-sage.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="/phenome-store/assets/band/shot-loop.webp" fetchpriority="high"/>
 </head>
 <body class="bd">
 <div class="ph-promo"><p class="ph-promo-inner">Welcome offer, 10% off your first order with code <b>Welcome10</b></p></div>
@@ -32,15 +33,9 @@
 
 <div class="bd-gal" data-gal="" aria-roledescription="carousel" aria-label="Band photographs" role="region">
 <div class="bd-gal-track" data-gal-track="">
-<figure class="bd-slide is-on" data-slide="" data-studio="">
-<img alt="The PhenomeTech Band in sage, front on" data-colour="sage" class="is-on" decoding="async" height="2065" src="/phenome-store/assets/band/hero-studio-sage.webp" width="1400"/>
-<img alt="The PhenomeTech Band in midnight, front on" data-colour="midnight" decoding="async" height="2065" loading="lazy" src="/phenome-store/assets/band/hero-studio-midnight.webp" width="1400"/>
-<img alt="The PhenomeTech Band in sand, front on" data-colour="sand" decoding="async" height="2065" loading="lazy" src="/phenome-store/assets/band/hero-studio-sand.webp" width="1400"/>
-</figure>
-<figure class="bd-slide" data-slide=""><img alt="A woman framing her face with her hands, wearing the band" decoding="async" height="1737" loading="lazy" src="/phenome-store/assets/band/hero-frame.webp" width="1400"/></figure>
-<figure class="bd-slide" data-slide=""><img alt="A man in sunglasses raising his wrist against a blue sky" decoding="async" height="1737" loading="lazy" src="/phenome-store/assets/band/hero-pov.webp" width="1400"/></figure>
-<figure class="bd-slide" data-slide=""><img alt="The band worn with a white t shirt" decoding="async" height="1738" loading="lazy" src="/phenome-store/assets/band/hero-casual.webp" width="1400"/></figure>
-<figure class="bd-slide" data-slide=""><img alt="A cyclist on the road wearing the band" decoding="async" height="1739" loading="lazy" src="/phenome-store/assets/band/hero-ride.webp" width="1400"/></figure>
+<figure class="bd-slide is-on" data-slide=""><img alt="The PhenomeTech Band in black, the woven loop seen from the side" decoding="async" height="1200" src="/phenome-store/assets/band/shot-loop.webp" width="1200"/></figure>
+<figure class="bd-slide" data-slide=""><img alt="The band front on, the case centred on the weave" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/shot-front.webp" width="1200"/></figure>
+<figure class="bd-slide is-fill" data-slide=""><img alt="The band worn on the wrist" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/shot-worn.webp" width="1200"/></figure>
 </div>
 <button class="bd-gal-arrow is-prev" data-gal-prev="" type="button" aria-label="Previous photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button class="bd-gal-arrow is-next" data-gal-next="" type="button" aria-label="Next photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -51,22 +46,30 @@
 
 <!-- REBALANCED 2026-09-15, by request, on the buy column of
      store/phenometech-ring: the head reads name, promise, one line of what it
-     is, and a rule; then the choices, each under a field name with its value
-     beside it; then one price card holding the total and both buttons; then
-     what is in the box. The price that stood under the head is gone, because
-     the card says the same number where the decision is made. -->
+     is; then the choices, each under a field name with its value beside it;
+     then one price card holding the total and both buttons.
+
+     SPACED AGAIN 2026-09-16, by request: the column read as one dense block of
+     seventeen lines. Nothing was removed — the rhythm was rewritten. Each
+     decision is now its own group with air around it, the field name sits on
+     its own line above its control rather than beside it, and the leading on
+     every explanatory line is the loose offset rather than the tight one. -->
 <div class="bd-head">
 <h1 class="bd-name">PhenomeTech Band</h1>
 <p class="bd-tag">Your day, read as it happens.</p>
 <p class="bd-lede">A screenless band that reads your heart, sleep, temperature and training all day, and turns it into a plan built around your genome and microbiome.</p>
 </div>
 
+<!-- THE COLOUR CONTROL, rebuilt 2026-09-16 by request. One colour, and the
+     chip is a flat piece of the material rather than a lit sphere: no
+     specular highlight, no bounce, no rim, no tinted drop. What is left is
+     the pigment and a fine woven line running across it, which is the only
+     thing the chip was ever meant to tell you. -->
 <div class="bd-opt">
-<p class="bd-opt-k">Colour<span><b data-colour-label="">Sage</b> <em data-colour-note="">(ships now)</em></span></p>
+<p class="bd-opt-k">Colour</p>
+<p class="bd-opt-v"><b data-colour-label="">Black</b></p>
 <div class="bd-swatches" role="radiogroup" aria-label="Colour">
-<button aria-checked="true" class="bd-sw on" data-colour="sage" data-note="(ships now)" role="radio" style="--sw:#8fc49a" type="button" aria-label="Sage"></button>
-<button aria-checked="false" class="bd-sw" data-colour="midnight" data-note="" role="radio" style="--sw:#1d3aa0" type="button" aria-label="Midnight"></button>
-<button aria-checked="false" class="bd-sw" data-colour="sand" data-note="(ships now)" role="radio" style="--sw:#c79a52" type="button" aria-label="Sand"></button>
+<button aria-checked="true" class="bd-sw on" data-colour="black" role="radio" type="button" aria-label="Black"></button>
 </div>
 </div>
 
@@ -79,29 +82,27 @@
 <label class="bd-strap"><input type="checkbox" value="Sage" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#4f9e72"></span><span class="bd-strap-n">Sage weave</span><span class="bd-strap-p">£29</span></label>
 <label class="bd-strap"><input type="checkbox" value="Midnight" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#1d3aa0"></span><span class="bd-strap-n">Midnight weave</span><span class="bd-strap-p">£29</span></label>
 <label class="bd-strap"><input type="checkbox" value="Sand" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#c79a52"></span><span class="bd-strap-n">Sand weave</span><span class="bd-strap-p">£29</span></label>
-<label class="bd-strap"><input type="checkbox" value="Sport" data-strap-price="3900"/><span class="bd-strap-img" style="--sw:#10214b;--sw2:#7185bd"></span><span class="bd-strap-n">Sport loop, sweat proof</span><span class="bd-strap-p">£39</span></label>
+<label class="bd-strap"><input type="checkbox" value="Sport" data-strap-price="3900"/><span class="bd-strap-img" style="--sw:#10214b"></span><span class="bd-strap-n">Sport loop, sweat proof</span><span class="bd-strap-p">£39</span></label>
 </div>
 </details>
 </div>
 
-<div class="bd-toggle">
-<label for="bd-reserved">Already reserved a band?</label>
-<button class="bd-tip" type="button" aria-describedby="bd-tip-t" aria-label="What a reservation means">?</button>
-<span class="bd-tip-t" id="bd-tip-t" role="tooltip">Reserved before launch? Switch this on and your deposit comes off at checkout.</span>
-<input class="bd-switch" id="bd-reserved" data-reserved="" role="switch" type="checkbox"/>
-</div>
+<!-- THE RESERVATION SWITCH IS GONE, 2026-09-16 by request. A toggle, a
+     question mark, a tooltip and a hidden discount, in a column whose job is
+     one decision: it asked every reader to answer a question that applies to
+     almost none of them, and it answered nothing for the rest. A deposit that
+     exists belongs at the checkout, where the total is. -->
+
 
 <!-- Read by store/cart/cart.js: the whole choice as one line. -->
-<p class="bd-variant" data-cart-variant="" hidden="">Sage</p>
+<p class="bd-variant" data-cart-variant="" hidden="">Black</p>
 
 <div class="bd-cta">
 <p class="bd-cta-price"><b data-price="">£149</b><span>Delivery, returns and the app included, no subscription</span></p>
 <a class="btn" href="/phenome-store/store/cart/">Add to cart</a>
 <!-- NOT "Add to cart", and it is the one control on the site that is not. It
      does not add and stop, it adds and goes straight to the checkout (band.js),
-     so it is the second half of the pair, not a second copy of the first. The
-     word it used to carry was "Buy now", which the 2026-09-16 pass retired
-     everywhere; "Checkout now" is what it actually does. -->
+     so it is the second half of the pair, not a second copy of the first. -->
 <button class="btn bd-now" data-buy-now="" type="button">Checkout now</button>
 </div>
 
@@ -115,74 +116,95 @@
 </div></section>
 
 <!-- ==========================================================================
-     2 · WHAT IS IN THE BOX
+     2 · SPECIFICATIONS · the grid of store/phenometech-ring's Technical
+     Specifications, with this page's own type and ink: the label at 19 to 23 in
+     the heading ink, the values at 17 in the second, a blue mark before each
+     one. Nothing is behind an accordion, so nothing has to be opened to be read.
+
+     MOVED UP AND UNDRESSED, 2026-09-16 by request. It used to sit between the
+     proof and the questions, at the end of a page it was the plain answer to;
+     it now follows the buy column directly, which is where a reader asking
+     "what is it" actually is. Two things went with the move: the photograph,
+     which was a man wearing a band beside a list of millimetres and had nothing
+     to add to it, and the pale blue ground. The blue is on the CARDS now, where
+     a tint separates one block from another, rather than under the whole
+     section, where it was simply a coloured screen behind black type.
      ====================================================================== -->
-<section class="bd-box">
-<h2 class="bd-h2">What is in the box</h2>
-<div class="bd-box-panel">
-<figure class="bd-box-item"><img alt="The charging dock and its cable" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/><figcaption>Charging dock and USB C cable</figcaption></figure>
-<figure class="bd-box-item" data-box-colour=""><img alt="The band on its frame" data-colour="sage" class="is-on" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-band-sage.webp" width="900"/><img alt="" data-colour="midnight" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-band-midnight.webp" width="900"/><img alt="" data-colour="sand" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-band-sand.webp" width="900"/><figcaption>PhenomeTech Band</figcaption></figure>
-<figure class="bd-box-item" data-box-colour=""><img alt="The spare strap" data-colour="sage" class="is-on" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-strap-sage.webp" width="900"/><img alt="" data-colour="midnight" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-strap-midnight.webp" width="900"/><img alt="" data-colour="sand" decoding="async" height="823" loading="lazy" src="/phenome-store/assets/band/box-strap-sand.webp" width="900"/><figcaption>Spare strap, medium to large</figcaption></figure>
+<section class="bd-specs" id="specs">
+<div class="bd-specs-wrap">
+<h2 class="bd-h2">Specifications</h2>
+
+<div class="bd-specs-grid">
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M2.6 12.4h4.1l2-4.6 3.1 8.6 2.2-5.5 1.6 2.8h5.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Biomarkers</span></p>
+<ul class="bd-spec-l"><li>Heart rate, day and night</li><li>Heart rate variability</li><li>Blood oxygen</li><li>Skin temperature</li><li>Sleep stages and respiratory rate</li><li>Movement, steps and calories</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="12" r="8.4" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.1" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg><span>Sensors</span></p>
+<ul class="bd-spec-l"><li>Optical heart rate, green, red and infrared light</li><li>Skin temperature sensor</li><li>Six axis motion sensor</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><rect x="2.8" y="7.4" width="15.6" height="9.2" rx="2.4" stroke="currentColor" stroke-width="1.6"/><path d="M21.2 10.6v2.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5.6 10.2h6.4v3.6H5.6z" fill="currentColor"/></svg><span>Battery life</span></p>
+<ul class="bd-spec-l"><li>Up to 7 days per charge</li><li>Full charge in about 60 minutes</li><li>Charging dock and cable in the box</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 2.9l8.1 4.7v9.4L12 21.1l-8.1-4.1V7.6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8.5l3.9 2.3v4.4L12 17.5l-3.9-2.3v-4.4z" fill="currentColor"/></svg><span>Material and weight</span></p>
+<ul class="bd-spec-l"><li>Anodised aluminium frame</li><li>Woven recycled polyester strap</li><li>Hypoallergenic sensor window</li><li>Core 11 g, with strap 24 g</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M4 18.6c2.9-1.2 4.2-4.1 5.1-7 .9-2.9 2.1-4.6 3.4-4.6 1.7 0 2.3 2.1 3 4.7.7 2.6 1.9 5.3 4.5 6.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18.6" cy="5.6" r="2" fill="currentColor"/></svg><span>Fitness and performance</span></p>
+<ul class="bd-spec-l"><li>Automatic workout detection</li><li>Training load, effect and recovery time</li><li>Heart rate zones and cardio fitness</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 3.2c2.6 3 5.4 6 5.4 8.9A5.4 5.4 0 0 1 12 17.5a5.4 5.4 0 0 1-5.4-5.4c0-2.9 2.8-5.9 5.4-8.9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 20.8h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Water resistance</span></p>
+<ul class="bd-spec-l"><li>Water resistant to 50 m</li><li>Safe for swimming and showers</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><rect x="8.2" y="8.2" width="7.6" height="7.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M10 8.2V4.4h4v3.8M10 15.8v3.8h4v-3.8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Strap and sizing</span></p>
+<ul class="bd-spec-l"><li>Small to medium, 130 to 170 mm wrist</li><li>Medium to large, 160 to 210 mm wrist</li><li>Frames swap in one click</li></ul>
+</article>
+
+<article class="bd-spec">
+<p class="bd-spec-k"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><rect x="6.6" y="2.9" width="10.8" height="18.2" rx="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M10.6 5.6h2.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.1" fill="currentColor"/></svg><span>App and compatibility</span></p>
+<ul class="bd-spec-l"><li>Phenome Longevity app</li><li>Syncs with your genomic and microbiome data</li><li>Bluetooth Low Energy</li><li>Routes recorded through your phone's location</li></ul>
+</article>
+
+</div>
 </div>
 </section>
 
 <!-- ==========================================================================
-     3 · A WHOLE DAY · the reference's athlete marquee, told as hours instead
-     of names. Photographs are Phenome's own library.
-     ====================================================================== -->
-<section class="bd-day">
-<div class="bd-day-head">
-<h2 class="bd-display"><span class="bd-dim">Tested through whole days</span><span>Not only the workout</span></h2>
-</div>
-<div class="bd-marquee" data-marquee="">
-<ul class="bd-marquee-row">
-<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp"/><span class="bd-day-chip">Resting heart rate <b>54</b></span><p class="bd-day-meta">6.45 am, at home</p><p class="bd-day-t">Morning stretch</p></li>
-<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_sports_strength.webp"/><span class="bd-day-chip">Training load <b>Moderate</b></span><p class="bd-day-meta">7.30 am, living room</p><p class="bd-day-t">Strength before work</p></li>
-<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/band_clinic_expect.webp"/><span class="bd-day-chip">Stress <b>Settling</b></span><p class="bd-day-meta">8.15 am, the commute</p><p class="bd-day-t">Calm on the train</p></li>
-<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/hub_home_longevity.webp"/><span class="bd-day-chip">Swim pace <b>2.05 per 100 m</b></span><p class="bd-day-meta">12.30 pm, the lido</p><p class="bd-day-t">Lunchtime lengths</p></li>
-<li class="bd-day-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/sports_hero.webp"/><span class="bd-day-chip">Elevation <b>640 m</b></span><p class="bd-day-meta">Saturday, the fells</p><p class="bd-day-t">A long hill day</p></li>
-<li class="bd-day-card is-wide"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_night.webp"/><span class="bd-day-chip">Deep sleep <b>1 h 42</b></span><p class="bd-day-meta">11.20 pm, lights out</p><p class="bd-day-t">Recovery overnight</p></li>
-</ul>
-</div>
-</section>
-
-<!-- ==========================================================================
-     4 · SIGNALS · two by two photographic cards, title on the photograph
-     ====================================================================== -->
-<section class="bd-sig">
-<div class="bd-sig-head"><h2 class="bd-display is-ink"><span class="bd-dim">Read your</span><span>Biomarkers</span></h2></div>
-<div class="bd-sig-grid">
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-sleep.webp"/><div class="bd-sig-copy"><h3>Understand your sleep</h3><p>Light, deep and dream sleep, the debt you carry into tomorrow, and the bedtime that pays it back.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-cycle.webp"/><div class="bd-sig-copy"><h3>Follow your cycle</h3><p>Temperature shifts mark each phase, so predictions sharpen with every month you wear it.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-temp.webp"/><div class="bd-sig-copy"><h3>Skin temperature</h3><p>Nightly change against your own baseline, often the first sign that something is on its way.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-training.webp"/><div class="bd-sig-copy"><h3>Train with intent</h3><p>Workouts detected on their own, with load, effect and the recovery each one asks for.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-vo2.webp"/><div class="bd-sig-copy"><h3>Cardio fitness</h3><p>An estimate of your VO₂ max from everyday runs and walks, one of the strongest markers of healthy ageing.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-hrv.webp"/><div class="bd-sig-copy"><h3>Heart rate variability</h3><p>How ready your nervous system is today, read overnight while nothing else is moving.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-oxygen.webp"/><div class="bd-sig-copy"><h3>Blood oxygen</h3><p>Saturation through the night, with dips flagged when they fall outside your usual range.</p></div></article>
-<article class="bd-sig-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/sig-heart.webp"/><div class="bd-sig-copy"><h3>Heart rate</h3><p>Continuous, day and night, from your lowest sleeping beat to your hardest interval.</p></div></article>
-</div>
-</section>
-
-<!-- ==========================================================================
-     5 · THE COACH · a big line, then a dark circle that grows with the scroll
+     3 · THE COACH · a big line, then a dark circle that grows with the scroll
      until it becomes the ground of the next section.
+
+     The two headlines here were single tone and out of step with the rest of
+     the page. They now take the site's two tone display pair (§ 3 of
+     phenome-glass.css): the held back line above, the statement below, in the
+     contrast the ground asks for — ink against pale blue on white, white
+     against a half tone on ink.
      ====================================================================== -->
 <section class="bd-coach" data-coach="">
 <div class="bd-coach-stage">
-<h2 class="bd-coach-h">With Phenome by your side</h2>
+<h2 class="bd-coach-h bd-display is-ink"><span class="bd-dim">With Phenome</span><span>By your side</span></h2>
 <div class="bd-orb" data-orb="">
 <div class="bd-orb-in">
-<p class="bd-orb-k">Powered by</p>
-<p class="bd-orb-t">Micro insights</p>
+<p class="bd-orb-t bd-display"><span class="bd-dim">Powered by</span><span>Phenome insights</span></p>
 </div>
 </div>
 </div>
 </section>
 
 <!-- ==========================================================================
-     6 · MICRO INSIGHTS · round carousel, the centre one lit
+     4 · PHENOME INSIGHTS · round carousel, the centre one lit
      ====================================================================== -->
-<section class="bd-apps" aria-label="Micro insights">
+<section class="bd-apps" aria-label="Phenome insights">
 <div class="bd-apps-stage" data-apps="" aria-roledescription="carousel">
 <div class="bd-apps-glow" aria-hidden="true"></div>
 <ul class="bd-apps-track" data-apps-track="">
@@ -199,7 +221,7 @@
 </section>
 
 <!-- ==========================================================================
-     7 · PROOF · dark to light ground, three card bento, then where the band
+     5 · PROOF · dark to light ground, three card bento, then where the band
      fits in the rest of Phenome. FIGURES ARE PLACEHOLDERS for layout.
      ====================================================================== -->
 <section class="bd-proof">
@@ -252,29 +274,9 @@
 </section>
 
 <!-- ==========================================================================
-     8 · SPECIFICATIONS · photograph left, accordion right
-     ====================================================================== -->
-<section class="bd-specs" id="specs">
-<h2 class="bd-h2">Specifications</h2>
-<div class="bd-specs-grid">
-<figure class="bd-specs-img"><img alt="A man wearing the band in sand" decoding="async" height="1490" loading="lazy" src="/phenome-store/assets/band/spec-worn.webp" width="1200"/></figure>
-<div class="bd-specs-list" data-acc-group="">
-<details class="bd-spec" open=""><summary>Biomarkers<i aria-hidden="true"></i></summary><div><ul><li>Heart rate, day and night</li><li>Heart rate variability</li><li>Blood oxygen</li><li>Skin temperature</li><li>Sleep stages and respiratory rate</li><li>Movement, steps and calories</li></ul></div></details>
-<details class="bd-spec"><summary>Material<i aria-hidden="true"></i></summary><div><ul><li>Anodised aluminium frame</li><li>Woven recycled polyester strap</li><li>Hypoallergenic sensor window</li></ul></div></details>
-<details class="bd-spec"><summary>Weight<i aria-hidden="true"></i></summary><div><ul><li>Core 11 g</li><li>With strap 24 g</li></ul></div></details>
-<details class="bd-spec"><summary>Battery life<i aria-hidden="true"></i></summary><div><ul><li>Up to 7 days per charge</li><li>Full charge in about 60 minutes</li></ul></div></details>
-<details class="bd-spec"><summary>Fitness and performance<i aria-hidden="true"></i></summary><div><ul><li>Automatic workout detection</li><li>Training load, effect and recovery time</li><li>Heart rate zones and cardio fitness</li></ul></div></details>
-<details class="bd-spec"><summary>Water resistance<i aria-hidden="true"></i></summary><div><ul><li>Water resistant to 50 m</li><li>Safe for swimming and showers</li></ul></div></details>
-<details class="bd-spec"><summary>Sensors<i aria-hidden="true"></i></summary><div><ul><li>Optical heart rate, green, red and infrared light</li><li>Skin temperature sensor</li><li>Six axis motion sensor</li></ul></div></details>
-<details class="bd-spec"><summary>Location<i aria-hidden="true"></i></summary><div><ul><li>Routes recorded through your phone's location</li></ul></div></details>
-<details class="bd-spec"><summary>App and compatibility<i aria-hidden="true"></i></summary><div><ul><li>Phenome Longevity app</li><li>Syncs with your genomic and microbiome data</li><li>Bluetooth Low Energy</li></ul></div></details>
-<details class="bd-spec"><summary>Strap<i aria-hidden="true"></i></summary><div><ul><li>Small to medium, 130 to 170 mm wrist</li><li>Medium to large, 160 to 210 mm wrist</li><li>Frames swap in one click</li></ul></div></details>
-</div>
-</div>
-</section>
-
-<!-- ==========================================================================
-     9 · QUESTIONS · categories left, answers right
+     6 · QUESTIONS · halved 2026-09-16, by request. Fourteen answers were a
+     second specification list under the first one; the seven left are the ones
+     a reader cannot get from the block above.
      ====================================================================== -->
 <section class="bd-faq">
 <div class="bd-faq-wrap">
@@ -282,18 +284,11 @@
 <div class="acc is-faq" data-faq-list="">
 <details class="acc-item" open=""><summary>Is the Band suited to exercise?</summary><div class="acc-body"><div><p>Yes, it is built for movement. Runs, strength sessions, swims and rides are detected on their own, and each one is logged with heart rate zones, training load and the recovery time it asks for.</p></div></div></details>
 <details class="acc-item"><summary>Does it have a screen?</summary><div class="acc-body"><div><p>No. With nothing to light up the battery lasts about a week, and your day is read in the app, where there is room to explain it.</p></div></div></details>
-<details class="acc-item"><summary>Can I wear it on my upper arm?</summary><div class="acc-body"><div><p>Yes. Wrist or bicep, left or right, the readings hold. Many people move it to the arm for lifting.</p></div></div></details>
 <details class="acc-item"><summary>Is there a subscription?</summary><div class="acc-body"><div><p>No. The app, your insights and future updates come with the Band.</p></div></div></details>
-<details class="acc-item"><summary>Which phones does it work with?</summary><div class="acc-body"><div><p>Recent iPhone and Android phones, through the Phenome Longevity app.</p></div></div></details>
-<details class="acc-item"><summary>Can I export my data?</summary><div class="acc-body"><div><p>Yes. Your readings are yours, and can be downloaded or shared with a clinician from the app.</p></div></div></details>
-<details class="acc-item"><summary>Should I choose the Band or the Ring?</summary><div class="acc-body"><div><p>The Ring is the better sleep tracker, since it is barely felt overnight. The Band is the better training partner, with a firmer fit through hard effort. Both feed the same account.</p></div></div></details>
-<details class="acc-item"><summary>Can I wear both?</summary><div class="acc-body"><div><p>Yes. Many members wear the Ring to bed and the Band through the day, and the app merges the two without counting anything twice.</p></div></div></details>
+<details class="acc-item"><summary>Should I choose the Band or the Ring?</summary><div class="acc-body"><div><p>The Ring is the better sleep tracker, since it is barely felt overnight. The Band is the better training partner, with a firmer fit through hard effort. Both feed the same account, and the app merges the two without counting anything twice.</p></div></div></details>
+<details class="acc-item"><summary>Which strap size do I need?</summary><div class="acc-body"><div><p>Every box holds both sizes, small to medium for wrists of 130 to 170 mm and medium to large for 160 to 210 mm. Wear it snug enough not to slide, loose enough to fit a finger underneath.</p></div></div></details>
+<details class="acc-item"><summary>How does the Band use my genome?</summary><div class="acc-body"><div><p>If you have taken a Phenome genomic test, your results set the baseline your readings are compared with, such as how quickly you clear caffeine or how you respond to endurance training. The Band still works on its own from the first night.</p></div></div></details>
 <details class="acc-item"><summary>Is the Band a medical device?</summary><div class="acc-body"><div><p>No. It is a wellness device, and it does not diagnose or treat any condition. Speak to a clinician about anything that concerns you.</p></div></div></details>
-<details class="acc-item"><summary>Is it safe to wear all the time?</summary><div class="acc-body"><div><p>Yes. The light it uses is low power, and the materials against your skin are hypoallergenic.</p></div></div></details>
-<details class="acc-item"><summary>Which strap size do I need?</summary><div class="acc-body"><div><p>Every box holds both sizes, small to medium for wrists of 130 to 170 mm and medium to large for 160 to 210 mm.</p></div></div></details>
-<details class="acc-item"><summary>How tight should it be?</summary><div class="acc-body"><div><p>Snug enough not to slide, loose enough to fit a finger underneath. Wear it a finger's width above the wrist bone.</p></div></div></details>
-<details class="acc-item"><summary>How does the Band use my genome?</summary><div class="acc-body"><div><p>If you have taken a Phenome genomic test, your results set the baseline your readings are compared with, such as how quickly you clear caffeine or how you respond to endurance training.</p></div></div></details>
-<details class="acc-item"><summary>Do I need a test to use it?</summary><div class="acc-body"><div><p>No. The Band works on its own from the first night, and grows more personal as you add tests.</p></div></div></details>
 </div>
 </div>
 </section>
