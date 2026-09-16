@@ -1425,6 +1425,14 @@
     new IntersectionObserver(function (es) {
       var off = !es[0].isIntersecting;
       bar.classList.toggle('on', off);
+      /* THE SWAP, and it is set here rather than on each page that wanted it.
+         Five pages had grown their own copy of this line — the ring PDP, the
+         Band, devices/ring, ring-lab and the NAD page — and every page that had
+         NOT copied it was showing two bars at once: the global nav pinned at 0
+         and the product bar stacked directly under it. One class, set by the one
+         observer that already knows where the hero is, and shared.css § "the
+         swap" does the rest. See that block for what the class means. */
+      document.body.classList.toggle('is-past-hero', off);
       bar.setAttribute('aria-hidden', off ? 'false' : 'true');
       a.setAttribute('tabindex', off ? '0' : '-1');
       n.setAttribute('tabindex', off ? '0' : '-1');
@@ -2034,14 +2042,6 @@
   faq();
   cartKit();
 
-  /* The cart drawer rides on every page that loads this file, so 80 pages do
-     not each need their own two tags. The base comes from this script's own
-     src, the same way phenome-routes.js finds it. */
-  function cartKit() {
-    var me = document.currentScript;
-    if (!me || document.querySelector('script[src$="/store/cart/cart.js"]')) return;
-    var base = me.src.replace(/\/shared\.js.*$/, '');
-    if (!document.querySelector('link[href$="/store/cart/cart.css"]')) {
   /* Questions · one card open at a time, and a close that collapses.
 
      Native <details> has two problems for a question list. It will happily
@@ -2097,6 +2097,14 @@
     }
   }
 
+  /* The cart drawer rides on every page that loads this file, so 80 pages do
+     not each need their own two tags. The base comes from this script's own
+     src, the same way phenome-routes.js finds it. */
+  function cartKit() {
+    var me = document.currentScript;
+    if (!me || document.querySelector('script[src$="/store/cart/cart.js"]')) return;
+    var base = me.src.replace(/\/shared\.js.*$/, '');
+    if (!document.querySelector('link[href$="/store/cart/cart.css"]')) {
       var l = document.createElement('link');
       l.rel = 'stylesheet';
       l.href = base + '/store/cart/cart.css';

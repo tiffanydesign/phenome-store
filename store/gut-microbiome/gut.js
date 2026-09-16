@@ -148,10 +148,8 @@
   function dock() {
     var bar = $('.ph-bar');
     if (!bar) return;
-    var swap = function () { body.classList.toggle('is-past-hero', bar.classList.contains('on')); };
-    if ('MutationObserver' in window) new MutationObserver(swap).observe(bar, { attributes: true, attributeFilter: ['class'] });
-    swap();
-
+    /* The swap itself is shared.js's now — it sets `.is-past-hero` from the hero
+       observer, so every page gets it, not only the ones with a stylesheet. */
     var inner = $('.ph-bar-inner', bar), name = $('.ph-bar-name', bar);
     if (inner && name) {
       var txt = doc.createElement('span'); txt.className = 'ph-bar-txt';

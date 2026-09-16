@@ -650,18 +650,14 @@
 .nd-lb-next { right: 20px; top: 50%; margin-top: -24px; }
 
 /* ---------------------------------------------------------------------------
-   THE SWAP · the nav leaves, the product bar takes the top (as the ring PDP)
+   THE BAR · the nav leaves and the product bar takes the top, as on the ring
+   PDP. The rules that DO that are no longer written here: they were one of five
+   identical copies, and they now live once in shared.css § "the swap", driven
+   by an `.is-past-hero` shared.js sets for every page with a product bar. Only
+   this page's material is below.
    ------------------------------------------------------------------------ */
-.nadp .ph-nav {
-  transition: transform var(--ph-dur-base, 240ms) var(--nd-ease), opacity var(--ph-dur-base, 240ms) var(--nd-ease);
-}
-.nadp.is-past-hero .ph-nav {
-  transform: translateY(-100%); opacity: 0; visibility: hidden;
-  transition: transform var(--ph-dur-base, 240ms) var(--nd-ease), opacity var(--ph-dur-base, 240ms) var(--nd-ease),
-              visibility 0s linear var(--ph-dur-base, 240ms);
-}
 .nadp .ph-bar, .nadp .ph-bar.on {
-  top: 0; background: rgba(255, 255, 255, .72); box-shadow: none;
+  background: rgba(255, 255, 255, .72); box-shadow: none;
   -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, .07);
 }

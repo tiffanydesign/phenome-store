@@ -468,8 +468,8 @@
     removePromo: function () { state.promo = false; save(); },
     promoOn: function () { return state.promo; }, promoCode: PROMO.code,
     clear: clear, open: open, close: close, subscribe: function (fn) { subs.push(fn); },
-    /* Add what the current page describes without opening the drawer, for a
-       Buy now control that goes straight on to checkout. */
+    /* Add what the current page describes without opening the drawer, for an
+       Add to cart control that goes straight on to checkout. */
     addHere: function (link) { var item = resolve(link || document.body); if (item) add(item); return !!item; },
     markReturn: function () {
       try { sessionStorage.setItem(RETURN, location.pathname + location.search + location.hash); } catch (err) { /* no return */ }

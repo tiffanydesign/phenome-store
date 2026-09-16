@@ -129,17 +129,12 @@
     publish(false);
   }
 
-  /* ---- the nav/bar swap, as on the ring PDP ------------------------------ */
+  /* ---- the product bar's thumbnail and meta line -------------------------
+     The nav/bar swap is no longer re-derived here: shared.js sets
+     `.is-past-hero` from the hero observer for every page that grows a bar. */
   function dock() {
     var bar = $('.ph-bar');
     if (!bar) return;
-    var body = doc.body;
-    var swap = function () { body.classList.toggle('is-past-hero', bar.classList.contains('on')); };
-    if ('MutationObserver' in window) {
-      new MutationObserver(swap).observe(bar, { attributes: true, attributeFilter: ['class'] });
-    }
-    swap();
-
     var inner = $('.ph-bar-inner', bar);
     var name = $('.ph-bar-name', bar);
     if (!inner || !name) return;

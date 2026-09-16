@@ -143,14 +143,14 @@
     }
   }
 
-  /* ---- 0 · nav swap and the product bar ----------------------------------- */
+  /* ---- 0 · the product bar ------------------------------------------------
+     The `.is-past-hero` swap that used to be re-derived here, with a
+     MutationObserver watching shared.js's own class, is gone: shared.js sets it
+     directly from the hero observer for every page that has a bar. What is left
+     is the part that really is the Band's — the swatch dot and the meta line. */
   function dock() {
     var bar = $('.ph-bar');
     if (!bar) return;
-    var swap = function () { body.classList.toggle('is-past-hero', bar.classList.contains('on')); };
-    if ('MutationObserver' in window) new MutationObserver(swap).observe(bar, { attributes: true, attributeFilter: ['class'] });
-    swap();
-
     var inner = $('.ph-bar-inner', bar), name = $('.ph-bar-name', bar);
     if (!inner || !name) return;
     var thumb = doc.createElement('span'); thumb.className = 'ph-bar-thumb'; thumb.setAttribute('aria-hidden', 'true');

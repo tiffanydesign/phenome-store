@@ -96,8 +96,13 @@
 
 <div class="bd-cta">
 <p class="bd-cta-price"><b data-price="">£149</b><span>Delivery, returns and the app included, no subscription</span></p>
-<a class="btn" href="/phenome-store/store/cart/">Add to bag</a>
-<button class="btn bd-now" data-buy-now="" type="button">Buy now</button>
+<a class="btn" href="/phenome-store/store/cart/">Add to cart</a>
+<!-- NOT "Add to cart", and it is the one control on the site that is not. It
+     does not add and stop, it adds and goes straight to the checkout (band.js),
+     so it is the second half of the pair, not a second copy of the first. The
+     word it used to carry was "Buy now", which the 2026-09-16 pass retired
+     everywhere; "Checkout now" is what it actually does. -->
+<button class="btn bd-now" data-buy-now="" type="button">Checkout now</button>
 </div>
 
 <div class="bd-note">
@@ -200,8 +205,12 @@
 <section class="bd-proof">
 <div class="wrap-wide">
 <h2 class="bd-display is-left"><span class="bd-dim">Accuracy you can check</span><span>Rigorously tested</span></h2>
+<!-- The cards carry tabindex because the wide layout opens them on hover (band.css
+     § 7b). Their contents stay in the accessibility tree while a card is closed —
+     opacity is not display — so this is here for the sighted keyboard reader, who
+     is otherwise the one person who cannot open them. -->
 <div class="bd-bento">
-<article class="bd-bento-card is-big">
+<article class="bd-bento-card is-big" tabindex="0">
 <img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-leap.webp"/>
 <div class="bd-panel">
 <p class="bd-panel-k">Running, against a chest strap</p>
@@ -213,7 +222,7 @@
 </div>
 <div class="bd-bento-copy"><h3>All day wear testing</h3><p>Every reading paired with a clinical reference, across rest, work and hard effort.</p></div>
 </article>
-<article class="bd-bento-card">
+<article class="bd-bento-card" tabindex="0">
 <img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-ride.webp"/>
 <div class="bd-panel is-chart">
 <p class="bd-panel-k">Indoor cycling, heart rate</p>
@@ -222,7 +231,7 @@
 </div>
 <div class="bd-bento-copy"><h3>Steady on the bike</h3></div>
 </article>
-<article class="bd-bento-card">
+<article class="bd-bento-card" tabindex="0">
 <img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-track.webp"/>
 <div class="bd-panel is-bars">
 <p class="bd-panel-k">Sprint intervals</p>

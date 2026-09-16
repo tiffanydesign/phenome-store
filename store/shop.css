@@ -440,7 +440,20 @@
   .shop .pcard-name { font-size: var(--ph-fs-14); }
   .shop .pcard-desc { display: none; }
   .shop .pcard-price { font-size: var(--ph-fs-14); }
-  .shop .pcard-foot { margin-top: 12px; gap: 8px; }
-  .shop .pcard-go { height: 30px; padding: 0 13px; font-size: var(--ph-fs-12); }
+  /* The pill used to say "Buy", which is three characters and sat beside the
+     price on any card. "Add to cart" (2026-09-16, one label for the whole site)
+     is 86px at this size and the card's foot is 126px wide inside its padding —
+     so beside a price it spilled past the card's own edge. Two rows here, the
+     price above and the pill across the full width beneath it: the cards are
+     grid items and equalise, so nothing goes ragged, and a full width control is
+     the better thumb target anyway. */
+  .shop .pcard-foot {
+    margin-top: 12px; gap: 6px;
+    flex-wrap: wrap; align-items: stretch;
+  }
+  .shop .pcard-go {
+    height: 30px; padding: 0 13px; font-size: var(--ph-fs-12);
+    margin-left: 0; flex: 1 0 100%; justify-content: center;
+  }
   .shop .pcard-tag { top: 8px; right: 8px; height: 22px; padding: 0 9px; }
 }

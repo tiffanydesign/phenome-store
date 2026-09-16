@@ -45,9 +45,14 @@
     body.style.setProperty('--nav-ink', 'var(--ph-text-1)');
     var name = $('.ph-bar-name');
     if (name) name.textContent = 'PhenomeTech Ring';
+    /* `.is-past-hero` was written here too, from this page's own measurement of
+       the hero. shared.js now sets it from the observer that also decides when
+       the bar is `.on`, which is the one that cannot disagree with itself — so
+       this writer keeps only the value that IS this page's, the hero progress
+       the film and the tint are driven from. navH is still read above because
+       the tint sampling wants it. */
     writers.push(function () {
       var r = hero.getBoundingClientRect();
-      body.classList.toggle('is-past-hero', r.bottom <= navH);
       hero.style.setProperty('--hero-p', clamp(-r.top / r.height, 0, 1).toFixed(4));
     });
   })();

@@ -3224,7 +3224,7 @@ html.ph-reveal main > section.ph-in .showcase-img img {
    Built to be the nav's sibling, not a new kind of chrome: same translucent white,
    same blur, same hairline, same height token. No shadow — `elevation YOK`. */
 .ph-bar {
-  position: fixed; left: 0; right: 0; top: var(--ph-nav-h); z-index: 99;
+  position: fixed; left: 0; right: 0; top: 0; z-index: 99;
   display: flex; align-items: center; justify-content: center;
   height: 56px; background: rgba(255,255,255,.82);
   backdrop-filter: saturate(180%) blur(20px);
@@ -3245,8 +3245,57 @@ html.ph-reveal main > section.ph-in .showcase-img img {
 .ph-bar-name { font-size: var(--ph-fs-17); font-weight: var(--ph-w-600);
                letter-spacing: var(--ph-tr-17-400); color: var(--ph-text-1);
                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-@media (max-width: 900px) { .ph-bar { top: 48px; height: 52px; } }
+@media (max-width: 900px) { .ph-bar { height: 52px; } }
 @media (prefers-reduced-motion: reduce) { .ph-bar { transform: none; } }
+
+/* ---- The swap ----
+   The bar used to sit BELOW the nav, at top: var(--ph-nav-h), which meant a reader
+   past the hero was looking at two bars stacked on each other: the site's nav and a
+   product bar repeating a control from a screen they had already left. Five pages had
+   noticed and written their own fix — store/phenometech-ring (pdp.css), devices/band,
+   devices/ring, devices/ring-lab and supplements/nad — and the other forty had not,
+   which is the whole reason this is here and not there. The ring's answer is the one
+   that was promoted, unchanged: the bar takes top: 0 and the nav leaves upward, so
+   there is one bar at the top of the window at any moment, never two.
+
+   shared.js sets `.is-past-hero` from the same IntersectionObserver that already
+   decides when the bar is `.on`, so the two halves of the swap cannot drift out of
+   step the way two independent scroll listeners would.
+
+   translateY rather than display: the nav is in flow as a sticky element, so moving
+   it changes nothing about the page's layout, and it can come back without a reflow.
+   visibility is delayed by the duration so it fades before it stops being focusable,
+   and it is what keeps the hidden nav's links off the Tab order in between.
+
+   The easing is the ring's own, not this file's default: `--ease-frosted-out` is
+   what all five pages had written, and it is the curve that makes the bar look like
+   it is being let go rather than pushed. It comes from phenome-glass.css, which is
+   linked on all 84 pages, and the fallback is here only so this rule stands alone. */
+.ph-nav {
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out, var(--ph-ease)),
+              opacity var(--ph-dur-base) var(--ease-frosted-out, var(--ph-ease));
+}
+body.is-past-hero .ph-nav {
+  transform: translateY(-100%); opacity: 0; visibility: hidden;
+  transition: transform var(--ph-dur-base) var(--ease-frosted-out, var(--ph-ease)),
+              opacity var(--ph-dur-base) var(--ease-frosted-out, var(--ph-ease)),
+              visibility 0s linear var(--ph-dur-base);
+}
+/* The one case where both belong on screen. A menu or the search overlay is opened
+   FROM the nav, and on a phone the panel can be scrolled — so a panel that outlived
+   the bar it hangs from would be a menu attached to nothing. While one is up the nav
+   comes back and keeps its ground; shared.css already hides the product bar under the
+   search overlay a few hundred lines down, so they never overlap. */
+html.ph-menu-open body.is-past-hero .ph-nav,
+html.ph-search-open body.is-past-hero .ph-nav {
+  transform: none; opacity: 1; visibility: visible; transition-delay: 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* A whole bar sliding off the top of the window is exactly the motion this asks to
+     be spared. The swap still happens — it has to, or the two bars come back — it just
+     happens as a fade, which is the same information without the travel. */
+  .ph-nav, body.is-past-hero .ph-nav { transform: none; }
+}
 
 /* ---- Hero drift ----
    The hero is deliberately not part of the reveal — fading it in makes the site feel
@@ -3562,7 +3611,7 @@ html.ph-drift .hero-img img, html.ph-drift .hero-figure img {
               color: var(--ph-text-2); }
 /* ---- the purchase selector, wireframe-v3 ----
    Two options under the price — one-time against subscribe-and-save — with the
-   subscription pre-chosen and carrying a SAVE badge, and the Add to Bag button BELOW
+   subscription pre-chosen and carrying a SAVE badge, and the Add to cart button BELOW
    them. It replaces the single "Or subscribe and save" line the v2 frames drew.
    Bugra, shown both exports side by side on 2026-08-21: build all 27 supplement pages
    with this one. The newest design wins, and 27 pages doing the same job may not split

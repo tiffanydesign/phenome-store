@@ -1088,15 +1088,11 @@
     var bar = $('.ph-bar');
     if (!bar) return;
 
-    /* The nav/bar swap devices/ring runs (pdp.css § 7). Keyed off shared.js's
-       own `.on` rather than a second observer on the hero, so the nav can never
-       leave while the bar is still hidden, or the reverse. */
-    var body = doc.body;
-    var swap = function () { body.classList.toggle('is-past-hero', bar.classList.contains('on')); };
-    if ('MutationObserver' in window) {
-      new MutationObserver(swap).observe(bar, { attributes: true, attributeFilter: ['class'] });
-    }
-    swap();
+    /* The nav/bar swap used to be re-derived right here, by a MutationObserver
+       watching the class shared.js had just written. It is shared.js's own job
+       now — it sets `.is-past-hero` inside the hero observer, for every page
+       with a bar rather than for the five that had each copied this block. The
+       reasoning that made it correct is unchanged and now lives with it. */
 
     var inner = $('.ph-bar-inner', bar);
     var name = $('.ph-bar-name', bar);

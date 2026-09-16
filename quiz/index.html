@@ -152,7 +152,7 @@ function finish() {
     '<p class="body-text" style="margin-top:12px">' + p.blurb + '</p>' +
     '<p style="margin-top:16px;font-size:19px;font-weight:600">' + p.price + '</p>' +
     '<div class="cta-actions" style="justify-content:flex-start;margin-top:24px">' +
-    '<a class="btn" href="' + p.buy + '">' + (p.href.indexOf('/testing/') === 0 ? 'Explore' : 'Add to bag') + '</a>' +
+    '<a class="btn" href="' + p.buy + '">' + (p.href.indexOf('/testing/') === 0 ? 'Explore' : 'Add to cart') + '</a>' +
     (p.buy === p.href ? '' : '<a class="link-more" href="' + p.href + '">Learn more</a>') + '</div></div>';
   el('resSupporting').innerHTML = supporting.map(s => {
     const x = QUIZ.products[s];

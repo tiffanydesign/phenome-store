@@ -2138,34 +2138,27 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
 
    "Past the hero" is the moment the sticky buy column scrolls away with the
    section it lives in, so the bar arrives exactly when the column's own
-   Add-to-bag stops being on screen. pdp.js sets `.is-past-hero`; shared.js
-   still owns `.on`, the aria-hidden toggle and the tabindex handoff. */
-.pdp .ph-nav {
-  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
-              opacity var(--ph-dur-base) var(--ease-frosted-out);
-}
-.pdp.is-past-hero .ph-nav {
-  transform: translateY(-100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
-              opacity var(--ph-dur-base) var(--ease-frosted-out),
-              visibility 0s linear var(--ph-dur-base);
-}
+   Add-to-cart stops being on screen.
+
+   THIS PAGE'S VERSION OF THE SWAP IS GONE, and that is the point: it worked
+   here and on four other pages that had each copied it, while the forty product
+   pages without a bespoke stylesheet went on stacking the nav and the bar. The
+   rules were promoted verbatim to shared.css § "the swap", and shared.js — not
+   pdp.js — now sets `.is-past-hero`, from the very observer that already owned
+   `.on`, the aria-hidden toggle and the tabindex handoff. One source for both
+   halves, so they cannot disagree. What is left below is the PDP's material. */
 
 /* Apple's globalnav material, the one ring.css uses on both bars: 72% white,
    saturate(180%) blur(20px), a hairline instead of a drop. The same substance
    either side of the swap, so only the contents appear to change. */
 .pdp .ph-bar,
 .pdp .ph-bar.on {
-  top: 0;
   background: rgba(255, 255, 255, .72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   box-shadow: none;
   border-bottom: 1px solid var(--pdp-rule, rgba(0, 0, 0, .07));
 }
-@media (max-width: 900px) { .pdp .ph-bar { top: 0; } }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pdp .ph-bar { background: var(--gl-tint-overlay); }
 }

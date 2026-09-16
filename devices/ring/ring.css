@@ -634,23 +634,15 @@
    product bar shared.js builds carries the same two facts as the marquee - the
    name and the Buy - so once the marquee is gone the two bars would be saying
    the same thing in two stacked rows. One replaces the other rather than
-   joining it. `visibility` is in the transition so the bar cannot be tabbed
-   into while it is sliding away. */
-.ph-flat.is-past-hero .ph-nav {
-  transform: translateY(-100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform var(--ph-dur-base) var(--ease-frosted-out),
-              opacity var(--ph-dur-base) var(--ease-frosted-out),
-              visibility 0s linear var(--ph-dur-base);
-}
+   joining it.
 
-/* ---- the product bar takes the top. shared.js parks it at --ph-nav-h, which
-   is the correct place on the other 80 pages, where the nav stays. Here the nav
-   has gone, so the bar rises into the space it left. Section 1 already gave it
-   a flat white ground and a hairline; only the position changes. */
-.ph-flat .ph-bar { top: 0; }
-@media (max-width: 900px) { .ph-flat .ph-bar { top: 0; } }
+   The RULES that did that used to be written out here, and identically in four
+   other page stylesheets, while the forty pages that had never been given a
+   bespoke stylesheet went on showing both bars. They now live once, in
+   shared.css § "the swap", keyed off the same `.is-past-hero` this page already
+   set. Nothing about the behaviour on this page changed; it simply stopped
+   being this page's private arrangement. Section 1 above still supplies the
+   ground and the hairline, which ARE this page's own. */
 
 /* ---------------------------------------------------------------------------
    4 . THE COLOURWAY SWATCHES.
