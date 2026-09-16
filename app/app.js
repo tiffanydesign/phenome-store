@@ -111,14 +111,4 @@
     request();
   })();
 
-  /* ---- 9 · one question open at a time ------------------------------------ */
-  (function faq() {
-    var items = $$('.ap-q');
-    items.forEach(function (d) {
-      d.addEventListener('toggle', function () {
-        if (!d.open) return;
-        items.forEach(function (o) { if (o !== d) o.open = false; });
-      });
-    });
-  })();
 })();

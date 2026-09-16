@@ -530,29 +530,12 @@
    9 · QUESTIONS
    ------------------------------------------------------------------------ */
 .bd .bd-faq { padding: clamp(80px, 9vw, 130px) 0; }
-.bd .bd-faq-grid {
-  width: min(1100px, calc(100vw - 48px)); margin: 0 auto;
-  display: grid; grid-template-columns: minmax(240px, 330px) 1fr; gap: clamp(32px, 8vw, 118px);
-}
-/* line-height is STATED. shared.css gives h2 a fixed 56px box, and this heading
-   reaches 64px, so a title that runs to two lines overlaps itself. The Band
-   never showed it because its own heading is one word. */
-.bd .bd-faq-h { margin: 0 0 24px; font-size: clamp(44px, 5vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink-900); }
-.bd .bd-faq-tabs { display: flex; flex-direction: column; }
-.bd .bd-faq-tab {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;
-  padding: 19px 20px; border: 0; border-bottom: 1px solid var(--divider); background: none; cursor: pointer;
-  font-size: 18px; text-align: left; color: var(--ink-400); transition: color .2s ease, background-color .2s ease;
-}
-.bd .bd-faq-tab:hover { color: var(--ink-900); background: var(--gl-tint-sunk); }
-.bd .bd-faq-tab.on { color: var(--ink-900); border-bottom: 1.5px solid var(--ink-900); }
-.bd .bd-faq-tab i { width: 8px; height: 8px; border: solid currentColor; border-width: 1.5px 1.5px 0 0; transform: rotate(45deg); opacity: 0; transition: opacity .2s, transform .3s var(--bd-ease); }
-.bd .bd-faq-tab.on i { opacity: 1; }
-.bd .bd-faq-panels { display: grid; padding-top: clamp(0px, 7vw, 100px); }
-.bd .bd-faq-panel { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .35s ease, transform .5s var(--bd-ease), visibility 0s linear .35s; }
-.bd .bd-faq-panel.on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.bd .bd-faq-panel h3 { margin: 0; font-size: 18px; font-weight: 600; color: var(--ink-900); }
-.bd .bd-faq-panel p { margin: 6px 0 30px; font-size: 17px; line-height: 1.6; color: var(--ink-600); }
+/* The question list itself is the shared component, `.acc.is-faq` in
+   shared.css (2026-09-16). What stays here is the band's own padding and
+   the width its column is centred in. The tabbed two column panel that
+   used to live here, and the heading rule it carried, are gone: the
+   heading's numbers moved into the kit as `.faq-h`. */
+.bd .bd-faq-wrap { width: min(1100px, calc(100vw - 48px)); margin: 0 auto; }
 
 /* ---------------------------------------------------------------------------
    10 · NARROW WIDTHS
@@ -574,11 +557,6 @@
   .bd .bd-bento { grid-template-columns: 1fr; }
   .bd .bd-bento-card.is-big .bd-panel { left: 18px; right: 18px; width: auto; }
   .bd .bd-fits { grid-template-columns: 1fr 1fr; }
-  .bd .bd-faq-grid { grid-template-columns: minmax(0, 1fr); }
-  .bd .bd-faq-tabs { flex-direction: row; overflow-x: auto; gap: 4px; scrollbar-width: none; }
-  .bd .bd-faq-tab { flex: none; width: auto; font-size: 16px; padding: 12px 16px; }
-  .bd .bd-faq-tab i { display: none; }
-  .bd .bd-faq-panels { padding-top: 28px; }
   .bd .bd-coach { height: 190vh; }
   .bd .bd-day-meta { bottom: 70px; font-size: 15px; left: 22px; }
   .bd .bd-day-t { left: 22px; bottom: 24px; }

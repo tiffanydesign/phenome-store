@@ -522,10 +522,9 @@
 /* ---------------------------------------------------------------------------
    8 · QUESTIONS
    ------------------------------------------------------------------------ */
-.nadp .nd-faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
-.nadp .nd-faq .ph-display { font-size: clamp(34px, 3.9vw, 58px); }
+/* the list is the shared `.acc.is-faq`; View all sits centred under it */
+.nadp .nd-faq-more { display: flex; justify-content: center; margin-top: 22px; }
 .nadp .nd-faq-list:not(.is-all) [data-more] { display: none; }
-.nadp .nd-faq-list .nd-acc-body p { max-width: 62ch; }
 .nadp .nd-viewall {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 0; border: 0; background: none;
   font: inherit; font-size: 16px; font-weight: 600; color: var(--nd-navy); cursor: pointer;
@@ -694,7 +693,7 @@
   }
   .nadp .nd-gal::-webkit-scrollbar { display: none; }
   .nadp .nd-tile, .nadp .nd-tile-main { flex: 0 0 min(82%, 520px); aspect-ratio: 4 / 5; scroll-snap-align: center; border-radius: var(--nd-r-md); }
-  .nadp .nd-time-grid, .nadp .nd-formula-grid, .nadp .nd-faq-grid { grid-template-columns: minmax(0, 1fr); }
+  .nadp .nd-time-grid, .nadp .nd-formula-grid { grid-template-columns: minmax(0, 1fr); }
   .nadp .nd-still { max-width: 420px; }
   .nadp .nd-rv { grid-template-columns: minmax(0, 1fr) auto; }
   .nadp .nd-rv-main { grid-column: 1 / -1; grid-row: 2; }

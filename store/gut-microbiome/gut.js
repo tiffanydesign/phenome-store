@@ -200,27 +200,9 @@
     io.observe(sec);
   }
 
-  /* ---- 5 · questions ------------------------------------------------------ */
-  function faq() {
-    var tabs = $$('[data-faq]');
-    if (!tabs.length) return;
-    tabs.forEach(function (t) {
-      t.addEventListener('click', function () {
-        var k = t.getAttribute('data-faq');
-        tabs.forEach(function (o) {
-          var on = o === t;
-          o.classList.toggle('on', on);
-          o.setAttribute('aria-selected', on ? 'true' : 'false');
-        });
-        $$('[data-faq-panel]').forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-faq-panel') === k); });
-      });
-    });
-  }
-
   gallery();
   plans();
   dock();
   why();
-  faq();
   publish();
 })();

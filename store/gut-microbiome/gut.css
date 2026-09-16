@@ -196,6 +196,9 @@
    4 · QUESTIONS · the Band's tabbed panels, unchanged but for the ground
    ------------------------------------------------------------------------ */
 .gt .bd-faq { background: var(--gl-tint-sunk); }
+/* the section is already the recess tint, so the cards come forward */
+.gt .bd-faq .acc.is-faq .acc-item { background: var(--ph-white); }
+.gt .bd-faq .acc.is-faq .acc-item:hover { background: #fbfcfe; }
 
 @media (prefers-reduced-motion: reduce) {
   .gt .gt-pt { transform: none; opacity: 1; transition: none; }

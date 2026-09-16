@@ -2031,6 +2031,7 @@
   carousels();
   railx();
   pinned();
+  faq();
   cartKit();
 
   /* The cart drawer rides on every page that loads this file, so 80 pages do
@@ -2041,6 +2042,61 @@
     if (!me || document.querySelector('script[src$="/store/cart/cart.js"]')) return;
     var base = me.src.replace(/\/shared\.js.*$/, '');
     if (!document.querySelector('link[href$="/store/cart/cart.css"]')) {
+  /* Questions · one card open at a time, and a close that collapses.
+
+     Native <details> has two problems for a question list. It will happily
+     leave six answers open at once, which turns a scannable list into a wall;
+     and it removes its own content the instant `open` goes away, so the card
+     that closes snaps shut while the card that opens glides. Both are fixed
+     here rather than in the markup, so a page without script still has six
+     working <details> and nothing is hidden from a reader or a crawler.
+
+     The opening animation is CSS (`.acc.is-faq .acc-body`, a 0fr to 1fr grid
+     row in shared.css). Closing has to be driven from here because the row
+     needs to finish shrinking BEFORE `open` is removed. */
+  function faq() {
+    var lists = document.querySelectorAll('[data-faq-list]');
+    if (!lists.length) return;
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for (var i = 0; i < lists.length; i++) bind(lists[i]);
+
+    function bind(list) {
+      list.addEventListener('click', function (e) {
+        var sum = e.target.closest('summary');
+        if (!sum) return;
+        var item = sum.parentNode;
+        if (item.parentNode !== list) return;
+        e.preventDefault();
+        if (item.open) { close(item); return; }
+        var open = list.querySelector('details[open]');
+        if (open && open !== item) close(open);
+        item.open = true;
+      });
+    }
+
+    /* Shrink the row, then drop `open` when it has finished. The inline
+       grid-template-rows wins over the [open] rule for the length of the
+       animation and is cleared straight after, so the sheet stays in charge. */
+    function close(item) {
+      var body = item.querySelector('.acc-body, .nd-acc-body');
+      if (!body || calm) { item.open = false; return; }
+      body.style.gridTemplateRows = '1fr';
+      body.offsetHeight;                                  /* commit the start */
+      body.style.gridTemplateRows = '0fr';
+      var done = false;
+      function end() {
+        if (done) return;
+        done = true;
+        body.removeEventListener('transitionend', end);
+        item.open = false;
+        body.style.gridTemplateRows = '';
+      }
+      body.addEventListener('transitionend', end);
+      setTimeout(end, 600);                 /* if the transition never fires */
+    }
+  }
+
       var l = document.createElement('link');
       l.rel = 'stylesheet';
       l.href = base + '/store/cart/cart.css';

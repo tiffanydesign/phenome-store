@@ -1301,6 +1301,136 @@ html.ph-reveal main > section.band.ph-r > * { transform: none; }
                       /* was var(--ph-read-max) — 980px of 17px text is 119 characters */
                       max-width: var(--ph-measure); }
 
+/* ---- Questions ----------------------------------------------------------
+   ONE component for every question block on the site (2026-09-16). Before
+   this there were three: the hairline list above, a tabbed two column panel
+   on devices/band and store/gut-microbiome, and a card stack on app/ and
+   supplements/nad. A reader met a different control on every page.
+
+   What it is made of, and where each part came from:
+     · the heading is the Band page's Questions heading, at its size, weight,
+       tracking and ink, centred over the column;
+     · the type inside is the Band's too, 18/600 for the question and 17/1.6
+       for the answer;
+     · the arrangement is the app page's, a single centred column of cards,
+       stacked, each one opening in place.
+   Only ever one card is open: shared.js closes the others, and animates the
+   close rather than letting it snap. See `faq()` there.
+
+   `.acc` on its own is untouched, because it is still the right control for
+   a list that is not a question, such as the bacteria dictionaries on the
+   microbiome report pages. A question block opts in with `.is-faq`.
+   ---------------------------------------------------------------------- */
+.faq-h {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(44px, 5vw, 64px);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+
+/* What a question block may carry besides the list, all on the same centre
+   line: an eyebrow above the heading, one sentence of lede under it, and a
+   way out under the last card for the reader whose question is not there. */
+.faq-eyebrow { text-align: center; }
+.faq-lede {
+  max-width: 560px;
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-600);
+}
+.faq-note {
+  max-width: 760px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-600);
+}
+.faq-note b { font-weight: 600; color: var(--ink-900); }
+.faq-note a { margin-left: 4px; font-weight: var(--ph-w-500, 500); color: var(--ph-accent, #203a85); white-space: nowrap; }
+
+.acc.is-faq {
+  display: grid;
+  gap: 10px;
+  max-width: 760px;
+  margin: clamp(34px, 4vw, 54px) auto 0;
+  border-top: 0;
+}
+.acc.is-faq .acc-item {
+  border-bottom: 0;
+  border-radius: 12px;
+  background: var(--gl-tint-sunk);
+  transition: background var(--ph-dur-base) var(--ph-ease);
+}
+/* On the tinted sections the recess tint IS the ground, so the card has to
+   come forward instead of sinking. */
+.section-gray .acc.is-faq .acc-item { background: var(--ph-white); }
+.acc.is-faq .acc-item:hover { background: #e9edf7; }
+.section-gray .acc.is-faq .acc-item:hover { background: #fbfcfe; }
+
+.acc.is-faq .acc-item summary {
+  gap: 20px;
+  align-items: flex-start;
+  padding: 18px 22px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+}
+/* The marker is drawn from two gradients rather than typed, so it can go from
+   a plus to a minus. A rotated "+" only ever becomes a cross, which reads as
+   "dismiss", not "collapse". */
+.acc.is-faq .acc-item summary:after {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 5px;
+  color: var(--ink-400);
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+  transform: none;
+  transition: background-size var(--ph-dur-base) var(--ph-ease), color var(--ph-dur-base) var(--ph-ease);
+}
+.acc.is-faq .acc-item[open] summary:after { background-size: 100% 1.5px, 1.5px 0; color: var(--ink-900); }
+
+/* The answer is sized by its grid row, so it can open and close from nothing.
+   The padding sits one level in, on the paragraph, because a padded box in a
+   0fr row is still as tall as its padding. */
+.acc.is-faq .acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding: 0;
+  max-width: none;
+  transition: grid-template-rows 420ms var(--ph-ease);
+}
+.acc.is-faq .acc-item[open] .acc-body { grid-template-rows: 1fr; }
+.acc.is-faq .acc-body > div { overflow: hidden; min-height: 0; }
+.acc.is-faq .acc-body p {
+  margin: 0;
+  padding: 0 22px 20px;
+  max-width: 62ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-600);
+}
+
+@media (max-width: 600px) {
+  .acc.is-faq .acc-item summary { padding: 16px 18px; font-size: 17px; }
+  .acc.is-faq .acc-body p { padding: 0 18px 18px; font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acc.is-faq .acc-body { transition: none; }
+}
+
 /* ---- Trust strip ---- */
 .trust { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; padding: 28px 0;
          border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);

@@ -108,9 +108,17 @@
   gap: 8px;
 }
 
-.shop .shop-rail-ic,
-.shop .shop-cat-ic {
+/* The glyph is the RAIL's, and only the rail's. It was drawn a second time, in
+   a tinted disc, beside each category heading in the body; two marks for one
+   category read as two different things, and the heading does not need a
+   picture of itself when the rail entry that jumps to it already carries one.
+   Removed 2026-09-16 at the user's request, markup and rule together. */
+.shop .shop-rail-ic {
   flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-left: -2px;
+  opacity: .8;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
@@ -118,31 +126,7 @@
   stroke-linejoin: round;
 }
 
-.shop .shop-rail-ic {
-  width: 16px;
-  height: 16px;
-  margin-left: -2px;
-  opacity: .8;
-}
-
 .shop .shop-rail-link.on .shop-rail-ic { opacity: 1; }
-
-.shop .shop-cat-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.shop .shop-cat-ic {
-  width: 24px;
-  height: 24px;
-  padding: 6px;
-  box-sizing: content-box;
-  border-radius: 50%;
-  background: var(--phenome-blue-100);
-  color: var(--phenome-blue-900);
-  stroke-width: 1.5;
-}
 
 .shop .shop-rail-link:hover { background: var(--phenome-blue-100); }
 
@@ -453,7 +437,6 @@
 
 @media (max-width: 560px) {
   .shop .shop-cat-title { font-size: var(--ph-fs-21); }
-  .shop .shop-cat-ic { width: 20px; height: 20px; padding: 5px; }
   .shop .pcard-name { font-size: var(--ph-fs-14); }
   .shop .pcard-desc { display: none; }
   .shop .pcard-price { font-size: var(--ph-fs-14); }
