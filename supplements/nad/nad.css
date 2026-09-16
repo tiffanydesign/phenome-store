@@ -76,52 +76,130 @@
 /* ---------------------------------------------------------------------------
    1 · BUY BOX
    ------------------------------------------------------------------------ */
-.nadp main > section.nd-hero { padding: 16px 0 clamp(56px, 6vw, 96px); }
+.nadp main > section.nd-hero { padding: 40px 0 clamp(56px, 6vw, 96px); }
+/* THE ROW IS THE PAGE'S OWN COLUMN, 2026-09-16. The mosaic ran edge to edge on
+   a 20px gutter while every section under it sits in .nd-wrap, so the hero was
+   the one band on the page whose edges lined up with nothing. It takes the
+   same max width and margins now, and the frame's left edge is the headings'
+   left edge all the way down. */
 .nadp .nd-hero-grid {
-  max-width: var(--nd-bleed); margin-inline: auto; padding-inline: var(--nd-gut);
-  /* 31vw capped at 470 put a 44px headline and a four-line paragraph into a
-     track narrower than the paragraph wanted; 34vw/520 gives the claim ~40
-     characters a line and drops the paragraph from five lines to four without
-     costing the mosaic a tile. */
-  display: grid; grid-template-columns: minmax(0, 1fr) clamp(400px, 34vw, 520px);
-  gap: clamp(28px, 2.8vw, 48px); align-items: start;
+  width: 100%; margin-inline: auto;
+  max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
+  padding-inline: var(--ph-margin, 90px);
+  display: grid; grid-template-columns: minmax(0, 1fr) clamp(420px, 34vw, 500px);
+  gap: clamp(36px, 3.4vw, 56px); align-items: start;
 }
 
-.nadp .nd-gal { display: grid; grid-template-columns: 1fr 1fr; gap: var(--nd-gut); }
-.nadp .nd-tile {
-  position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in;
-  aspect-ratio: 4 / 5; border-radius: var(--nd-r-lg); overflow: hidden; background: var(--nd-soft);
+/* ---- the gallery, store/phenometech-ring's hero frame ---------------------
+   One 4:5 frame, five slides rotating on their own, a navy glass pill in the
+   bottom right with previous, a dot per slide and next, the current dot
+   filling over the slide's dwell. The column beside it is taller than the
+   frame, so the cell stretches to the row and the frame rides sticky inside
+   it: the two start level and finish level. */
+.nadp .nd-gal { align-self: stretch; }
+.nadp .nd-gal-main {
+  position: sticky; top: 76px;
+  aspect-ratio: 4 / 5; max-height: calc(100vh - 150px); width: 100%;
+  border-radius: var(--nd-r-lg); overflow: hidden;
+  background: var(--nd-soft); touch-action: pan-y;
 }
-.nadp .nd-tile-main { grid-column: 1 / -1; aspect-ratio: 16 / 11.2; }
-.nadp .nd-tile img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: scale .9s var(--nd-ease);
+.nadp .nd-gal-track {
+  position: absolute; inset: 0; display: flex;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
 }
-.nadp .nd-tile:hover img { scale: 1.035; }
-.nadp .nd-tile-main img { object-position: 50% 80%; }
-.nadp .nd-gal [data-shot="1"] img { object-position: 50% 40%; }
-.nadp .nd-gal [data-shot="2"] img { object-position: 50% 47%; }
-.nadp .nd-gal [data-shot="3"] img { object-position: 50% 34%; }
-.nadp .nd-tile:focus-visible { outline: 2px solid var(--nd-accent); outline-offset: 3px; }
+.nadp .nd-gal-track::-webkit-scrollbar { display: none; }
+.nadp .nd-slide { position: relative; flex: 0 0 100%; overflow: hidden; scroll-snap-align: start; }
+.nadp .nd-slide > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nadp .nd-slide[data-n="0"] > img { object-position: 50% 80%; }
+.nadp .nd-slide[data-n="1"] > img { object-position: 50% 40%; }
+.nadp .nd-slide[data-n="2"] > img { object-position: 50% 47%; }
+.nadp .nd-slide[data-n="3"] > img { object-position: 50% 34%; }
+/* `clip`, not `hidden`, and no snapping once the script stacks the slides:
+   with `hidden` the browser scrolls the track to snap onto the translated
+   slides and the whole row drifts. */
+.nadp .nd-gal-main[data-live] .nd-gal-track { display: block; overflow: hidden; overflow: clip; scroll-snap-type: none; }
+.nadp .nd-gal-main[data-live] .nd-slide {
+  position: absolute; inset: 0;
+  transform: translate3d(calc(var(--o, 0) * 100%), 0, 0);
+  transition: transform 760ms cubic-bezier(.65, 0, .25, 1);
+}
+.nadp .nd-gal-main[data-live] .nd-slide[data-snap] { transition: none; }
+.nadp .nd-gal-main[data-live] .nd-slide > * {
+  transform: translate3d(calc(var(--o, 0) * -12%), 0, 0) scale(1.02);
+  transition: transform 900ms cubic-bezier(.65, 0, .25, 1);
+}
+.nadp .nd-gal-main[data-live] .nd-slide[data-snap] > * { transition: none; }
 
-.nadp .nd-tile-facts {
-  background: radial-gradient(120% 90% at 20% 0%, var(--nd-navy-2), var(--nd-navy) 70%);
+.nadp .nd-slide-facts {
   display: grid; place-items: center; color: #fff;
+  background: radial-gradient(120% 90% at 20% 0%, var(--nd-navy-2), var(--nd-navy) 70%);
 }
 .nadp .nd-facts {
-  display: block; width: min(78%, 330px); padding: 12px 14px; text-align: left;
+  display: block; width: min(80%, 440px); padding: 22px 24px; text-align: left;
   border: 1px solid rgba(255, 255, 255, .7);
-  transition: translate .6s var(--nd-ease);
 }
-.nadp .nd-tile-facts:hover .nd-facts { translate: 0 -4px; }
-.nadp .nd-facts-h { display: block; font-size: 17px; line-height: 1.2; font-weight: 700; padding-bottom: 6px; border-bottom: 6px solid #fff; }
+.nadp .nd-facts-h { display: block; font-size: clamp(24px, 2vw, 30px); line-height: 1.15; font-weight: 700; padding-bottom: 10px; border-bottom: 8px solid #fff; }
 .nadp .nd-facts-r {
-  display: flex; justify-content: space-between; gap: 12px; padding: 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, .35); font-size: 11.5px; line-height: 1.35;
+  display: flex; justify-content: space-between; gap: 16px; padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .35); font-size: 17px; line-height: 1.35;
 }
 .nadp .nd-facts-top { border-bottom-width: 3px; border-bottom-color: #fff; }
 .nadp .nd-facts-r b { font-weight: 700; white-space: nowrap; }
-.nadp .nd-facts-foot { display: block; margin-top: 7px; font-size: 10px; line-height: 1.35; opacity: .75; }
+.nadp .nd-facts-foot { display: block; margin-top: 12px; font-size: 15px; line-height: 1.45; opacity: .8; }
+
+/* The frame's furniture: a soft top shade, the hold and expand discs top
+   right, the pagination pill bottom right. Dark glass with a white glyph, so
+   it reads on the bright court and on the navy facts slide alike. */
+.nadp .nd-gal-main::after {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 22%; pointer-events: none;
+  background: linear-gradient(#0a1e5752, #0a1e5700);
+}
+.nadp .nd-gal-tools { position: absolute; right: 14px; top: 14px; z-index: 2; display: flex; gap: 9px; }
+.nadp .nd-gal-tool {
+  width: 44px; height: 44px; border-radius: 50%; padding: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #ffffff2b; background: #0a1e5757; color: #fff;
+  -webkit-backdrop-filter: blur(16px) saturate(130%); backdrop-filter: blur(16px) saturate(130%);
+  transition: opacity .2s ease, background .2s ease, transform .2s ease;
+}
+.nadp .nd-gal-tool:hover { background: #0a1e5788; }
+.nadp .nd-gal-tool:active { transform: scale(.95); }
+.nadp .nd-gal-tool:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.nadp .nd-gal-tool svg { width: 17px; height: 17px; display: block; }
+.nadp .nd-gal-zoom { opacity: 0; }
+.nadp .nd-gal-main:hover .nd-gal-zoom, .nadp .nd-gal-zoom:focus-visible { opacity: 1; }
+.nadp .nd-gal-hold .i-play { display: none; }
+.nadp .nd-gal-hold[data-paused] .i-play { display: block; }
+.nadp .nd-gal-hold[data-paused] .i-pause { display: none; }
+
+.nadp .nd-gal-nav {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; align-items: center; gap: 2px; height: 44px; padding: 0 6px; border-radius: 99px;
+  background: #0a1e5757; color: #fff; box-shadow: inset 0 0 0 1px #ffffff2b;
+  -webkit-backdrop-filter: blur(18px) saturate(130%); backdrop-filter: blur(18px) saturate(130%);
+}
+.nadp .nd-gal-arrow, .nadp .nd-gal-dot {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; background: none; color: inherit; cursor: pointer; border-radius: 99px;
+}
+.nadp .nd-gal-arrow { width: 32px; height: 32px; opacity: .85; transition: opacity .2s, background .2s; }
+.nadp .nd-gal-arrow:hover { opacity: 1; background: #ffffff1f; }
+.nadp .nd-gal-arrow svg { width: 16px; height: 16px; display: block; }
+.nadp .nd-gal-dots { display: flex; align-items: center; padding: 0 4px; }
+.nadp .nd-gal-dot { width: 16px; height: 22px; }
+.nadp .nd-gal-dot i { position: relative; display: block; overflow: hidden; width: 7px; height: 7px; border-radius: 4px; background: #ffffff66; }
+.nadp .nd-gal-dot:hover i { background: #ffffffb3; }
+.nadp .nd-gal-dot[aria-current="true"] { width: 44px; }
+.nadp .nd-gal-dot[aria-current="true"] i { width: 34px; background: #ffffff59; }
+.nadp .nd-gal-dot[aria-current="true"] i::after {
+  content: ""; position: absolute; inset: 0; background: #fff; border-radius: inherit;
+  transform-origin: left center; transform: scaleX(0);
+  animation: nd-dwell var(--dwell, 5s) linear forwards;
+}
+.nadp .nd-gal-main[data-hover] .nd-gal-dot[aria-current="true"] i::after { animation-play-state: paused; }
+.nadp .nd-gal-main[data-held] .nd-gal-dot[aria-current="true"] i::after { animation: none; transform: none; }
+@keyframes nd-dwell { to { transform: scaleX(1); } }
+.nadp .nd-gal-arrow:focus-visible, .nadp .nd-gal-dot:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
 
 /* The decision column: shared supp-* rules, re-sized for a narrower track.
 
@@ -158,7 +236,7 @@
 .nadp .nd-buy > *, .nadp .nd-buy .supp-stat > * { margin-bottom: 0; }
 .nadp .nd-buy .supp-badge {
   margin-top: 0; padding: 0 12px; min-height: 28px;
-  font-size: 12.5px; line-height: 1.2; font-weight: 600; letter-spacing: .04em;
+  font-size: 15px; line-height: 1.2; font-weight: 600; letter-spacing: .04em;
 }
 .nadp .nd-buy .supp-name {
   margin-top: 14px; font-size: clamp(34px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -.025em;
@@ -167,7 +245,7 @@
    keeps the whole spec string on one line wherever the column allows it. */
 .nadp .nd-buy .supp-subtitle { margin-top: 8px; font-size: 15px; line-height: 1.45; text-wrap: pretty; }
 .nadp .nd-buy .supp-rate { margin-top: 14px; gap: 8px; }
-.nadp .nd-buy .supp-stars { font-size: 13px; }
+.nadp .nd-buy .supp-stars { font-size: 16px; }
 /* max-width off: a 26ch cap inside a 500px track left a ragged right edge with
    nothing beside it. The column IS the measure here. */
 .nadp .nd-buy .supp-claim {
@@ -188,7 +266,7 @@
   background: none; border-radius: 0; border-top: 1px solid var(--nd-rule);
 }
 .nadp .nd-buy .supp-stat-v { margin-top: 0; font-size: 21px; line-height: 1.15; letter-spacing: -.015em; }
-.nadp .nd-buy .supp-stat-l { margin-top: 5px; font-size: 12px; line-height: 1.3; letter-spacing: .015em; }
+.nadp .nd-buy .supp-stat-l { margin-top: 5px; font-size: 15px; line-height: 1.3; letter-spacing: .015em; }
 
 /* The decision starts here — hence the rule, and hence a price that no longer
    shouts over the product name. */
@@ -198,16 +276,16 @@
   transition: opacity .2s;
 }
 .nadp .nd-buy .supp-price.is-swap { opacity: .25; }
-.nadp .nd-buy .supp-pnote { margin-top: 6px; font-size: 14px; }
+.nadp .nd-buy .supp-pnote { margin-top: 6px; font-size: 16px; }
 .nadp .nd-buy .supp-opts { margin-top: 18px; gap: 8px; }
 .nadp .nd-buy .supp-opt { padding: 13px 16px; }
 .nadp .nd-buy .supp-opt-t { font-size: 16px; line-height: 1.3; }
-.nadp .nd-buy .supp-opt-s { margin-top: 2px; font-size: 13px; line-height: 1.35; }
+.nadp .nd-buy .supp-opt-s { margin-top: 2px; font-size: 16px; line-height: 1.35; }
 .nadp .nd-buy .supp-opt-p { font-size: 17px; line-height: 1.3; }
 /* A 469px-wide button 44px tall reads as a bar, not a button. */
 .nadp .nd-buy .supp-cta { margin-top: 18px; min-height: 54px; font-size: 17px; font-weight: 600; }
-.nadp .nd-buy .supp-gtee { margin-top: 18px; padding: 14px 16px; font-size: 13.5px; line-height: 1.45; }
-.nadp .nd-buy .supp-fine { margin-top: 12px; font-size: 12.5px; line-height: 1.4; }
+.nadp .nd-buy .supp-gtee { margin-top: 18px; padding: 14px 16px; font-size: 16px; line-height: 1.45; }
+.nadp .nd-buy .supp-fine { margin-top: 12px; font-size: 15px; line-height: 1.4; }
 .nadp .nd-rate-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--nd-rule); }
 .nadp .nd-rate-link:hover { color: var(--nd-navy); text-decoration-color: currentColor; }
 
@@ -247,12 +325,12 @@
 }
 .nadp .nd-pair:hover { background: var(--nd-soft); }
 .nadp .nd-pair img { width: 96px; height: 96px; border-radius: 14px; object-fit: cover; background: #fff; }
-.nadp .nd-pair-t { display: grid; gap: 4px; font-size: 14px; line-height: 1.4; }
+.nadp .nd-pair-t { display: grid; gap: 4px; font-size: 16px; line-height: 1.4; }
 .nadp .nd-pair-t b { font-size: 16px; color: var(--nd-navy); }
 .nadp .nd-pair-p { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; font-weight: 600; font-size: 15px; }
 .nadp .nd-pair-go {
   display: inline-flex; align-items: center; height: 32px; padding: 0 16px; border-radius: 99px;
-  border: 1px solid var(--nd-navy); color: var(--nd-navy); font-size: 14px;
+  border: 1px solid var(--nd-navy); color: var(--nd-navy); font-size: 16px;
 }
 .nadp .nd-pair:hover .nd-pair-go { background: var(--nd-navy); color: #fff; }
 
@@ -294,7 +372,7 @@
 .nadp .nd-ess-img figcaption {
   position: absolute; left: 16px; bottom: 16px; padding: 8px 14px; border-radius: 99px;
   background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  font-size: 14px; font-weight: 600; color: var(--nd-navy);
+  font-size: 16px; font-weight: 600; color: var(--nd-navy);
 }
 .nadp .nd-lipo {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 32px;
@@ -321,7 +399,7 @@
   stroke-dasharray: 420; stroke-dashoffset: 420; transition: stroke-dashoffset 1.2s var(--nd-ease);
 }
 .nadp .nd-call {
-  position: absolute; font-size: 13px; line-height: 1; font-weight: 600; color: #fff; white-space: nowrap;
+  position: absolute; font-size: 16px; line-height: 1; font-weight: 600; color: #fff; white-space: nowrap;
   opacity: 0; translate: 0 6px; transition: opacity .6s .5s, translate .6s .5s var(--nd-ease);
 }
 .nadp .nd-call-a { right: 0; top: calc(15% - 22px); }
@@ -359,11 +437,11 @@
 .nadp .nd-step-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 18px; line-height: 1.3; font-weight: 600; color: var(--nd-navy); }
 .nadp .nd-pill {
   display: inline-flex; align-items: center; height: 30px; padding: 0 13px; border-radius: 99px;
-  background: var(--nd-navy); color: #fff; font-size: 14px; font-weight: 600;
+  background: var(--nd-navy); color: #fff; font-size: 16px; font-weight: 600;
 }
 .nadp .nd-step ul { margin: 12px 0 0; padding-left: 20px; }
 .nadp .nd-step li { list-style: disc; font-size: 16px; line-height: 1.65; color: var(--nd-ink); }
-.nadp .nd-foot { font-size: 13px; line-height: 1.4; color: var(--nd-ink-2); }
+.nadp .nd-foot { font-size: 16px; line-height: 1.4; color: var(--nd-ink-2); }
 
 .nadp .nd-collage { display: grid; grid-template-columns: 1.55fr 1fr; gap: var(--nd-gut); align-items: start; }
 .nadp .nd-collage figure { margin: 0; overflow: hidden; background: var(--nd-soft); }
@@ -411,7 +489,7 @@
 .nadp .nd-ing .nd-acc-item > summary { display: grid; grid-template-columns: 1fr auto 14px; }
 .nadp .nd-ing .nd-acc-item:first-child { border-top-color: var(--nd-rule); }
 .nadp .nd-ing-n { font-size: 17px; }
-.nadp .nd-mono { font-family: var(--nd-mono); font-size: 13px; font-weight: 400; letter-spacing: .02em; color: var(--nd-ink-2); }
+.nadp .nd-mono { font-family: var(--nd-mono); font-size: 16px; font-weight: 400; letter-spacing: .02em; color: var(--nd-ink-2); }
 .nadp .nd-ing .nd-acc-body p { max-width: 56ch; color: var(--nd-ink-2); }
 .nadp .nd-badges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 16px; margin-top: 40px; }
 .nadp .nd-badges li { list-style: none; display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 1.3; color: var(--nd-navy); }
@@ -448,11 +526,11 @@
   position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--c2) var(--c3);
   align-items: center; min-height: 74px; font-size: 16px; line-height: 1.35; font-weight: 600;
 }
-.nadp .nd-tr > :nth-child(3) { text-align: center; font-size: 14px; color: rgba(255, 255, 255, .82); padding-inline: 8px; }
+.nadp .nd-tr > :nth-child(3) { text-align: center; font-size: 16px; color: rgba(255, 255, 255, .82); padding-inline: 8px; }
 .nadp .nd-th { min-height: 56px; }
 .nadp .nd-th > :nth-child(3) { font-size: 16px; color: #fff; }
 .nadp .nd-us { display: flex; justify-content: center; }
-.nadp .nd-chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border: 1px solid #fff; border-radius: 99px; font-size: 13px; white-space: nowrap; }
+.nadp .nd-chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border: 1px solid #fff; border-radius: 99px; font-size: 16px; white-space: nowrap; }
 .nadp .nd-yes { width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px rgba(79, 179, 232, .0); transition: box-shadow .6s; }
 .nadp .nd-table [role="row"]:not(.nd-th) { opacity: 0; translate: 0 10px; transition: opacity .6s var(--nd-ease), translate .6s var(--nd-ease); }
 .nadp .nd-table.is-in [role="row"] { opacity: 1; translate: 0 0; }
@@ -490,7 +568,7 @@
 .nadp .nd-kit li svg { flex: none; width: 20px; height: 32px; }
 .nadp .nd-kit li svg.nd-kit-tick { width: 20px; height: 20px; margin-block: 6px; color: var(--nd-navy); }
 .nadp .nd-kit li b { display: block; font-size: 16px; line-height: 1.3; color: var(--nd-navy); }
-.nadp .nd-kit li span, .nadp .nd-kit li button > span { font-size: 14px; line-height: 1.35; color: var(--nd-ink-2); }
+.nadp .nd-kit li span, .nadp .nd-kit li button > span { font-size: 16px; line-height: 1.35; color: var(--nd-ink-2); }
 .nadp .nd-kit-plans button {
   position: relative; border: 0; background: none; font: inherit; cursor: pointer; border-radius: 12px;
   margin-inline: -10px; width: calc(100% + 20px); padding-inline: 10px 44px;
@@ -547,7 +625,7 @@
 .nadp .nd-score-big > span { display: grid; gap: 2px; font-size: 15px; color: var(--nd-ink); }
 .nadp .nd-score-big .supp-stars { font-size: 22px; }
 .nadp .nd-dist { padding-left: clamp(28px, 4vw, 56px); border-left: 1px solid var(--nd-rule); }
-.nadp .nd-dist li { list-style: none; display: grid; grid-template-columns: 34px 160px 40px; gap: 12px; align-items: center; font-size: 14px; line-height: 25px; color: var(--nd-ink); }
+.nadp .nd-dist li { list-style: none; display: grid; grid-template-columns: 34px 160px 40px; gap: 12px; align-items: center; font-size: 16px; line-height: 25px; color: var(--nd-ink); }
 .nadp .nd-dist i { position: relative; height: 6px; border-radius: 6px; background: var(--nd-soft); overflow: hidden; }
 .nadp .nd-dist i::after {
   content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 6px; background: var(--nd-navy);
@@ -567,12 +645,12 @@
 .nadp .nd-topics { display: flex; flex-wrap: wrap; gap: 10px; }
 .nadp .nd-topics button {
   height: 36px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--ph-line, #203a8529);
-  background: #fff; font: inherit; font-size: 14px; color: var(--nd-ink); cursor: pointer;
+  background: #fff; font: inherit; font-size: 16px; color: var(--nd-ink); cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
 .nadp .nd-topics button:hover { border-color: var(--nd-accent); }
 .nadp .nd-topics button[aria-pressed="true"] { background: var(--nd-navy); border-color: var(--nd-navy); color: #fff; }
-.nadp .nd-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--nd-ink); }
+.nadp .nd-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; color: var(--nd-ink); }
 .nadp .nd-sort select { border: 0; background: none; font: inherit; font-weight: 600; color: var(--nd-navy); cursor: pointer; padding: 6px 2px; }
 
 .nadp .nd-rv {
@@ -581,18 +659,18 @@
   animation: nd-in .5s var(--nd-ease) both;
 }
 @keyframes nd-in { from { opacity: 0; translate: 0 8px; } }
-.nadp .nd-rv-who { display: grid; align-content: start; gap: 3px; font-size: 14px; color: var(--nd-ink-2); }
+.nadp .nd-rv-who { display: grid; align-content: start; gap: 3px; font-size: 16px; color: var(--nd-ink-2); }
 .nadp .nd-rv-who b { font-size: 16px; color: var(--nd-navy); }
-.nadp .nd-verified { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; color: var(--nd-ink); }
+.nadp .nd-verified { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 16px; color: var(--nd-ink); }
 .nadp .nd-verified svg { width: 16px; height: 16px; padding: 2px; border-radius: 50%; background: var(--nd-navy); color: #fff; }
 .nadp .nd-rv-main .supp-stars { font-size: 18px; }
 .nadp .nd-star-off { color: #d5dbea; }
 .nadp .nd-rv-main p + p { margin-top: 10px; font-size: 17px; line-height: 1.6; color: var(--nd-ink); max-width: 72ch; }
-.nadp .nd-rv time { font-size: 14px; color: var(--nd-ink); }
-.nadp .nd-help { grid-column: 2 / -1; justify-self: end; display: flex; align-items: center; gap: 14px; margin-top: 0; font-size: 14px; color: var(--nd-ink); }
+.nadp .nd-rv time { font-size: 16px; color: var(--nd-ink); }
+.nadp .nd-help { grid-column: 2 / -1; justify-self: end; display: flex; align-items: center; gap: 14px; margin-top: 0; font-size: 16px; color: var(--nd-ink); }
 .nadp .nd-help button {
   display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; margin: -6px -10px;
-  border: 0; border-radius: 8px; background: none; font: inherit; font-size: 14px; color: var(--nd-ink); cursor: pointer;
+  border: 0; border-radius: 8px; background: none; font: inherit; font-size: 16px; color: var(--nd-ink); cursor: pointer;
 }
 .nadp .nd-help button:hover { background: var(--nd-sunk); }
 .nadp .nd-help svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; transition: scale .3s var(--nd-ease); }
@@ -618,7 +696,7 @@
 .nadp .nd-end-lede { margin-top: 18px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
 .nadp .nd-end-price { margin-top: 26px; font-size: 19px; font-weight: 600; }
 .nadp .nd-end-cta { display: inline-flex; margin-top: 24px; min-width: 180px; justify-content: center; }
-.nadp .nd-end-note { margin-top: 16px; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
+.nadp .nd-end-note { margin-top: 16px; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
 .nadp .nd-end-fine { margin-top: 8px; color: rgba(255, 255, 255, .6); }
 
 /* ---------------------------------------------------------------------------
@@ -634,11 +712,11 @@
 .nd-lb-stage { width: min(92vw, 1100px); height: min(84dvh, 900px); display: grid; place-items: center; }
 .nd-lb-stage > * { animation: nd-fade .35s ease both; }
 .nd-lb-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 16px; }
-.nd-lb-stage .nd-facts { width: min(90vw, 420px); padding: 20px; border-color: #fff; color: #fff; }
-.nd-lb-stage .nd-facts-h { font-size: 24px; }
-.nd-lb-stage .nd-facts-r { font-size: 15px; padding: 7px 0; }
-.nd-lb-stage .nd-facts-foot { font-size: 13px; }
-.nd-lb-count { position: absolute; left: 50%; bottom: 20px; translate: -50% 0; font-size: 14px; opacity: .8; }
+.nd-lb-stage .nd-facts { display: block; width: min(90vw, 480px); padding: 24px; border: 1px solid #fff; color: #fff; }
+.nd-lb-stage .nd-facts-h { display: block; font-size: 30px; font-weight: 700; padding-bottom: 10px; border-bottom: 8px solid #fff; }
+.nd-lb-stage .nd-facts-r { display: flex; justify-content: space-between; gap: 16px; font-size: 18px; padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .35); }
+.nd-lb-stage .nd-facts-foot { display: block; margin-top: 12px; font-size: 16px; }
+.nd-lb-count { position: absolute; left: 50%; bottom: 20px; translate: -50% 0; font-size: 16px; opacity: .8; }
 .nd-lb-btn {
   position: absolute; width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
   display: grid; place-items: center; background: rgba(255, 255, 255, .14); color: #fff; transition: background .2s;
@@ -664,7 +742,7 @@
 .nadp .ph-bar-inner { gap: 14px; justify-content: flex-start; }
 .nadp .ph-bar-thumb { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex: none; display: block; background: var(--nd-sunk); }
 .nadp .ph-bar-txt { min-width: 0; flex: 1 1 auto; display: flex; align-items: baseline; gap: 12px; }
-.nadp .ph-bar-meta { font-size: 14px; color: var(--nd-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.nadp .ph-bar-meta { font-size: 16px; color: var(--nd-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
 .nadp .ph-bar .btn.small { flex: none; }
 
 /* ---------------------------------------------------------------------------
@@ -672,6 +750,7 @@
    ------------------------------------------------------------------------ */
 @media (max-width: 1180px) {
   .nadp .nd-hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .nadp .nd-gal-main { position: relative; top: 0; max-height: none; aspect-ratio: 1 / 1; max-width: 760px; }
   .nadp .nd-buy { max-width: 640px; }
   .nadp .nd-ess-panel { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
   .nadp .nd-ess-panel h3 { margin-top: 16px; }
@@ -683,12 +762,6 @@
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 1024px) {
-  .nadp .nd-gal {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px;
-    margin-inline: calc(var(--nd-gut) * -1); padding-inline: var(--nd-gut); scrollbar-width: none;
-  }
-  .nadp .nd-gal::-webkit-scrollbar { display: none; }
-  .nadp .nd-tile, .nadp .nd-tile-main { flex: 0 0 min(82%, 520px); aspect-ratio: 4 / 5; scroll-snap-align: center; border-radius: var(--nd-r-md); }
   .nadp .nd-time-grid, .nadp .nd-formula-grid { grid-template-columns: minmax(0, 1fr); }
   .nadp .nd-still { max-width: 420px; }
   .nadp .nd-rv { grid-template-columns: minmax(0, 1fr) auto; }
@@ -706,9 +779,9 @@
   .nadp .nd-std-cards li { grid-template-columns: 44px 1fr; justify-items: start; text-align: left; padding: 20px; }
   .nadp .nd-badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nadp .nd-table { --c2: 84px; --c3: 104px; --pad: 14px; }
-  .nadp .nd-tr { font-size: 14px; min-height: 68px; }
-  .nadp .nd-tr > :nth-child(3), .nadp .nd-th > :nth-child(3) { font-size: 12px; }
-  .nadp .nd-chip { height: auto; padding: 4px 8px; font-size: 11px; white-space: normal; text-align: center; border-radius: 10px; }
+  .nadp .nd-tr { font-size: 16px; min-height: 68px; }
+  .nadp .nd-tr > :nth-child(3), .nadp .nd-th > :nth-child(3) { font-size: 15px; }
+  .nadp .nd-chip { height: auto; padding: 4px 8px; font-size: 15px; white-space: normal; text-align: center; border-radius: 10px; }
   .nadp .nd-dist { padding-left: 0; border-left: 0; }
   .nadp .nd-collage { gap: 10px; }
 }
@@ -724,7 +797,7 @@
   .nadp .nd-ess-panel p { margin-top: 4px; }
   .nadp .nd-dist li { grid-template-columns: 34px minmax(0, 1fr) 40px; }
   .nadp .nd-dist { width: 100%; }
-  .nadp .nd-call { font-size: 11px; }
+  .nadp .nd-call { font-size: 15px; }
   .nadp .nd-howto { display: flex; }
   .nadp .ph-bar-meta { display: none; }
   .nadp .nd-pair { grid-template-columns: 72px 1fr; }

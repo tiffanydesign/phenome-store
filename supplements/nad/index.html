@@ -57,38 +57,49 @@
 
 <!-- ==========================================================================
      1 · BUY BOX
-     Seed's buybox: a media mosaic on the left (one wide frame over a two by
-     two grid, every tile opens the viewer), and on the right the decision the
-     page already had, unchanged in content and order, with Seed's two
-     accordions and its pairing card beneath it.
+     The hero of store/phenometech-ring, 2026-09-16: one 4:5 frame on the
+     left rotating through five slides on its own (four photographs and the
+     facts panel), with the ring page's glass pagination pill, and on the right
+     the decision the page already had, unchanged in content and order. The
+     frame rides sticky beside the taller column so both finish level.
      ======================================================================= -->
 <section class="hero supp supp-nad nd-hero">
   <div class="nd-hero-grid">
-    <div class="nd-gal" data-gal>
-      <button class="nd-tile nd-tile-main" type="button" data-shot="0" aria-label="View image 1 of 5">
-        <img alt="A man in his fifties playing basketball outdoors" fetchpriority="high" height="2133" src="/phenome-store/assets/pages/nad_01.webp" width="1200"/>
-      </button>
-      <button class="nd-tile" type="button" data-shot="1" aria-label="View image 2 of 5">
-        <img alt="Taking a sachet of NAD+ in the kitchen" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_03.webp" width="1200"/>
-      </button>
-      <button class="nd-tile" type="button" data-shot="2" aria-label="View image 3 of 5">
-        <img alt="A sprig of elderflower on stone" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_05.webp" width="1200"/>
-      </button>
-      <button class="nd-tile" type="button" data-shot="3" aria-label="View image 4 of 5">
-        <img alt="A woman looking out of a window" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_02.webp" width="1200"/>
-      </button>
-      <button class="nd-tile nd-tile-facts" type="button" data-shot="4" aria-label="View what is inside each sachet">
-        <span class="nd-facts" data-facts>
-          <span class="nd-facts-h">Inside each sachet</span>
-          <span class="nd-facts-r nd-facts-top"><span>Serving size</span><b>1 sachet (10ml)</b></span>
-          <span class="nd-facts-r"><span>NAD+ (Oxidised NADH)</span><b>400mg</b></span>
-          <span class="nd-facts-r"><span>Concentration</span><b>4g/100ml</b></span>
-          <span class="nd-facts-r"><span>Delivery</span><b>Liposomal</b></span>
-          <span class="nd-facts-r"><span>Flavour</span><b>Elderflower</b></span>
-          <span class="nd-facts-r"><span>Sachets per box</span><b>30</b></span>
-          <span class="nd-facts-foot">Allergen free · Non genetically modified · Made in the UK</span>
-        </span>
-      </button>
+    <div class="nd-gal">
+      <div class="nd-gal-main" data-gal-main role="region" aria-roledescription="carousel" aria-label="Product images">
+      <div class="nd-gal-track" data-gal-track>
+        <div class="nd-slide" data-slide data-n="0" role="group" aria-roledescription="slide" aria-label="1 of 5">
+          <img alt="A man in his fifties playing basketball outdoors" decoding="async" height="2133" fetchpriority="high" src="/phenome-store/assets/pages/nad_01.webp" width="1200"/>
+        </div>
+        <div class="nd-slide" data-slide data-n="1" role="group" aria-roledescription="slide" aria-label="2 of 5">
+          <img alt="Taking a sachet of NAD+ in the kitchen" decoding="async" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_03.webp" width="1200"/>
+        </div>
+        <div class="nd-slide" data-slide data-n="2" role="group" aria-roledescription="slide" aria-label="3 of 5">
+          <img alt="A sprig of elderflower on stone" decoding="async" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_05.webp" width="1200"/>
+        </div>
+        <div class="nd-slide" data-slide data-n="3" role="group" aria-roledescription="slide" aria-label="4 of 5">
+          <img alt="A woman looking out of a window" decoding="async" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_02.webp" width="1200"/>
+        </div>
+        <div class="nd-slide nd-slide-facts" data-slide data-n="4" role="group" aria-roledescription="slide" aria-label="5 of 5">
+          <span class="nd-facts" data-facts>
+            <span class="nd-facts-h">Inside each sachet</span>
+            <span class="nd-facts-r nd-facts-top"><span>Serving size</span><b>1 sachet (10ml)</b></span>
+            <span class="nd-facts-r"><span>NAD+ (Oxidised NADH)</span><b>400mg</b></span>
+            <span class="nd-facts-r"><span>Concentration</span><b>4g/100ml</b></span>
+            <span class="nd-facts-r"><span>Delivery</span><b>Liposomal</b></span>
+            <span class="nd-facts-r"><span>Flavour</span><b>Elderflower</b></span>
+            <span class="nd-facts-r"><span>Sachets per box</span><b>30</b></span>
+            <span class="nd-facts-foot">Allergen free · Non genetically modified · Made in the UK</span>
+          </span>
+        </div>
+      </div>
+      <div class="nd-gal-tools">
+        <button class="nd-gal-tool nd-gal-hold" type="button" data-gal-hold aria-label="Pause the slideshow"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="2" width="4" height="12" rx="1" fill="currentColor"/><rect x="10" y="2" width="4" height="12" rx="1" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5l9 5.5-9 5.5z" fill="currentColor"/></svg></button>
+        <button class="nd-gal-tool nd-gal-zoom" type="button" data-gal-zoom aria-label="Open at full size"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <!-- Filled by nad.js: previous, one dot per slide, next. -->
+      <div class="nd-gal-nav" data-gal-nav hidden></div>
+      </div>
     </div>
 
     <div class="supp-col nd-buy">

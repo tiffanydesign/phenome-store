@@ -33,11 +33,150 @@
     io.observe(el);
   }
 
-  /* ---- 1 · gallery viewer ------------------------------------------------ */
-  function viewer() {
+  /* ---- 1 · gallery: store/phenometech-ring's rotating frame -------------
+     The slides stack in one cell and each is translated by its shortest
+     wrapped offset from the current one; only the outgoing and incoming slide
+     animate. A countdown with a remainder drives it, paused by hover, focus,
+     the hold button, a hidden tab or the frame leaving the screen, and the
+     current dot's CSS fill runs on the same --dwell. */
+  var DWELL = 5000;
+  function gallery() {
+    var main = $('[data-gal-main]');
+    if (!main) return null;
+    var track = $('[data-gal-track]', main);
+    var slides = $$('[data-slide]', main);
+    var navBox = $('[data-gal-nav]', main);
+    var n = slides.length, cur = 0;
+    main.setAttribute('data-live', '');
+    if (track) track.scrollLeft = 0;
+
+    var dots = [];
+    var CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    if (navBox && n > 1) {
+      navBox.innerHTML =
+        '<button class="nd-gal-arrow" type="button" data-gal-prev aria-label="Previous slide">' + CHEV + '</button>' +
+        '<div class="nd-gal-dots"></div>' +
+        '<button class="nd-gal-arrow" type="button" data-gal-next aria-label="Next slide">' + CHEV.replace('M15 5l-7 7 7 7', 'M9 5l7 7-7 7') + '</button>';
+      var box = $('.nd-gal-dots', navBox);
+      for (var d = 0; d < n; d++) {
+        var btn = doc.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nd-gal-dot';
+        btn.setAttribute('aria-label', 'Show slide ' + (d + 1) + ' of ' + n);
+        btn.innerHTML = '<i></i>';
+        box.appendChild(btn);
+        dots.push(btn);
+      }
+      navBox.hidden = false;
+    }
+
+    function offsetOf(i, c) {
+      var o = ((i - c) % n + n) % n;
+      return o > n / 2 ? o - n : o;
+    }
+    function place(prev, dir) {
+      if (track && track.scrollLeft) track.scrollLeft = 0;
+      slides.forEach(function (sl, i) {
+        var o = offsetOf(i, cur);
+        if (i === cur) o = 0;
+        else if (i === prev && dir) o = -dir;
+        if (i === cur || i === prev) sl.removeAttribute('data-snap');
+        else sl.setAttribute('data-snap', '');
+        sl.style.setProperty('--o', o);
+        sl.setAttribute('aria-hidden', i === cur ? 'false' : 'true');
+      });
+      dots.forEach(function (dt, k) { dt.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
+    }
+
+    var held = still.matches, hover = false, offscreen = false;
+    var timer = null, started = 0, remaining = DWELL;
+    function paused() { return held || hover || offscreen || doc.hidden; }
+    function stopTimer() {
+      if (!timer) return;
+      clearTimeout(timer); timer = null;
+      remaining = Math.max(0, remaining - (Date.now() - started));
+    }
+    function startTimer() {
+      if (timer || paused() || n < 2) return;
+      started = Date.now();
+      timer = setTimeout(function () { timer = null; go(cur + 1, 1); }, remaining);
+    }
+    function sync() {
+      if (paused()) stopTimer(); else startTimer();
+      main.toggleAttribute('data-held', held);
+      main.toggleAttribute('data-hover', hover || offscreen);
+    }
+    function restartDwell() {
+      if (timer) { clearTimeout(timer); timer = null; }
+      remaining = DWELL;
+      main.style.setProperty('--dwell', DWELL + 'ms');
+      var dot = dots[cur];
+      if (dot) { dot.setAttribute('aria-current', 'false'); void dot.offsetWidth; dot.setAttribute('aria-current', 'true'); }
+      sync();
+    }
+    function go(i, dir) {
+      var next = ((i % n) + n) % n;
+      if (next === cur) { restartDwell(); return; }
+      var prev = cur;
+      if (!dir) dir = offsetOf(next, prev) > 0 ? 1 : -1;
+      slides[next].setAttribute('data-snap', '');
+      slides[next].style.setProperty('--o', dir);
+      void slides[next].offsetWidth;
+      cur = next;
+      place(prev, dir);
+      restartDwell();
+    }
+
+    var hold = $('[data-gal-hold]', main);
+    function paintHold() {
+      if (!hold) return;
+      hold.toggleAttribute('data-paused', held);
+      hold.setAttribute('aria-label', held ? 'Play the slideshow' : 'Pause the slideshow');
+    }
+    if (hold) hold.addEventListener('click', function () { held = !held; paintHold(); sync(); });
+
+    main.addEventListener('click', function (e) {
+      if (e.target.closest('[data-gal-prev]')) go(cur - 1, -1);
+      else if (e.target.closest('[data-gal-next]')) go(cur + 1, 1);
+      else {
+        var k = dots.indexOf(e.target.closest('.nd-gal-dot'));
+        if (k > -1) go(k);
+      }
+    });
+    main.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, -1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, 1); }
+    });
+    main.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; sync(); } });
+    main.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; sync(); } });
+    var sx = 0, sy = 0, tracking = false;
+    main.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' || e.target.closest('button')) return;
+      tracking = true; sx = e.clientX; sy = e.clientY;
+    });
+    main.addEventListener('pointerup', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    });
+    main.addEventListener('pointercancel', function () { tracking = false; });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { offscreen = !es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(main);
+    }
+    doc.addEventListener('visibilitychange', sync);
+
+    place(-1, 0);
+    paintHold();
+    restartDwell();
+    return { slides: slides, current: function () { return cur; }, hold: function (on) { hover = on; sync(); } };
+  }
+
+  /* ---- 1b · viewer: opens on whichever slide is showing ------------------ */
+  function viewer(gal) {
     var lb = $('[data-lb]');
-    var tiles = $$('[data-gal] .nd-tile');
-    if (!lb || !tiles.length || typeof lb.showModal !== 'function') return;
+    if (!lb || !gal || typeof lb.showModal !== 'function') return;
+    var tiles = gal.slides;
     var stage = $('[data-lb-stage]', lb);
     var count = $('[data-lb-count]', lb);
     var cur = 0;
@@ -59,11 +198,13 @@
     }
     function open(i, from) {
       cur = i; opener = from || null; paint();
+      gal.hold(true);
       lb.showModal();
     }
     function step(d) { cur = (cur + d + tiles.length) % tiles.length; paint(); }
 
-    tiles.forEach(function (t, i) { t.addEventListener('click', function () { open(i, t); }); });
+    var zoom = $('[data-gal-zoom]');
+    if (zoom) zoom.addEventListener('click', function () { open(gal.current(), zoom); });
     $$('[data-open-facts]').forEach(function (b) {
       b.addEventListener('click', function () { open(tiles.length - 1, b); });
     });
@@ -76,9 +217,8 @@
       if (e.key === 'ArrowRight') step(1);
       if (e.key === 'ArrowLeft') step(-1);
     });
-    lb.addEventListener('close', function () { if (opener) opener.focus(); });
+    lb.addEventListener('close', function () { gal.hold(false); if (opener) opener.focus(); });
 
-    /* A swipe on touch screens. */
     var x0 = null;
     lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
     lb.addEventListener('touchend', function (e) {
@@ -308,7 +448,7 @@
     apply();
   }
 
-  viewer();
+  viewer(gallery());
   dock();
   plans();
   essentials();
