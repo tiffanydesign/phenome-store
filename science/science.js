@@ -1,12 +1,10 @@
-/* science · behaviour for the Science page, after ouraring.com/science-and-research.
-     · sections settle in as they arrive, and the figures slide up out of a
-       clipped line,
+/* science · behaviour for the Science page.
+     · sections settle in as they arrive,
      · the hero photograph eases back as the card scrolls away,
-     · in the accuracy section the photograph holds while the glass cards
+     · in the longevity section the photograph holds while the glass cards
        travel up the right hand column with the scroll,
-     · the glass panels on the three photographs rise into place,
-     · the method carousel drags, pages with its arrows, and draws its
-       position on a rule; each card opens to say more.
+     · the nine readings drag, page with their arrows, and draw their position
+       on a rule and a counter.
    Every block guards on its own elements. */
 (function () {
   'use strict';
@@ -25,7 +23,7 @@
 
   /* ---- reveals ------------------------------------------------------------ */
   (function reveal() {
-    var els = $$('.sci-up, .sci-stat, .sci-photo');
+    var els = $$('.sci-up, .sci-topic');
     if (!('IntersectionObserver' in window) || calm.matches) {
       els.forEach(function (e) { e.classList.add('is-in'); });
       return;
@@ -76,20 +74,24 @@
     request();
   })();
 
-  /* ---- 8 · the method carousel -------------------------------------------- */
-  (function method() {
+  /* ---- 4 · the nine readings ----------------------------------------------
+     One slide fills the frame, so the arrows page by exactly one and the
+     counter names the slide whose left edge the track is resting on. */
+  (function readings() {
     var box = $('[data-sci-car]');
     if (!box) return;
     var track = $('.sci-car-track', box);
     var rule = $('.sci-car-rule', box);
+    var count = $('[data-car-i]', box);
     var prev = $('[data-car-prev]', box);
     var next = $('[data-car-next]', box);
     if (!track) return;
+    var slides = $$(':scope > *', track);
 
     function step() {
       var card = track.firstElementChild;
       if (!card) return track.clientWidth;
-      return card.getBoundingClientRect().width + 10;
+      return card.getBoundingClientRect().width + 12;
     }
     function paint() {
       var max = track.scrollWidth - track.clientWidth;
@@ -101,12 +103,18 @@
            reached when the thumb has moved (1 / visible − 1) of itself. */
         rule.style.setProperty('--rule-x', (p * (1 / Math.max(visible, .01) - 1) * 100).toFixed(2) + '%');
       }
+      if (count && slides.length) {
+        var i = clamp(Math.round(track.scrollLeft / step()) + 1, 1, slides.length);
+        var s = String(i);
+        var t = s.length < 2 ? '0' + s : s;
+        if (count.textContent !== t) count.textContent = t;
+      }
       if (prev) prev.disabled = track.scrollLeft <= 2;
       if (next) next.disabled = track.scrollLeft >= max - 2;
     }
     var smooth = calm.matches ? 'auto' : 'smooth';
-    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step() * 2, behavior: smooth }); });
-    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step() * 2, behavior: smooth }); });
+    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: smooth }); });
+    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: smooth }); });
     track.addEventListener('scroll', paint, { passive: true });
     addEventListener('resize', paint, { passive: true });
     paint();
@@ -127,22 +135,6 @@
       if (!down) return;
       down = false;
       track.classList.remove('is-drag');
-    });
-
-    /* each card opens to say more, one at a time */
-    $$('.sci-step', track).forEach(function (card) {
-      var b = $('.sci-step-more', card);
-      if (!b) return;
-      b.addEventListener('click', function () {
-        var open = !card.classList.contains('is-open');
-        $$('.sci-step.is-open', track).forEach(function (o) {
-          o.classList.remove('is-open');
-          var ob = $('.sci-step-more', o);
-          if (ob) ob.setAttribute('aria-expanded', 'false');
-        });
-        card.classList.toggle('is-open', open);
-        b.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
     });
   })();
 })();

@@ -1,24 +1,23 @@
 /* ============================================================================
    science · the Science page
 
-   Layout and motion follow ouraring.com/science-and-research section by
-   section: an inset dark hero card, a centred statement over four counted
-   figures, a full bleed photograph that holds still while glass figure cards
-   pass over it, a two track head over three paper cards, three tall photo
-   cards whose glass panels rise as they arrive, a centred call over a grid of
-   cards and six marks, a dark featured study beside three stacked cards, a
-   dragged carousel with a progress rule, and a split close.
+   The page now tells Phenome Longevity's own genetics story, in its own words
+   and with its own photography (phenomelongevity.com/pages/genetic-testing-
+   explained): what a gene is, what the four tests read, the nine readings a
+   genome gives up, why any of it matters for longevity, what whole genome
+   sequencing is and how it differs from a targeted panel, who sequences it,
+   how a kit works, and which test to take.
 
-   What is Phenome's: the navy and the cool paper in place of the reference's
-   charcoal and cream, and every photograph and word.
+   The layout vocabulary is this site's, carried over from the Oura shaped
+   build that preceded it: an inset dark hero card, a full bleed photograph
+   that holds still while glass cards pass over it, a dragged carousel with a
+   progress rule, a dark featured study beside three stacked cards, a split
+   close. The navy, the cool paper and every word are Phenome's.
 
-   TYPE, 2026-09-16. This page used to carry a second face, Newsreader, for
-   its numerals, its italics and the second half of two headlines. It is gone,
-   with the Google Fonts request that fetched it. The system has ONE family,
-   and the contrast the serif was drawing — the held back half of a statement
-   against the half that lands — is now drawn in COLOUR, by the kit's
-   .ph-display: the first line a step down in size and a step back in ink, the
-   second at full contrast. See phenome-glass.css § 3.
+   TYPE. One family. The contrast a second face used to draw — the held back
+   half of a statement against the half that lands — is drawn in COLOUR by the
+   kit's .ph-display: the first line a step down in size and a step back in
+   ink, the second at full contrast. See phenome-glass.css § 3.
    Copy rule: no dashes, no all caps.
 
    Scoped to `.sci` on <body>. Motion that starts hidden is keyed to `.sci-js`,
@@ -32,6 +31,7 @@
   --sci-night: #0b1024;
   --sci-grey: #5f6680;
   --sci-line: rgba(10, 18, 51, .12);
+  --sci-studio: #eef1f8;           /* the ground the kit photographs are shot on */
   --sci-ease: cubic-bezier(.16, 1, .3, 1);
   --sci-gut: clamp(20px, 3.3vw, 48px);
   --sci-max: 1344px;
@@ -82,7 +82,7 @@
 .sci-js .sci .sci-up.d3 { transition-delay: .24s; }
 
 /* ---------------------------------------------------------------------------
-   1 · HERO · an inset dark card, the words low left, the object right
+   1 · HERO · an inset dark card, the words low left, the helix right
    ------------------------------------------------------------------------ */
 .sci .sci-hero { padding: 10px 10px 0; }
 .sci .sci-hero-card {
@@ -123,135 +123,272 @@
 }
 
 /* ---------------------------------------------------------------------------
-   2 · APPROACH · a centred statement over four counted figures
+   2 · WHAT IS A GENE · the words beside the map, then the statement
+
+   The map is a transparent plate drawn in the same navy as the page's ink, so
+   it wants no card behind it. It sits on the paper and is part of the type.
    ------------------------------------------------------------------------ */
-.sci .sci-approach { padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 6vw, 96px); text-align: center; }
-.sci .sci-approach .sci-lede { max-width: 640px; margin-inline: auto; }
-.sci .sci-stats {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
-  margin: clamp(56px, 6vw, 96px) 0 0; padding: 0; list-style: none;
+.sci .sci-gene { padding: clamp(74px, 8vw, 132px) 0 clamp(40px, 4vw, 64px); }
+.sci .sci-gene-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.sci .sci-gene-copy .sci-lede { max-width: 42ch; }
+.sci .sci-gene-fig { margin: 0; }
+.sci .sci-gene-fig img { display: block; width: 100%; height: auto; }
+.sci .sci-gene-fig figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .01em; color: var(--sci-grey); }
+
+.sci .sci-say {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 64px); align-items: start;
+  margin-top: clamp(56px, 6vw, 96px); padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid var(--sci-line);
 }
-.sci .sci-stat b {
-  display: block; font-weight: 600;
-  font-size: clamp(42px, 3.9vw, 58px); line-height: 1; letter-spacing: -0.03em;
-  font-variant-numeric: lining-nums;
-  /* the figure slides up out of a clipped line, as the reference's does */
-  overflow: hidden; height: 1.08em;
+.sci .sci-say .sci-eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
+.sci .sci-say-lead { margin: 18px 0 0; font-size: clamp(21px, 2.1vw, 30px); line-height: 1.32; letter-spacing: -0.02em; color: var(--sci-ink); }
+.sci .sci-say > p:last-child { margin: 18px 0 0; font-size: 16px; line-height: 1.6; color: var(--sci-grey); }
+@media (max-width: 860px) {
+  .sci .sci-gene-grid, .sci .sci-say { grid-template-columns: minmax(0, 1fr); }
+  .sci .sci-say > p:last-child { margin-top: 4px; }
 }
-.sci .sci-stat b span { display: inline-block; }
-.sci-js .sci .sci-stat b span { transform: translateY(105%); transition: transform 1.1s var(--sci-ease); }
-.sci-js .sci .sci-stat.is-in b span { transform: none; }
-.sci .sci-stat p { margin: 14px auto 0; max-width: 22ch; font-size: 15px; line-height: 1.45; color: var(--sci-grey); }
-@media (max-width: 760px) { .sci .sci-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 44px; } }
 
 /* ---------------------------------------------------------------------------
-   3 · ACCURACY · the photograph holds, the glass cards pass over it
+   3 · THE FOUR TESTS · a photograph each, the name under it
    ------------------------------------------------------------------------ */
-.sci .sci-acc { position: relative; height: 210vh; color: #fff; background: var(--sci-night); }
+.sci .sci-topics { padding: clamp(40px, 4vw, 64px) 0 clamp(70px, 8vw, 120px); }
+.sci .sci-topics-lede { max-width: 66ch; }
+.sci .sci-topic-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(32px, 4vw, 56px); }
+.sci .sci-topic { display: block; text-decoration: none !important; color: var(--sci-ink) !important; }
+.sci .sci-topic-media { display: block; overflow: hidden; border-radius: 8px; background: var(--sci-card); aspect-ratio: 4 / 5; }
+.sci .sci-topic-media img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.05); transition: transform 1.2s var(--sci-ease); }
+.sci-js .sci .sci-topic { opacity: 0; transform: translateY(30px); transition: opacity .9s ease, transform 1.1s var(--sci-ease); }
+.sci-js .sci .sci-topic.is-in { opacity: 1; transform: none; }
+.sci-js .sci .sci-topic.d1 { transition-delay: .07s; }
+.sci-js .sci .sci-topic.d2 { transition-delay: .14s; }
+.sci-js .sci .sci-topic.d3 { transition-delay: .21s; }
+.sci .sci-topic.is-in .sci-topic-media img { transform: none; }
+.sci .sci-topic:hover .sci-topic-media img { transform: scale(1.05); }
+.sci .sci-topic-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 16px; }
+.sci .sci-topic-foot b { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.sci .sci-topic:hover .sci-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
+@media (max-width: 1000px) { .sci .sci-topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 12px; } }
+@media (max-width: 520px) { .sci .sci-topic-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   4 · WHAT YOU CAN LEARN · nine readings on a dragged track
+
+   Nine slides is too many for a grid and too few for a list, so they are a
+   track: one reading fills the frame, the rest are visibly waiting at the
+   edge. The photography is all dark scientific render, which is why the band
+   is night and the media bleeds to the card edge; the two that are drawn
+   rather than lit take a plate (.is-plate, white) or none (.is-plain, the
+   artwork is already white on transparent).
+   ------------------------------------------------------------------------ */
+.sci .sci-learn { background: var(--sci-night); color: #fff; padding: clamp(70px, 7vw, 116px) 0 clamp(60px, 6vw, 96px); }
+.sci .sci-learn-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(20px, 4vw, 60px); align-items: end; }
+.sci .sci-learn-head .sci-h2 { font-size: clamp(32px, 4.2vw, 62px); }
+.sci .sci-learn-head p { margin: 0 0 8px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .72); }
+
+.sci .sci-car { margin-top: clamp(32px, 3.4vw, 50px); }
+.sci .sci-car-track {
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0 var(--sci-gut); scroll-padding-inline: var(--sci-gut);
+  scrollbar-width: none; cursor: grab;
+}
+.sci .sci-car-track::-webkit-scrollbar { display: none; }
+.sci .sci-car-track.is-drag { cursor: grabbing; scroll-snap-type: none; }
+.sci .sci-car-track.is-drag * { pointer-events: none; }
+@media (min-width: 1440px) {
+  .sci .sci-car-track { padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); scroll-padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); }
+}
+
+.sci .sci-read {
+  flex: 0 0 auto; width: min(86vw, 940px); scroll-snap-align: start;
+  display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1fr);
+  border-radius: 14px; overflow: hidden; background: #141b3a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07);
+}
+.sci .sci-read-media { position: relative; background: #0d1330; }
+.sci .sci-read-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.sci .sci-read-media.is-plate { background: #fff; }
+.sci .sci-read-media.is-plate img, .sci .sci-read-media.is-plain img { object-fit: contain; padding: clamp(18px, 2.4vw, 34px); box-sizing: border-box; }
+.sci .sci-read-media.is-plain { background: #0d1330; }
+.sci .sci-read-copy { padding: clamp(26px, 2.8vw, 42px); }
+.sci .sci-read-n { display: block; font-size: 14px; font-weight: 600; letter-spacing: .04em; color: var(--phenome-blue-300); }
+.sci .sci-read-copy h3 { margin: 14px 0 0; max-width: 20ch; font-size: clamp(22px, 2vw, 30px); line-height: 1.2; font-weight: 400; letter-spacing: -0.02em; }
+.sci .sci-read-copy p { margin: 16px 0 0; font-size: 15px; line-height: 1.62; color: rgba(255, 255, 255, .76); }
+@media (max-width: 860px) {
+  .sci .sci-learn-head { grid-template-columns: minmax(0, 1fr); }
+  .sci .sci-read { grid-template-columns: minmax(0, 1fr); width: 84vw; }
+  .sci .sci-read-media { aspect-ratio: 4 / 3; }
+}
+
+/* the foot of any track on this page: a counter, a rule, two arrows */
+.sci .sci-car-foot { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); margin-top: 30px; }
+.sci .sci-car-count { margin: 0; display: flex; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
+.sci .sci-car-count b { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
+.sci .sci-car-count span { font-size: 14px; color: rgba(255, 255, 255, .55); }
+.sci .sci-car-rule { position: relative; flex: 1; height: 1px; background: rgba(255, 255, 255, .22); }
+.sci .sci-car-rule i { position: absolute; left: 0; top: -1px; height: 3px; width: var(--rule-w, 30%); transform: translateX(var(--rule-x, 0%)); background: #fff; border-radius: 2px; }
+.sci .sci-car-arrows { display: flex; gap: 10px; }
+.sci .sci-car-btn {
+  display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .14); color: #fff; cursor: pointer; transition: background .2s ease, opacity .2s ease;
+}
+.sci .sci-car-btn:hover { background: rgba(255, 255, 255, .26); }
+.sci .sci-car-btn[disabled] { opacity: .35; cursor: default; }
+.sci .sci-car-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------------------------------------------------------------------------
+   5 · WHY IT MATTERS · the photograph holds, five cards pass over it
+   ------------------------------------------------------------------------ */
+.sci .sci-acc { position: relative; height: 240vh; color: #fff; background: var(--sci-night); }
 .sci .sci-acc-pin { position: sticky; top: 0; height: 100svh; min-height: 640px; overflow: hidden; }
 .sci .sci-acc-bg { position: absolute; inset: 0; }
 .sci .sci-acc-bg img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: brightness(.62) saturate(.9);
-  transform: scale(calc(1.12 - var(--acc-p, 0) * .12));
+  transform: scale(calc(1.04 + var(--acc-p, 0) * .04));
 }
-.sci .sci-acc-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 12, 30, .72), rgba(8, 12, 30, .12) 60%, rgba(8, 12, 30, .35)); }
+/* The photograph is a bright room, so the scrim carries the whole contrast for
+   the headline: a strong left wash for the words, a lighter right one for the
+   cards, and a top down pass so nothing floats on a window. */
+.sci .sci-acc-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 10, 26, .9) 0%, rgba(6, 10, 26, .74) 26%, rgba(6, 10, 26, .34) 62%, rgba(6, 10, 26, .58) 100%),
+    linear-gradient(180deg, rgba(6, 10, 26, .3), transparent 30%, transparent 70%, rgba(6, 10, 26, .3));
+}
 .sci .sci-acc-in {
-  position: relative; height: 100%;
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); gap: 40px;
-  max-width: var(--sci-max); margin: 0 auto; padding: clamp(56px, 7vh, 88px) var(--sci-gut);
-  box-sizing: border-box;
+  position: relative; height: 100%; max-width: var(--sci-max); margin: 0 auto;
+  padding: clamp(50px, 6vw, 88px) var(--sci-gut);
+  box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: clamp(24px, 4vw, 64px);
 }
 .sci .sci-acc-copy { display: flex; flex-direction: column; justify-content: space-between; }
-.sci .sci-acc-copy .sci-h2 { font-size: clamp(34px, 4.2vw, 60px); max-width: 12ch; }
-.sci .sci-acc-note { max-width: 400px; }
-.sci .sci-acc-note .sci-eyebrow { margin-bottom: 10px; font-size: 15px; letter-spacing: -0.005em; }
-.sci .sci-acc-note p { margin: 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .86); }
-.sci .sci-acc-note ul { margin: 16px 0 0; padding: 0 0 0 18px; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .82); }
-.sci .sci-acc-note li + li { margin-top: 8px; }
+.sci .sci-acc-copy .sci-h2 { font-size: clamp(32px, 4.2vw, 60px); max-width: 13ch; }
+.sci .sci-acc-note { max-width: 420px; }
+.sci .sci-acc-note .sci-eyebrow { margin-bottom: 10px; font-size: 15px; line-height: 1.35; letter-spacing: -0.005em; color: #fff; }
+.sci .sci-acc-note p { margin: 0; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .84); }
+.sci .sci-acc-kicker { margin-top: 18px !important; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .22); font-size: 14px !important; font-weight: 500; letter-spacing: .01em; color: rgba(255, 255, 255, .62) !important; }
 .sci .sci-acc-cards { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
 .sci .sci-acc-track { display: flex; flex-direction: column; gap: 14px; transform: translateY(var(--acc-y, 0px)); will-change: transform; }
 .sci .sci-glass {
-  position: relative; padding: 20px 20px 18px; border-radius: 14px;
-  background: rgba(255, 255, 255, .14); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+  position: relative; padding: 22px 22px 20px; border-radius: 14px; color: #fff;
+  background: rgba(16, 24, 56, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
   -webkit-backdrop-filter: blur(22px) saturate(140%); backdrop-filter: blur(22px) saturate(140%);
 }
-.sci .sci-glass b { display: block; font-weight: 600; font-size: clamp(44px, 3.6vw, 56px); line-height: 1; letter-spacing: -0.03em; }
-.sci .sci-glass p { margin: 12px 0 0; font-size: 16px; line-height: 1.3; font-weight: 500; }
-.sci .sci-glass small { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: rgba(255, 255, 255, .72); }
-.sci .sci-glass svg { position: absolute; top: 18px; right: 18px; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.sci .sci-glass b { display: block; font-weight: 600; font-size: 14px; letter-spacing: .04em; color: var(--phenome-blue-200, #c3d0f0); }
+.sci .sci-glass p { margin: 10px 0 0; font-size: 19px; line-height: 1.26; font-weight: 400; letter-spacing: -0.015em; }
+.sci .sci-glass small { display: block; margin-top: 10px; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .74); }
 @media (max-width: 860px) {
   .sci .sci-acc { height: auto; }
-  .sci .sci-acc-pin { position: relative; height: auto; }
-  .sci .sci-acc-in { grid-template-columns: minmax(0, 1fr); }
-  .sci .sci-acc-note { margin-top: 40px; }
+  .sci .sci-acc-pin { position: static; height: auto; min-height: 0; }
+  .sci .sci-acc-in { grid-template-columns: minmax(0, 1fr); padding-block: clamp(56px, 9vw, 80px); }
+  .sci .sci-acc-copy { gap: 24px; }
   .sci .sci-acc-cards { -webkit-mask-image: none; mask-image: none; }
-  .sci .sci-acc-track { transform: none; display: grid; grid-template-columns: 1fr 1fr; }
+  .sci .sci-acc-track { transform: none; }
 }
 
 /* ---------------------------------------------------------------------------
-   4 · VALIDATED · a two track head, three paper cards
+   6 · WHOLE GENOME SEQUENCING · the claim, then the comparison
+
+   The reference ships the comparison as two flat images. Here it is a real
+   table: one grid, with a navy panel painted behind the third column so the
+   whole genome side reads as a block rather than a column of cells. Under
+   860px the panel is dropped and each row stacks, so the small `i` labels that
+   name the two sides come out of hiding.
    ------------------------------------------------------------------------ */
-.sci .sci-valid { padding: clamp(80px, 9vw, 140px) 0 clamp(50px, 5vw, 80px); }
-.sci .sci-head2 { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: start; }
-.sci .sci-head2 .sci-lede { margin-top: .4em; font-size: 17px; }
-.sci .sci-cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: clamp(40px, 5vw, 72px); }
-.sci .sci-paper {
-  position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 34px;
-  min-height: 170px; padding: 20px; border-radius: 6px;
-  background: var(--sci-card); color: var(--sci-ink) !important; text-decoration: none !important;
-  transition: background .3s ease;
+.sci .sci-wgs { padding: clamp(74px, 8vw, 126px) 0 clamp(70px, 8vw, 120px); }
+.sci .sci-wgs-head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 4vw, 64px); align-items: end; }
+.sci .sci-wgs-head .sci-h2 { font-size: clamp(32px, 4.1vw, 60px); }
+.sci .sci-wgs-mark { width: 44px; height: auto; display: block; margin-bottom: 18px; }
+.sci .sci-wgs-lead { margin: 0; font-size: clamp(17px, 1.4vw, 19px); line-height: 1.55; color: var(--sci-ink); }
+.sci .sci-wgs-body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); margin-top: clamp(44px, 5vw, 76px); padding-top: clamp(26px, 3vw, 40px); border-top: 1px solid var(--sci-line); }
+.sci .sci-wgs-body p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--sci-grey); }
+
+.sci .sci-cmp-title { margin: clamp(56px, 6vw, 96px) 0 0; max-width: 22ch; font-size: clamp(24px, 2.4vw, 34px); font-weight: 400; letter-spacing: -0.025em; line-height: 1.15; }
+.sci .sci-cmp {
+  position: relative; margin-top: clamp(26px, 3vw, 40px);
+  --cmp-k: clamp(120px, 15vw, 200px);
+  --cmp-pad: clamp(16px, 1.8vw, 28px);
+  display: grid; grid-template-columns: var(--cmp-k) minmax(0, 1fr) minmax(0, 1fr);
 }
-.sci .sci-paper h3 { margin: 0; font-size: 18px; line-height: 1.35; font-weight: 400; letter-spacing: -0.005em; }
-.sci .sci-paper-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-.sci .sci-paper-meta span { font-size: 15px; line-height: 1.45; color: var(--sci-grey); }
-.sci .sci-paper:hover { background: #dce3f0; }
-.sci .sci-paper:hover .sci-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
-@media (max-width: 900px) {
-  .sci .sci-head2 { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .sci .sci-cards3 { grid-template-columns: minmax(0, 1fr); }
+/* the navy block behind the whole genome column */
+.sci .sci-cmp::before {
+  content: ''; position: absolute; top: 0; bottom: 0; right: 0; z-index: 0;
+  width: calc((100% - var(--cmp-k)) / 2);
+  background: var(--phenome-blue-900, #1b2f6b); border-radius: 14px;
+}
+.sci .sci-cmp > * { display: contents; }
+.sci .sci-cmp span { position: relative; z-index: 1; padding: 18px var(--cmp-pad); font-size: 15px; line-height: 1.5; color: var(--sci-grey); border-bottom: 1px solid var(--sci-line); }
+.sci .sci-cmp span i { display: none; }
+.sci .sci-cmp-head span { padding-top: var(--cmp-pad); padding-bottom: 16px; font-size: 17px; font-weight: 500; letter-spacing: -0.01em; color: var(--sci-ink); border-bottom-color: rgba(10, 18, 51, .22); }
+.sci .sci-cmp-head span:first-child { padding-left: 0; }
+.sci .sci-cmp-head .is-wgs { color: #fff; border-bottom-color: rgba(255, 255, 255, .28); }
+.sci .sci-cmp-k { font-weight: 500; color: var(--sci-ink) !important; padding-left: 0 !important; }
+.sci .sci-cmp-b { color: rgba(255, 255, 255, .82) !important; border-bottom-color: rgba(255, 255, 255, .18) !important; }
+.sci .sci-cmp-row:last-child span { border-bottom: 0; }
+@media (max-width: 860px) {
+  .sci .sci-wgs-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .sci .sci-wgs-body { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .sci .sci-cmp { display: block; }
+  .sci .sci-cmp::before { display: none; }
+  .sci .sci-cmp > .sci-cmp-head { display: none; }
+  .sci .sci-cmp > .sci-cmp-row { display: block; padding-top: 22px; border-top: 1px solid var(--sci-line); }
+  .sci .sci-cmp span { display: block; padding: 0; border: 0; }
+  .sci .sci-cmp span i { display: block; font-style: normal; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--phenome-blue-300); margin-bottom: 4px; }
+  .sci .sci-cmp-k { font-size: 19px; margin-bottom: 14px; }
+  .sci .sci-cmp-a { margin-bottom: 14px; }
+  .sci .sci-cmp-b { padding: 16px !important; margin-bottom: 22px; border-radius: 12px; background: var(--phenome-blue-900, #1b2f6b); }
+  .sci .sci-cmp-b i { color: rgba(255, 255, 255, .62) !important; }
 }
 
 /* ---------------------------------------------------------------------------
-   5 · WHAT IT READS · three tall photographs, glass panels rise into them
+   7 · THE PARTNERSHIP · night, the words left and the lab right
    ------------------------------------------------------------------------ */
-.sci .sci-measure { padding: clamp(40px, 5vw, 80px) 0 clamp(80px, 8vw, 120px); }
-.sci .sci-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: clamp(36px, 4vw, 56px); }
-.sci .sci-photo { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 3 / 4; background: #cfd6e4; }
-.sci .sci-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.4s var(--sci-ease); }
-.sci .sci-photo.is-in > img { transform: none; }
-.sci .sci-panel {
-  position: absolute; left: 10%; right: 10%; bottom: 7%;
-  padding: 18px 18px 14px; border-radius: 10px; color: #fff;
-  background: linear-gradient(180deg, rgba(20, 28, 60, .52), rgba(20, 28, 60, .34));
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
-  -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
-  transform: translateY(var(--rise, 0px));
-}
-.sci-js .sci .sci-panel { --rise: 60px; transition: transform 1.2s var(--sci-ease); }
-.sci-js .sci .sci-photo.is-in .sci-panel { --rise: 0px; }
-.sci .sci-panel h3 { margin: 0; font-size: 21px; line-height: 1.2; font-weight: 400; }
-.sci .sci-panel > p { margin: 4px 0 12px; padding-bottom: 12px; font-size: 14px; color: rgba(255, 255, 255, .76); border-bottom: 1px solid rgba(255, 255, 255, .18); }
-.sci .sci-panel ul { margin: 0; padding: 0; list-style: none; }
-.sci .sci-panel li { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 14px; line-height: 1.3; }
-.sci .sci-panel li svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
-@media (max-width: 900px) { .sci .sci-photos { grid-template-columns: minmax(0, 1fr); } .sci .sci-photo { aspect-ratio: 4 / 5; } }
+.sci .sci-partner { background: var(--sci-night); color: #fff; padding: clamp(70px, 7vw, 116px) 0; }
+.sci .sci-partner-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.sci .sci-partner-copy .sci-h2 { font-size: clamp(30px, 3.4vw, 50px); max-width: 16ch; }
+.sci .sci-partner-copy p { margin: 22px 0 0; max-width: 46ch; font-size: 16px; line-height: 1.62; color: rgba(255, 255, 255, .78); }
+.sci .sci-partner-fig { margin: 0; border-radius: 14px; overflow: hidden; background: #141b3a; aspect-ratio: 16 / 10; }
+.sci .sci-partner-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 860px) { .sci .sci-partner-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------------------------------------------------------------------------
-   6 · PUT IT TO WORK · a centred call, a grid of cards, six marks
+   8 · HOW THE KITS WORK · four steps under a rule
    ------------------------------------------------------------------------ */
-.sci .sci-work { padding: 0 0 clamp(80px, 8vw, 130px); text-align: center; }
+.sci .sci-steps { padding: clamp(66px, 7vw, 108px) 0 clamp(20px, 2vw, 32px); }
+.sci .sci-steps .sci-h3 { margin: 0; font-size: clamp(24px, 2.4vw, 34px); font-weight: 400; letter-spacing: -0.025em; }
+.sci .sci-step-row { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 34px); margin: clamp(28px, 3vw, 44px) 0 0; padding: 0; counter-reset: none; }
+.sci .sci-step-row li { padding-top: 18px; border-top: 1px solid var(--sci-line); }
+.sci .sci-step-row b { display: block; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--phenome-blue-300); }
+.sci .sci-step-row p { margin: 10px 0 0; font-size: 17px; line-height: 1.4; letter-spacing: -0.01em; color: var(--sci-ink); }
+@media (max-width: 860px) { .sci .sci-step-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .sci .sci-step-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   9 · THE TESTS · four kits on their studio ground
+
+   The kit photographs are shot on a flat studio grey. Rather than cut them
+   out, the media plate is set to the same grey, so the shot and its plate are
+   one surface and the drop shadow in the render lands where it should.
+   ------------------------------------------------------------------------ */
+.sci .sci-work { padding: clamp(50px, 5vw, 80px) 0 clamp(80px, 8vw, 130px); text-align: center; }
 .sci .sci-work .sci-h2 { max-width: 16ch; margin-inline: auto; }
 .sci .sci-work .sci-lede { max-width: 560px; margin-inline: auto; font-size: 17px; }
-.sci .sci-work .sci-pill { margin-top: 30px; }
-.sci .sci-work .sci-cards3 { text-align: left; }
-.sci .sci-marks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 40px; margin-top: clamp(64px, 6vw, 96px); }
-.sci .sci-mark b { display: block; font-weight: 600; font-size: clamp(30px, 2.6vw, 38px); line-height: 1; letter-spacing: -0.02em; color: var(--sci-ink); }
-.sci .sci-mark p { margin: 16px auto 0; max-width: 34ch; font-size: 14px; line-height: 1.55; color: var(--sci-grey); }
-@media (max-width: 900px) { .sci .sci-marks { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+.sci .sci-kits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(38px, 4vw, 60px); text-align: left; }
+.sci .sci-kit { display: flex; flex-direction: column; }
+.sci .sci-kit-media { display: block; border-radius: 12px; overflow: hidden; background: var(--sci-studio); aspect-ratio: 1 / 1; }
+.sci .sci-kit-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--sci-ease); }
+.sci .sci-kit-media:hover img { transform: scale(1.04); }
+.sci .sci-kit h3 { margin: 18px 0 0; font-size: 18px; line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
+.sci .sci-kit h3 a { color: var(--sci-ink) !important; text-decoration: none !important; }
+.sci .sci-kit h3 a:hover { color: var(--ph-accent, #203a85) !important; }
+.sci .sci-kit-p { margin: 6px 0 0; font-size: 16px; color: var(--sci-ink); }
+.sci .sci-kit-d { margin: 10px 0 20px; font-size: 14px; line-height: 1.5; color: var(--sci-grey); }
+.sci .sci-kit .sci-pill { margin-top: auto; align-self: start; }
+@media (max-width: 1000px) { .sci .sci-kits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .sci .sci-kits { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------------------------------------------------------------------------
-   7 · GO DEEPER · dark, a featured card beside three stacked
+   10 · GO DEEPER · dark, a featured card beside three stacked
    ------------------------------------------------------------------------ */
 .sci .sci-deep { background: var(--sci-night); color: #fff; padding: clamp(60px, 6vw, 96px) 0; }
 .sci .sci-deep-grid { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 20px; margin-top: 30px; }
@@ -267,70 +404,24 @@
 .sci .sci-feature-copy h3 { margin: 0; max-width: 20ch; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; }
 .sci .sci-feature-copy p { margin: 12px 0 18px; max-width: 48ch; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
 .sci .sci-stack { display: grid; gap: 12px; }
+.sci .sci-paper {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+  min-height: 210px; padding: 20px; border-radius: 6px; background: var(--sci-card);
+  color: var(--sci-ink) !important; text-decoration: none !important;
+  transition: background .25s ease;
+}
+.sci .sci-paper h3 { margin: 0; font-size: 18px; line-height: 1.35; font-weight: 400; letter-spacing: -0.005em; }
+.sci .sci-paper-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.sci .sci-paper-meta span { font-size: 15px; line-height: 1.45; color: var(--sci-grey); }
+.sci .sci-paper:hover { background: #dce3f0; }
+.sci .sci-paper:hover .sci-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
 .sci .sci-stack .sci-paper { background: #fff; min-height: 0; }
 .sci .sci-stack .sci-paper:hover { background: #eef2fb; }
 .sci .sci-stack .sci-paper h3 { font-size: 19px; }
 @media (max-width: 900px) { .sci .sci-deep-grid { grid-template-columns: minmax(0, 1fr); } .sci .sci-feature { min-height: 400px; } }
 
 /* ---------------------------------------------------------------------------
-   8 · THE METHOD · dark, a dragged carousel with a progress rule
-   ------------------------------------------------------------------------ */
-.sci .sci-method { background: var(--sci-night); color: #fff; padding: clamp(40px, 4vw, 60px) 0 clamp(70px, 7vw, 110px); }
-.sci .sci-method-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 40px; align-items: end; }
-.sci .sci-method-head .sci-h2 { font-size: clamp(34px, 4.2vw, 62px); }
-.sci .sci-method-head p { margin: 0 0 14px; font-size: 15px; line-height: 1.55; color: rgba(255, 255, 255, .8); }
-.sci .sci-method-head a { display: inline-flex; gap: 8px; font-size: 15px; font-weight: 500; color: #fff !important; text-decoration: underline; text-underline-offset: 4px; }
-.sci .sci-car { margin-top: clamp(34px, 3.4vw, 50px); }
-.sci .sci-car-track {
-  display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity;
-  padding: 0 var(--sci-gut); scroll-padding-inline: var(--sci-gut);
-  scrollbar-width: none; cursor: grab;
-}
-.sci .sci-car-track::-webkit-scrollbar { display: none; }
-.sci .sci-car-track.is-drag { cursor: grabbing; scroll-snap-type: none; }
-.sci .sci-car-track.is-drag * { pointer-events: none; }
-@media (min-width: 1440px) { .sci .sci-car-track { padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); scroll-padding-inline: calc((100vw - var(--sci-max)) / 2 + var(--sci-gut)); } }
-.sci .sci-step {
-  position: relative; flex: 0 0 auto; width: clamp(240px, 21vw, 300px); aspect-ratio: 3 / 4;
-  border-radius: 6px; overflow: hidden; scroll-snap-align: start; background: #1a2248;
-}
-.sci .sci-step img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
-.sci .sci-step::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(8, 12, 30, .78)); transition: background .4s ease; }
-.sci .sci-step-n { position: absolute; left: 16px; bottom: 16px; right: 16px; z-index: 1; }
-.sci .sci-step-n b { display: block; font-size: 20px; font-weight: 400; line-height: 1.2; }
-.sci .sci-step-n span { display: block; margin-top: 3px; font-size: 13px; color: rgba(255, 255, 255, .72); }
-.sci .sci-step-more {
-  position: absolute; top: 12px; right: 12px; z-index: 3;
-  display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%;
-  background: rgba(255, 255, 255, .9); color: var(--sci-ink); cursor: pointer;
-  transition: transform .45s var(--sci-ease), background .25s ease;
-}
-.sci .sci-step-more svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
-.sci .sci-step-bio {
-  position: absolute; inset: 0; z-index: 2; padding: 20px 18px; box-sizing: border-box;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  background: rgba(11, 16, 36, .7); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s;
-}
-.sci .sci-step-bio b { font-size: 18px; font-weight: 500; }
-.sci .sci-step-bio p { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .86); }
-.sci .sci-step.is-open .sci-step-bio { opacity: 1; visibility: visible; transition-delay: 0s; }
-.sci .sci-step.is-open .sci-step-more { transform: rotate(45deg); }
-.sci .sci-car-foot { display: flex; align-items: center; gap: 24px; margin-top: 30px; }
-.sci .sci-car-rule { position: relative; flex: 1; height: 1px; background: rgba(255, 255, 255, .22); }
-.sci .sci-car-rule i { position: absolute; left: 0; top: -1px; height: 3px; width: var(--rule-w, 30%); transform: translateX(var(--rule-x, 0%)); background: #fff; border-radius: 2px; }
-.sci .sci-car-arrows { display: flex; gap: 10px; }
-.sci .sci-car-btn {
-  display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%;
-  background: rgba(255, 255, 255, .14); color: #fff; cursor: pointer; transition: background .2s ease, opacity .2s ease;
-}
-.sci .sci-car-btn:hover { background: rgba(255, 255, 255, .26); }
-.sci .sci-car-btn[disabled] { opacity: .35; cursor: default; }
-.sci .sci-car-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-@media (max-width: 860px) { .sci .sci-method-head { grid-template-columns: minmax(0, 1fr); } }
-
-/* ---------------------------------------------------------------------------
-   9 · THE CLOSE · words left, photograph right, the paper rounds off
+   11 · THE CLOSE · words left, photograph right, the paper rounds off
    ------------------------------------------------------------------------ */
 .sci .sci-close-wrap { background: #fff; }
 .sci .sci-close { background: var(--sci-paper); border-radius: 0 0 clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px); box-shadow: 0 1px 0 var(--sci-line); padding: clamp(60px, 6vw, 96px) 0 clamp(50px, 5vw, 80px); }
@@ -345,7 +436,7 @@
 @media (max-width: 860px) { .sci .sci-close-grid { grid-template-columns: minmax(0, 1fr); } .sci .sci-close-copy { padding-left: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .sci-js .sci .sci-up, .sci-js .sci .sci-stat b span, .sci-js .sci .sci-panel { opacity: 1; transform: none; transition: none; }
+  .sci-js .sci .sci-up, .sci-js .sci .sci-topic { opacity: 1; transform: none; transition: none; }
   .sci-js .sci .sci-hero-card, .sci-js .sci .sci-hero-top > *, .sci-js .sci .sci-hero-foot > * { animation: none; }
   .sci .sci-acc-track { transform: none; }
 }
