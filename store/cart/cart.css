@@ -73,7 +73,7 @@ html.cx-open { overflow: hidden; }
 .cx-title span {
   display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 8px;
   border-radius: 99px; background: var(--cx-tint); color: var(--cx-accent);
-  font-size: 13px; font-weight: 500; letter-spacing: 0;
+  font-size: 14px; font-weight: 500; letter-spacing: 0;
 }
 
 .cx-close {
@@ -111,7 +111,7 @@ html.cx-open { overflow: hidden; }
   display: inline-flex; align-items: center;
   height: 22px; padding: 0 9px; border-radius: 99px;
   background: var(--cx-mark); color: var(--cx-mark-ink);
-  font-size: 12px; line-height: 1; font-weight: 500; letter-spacing: .005em;
+  font-size: 14px; line-height: 1; font-weight: 500; letter-spacing: .005em;
   white-space: nowrap;
 }
 .cx-offer.is-on { background: var(--cx-media); }
@@ -146,7 +146,7 @@ html.cx-open { overflow: hidden; }
 }
 .cx-line-name:hover { color: var(--cx-accent); }
 
-.cx-line-plan { margin: 3px 0 0; font-size: 13px; line-height: 1.35; color: var(--cx-ink-2); }
+.cx-line-plan { margin: 3px 0 0; font-size: 15px; line-height: 1.35; color: var(--cx-ink-2); }
 
 .cx-line-off { margin: 6px 0 0; line-height: 1; }
 
@@ -197,12 +197,12 @@ html.cx-open { overflow: hidden; }
 }
 .cx-pair-name:hover { color: var(--cx-accent); }
 .cx-pair-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.cx-pair .cx-price { font-size: 14px; }
+.cx-pair .cx-price { font-size: 15px; }
 
 .cx-add, .cx-btn-line {
   height: 30px; padding: 0 16px; border-radius: 99px; cursor: pointer;
   border: 1px solid var(--cx-navy); background: transparent; color: var(--cx-navy);
-  font: inherit; font-size: 13px; font-weight: 500;
+  font: inherit; font-size: 15px; font-weight: 500;
   transition: background .2s, color .2s;
 }
 .cx-add:hover, .cx-btn-line:hover { background: var(--cx-navy); color: #fff; }
@@ -263,7 +263,7 @@ html.cx-open { overflow: hidden; }
 .cx-total { margin: 4px 0 4px; color: var(--cx-ink); font-size: 20px; font-weight: 500; }
 .cx-total span:last-child { font-size: 20px; }
 
-.cx-fine { margin: 0 0 16px; font-size: 12px; line-height: 1.4; color: var(--cx-ink-2); }
+.cx-fine { margin: 0 0 16px; font-size: 15px; line-height: 1.4; color: var(--cx-ink-2); }
 
 .cx-cta {
   display: flex; align-items: center; justify-content: center;
@@ -297,7 +297,7 @@ button.cx-cta:focus-visible { outline: 2px solid var(--cx-accent); outline-offse
   .cx-line { grid-template-columns: 80px minmax(0, 1fr); gap: 12px; }
   .cx-line.is-new::before { left: -20px; }
   .cx-pairs-row { margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; grid-auto-columns: 250px; }
-  .cx-offer { font-size: 13px; }
+  .cx-offer { font-size: 15px; }
 }
 
 /* ---- 9. Nav badge ------------------------------------------------------- */

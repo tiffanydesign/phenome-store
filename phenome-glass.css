@@ -370,6 +370,8 @@ html {
      .ph-display.is-ink         light grounds.
      .ph-display.is-even        both lines at one size; contrast alone separates.
      .ph-display.is-left        left aligned rather than centred.
+     .ph-display.is-auto        takes the alignment of whatever contains it.
+     .ph-display.is-hero        the hero step, and the hero's top margin.
 
    The rule that decides whether a headline gets this treatment at all:
    a statement long enough to break over two lines is set two tone. A single
@@ -377,16 +379,27 @@ html {
    Specifications ink (.bd-h2 / .nd-h2 / .sec-title) and takes no lead line,
    because a colour shift across three words reads as an error, not emphasis.
 
+   BLOCK, NOT FLEX, since 2026-09-16, and the reason is the heroes. This was a
+   centred flex column, which meant the pair carried its own alignment and could
+   only ever be centred or, with .is-left, left — and the 48 hero headings that
+   now take it sit in four different containers (.hero-split, .hero-centred,
+   .center, .buy-head) that have already decided that question. A block with
+   `text-align` inherits that decision instead of overriding it, and for two
+   stacked lines of text it renders identically to the flex column it replaces.
+
    Legacy selectors: devices/band still ships .bd-display / .bd-dim in its own
    markup, so both names resolve to this one definition.
    ------------------------------------------------------------------------ */
 .ph-display,
 .bd .bd-display {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
+  display: block; text-align: center;
   margin: 0; font-weight: 700; letter-spacing: -0.035em; line-height: .98;
   font-size: clamp(44px, 8.4vw, 132px);
   color: #fff;
+  text-wrap: balance;
 }
+.ph-display > span,
+.bd .bd-display > span { display: block; }
 .ph-display .ph-display-lead,
 .bd .bd-display .bd-dim {
   font-size: .62em; line-height: 1.1;
@@ -400,7 +413,16 @@ html {
 .ph-display.is-ink .ph-display-lead,
 .bd .bd-display.is-ink .bd-dim { color: var(--phenome-blue-200); }
 .ph-display.is-left,
-.bd .bd-display.is-left { align-items: flex-start; text-align: left; }
+.bd .bd-display.is-left { text-align: left; }
+.ph-display.is-auto { text-align: inherit; }
+
+/* THE HERO STEP. The full display clamp tops out at 132px, which is right for a
+   statement that owns a whole screen and wrong for a hero whose other half is a
+   photograph and whose lede sits directly under it. 84 is still a step ABOVE
+   the 80 the old .hero-title topped out at, so every one of these pages gets
+   bigger type than it had, not smaller. */
+.ph-display.is-hero { margin: 14px 0 0; font-size: clamp(38px, 5.6vw, 84px); }
+.hero-split .ph-display.is-hero { font-size: clamp(36px, 4.6vw, 72px); }
 
 /* ---- the text ladder ------------------------------------------------------
    PROMOTED FROM devices/band, 2026-09-16, by request: the Band settled a
@@ -543,6 +565,20 @@ body {
 .section-black .card-sub, .section-black .ph-dim {
   color: var(--phenome-blue-200);
 }
+
+/* THE SECONDARY LINK ON A DARK HERO, found 2026-09-16 on
+   store/sports-performance while the hero headline was being re-set. `.link-more`
+   takes --ph-accent-link, which is the navy the whole brand is written in, and
+   four hero sections put it on the navy film itself: measured, 16,33,75 on the
+   hero's own ground is under 1.3:1 — the link was not faint, it was invisible,
+   and it has been on four buy pages. The heading beside it already inverts
+   (.hero.on-dark .hero-title), so this is the same inversion reaching the one
+   element under it that was missed. Blue 200 is the ladder's own dark-ground
+   body ink, and it clears 6:1 here. */
+.hero.on-dark .link-more,
+.hero.on-film .link-more { color: var(--phenome-blue-200); }
+.hero.on-dark .link-more:hover,
+.hero.on-film .link-more:hover { color: #fff; }
 
 /* ---------------------------------------------------------------------------
    5 · GLASS · the utility tiers, then the components that take them

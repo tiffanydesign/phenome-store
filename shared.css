@@ -2827,7 +2827,7 @@ section:has(.railx) > .wrap-wide > :is(h2, .lede, .eyebrow) {
   margin: 10px 0; width: 100%;
 }
 .ph-panel-note {
-  margin-left: 8px; font-size: 12px; color: var(--ph-text-2); white-space: nowrap;
+  margin-left: 8px; font-size: 15px; color: var(--ph-text-2); white-space: nowrap;
 }
 
 /* The film homepage's nav is transparent white over the footage; an open panel

@@ -433,9 +433,9 @@
           <li><a href="#s02"><b>02</b>Type scale</a></li>
           <li><a href="#s03"><b>03</b>Colour</a></li>
           <li><a href="#s04"><b>04</b>Surfaces</a></li>
-          <li><a href="#s05"><b>05</b>Elevation &amp; motion</a></li>
+          <li><a href="#s05"><b>05</b>Elevation and motion</a></li>
           <li><a href="#s06"><b>06</b>Components</a></li>
-          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li><li><a href="#s09"><b>09</b>Display headline</a></li>
+          <li><a href="#s07"><b>07</b>Inverted contexts</a></li><li><a href="#s08"><b>08</b>Logo</a></li><li><a href="#s09"><b>09</b>Display headline</a></li><li><a href="#s10"><b>10</b>Buy and Add to cart</a></li>
         </ol>
       </nav>
 
@@ -539,6 +539,20 @@
               </div>
             </div>
           </div>
+
+          <div class="ds-block">
+            <p class="ds-sub">The floor</p>
+            <p class="ds-note" style="margin-top:0"><b>15px is the smallest size any word a reader is meant to read may be set in.</b>
+              Not the smallest on the ladder, the smallest <em>permitted</em>: 12 and 14 stay for captions and for the metadata beside a
+              control, and nothing under 15 carries a sentence. Audited and corrected on 2026-09-16, when the basket was still setting its
+              plan line, its fine print and its add button at 12 and 13, and the mega menu its note at 12.</p>
+            <p class="ds-note">Two things are outside this rule and neither of them is copy. A <b>counter</b> inside a badge, such as the
+              cart&rsquo;s own 15px circle, is a numeral in a shape rather than a line of text. And the <b>phone mockups</b> on the app pages are
+              pictures of an interface, not the interface: their 9 and 10px labels are drawn at the scale a rendered screenshot would be, and
+              raising them would make the mock read as a poster of an app rather than as an app.</p>
+            <p class="ds-note">A page that wants a whole section quieter takes it from the ink, <span class="ds-tok">--ph-tone-quiet</span>,
+              not from a size below the floor. That is what the fourth ink is for.</p>
+          </div>
         </section>
 
         <!-- ========================================================= 03 -->
@@ -570,7 +584,7 @@
           </div>
 
           <div class="ds-block">
-            <p class="ds-sub">Surfaces &amp; lines</p>
+            <p class="ds-sub">Surfaces and lines</p>
             <div class="ds-swatches">
               <div class="ds-sw hair"><i style="background:#ffffff"></i><div class="ds-sw-t"><b class="ds-sw-n">Page</b><span class="ds-sw-v">#ffffff</span></div></div>
               <div class="ds-sw hair"><i style="background:#fff"></i><div class="ds-sw-t"><b class="ds-sw-n">Card</b><span class="ds-sw-v">#ffffff</span></div></div>
@@ -673,7 +687,7 @@
 
         <!-- ========================================================= 05 -->
         <section class="ds-sec" id="s05">
-          <div class="ds-sec-h"><span class="n">05</span><h2>Elevation &amp; motion</h2></div>
+          <div class="ds-sec-h"><span class="n">05</span><h2>Elevation and motion</h2></div>
           <p class="ds-note">The pane lifts off the page or settles back. Only the drop changes.</p>
 
           <div class="ds-block ds-shadows">
@@ -711,7 +725,7 @@
               <span class="btn disabled">Sold out</span>
             </div>
 
-            <p class="ds-sub">Chips &amp; tags</p>
+            <p class="ds-sub">Chips and tags</p>
             <div class="ds-row">
               <span class="pill">New</span>
               <span class="pill">Save 20%</span>
@@ -870,8 +884,51 @@
 <li><b>.is-ink</b><span>Light grounds. Ink 900 with a blue 200 lead.</span></li>
 <li><b>.is-even</b><span>Both lines at one size. Contrast alone separates them.</span></li>
 <li><b>.is-left</b><span>Left aligned rather than centred.</span></li>
+<li><b>.is-auto</b><span>Takes the alignment of whatever contains it, for the heroes that have already decided that question.</span></li>
+<li><b>.is-hero</b><span>The hero step, <span class="ds-tok">clamp(38px, 5.6vw, 84px)</span>, and the hero&rsquo;s own top margin. Narrows to 72px inside a two column <span class="ds-tok">.hero-split</span>.</span></li>
 </ul>
 <p class="ds-note">Size is set by the section that holds it, not by the component. The kit ships the ceiling, <span class="ds-tok">clamp(44px, 8.4vw, 132px)</span>; pages step it down where the headline sits beside other content.</p>
+<p class="ds-note">The pair is a <b>block</b>, not a flex column, and each line is a block level span. That is what lets <span class="ds-tok">.is-auto</span> exist: alignment is one inherited property rather than a rule the component imposes on its container.</p>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Where it is used</p>
+<p class="ds-note" style="margin-top:0">Settled 2026-09-16: <b>every page on this site takes this pair for its largest statement</b>, and the hero heading is the first of them. Forty eight hero headings moved onto it in one pass; the ones that stayed on <span class="ds-tok">h1.hero-title</span> stayed because they are a single short line, which is this ladder&rsquo;s solid rung and the correct treatment for them.</p>
+<ul class="ds-spec">
+<li><b>Heroes</b><span><span class="ds-tok">.ph-display.is-ink.is-auto.is-hero</span> on a light ground; drop <span class="ds-tok">.is-ink</span> over a dark hero or a film.</span></li>
+<li><b>Section statements</b><span><span class="ds-tok">.ph-display</span> with the section&rsquo;s own size, as on devices/band, store/phenometech-ring and supplements/nad.</span></li>
+<li><b>Section names</b><span>Solid. <span class="ds-tok">.ph-solid</span> / <span class="ds-tok">.bd-h2</span> / <span class="ds-tok">h2.sec-title</span>. Never two tone.</span></li>
+<li><b>The one exclusion</b><span><span class="ds-tok">devices/ring-lab</span>. It is a design laboratory with its own condensed italic display face and its own scale, kept whole on purpose, and it is excluded from this rule by name.</span></li>
+</ul>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">Two copy rules that travel with it</p>
+<ul class="ds-spec">
+<li><b>No connectors</b><span>No hyphen, en dash or em dash anywhere in copy, and no ampersand standing in for &ldquo;and&rdquo;. A dash that joined two halves of a sentence becomes a comma. The only hyphens left on the site are inside names that carry one: L-serine, Gly-NAC, X-linked, Tay-Sachs, UC-II, GLP-1.</span></li>
+<li><b>No capitals</b><span>Sentence case everywhere, enforced by <span class="ds-tok">*, *::before, *::after { text-transform: none }</span> in phenome-glass.css &sect; 2c. Acronyms that are genuinely capitals stay: DNA, NAD, GDPR, ISO, HRV.</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ========================================================= 10 -->
+<section class="ds-sec" id="s10">
+<div class="ds-sec-h"><span class="n">10</span><h2>Buy and Add to cart</h2></div>
+
+<p class="ds-note">Two labels, and the difference between them is not a matter of taste. One of them is navigation and the other one changes the basket. They were used interchangeably until 2026-09-16, when &ldquo;Add to cart&rdquo; had spread onto forty five controls that add nothing to anything.</p>
+
+<div class="ds-block">
+<p class="ds-sub">The rule</p>
+<ul class="ds-spec">
+<li><b>Buy</b><span>A link that goes to a product&rsquo;s buy page. It is what the home tiles, the store cards, the testing pages and every explore page say, because that is all any of them do.</span></li>
+<li><b>Add to cart</b><span>A control on a buy page that puts the configured item in the basket. Nothing else on the site is allowed to carry this label.</span></li>
+<li><b>Checkout now</b><span>The one exception, on <span class="ds-tok">devices/band</span>: it adds and goes straight on to the checkout, so it is the second half of the pair rather than a second copy of the first.</span></li>
+</ul>
+</div>
+
+<div class="ds-block">
+<p class="ds-sub">The test</p>
+<p class="ds-note" style="margin-top:0">Read the <span class="ds-tok">href</span>. If it points at a product page, the label is <b>Buy</b>. If it points at <span class="ds-tok">/store/cart/</span> or runs a cart script, the label is <b>Add to cart</b>. An explore page never says Add to cart, because an explore page has nothing configured to add.</p>
 </div>
 </section>
 
