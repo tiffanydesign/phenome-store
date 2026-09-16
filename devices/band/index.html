@@ -223,60 +223,110 @@
 </section>
 
 <!-- ==========================================================================
-     5 · PROOF · dark to light ground, three card bento, then where the band
-     fits in the rest of Phenome. FIGURES ARE PLACEHOLDERS for layout.
-     ====================================================================== -->
-<section class="bd-proof">
-<div class="wrap-wide">
-<h2 class="bd-display is-left"><span class="bd-dim">Accuracy you can check</span><span>Rigorously tested</span></h2>
-<!-- The cards carry tabindex because the wide layout opens them on hover (band.css
-     § 7b). Their contents stay in the accessibility tree while a card is closed —
-     opacity is not display — so this is here for the sighted keyboard reader, who
-     is otherwise the one person who cannot open them. -->
-<div class="bd-bento">
-<article class="bd-bento-card is-big" tabindex="0">
-<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-leap.webp"/>
-<div class="bd-panel">
-<p class="bd-panel-k">Running, against a chest strap</p>
-<div class="bd-panel-stats">
-<p><b>1.7</b><span>bpm mean error</span></p>
-<p><b>0.98</b><span>correlation</span></p>
-<p><b>917</b><span>matched readings</span></p>
-</div>
-</div>
-<div class="bd-bento-copy"><h3>All day wear testing</h3><p>Every reading paired with a clinical reference, across rest, work and hard effort.</p></div>
-</article>
-<article class="bd-bento-card" tabindex="0">
-<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-ride.webp"/>
-<div class="bd-panel is-chart">
-<p class="bd-panel-k">Indoor cycling, heart rate</p>
-<svg viewBox="0 0 240 90" aria-hidden="true" preserveAspectRatio="none"><path class="ref" d="M0 78 C20 70 30 52 50 50 S80 40 100 36 S140 30 160 26 S200 22 240 18"/><path class="band" d="M0 80 C20 72 32 55 50 51 S82 42 100 37 S138 29 160 27 S202 21 240 19"/></svg>
-<p class="bd-panel-leg"><i class="band"></i>Band <i class="ref"></i>Reference</p>
-</div>
-<div class="bd-bento-copy"><h3>Steady on the bike</h3></div>
-</article>
-<article class="bd-bento-card" tabindex="0">
-<img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/band/test-track.webp"/>
-<div class="bd-panel is-bars">
-<p class="bd-panel-k">Sprint intervals</p>
-<div class="bd-bars" aria-hidden="true"><i style="--h:.42"></i><i style="--h:.78"></i><i style="--h:.55"></i><i style="--h:.92"></i><i style="--h:.64"></i><i style="--h:.86"></i></div>
-</div>
-<div class="bd-bento-copy"><h3>Quick to catch a sprint</h3></div>
-</article>
-</div>
+     5 · HOW THE BAND HELPS · replaced 2026-09-16, by request.
 
-<div class="bd-fits">
-<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/ring-phenometech.webp"/><p>Wear the Ring at night and the Band by day, one account reads both.</p><a class="bd-pill" href="/phenome-store/devices/ring/">Read more</a></article>
-<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/test-genomic.webp"/><p>Your genome sets the baseline every heartbeat is read against.</p><a class="bd-pill" href="/phenome-store/store/comprehensive-genomic/">Read more</a></article>
-<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/test-gut.webp"/><p>See how sleep and training move with your gut microbiome.</p><a class="bd-pill" href="/phenome-store/store/gut-microbiome/">Read more</a></article>
-<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/shop/supp-nad.webp"/><p>Supplement timing that follows the day you actually had.</p><a class="bd-pill" href="/phenome-store/supplements/nad/">Read more</a></article>
-<article class="bd-fit"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/video/app_phone_poster.webp"/><p>All of it in the Phenome app, with a clinician a message away.</p><a class="bd-pill" href="/phenome-store/app/">Read more</a></article>
+     WHAT WENT: "Accuracy you can check / Rigorously tested" and the three card
+     bento under it — a hover accordion carrying a validation study against a
+     chest strap. It was the page's proof, and it proved the wrong thing: three
+     correlation figures a reader cannot check, in a layout that hid two thirds
+     of itself until the cursor found it.
+
+     WHAT REPLACES IT is the arrangement devices/ring-lab uses for "How the
+     PhenomeTech Ring helps" (gen-a.css § 19): one photograph held still by
+     `position: sticky` on the left while three dark panels pass it on the
+     right, each panel a reading with the app's own rendering of it underneath.
+     The design is that one; the copy and every figure in it are the Band's, so
+     the three panels are the three things a wrist device says that a night
+     worn ring cannot — a whole day of heart rate, the training in it, and the
+     night either side.
+
+     The panel UIs keep the reference's three shapes exactly — a stacked bar
+     list, a pair of figures over a trace, and a week of bars — because the
+     stylesheet that draws them is ported one to one. Figures are placeholders.
+     ====================================================================== -->
+<section class="bd-help">
+<div class="bd-help-wrap">
+<h2 class="ph-display is-ink is-left bd-help-h"><span class="ph-display-lead">How the Band helps</span><span>All day, and the night after</span></h2>
+<div class="bd-help-row">
+<div class="bd-help-img"><img alt="The PhenomeTech Band worn on a wrist, seen from above" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-pov.webp" width="900"/></div>
+<div class="bd-help-list">
+
+<article class="bd-hp">
+<svg class="bd-hp-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a17 17 0 1 0 10 28A15 15 0 0 1 30 8z" fill="#8f7cff"/><path d="M33 12h7l-7 8h7" fill="none" stroke="#8f7cff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3 class="bd-hp-t">Sleep stages, every night</h3>
+<p class="bd-hp-d">Light, deep and rapid eye movement sleep, read from the wrist and set against your own baseline, so you can see what actually changed.</p>
+<div class="bd-ui">
+<p class="bd-ui-k">Sleep stages<span>7 h 31 min</span></p>
+<ul class="bd-stages">
+<li style="--w:.06;--c:#e5e8ff"><span>Awake 6%</span><em>27 min</em><i></i></li>
+<li style="--w:.23;--c:#9d8cff"><span>Rapid eye movement 23%</span><em>1 h 44</em><i></i></li>
+<li style="--w:.52;--c:#6d7dff"><span>Light 52%</span><em>3 h 54</em><i></i></li>
+<li style="--w:.19;--c:#3b47c9"><span>Deep 19%</span><em>1 h 26</em><i></i></li>
+</ul>
+</div>
+</article>
+
+<article class="bd-hp">
+<svg class="bd-hp-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 30 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 12-17 22-17 22z" fill="#ff6f8f"/></svg>
+<h3 class="bd-hp-t">Heart rate, from waking to waking</h3>
+<p class="bd-hp-d">A reading every few seconds for as long as it is on your wrist, so a hard hour at work sits in the same trace as a hard hour of training.</p>
+<div class="bd-ui">
+<div class="bd-ui-pair"><p><b>52</b><small>Resting</small></p><p><b>164</b><small>Peak today</small></p></div>
+<svg class="bd-ui-chart" viewBox="0 0 300 120" aria-hidden="true"><rect x="0" y="6" width="300" height="34" fill="rgba(255,120,150,.14)"/><path d="M0 92 L14 88 L26 94 L38 86 L52 90 L64 72 L76 58 L88 44 L98 30 L108 46 L120 62 L132 78 L146 84 L158 80 L170 88 L184 82 L196 90 L208 74 L220 52 L232 38 L244 56 L256 76 L268 86 L282 92 L300 96" fill="none" stroke="#ff7896" stroke-width="1.6"/><path d="M0 100 H300" stroke="rgba(255,255,255,.2)"/></svg>
+<p class="bd-ui-axis"><span>06:00</span><span>12:00</span><span>18:00</span><span>00:00</span></p>
+</div>
+</article>
+
+<article class="bd-hp">
+<svg class="bd-hp-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36c5-2 7-8 9-13s4-8 6-8c3 0 4 4 5.5 9S31 34 36 37" fill="none" stroke="#ff9457" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="12" r="4" fill="#ff9457"/></svg>
+<h3 class="bd-hp-t">Training load, and what it cost</h3>
+<p class="bd-hp-d">Runs, rides, swims and strength sessions are found on their own, scored for the load they put on you, and answered with the recovery time they ask for.</p>
+<div class="bd-ui">
+<p class="bd-ui-k">Last 7 days<span>14 h recovery</span></p>
+<div class="bd-ui-bars"><i style="--h:.55"></i><i style="--h:.62"></i><i style="--h:.48"></i><i style="--h:.7"></i><i style="--h:.66"></i><i style="--h:.58"></i><i style="--h:.8" class="on"></i></div>
+<p class="bd-ui-axis"><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Mon</span></p>
+</div>
+</article>
+
+</div>
 </div>
 </div>
 </section>
 
 <!-- ==========================================================================
-     6 · QUESTIONS · halved 2026-09-16, by request. Fourteen answers were a
+     6 · FROM THE STUDIO · replaced 2026-09-16, by request.
+
+     WHAT WENT: the five card "where the Band fits" row, each card a photograph,
+     a sentence and a Read more pill pointing at the Ring, the genomic test, the
+     gut test, NAD and the app. Five outbound links at the foot of a product
+     page is a sitemap, not an argument.
+
+     WHAT REPLACES IT is devices/ring-lab § 59 (plx.css): the label, the
+     statement, and a snapping row of tall portrait frames that says what the
+     thing is made of by showing it. ONE DIFFERENCE, and it is honest rather
+     than stylistic: the Ring has five studio FILMS, the Band has studio
+     PHOTOGRAPHS, so the frames hold stills and the play control is gone with
+     the video it would have controlled. The arrows and the snap are the
+     reference's.
+     ====================================================================== -->
+<section class="bd-studio" data-studio="">
+<p class="bd-studio-k">From the studio</p>
+<h2 class="ph-solid bd-studio-h">Made to be worn, every day</h2>
+<div class="bd-studio-wrap">
+<button class="bd-studio-arrow is-prev" type="button" aria-label="Previous photographs"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg></button>
+<div class="bd-studio-track">
+<figure class="bd-studio-shot"><img alt="The Band in midnight, lit from one side in the studio" decoding="async" height="1120" loading="lazy" src="/phenome-store/assets/band/hero-studio-midnight.webp" width="840"/><figcaption>Anodised aluminium, turned in the light</figcaption></figure>
+<figure class="bd-studio-shot"><img alt="The charging dock with its cable running out of frame" decoding="async" height="1120" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="840"/><figcaption>The charging dock, and its cable</figcaption></figure>
+<figure class="bd-studio-shot"><img alt="The Band on the sage weave, photographed in daylight" decoding="async" height="1120" loading="lazy" src="/phenome-store/assets/band/hero-studio-sage.webp" width="840"/><figcaption>The sage weave, in daylight</figcaption></figure>
+<figure class="bd-studio-shot"><img alt="The woven loop seen from the side" decoding="async" height="1120" loading="lazy" src="/phenome-store/assets/band/shot-loop.webp" width="840"/><figcaption>One woven loop, side on</figcaption></figure>
+<figure class="bd-studio-shot"><img alt="The frame lifted clear of the strap" decoding="async" height="1120" loading="lazy" src="/phenome-store/assets/band/hero-frame.webp" width="840"/><figcaption>The frame, out in one click</figcaption></figure>
+</div>
+<button class="bd-studio-arrow is-next" type="button" aria-label="Next photographs"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg></button>
+</div>
+</section>
+
+<!-- ==========================================================================
+     7 · QUESTIONS · halved 2026-09-16, by request. Fourteen answers were a
      second specification list under the first one; the seven left are the ones
      a reader cannot get from the block above.
      ====================================================================== -->

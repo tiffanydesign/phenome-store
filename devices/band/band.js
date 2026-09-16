@@ -233,16 +233,52 @@
     window.addEventListener('resize', speed);
   }
 
-  /* ---- 4 · bento panels draw in once ------------------------------------- */
-  function bento() {
-    var b = $('.bd-bento');
-    if (!b) return;
-    if (!('IntersectionObserver' in window)) { b.classList.add('is-in'); return; }
+  /* ---- 4 · the help panels draw their own readings in, once each ----------
+     One observer over three panels rather than one over the group: the column
+     is three screens tall, so a single trigger would run all three bar charts
+     while two of them are still below the fold. Each panel unobserves itself
+     once it has played, and without IntersectionObserver every panel is simply
+     drawn at rest, which is the finished state. */
+  function helpPanels() {
+    var panels = $$('.bd-hp');
+    if (!panels.length) return;
+    if (!('IntersectionObserver' in window)) {
+      panels.forEach(function (p) { p.classList.add('is-in'); });
+      return;
+    }
     var io = new IntersectionObserver(function (es) {
-      if (!es[0].isIntersecting) return;
-      b.classList.add('is-in'); io.disconnect();
-    }, { threshold: 0.25 });
-    io.observe(b);
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    panels.forEach(function (p) { io.observe(p); });
+  }
+
+  /* ---- 5 · the studio row · arrows page it by one frame, and hide
+     themselves at either end. The track is a native scroller, so a touch
+     reader already has the gesture and this is only for the pointer. -------- */
+  function studio() {
+    var box = $('[data-studio]');
+    if (!box) return;
+    var track = $('.bd-studio-track', box);
+    var prev = $('.bd-studio-arrow.is-prev', box);
+    var next = $('.bd-studio-arrow.is-next', box);
+    var shot = $('.bd-studio-shot', box);
+    if (!track || !prev || !next || !shot) return;
+
+    function step() { return shot.getBoundingClientRect().width + 14; }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft < 8;
+      next.disabled = track.scrollLeft > max - 8;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
   }
 
   gallery();
@@ -250,6 +286,7 @@
   dock();
   coach();
   apps();
-  bento();
+  helpPanels();
+  studio();
   publish();
 })();

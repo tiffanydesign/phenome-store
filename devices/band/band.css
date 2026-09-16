@@ -324,170 +324,191 @@
 .bd .bd-mq-v span { font-size: 16px; color: rgba(255, 255, 255, .72); }
 
 /* ---------------------------------------------------------------------------
-   4 · PROOF
+   4 · HOW THE BAND HELPS
+
+   PORTED 2026-09-16 from devices/ring-lab/gen-a.css § 19, which is the
+   arrangement this section was asked to take: the photograph is held by
+   `position: sticky` inside a column that is as tall as the three panels beside
+   it, so it stands still while they pass. No script is involved — sticky is the
+   whole mechanism, and it degrades to a photograph at the top of the column
+   wherever it is unsupported.
+
+   THE ONE THING THAT IS NOT PORTED IS THE TYPE. The reference sets its panel
+   copy in viewport clamps whose lower bounds are 9, 11 and 13px, which is the
+   size a phone gets; this page's ladder starts at 15 and does its reading at
+   17 to 19, so every rung here is re-stated against phenome-glass.css § 3
+   rather than scaled off the viewport. The panel headings also take 600, which
+   is the weight every other heading on this page is set in.
    ------------------------------------------------------------------------ */
-.bd .bd-proof {
-  position: relative; margin-top: -1px;
-  padding: clamp(70px, 8vw, 110px) 0 clamp(70px, 8vw, 120px);
-  background: linear-gradient(180deg, var(--bd-night) 0%, #2b3558 26%, #9aa3bd 48%, #eef1f7 70%, #fff 100%);
-}
-.bd .bd-proof .bd-display { font-size: clamp(40px, 5.6vw, 84px); }
-.bd .bd-proof .bd-display .bd-dim { font-size: 1em; color: rgba(255, 255, 255, .58); }
-.bd .bd-bento {
-  margin-top: 22px; display: grid; gap: 16px;
-  grid-template-columns: 2.5fr 1fr 1fr; grid-auto-rows: clamp(420px, 44vw, 620px);
-}
-.bd .bd-bento-card { position: relative; border-radius: 28px; overflow: hidden; background: #1a2140; color: #fff; }
-.bd .bd-bento-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--bd-ease); }
-.bd .bd-bento-card:hover > img { transform: scale(1.04); }
-.bd .bd-bento-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 12, 36, .18), transparent 40%, rgba(7, 12, 36, .6)); }
-.bd .bd-panel {
-  position: absolute; z-index: 1; top: 18px; left: 18px; right: 18px; padding: 16px 18px; border-radius: 16px;
-  color: var(--ink-900); background: rgba(255, 255, 255, .8);
-  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
-  transform: translateY(12px); opacity: 0; transition: transform .8s var(--bd-ease), opacity .6s ease;
-}
-.bd .bd-bento-card.is-big .bd-panel { left: 22%; right: auto; width: min(420px, 60%); top: 26px; }
-.bd .bd-bento.is-in .bd-panel { transform: none; opacity: 1; }
-.bd .bd-bento.is-in .bd-bento-card:nth-child(2) .bd-panel { transition-delay: .15s; }
-.bd .bd-bento.is-in .bd-bento-card:nth-child(3) .bd-panel { transition-delay: .3s; }
-.bd .bd-panel-k { margin: 0; font-size: 16px; font-weight: 600; color: var(--ink-600); }
-.bd .bd-panel-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
-.bd .bd-panel-stats p { margin: 0; padding: 12px; border-radius: 10px; background: #fff; }
-.bd .bd-panel-stats b { display: block; font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.bd .bd-panel-stats span { font-size: 15px; color: var(--ink-600); }
-.bd .bd-panel svg { display: block; width: 100%; height: 76px; margin-top: 10px; overflow: visible; }
-.bd .bd-panel svg path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 1.8s var(--bd-ease) .3s; }
-.bd .bd-panel svg .ref { stroke: var(--phenome-blue-200); stroke-width: 4; }
-.bd .bd-panel svg .band { stroke: var(--phenome-blue-500); }
-.bd .bd-bento.is-in .bd-panel svg path { stroke-dashoffset: 0; }
-.bd .bd-panel-leg { margin: 8px 0 0; display: flex; align-items: center; gap: 6px; font-size: 15px; color: var(--ink-600); }
-.bd .bd-panel-leg i { width: 10px; height: 3px; border-radius: 2px; background: var(--phenome-blue-500); }
-.bd .bd-panel-leg i.ref { margin-left: 8px; background: var(--phenome-blue-200); height: 5px; }
-.bd .bd-bars { display: flex; align-items: flex-end; gap: 6px; height: 70px; margin-top: 12px; }
-.bd .bd-bars i { flex: 1; height: 100%; border-radius: 4px; background: var(--phenome-blue-500); transform-origin: bottom; transform: scaleY(.05); transition: transform 1s var(--bd-ease); }
-.bd .bd-bento.is-in .bd-bars i { transform: scaleY(var(--h)); }
-.bd .bd-bento.is-in .bd-bars i:nth-child(2) { transition-delay: .45s; }
-.bd .bd-bento.is-in .bd-bars i:nth-child(3) { transition-delay: .5s; }
-.bd .bd-bento.is-in .bd-bars i:nth-child(4) { transition-delay: .55s; }
-.bd .bd-bento.is-in .bd-bars i:nth-child(5) { transition-delay: .6s; }
-.bd .bd-bento.is-in .bd-bars i:nth-child(6) { transition-delay: .65s; }
-.bd .bd-bento-copy { position: absolute; z-index: 1; left: 30px; right: 30px; bottom: 28px; }
-.bd .bd-bento-copy h3 { margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; }
-.bd .bd-bento-card:not(.is-big) .bd-bento-copy { left: 24px; right: 24px; }
-.bd .bd-bento-card:not(.is-big) .bd-bento-copy h3 { font-size: clamp(21px, 1.8vw, 26px); }
-.bd .bd-bento-copy p { margin: 12px 0 0; max-width: 34ch; font-size: 18px; line-height: 1.45; color: rgba(255, 255, 255, .88); }
+.bd .bd-help { background: #fff; padding: clamp(64px, 7vw, 104px) 0 clamp(56px, 6vw, 92px); }
+.bd .bd-help-wrap { width: var(--bd-mid); margin: 0 auto; }
+.bd .bd-help-h { margin: 0 0 clamp(28px, 3.2vw, 48px); font-size: clamp(40px, 5.6vw, 84px); }
 
-/* ---- 4b · the three proofs, as an accordion --------------------------------
-   Asked for by name (2026-09-16), against lunazone.com/products/luna-band: the
-   three pictures under the heading open as the cursor crosses them. Measured on
-   the reference in a browser rather than guessed at — the open panel takes
-   flex-grow 2.5 against 1, over 500ms, its photograph rests at scale 1.05, and
-   the writing on it arrives by fading up through 20px. Those are the numbers
-   below; the curve and the 620ms are ours, because every other transition on
-   this page is already --bd-ease and a snappier 500ms next to them reads as a
-   different page.
+.bd .bd-help-row {
+  display: flex; align-items: stretch; gap: 3px;
+  border-radius: var(--bd-r); overflow: clip;
+}
+.bd .bd-help-img { flex: 0 0 46%; position: relative; }
+/* Full viewport height, as the reference has it. A shorter photograph looks
+   deliberate for one screen and then leaves a white band under itself for the
+   two after it, because the column beside it is three screens tall and the
+   sticky element is not. `svh` so a phone's collapsing address bar does not
+   make the picture taller than the space it is standing in. */
+.bd .bd-help-img img {
+  position: sticky; top: 72px; display: block;
+  width: 100%; height: calc(100svh - 92px); object-fit: cover;
+}
+.bd .bd-help-list { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 
-   ONE DIFFERENCE FROM THE REFERENCE, deliberately. Luna's closed panels say
-   nothing at all — three photographs and no way to know which is which until
-   you have swept the cursor over all of them. Each closed card here keeps its
-   title, so the section can be read without being played with; what opening
-   adds is the evidence, which is the part that needs the room.
+.bd .bd-hp {
+  position: relative; background: var(--bd-night); color: #fff;
+  padding: clamp(36px, 4.4vw, 68px) clamp(26px, 3vw, 48px) clamp(32px, 3.4vw, 52px);
+}
+.bd .bd-hp-ic {
+  position: absolute; top: clamp(28px, 3vw, 44px); right: clamp(26px, 3vw, 44px);
+  width: clamp(38px, 3.4vw, 58px); height: auto;
+}
+.bd .bd-hp-t {
+  margin: 0; max-width: 16ch;
+  font-size: clamp(26px, 2.2vw, 40px); line-height: 1.12;
+  font-weight: 600; letter-spacing: -0.02em;
+}
+.bd .bd-hp-d {
+  margin: 16px 0 0; max-width: 36ch;
+  font-size: clamp(18px, 1.35vw, 22px); line-height: 1.45;
+  color: rgba(255, 255, 255, .8);
+}
 
-   Everything hangs off one number, `--bd-open`, set in exactly one place below
-   and inherited by every child that has an opinion about it.
+/* ---- the app's own rendering, under each reading. One card, three shapes:
+   a stacked bar list, a pair of figures over a trace, and a week of bars. */
+.bd .bd-ui {
+  margin: clamp(26px, 2.6vw, 40px) 0 0; max-width: 440px;
+  padding: clamp(20px, 1.8vw, 28px) clamp(22px, 2vw, 30px); border-radius: 16px;
+  background: linear-gradient(180deg, #101a3e, #0c1433);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+}
+.bd .bd-ui-k {
+  display: flex; justify-content: space-between; gap: 12px; margin: 0 0 16px;
+  font-size: 17px; line-height: 1.3; font-weight: 600; color: rgba(255, 255, 255, .92);
+}
+.bd .bd-ui-k span { font-weight: 400; color: rgba(255, 255, 255, .6); }
+
+.bd .bd-stages { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.bd .bd-stages li {
+  display: grid; grid-template-columns: 1fr auto; gap: 6px;
+  font-size: 16px; line-height: 1.3; color: rgba(255, 255, 255, .8);
+}
+.bd .bd-stages em { font-style: normal; color: rgba(255, 255, 255, .55); }
+.bd .bd-stages i {
+  grid-column: 1 / -1; position: relative; height: 14px; border-radius: 4px;
+  background: rgba(255, 255, 255, .1); overflow: hidden;
+}
+.bd .bd-stages i::after {
+  content: ""; position: absolute; inset: 0 auto 0 0;
+  width: calc(var(--w) * 100% + 8%); border-radius: 4px; background: var(--c);
+  transform-origin: 0 50%; transform: scaleX(var(--grow, 1));
+  transition: transform 1.2s var(--bd-ease);
+}
+.bd .bd-hp .bd-stages i::after { --grow: 0; }
+.bd .bd-hp.is-in .bd-stages i::after { --grow: 1; }
+
+.bd .bd-ui-pair { display: flex; justify-content: space-around; text-align: center; }
+.bd .bd-ui-pair p { margin: 0; display: grid; gap: 4px; }
+.bd .bd-ui-pair b {
+  font-size: clamp(30px, 2.4vw, 40px); line-height: 1; font-weight: 600;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+}
+.bd .bd-ui-pair small { font-size: 15px; color: rgba(255, 255, 255, .6); }
+.bd .bd-ui-chart { display: block; width: 100%; height: auto; margin-top: 16px; overflow: visible; }
+.bd .bd-ui-axis {
+  display: flex; justify-content: space-between; margin: 10px 0 0;
+  font-size: 15px; color: rgba(255, 255, 255, .5);
+}
+.bd .bd-ui-bars { display: flex; align-items: flex-end; gap: 8%; height: clamp(84px, 7vw, 124px); }
+.bd .bd-ui-bars i {
+  flex: 1; height: calc(var(--h) * 100%); border-radius: 5px 5px 0 0;
+  background: rgba(255, 111, 143, .4);
+  transform-origin: bottom; transform: scaleY(var(--grow, 1));
+  transition: transform 1s var(--bd-ease);
+}
+.bd .bd-hp .bd-ui-bars i { --grow: .04; }
+.bd .bd-hp.is-in .bd-ui-bars i { --grow: 1; }
+.bd .bd-ui-bars i.on { background: #ff6f8f; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bd .bd-hp .bd-stages i::after,
+  .bd .bd-hp.is-in .bd-stages i::after,
+  .bd .bd-hp .bd-ui-bars i,
+  .bd .bd-hp.is-in .bd-ui-bars i { --grow: 1; transition: none; }
+}
+
+/* ---- narrower. The sticky photograph only earns its place while there is a
+   column of panels tall enough to scroll past it; below 1024 there is one
+   column, so it becomes an ordinary picture at the head of it. */
+@media (max-width: 1024px) {
+  .bd .bd-help-row { flex-direction: column; }
+  .bd .bd-help-img { flex: none; }
+  .bd .bd-help-img img { position: static; height: clamp(320px, 52vw, 460px); }
+  .bd .bd-ui { max-width: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   4b · FROM THE STUDIO
+
+   PORTED from devices/ring-lab/plx.css § 59: label, statement, and a row of
+   tall portrait frames that snaps. The reference's frames hold films and carry
+   a play control; the Band's hold photographs, so the control is gone rather
+   than left over a still it cannot play. Arrows are enabled by band.js and hide
+   themselves at either end of the track.
    ------------------------------------------------------------------------ */
-@media (min-width: 1025px) and (hover: hover) {
-  .bd .bd-bento {
-    display: flex; align-items: stretch;
-    height: clamp(420px, 44vw, 620px);
-  }
-  .bd .bd-bento-card {
-    --bd-open: 0;
-    flex: 1 1 0; min-width: 0;
-    flex-grow: calc(1 + var(--bd-open) * 1.5);
-    transition: flex-grow .62s var(--bd-ease);
-  }
-  /* THE ONE PLACE the state is decided. At rest the first card is the open one,
-     so the section never greets a reader as three equal slivers; from the moment
-     the cursor is inside the row, the card under it is. */
-  .bd .bd-bento:not(:has(.bd-bento-card:hover)):not(:has(.bd-bento-card:focus-visible)) .bd-bento-card.is-big,
-  .bd .bd-bento-card:hover,
-  .bd .bd-bento-card:focus-visible { --bd-open: 1; }
-
-  .bd .bd-bento-card:focus-visible { outline: 2px solid var(--ph-focus, #0071e3); outline-offset: 3px; }
-
-  .bd .bd-bento-card > img,
-  .bd .bd-bento-card:hover > img {
-    transform: scale(calc(1 + var(--bd-open) * .05));
-    transition: transform .62s var(--bd-ease);
-  }
-
-  .bd .bd-bento-card .bd-panel,
-  .bd .bd-bento-card.is-big .bd-panel {
-    top: 22px; left: 22px; right: auto; width: min(420px, calc(100% - 44px));
-  }
-  .bd .bd-bento.is-in .bd-bento-card:nth-child(2) .bd-panel,
-  .bd .bd-bento.is-in .bd-bento-card:nth-child(3) .bd-panel { transition-delay: 0s; }
-  .bd .bd-bento.is-in .bd-panel {
-    opacity: var(--bd-open);
-    transform: translateY(calc((1 - var(--bd-open)) * 14px));
-    transition: transform .62s var(--bd-ease), opacity .45s var(--bd-ease);
-  }
-
-  .bd .bd-bento.is-in .bd-panel svg path {
-    stroke-dashoffset: calc(400 * (1 - var(--bd-open)));
-    transition: stroke-dashoffset 1.1s var(--bd-ease) .12s;
-  }
-  .bd .bd-bento.is-in .bd-bars i,
-  .bd .bd-bento.is-in .bd-bars i:nth-child(n) {
-    transform: scaleY(calc(.05 + (var(--h) - .05) * var(--bd-open)));
-    transition: transform .7s var(--bd-ease) .1s;
-  }
-
-  .bd .bd-bento-card .bd-bento-copy,
-  .bd .bd-bento-card:not(.is-big) .bd-bento-copy { left: 26px; right: 26px; }
-  .bd .bd-bento-card .bd-bento-copy h3,
-  .bd .bd-bento-card:not(.is-big) .bd-bento-copy h3 {
-    font-size: calc(clamp(20px, 1.7vw, 25px) + var(--bd-open) * 8px);
-    transition: font-size .62s var(--bd-ease);
-  }
-  .bd .bd-bento-copy p {
-    opacity: var(--bd-open);
-    transform: translateY(calc((1 - var(--bd-open)) * 12px));
-    transition: opacity .45s var(--bd-ease) .06s, transform .62s var(--bd-ease);
-  }
+.bd .bd-studio { padding: clamp(70px, 8vw, 118px) 0 clamp(78px, 9vw, 126px); text-align: center; background: #fff; }
+.bd .bd-studio-k { margin: 0 0 14px; font-size: 17px; line-height: 1.2; font-weight: 600; color: var(--phenome-blue-500); }
+.bd .bd-studio-h { text-align: center; }
+.bd .bd-studio-wrap { position: relative; margin-top: clamp(34px, 4vw, 54px); }
+.bd .bd-studio-track {
+  display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0 var(--bd-edge); scroll-padding-inline: var(--bd-edge);
+  scrollbar-width: none;
 }
+.bd .bd-studio-track::-webkit-scrollbar { display: none; }
+.bd .bd-studio-shot {
+  position: relative; flex: 0 0 auto; margin: 0;
+  width: clamp(260px, 24vw, 360px); aspect-ratio: 3 / 4;
+  border-radius: 18px; overflow: hidden; scroll-snap-align: start;
+  background: #111522; text-align: left; color: #fff;
+}
+.bd .bd-studio-shot img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--bd-ease);
+}
+.bd .bd-studio-shot:hover img { transform: scale(1.04); }
+.bd .bd-studio-shot::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  /* The Ring's studio films are dark, so the reference gets away with a light
+     scrim; the Band's stills are lit against near white, and a caption in white
+     over that is a caption you cannot read. Deeper, and it starts higher. */
+  background: linear-gradient(180deg, transparent 44%, rgba(4, 6, 13, .34) 66%, rgba(4, 6, 13, .88));
+}
+.bd .bd-studio-shot figcaption {
+  position: absolute; z-index: 1; left: 20px; right: 20px; bottom: 18px;
+  font-size: 19px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em;
+}
+.bd .bd-studio-arrow {
+  position: absolute; top: 50%; z-index: 3; display: grid; place-items: center;
+  width: 44px; height: 44px; margin-top: -22px; padding: 0; border: 0;
+  border-radius: 50%; background: rgba(10, 18, 51, .5); color: #fff; cursor: pointer;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  transition: background-color .2s ease, opacity .2s ease;
+}
+.bd .bd-studio-arrow:hover { background: rgba(10, 18, 51, .74); }
+.bd .bd-studio-arrow[disabled] { opacity: 0; pointer-events: none; }
+.bd .bd-studio-arrow.is-prev { left: max(12px, calc(var(--bd-edge) - 56px)); }
+.bd .bd-studio-arrow.is-next { right: max(12px, calc(var(--bd-edge) - 56px)); }
+.bd .bd-studio-arrow svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Stillness, meant properly: the accordion is a state, not a flourish, so it
-   still opens — it just stops travelling to get there. */
-@media (min-width: 1025px) and (hover: hover) and (prefers-reduced-motion: reduce) {
-  .bd .bd-bento-card > img,
-  .bd .bd-bento-card:hover > img { transform: none; }
-  .bd .bd-bento.is-in .bd-panel { transform: none; }
-  .bd .bd-bento-copy p { transform: none; }
-  .bd .bd-bento-card,
-  .bd .bd-bento.is-in .bd-panel,
-  .bd .bd-bento.is-in .bd-panel svg path,
-  .bd .bd-bento.is-in .bd-bars i,
-  .bd .bd-bento-card .bd-bento-copy h3,
-  .bd .bd-bento-copy p { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bd .bd-studio-shot img, .bd .bd-studio-shot:hover img { transform: none; transition: none; }
 }
-
-.bd .bd-fits {
-  margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--divider);
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
-}
-.bd .bd-fit { display: flex; flex-direction: column; gap: 16px; padding: 12px; border-radius: 18px; transition: background-color .3s ease; }
-.bd .bd-fit:hover { background: var(--gl-tint-sunk); }
-.bd .bd-fit img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: var(--phenome-blue-100); }
-.bd .bd-fit p { margin: 0; flex: 1; font-size: 17px; line-height: 1.4; color: var(--ink-900); }
-.bd .bd-pill {
-  align-self: flex-start; padding: 10px 28px; border-radius: 99px; font-size: 15px;
-  color: var(--ink-900) !important; text-decoration: none !important;
-  box-shadow: inset 0 0 0 1.5px var(--ink-900); transition: background-color .2s ease, color .2s ease;
-}
-.bd .bd-pill:hover { background: var(--ink-900); color: #fff !important; }
 
 /* ---------------------------------------------------------------------------
    5 · SPECIFICATIONS
@@ -556,14 +577,8 @@
 @media (max-width: 1024px) {
   .bd .bd-buy { grid-template-columns: 1fr; }
   .bd .bd-gal { position: relative; top: 0; aspect-ratio: 1; }
-  .bd .bd-bento { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(360px, 60vw, 520px); }
-  .bd .bd-bento-card.is-big { grid-column: 1 / -1; }
-  .bd .bd-fits { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 760px) {
-  .bd .bd-bento { grid-template-columns: 1fr; }
-  .bd .bd-bento-card.is-big .bd-panel { left: 18px; right: 18px; width: auto; }
-  .bd .bd-fits { grid-template-columns: 1fr 1fr; }
   .bd .bd-coach { height: 190vh; }
 }
 @media (max-width: 620px) {
@@ -571,8 +586,7 @@
 }
 @media (max-width: 560px) {
   .bd .bd-acc-b { grid-template-columns: 1fr; }
-  .bd .bd-panel-stats b { font-size: 20px; }
-  .bd .bd-fits { grid-template-columns: 1fr; }
+  .bd .bd-studio-shot { width: min(78vw, 300px); }
 }
 /* Two buttons side by side at 390 put "Add to cart" and "Checkout now" on two
    lines each inside a 52px pill. One column, and each label gets its own line
