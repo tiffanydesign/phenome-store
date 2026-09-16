@@ -31,7 +31,6 @@
   --ap-sunk: var(--gl-tint-sunk, #f4f6fb);   /* the kit's recess, for surfaces */
   --ap-ink: #0a1233;
   --ap-night: #0b1024;
-  --ap-slate: #1b2a52;
   --ap-grey: #5f6680;
   --ap-line: rgba(10, 18, 51, .12);
   --ap-ease: cubic-bezier(.16, 1, .3, 1);
@@ -44,9 +43,15 @@
 .apx .ap-wrap { max-width: var(--ap-max); margin: 0 auto; padding: 0 var(--ap-gut); }
 
 .apx .ap-eyebrow { margin: 0 0 14px; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.005em; }
-.apx .ap-h1 { margin: 0; font-weight: 300; letter-spacing: -0.03em; font-size: clamp(42px, 5.4vw, 80px); line-height: 1.04; }
-.apx .ap-display { margin: 0; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 5.6vw, 80px); line-height: 1; text-wrap: balance; }
-.apx .ap-h2 { margin: 0; font-weight: 300; letter-spacing: -0.02em; font-size: clamp(32px, 3.9vw, 56px); line-height: 1.08; text-wrap: balance; }
+/* Every statement on this page is the kit's two tone display, .ph-display
+   (phenome-glass.css § 3): the held back line first, the line that carries the
+   point under it. The page's own .ap-h1 / .ap-display / .ap-h2 ladder is gone
+   with it (2026-09-16, by request) — all this sheet still says about a heading
+   is how big it is here, since the weight, the tracking and the two inks are
+   the kit's. Section names that are one glance long stay solid, .ph-solid. */
+.apx .ph-display { font-size: clamp(40px, 6.2vw, 92px); }
+.apx .ap-hero .ph-display { font-size: clamp(38px, 5.2vw, 76px); }
+.apx .ap-bento-head .ph-display { font-size: clamp(36px, 4.4vw, 66px); }
 .apx .ap-lede { margin: 22px 0 0; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.55; color: var(--ap-grey); }
 
 .apx .ap-pill {
@@ -92,7 +97,6 @@
 .apx .ap-hero-film video { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; display: block; transform: scale(calc(1.06 - var(--hero-p, 0) * .06)); }
 .apx .ap-hero-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(8, 12, 30, .86) 0%, rgba(8, 12, 30, .5) 38%, rgba(8, 12, 30, 0) 64%), linear-gradient(180deg, transparent 60%, rgba(8, 12, 30, .6)); }
 .apx .ap-hero-top { padding: clamp(80px, 9vw, 116px) clamp(22px, 2.6vw, 42px) 0; }
-.apx .ap-hero .ap-h1 { max-width: 12ch; }
 .apx .ap-hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .apx .ap-hero-foot { padding: 0 clamp(22px, 2.6vw, 42px) clamp(22px, 2.6vw, 36px); }
 .apx .ap-hero-foot p { margin: 0; max-width: 40ch; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .86); }
@@ -188,7 +192,11 @@
 /* ---------------------------------------------------------------------------
    3 · THREE SCREENS
    ------------------------------------------------------------------------ */
-.apx .ap-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: clamp(50px, 5vw, 80px) 0 0; }
+/* The three screens are their own section now that the bento sits between them
+   and the fan of phones, so the gap that used to be this grid's top padding is
+   the section's bottom padding instead. */
+.apx .ap-three-sec { padding: 0 0 clamp(90px, 9vw, 140px); }
+.apx .ap-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 0; }
 .apx .ap-shot { position: relative; height: 240px; border-radius: 6px; overflow: hidden; background: linear-gradient(160deg, #cfd8ea, #e9edf5); }
 .apx .ap-shot .ap-phone { top: 26px; left: 50%; transform: none; width: 210px; margin-left: -105px; }
 .apx .ap-three h3 { margin: 18px 0 0; font-size: 21px; font-weight: 400; letter-spacing: -0.01em; }
@@ -199,7 +207,6 @@
    4 · LONGEVITY AI · a display across, an image beside a paragraph and chips
    ------------------------------------------------------------------------ */
 .apx .ap-evolve { padding: clamp(90px, 10vw, 150px) 0 clamp(80px, 8vw, 120px); }
-.apx .ap-evolve .ap-display { text-align: center; }
 .apx .ap-evolve-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 4vw, 70px); align-items: center; margin-top: clamp(40px, 4vw, 64px); padding-inline: clamp(0px, 3vw, 44px); }
 .apx .ap-evolve-img { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 1; background: #d7deea; }
 .apx .ap-evolve-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .6s ease, transform 1.2s var(--ap-ease); }
@@ -223,7 +230,6 @@
    5 · REAL INSIGHT · three cards
    ------------------------------------------------------------------------ */
 .apx .ap-stories { padding: 0 0 clamp(70px, 7vw, 110px); }
-.apx .ap-stories .ap-display { text-align: center; }
 .apx .ap-story-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(40px, 4vw, 64px); }
 .apx .ap-story { display: flex; flex-direction: column; min-height: 290px; padding: 22px 24px; border-radius: 6px; background: var(--ap-card); }
 .apx .ap-tag { align-self: flex-start; padding: 5px 10px; border-radius: 4px; background: var(--ap-ink); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .03em; }
@@ -237,9 +243,9 @@
 /* ---------------------------------------------------------------------------
    7 · FEATURE BENTO · after the phone led rows of ringconn's app features
    ------------------------------------------------------------------------ */
-/* The top padding replaces the gap the deleted tile band used to leave here,
-   so the seam above the bento matches every other section break on the page. */
-.apx .ap-bento-sec { padding: clamp(26px, 3vw, 42px) 0 clamp(90px, 9vw, 140px); }
+/* The bento follows the fan of phones, so it opens a section break of its own
+   rather than leaning on the one above it. */
+.apx .ap-bento-sec { padding: clamp(70px, 7vw, 110px) 0 clamp(80px, 8vw, 120px); }
 .apx .ap-bento-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: end; margin-bottom: clamp(30px, 3.4vw, 50px); }
 .apx .ap-bento-head .ap-lede { margin: 0; font-size: 17px; }
 .apx .ap-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 250px; gap: 12px; }
@@ -280,7 +286,7 @@
    8 · PRIVACY · words left, a photograph running off the right edge
    ------------------------------------------------------------------------ */
 .apx .ap-privacy { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(30px, 4vw, 60px); align-items: center; padding: 0 0 clamp(90px, 9vw, 140px) max(var(--ap-gut), calc((100vw - var(--ap-max)) / 2 + var(--ap-gut))); }
-.apx .ap-privacy .ap-display { font-size: clamp(36px, 3.6vw, 52px); }
+.apx .ap-privacy .ph-display { font-size: clamp(34px, 3.8vw, 56px); }
 .apx .ap-privacy p { margin: 16px 0 26px; max-width: 42ch; font-size: 17px; line-height: 1.55; color: var(--ap-grey); }
 .apx .ap-privacy-img { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 6px 0 0 6px; background: #d7deea; }
 .apx .ap-privacy-img img { width: 100%; height: 100%; object-fit: cover; display: block; transform: translateY(calc((var(--par, .5) - .5) * -40px)) scale(1.08); }
@@ -299,7 +305,7 @@
    ------------------------------------------------------------------------ */
 .apx .ap-start { padding: 0 0 clamp(80px, 8vw, 120px); }
 .apx .ap-start-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(30px, 4vw, 60px); align-items: center; }
-.apx .ap-start .ap-h2 { font-size: clamp(32px, 3vw, 46px); }
+.apx .ap-start .ph-solid { font-size: clamp(32px, 3vw, 46px); }
 .apx .ap-start p { margin: 16px 0 26px; max-width: 40ch; font-size: 16px; line-height: 1.55; color: var(--ap-grey); }
 .apx .ap-start-cta { display: flex; flex-wrap: wrap; gap: 10px; }
 .apx .ap-start-img { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; background: #d7deea; }
@@ -307,27 +313,12 @@
 @media (max-width: 860px) { .apx .ap-start-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------------------------------------------------------------------------
-   11 · INSIDE THE APP · slate, one featured card beside three
+   11 · INSIDE THE APP · DELETED 2026-09-16, by request. A slate panel closed
+   the page with a featured "Book a session" card beside three links into the
+   app, all three of which the nav and the bento already reach. The design is
+   kept whole at the foot of devices/ring-lab (apx.css, `.apxd`), which is
+   where this site parks a layout it has stopped shipping.
    ------------------------------------------------------------------------ */
-.apx .ap-inside { background: var(--ap-slate); color: #fff; border-radius: 0 0 clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px); padding: clamp(56px, 6vw, 90px) 0; }
-.apx .ap-inside h2 { margin: 0 0 28px; font-size: 18px; font-weight: 600; letter-spacing: .02em; }
-.apx .ap-inside-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; }
-.apx .ap-feat { position: relative; display: block; min-height: 460px; border-radius: 6px; overflow: hidden; color: #fff !important; text-decoration: none !important; background: #0f1733; }
-.apx .ap-feat img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ap-ease); }
-.apx .ap-feat::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 12, 30, 0) 35%, rgba(8, 12, 30, .8)); }
-.apx .ap-feat:hover img { transform: scale(1.04); }
-.apx .ap-feat .ap-tag { position: absolute; top: 18px; left: 18px; z-index: 1; background: #fff; color: var(--ap-ink); }
-.apx .ap-feat-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: clamp(20px, 2.2vw, 30px); }
-.apx .ap-feat-copy h3 { margin: 0; max-width: 18ch; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; font-weight: 400; letter-spacing: -0.02em; }
-.apx .ap-feat-copy p { margin: 10px 0 18px; max-width: 46ch; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .82); }
-.apx .ap-side { display: grid; gap: 12px; }
-.apx .ap-side a { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; padding: 20px; border-radius: 6px; background: var(--ap-sunk); color: var(--ap-ink) !important; text-decoration: none !important; transition: background .25s ease; }
-.apx .ap-side a:hover { background: #eef2fb; }
-.apx .ap-side a:hover .ap-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
-.apx .ap-side h3 { margin: 0; font-size: 20px; font-weight: 400; }
-.apx .ap-side-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
-.apx .ap-side-meta span { font-size: 14px; line-height: 1.5; color: var(--ap-grey); }
-@media (max-width: 900px) { .apx .ap-inside-grid { grid-template-columns: minmax(0, 1fr); } .apx .ap-feat { min-height: 380px; } }
 
 @media (prefers-reduced-motion: reduce) {
   .apx-js .apx .ap-up { opacity: 1; transform: none; transition: none; }
