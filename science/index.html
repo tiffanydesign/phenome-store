@@ -15,6 +15,8 @@
      this site's; the words and the photography are Phenome Longevity's own, taken
      from phenomelongevity.com/pages/genetic-testing-explained. -->
 <link href="/phenome-store/science/science.css" rel="stylesheet"/>
+<!-- "How the PhenomeTech Ring helps", brought over from devices/ring-lab. -->
+<link href="/phenome-store/science/helps.css" rel="stylesheet"/>
 <link rel="preload" as="image" href="/phenome-store/assets/science/hero-helix.webp" fetchpriority="high"/>
 <script>document.documentElement.classList.add('sci-js');</script>
 </head>
@@ -22,13 +24,17 @@
 <div data-ph-nav=""></div>
 <main>
 
-<!-- 1 · HERO · an inset dark card over the double helix -->
+<!-- 1 · HERO · an inset dark card over the double helix
+
+     THE EYEBROW IS GONE, 2026-09-16 by request. "The science" above a heading
+     that reads "Every answer begins in your genes", on a page whose title is
+     The Science, was the page saying its own name three times before a reader
+     had read a word of it. -->
 <section class="sci-hero">
 <div class="sci-hero-card">
 <div class="sci-hero-media" aria-hidden="true"><img alt="" decoding="async" fetchpriority="high" height="763" src="/phenome-store/assets/science/hero-helix.webp" width="2000"/></div>
 <div class="sci-hero-shade" aria-hidden="true"></div>
 <div class="sci-hero-top">
-<p class="sci-eyebrow">The science</p>
 <h1 class="sci-h1 ph-display is-left"><span class="ph-display-lead">Every answer begins</span><span>In your genes.</span></h1>
 </div>
 <div class="sci-hero-foot">
@@ -38,31 +44,23 @@
 </div>
 </section>
 
-<!-- 2 · WHAT IS A GENE · the words beside the map of a cell -->
+<!-- 2 · WHAT IS A GENE · the words, then the four tests they are read across
+
+     REPAIRED 2026-09-16, by request: the pairing was the wrong way round. "What
+     is a gene" ran beside the drawing of a cell, and the paragraph that sends a
+     reader to one of the four tests was stranded under a different heading. The
+     definition and the four tests are one thought, so they are one section now;
+     the drawing went to the statement it actually illustrates, below. -->
 <section class="sci-gene">
 <div class="sci-wrap">
-<div class="sci-gene-grid">
-<div class="sci-gene-copy">
+<div class="sci-gene-head">
 <h2 class="sci-h2 ph-display is-ink is-left sci-up"><span class="ph-display-lead">What is</span><span>A gene?</span></h2>
-<p class="sci-lede sci-up d1">A gene is a small part of your DNA that tells your body how to grow, heal, and function. Genes control everything from how your cells repair to how your metabolism and immunity work. Together, your genes create the complete blueprint of your health.</p>
+<div class="sci-gene-copy sci-up d1">
+<p class="sci-lede">A gene is a small part of your DNA that tells your body how to grow, heal, and function. Genes control everything from how your cells repair to how your metabolism and immunity work. Together, your genes create the complete blueprint of your health.</p>
+<p class="sci-lede">Genetic data varies from person to person, influencing everything from performance potential to inherited traits. To see how your own genetics are analysed across different areas, choose a test below and read the science behind each one.</p>
 </div>
-<figure class="sci-gene-fig sci-up d1">
-<img alt="A cell, its nucleus, a chromosome and the length of DNA that makes up a single gene" decoding="async" height="1015" loading="lazy" src="/phenome-store/assets/science/gene-map.webp" width="1200"/>
-</figure>
 </div>
 
-<div class="sci-say sci-up">
-<h2 class="sci-h2 ph-display is-ink is-left sci-say-h"><span class="ph-display-lead">What do genes</span><span>Tell us</span></h2>
-<p class="sci-say-lead">Your genes are like your body’s instruction code. They reveal how your body processes nutrients, adapts to stress, balances hormones and responds to exercise and sleep.</p>
-<p>By analysing your genes, we can uncover patterns that explain how your body functions and what it needs to thrive. Gaining these insights helps you make informed choices that support your overall balance and vitality.</p>
-</div>
-</div>
-</section>
-
-<!-- 3 · THE FOUR TESTS · a photograph each -->
-<section class="sci-topics">
-<div class="sci-wrap">
-<p class="sci-lede sci-up sci-topics-lede">Genetic data varies from person to person, influencing everything from performance potential to inherited traits. To see how your own genetics are analysed across different areas, choose a test below and read the science behind each one.</p>
 <div class="sci-topic-grid">
 
 <a class="sci-topic" href="/phenome-store/testing/sports-performance/">
@@ -85,6 +83,26 @@
 <span class="sci-topic-foot"><b>Newborn Screening</b><i class="sci-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></span>
 </a>
 
+</div>
+</div>
+</section>
+
+<!-- 3 · WHAT DO GENES TELL US · the words beside the map of a cell
+
+     No rule above this section any more, by request. It follows a row of four
+     photographs, which is edge enough; a hairline on top of that was a second
+     answer to a question nobody had asked. -->
+<section class="sci-say-sec">
+<div class="sci-wrap">
+<div class="sci-say-grid">
+<div class="sci-say-copy sci-up">
+<h2 class="sci-h2 ph-display is-ink is-left"><span class="ph-display-lead">What do genes</span><span>Tell us</span></h2>
+<p class="sci-say-lead">Your genes are like your body’s instruction code. They reveal how your body processes nutrients, adapts to stress, balances hormones and responds to exercise and sleep.</p>
+<p class="sci-say-body">By analysing your genes, we can uncover patterns that explain how your body functions and what it needs to thrive. Gaining these insights helps you make informed choices that support your overall balance and vitality.</p>
+</div>
+<figure class="sci-gene-fig sci-up d1">
+<img alt="A cell, its nucleus, a chromosome and the length of DNA that makes up a single gene" decoding="async" height="1015" loading="lazy" src="/phenome-store/assets/science/gene-map.webp" width="1200"/>
+</figure>
 </div>
 </div>
 </section>
@@ -179,33 +197,69 @@
 </div>
 </section>
 
-<!-- 5 · WHY IT MATTERS · the photograph holds, five cards pass over it -->
-<section class="sci-acc" data-sci-acc="">
-<div class="sci-acc-pin">
-<div class="sci-acc-bg" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp"/></div>
-<div class="sci-acc-in">
-<div class="sci-acc-copy">
-<h2 class="sci-h2 ph-display is-left"><span class="ph-display-lead">Why your genes matter</span><span>For longevity</span></h2>
-<div class="sci-acc-note">
-<p class="sci-eyebrow">Understanding your genes helps you take control of your health early</p>
+<!-- 5 · WHY YOUR GENES MATTER · REBUILT 2026-09-16, by request, on the
+     "Benefits that build over time" band of supplements/nad.
+
+     What it replaced: a photograph pinned for two and a half screens while five
+     glass cards slid over it inside a 420px column. The five cards were the
+     information and they were the smallest thing on the screen; they arrived one
+     at a time whether the reader wanted them to or not; and no two of them could
+     be read together.
+
+     What the NAD band does instead, and what this does now: the five are a list
+     on a rail that fills as you read down it, each marker lighting as it
+     arrives. Nothing is hidden, the type is the size type should be, and the
+     photography sits beside the words as a collage rather than under them as a
+     scrim. -->
+<section class="sci-why">
+<div class="sci-wrap">
+<header class="sci-why-head">
+<h2 class="sci-h2 ph-display is-ink is-left sci-up"><span class="ph-display-lead">Why your genes matter</span><span>For longevity</span></h2>
+<div class="sci-why-note sci-up d1">
+<p class="sci-why-kicker">Understanding your genes helps you take control of your health early</p>
 <p>Many biological imbalances begin developing long before any signs appear. By learning how your genes influence key functions, you can build a personalised approach to nutrition, activity, and prevention that strengthens your body’s natural systems and supports long term vitality.</p>
-<p class="sci-acc-kicker">What genetic testing can help with</p>
+</div>
+</header>
+
+<div class="sci-why-grid">
+<div class="sci-steps" data-sci-steps="">
+<p class="sci-steps-k">What genetic testing can help with</p>
+<span class="sci-rail" aria-hidden="true"><i></i></span>
+<div class="sci-step">
+<p class="sci-step-h"><span class="sci-num">01</span>Prevent heart and cardiovascular conditions</p>
+<p>Genetic testing can show if you are more likely to develop heart disease, high cholesterol, or blood pressure issues, so you can take early steps to protect your heart health.</p>
+</div>
+<div class="sci-step">
+<p class="sci-step-h"><span class="sci-num">02</span>Reduce the risk of obesity and metabolic disorders</p>
+<p>Your genes influence how your body stores fat and regulates metabolism. Knowing this helps you personalise your diet and exercise to hold a healthy weight.</p>
+</div>
+<div class="sci-step">
+<p class="sci-step-h"><span class="sci-num">03</span>Identify cancer predispositions early</p>
+<p>Certain genetic markers can signal higher risks for cancers such as breast, ovarian, or colon cancer. Early awareness supports regular screening and prevention.</p>
+</div>
+<div class="sci-step">
+<p class="sci-step-h"><span class="sci-num">04</span>Support hormonal and reproductive health</p>
+<p>Genetic insights can reveal imbalances that affect fertility, hormone regulation, and reproductive wellbeing, helping you make informed health decisions.</p>
+</div>
+<div class="sci-step">
+<p class="sci-step-h"><span class="sci-num">05</span>Prevent lifestyle linked chronic diseases</p>
+<p>Understanding your genes helps you address the factors behind diabetes, inflammation, and other long term health conditions before they appear.</p>
 </div>
 </div>
-<div class="sci-acc-cards">
-<div class="sci-acc-track">
-<div class="sci-glass is-note"><b>01</b><p>Prevent heart and cardiovascular conditions</p><small>Genetic testing can show if you are more likely to develop heart disease, high cholesterol, or blood pressure issues, so you can take early steps to protect your heart health.</small></div>
-<div class="sci-glass is-note"><b>02</b><p>Reduce the risk of obesity and metabolic disorders</p><small>Your genes influence how your body stores fat and regulates metabolism. Knowing this helps you personalise your diet and exercise to hold a healthy weight.</small></div>
-<div class="sci-glass is-note"><b>03</b><p>Identify cancer predispositions early</p><small>Certain genetic markers can signal higher risks for cancers such as breast, ovarian, or colon cancer. Early awareness supports regular screening and prevention.</small></div>
-<div class="sci-glass is-note"><b>04</b><p>Support hormonal and reproductive health</p><small>Genetic insights can reveal imbalances that affect fertility, hormone regulation, and reproductive wellbeing, helping you make informed health decisions.</small></div>
-<div class="sci-glass is-note"><b>05</b><p>Prevent lifestyle linked chronic diseases</p><small>Understanding your genes helps you address the factors behind diabetes, inflammation, and other long term health conditions before they appear.</small></div>
-</div>
+
+<div class="sci-collage">
+<figure class="sci-col-big">
+<img alt="Someone reading their results at a kitchen table in the morning" decoding="async" height="1600" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp" width="2400"/>
+<figcaption>Most of what a genome has to say is about the years you have not lived yet.</figcaption>
+</figure>
+<figure class="sci-col-sm" data-sci-float="-1"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_carrier_window.webp"/></figure>
+<figure class="sci-col-circle" data-sci-float="1"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_genetic.webp"/></figure>
 </div>
 </div>
 </div>
 </section>
 
-<!-- 6 · WHOLE GENOME SEQUENCING · the claim, then the comparison -->
+<!-- 6 · WHOLE GENOME SEQUENCING · the claim on the paper -->
 <section class="sci-wgs">
 <div class="sci-wrap">
 <div class="sci-wgs-head">
@@ -224,13 +278,21 @@
 <p class="sci-up d1">Every cell in your body contains DNA, which acts like an instruction manual for how your body works. This technology looks at all three billion letters of that manual, not just small parts of it.</p>
 <p class="sci-up d2">By sequencing the whole genome, we can see every piece of genetic information that makes you who you are, helping us understand health, traits, and potential risks in a much deeper and more complete way.</p>
 </div>
+</div>
+</section>
 
-<h3 class="sci-h3 sci-cmp-title sci-up">Traditional gene analysis, and whole genome sequencing</h3>
-<div class="sci-cmp sci-up d1" role="table" aria-label="Traditional gene analysis compared with whole genome sequencing">
-<div class="sci-cmp-head" role="row">
+<!-- 6b · THE COMPARISON · the NAD page's own compare band, 2026-09-16 by
+     request: a glass table over ink with the column the page is arguing for
+     lifted out of it, rather than a navy block painted behind a column of a
+     table on white. The rows arrive one behind the next when the table does. -->
+<section class="sci-cmp-band">
+<div class="sci-wrap">
+<h2 class="sci-cmp-title sci-up">Traditional gene analysis, and whole genome sequencing</h2>
+<div class="sci-cmp sci-up d1" data-sci-table="" role="table" aria-label="Traditional gene analysis compared with whole genome sequencing">
+<div class="sci-cmp-row is-head" role="row">
 <span role="columnheader">Aspect</span>
 <span role="columnheader">Traditional gene analysis</span>
-<span role="columnheader" class="is-wgs">Whole genome sequencing</span>
+<span role="columnheader" class="is-wgs"><span class="sci-cmp-chip">Whole genome sequencing</span></span>
 </div>
 <div class="sci-cmp-row" role="row">
 <span class="sci-cmp-k" role="rowheader">Scope</span>
@@ -261,27 +323,35 @@
 </div>
 </section>
 
-<!-- 7 · THE PARTNERSHIP -->
+<!-- 7 · THE PARTNERSHIP · the NAD page's image card beside a dark card -->
 <section class="sci-partner">
 <div class="sci-wrap">
-<div class="sci-partner-grid">
-<div class="sci-partner-copy sci-up">
-<h2 class="sci-h2 ph-display is-left"><span class="ph-display-lead">In partnership with</span><span>The leaders of genomic science</span></h2>
+<div class="sci-partner-row">
+<figure class="sci-partner-fig sci-up">
+<img alt="A laboratory scientist loading a sample tray into an Illumina sequencer" decoding="async" height="1001" loading="lazy" src="/phenome-store/assets/science/illumina-lab.webp" width="1800"/>
+<figcaption>Sequenced on Illumina, in accredited laboratories</figcaption>
+</figure>
+<div class="sci-partner-card sci-up d1">
+<div class="sci-partner-copy">
+<h2 class="sci-h3 ph-display is-left"><span class="ph-display-lead">In partnership with</span><span>The leaders of genomic science</span></h2>
 <p>At Phenome Longevity, every genetic test, from our Comprehensive Genomic Test to our Carrier Screening Test, is built on the latest sequencing technology. We have partnered with Illumina, a global leader in genomics, to bring you precise, reliable and advanced whole genome sequencing.</p>
 <p>This collaboration means every result you receive reflects the highest scientific standards, helping you make informed decisions about your health and longevity with complete confidence.</p>
 </div>
-<figure class="sci-partner-fig sci-up d1">
-<img alt="A laboratory scientist loading a sample tray into an Illumina sequencer" decoding="async" height="1001" loading="lazy" src="/phenome-store/assets/science/illumina-lab.webp" width="1800"/>
-</figure>
+<ul class="sci-badges">
+<li><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M16 24.5l5.5 5.5L32 19"/></svg>ISO 15189 accredited</li>
+<li><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="21" width="26" height="18" rx="4"/><path d="M17 21v-5a7 7 0 0 1 14 0v5"/></svg>Encrypted, never sold</li>
+<li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7v34M24 7c-6 4-11 6-15 6 0 12 6 21 15 28 9-7 15-16 15-28-4 0-9-2-15-6z"/></svg>Clinician reviewed</li>
+</ul>
+</div>
 </div>
 </div>
 </section>
 
-<!-- 8 · HOW THE KITS WORK -->
-<section class="sci-steps">
+<!-- 8 · HOW THE KITS WORK · four stages, each on its own card -->
+<section class="sci-steps-sec">
 <div class="sci-wrap">
 <h2 class="sci-h3 sci-up">How our test kits work</h2>
-<ol class="sci-step-row">
+<ol class="sci-flow">
 <li class="sci-up"><b>Step 01</b><p>Order a test and activate your kit</p></li>
 <li class="sci-up d1"><b>Step 02</b><p>Collect your sample</p></li>
 <li class="sci-up d2"><b>Step 03</b><p>Send your sample to our labs</p></li>
@@ -294,7 +364,6 @@
 <section class="sci-work">
 <div class="sci-wrap">
 <h2 class="sci-h2 ph-display is-ink sci-up"><span class="ph-display-lead">Explore our</span><span>Genetic tests</span></h2>
-<p class="sci-lede sci-up d1">Each test reads the same genome and reveals a different part of your biology.</p>
 <div class="sci-kits">
 
 <article class="sci-kit sci-up">
@@ -333,45 +402,54 @@
 </div>
 </section>
 
-<!-- 10 · GO DEEPER · dark, one featured card beside three -->
-<section class="sci-deep">
-<div class="sci-wrap">
-<h2 class="sci-h3 ph-display is-left sci-up">Go deeper</h2>
-<div class="sci-deep-grid">
-<a class="sci-feature sci-up" href="/phenome-store/science/whole-genome-sequencing/">
-<img alt="Sheep on a wide hillside with a shepherd and his dog" decoding="async" loading="lazy" src="/phenome-store/assets/pages/band_wgs.webp"/>
-<span class="sci-feature-tag">Featured</span>
-<div class="sci-feature-copy">
-<h3>Whole genome sequencing</h3>
-<p>We sequence your entire genome, not a handful of markers, to reveal how your genes shape metabolism, inflammation, energy and immune balance.</p>
-<span class="sci-pill is-light">Read more</span>
+<!-- 10 · HOW THE RING HELPS · copied 2026-09-16, by request, from
+     devices/ring-lab § 19: the photograph holds still while three dark panels
+     pass it, each carrying a real reading rather than a picture of one. It sits
+     last because it is where the science stops being about genes in the
+     abstract and starts being about a night you actually had.
+     Styles in helps.css. -->
+<section class="sci-helps">
+<h2 class="gx-sec-h gx-grad gx-in">How the PhenomeTech Ring helps</h2>
+<div class="gx-help-row">
+<div class="gx-help-img"><img src="/phenome-store/assets/pages/ring_ceramic_worn.webp" alt="A hand wearing the white ceramic ring on a linen sheet" loading="lazy" decoding="async"/></div>
+<div class="gx-help-list">
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a17 17 0 1 0 10 28A15 15 0 0 1 30 8z" fill="#8f7cff"/><path d="M33 12h7l-7 8h7" fill="none" stroke="#8f7cff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3 class="gx-slide-t">Sleep stages, every night</h3>
+<p class="gx-slide-d">Light, deep and rapid eye movement sleep, measured against your own baseline, so you can see what actually changed.</p>
+<div class="gx-ui">
+<p class="gx-ui-k">Sleep stages<span>7 h 31 min</span></p>
+<ul class="gx-stages">
+<li style="--w:.06;--c:#e5e8ff"><span>Awake 6%</span><em>27 min</em><i></i></li>
+<li style="--w:.23;--c:#9d8cff"><span>Rapid eye movement 23%</span><em>1 h 44</em><i></i></li>
+<li style="--w:.52;--c:#6d7dff"><span>Light 52%</span><em>3 h 54</em><i></i></li>
+<li style="--w:.19;--c:#3b47c9"><span>Deep 19%</span><em>1 h 26</em><i></i></li>
+</ul>
 </div>
-</a>
-<div class="sci-stack">
-<a class="sci-paper sci-up d1" href="/phenome-store/science/multiomics/"><h3>Multiomics</h3><div class="sci-paper-meta"><span>We combine your genome, microbiome and continuous wearable signals into one connected view, so insight reflects how your biology behaves together.</span><i class="sci-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
-<a class="sci-paper sci-up d2" href="/phenome-store/science/systems-biology/"><h3>Systems biology</h3><div class="sci-paper-meta"><span>Genome scale models map how your biological systems interact, turning complex data into precise, actionable guidance, not isolated numbers.</span><i class="sci-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
-<a class="sci-paper sci-up d3" href="/phenome-store/science/our-research/"><h3>Our research</h3><div class="sci-paper-meta"><span>Built on peer reviewed work in longevity, genomics, microbiome and systems biology, with collaborators published in Nature, Science and Cell.</span><i class="sci-arrow"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></i></div></a>
+</div>
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c7 9 12 16 12 23a12 12 0 0 1-24 0c0-7 5-14 12-23z" fill="#ff9457"/></svg>
+<h3 class="gx-slide-t">Blood oxygen through the night</h3>
+<p class="gx-slide-d">Saturation read while you sleep, with dips flagged when they fall outside your usual range.</p>
+<div class="gx-ui">
+<div class="gx-ui-pair"><p><b>97</b><small>Average</small></p><p><b>92</b><small>Lowest</small></p></div>
+<svg class="gx-ui-chart" viewBox="0 0 300 120" aria-hidden="true"><rect x="0" y="6" width="300" height="34" fill="rgba(255,120,150,.14)"/><path d="M0 26 L10 22 L18 30 L26 18 L34 28 L42 20 L50 34 L58 22 L66 26 L74 16 L82 30 L90 22 L98 64 L104 28 L112 20 L122 32 L132 18 L140 26 L150 22 L160 36 L168 20 L178 28 L186 16 L196 30 L206 24 L214 18 L224 34 L232 22 L242 26 L252 18 L262 30 L272 22 L282 28 L300 20" fill="none" stroke="#ff7896" stroke-width="1.6"/><path d="M0 100 H300" stroke="rgba(255,255,255,.2)"/></svg>
+<p class="gx-ui-axis"><span>23:40</span><span>02:10</span><span>04:40</span><span>07:10</span></p>
+</div>
+</div>
+<div class="gx-slide">
+<svg class="gx-slide-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 30 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 12-17 22-17 22z" fill="#ff6f8f"/></svg>
+<h3 class="gx-slide-t">Heart rate variability</h3>
+<p class="gx-slide-d">How recovered your nervous system is, read overnight while nothing else is moving.</p>
+<div class="gx-ui">
+<p class="gx-ui-k">Last 7 nights<span>62 ms tonight</span></p>
+<div class="gx-ui-bars"><i style="--h:.55"></i><i style="--h:.62"></i><i style="--h:.48"></i><i style="--h:.7"></i><i style="--h:.66"></i><i style="--h:.58"></i><i style="--h:.8" class="on"></i></div>
+<p class="gx-ui-axis"><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Mon</span></p>
+</div>
 </div>
 </div>
 </div>
 </section>
-
-<!-- 11 · THE CLOSE -->
-<div class="sci-close-wrap">
-<section class="sci-close">
-<div class="sci-wrap">
-<div class="sci-close-grid">
-<div class="sci-close-copy sci-up">
-<h2 class="sci-h3 ph-display is-ink is-left"><span class="ph-display-lead">Read your own</span><span>Biology.</span></h2>
-<p>Every test ships with its methods and references included.</p>
-<a class="sci-pill" href="/phenome-store/quiz/">Find your test</a><a class="sci-pill is-ghost" href="/phenome-store/testing/compare/">Compare all tests</a>
-</div>
-<div class="sci-close-img sci-up d1"><img alt="Phenome test kits on a round wooden plinth beside a sprig of leaves" decoding="async" loading="lazy" src="/phenome-store/assets/science/kits-plinth.webp"/></div>
-</div>
-<p class="sci-notes">Phenome tests are for wellness and information only and are not a substitute for professional medical advice.</p>
-</div>
-</section>
-</div>
 
 </main>
 <div data-ph-footer=""></div>
