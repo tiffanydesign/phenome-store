@@ -1,11 +1,9 @@
 /* ============================================================================
    contact · page script, for body.ctc
 
-   Three behaviours, and nothing else runs on this page:
+   Two behaviours, and nothing else runs on this page:
      1 · the gallery — arrows, dots, keyboard, drag
-     2 · the floating number — copy to clipboard, with the answer shown in the
-         control that was pressed
-     3 · the form — a local confirmation, because there is no endpoint yet
+     2 · the form — a local confirmation, because there is no endpoint yet
 
    Written in the same ES5 shared.js is, for the same reason: this file loads
    after it on every page that includes it, and a syntax error a browser cannot
@@ -27,7 +25,6 @@
     var track = root.querySelector('[data-gal-track]');
     var frame = root.querySelector('[data-gal-frame]');
     var dots = root.querySelector('[data-gal-dots]');
-    var cap = root.querySelector('[data-gal-cap]');
     var prev = root.querySelector('[data-gal-step="-1"]');
     var next = root.querySelector('[data-gal-step="1"]');
     if (!track || !frame) return;
@@ -35,10 +32,6 @@
     var slides = track.children;
     var count = slides.length;
     if (count < 2) return;
-
-    var captions = [];
-    var src = root.querySelector('[data-gal-captions]');
-    if (src) { try { captions = JSON.parse(src.textContent); } catch (e) { captions = []; } }
 
     var i = 0;
 
@@ -70,7 +63,6 @@
         slides[n].setAttribute('aria-hidden', n === i ? 'false' : 'true');
         if (buttons[n]) buttons[n].setAttribute('aria-current', n === i ? 'true' : 'false');
       }
-      if (cap && captions[i]) cap.textContent = captions[i];
       /* Ends are disabled rather than wrapped. Six frames of one building is a
          set with a first and a last, not a loop, and a carousel that wraps hides
          from a reader the fact that they have seen all of it. */
@@ -116,48 +108,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     2 · THE FLOATING NUMBER
-
-     navigator.clipboard is not available on an insecure origin and can be
-     refused by permission on a secure one, so the failure path matters: if the
-     copy does not happen the label must NOT say it did. It falls back to
-     selecting the number so a reader can copy it themselves, and only the
-     success path swaps the label.
-     ---------------------------------------------------------------------- */
-  function copyButton(btn) {
-    var text = btn.getAttribute('data-copy') || btn.textContent;
-    var label = btn.textContent;
-    var timer = null;
-
-    function confirmed() {
-      btn.textContent = 'Copied';
-      btn.classList.add('is-copied');
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        btn.textContent = label;
-        btn.classList.remove('is-copied');
-      }, 1800);
-    }
-
-    btn.addEventListener('click', function () {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(confirmed, function () {});
-        return;
-      }
-      /* No clipboard. Put the number on screen selected instead of pretending. */
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { if (document.execCommand('copy')) confirmed(); } catch (e) {}
-      document.body.removeChild(ta);
-    });
-  }
-
-  /* -------------------------------------------------------------------------
-     3 · THE FORM
+     2 · THE FORM
 
      There is no endpoint. The confirmation is local and it is honest about
      being local only in the copy, which is signed off. What this replaces is an
@@ -177,9 +128,6 @@
   function init() {
     var g = document.querySelector('[data-gal]');
     if (g) gallery(g);
-
-    var copies = document.querySelectorAll('[data-copy]');
-    for (var i = 0; i < copies.length; i++) copyButton(copies[i]);
 
     var f = document.querySelector('[data-ctc-form]');
     if (f) form(f);
