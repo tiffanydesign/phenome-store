@@ -47,8 +47,8 @@
 .nadp .nd-center { text-align: center; }
 
 .nadp .nd-h2 {
-  font-size: clamp(32px, 3.5vw, 52px); line-height: 1.08; letter-spacing: -.022em;
-  font-weight: 500; color: var(--nd-navy); text-wrap: balance;
+  font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; letter-spacing: -0.02em;
+  font-weight: 600; color: var(--ink-900); text-wrap: balance;
 }
 
 /* .nd-h2 is the page's SOLID heading, the one a short line or a single word
@@ -308,7 +308,8 @@
 .nadp .nd-buy .supp-cta { margin-top: 18px; min-height: 54px; font-size: 17px; font-weight: 600; }
 .nadp .nd-buy .supp-gtee { margin-top: 18px; padding: 14px 16px; font-size: 16px; line-height: 1.45; }
 .nadp .nd-buy .supp-fine { margin-top: 12px; font-size: 15px; line-height: 1.4; }
-.nadp .nd-rate-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--nd-rule); }
+.nadp .nd-rate-link { font-size: 15px; color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--nd-rule); }
+.nadp .supp-opt-badge { font-size: 15px; }
 .nadp .nd-rate-link:hover { color: var(--nd-navy); text-decoration-color: currentColor; }
 
 /* Accordions (Seed's Benefits / Ingredients and every list below). */
@@ -378,7 +379,10 @@
 /* ---------------------------------------------------------------------------
    2 · ESSENTIALS
    ------------------------------------------------------------------------ */
-.nadp .nd-ess { padding-top: 0; }
+.nadp .nd-ess { padding-top: 0; padding-bottom: 0; }
+/* The delivery card that closed this section is gone (2026-09-17), so the
+   timeline below opens on a tighter break than the page's standard one. */
+.nadp .nd-time { padding-top: clamp(48px, 5vw, 80px); }
 .nadp .nd-ess-hero {
   position: relative; overflow: clip; border-radius: var(--nd-r-lg);
   min-height: clamp(560px, 44vw, 660px); color: #fff; isolation: isolate;
@@ -406,25 +410,6 @@
 .nadp .nd-ess-panel .nd-ic { width: 52px; height: 52px; stroke-width: 1.3; }
 .nadp .nd-ess-panel h3 { margin-top: 28px; font-size: 19px; line-height: 1.25; font-weight: 600; color: #fff; }
 .nadp .nd-ess-panel p { margin-top: 10px; font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, .86); max-width: 30ch; }
-
-/* THE DELIVERY BAND. It was a 1:2.7 row, a photograph on the left and a dark
-   card on the right holding a spinning liposome diagram. Both pictures were
-   cut, so the row is a single card at full width and the split moved inside
-   it: the two tone display on the left, the argument and the link to the
-   comparison table on the right, the pair centred against each other. The
-   glow stays at 85% because that is now behind the paragraph. */
-.nadp .nd-ess-row { margin-top: var(--nd-gut); }
-.nadp .nd-lipo {
-  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-  align-items: center; gap: clamp(32px, 5vw, 88px);
-  border-radius: var(--nd-r-lg); color: #fff; overflow: hidden;
-  padding: clamp(36px, 4.4vw, 72px) clamp(32px, 4vw, 64px);
-  background: radial-gradient(90% 120% at 85% 50%, #1b3a93 0%, var(--nd-navy) 62%);
-}
-.nadp .nd-lipo-h { font-size: clamp(26px, 2.8vw, 44px); line-height: 1.06; }
-.nadp .nd-lipo-h.is-left { max-width: 18ch; }
-.nadp .nd-lipo-copy p { font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, .82); max-width: 42ch; }
-.nadp .nd-lipo-copy .nd-link { margin-top: 24px; }
 
 @keyframes nd-spin { to { rotate: 360deg; } }
 @keyframes nd-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
@@ -491,7 +476,7 @@
 }
 .nadp .nd-compare .nd-wrap { position: relative; }
 .nadp .nd-compare-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 56px; align-items: start; }
-.nadp .nd-compare .nd-h2 { color: #fff; }
+.nadp .nd-compare .nd-compare-h { margin: 0; }
 .nadp .nd-table {
   --c2: 150px; --c3: 190px; --pad: 24px;
   position: relative; padding: 16px var(--pad); border-radius: var(--nd-r-lg);
@@ -672,7 +657,7 @@
   width: clamp(130px, 14vw, 200px); aspect-ratio: 160 / 260; height: auto; rotate: -10deg;
   filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .35)); animation: nd-float 6s ease-in-out infinite;
 }
-.nadp .nd-end .nd-h2 { color: #fff; font-size: clamp(38px, 4.4vw, 66px); }
+.nadp .nd-end .nd-end-h { font-size: clamp(38px, 4.4vw, 66px); }
 .nadp .nd-end-lede { margin-top: 18px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
 .nadp .nd-end-price { margin-top: 26px; font-size: 19px; font-weight: 600; }
 .nadp .nd-end-cta { display: inline-flex; margin-top: 24px; min-width: 180px; justify-content: center; }
@@ -735,10 +720,8 @@
   .nadp .nd-buy { max-width: 640px; }
   .nadp .nd-ess-panel { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
   .nadp .nd-ess-panel h3 { margin-top: 16px; }
-  .nadp .nd-lipo { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .nadp .nd-lipo-h.is-left { max-width: 26ch; }
   .nadp .nd-compare-grid, .nadp .nd-std-grid { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-compare .nd-h2 { max-width: none; }
+  .nadp .nd-compare .nd-compare-h { max-width: none; }
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 1024px) {
