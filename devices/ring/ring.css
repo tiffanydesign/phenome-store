@@ -246,18 +246,18 @@
   color: rgba(255, 255, 255, .8);
   transition: background-color 100ms linear, transform .2s ease, color 100ms linear;
 }
-.ph-flat .ring-marquee-play:hover:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
-.ph-flat .ring-marquee-play:active:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
-.ph-flat .ring-marquee-play:focus-visible:focus-visible {
+.ph-flat .ring-marquee-play:hover { background: rgba(73, 73, 76, .7256); color: #fff; }
+.ph-flat .ring-marquee-play:active { background: rgba(57, 57, 60, .7424); transform: scale(.95); }
+.ph-flat .ring-marquee-play:focus-visible {
   outline: 2px solid var(--ph-focus);
   outline-offset: 3px;
 }
-.ph-flat .ring-marquee-play svg svg { width: 15px; height: 15px; display: block; fill: currentColor; }
+.ph-flat .ring-marquee-play svg { width: 15px; height: 15px; display: block; fill: currentColor; }
 /* One button, two glyphs, and the state decides which is drawn — rather than
    two buttons swapped, which would lose focus every time it is pressed. */
-.ph-flat .ring-marquee-play .i-play .i-play { display: none; }
-.ph-flat .ring-marquee-play[data-paused] .i-play[data-paused] .i-play { display: block; }
-.ph-flat .ring-marquee-play[data-paused] .i-pause[data-paused] .i-pause { display: none; }
+.ph-flat .ring-marquee-play .i-play { display: none; }
+.ph-flat .ring-marquee-play[data-paused] .i-play { display: block; }
+.ph-flat .ring-marquee-play[data-paused] .i-pause { display: none; }
 
 /* ---- placement, the marquee: Apple's own offset, under the global nav. */
 .ph-flat .ring-marquee-play {
