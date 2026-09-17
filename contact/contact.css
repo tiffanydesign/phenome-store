@@ -55,7 +55,7 @@
    needs the extra clearance from the 44px bar to read as a deliberate margin
    rather than as a near miss.
    ------------------------------------------------------------------------ */
-.ctc-split-sec { padding: clamp(28px, 5vw, 96px) 0 clamp(64px, 7vw, 112px); }
+.ctc-split-sec { padding: clamp(24px, 3vw, 48px) 0 clamp(64px, 7vw, 112px); }
 
 .ctc-split {
   display: grid;
@@ -118,7 +118,7 @@
      change in ratio, so nothing is distorted, only cropped. svh, not vh: on a
      phone browser vh is the height with the toolbars HIDDEN, which is not the
      height anything is being looked at. */
-  max-height: calc(100svh - 250px);
+  max-height: calc(100svh - 200px);
   min-height: 380px;
   border-radius: var(--ph-r27, 27px);
   overflow: hidden;
@@ -251,21 +251,23 @@
    "Reach us" is not a section, it is the name of a stack inside one. It takes
    the promise rung's size and weight in the HEADING ink, because the blue on a
    light page is reserved for the promise line and this is not one. */
-.ctc-block { margin-top: clamp(40px, 4.2vw, 60px); }
+.ctc-block { margin-top: clamp(28px, 2.6vw, 40px); }
 .ctc-h {
-  margin: 0 0 4px;
+  margin: 0 0 12px;
   font-size: clamp(21px, 1.7vw, 24px); line-height: 1.25;
   font-weight: 600; letter-spacing: -0.01em;
   color: var(--ctc-ink);
 }
 
 .ctc-rows { margin: 0; padding: 0; list-style: none; }
+/* One line per door: name left, address right, arrow. Under 560px the address
+   drops under the name. */
 .ctc-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
   column-gap: 16px;
-  padding: 18px 0;
+  padding: 14px 0;
   border-top: 1px solid var(--ctc-rule);
   text-decoration: none;
   color: inherit;
@@ -277,13 +279,11 @@
   transition: color 180ms var(--ctc-ease);
 }
 .ctc-row-v {
-  margin: 4px 0 0;
-  font-size: 16px; line-height: 23px;
+  font-size: 16px; line-height: 22px;
   color: var(--ctc-body);
+  text-align: right;
 }
 .ctc-row-go {
-  grid-column: 2; grid-row: 1 / span 2;
-  align-self: center;
   width: 16px; height: 16px;
   color: var(--phenome-blue-200, #a9b5d9);
   transition: color 180ms var(--ctc-ease), translate 180ms var(--ctc-ease);
@@ -307,28 +307,18 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
 .ctc-lines a { color: inherit; text-decoration: none; }
 .ctc-lines a:hover { color: var(--ctc-blue); }
 
-.ctc-hours { margin: 0; padding: 0; }
-.ctc-hours dt {
-  margin-top: 22px;
-  font-size: 16px; line-height: 22px; font-weight: 600;
-  color: var(--ctc-ink);
+/* Address left, socials right, on one band. */
+.ctc-find {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 24px;
+  align-items: start;
 }
-.ctc-hours dt:first-of-type { margin-top: 14px; }
-.ctc-hours dd {
-  margin: 4px 0 0;
-  font-size: 16px; line-height: 23px;
-  color: var(--ctc-body);
+.ctc-social {
+  display: grid; grid-template-columns: auto auto;
+  gap: 5px 20px;
+  justify-content: end;
 }
-.ctc-note {
-  margin: 4px 0 0;
-  font-size: 15px; line-height: 21px;
-  color: var(--ctc-quiet);
-}
-/* Four names on one wrapping line rather than four rows. They are a set of
-   places the brand already is, not four more doors to choose between, and
-   giving them the row treatment would have put them at the weight of the three
-   inboxes above. */
-.ctc-social { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 .ctc-social a {
   font-size: 16px; line-height: 23px;
   color: var(--ctc-blue);
@@ -347,10 +337,12 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
    heaviest thing on this page by an order of magnitude, and it sits below the
    fold on every width. ------------------------------------------------------ */
 .ctc-map {
-  margin-top: 22px;
+  margin-top: 18px;
   border-radius: var(--ph-r18, 18px);
   overflow: hidden;
-  aspect-ratio: 16 / 6;
+  width: 100%;
+  aspect-ratio: 4 / 1;
+  min-height: 130px;
   background: var(--ctc-sunk);
   box-shadow: var(--gl-inner, inset 0 0 0 1px #10214b0f);
 }
@@ -358,7 +350,7 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
 
 .ctc-maplink {
   display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 14px;
+  margin-top: 10px;
   font-size: 16px; line-height: 22px; font-weight: 600;
   color: var(--ctc-blue);
   text-decoration: none;
@@ -399,13 +391,12 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   column-gap: clamp(32px, 4.4vw, 64px);
   align-items: start;
 }
-.ctc-form-head { position: sticky; top: calc(var(--ph-nav-h, 44px) + 40px); }
-.ctc-form-head .ctc-title { font-size: clamp(30px, 3.4vw, 48px); }
-.ctc-form-head .ctc-lede { margin-top: 18px; }
+/* The head stays put: it scrolls with the page, never pinned beside the form. */
+.ctc-form-head .ctc-title { margin-top: 0; font-size: clamp(30px, 3.4vw, 48px); }
+.ctc-form-head .ctc-lede { margin-top: 14px; }
 
 @media (max-width: 1080px) {
   .ctc-form-split { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
-  .ctc-form-head { position: relative; top: auto; }
 }
 
 .ctc-form {
@@ -538,6 +529,14 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   .ctc-split { grid-template-columns: minmax(0, 1fr); row-gap: clamp(36px, 6vw, 56px); }
   .ctc-gal-frame { aspect-ratio: 4 / 3; }
   .ctc-map { aspect-ratio: 16 / 5; }
+}
+@media (max-width: 560px) {
+  .ctc-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
+  .ctc-row-k { grid-column: 1; grid-row: 1; }
+  .ctc-row-v { grid-column: 1; grid-row: 2; text-align: left; }
+  .ctc-row-go { grid-column: 2; grid-row: 1 / span 2; }
+  .ctc-find { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
+  .ctc-social { justify-content: start; grid-template-columns: repeat(4, auto); }
 }
 @media (max-width: 720px) {
   .ctc-pair { grid-template-columns: minmax(0, 1fr); }
