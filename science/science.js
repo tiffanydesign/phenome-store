@@ -24,9 +24,7 @@
 
   /* ---- reveals ------------------------------------------------------------ */
   (function reveal() {
-    /* .gx-in and .gx-slide arrived with the "How the ring helps" band
-       (helps.css); they reveal on the same observer as everything else. */
-    var els = $$('.sci-up, .sci-topic, .gx-in, .gx-slide');
+    var els = $$('.sci-up, .sci-topic');
     if (!('IntersectionObserver' in window) || calm.matches) {
       els.forEach(function (e) { e.classList.add('is-in'); });
       return;
@@ -226,7 +224,7 @@
     request();
   })();
 
-  /* ---- 11 · the team: cards open sideways, arrows page, a bio dialog ------ */
+  /* ---- 11 · the team: arrows page, a bio dialog ------------------------- */
   (function team() {
     var sec = $('[data-sci-team]');
     if (!sec) return;
@@ -236,30 +234,6 @@
     var prev = $('[data-team-prev]', sec);
     var next = $('[data-team-next]', sec);
     var smooth = calm.matches ? 'auto' : 'smooth';
-
-    function close(c) {
-      c.classList.remove('is-open');
-      $('.sci-tm-toggle', c).setAttribute('aria-expanded', 'false');
-      $('.sci-tm-more', c).tabIndex = -1;
-    }
-    cards.forEach(function (c) {
-      var t = $('.sci-tm-toggle', c);
-      t.addEventListener('click', function () {
-        var open = !c.classList.contains('is-open');
-        cards.forEach(close);
-        if (!open) return;
-        c.classList.add('is-open');
-        t.setAttribute('aria-expanded', 'true');
-        $('.sci-tm-more', c).tabIndex = 0;
-        /* bring the widened card fully into view once it has grown */
-        setTimeout(function () {
-          var tr = track.getBoundingClientRect(), cr = c.getBoundingClientRect();
-          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-          if (cr.right > tr.right) track.scrollBy({ left: cr.right - tr.right + pad, behavior: smooth });
-          else if (cr.left < tr.left + pad) track.scrollBy({ left: cr.left - tr.left - pad, behavior: smooth });
-        }, calm.matches ? 0 : 620);
-      });
-    });
 
     function step() { return (cards[0] ? cards[0].getBoundingClientRect().width : 300) + 16; }
     function paint() {
