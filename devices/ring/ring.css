@@ -1221,31 +1221,6 @@
   .ph-flat .pick.is-lively .pick-shot img { transform: none; }
 }
 
-/* ---- 9e · STAY IN THE LOOP · a row, not a section ---------------------
-
-   It was a full .section — 144px of padding over a 48-point heading with an
-   empty half-page beside it, for one sentence and one button that go to the
-   contact page. A newsletter line is the quietest thing in the run and it was
-   taking the same room as the product. Same copy, same button, one row. */
-.ph-flat .loop { padding: clamp(72px, 7vw, 104px) 0; }
-.ph-flat .loop-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  column-gap: 64px;
-  align-items: center;
-}
-.ph-flat .loop-t .sec-title { margin: 0; }
-.ph-flat .loop-side {
-  display: grid;
-  gap: 24px;
-  justify-items: start;
-}
-.ph-flat .loop-side .cta-actions { margin: 0; }
-
-@media (max-width: 1023px) {
-  .ph-flat .loop-row { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
-}
-
 /* ---- 9f · THE LAST FRAME ----------------------------------------------
 
    The closing band was `.cta-band`: a centred heading, a centred line and two
@@ -1374,7 +1349,6 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
   .showcase-img,
   .pick-card,
   .pick-h,
-  .loop-h,
   .closer-copy h2,
   .closer-copy p
 ) {
@@ -1392,7 +1366,6 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
   .showcase-img,
   .pick-card,
   .pick-h,
-  .loop-h,
   .closer-copy h2,
   .closer-copy p
 ) {
@@ -1503,9 +1476,8 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
 .ph-flat .lab .ui-mode { font-size: 16px; padding: 10px 18px; }
 .ph-flat .lab .ui-lock p { font-size: 17px; }
 
-/* The two short headings below the cards were single ink sec-titles; they are
-   two tone pairs now, held a step under the statements above because each
-   shares its row with copy. */
-.ph-flat .pick-h,
-.ph-flat .loop-h { margin: 0; font-size: clamp(40px, 5vw, 76px); }
+/* The short heading below the cards was a single ink sec-title; it is a two
+   tone pair now, held a step under the statements above because it shares its
+   row with copy. */
+.ph-flat .pick-h { margin: 0; font-size: clamp(40px, 5vw, 76px); }
 .ph-flat .closer-copy .ph-display { font-size: clamp(44px, 6vw, 92px); }
