@@ -35,8 +35,9 @@
 
      In their place stand devices/ring-lab's sections 2 to 8, moved here whole:
      the charging case sequence, its six features, the magnetic charge, the
-     Phenome Intelligence carousel, the design statement, the off grid window
-     and the engineering facts. They keep the lab's layout and motion, so they
+     Phenome Intelligence carousel, the design statement and the off grid
+     window. The engineering screen was deleted on 2026-09-17; the biometrics
+     band right after this block now stands in its place. They keep the lab's layout and motion, so they
      keep the lab's sheet and script — this block is wrapped in a `.lab` div so
      that every `.lab ...` rule in lab.css resolves against it, and nothing had
      to be copied. A `<div>`, not a `<section>`: shared.js transforms the
@@ -53,9 +54,7 @@
 <!-- charging case · copy, then a pinned frame sequence -->
 <div class="lab-case" data-case="">
 <div class="lab-textblock is-dark">
-<p class="lab-label">Charging case</p>
 <h2 class="ph-display"><span class="ph-display-lead">Power</span><span>In your pocket</span></h2>
-<p class="lab-desc">The ring travels in a case that charges it. Drop it in at the end of the day, close the lid, and it is full again in about 90 minutes, wherever the day ended.</p>
 </div>
 <div class="lab-seq-track">
 <div class="lab-seq-pin"><canvas class="lab-seq" data-seq="case" data-frames="97" data-src="/phenome-store/assets/lab/seq-case/f{n}.webp" width="1280" height="720" aria-label="The charging case opening to show the ring inside" role="img"></canvas></div>
@@ -78,7 +77,6 @@
 <div class="lab-snap" data-snap="">
 <div class="lab-textblock is-dark">
 <h2 class="ph-display"><span class="ph-display-lead">Magnetic charging,</span><span>One click</span></h2>
-<p class="lab-desc">The ring drops into the cradle and the magnets finish the job. Wireless contact, no pins to line up, and a charge that is gentle on the battery over years of nights.</p>
 </div>
 <div class="lab-snap-stage"><canvas class="lab-seq is-square" data-seq="snap" data-frames="71" data-reverse="" data-src="/phenome-store/assets/lab/seq-snap/f{n}.webp" width="900" height="900" aria-label="The ring settling into its charging cradle" role="img"></canvas></div>
 </div>
@@ -155,30 +153,12 @@
 <div class="lab-design-img lab-in"><img alt="The PhenomeTech Ring in black ceramic, turned to show its sensors" decoding="async" loading="lazy" src="/phenome-store/assets/lab/ring-black-angle.webp"/></div>
 </div>
 
-<!-- off the grid · fixed photograph, the tint deepens, the copy arrives -->
+<!-- performance · fixed photograph (asleep, ring on), the tint deepens, the heading arrives -->
 <div class="lab-offgrid" data-offgrid="">
-<div class="lab-offgrid-img" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_allotment.webp"/></div>
+<div class="lab-offgrid-img" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/pages/plate_ring_night.webp"/></div>
 <div class="lab-offgrid-tint" aria-hidden="true"></div>
 <div class="lab-offgrid-text">
-<h2 class="ph-display"><span class="ph-display-lead">Off the grid.</span><span>Still on record.</span></h2>
-<p class="lab-desc">On the allotment, the fells or a long flight, the ring keeps recording without your phone and syncs everything the moment you are back in range. Nothing you did goes missing.</p>
-</div>
-</div>
-
-<!-- engineering · ring left, four facts right -->
-<div class="lab-eng">
-<div class="lab-textblock">
-<p class="lab-label">Engineering</p>
-<h2 class="ph-display is-ink"><span class="ph-display-lead">Performance</span><span>Inside out</span></h2>
-</div>
-<div class="lab-eng-grid">
-<div class="lab-eng-img"><img alt="The inside of the ring, showing its sensors and electronics" decoding="async" loading="lazy" src="/phenome-store/assets/lab/ring-inside.webp"/></div>
-<div class="lab-eng-list">
-<div class="lab-eng-item lab-in"><p class="lab-card-t">Sensors</p><p class="lab-card-b">Optical heart rate, blood oxygen and skin temperature sensors with a 3 axis accelerometer, reading through the night.</p></div>
-<div class="lab-eng-item lab-in"><p class="lab-card-t">Connectivity</p><p class="lab-card-b">Bluetooth 5.3 for steady, low power syncing with iOS 16 or later and Android 10 or later.</p></div>
-<div class="lab-eng-item lab-in"><p class="lab-card-t">Charging</p><p class="lab-card-b">Wireless charging with up to 7 days per charge and about 90 minutes from empty to full.</p></div>
-<div class="lab-eng-item lab-in"><p class="lab-card-t">Built for water</p><p class="lab-card-b">Water resistant to 100 metres, so it stays on for the swim, the shower and the sauna.</p></div>
-</div>
+<h2 class="ph-display"><span class="ph-display-lead">Performance</span><span>Inside out</span></h2>
 </div>
 </div>
 
@@ -209,7 +189,7 @@
 </section>
 <section class="section pick" data-pick="">
 <div class="wrap-wide opener">
-<div class="opener-t"><h2 class="sec-title">Choose your ring.</h2></div>
+<div class="opener-t"><h2 class="ph-display is-ink is-left pick-h"><span class="ph-display-lead">Choose</span><span>Your ring.</span></h2></div>
 <p class="lede" style="margin-left:0">Both rings read exactly the same signals, the choice is purely yours. Ceramic for a refined, featherlight finish; Titanium for durable, all day strength. No subscription, either way.</p>
 <!-- Each card carries its own colourway swatches under the photograph (moved
      here from the "Two rings" section, 2026-09-14). A swatch swaps the photograph
@@ -220,16 +200,16 @@
 <span class="pick-shot"><img class="on" data-tone-img="c-pink" alt="The Ceramic ring in pink, resting on folded blue silk" decoding="async" height="1226" loading="lazy" src="/phenome-store/assets/pages/ring_silk_ceramic.webp" width="1283" data-pick-img="" style="--d:-1"/><img data-tone-img="c-black" alt="A black ceramic PhenomeTech Ring balanced on smooth blue stones" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_stones_blue.webp" width="1536" data-pick-img="" style="--d:-1"/><img data-tone-img="c-white" alt="A white ceramic PhenomeTech Ring balanced on smooth blue stones" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_stones_white.webp" width="1536" data-pick-img="" style="--d:-1"/></span>
 <div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Ceramic colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="c-pink" aria-label="Pink" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-white" aria-label="White" aria-checked="false" tabindex="-1"></button></span></div>
 <span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Ceramic</a><span class="pick-price">From £199</span></span>
-<span class="pick-sub"><span data-tone-name="c-pink" aria-current="true">Pink</span> · <span data-tone-name="c-black">Black</span> · <span data-tone-name="c-white">White</span></span>
+<span class="pick-sub"><span data-tone-name="c-pink" aria-current="true">Pink</span>, <span data-tone-name="c-black">Black</span>, <span data-tone-name="c-white">White</span></span>
 </div>
 <div class="pick-card" data-pick-card="">
 <span class="pick-shot"><img class="on" data-tone-img="t-gold" alt="The Titanium ring in gold, resting on folded blue silk" decoding="async" height="1226" loading="lazy" src="/phenome-store/assets/pages/ring_silk_titanium.webp" width="1283" data-pick-img="" style="--d:1"/><img data-tone-img="t-black" alt="A black titanium PhenomeTech Ring in a dark studio, sensor side to camera" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_studio_black.webp" width="1536" data-pick-img="" style="--d:1"/><img data-tone-img="t-silver" alt="A silver titanium PhenomeTech Ring on brushed blue metal" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_brushed_silver.webp" width="1536" data-pick-img="" style="--d:1"/></span>
 <div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Titanium colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="t-gold" aria-label="Gold" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="t-black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="t-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button></span></div>
 <span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Titanium</a><span class="pick-price">From £179</span></span>
-<span class="pick-sub"><span data-tone-name="t-gold" aria-current="true">Gold</span> · <span data-tone-name="t-black">Black</span> · <span data-tone-name="t-silver">Silver</span></span>
+<span class="pick-sub"><span data-tone-name="t-gold" aria-current="true">Gold</span>, <span data-tone-name="t-black">Black</span>, <span data-tone-name="t-silver">Silver</span></span>
 </div>
 </div>
-<ul class="pick-assure"><li><span class="pa-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="9.2" cy="12" r="6.2"/><circle cx="14.8" cy="12" r="6.2"/></svg></span><span class="pa-t">Same data, your style</span></li><li><span class="pa-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M5.64 18.36 18.36 5.64"/></svg></span><span class="pa-t">£0 subscription</span></li><li><span class="pa-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3.1"/><circle cx="12" cy="12" r="6.1"/><circle cx="12" cy="12" r="9.1"/></svg></span><span class="pa-t">Free sizer</span></li><li><span class="pa-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></span><span class="pa-t">30 day returns</span></li></ul>
+
 </div>
 </section>
 <section class="closer" data-par="">
@@ -238,7 +218,7 @@
 <div class="wrap closer-copy"><h2 class="ph-display is-left"><span class="ph-display-lead">Wear it</span><span>And forget it.</span></h2><p>Free sizer, 30 day returns, two year warranty.</p><div class="cta-actions"><a class="btn" href="/phenome-store/store/phenometech-ring/">Buy</a><a class="link-more" href="/phenome-store/devices/ring/find-your-size/">Find your size</a></div></div>
 </section>
 <section class="section section-gray loop">
-<div class="wrap-wide loop-row"><div class="loop-t"><h2 class="sec-title">Stay in the loop.</h2></div><div class="loop-side"><p class="lede" style="margin:0">Longevity insight, product updates, and the science behind the ring, straight to your inbox.</p><div class="cta-actions"><a class="btn" href="/phenome-store/contact/">Subscribe</a></div></div></div>
+<div class="wrap-wide loop-row"><div class="loop-t"><h2 class="ph-display is-ink is-left loop-h"><span class="ph-display-lead">Stay</span><span>In the loop.</span></h2></div><div class="loop-side"><p class="lede" style="margin:0">Longevity insight, product updates, and the science behind the ring, straight to your inbox.</p><div class="cta-actions"><a class="btn" href="/phenome-store/contact/">Subscribe</a></div></div></div>
 </section>
 </main>
 

@@ -1211,77 +1211,6 @@
   font-weight: var(--ph-w-600);
 }
 
-/* The four assurances take the signal rail's construction, and that is a
-   system decision rather than a repeat: both are a set of short facts of equal
-   weight under a claim, and the page now says that shape one way. */
-.ph-flat .pick-assure {
-  list-style: none;
-  margin: clamp(40px, 4vw, 64px) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--divider);
-}
-.ph-flat .pick-assure li {
-  display: grid;
-  justify-items: start;
-  gap: 24px;
-  padding: clamp(36px, 3.4vw, 48px) clamp(20px, 2vw, 28px) 6px 0;
-  border-left: 1px solid var(--divider);
-}
-.ph-flat .pick-assure li:not(:first-child) { padding-left: clamp(20px, 2vw, 28px); }
-.ph-flat .pick-assure li:first-child { border-left: 0; }
-
-/* ---- THE MARK, AND WHY THERE IS ONE AT ALL.
-
-   This row was four lines of grey type divided by hairlines, and it read as a
-   footnote to the two cards above it rather than as the four reasons someone
-   actually presses Buy. The two easy fixes were both wrong: a tick beside each
-   is the component § 10 records removing (four identical marks say only "this
-   is a list", which the list already said), and setting them on a fifth tinted
-   slab under two tinted cards is a third panel in a stack of three.
-
-   So the weight goes into a mark per item and into the type, and the row stays
-   on the open page. FOUR DRAWINGS, FOUR MEANINGS — none of them is a decoration
-   that could be swapped for another:
-
-     two overlapping rings   two products, one set of readings
-     a circle struck through the universal none, against "£0"
-     three rings, graded     a set of sizes, which is what a sizer is
-     an arrow round          send it back
-
-   Three of the four are built from circles, and that is the point rather than
-   a shortage of ideas: the product is a ring, the page has just spent three
-   screens turning one, and a family of marks drawn from the same figure reads
-   as this brand's set rather than as four icons off a sheet. They stay apart
-   in silhouette — paired, struck, graded, arrowed — which is the only test a
-   24px glyph has to pass.
-
-   The disc behind each is § 2's ladder doing its usual job: a pane takes the
-   value its section does not, and on a white section that is --flat-band. It
-   is what stops a 24px line drawing from disappearing into a 1260px row. */
-.ph-flat .pa-mark {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--flat-band);
-  color: var(--ph-accent);
-}
-.ph-flat .section-gray .pa-mark { background: var(--flat-page); }
-.ph-flat .pa-mark svg { width: 30px; height: 30px; display: block; }
-/* The label comes up to the body rung and to page ink. At 17px in --ph-text-2
-   it was the same voice as a caption; these are four promises, and the reader
-   is meant to finish them. */
-.ph-flat .pa-t {
-  font-size: var(--ph-fs-19);
-  line-height: var(--ph-lh-19-loose);
-  letter-spacing: var(--ph-tr-19-400);
-  color: var(--ph-text-1);
-  text-wrap: balance;
-}
-
 @media (max-width: 900px) {
   .ph-flat .pick-pair { grid-template-columns: minmax(0, 1fr); }
   .ph-flat .pick-shot { height: clamp(260px, 62vw, 380px); }
@@ -1290,30 +1219,6 @@
      going. Same reason the signal window loses its travel here. */
   .ph-flat .pick-shot img { inset: 0; height: 100%; }
   .ph-flat .pick.is-lively .pick-shot img { transform: none; }
-  .ph-flat .pick-assure { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ph-flat .pick-assure li,
-  .ph-flat .pick-assure li:not(:first-child) {
-    border-left: 0;
-    padding-left: 0;
-    padding-right: 20px;
-  }
-  .ph-flat .pick-assure li:nth-child(n+3) { border-top: 1px solid var(--divider); }
-}
-@media (max-width: 520px) {
-  /* One column, and the mark moves beside the label rather than above it: four
-     52px discs each on their own line is 400px of phone spent on decoration. */
-  .ph-flat .pick-assure { grid-template-columns: minmax(0, 1fr); }
-  .ph-flat .pick-assure li,
-  .ph-flat .pick-assure li:not(:first-child) {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 18px;
-    padding: 18px 0;
-    border-top: 1px solid var(--divider);
-  }
-  .ph-flat .pick-assure li:first-child { border-top: 0; }
-  .ph-flat .pa-mark { width: 44px; height: 44px; }
-  .ph-flat .pa-mark svg { width: 21px; height: 21px; }
 }
 
 /* ---- 9e · STAY IN THE LOOP · a row, not a section ---------------------
@@ -1468,7 +1373,8 @@ html.ph-reveal body.ph-flat main > section.ph-r :is(
   .cta-actions,
   .showcase-img,
   .pick-card,
-  .pick-assure li,
+  .pick-h,
+  .loop-h,
   .closer-copy h2,
   .closer-copy p
 ) {
@@ -1485,7 +1391,8 @@ html.ph-reveal body.ph-flat main > section.ph-in :is(
   .cta-actions,
   .showcase-img,
   .pick-card,
-  .pick-assure li,
+  .pick-h,
+  .loop-h,
   .closer-copy h2,
   .closer-copy p
 ) {
@@ -1531,11 +1438,6 @@ html.ph-reveal body.ph-flat main > section .cta-actions    { --rv-at: 245ms; }
 html.ph-reveal body.ph-flat main > section .pick-card:nth-child(1) { --rv-at: 150ms; }
 html.ph-reveal body.ph-flat main > section .pick-card:nth-child(2) { --rv-at: 205ms; }
 
-html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(1) { --rv-at: 140ms; }
-html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(2) { --rv-at: 185ms; }
-html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(3) { --rv-at: 230ms; }
-html.ph-reveal body.ph-flat main > section .pick-assure li:nth-child(4) { --rv-at: 275ms; }
-
 /* The full-bleed plate keeps the shared treatment and the shared reason: it is
    one image filling a fixed, clipped box, so sliding it would show a strip of
    background along one edge and crop the same off the other. It fades. */
@@ -1557,9 +1459,9 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
    measured around a 34 to 64px heading, so the display is held to that band
    rather than taking its own clamp(44, 8.4vw, 132).
    ======================================================================== */
-.ph-flat .lab .ph-display { font-size: clamp(34px, 4.2vw, 62px); }
+.ph-flat .lab .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
 .ph-flat .lab .lab-offgrid-text .ph-display,
-.ph-flat .lab .lab-case .ph-display { font-size: clamp(38px, 4.8vw, 74px); }
+.ph-flat .lab .lab-case .ph-display { font-size: clamp(46px, 7.6vw, 118px); }
 
 /* The label above a display is the same held back line the display's own first
    line is, so it stops competing with it: the kit's lead ink, not full white. */
@@ -1569,3 +1471,41 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
 /* The display is a flex column, so the gap it wants under it is its own
    margin, not the .lab-h2 paragraph spacing lab.css set for a block heading. */
 .ph-flat .lab .lab-textblock .lab-desc { margin-top: 24px; }
+
+/* ==========================================================================
+   § 11 · THE BAND'S TYPE LADDER, 2026-09-17 by request.
+
+   The lab block was set at the lab's own sizes, a 14px caption under a 16px
+   title, and it read as small print beside everything else on this page. Every
+   rung here is devices/band's, measured off that page at 1440:
+
+     statement    .ph-display, clamp(40, 5.6vw, 84), or 46 to 118 for a stage
+     card title   clamp(20, 1.6vw, 24) / 600
+     copy         clamp(18, 1.35vw, 21), the Band's help line
+     detail       17, and nothing on the page under 15
+
+   Scoped to `.ph-flat .lab`, so devices/ring-lab keeps its own sizes.
+   ======================================================================== */
+.ph-flat .lab .lab-label { font-size: 17px; letter-spacing: 0; }
+.ph-flat .lab .lab-desc { font-size: clamp(18px, 1.35vw, 21px); line-height: 1.5; max-width: 760px; }
+.ph-flat .lab .lab-ft,
+.ph-flat .lab .lab-card-t { font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; }
+.ph-flat .lab .lab-fd,
+.ph-flat .lab .lab-card-b { font-size: 17px; line-height: 1.5; }
+.ph-flat .lab .lab-card-b { opacity: .78; }
+.ph-flat .lab .lab-ft { margin-top: 18px; }
+.ph-flat .lab .lab-fd { margin-top: 10px; }
+.ph-flat .lab .lab-featlist { max-width: 980px; gap: 64px 72px; }
+.ph-flat .lab .lab-featlist svg { width: 44px; height: 44px; }
+.ph-flat .lab .ui-chat-q { font-size: 21px; }
+.ph-flat .lab .ui-chat-in { font-size: 16px; min-height: 52px; width: min(400px, 88%); }
+.ph-flat .lab .ui-node { font-size: 15px; letter-spacing: 0; padding: 7px 12px; }
+.ph-flat .lab .ui-mode { font-size: 16px; padding: 10px 18px; }
+.ph-flat .lab .ui-lock p { font-size: 17px; }
+
+/* The two short headings below the cards were single ink sec-titles; they are
+   two tone pairs now, held a step under the statements above because each
+   shares its row with copy. */
+.ph-flat .pick-h,
+.ph-flat .loop-h { margin: 0; font-size: clamp(40px, 5vw, 76px); }
+.ph-flat .closer-copy .ph-display { font-size: clamp(44px, 6vw, 92px); }

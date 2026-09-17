@@ -25,7 +25,7 @@
    it. The gradient went with it, and `--rbio-grad` with the gradient. */
 .ph-flat .rbio-h {
   margin: 0 auto clamp(40px, 4vw, 72px); max-width: calc(100% - 40px);
-  font-size: clamp(36px, 4.4vw, 68px);
+  font-size: clamp(40px, 5.6vw, 84px);
 }
 
 .ph-flat .rbio-row {
@@ -47,7 +47,7 @@
 .ph-flat .rbio-list i svg { width: 56%; fill: #fff; }
 .ph-flat .rbio-list i svg.is-line { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ph-flat .rbio-list b { font-size: clamp(20px, 1.6vw, 25px); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; color: var(--ph-text-1, #10214b); }
-.ph-flat .rbio-list span { font-size: 17px; line-height: 1.4; color: var(--ph-text-2, #4a5578); }
+.ph-flat .rbio-list span { font-size: clamp(17px, 1.3vw, 19px); line-height: 1.4; color: var(--ph-text-2, #4a5578); }
 
 /* The ring holds the left two thirds and the names stand clear in the last
    third, each joined to its point by a leader that grows to fill the gap:
