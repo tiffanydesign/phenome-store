@@ -453,16 +453,21 @@
 }
 
 /* ---------------------------------------------------------------------------
-   4b · FROM THE STUDIO
+   4b · MADE TO BE WORN · the first scene under the hero
 
-   PORTED from devices/ring-lab/plx.css § 59: label, statement, and a row of
-   tall portrait frames that snaps. The reference's frames hold films and carry
+   PORTED from devices/ring-lab/plx.css § 59: statement, and a row of tall
+   portrait frames that snaps. The reference's frames hold films and carry
    a play control; the Band's hold photographs, so the control is gone rather
    than left over a still it cannot play. Arrows are enabled by band.js and hide
    themselves at either end of the track.
+
+   The "From the studio" label above the statement is gone (2026-09-16, by
+   request) along with its `.bd-studio-k` rule: the section opens the page now,
+   directly under a hero that has just named the product, and an eyebrow there
+   only names the room the photographs were taken in. The heading takes the
+   whole section, so it keeps the top of the block to itself.
    ------------------------------------------------------------------------ */
 .bd .bd-studio { padding: clamp(70px, 8vw, 118px) 0 clamp(78px, 9vw, 126px); text-align: center; background: #fff; }
-.bd .bd-studio-k { margin: 0 0 14px; font-size: 17px; line-height: 1.2; font-weight: 600; color: var(--phenome-blue-500); }
 .bd .bd-studio-h { text-align: center; }
 .bd .bd-studio-wrap { position: relative; margin-top: clamp(34px, 4vw, 54px); }
 .bd .bd-studio-track {
