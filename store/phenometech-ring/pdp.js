@@ -734,116 +734,55 @@
 
   /* ==========================================================================
      6 · THE HIGHLIGHTS
+     devices/band/band.js's coach() and apps(), 2026-09-17 by request. A navy
+     circle whose centre sits below the stage rises as a dome with the scroll
+     until it covers the far corners; the headline lifts clear of it and the
+     second pair rises onto it. The card row is doubled so the marquee closes
+     on itself, and its speed is set from its width so a wide screen does not
+     race. Over the navy, the product bar turns to ink.
      ====================================================================== */
-
-  /* The band's timeline (pdp.css § 4). REWRITTEN 2026-09-14 (third pass) after
-     the second one was reported wrong on a fast scroll — flick the wheel and
-     the words were fully up before the black arrived, which then snapped in.
-     Three separate causes, and all three are fixed here rather than retuned.
-
-     1 · THE TIMELINE NOW STARTS AT THE PIN, NOT BEFORE IT. `lead` was 0.95vh,
-         so the first two thirds of the arrival happened while the stage was
-         still travelling up the screen — the film slid, the words came up on
-         it, and only a reader scrolling slowly ever saw it as intended. The
-         reference (ultrahuman.com/ring-pro) holds its picture PERFECTLY STILL
-         and moves nothing but the veil and the copy over it, which is the
-         whole effect. `lead` is 0: p opens the instant the band's top edge
-         reaches the top of the window, which is the instant the stage pins,
-         and closes when the pin releases. The film does not move at all while
-         anything is happening on it.
-
-     2 · THE LERP IS GONE. The painted value used to chase the target by a
-         fifth each frame. That is invisible on a slow scroll and is exactly
-         the reported bug on a fast one: four frames of lag against a wheel
-         flick is several hundred pixels of scroll, so the veil was painting a
-         position the reader had already left. Scroll is already coalesced to
-         one rAF by `watch()`, so the target is painted directly and the
-         wheel's steps are smoothed in CSS instead — one transition, the same
-         duration on every animated property (pdp.css § 4), so the veil and
-         the words cannot come apart no matter how fast the wheel turns.
-
-     3 · THE VEIL LEADS, AND ITS CURVE SAYS SO. It was linear against the
-         copy's smoothstep, so at the middle of the band the copy was ahead of
-         the black it needed to sit on. It is ease-OUT now — most of the
-         darkening is spent in the first third of its own span — and its span
-         opens before the heading's:
-
-       0    – .30   the veil deepens to .85, fast at first, so the frame is
-                    already a third dark before a word has arrived
-       .02  – .32   the heading rises out of its blur
-       .08  – .38   the dek follows a beat behind it
-       .15+ – .66   the four highlights, .075 apart and overlapping
-
-     THE LAST THIRD USED TO HOLD A FINISHED FRAME (fixed 2026-09-16). Everything
-     above lands by .66 and the pin does not release until 1.0, which is 85vh of
-     held scroll spent on a picture the reader finished reading a third of a
-     screen ago — the single most common reason a pinned band reads as broken.
-     So a SECOND pass runs over the same four items across that stretch, one at
-     a time, and nothing new is introduced to carry it: each item lights, and
-     the rule at its head draws across (pdp.css § 4).
-
-       .34  – .54   the rail fades in under the list
-       .42+ – .92   the four light in turn, .13 apart, .11 each
-
-     The four stops are sequential rather than overlapping — this pass is the
-     slow reading, and two leads brightening at once is the fast one again. The
-     last lands at .92, which leaves a beat of finished frame before the pin
-     releases rather than a third of the section of it.
-
-     The section only becomes tall once this runs (`data-live`); without it, or
-     with reduced motion, it is one screen with the end state painted. */
   function highlights() {
-    var band = $('[data-hl]');
-    if (!band || still.matches) return;
-    band.setAttribute('data-live', '');
-    var items = $$('.pdp-hl-item', band);
-    var dek = $('.pdp-hl-dek', band);
-    /* One tick per highlight, and the rail is trimmed to the list rather than
-       trusted to match it: the markup ships four of each, and a fifth item
-       added later should not light a tick that is not there — or leave one
-       dark that is. */
-    var ticks = $$('.pdp-hl-rail i', band);
-
+    var sec = $('[data-coach]');
+    if (!sec) return;
+    var orb = $('[data-orb]', sec);
+    var head = $('.pdp-coach-h', sec);
+    var apps = $('.pdp-apps');
     function clamp01(t) { return Math.min(Math.max(t, 0), 1); }
-    function ease(t) {
-      t = clamp01(t);
-      return t * t * (3 - 2 * t);
-    }
-    function span(p, a, b) { return ease((p - a) / (b - a)); }
-    /* Ease-out: half the darkening is done in the first quarter of the span. */
-    function front(t) { t = clamp01(t); return 1 - (1 - t) * (1 - t); }
 
-    var last = -1;
-
-    function paint(p) {
-      band.style.setProperty('--hl-veil', (front(p / 0.30) * 0.85).toFixed(3));
-      band.style.setProperty('--hl-copy', span(p, 0.02, 0.32).toFixed(3));
-      band.style.setProperty('--hl-rail', span(p, 0.34, 0.54).toFixed(3));
-      if (dek) dek.style.setProperty('--hl-dek', span(p, 0.08, 0.38).toFixed(3));
-      for (var i = 0; i < items.length; i++) {
-        var a = 0.15 + i * 0.075;
-        items[i].style.setProperty('--hl-i', span(p, a, a + 0.28).toFixed(3));
-        /* The second pass. Written as a string once and set on both the item
-           and its tick, so the rule at the head of the item and the tick at
-           the foot of the band can never disagree about where the reader is. */
-        var lit = span(p, 0.42 + i * 0.13, 0.42 + i * 0.13 + 0.11).toFixed(3);
-        items[i].style.setProperty('--hl-lit', lit);
-        if (ticks[i]) ticks[i].style.setProperty('--hl-lit', lit);
-      }
+    if (orb && head) {
+      watch(function () {
+        var r = sec.getBoundingClientRect();
+        var vh = window.innerHeight, vw = window.innerWidth;
+        var run = sec.offsetHeight - vh;
+        var p = run > 0 ? clamp01(-r.top / run) : 1;
+        var drop = vh * 0.3;
+        var full = Math.sqrt(Math.pow(vw / 2, 2) + Math.pow(vh + drop, 2)) + 2;
+        var e = clamp01((p - 0.08) / 0.72);
+        e = 1 - Math.pow(1 - e, 2.2);
+        orb.style.setProperty('--orb-drop', drop + 'px');
+        orb.style.setProperty('--orb-r', (e * full) + 'px');
+        orb.style.setProperty('--orb-copy', ((1 - e) * vh * 0.28 - e * vh * 0.1) + 'px');
+        head.style.setProperty('--c-lift', (e * vh * 0.18) + 'px');
+        var y = 28, dark = false;
+        if (r.top <= y && r.bottom >= y) dark = e > 0.5;
+        if (apps) {
+          var ra = apps.getBoundingClientRect();
+          if (ra.top <= y && ra.bottom >= y) dark = true;
+        }
+        doc.body.classList.toggle('is-dark-bar', dark);
+      });
     }
 
-    watch(function () {
-      var r = band.getBoundingClientRect();
-      var travel = r.height - window.innerHeight;
-      if (travel <= 0) return;
-      /* No lead: -r.top IS the distance scrolled since the stage pinned. */
-      var p = clamp01(-r.top / travel);
-      /* A tenth of a percent is under one paint's worth of change; skipping
-         those keeps a still page from writing five custom properties a frame. */
-      if (Math.abs(p - last) < 0.001 && last >= 0) return;
-      last = p;
-      paint(p);
+    var row = $('[data-mq-row]');
+    if (!row) return;
+    $$('li', row).forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      row.appendChild(c);
     });
+    function speed() { row.style.setProperty('--mq-s', Math.max(40, row.scrollWidth / 2 / 55) + 's'); }
+    speed();
+    window.addEventListener('resize', speed);
   }
 
   /* ==========================================================================
@@ -1084,7 +1023,7 @@
       /* querySelectorAll, not $. $ is querySelector here, so `films.length`
          was undefined and this loop had never run once — the films kept
          playing for a reader who asked them to stop. */
-      var films = doc.querySelectorAll('.ph-tl-big video, .pdp-hl-film, [data-gal-main] video');
+      var films = doc.querySelectorAll('.ph-tl-big video, [data-gal-main] video');
       for (var i = 0; i < films.length; i++) { try { films[i].pause(); } catch (e) {} }
     });
   }

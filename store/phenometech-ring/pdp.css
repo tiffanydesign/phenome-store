@@ -1334,315 +1334,81 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
 .pdp .pdp-filmbtn[data-paused] .i-pause { display: none; }
 
 /* ---------------------------------------------------------------------------
-   4 · THE HIGHLIGHTS · the film first, then the veil, then the words
+   4 · THE HIGHLIGHTS · devices/band's coach and insight marquee
    ------------------------------------------------------------------------ */
-
-/* THE REFERENCE is ultrahuman.com/ring-pro, "On the go. Off the grid.": a
-   screen-tall picture with nothing on it, and then, as the reader keeps
-   scrolling, a black veil rising to about 80% while the copy comes up in the
-   middle. Measured there: the veil is plain #000 on a fixed layer, opacity
-   0 → 0.8, scrubbed by scroll, with no blur.
-
-   HOW IT IS BUILT HERE. The section is taller than the screen and its stage
-   sticks, so the scroll spent inside the section is the timeline. pdp.js
-   reads that as two numbers and writes them on the section:
-
-     --hl-veil   0 → .85   the veil's opacity
-     --hl-copy   0 → 1     the copy's arrival
-
-   THE FILM IS STILL FOR THE WHOLE OF IT (2026-09-14, third pass). The
-   timeline used to open while the stage was still travelling up the screen,
-   so the picture slid under the words; it opens at the PIN now, which is what
-   makes this the reference's effect rather than an approximation of it — a
-   held frame, and nothing moving on it but the black and the type.
-
-   AND THE SMOOTHING IS HERE, NOT IN THE SCRIPT. pdp.js used to lerp the
-   painted value towards the target by a fifth each frame, which lagged a fast
-   wheel by several hundred pixels of scroll and let the copy get ahead of the
-   veil. It writes the true value every frame now, and the wheel's steps are
-   smoothed by ONE transition applied to every animated property below, at the
-   same duration and the same (linear) timing. That is the part that matters:
-   equal transitions cannot come apart, so however hard the reader flicks, the
-   veil and the words stay in the relationship the stops give them.
-   pdp.js § 6 has the stops.
-
-   (A STRAY COMMENT TERMINATOR USED TO SIT ON THE LINE ABOVE THIS PARAGRAPH,
-   removed 2026-09-16. It closed the comment early, which left the prose below
-   standing in front of `.pdp .pdp-hl {` as part of its selector — an invalid
-   selector, so the browser dropped the whole rule, and with it the band's
-   ground, its position and all three of its defaults. Nothing looked wrong
-   because pdp.js writes two of the three custom properties on the element
-   within a frame of load. It was one comment away from a black screen for
-   anyone whose script had not arrived yet.)
-
-   THE DEFAULTS ARE THE END STATE. With no script, or with reduced motion, the
-   band is simply a darkened film with its copy on it — readable, still. */
-.pdp .pdp-hl {
-  --hl-veil: .85;
-  --hl-copy: 1;
-  --hl-rail: 1;
-  /* ONE DURATION, ONE CURVE, every scrubbed property on this band — see the
-     note above. Linear rather than an ease, because these are being driven BY
-     scroll, and an ease here would be a second acceleration competing with the
-     reader's own. 150ms is long enough to fill the gap between two wheel
-     notches and short enough that the frame still tracks the hand. */
-  --hl-smooth: 150ms linear;
-  position: relative;
-  background: #000;
+/* Taken from devices/band/band.css § 2 and § 3 (2026-09-17, by request), so
+   the ring and the band present their highlights one way. The headline is the
+   kit's two tone pair on white; pdp.js grows a navy circle up from below the
+   stage until it is the ground, and the second pair rides in on it. The card
+   row then slides up over the stage's empty lower third on a ground that is
+   transparent where the two overlap, so there is no seam. */
+.pdp { --pdp-night: #070c24; --pdp-mq-ease: cubic-bezier(.16, 1, .3, 1); }
+.pdp .pdp-coach { position: relative; height: 230vh; background: #fff; }
+.pdp .pdp-coach-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: clip; }
+.pdp .pdp-coach-h {
+  position: absolute; left: 50%; top: 42%; width: min(92vw, 980px); margin: 0;
+  transform: translate(-50%, calc(-50% - var(--c-lift, 0px)));
+  font-size: clamp(46px, 7.6vw, 118px);
 }
-/* 260vh, down from 300. The timeline starts at the pin now rather than 0.95vh
-   before it, so the same arrival is spent entirely inside the pinned stretch —
-   160vh of it, of which the words are up by the two-thirds mark and the rest
-   holds the finished frame before the pin lets go. */
-.pdp .pdp-hl[data-live] { height: 260vh; }
-.pdp .pdp-hl-stage {
-  position: relative;
-  height: 100vh; height: 100svh;
-  min-height: 560px;
-  overflow: hidden;
-  display: grid; place-items: center;
-  color: #fff;
+.pdp .pdp-orb {
+  position: absolute; inset: 0; background: var(--pdp-night);
+  clip-path: circle(var(--orb-r, 0px) at 50% calc(100% + var(--orb-drop, 30vh)));
+  will-change: clip-path;
 }
-.pdp .pdp-hl[data-live] .pdp-hl-stage { position: sticky; top: 0; }
+.pdp .pdp-orb-in {
+  position: absolute; left: 50%; top: 50%; width: 92vw;
+  transform: translate(-50%, calc(-50% + var(--orb-copy, 40px)));
+}
+.pdp .pdp-orb-t { margin: 0; font-size: clamp(50px, 8vw, 118px); }
 
-.pdp .pdp-hl-film {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  /* A slow settle as the veil rises: the picture steps back as the words step
-     forward. 4% over the whole travel — felt, not seen. */
-  transform: scale(calc(1.04 - var(--hl-veil) * .05));
-  transition: transform var(--hl-smooth);
-  will-change: transform;
+.pdp .pdp-apps {
+  position: relative; z-index: 1; margin-top: -34vh; padding: 0 0 clamp(90px, 10vw, 150px); overflow: clip; color: #fff;
+  background: linear-gradient(180deg, transparent 0, var(--pdp-night) 34vh);
 }
-/* `.pdp .pdp-hl .pdp-hl-veil`, three classes, and the third is load-bearing:
-   shared.js's section reveal writes `opacity` on every grandchild of a section
-   (`html.ph-reveal main > section.ph-in > * > *`, 0-2-3), which pinned the veil
-   at 1 — a black screen — and the copy at 1 before it had arrived. 0-3-0 wins. */
-.pdp .pdp-hl .pdp-hl-veil {
-  position: absolute; inset: 0;
-  background: #000;
-  opacity: var(--hl-veil);
-  transition: opacity var(--hl-smooth);
-  pointer-events: none;
+.pdp .pdp-mq { overflow: hidden; }
+.pdp .pdp-mq-row {
+  list-style: none; margin: 0; padding: 0; display: flex; gap: 16px; width: max-content;
+  animation: pdp-mq var(--mq-s, 80s) linear infinite;
 }
+.pdp .pdp-mq:hover .pdp-mq-row { animation-play-state: paused; }
+@keyframes pdp-mq { to { transform: translateX(calc(-50% - 8px)); } }
+.pdp .pdp-mq-card {
+  position: relative; flex: none; width: clamp(260px, 27.8vw, 400px); aspect-ratio: 400 / 560;
+  border-radius: 16px; overflow: hidden; background: #1a2140;
+}
+.pdp .pdp-mq-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale 1.2s var(--pdp-mq-ease); }
+.pdp .pdp-mq-card:hover img { scale: 1.04; }
+.pdp .pdp-mq-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 12, 34, 0) 45%, rgba(6, 12, 34, .55) 100%);
+}
+.pdp .pdp-mq-chip {
+  position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 14px;
+  padding: 18px 20px 20px; border-radius: 14px;
+  background: rgba(10, 30, 87, .42);
+  -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
+}
+.pdp .pdp-mq-chip p { margin: 0; }
+.pdp .pdp-mq-k { display: flex; align-items: center; gap: 8px; font-size: 15px; line-height: 1.3; color: rgba(255, 255, 255, .78); }
+.pdp .pdp-mq-k i { width: 8px; height: 8px; border-radius: 50%; background: #8fb4ff; box-shadow: 0 0 0 4px rgba(143, 180, 255, .25); }
+.pdp .pdp-mq-chip .pdp-mq-t { margin-top: 10px; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
+.pdp .pdp-mq-chip .pdp-mq-d { margin-top: 6px; font-size: 16px; line-height: 1.4; color: rgba(255, 255, 255, .82); }
+.pdp .pdp-mq-chip .pdp-mq-v { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; color: #fff; }
+.pdp .pdp-mq-v b { font-size: clamp(30px, 2.6vw, 38px); line-height: 1; font-weight: 600; letter-spacing: -0.02em; }
+.pdp .pdp-mq-v span { font-size: 16px; color: rgba(255, 255, 255, .72); }
 
-/* THE TYPE, second pass. The hairlines are gone: the four highlights are held
-   apart by space and by weight alone. Each is a display-sized lead in white
-   and a quieter sentence under it, so the eye reads the four leads first as
-   one line of facts and drops to the detail only where it wants it. The right
-   column is set a half-step lower than the left, which turns a table into a
-   page — the grid still holds, it just breathes.
+/* Over the navy the product bar turns to ink, so it never floats as a white slab. */
+.pdp.is-dark-bar .ph-bar { background: rgba(7, 12, 36, .66); border-bottom-color: rgba(255, 255, 255, .08); }
+.pdp.is-dark-bar .ph-bar-name { color: #fff; }
+.pdp.is-dark-bar .ph-bar-meta { color: rgba(255, 255, 255, .62); }
 
-   THE ARRIVAL. Nothing waits for anything: the heading and each highlight
-   have their own progress (--hl-copy, and --hl-i per item, written by
-   pdp.js), staggered by a small fraction of the travel and overlapping, so
-   the words come up out of a soft blur while the veil is still deepening. */
-.pdp .pdp-hl .pdp-hl-copy {
-  position: relative; z-index: 1;
-  width: 100%;
-  max-width: 1120px;
-  text-align: left;
-}
-.pdp .pdp-hl-h {
-  margin: 0;
-  font-size: clamp(44px, 6.2vw, 96px);
-  line-height: .98;
-  font-weight: var(--ph-w-600);
-  letter-spacing: -0.035em;
-  color: #fff;
-  text-wrap: balance;
-  opacity: var(--hl-copy);
-  filter: blur(calc((1 - var(--hl-copy)) * 10px));
-  transform: translate3d(0, calc((1 - var(--hl-copy)) * 40px), 0);
-  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
-}
-/* THE DEK. The three sensing figures that once had a band of their own, set as
-   one sentence under the heading: the numerals in the heading's white and
-   weight, the words between them receding, so it reads at a glance as three
-   figures and on a second look as a sentence. */
-.pdp .pdp-hl .pdp-hl-dek {
-  --hl-dek: 1;
-  margin: clamp(18px, 1.8vw, 28px) 0 0;
-  font-size: clamp(22px, 2.3vw, 34px);
-  line-height: 1.2;
-  font-weight: var(--ph-w-400, 400);
-  letter-spacing: -0.015em;
-  color: rgba(255, 255, 255, .56);
-  opacity: var(--hl-dek);
-  filter: blur(calc((1 - var(--hl-dek)) * 8px));
-  transform: translate3d(0, calc((1 - var(--hl-dek)) * 30px), 0);
-  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
-}
-.pdp .pdp-hl-dek b {
-  font-weight: var(--ph-w-600);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.025em;
-  color: #fff;
-}
-.pdp .pdp-hl-list {
-  margin: clamp(40px, 4.8vw, 80px) 0 0; padding: 0; list-style: none;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(40px, 7vw, 120px);
-  row-gap: clamp(36px, 4.4vw, 64px);
-}
-/* THE IGNITION, 2026-09-16, and it is the reason this band is pinned at all.
-
-   WHAT IT REPLACES: the four arrived in a stagger over the first two thirds of
-   the travel and then the band held a finished, motionless frame for the last
-   third — 85vh of pin spent on a picture the reader had already read. The
-   arrival is unchanged (`--hl-i`, the stops are the same). What is added is a
-   SECOND, slower pass over the same four items: each one carries a rule across
-   the head of the item and comes up from a quarter-lit to full as the reader
-   reaches it, so the last third of the travel is the half of the section that
-   has something to say.
-
-   IT IS THE SITE'S OWN GESTURE. shared.css draws exactly this rule, in exactly
-   this accent, under exactly this kind of number — `html.ph-reveal .figure`,
-   a scaleX(0 → 1) overlay on a hairline that is already there. The two
-   differences are both forced by the band: the rule is SCRUBBED by `--hl-lit`
-   rather than fired once by an observer, because a pinned section has a
-   timeline and an observer only has an edge; and it runs on --ph-on-brand
-   rather than --ph-accent, because the brand blue is 1.8:1 on black.
-
-   NOTHING IS HIDDEN. All four items are on the screen, and readable, from the
-   moment they arrive — the light is a second reading of a list that is already
-   there, not a gate in front of three quarters of it. That distinction is the
-   one § 2 of this file was written to make. */
-.pdp .pdp-hl .pdp-hl-item {
-  --hl-i: 1;
-  --hl-lit: 1;
-  position: relative;
-  display: flex; flex-direction: column; gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, .2);
-  padding-top: 22px;
-  /* ARRIVAL ONLY. The light is NOT applied to the item, and that is a contrast
-     decision rather than a layering one: dimming the whole block to a quarter
-     took the 17px sentence with it, and 17px white at a quarter over this film
-     measures about 3.3:1 — under the 4.5 a reader who stops scrolling mid-band
-     is owed. So the two lines are dimmed SEPARATELY below, hard on the display
-     lead (large type, 3:1, and the one carrying the gesture) and barely on the
-     sentence under it. */
-  opacity: var(--hl-i);
-  filter: blur(calc((1 - var(--hl-i)) * 8px));
-  transform: translate3d(0, calc((1 - var(--hl-i)) * 36px), 0);
-  transition: opacity var(--hl-smooth), filter var(--hl-smooth), transform var(--hl-smooth);
-}
-/* The rule. An overlay on the border rather than the border itself, for the
-   reason shared.css gives where it does the same thing: a border cannot be
-   transformed, and animating its width would be animating layout. */
-.pdp .pdp-hl .pdp-hl-item::before {
-  content: "";
-  position: absolute; top: -1px; left: 0;
-  width: 100%; height: 1px;
-  background: var(--ph-on-brand, #8fb8ea);
-  transform: scaleX(var(--hl-lit)); transform-origin: left;
-  transition: transform var(--hl-smooth);
-}
-.pdp .pdp-hl .pdp-hl-item:nth-child(even) { margin-top: clamp(28px, 4vw, 64px); }
-.pdp .pdp-hl .pdp-hl-item:nth-child(3) { margin-top: calc(clamp(28px, 4vw, 64px) * -1); }
-.pdp .pdp-hl-k {
-  font-size: clamp(26px, 2.7vw, 42px);
-  line-height: 1.08;
-  font-weight: var(--ph-w-600);
-  letter-spacing: -0.022em;
-  color: #fff;
-  /* The lead takes the whole of the light: a third of full when the reader has
-     not reached it, and white when they have. It can, where the sentence under
-     it cannot — 26px at weight 600 is large text, so a third of white on this
-     ground is still over the 3:1 large type is held to. */
-  opacity: calc(.32 + .68 * var(--hl-lit));
-  /* A cast of the accent off the lead as it lights, and it is deliberately
-     below the threshold where it reads as a glow: at full it is a 24px halo at
-     28%, which on a near-black film is about half a stop. It does the work the
-     opacity step cannot — the item does not just get brighter, it gets warm. */
-  text-shadow: 0 0 calc(var(--hl-lit) * 24px) rgba(143, 184, 234, calc(var(--hl-lit) * .28));
-  transition: opacity var(--hl-smooth), text-shadow var(--hl-smooth);
-}
-.pdp .pdp-hl-d {
-  max-width: 40ch;
-  font-size: clamp(17px, 1.4vw, 21px);
-  line-height: 1.45;
-  letter-spacing: -0.005em;
-  /* .72, up from .6, and the floor below is 78% of it: the darkest this
-     sentence ever gets is .56 of white, where the old single-opacity version
-     bottomed out at .17. A reader who stops scrolling in the middle of the
-     band can read all four sentences at every point in the travel — only the
-     four leads change brightness, which is all the gesture ever needed. */
-  color: rgba(255, 255, 255, .72);
-  opacity: calc(.78 + .22 * var(--hl-lit));
-  transition: opacity var(--hl-smooth);
-  text-wrap: pretty;
-}
-
-/* ---- the rail. Four ticks, one per highlight, and the only thing on this
-   band that says how much of it is left. A pinned section takes the scroll
-   away from the scrollbar — the bar stops moving while the stage is held —
-   so the reader has no way to tell a band that is half read from one that has
-   stalled. Four 46px ticks answer that in the width of a word.
-
-   It is not a control. Nothing here is pressable, there is no state to carry,
-   and every word it stands for is on the screen beside it, which is why it is
-   aria-hidden in the markup rather than given a role it would have to honour. */
-.pdp .pdp-hl-rail {
-  display: flex; gap: 8px;
-  margin-top: clamp(40px, 4.4vw, 68px);
-  opacity: var(--hl-rail);
-  transition: opacity var(--hl-smooth);
-}
-.pdp .pdp-hl-rail i {
-  --hl-lit: 1;
-  position: relative;
-  width: 46px; height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, .22);
-  overflow: hidden;
-}
-.pdp .pdp-hl-rail i::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: var(--ph-on-brand, #8fb8ea);
-  transform: scaleX(var(--hl-lit)); transform-origin: left;
-  transition: transform var(--hl-smooth);
-}
-
-/* Bottom LEFT: the band is full-bleed, so bottom-right is exactly where the
-   site's fixed design-system launcher sits, and it covered the pause button. */
-.pdp .pdp-hl .pdp-filmbar {
-  z-index: 2;
-  right: auto;
-  left: clamp(16px, 3vw, 34px); bottom: clamp(16px, 3vw, 30px);
-}
-
-/* A SHORT LANDSCAPE WINDOW, and the rail is what made this rule necessary:
-   the copy block measured 605px inside a 700px stage before the four ticks and
-   their 68px of air were added to the foot of it, and 675 in 700 leaves the
-   last sentence sitting on the stage's own clip. The stage cannot grow — it is
-   one screen by definition — so the vertical rhythm compresses instead. The
-   zig-zag between the columns compresses with it rather than being dropped:
-   flattening it here would make the band a table at exactly the widths where
-   it is most obviously one. */
-@media (min-width: 721px) and (max-height: 780px) {
-  .pdp .pdp-hl-list { margin-top: clamp(26px, 3vw, 44px); row-gap: clamp(22px, 2.8vw, 40px); }
-  .pdp .pdp-hl .pdp-hl-item { padding-top: 16px; }
-  .pdp .pdp-hl .pdp-hl-item:nth-child(even) { margin-top: clamp(14px, 2.2vw, 34px); }
-  .pdp .pdp-hl .pdp-hl-item:nth-child(3) { margin-top: calc(clamp(14px, 2.2vw, 34px) * -1); }
-  .pdp .pdp-hl-rail { margin-top: clamp(22px, 2.6vw, 36px); }
-}
-
-@media (max-width: 720px) {
-  .pdp .pdp-hl-list { grid-template-columns: minmax(0, 1fr); row-gap: 26px; margin-top: 36px; }
-  .pdp .pdp-hl .pdp-hl-item:nth-child(n) { margin-top: 0; gap: 6px; padding-top: 16px; }
-  .pdp .pdp-hl-rail { margin-top: 30px; }
-  .pdp .pdp-hl-rail i { width: 34px; }
+@media (max-width: 760px) {
+  .pdp .pdp-coach { height: 190vh; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pdp .pdp-hl[data-live] { height: auto; }
-  .pdp .pdp-hl[data-live] .pdp-hl-stage { position: relative; }
-  .pdp .pdp-hl { --hl-veil: .85 !important; --hl-copy: 1 !important; --hl-rail: 1 !important; }
-  .pdp .pdp-hl .pdp-hl-item { --hl-i: 1 !important; --hl-lit: 1 !important; }
-  .pdp .pdp-hl .pdp-hl-dek { --hl-dek: 1 !important; }
-  .pdp .pdp-hl-rail i { --hl-lit: 1 !important; }
+  .pdp .pdp-mq-row { animation: none; }
+  .pdp .pdp-mq { overflow-x: auto; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1824,8 +1590,8 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
    of coloured beads with no names makes the reader guess what "the pale one" is
    called. Fixed height so the row does not jog when the name changes length. */
 .pdp .pdp-vs-swname {
-  margin: 12px 0 0; min-height: 18px;
-  font-size: var(--ph-fs-12); line-height: var(--ph-lh-12);
+  margin: 12px 0 0; min-height: 24px;
+  font-size: 15px; line-height: 1.5;
   color: var(--ph-text-2);
 }
 
@@ -2117,7 +1883,7 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   display: flex; align-items: baseline; gap: 12px;
 }
 .pdp .ph-bar-meta {
-  font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
+  font-size: 16px; line-height: 1.4;
   color: var(--ph-text-2); font-variant-numeric: tabular-nums;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
@@ -2297,7 +2063,7 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   box-shadow: inset 0 0 0 2px var(--ph-accent), 0 8px 22px -16px rgba(32, 58, 133, .55);
   color: var(--ph-accent); font-weight: var(--ph-w-600);
 }
-.pdp .buy-price .buy-sub { font-size: 14px; line-height: 20px; color: var(--ph-text-2); }
+.pdp .buy-price .buy-sub { font-size: 15px; line-height: 1.4; color: var(--ph-text-2); }
 
 @media (min-width: 1025px) {
   .pdp .buy { gap: clamp(40px, 4vw, 64px); grid-template-columns: minmax(0, 1fr) 470px; }
@@ -2341,4 +2107,16 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   .pdp .buy-col .ticks { margin-top: 22px; gap: 10px; }
   .pdp .buy-col .ticks li { font-size: 16px; line-height: 22px; grid-template-columns: 18px 1fr; }
   .pdp .buy-col .ticks svg { width: 17px; height: 17px; margin-top: 3px; }
+}
+
+/* ---------------------------------------------------------------------------
+   11 · THE BAND'S HEADLINE LADDER (2026-09-17, by request)
+   A statement that runs to two lines takes the kit's two tone pair; a glance
+   length label is set solid in the Band's Specifications ink and size.
+   ------------------------------------------------------------------------ */
+.pdp .pdp-vs-h { font-size: clamp(40px, 5.6vw, 84px); margin: 0 0 clamp(18px, 2vw, 28px); }
+.pdp .pdp-vs-h + .lede { margin-left: 0; }
+.pdp .pdp-specs-h {
+  font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; font-weight: 600;
+  letter-spacing: -0.02em; color: var(--ink-900);
 }
