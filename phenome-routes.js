@@ -204,7 +204,7 @@ var ROUTES = [
 
     var head = el('header', 'ph-routes-head');
     var titles = el('div', 'ph-routes-titles');
-    titles.appendChild(el('p', 'ph-routes-kicker', 'Phenome · Store'));
+    titles.appendChild(el('p', 'ph-routes-kicker', 'Phenome, Store'));
     titles.appendChild(el('h2', null, 'Site map'));
     head.appendChild(titles);
 
@@ -266,7 +266,7 @@ var ROUTES = [
   function setCount(pages, sections) {
     countEl.textContent = '';
     countEl.appendChild(el('b', null, String(pages)));
-    countEl.appendChild(document.createTextNode(pages === 1 ? ' page · ' : ' pages · '));
+    countEl.appendChild(document.createTextNode(pages === 1 ? ' page, ' : ' pages, '));
     countEl.appendChild(el('b', null, String(sections)));
     countEl.appendChild(document.createTextNode(sections === 1 ? ' section' : ' sections'));
   }

@@ -1829,7 +1829,7 @@
       });
       (p.columns || []).forEach(function (c) {
         (c.links || []).forEach(function (l) {
-          add(l.label, l.href, p.trigger + ' · ' + c.title, '');
+          add(l.label, l.href, p.trigger + ', ' + c.title, '');
         });
       });
     });
