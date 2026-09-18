@@ -15,7 +15,11 @@
      it does not retheme. See its header for what was taken from
      seed.com/daily-synbiotic and what was deliberately left alone. -->
 <link href="/phenome-store/store/phenometech-ring/pdp.css" rel="stylesheet"/>
-<link rel="preload" as="image" href="/phenome-store/assets/video/ring-cw-gold.webp" fetchpriority="high"/>
+<!-- The detail screen, shared with devices/ring/. Loaded last on both pages;
+     every selector in it is prefixed `rdet-` and carries no page class, so the
+     two ring pages cannot drift apart. -->
+<link href="/phenome-store/devices/ring/detail.css" rel="stylesheet"/>
+<link rel="preload" as="image" href="/phenome-store/assets/video/ring-cw-graphite.webp" fetchpriority="high"/>
 </head>
 <body class="pdp">
 <div class="ph-promo"><p class="ph-promo-inner">Welcome offer, 10% off your first order with code <b>Welcome10</b></p></div>
@@ -45,36 +49,54 @@
 <div class="pdp-gal-track" data-gal-track="">
 
 <div aria-label="1 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--film" data-follows="" data-slide="" role="group">
-<!-- Five clips, six finishes: Graphite and Onyx share the black scene, the
-     same way they share the black studio still. No `autoplay` — pdp.js plays
-     the current one and pauses the rest, so a page with no script shows a
-     poster that is a frame of the same film rather than four videos fighting
-     for four decoders. mp4 only: measured, VP9 came out 60-85% LARGER than
-     h264 on the gold and silver scenes (moving water, moving moiré), so a
-     `<source>` list with webm first would have handed the majority browser the
-     bigger file. One format, one decision. -->
-<video aria-label="A gold ring turning above sunlit water" data-clip="gold" id="pdp-cw-gold" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-gold.webp" preload="auto"><source src="/phenome-store/assets/video/ring-cw-gold.mp4" type="video/mp4"/></video>
-<video aria-label="A black ring above ink wash mountains" data-clip="graphite" id="pdp-cw-graphite" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-graphite.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-graphite.mp4" type="video/mp4"/></video>
+<!-- Four clips, nine finishes. The shoot delivered five scenes and the range
+     is now nine, so a scene is shared by everything that is the same COLOUR in
+     it: the black film carries all three blacks, the silver film both silvers
+     and the brushed one, the pink film the rose and the pink. The gold scene is
+     not here at all — the range no longer has a gold, and the file stays on
+     disk rather than showing a ring this page cannot sell.
+
+     No `autoplay` — pdp.js plays the current one and pauses the rest, so a page
+     with no script shows a poster that is a frame of the same film rather than
+     four videos fighting for four decoders. mp4 only: measured, VP9 came out
+     60-85% LARGER than h264 on the silver scene (moving moiré), so a `<source>`
+     list with webm first would have handed the majority browser the bigger
+     file. One format, one decision. -->
+<video aria-label="A black ring above ink wash mountains" data-clip="graphite" id="pdp-cw-graphite" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-graphite.webp" preload="auto"><source src="/phenome-store/assets/video/ring-cw-graphite.mp4" type="video/mp4"/></video>
 <video aria-label="A white ring above a bank of cloud" data-clip="white" id="pdp-cw-white" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-white.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-white.mp4" type="video/mp4"/></video>
 <video aria-label="A silver ring resting on dark draped fabric" data-clip="silver" id="pdp-cw-silver" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-silver.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-silver.mp4" type="video/mp4"/></video>
 <video aria-label="A blush ring turning above pink flowers" data-clip="blush" id="pdp-cw-blush" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/ring-cw-blush.webp" preload="none"><source src="/phenome-store/assets/video/ring-cw-blush.mp4" type="video/mp4"/></video>
 </div>
 
 <!-- The studio stills: stacked and crossfading with the swatch, so the
-     plain-ground view of the chosen finish is always the slide after the film. -->
-<div aria-label="2 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--still" data-follows="" data-gal-still="" data-slide="" role="group">
-<img alt="The PhenomeTech Ring in gold titanium, side on" data-finish="gold" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_gold_sq.webp" width="1254"/>
-<img alt="The PhenomeTech Ring in graphite titanium, side on" data-finish="graphite" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp" width="1254"/>
-<img alt="The PhenomeTech Ring in silver titanium, side on" data-finish="silver" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver_sq.webp" width="1254"/>
-<img alt="The PhenomeTech Ring in arctic white ceramic, side on" data-finish="white" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_white_sq.webp" width="1254"/>
-<img alt="The PhenomeTech Ring in onyx ceramic, side on" data-finish="onyx" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite_sq.webp" width="1254"/>
-<img alt="The PhenomeTech Ring in blush ceramic, side on" data-finish="blush" decoding="async" height="1254" loading="lazy" src="/phenome-store/assets/pages/ring_fin_pink_sq.webp" width="1254"/>
+     plain-ground view of the chosen finish is always the slide after the film.
+
+     NINE OF THEM SINCE 2026-09-17, one per finish, and every one is a render
+     of that exact ring rather than the nearest one in stock — the old set had
+     six entries and five files, with Onyx borrowed from Graphite. Sources are
+     ~/Downloads/Assets/Rings/Ring_PNG, normalised to a common scale (the pink
+     master is rendered 10% larger than the rest) and kept on transparency, so
+     they sit on whatever ground the frame gives them.
+
+     PLACEHOLDER, FLAGGED: Ceramic silver has no render of its own; it stands on
+     the metallic silver plate until one exists. -->
+<div aria-label="2 of 7" aria-roledescription="slide" class="pdp-slide pdp-slide--still is-plate" data-follows="" data-gal-still="" data-slide="" role="group">
+<img alt="The PhenomeTech Ring in black metal, three quarter view" data-finish="metal-black" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in polished silver metal, three quarter view" data-finish="metal-silver" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in brushed silver metal, three quarter view" data-finish="metal-brushed" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-brushed_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in matte rose, three quarter view" data-finish="matte-rose" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in stealth black, three quarter view" data-finish="matte-stealth" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in black ceramic, three quarter view" data-finish="ceramic-black" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in silver ceramic, three quarter view" data-finish="ceramic-silver" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in pink ceramic, three quarter view" data-finish="ceramic-pink" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink_sq.webp" width="1100"/>
+<img alt="The PhenomeTech Ring in white ceramic, three quarter view" data-finish="ceramic-white" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white_sq.webp" width="1100"/>
 </div>
-<!-- Silver, gold and graphite above the dock: three of the five finishes, and
-     all three real. (The four-up beige still that once stood here showed a pink
-     ring this page does not sell.) -->
+<!-- Three rings above the dock. The shoot's own scene, kept because it is the
+     one picture on the page that shows more than one ring at a time. Its
+     finishes are the shoot's, not the range's, so the caption names none of
+     them. -->
 <div aria-label="3 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
-<img alt="Silver, gold and graphite rings above the charging dock" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_dock_hero.webp" width="1100"/>
+<img alt="Three PhenomeTech Rings above the charging dock" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_dock_hero.webp" width="1100"/>
 </div>
 <div aria-label="4 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
 <img alt="The ring seen from the inside, sensor side up" decoding="async" height="1000" loading="lazy" src="/phenome-store/assets/pages/ring_macro_inner.webp" width="1000"/>
@@ -86,12 +108,12 @@
 <img alt="The ring and its dock on a bathroom shelf" decoding="async" height="937" loading="lazy" src="/phenome-store/assets/pages/ring_scene_bath.webp" width="937"/>
 </div>
 <div aria-label="7 of 7" aria-roledescription="slide" class="pdp-slide" data-slide="" role="group">
-<img alt="The brushed titanium finish, close up" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_metal_brushed.webp" width="1100"/>
+<img alt="The brushed metal finish, close up" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/pages/ring_metal_brushed.webp" width="1100"/>
 </div>
 
 </div>
 
-<span class="pdp-gal-tag" data-gal-tag=""><i></i><span>Titanium · Gold</span></span>
+<span class="pdp-gal-tag" data-gal-tag=""><i></i><span>Metal, Black</span></span>
 <div class="pdp-gal-tools">
 <button aria-label="Pause the slideshow" class="pdp-gal-tool pdp-gal-hold" data-gal-hold="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewbox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
 <button aria-label="Open at full size" class="pdp-gal-tool pdp-gal-zoom" data-gal-zoom="" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></button>
@@ -120,23 +142,32 @@
 <p class="lede">A sleek, lightweight wearable that tracks sleep, activity, heart rate and recovery, turning continuous signals into simple, actionable insight.</p>
 </div>
 
+<!-- THREE MATERIALS AND NINE FINISHES SINCE 2026-09-17, by request. The range
+     the factory actually ships is Metal in three, Matte in two and Ceramic in
+     four; what stood here was Titanium in three and Ceramic in three, with
+     names ("Arctic White", "Onyx", "Blush") that no carton carries. Every name
+     below is the one on the render it shows. -->
 <div class="buy-opt">
 <p class="pdp-opt-k">Material</p>
-<div class="buy-choices">
-<button aria-pressed="true" class="buy-choice on" data-material="titanium" type="button"><span class="n">Titanium</span><span class="p">£179</span></button>
+<div class="buy-choices is-three">
+<button aria-pressed="true" class="buy-choice on" data-material="metal" type="button"><span class="n">Metal</span><span class="p">£179</span></button>
+<button aria-pressed="false" class="buy-choice" data-material="matte" type="button"><span class="n">Matte</span><span class="p">£189</span></button>
 <button aria-pressed="false" class="buy-choice" data-material="ceramic" type="button"><span class="n">Ceramic</span><span class="p">£199</span></button>
 </div>
 </div>
 
 <div class="buy-opt">
-<p class="pdp-opt-k">Finish<span data-finish-label="">Gold</span></p>
+<p class="pdp-opt-k">Finish<span data-finish-label="">Black</span></p>
 <div class="buy-swatches">
-<button aria-label="Gold" aria-pressed="true" class="buy-swatch on" data-mat="titanium" data-swatch="gold" data-tone="t-gold" type="button"></button>
-<button aria-label="Graphite" aria-pressed="false" class="buy-swatch" data-mat="titanium" data-swatch="graphite" data-tone="t-black" type="button"></button>
-<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-mat="titanium" data-swatch="silver" data-tone="t-silver" type="button"></button>
-<button aria-label="Arctic White" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="white" data-tone="c-white" type="button" hidden=""></button>
-<button aria-label="Onyx" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="onyx" data-tone="c-black" type="button" hidden=""></button>
-<button aria-label="Blush" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="blush" data-tone="c-blush" type="button" hidden=""></button>
+<button aria-label="Black" aria-pressed="true" class="buy-swatch on" data-mat="metal" data-swatch="metal-black" data-tone="m-black" type="button"></button>
+<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-mat="metal" data-swatch="metal-silver" data-tone="m-silver" type="button"></button>
+<button aria-label="Brushed silver" aria-pressed="false" class="buy-swatch" data-mat="metal" data-swatch="metal-brushed" data-tone="m-brushed" type="button"></button>
+<button aria-label="Rose" aria-pressed="false" class="buy-swatch" data-mat="matte" data-swatch="matte-rose" data-tone="x-rose" type="button" hidden=""></button>
+<button aria-label="Stealth black" aria-pressed="false" class="buy-swatch" data-mat="matte" data-swatch="matte-stealth" data-tone="x-stealth" type="button" hidden=""></button>
+<button aria-label="Black" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="ceramic-black" data-tone="c-black" type="button" hidden=""></button>
+<button aria-label="Silver" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="ceramic-silver" data-tone="c-silver" type="button" hidden=""></button>
+<button aria-label="Pink" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="ceramic-pink" data-tone="c-pink" type="button" hidden=""></button>
+<button aria-label="White" aria-pressed="false" class="buy-swatch" data-mat="ceramic" data-swatch="ceramic-white" data-tone="c-white" type="button" hidden=""></button>
 </div>
 </div>
 
@@ -225,8 +256,13 @@
 <svg aria-hidden="true" class="pdp-fig-sweep" focusable="false" viewbox="0 0 120 120"><circle cx="60" cy="60" fill="none" r="57.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></circle></svg>
 <svg aria-hidden="true" class="pdp-fig-g" focusable="false" viewbox="0 0 48 48"><path d="M24 8c6 8 10 14 10 20a10 10 0 0 1-20 0c0-6 4-12 10-20z" fill="currentColor"></path></svg>
 </span>
-<p class="pdp-fig-n">100 m</p>
-<p class="pdp-fig-l">Water resistance<br/>for swims and showers</p>
+<!-- IP67, NOT 100 m, since 2026-09-17. The leaflet that ships in the carton
+     rates this ring IP67, and the detail screen further down now quotes it, so
+     a depth figure here would have the page disagreeing with itself one screen
+     later. The claim goes down with it: IP67 is washing, rain and a shower, not
+     a swim. -->
+<p class="pdp-fig-n">IP67</p>
+<p class="pdp-fig-l">Water resistance<br/>for washing and rain</p>
 </li>
 
 <li class="pdp-fig" style="--fig-tint:#eae6f6;--fig-ink:#5f4bab">
@@ -235,7 +271,7 @@
 <svg aria-hidden="true" class="pdp-fig-g" focusable="false" viewbox="0 0 48 48"><ellipse cx="24" cy="21" fill="none" rx="14" ry="9" stroke="currentColor" stroke-width="3"></ellipse><path d="M10 21v5c0 5 6.3 9 14 9s14-4 14-9v-5" fill="none" stroke="currentColor" stroke-width="3"></path></svg>
 </span>
 <p class="pdp-fig-n">4 g</p>
-<p class="pdp-fig-l">Titanium ring<br/>at size 8</p>
+<p class="pdp-fig-l">Metal ring<br/>at size 8</p>
 </li>
 
 </ul>
@@ -405,8 +441,8 @@
 <ul class="pdp-mq-row" data-mq-row="">
 <li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/sensing.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Sensing</p><p class="pdp-mq-d">Five sensors reading more than 50 signals</p><p class="pdp-mq-v"><b>50+</b><span>Signals</span></p></div></li>
 <li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/allday.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Always on</p><p class="pdp-mq-d">Through the day and the night after it</p><p class="pdp-mq-v"><b>24/7</b><span>Reading you</span></p></div></li>
-<li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/battery.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Battery</p><p class="pdp-mq-d">A full charge in roughly 90 minutes</p><p class="pdp-mq-v"><b>7 days</b><span>Per charge</span></p></div></li>
-<li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/water.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Water resistant</p><p class="pdp-mq-d">Swim, shower, sleep</p><p class="pdp-mq-v"><b>100 m</b><span>Depth rated</span></p></div></li>
+<li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/battery.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Battery</p><p class="pdp-mq-d">A full charge in about an hour and a half</p><p class="pdp-mq-v"><b>5 to 7 days</b><span>Per charge</span></p></div></li>
+<li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/water.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Water resistant</p><p class="pdp-mq-d">Washing, rain and showers</p><p class="pdp-mq-v"><b>IP67</b><span>Rated</span></p></div></li>
 <li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/weight.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Weight</p><p class="pdp-mq-d">Aerospace titanium or ceramic, on the finger</p><p class="pdp-mq-v"><b>4 g</b><span>Just 4 grams</span></p></div></li>
 <li class="pdp-mq-card"><img alt="" decoding="async" loading="lazy" src="/phenome-store/assets/ring/hl/biology.webp" width="800" height="1120"/><div class="pdp-mq-chip"><p class="pdp-mq-k"><i></i>Ring highlight</p><p class="pdp-mq-t">Synced to your biology</p><p class="pdp-mq-d">Your genes and gut, in the same picture</p><p class="pdp-mq-v"><b>1</b><span>Picture of you</span></p></div></li>
 </ul>
@@ -433,28 +469,34 @@
      section part of the decision rather than a description of it.
      ====================================================================== -->
 <section class="section"><div class="wrap-wide">
-<h2 class="ph-display is-ink is-left pdp-vs-h"><span class="ph-display-lead">Titanium</span><span>Or ceramic</span></h2>
+<h2 class="ph-display is-ink is-left pdp-vs-h"><span class="ph-display-lead">Metal, matte</span><span>Or ceramic</span></h2>
 <p class="lede" style="margin-left:0">Identical sensors, identical insight. Choose by feel and finish.</p>
 
-<div class="pdp-vs" data-vs="">
+<!-- THREE COLUMNS SINCE 2026-09-17. The construction is unchanged — the parent
+     owns the seven rows and each column adopts them with `subgrid`, so the
+     pictures, the dots, the names and the three fact groups stay level across
+     however many columns there are. Only the column count and the contents
+     moved. The pictures are the same nine renders the hero uses, so a reader
+     who has chosen Brushed silver upstairs sees Brushed silver here. -->
+<div class="pdp-vs is-three" data-vs="">
 
-<div class="pdp-vs-col" data-on="" data-vs-mat="titanium">
-<div class="pdp-vs-fig" data-vs-fig="titanium">
-<img alt="The PhenomeTech Ring in gold titanium" data-finish="gold" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_gold.webp" width="1080"/>
-<img alt="The PhenomeTech Ring in graphite titanium" data-finish="graphite" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_graphite.webp" width="1080"/>
-<img alt="The PhenomeTech Ring in silver titanium" data-finish="silver" decoding="async" height="810" loading="lazy" src="/phenome-store/assets/pages/ring_fin_silver.webp" width="1080"/>
+<div class="pdp-vs-col" data-on="" data-vs-mat="metal">
+<div class="pdp-vs-fig is-plate" data-vs-fig="metal">
+<img alt="The PhenomeTech Ring in black metal" data-finish="metal-black" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in polished silver metal" data-finish="metal-silver" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in brushed silver metal" data-finish="metal-brushed" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-brushed.webp" width="1400"/>
 </div>
 <div class="pdp-vs-sw">
-<button aria-label="Gold" class="pdp-vs-dot on" data-swatch="gold" data-tone="t-gold" type="button"></button>
-<button aria-label="Graphite" class="pdp-vs-dot" data-swatch="graphite" data-tone="t-black" type="button"></button>
-<button aria-label="Silver" class="pdp-vs-dot" data-swatch="silver" data-tone="t-silver" type="button"></button>
+<button aria-label="Black" class="pdp-vs-dot on" data-swatch="metal-black" data-tone="m-black" type="button"></button>
+<button aria-label="Silver" class="pdp-vs-dot" data-swatch="metal-silver" data-tone="m-silver" type="button"></button>
+<button aria-label="Brushed silver" class="pdp-vs-dot" data-swatch="metal-brushed" data-tone="m-brushed" type="button"></button>
 </div>
-<p class="pdp-vs-swname" data-vs-swname="titanium">Gold</p>
+<p class="pdp-vs-swname" data-vs-swname="metal">Black</p>
 
 <div class="pdp-vs-buy">
-<p class="pdp-vs-name">Titanium</p>
+<p class="pdp-vs-name">Metal</p>
 <p class="pdp-vs-price">£179</p>
-<button class="pdp-vs-pick" data-vs-pick="titanium" type="button">Selected</button>
+<button class="pdp-vs-pick" data-vs-pick="metal" type="button">Selected</button>
 </div>
 
 <div class="pdp-vs-facts">
@@ -469,24 +511,61 @@
 <p class="pdp-vs-s">The alloy aircraft are built from, hard, light and it does not corrode</p>
 </div>
 <div class="pdp-vs-g">
-<p class="pdp-vs-t">Brushed metallic</p>
-<p class="pdp-vs-s">A fine directional grain that catches the light and hides a day's wear</p>
+<p class="pdp-vs-t">Polished and brushed</p>
+<p class="pdp-vs-s">A mirror edge, or a fine directional grain that catches the light and hides a day's wear</p>
+</div>
+</div>
+</div>
+
+<div class="pdp-vs-col" data-vs-mat="matte">
+<div class="pdp-vs-fig is-plate" data-vs-fig="matte">
+<img alt="The PhenomeTech Ring in matte rose" data-finish="matte-rose" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in stealth black" data-finish="matte-stealth" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth.webp" width="1400"/>
+</div>
+<div class="pdp-vs-sw">
+<button aria-label="Rose" class="pdp-vs-dot on" data-swatch="matte-rose" data-tone="x-rose" type="button"></button>
+<button aria-label="Stealth black" class="pdp-vs-dot" data-swatch="matte-stealth" data-tone="x-stealth" type="button"></button>
+</div>
+<p class="pdp-vs-swname" data-vs-swname="matte">Rose</p>
+
+<div class="pdp-vs-buy">
+<p class="pdp-vs-name">Matte</p>
+<p class="pdp-vs-price">£189</p>
+<button class="pdp-vs-pick" data-vs-pick="matte" type="button">Choose matte</button>
+</div>
+
+<div class="pdp-vs-facts">
+<div class="pdp-vs-g">
+<p class="pdp-vs-v">4<small>g</small></p>
+<p class="pdp-vs-t">Featherlight</p>
+<p class="pdp-vs-s">Approximately, at size 8</p>
+</div>
+<div class="pdp-vs-g">
+<svg aria-hidden="true" class="pdp-vs-m" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M4.5 13.6c-1 1.6-1.4 3.2-1.4 4.4M19.5 13.6c1 1.6 1.4 3.2 1.4 4.4"></path></svg>
+<p class="pdp-vs-t">Titanium under a matte coat</p>
+<p class="pdp-vs-s">The same metal body, finished so it returns the room as a soft glow rather than a line</p>
+</div>
+<div class="pdp-vs-g">
+<p class="pdp-vs-t">Takes no fingerprints</p>
+<p class="pdp-vs-s">The quietest of the three on the hand, and the one that stays looking the same all day</p>
 </div>
 </div>
 </div>
 
 <div class="pdp-vs-col" data-vs-mat="ceramic">
-<div class="pdp-vs-fig" data-vs-fig="ceramic">
-<img alt="The PhenomeTech Ring in arctic white ceramic, three quarter view with the sensor face showing" data-finish="white" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_white.webp" width="1400"/>
-<img alt="The PhenomeTech Ring in onyx ceramic, three quarter view with the sensor face showing" data-finish="onyx" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_black.webp" width="1400"/>
-<img alt="The PhenomeTech Ring in blush ceramic, three quarter view with the sensor face showing" data-finish="blush" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/pages/ring_side_blush.webp" width="1400"/>
+<div class="pdp-vs-fig is-plate" data-vs-fig="ceramic">
+<img alt="The PhenomeTech Ring in black ceramic" data-finish="ceramic-black" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in silver ceramic" data-finish="ceramic-silver" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in pink ceramic" data-finish="ceramic-pink" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink.webp" width="1400"/>
+<img alt="The PhenomeTech Ring in white ceramic" data-finish="ceramic-white" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white.webp" width="1400"/>
 </div>
 <div class="pdp-vs-sw">
-<button aria-label="Arctic White" class="pdp-vs-dot on" data-swatch="white" data-tone="c-white" type="button"></button>
-<button aria-label="Onyx" class="pdp-vs-dot" data-swatch="onyx" data-tone="c-black" type="button"></button>
-<button aria-label="Blush" class="pdp-vs-dot" data-swatch="blush" data-tone="c-blush" type="button"></button>
+<button aria-label="Black" class="pdp-vs-dot on" data-swatch="ceramic-black" data-tone="c-black" type="button"></button>
+<button aria-label="Silver" class="pdp-vs-dot" data-swatch="ceramic-silver" data-tone="c-silver" type="button"></button>
+<button aria-label="Pink" class="pdp-vs-dot" data-swatch="ceramic-pink" data-tone="c-pink" type="button"></button>
+<button aria-label="White" class="pdp-vs-dot" data-swatch="ceramic-white" data-tone="c-white" type="button"></button>
 </div>
-<p class="pdp-vs-swname" data-vs-swname="ceramic">Arctic White</p>
+<p class="pdp-vs-swname" data-vs-swname="ceramic">Black</p>
 
 <div class="pdp-vs-buy">
 <p class="pdp-vs-name">Ceramic</p>
@@ -506,8 +585,8 @@
 <p class="pdp-vs-s">Harder than steel at the surface, and warm against the skin within minutes</p>
 </div>
 <div class="pdp-vs-g">
-<p class="pdp-vs-t">Smooth matte</p>
-<p class="pdp-vs-s">A close, even finish that resists scratching and stays fingerprint free</p>
+<p class="pdp-vs-t">A fired glaze</p>
+<p class="pdp-vs-s">The crispest reflection of the three, and the only one that will not scratch</p>
 </div>
 </div>
 </div>
@@ -516,6 +595,140 @@
 
 
 </div></section>
+
+<!-- ==========================================================================
+     THE RING, IN DETAIL
+
+     Every line on this screen is quoted from the PhenomeTech Ring leaflets and
+     the outer carton, which are the only real specification this product has.
+     The nine readings and the sentence under each are the leaflet's own feature
+     panel; the seven line table is its technical panel; the model numbers, the
+     box contents and the legal line are the carton; the three steps are its
+     wearing, charging and pairing guides. Nothing here is invented, which is
+     what separates this screen from every other one on the page.
+
+     Its stylesheet, devices/ring/detail.css, is shared with the other of the
+     two ring pages. Edit it once, not twice.
+     ====================================================================== -->
+<section class="rdet">
+<div class="rdet-wrap">
+
+<h2 class="ph-display is-ink rdet-h"><span class="ph-display-lead">What you are buying</span><span>Down to the millimetre</span></h2>
+<p class="rdet-lede">Nine measurements, one radio, one battery and four things in the carton. Every line on this screen is quoted from the leaflet that ships with the ring.</p>
+
+<div class="rdet-grid">
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 14.4A8.4 8.4 0 0 1 9.6 3.8a8.4 8.4 0 1 0 10.6 10.6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Sleep</h3>
+<p class="rdet-d">Records the parameters of every night, so the quality of your sleep is something you can work on rather than guess at.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.8 12.2h3.4l1.7-3.9 2.6 7.4 1.9-4.8 1.3 2.4h7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Heart rate</h3>
+<p class="rdet-d">Continuous tracking and analysis, from the moment you put it on to the moment you take it off again.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.2 17.4V6.6M20.8 17.4V6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 14.8c1.6 0 1.6-5.6 3.2-5.6s1.6 5.6 3.2 5.6 1.6-3.6 3.2-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Heart rate variability</h3>
+<p class="rdet-d">Measures and analyses the distance between beats, which is the closest thing the body has to a readout of its own strain.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.4c2.9 3.3 6 6.6 6 9.8a6 6 0 0 1-12 0c0-3.2 3.1-6.5 6-9.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.4 13.8a2.7 2.7 0 0 0 5.2 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Blood oxygen</h3>
+<p class="rdet-d">Continuous and periodic readings of the level of oxygen carried in your blood.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.4 19.2h17.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4.6 15.4l4.6-5.2 3.6 3.2 6.6-8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.4 5.2h4v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Blood pressure trends</h3>
+<p class="rdet-d">Follows the direction your blood pressure is moving in over weeks and months, rather than reading a single number once.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.8 13.6V5.2a1.9 1.9 0 0 0-3.8 0v8.4a3.6 3.6 0 1 0 3.8 0z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16.6 6.6h3M16.6 9.8h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Skin temperature</h3>
+<p class="rdet-d">Measures the change in your skin temperature on its own, at set intervals, right through the night.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2v7.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 11.6c0-2.6-1.4-4.4-3.6-4.4S4.6 9 4.6 11.8c0 3.6 1.2 7.6 3 7.6 1.4 0 1.6-2.2 2.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.6c0-2.6 1.4-4.4 3.6-4.4s3.8 1.8 3.8 4.6c0 3.6-1.2 7.6-3 7.6-1.4 0-1.6-2.2-2.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Respiratory rate</h3>
+<p class="rdet-d">Measures how often you breathe while you sleep and while you rest.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="14.6" cy="4.8" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 20.4l2.6-5 2.8-1.8.8-4.2-3.4 1.6-1.6 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 13.6l3 2.6 1.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Activity and performance</h3>
+<p class="rdet-d">Steps, calories and distance, with support for a long list of scientifically defined exercise modes.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.4c2.9 3.3 6 6.6 6 9.8a6 6 0 0 1-12 0c0-3.2 3.1-6.5 6-9.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.2 17.1a5.9 5.9 0 0 0 6.6-3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Water resistance</h3>
+<p class="rdet-d">Rated IP67, so it goes on reading reliably through hand washing, rain and a shower.</p>
+</article>
+
+</div>
+
+<div class="rdet-split">
+
+<div class="rdet-panel">
+<h3 class="rdet-k">Design and technical specification</h3>
+<dl class="rdet-dl">
+<div class="rdet-row"><dt>Bluetooth</dt><dd>4.2 BLE, low energy</dd></div>
+<div class="rdet-row"><dt>Water resistance</dt><dd>IP67</dd></div>
+<div class="rdet-row"><dt>Compatibility</dt><dd>iOS 11.0 and above, Android 6.0 and above</dd></div>
+<div class="rdet-row"><dt>Battery</dt><dd>High density lithium polymer, 18 mAh</dd></div>
+<div class="rdet-row"><dt>Charging</dt><dd>Magnetic, about 1.5 hours to full</dd></div>
+<div class="rdet-row"><dt>Between charges</dt><dd>5 to 7 days</dd></div>
+<div class="rdet-row"><dt>Controlled by</dt><dd>The Phenome Longevity app</dd></div>
+</dl>
+</div>
+
+<div class="rdet-panel">
+<h3 class="rdet-k">In the box</h3>
+<img class="rdet-box-shot" alt="The PhenomeTech Ring in black metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black_sq.webp" width="1100"/>
+<ul class="rdet-l">
+<li>PhenomeTech Ring, model PR101</li>
+<li>Magnetic ring charger, model PR111</li>
+<li>USB cable</li>
+<li>Quick start guide</li>
+</ul>
+<p class="rdet-made">Designed in Sweden, made in China. Two year warranty.</p>
+</div>
+
+</div>
+
+<div class="rdet-steps">
+
+<article class="rdet-step">
+<p class="rdet-n">01</p>
+<h3 class="rdet-t">Wear it sensor inwards</h3>
+<p class="rdet-d">Turn the ring so the sensor sits against the inside of your finger. We suggest the index finger, where the arterial flow is strongest and the reading steadiest.</p>
+</article>
+
+<article class="rdet-step">
+<p class="rdet-n">02</p>
+<h3 class="rdet-t">Charge it magnetically</h3>
+<p class="rdet-d">Line the magnetic pin up with the port on the ring. A red light blinking once a second means it is charging, a steady green light means it is done.</p>
+</article>
+
+<article class="rdet-step">
+<p class="rdet-n">03</p>
+<h3 class="rdet-t">Pair it in the app</h3>
+<p class="rdet-d">Open Phenome Longevity, sign in or create an account, then allow the ring to sync. It begins matching your health data in real time.</p>
+</article>
+
+</div>
+
+<p class="rdet-note">The PhenomeTech Ring is a wellness device, not a medical device. It does not diagnose, treat, cure or prevent any condition. Speak to a qualified clinician about anything that concerns you.</p>
+
+</div>
+</section>
 
 <!-- ==========================================================================
      7 · TECHNICAL SPECIFICATIONS — rebuilt 2026-09-14 on the specification
@@ -537,7 +750,7 @@
 
 <article class="pdp-spec pdp-spec--size">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><rect x="3.3" y="6.5" width="19.4" height="13" rx="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M7.6 13h10.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9.6 11 7.5 13l2.1 2M16.4 11l2.1 2-2.1 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Size and weight</span></p>
-<ul class="pdp-spec-l"><li>Titanium, approx. 4 g (size 8)</li><li>Ceramic, approx. 6 g (size 8)</li><li>Available in sizes 6 to 13</li><li>Free sizing kit available</li></ul>
+<ul class="pdp-spec-l"><li>Metal and matte, approx. 4 g (size 8)</li><li>Ceramic, approx. 6 g (size 8)</li><li>Available in sizes 6 to 13</li><li>Free sizing kit available</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--sensors">
@@ -547,27 +760,33 @@
 
 <article class="pdp-spec pdp-spec--battery">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><path d="M19.9473 15.9737C19.9473 16.1331 19.8172 16.2631 19.6578 16.2631H4.02621C3.86678 16.2631 3.73674 16.1331 3.73674 15.9737V9.02629C3.73674 8.86685 3.86678 8.73682 4.02621 8.73682H19.6578C19.8172 8.73682 19.9473 8.86685 19.9473 9.02629V15.9737Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.6841 16.8421C21.6841 17.4821 21.1662 18 20.5262 18H3.15777C2.51777 18 1.99987 17.4821 1.99987 16.8421V8.15789C1.99987 7.5179 2.51777 7 3.15777 7H20.5262C21.1662 7 21.6841 7.5179 21.6841 8.15789V16.8421ZM20.5262 8.44737C20.5262 8.28793 20.3961 8.15789 20.2367 8.15789H3.44724C3.2878 8.15789 3.15777 8.28793 3.15777 8.44737V16.5526C3.15777 16.7121 3.2878 16.8421 3.44724 16.8421H20.2367C20.3961 16.8421 20.5262 16.7121 20.5262 16.5526V8.44737Z" fill="currentColor"/><path d="M24 13.9474C24 14.2674 23.7411 14.5263 23.4211 14.5263H22.2632V10.4737H23.4211C23.7411 10.4737 24 10.7326 24 11.0526V13.9474Z" fill="currentColor"/></svg><span>Battery</span></p>
-<ul class="pdp-spec-l"><li>Up to 7 days per charge</li><li>Approx. 90 minutes to full charge</li><li>Wireless charging dock included</li></ul>
+<!-- THE FOUR LISTS BELOW WERE RE-SOURCED 2026-09-17, by request, from the
+     leaflet that ships in the carton. They had been written as marketing and
+     four of their figures were wrong: 7 days against a rated 5 to 7, 90 minutes
+     against 1.5 hours, Bluetooth 5.3 against 4.2 BLE, and iOS 16 / Android 10
+     against iOS 11 / Android 6. The water rating moved the furthest, from 100
+     metres to IP67, which is what the carton claims. -->
+<ul class="pdp-spec-l"><li>High density lithium polymer, 18 mAh</li><li>5 to 7 days between charges</li><li>About 1.5 hours to a full charge</li><li>Magnetic charger and USB cable included</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--material">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><path d="M13 2.9 21.7 7.95v10.1L13 23.1 4.3 18.05V7.95z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 8.6l4.1 2.37v4.74L13 18.08l-4.1-2.37v-4.74z" fill="currentColor"/></svg><span>Materials</span></p>
-<ul class="pdp-spec-l"><li>Grade 5 aerospace titanium or high density zirconia ceramic</li><li>Medical grade inner shell</li><li>Scratch resistant outer finish</li></ul>
+<ul class="pdp-spec-l"><li>Grade 5 aerospace titanium, polished, brushed or matte</li><li>High density zirconia ceramic</li><li>Medical grade inner shell</li><li>Scratch resistant outer finish</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--connect">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><path d="M21.1074 17.6554L15.1939 13.0813C15.098 13.0041 14.9858 12.9496 14.8659 12.9218L14.9524 12.8581L14.8659 12.7897C14.9855 12.7611 15.0974 12.7066 15.1939 12.6303L21.1074 8.05618C21.2175 7.97142 21.3064 7.86232 21.3673 7.73744C21.4281 7.61255 21.4593 7.47527 21.4582 7.33635C21.4601 7.19729 21.4293 7.05973 21.3684 6.93472C21.3075 6.8097 21.2181 6.70072 21.1074 6.61652L15.1939 2.04699C15.0233 1.91583 14.8122 1.84857 14.5972 1.85689C14.3823 1.86521 14.177 1.94859 14.0171 2.09255C13.9223 2.18018 13.8474 2.28707 13.7974 2.40603C13.7473 2.525 13.7233 2.65329 13.7269 2.7823V11.9059L5.86801 5.81013C5.82057 5.77304 5.76624 5.74573 5.70817 5.72976C5.65011 5.7138 5.58945 5.7095 5.52971 5.71713C5.46998 5.72476 5.41235 5.74415 5.36015 5.77419C5.30796 5.80423 5.26224 5.84432 5.22563 5.89214C5.18884 5.93928 5.16176 5.99326 5.14596 6.05093C5.13016 6.10861 5.12595 6.16884 5.13358 6.22816C5.1412 6.28747 5.16051 6.34468 5.19039 6.39649C5.22027 6.44829 5.26012 6.49366 5.30764 6.52996L13.4672 12.8581L5.30764 19.1816C5.2327 19.2398 5.17778 19.3199 5.15055 19.4107C5.12332 19.5016 5.12513 19.5987 5.15573 19.6885C5.18632 19.7783 5.24418 19.8563 5.32124 19.9116C5.39829 19.9669 5.49069 19.9968 5.58555 19.9971C5.68759 19.9967 5.78675 19.9632 5.86801 19.9014L13.7269 13.8057V22.9448C13.7265 23.1155 13.7742 23.283 13.8644 23.428C13.9546 23.5729 14.0838 23.6897 14.2371 23.7648C14.3901 23.839 14.5607 23.869 14.7298 23.8512C14.8989 23.8335 15.0596 23.7689 15.1939 23.6646L21.1074 19.0973C21.2181 19.0131 21.3075 18.9041 21.3684 18.7791C21.4293 18.6541 21.4601 18.5166 21.4582 18.3775C21.4596 18.2382 21.4287 18.1005 21.3678 17.9752C21.3069 17.8498 21.2178 17.7404 21.1074 17.6554ZM14.6381 2.76681L20.547 7.33635L14.6381 11.9104V2.76681ZM14.6381 22.9448V13.8057L20.547 18.3752L14.6381 22.9448Z" fill="currentColor" stroke="currentColor" stroke-width="0.8"/></svg><span>Connectivity</span></p>
-<ul class="pdp-spec-l"><li>Bluetooth 5.3</li><li>iOS 16 or later</li><li>Android 10 or later</li></ul>
+<ul class="pdp-spec-l"><li>Bluetooth 4.2 BLE, low energy</li><li>iOS 11.0 or later</li><li>Android 6.0 or later</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--water">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><path d="M12.6302 3.09971C12.2249 3.55979 8.6604 7.67145 8.6604 9.94058C8.6604 12.3739 10.6403 14.3582 13.078 14.3582C15.5113 14.3582 17.4912 12.3783 17.4912 9.94058C17.4912 7.67145 13.9301 3.5609 13.5247 3.09971C13.298 2.8451 12.8581 2.8451 12.6314 3.09971H12.6302Z" fill="currentColor"/><path d="M13.0769 14.777C10.4102 14.777 8.24048 12.6072 8.24048 9.94057C8.24048 7.57095 11.6352 3.59552 12.3153 2.82277L12.3175 2.82053C12.5051 2.61059 12.7821 2.48999 13.0769 2.48999C13.3717 2.48999 13.6486 2.61059 13.8362 2.82053C14.5174 3.5944 17.9088 7.56648 17.9088 9.93946C17.9088 12.6061 15.7413 14.7759 13.0769 14.7759V14.777ZM12.944 3.37776C11.5079 5.00925 9.07912 8.22533 9.07912 9.94057C9.07912 12.1449 10.8725 13.9395 13.078 13.9395C15.2835 13.9395 17.0724 12.146 17.0724 9.94057C17.0724 8.22198 14.6447 5.0059 13.2098 3.37665C13.1573 3.31746 12.9998 3.31523 12.9429 3.37776H12.944Z" fill="currentColor"/><path d="M13.9433 12.3917C14.0125 12.3917 14.0806 12.3817 14.1465 12.3571C14.7752 12.1304 15.2777 11.6692 15.5625 11.0651C15.8439 10.4598 15.8751 9.77977 15.6485 9.14995C15.5345 8.84063 15.1951 8.68206 14.8857 8.79261C14.5764 8.90651 14.4179 9.24599 14.5284 9.55531C14.649 9.88585 14.6311 10.2432 14.4837 10.5592C14.3363 10.8752 14.0717 11.1198 13.7411 11.2359C13.4318 11.3498 13.2732 11.6893 13.3838 11.9986C13.4698 12.2432 13.6998 12.3906 13.9444 12.3906L13.9433 12.3917Z" fill="currentColor"/><path d="M23.711 13.1298C23.6541 13.1053 23.5904 13.0941 23.5312 13.0941H18.6602C18.3978 13.0941 18.1879 13.3074 18.1879 13.5665C18.1879 13.8255 18.4012 14.0388 18.6602 14.0388H22.3866L13.0768 23.3487L2.95839 13.2303C2.77302 13.045 2.47486 13.045 2.28949 13.2303C2.10412 13.4157 2.10412 13.7139 2.28949 13.8992L11.9355 23.5452H2.62226C2.35984 23.5452 2.1499 23.7585 2.1499 24.0176C2.1499 24.2767 2.36319 24.49 2.62226 24.49H23.5279C23.7903 24.49 24.0003 24.2767 24.0003 24.0176C24.0003 23.7585 23.787 23.5452 23.5279 23.5452H14.2214L23.0578 14.7088V18.4352C23.0578 18.6977 23.2711 18.9076 23.5301 18.9076C23.7926 18.9076 24.0025 18.6943 24.0025 18.4352V13.5676C24.0025 13.505 23.9891 13.4447 23.9668 13.3878C23.9176 13.2705 23.8249 13.1779 23.7099 13.131L23.711 13.1298Z" fill="currentColor" stroke="currentColor" stroke-width="0.5"/></svg><span>Water resistance</span></p>
-<ul class="pdp-spec-l"><li>Water resistant to 100 metres</li><li>Swim, shower and sleep ready</li></ul>
+<ul class="pdp-spec-l"><li>Rated IP67</li><li>Safe for hand washing, rain and a shower</li><li>Worn through the night</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--inbox">
 <p class="pdp-spec-k"><svg aria-hidden="true" focusable="false" viewbox="0 0 26 26" fill="none"><path fill="currentColor" d="M13.2557 3.43172C13.0916 3.36562 12.9084 3.36562 12.7443 3.43172L4.53825 6.72969L7.84375 8.05745L16.3055 4.65724L13.2557 3.43172ZM18.1562 5.40194L9.6945 8.80215L13 10.1299L21.4618 6.72969L18.1562 5.40194ZM22.625 7.75072L13.6875 11.343V22.2883L22.625 18.6961V7.75072ZM12.3125 22.2897V11.3416L3.375 7.75072V18.6974L12.3125 22.2897ZM12.2341 2.14818C12.7258 1.95061 13.2742 1.95061 13.7659 2.14818L23.5682 6.08861C23.6957 6.13993 23.8049 6.22842 23.8819 6.34268C23.9588 6.45694 24 6.59173 24 6.72969V18.6974C23.9998 18.9735 23.9173 19.2432 23.7632 19.4717C23.609 19.7003 23.3903 19.8772 23.1351 19.9796L13.2557 23.9504C13.0916 24.0165 12.9084 24.0165 12.7443 23.9504L2.86625 19.9796C2.61085 19.8774 2.3918 19.7006 2.23738 19.472C2.08297 19.2435 2.00028 18.9737 2 18.6974V6.72969C2.00003 6.59173 2.04117 6.45694 2.11812 6.34268C2.19507 6.22842 2.3043 6.13993 2.43175 6.08861L12.2341 2.14818Z"></path></svg><span>In the box</span></p>
-<ul class="pdp-spec-l"><li>PhenomeTech Ring</li><li>Wireless charging dock</li><li>Charging cable</li><li>Quick start guide</li></ul>
+<ul class="pdp-spec-l"><li>PhenomeTech Ring, model PR101</li><li>Magnetic ring charger, model PR111</li><li>USB cable</li><li>Quick start guide</li></ul>
 </article>
 
 <article class="pdp-spec pdp-spec--compat">

@@ -286,6 +286,16 @@
   opacity: 0;
 }
 .pdp .pdp-slide--still > img[data-finish].on { opacity: 1; }
+/* THE PLATE, 2026-09-17. The nine finish stills are renders on transparency,
+   not photographs of a scene, so they want the opposite of `cover`: contained,
+   with air around them, on the recess wash the rest of the page uses for a
+   product on a plain ground. Cropping a render to fill a 4:5 frame cuts the
+   object the slide exists to show. */
+.pdp .pdp-slide--still.is-plate { background: var(--gl-tint-sunk); }
+.pdp .pdp-slide--still.is-plate > img[data-finish] {
+  padding: clamp(18px, 3vw, 46px);
+  object-fit: contain;
+}
 .pdp .pdp-gal-main:not([data-live]) .pdp-slide--still > img[data-finish]:first-of-type { opacity: 1; }
 
 /* The finish tag belongs to the two slides that follow the swatch; on the
@@ -563,6 +573,12 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    accent ring — which is exactly how the comparison section marks its chosen
    material, so the page says "this one" the same way in both places. */
 .pdp .buy-choices { grid-template-columns: 1fr 1fr; gap: 14px; }
+/* THREE MATERIALS SINCE 2026-09-17. The gap comes in with the third column
+   because 448 minus two 14px gaps leaves 140 a card, and "Brushed silver"
+   never had to fit there — the name that does is "Ceramic", at 10px of
+   padding either side. */
+.pdp .buy-choices.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.pdp .buy-choices.is-three .buy-choice { padding-inline: 12px; }
 /* BOTH CARDS ARE WHITE PANES; only the state differs. The first attempt left
    the unselected one on glass.css's recess tone and it disappeared outright —
    `--gl-tint-sunk` is #f4f6fb and the hero's ground ramp is the same value, so
@@ -705,12 +721,17 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 /* CERAMIC — a glaze. The band lifts almost immediately off the edge, holds
    narrow, and falls away early into a large untroubled body. */
 .pdp [data-tone^="c-"] { --rf-lift: 7%;  --rf-hold: 23%; --rf-fall: 51%; }
-/* TITANIUM — brushed. The band takes 15% to arrive and 70% to leave, which is
-   the same light spread along the grain instead of returned as a line. */
-.pdp [data-tone^="t-"] { --rf-lift: 15%; --rf-hold: 36%; --rf-fall: 70%; }
+/* METAL — the band takes 15% to arrive and 70% to leave, which is the same
+   light spread along the grain instead of returned as a line. */
+.pdp [data-tone^="m-"] { --rf-lift: 15%; --rf-hold: 36%; --rf-fall: 70%; }
+/* MATTE — no specular band at all: a diffuse surface returns the room as a
+   wide slow ramp rather than a line, so the highlight arrives late, never holds
+   and falls away across almost the whole disc. It carries no grain either, and
+   that pair is what lets you tell it from Metal with the colour removed. */
+.pdp [data-tone^="x-"] { --rf-lift: 30%; --rf-hold: 34%; --rf-fall: 92%; }
 
-.pdp .buy-swatch[data-tone^="t-"]::after,
-.pdp .pdp-vs-dot[data-tone^="t-"]::after {
+.pdp .buy-swatch[data-tone^="m-"]::after,
+.pdp .pdp-vs-dot[data-tone^="m-"]::after {
   content: "";
   position: absolute; inset: 0;
   border-radius: 50%;
@@ -742,26 +763,44 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    metal on the titaniums and does not on the ceramics — a glaze reflects the
    room, a metal reflects the room through its own colour, which is why the
    gold's highlight is cream rather than white. */
-.pdp [data-tone="c-white"] {
-  --rf-hi: #ffffff; --rf-body: #dbe0e8; --rf-sh: #98a1b0; --rf-rim: #e4e9f1;
+.pdp [data-tone="m-black"] {
+  /* Overlay doubles a dark base under a white line, so the black metal takes
+     the lightest hand or the grain becomes the object. */
+  --rf-hi: #b4b3b2; --rf-body: #4a4b4a; --rf-sh: #101110; --rf-rim: #6d6e6d;
+  --rf-brush: .5;
+}
+/* Silver and brushed silver are the same pigment, so the only thing that can
+   tell them apart at 30px is the LIGHT: polished returns a hard bright line off
+   a darker body and carries almost no grain, brushed spreads the same light
+   along the pass and carries all of it. */
+.pdp [data-tone="m-silver"] {
+  --rf-hi: #ffffff; --rf-body: #b4b5b9; --rf-sh: #4e5055; --rf-rim: #e8e8ea;
+  --rf-brush: .3;
+}
+.pdp [data-tone="m-brushed"] {
+  /* The one finish whose NAME is the texture, so it carries it hardest. */
+  --rf-hi: #dfdee0; --rf-body: #9d9c9f; --rf-sh: #5c5d61; --rf-rim: #c6c5c7;
+  --rf-brush: 1;
+}
+.pdp [data-tone="x-rose"] {
+  --rf-hi: #fbd3cf; --rf-body: #d3aba6; --rf-sh: #8f6560; --rf-rim: #eec4bf;
+}
+.pdp [data-tone="x-stealth"] {
+  --rf-hi: #82817f; --rf-body: #484948; --rf-sh: #151614; --rf-rim: #5e5f5d;
 }
 .pdp [data-tone="c-black"] {
   --rf-hi: #7e8996; --rf-body: #15171b; --rf-sh: #000000; --rf-rim: #3d444e;
 }
-.pdp [data-tone="t-gold"] {
-  --rf-hi: #f8e4c4; --rf-body: #cfa878; --rf-sh: #7d5c3c; --rf-rim: #e6c99e;
-  --rf-brush: .72;
+/* Silver sits between Black and White in the same row, so it has to read as a
+   grey glaze rather than as a second white. */
+.pdp [data-tone="c-silver"] {
+  --rf-hi: #ffffff; --rf-body: #bcbfc6; --rf-sh: #6d7179; --rf-rim: #dcdee4;
 }
-.pdp [data-tone="t-black"] {
-  /* Overlay doubles a dark base under a white line, so graphite takes the
-     lightest hand of the three or the grain becomes the object. */
-  --rf-hi: #8c8a9a; --rf-body: #2c2b36; --rf-sh: #0e0e15; --rf-rim: #4c4b59;
-  --rf-brush: .5;
+.pdp [data-tone="c-pink"] {
+  --rf-hi: #fff7f9; --rf-body: #f0c8ce; --rf-sh: #b4868f; --rf-rim: #f6dade;
 }
-.pdp [data-tone="t-silver"] {
-  /* The one finish whose NAME is the texture, so it carries it hardest. */
-  --rf-hi: #eef2f7; --rf-body: #a3abb8; --rf-sh: #565e6c; --rf-rim: #ccd2db;
-  --rf-brush: .85;
+.pdp [data-tone="c-white"] {
+  --rf-hi: #ffffff; --rf-body: #dbe0e8; --rf-sh: #98a1b0; --rf-rim: #e4e9f1;
 }
 /* The chosen one is RINGED, not recoloured and not grown: a swatch whose job is
    to be the ring's colour cannot be dimmed or tinted to show its state. The
@@ -1448,6 +1487,9 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   gap: clamp(20px, 2.4vw, 34px);
   align-items: start;
 }
+/* Three materials since 2026-09-17. The subgrid below does the real work and is
+   written in rows, not columns, so a third column needs nothing from it. */
+.pdp .pdp-vs.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); }
 
 /* ---- THE ROWS HAVE TO LINE UP ACROSS THE TWO COLUMNS, and by default they do
    not. Each column is its own formatting context, so "Grade-5 aerospace
@@ -1556,6 +1598,14 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
   background: #d5cac4;
 }
 .pdp .pdp-vs-col[data-on] .pdp-vs-fig { background: #f7f4f1; }
+/* THE PLATE, 2026-09-17: the columns carry the same nine renders the hero does,
+   so the studio ground the frame was painted for is gone and the transparent
+   plate sits on the page's own wash, contained rather than cropped. The white
+   ceramic is the reason the chosen column does NOT go lighter here: a white
+   ring on a white card is a ring with no silhouette. */
+.pdp .pdp-vs-fig.is-plate,
+.pdp .pdp-vs-col[data-on] .pdp-vs-fig.is-plate { background: var(--gl-tint-sunk); }
+.pdp .pdp-vs-fig.is-plate img { object-fit: contain; padding: 6%; }
 .pdp .pdp-vs-fig img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
@@ -2035,13 +2085,9 @@ html.ph-reveal main > section.pdp-figs.ph-in .pdp-fig:nth-child(3) .pdp-fig-g { 
    Placed last and wrapped in the desktop query, so the stacked layouts below
    1024 keep the sizes their own blocks already give them. The few rules that
    are right at every width (the ring on the chosen size, the value beside its
-   field name, the Blush tones) sit outside it.
+   field name) sit outside it.
    ======================================================================== */
 
-/* the tones for the third ceramic, read off the Blush studio still */
-.pdp [data-tone="c-blush"] {
-  --rf-hi: #fff4f7; --rf-body: #e8bccb; --rf-sh: #a87b8c; --rf-rim: #f3d6df;
-}
 /* `hidden` on a swatch has to win over the flex display the row gives it */
 .pdp .buy-swatch[hidden] { display: none; }
 

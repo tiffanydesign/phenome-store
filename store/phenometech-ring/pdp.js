@@ -70,44 +70,58 @@
      ====================================================================== */
 
   /* THE CATALOGUE IS THE PAGE'S OWN COPY, not a new set of claims. Prices,
-     material names and colourway names are read off the markup that was already
-     there (`Titanium £179 / Ceramic £199`, `Gold · Graphite · Silver`,
-     `Arctic White or Onyx`); what is added is which film, which still and which
-     three tones go with which finish.
+     material names and colourway names are the ones on the cartons and on the
+     renders; what is added here is which film, which still and which four tones
+     go with which finish.
 
-     `clip` is the scene in the colourway film. Graphite and Onyx point at the
-     same one for the same reason they point at the same still: the shoot
-     delivered one black ring, and the ring is black in both materials.
+     `clip` is the scene in the colourway film.
 
-     `hi / body / sh` are the three tones the swatch is drawn from — a
-     highlight, the body, and the shaded side, sampled off that ring's own
-     photograph. They live here rather than only in the stylesheet because the
-     bead in the film's tag needs the same three and one table is better than
-     two; the CSS holds them too, keyed by `data-tone`, for the swatches that
-     never change. */
+     `hi / body / sh / rim` are the four tones the swatch is drawn from — a
+     highlight, the body, the shaded side and the bounce along the lower edge —
+     read off the top fifth of that ring's own render, which is its outer
+     surface. They live here rather than only in the stylesheet because the bead
+     in the film's tag needs them and one table is better than two; the CSS
+     holds them too, keyed by `data-tone`, for the swatches that never change.
+
+     NINE FINISHES IN THREE MATERIALS SINCE 2026-09-17, by request. The ids are
+     the render filenames in assets/ring/fin, which means the markup, the files
+     and this table cannot disagree about what a finish is called.
+
+     FOUR CLIPS, NINE FINISHES: a scene is shared by everything that is the same
+     COLOUR in it. There is no gold in the range any more, so the gold scene is
+     not referenced and its `<video>` is gone from the markup.
+
+     The three names that repeat across materials — Black, Silver — are the
+     names the cartons carry, and the material is always shown beside them (in
+     the film's tag, in the cart line, above the swatch row), so a bare "Black"
+     never appears on its own. */
   var FINISHES = [
-    { id: 'gold',     name: 'Gold',         mat: 'titanium', clip: 'gold',
-      hi: '#fdf0dc', body: '#cfa878', sh: '#6c5036' },
-    { id: 'graphite', name: 'Graphite',     mat: 'titanium', clip: 'graphite',
-      hi: '#eceaf1', body: '#2b2a36', sh: '#101019' },
-    { id: 'silver',   name: 'Silver',       mat: 'titanium', clip: 'silver',
-      hi: '#eef0f4', body: '#a8afba', sh: '#5b6371' },
-    { id: 'white',    name: 'Arctic White', mat: 'ceramic',  clip: 'white',
-      hi: '#ffffff', body: '#dfe2e9', sh: '#aeb4c1' },
-    { id: 'onyx',     name: 'Onyx',         mat: 'ceramic',  clip: 'graphite',
-      hi: '#6e7783', body: '#14161a', sh: '#000000' },
-    /* Blush, 2026-09-15: the third ceramic, so each material offers three and
-       the finish row can show only the chosen material's own. Its film is the
-       pink scene cut from the colourway film; its still is the studio shot. */
-    { id: 'blush',    name: 'Blush',        mat: 'ceramic',  clip: 'blush',
-      hi: '#fff4f7', body: '#e8bccb', sh: '#a87b8c' }
+    { id: 'metal-black',    name: 'Black',          mat: 'metal',   clip: 'graphite',
+      hi: '#b4b3b2', body: '#4a4b4a', sh: '#101110', rim: '#6d6e6d' },
+    { id: 'metal-silver',   name: 'Silver',         mat: 'metal',   clip: 'silver',
+      hi: '#ffffff', body: '#b4b5b9', sh: '#4e5055', rim: '#e8e8ea' },
+    { id: 'metal-brushed',  name: 'Brushed silver', mat: 'metal',   clip: 'silver',
+      hi: '#dfdee0', body: '#9d9c9f', sh: '#5c5d61', rim: '#c6c5c7' },
+    { id: 'matte-rose',     name: 'Rose',           mat: 'matte',   clip: 'blush',
+      hi: '#fbd3cf', body: '#d3aba6', sh: '#8f6560', rim: '#eec4bf' },
+    { id: 'matte-stealth',  name: 'Stealth black',  mat: 'matte',   clip: 'graphite',
+      hi: '#82817f', body: '#484948', sh: '#151614', rim: '#5e5f5d' },
+    { id: 'ceramic-black',  name: 'Black',          mat: 'ceramic', clip: 'graphite',
+      hi: '#7e8996', body: '#15171b', sh: '#000000', rim: '#3d444e' },
+    { id: 'ceramic-silver', name: 'Silver',         mat: 'ceramic', clip: 'silver',
+      hi: '#ffffff', body: '#bcbfc6', sh: '#6d7179', rim: '#dcdee4' },
+    { id: 'ceramic-pink',   name: 'Pink',           mat: 'ceramic', clip: 'blush',
+      hi: '#fff7f9', body: '#f0c8ce', sh: '#b4868f', rim: '#f6dade' },
+    { id: 'ceramic-white',  name: 'White',          mat: 'ceramic', clip: 'white',
+      hi: '#ffffff', body: '#dbe0e8', sh: '#98a1b0', rim: '#e4e9f1' }
   ];
   var MATERIALS = {
-    titanium: { name: 'Titanium', price: 179, mo: '14.92', sw: '#C6A15B' },
-    ceramic:  { name: 'Ceramic',  price: 199, mo: '16.58', sw: '#D6D6DA' }
+    metal:   { name: 'Metal',   price: 179, mo: '14.92', sw: '#4a4b4a' },
+    matte:   { name: 'Matte',   price: 189, mo: '15.75', sw: '#d3aba6' },
+    ceramic: { name: 'Ceramic', price: 199, mo: '16.58', sw: '#D6D6DA' }
   };
 
-  var state = { material: 'titanium', finish: 'gold', size: '8', kit: false };
+  var state = { material: 'metal', finish: 'metal-black', size: '8', kit: false };
   var subs = [];
   function publish() { for (var i = 0; i < subs.length; i++) subs[i](state); }
   function subscribe(fn) { subs.push(fn); }
@@ -459,11 +473,16 @@
            would otherwise be five identical alt texts in a row. */
         frames[i].setAttribute('aria-hidden', isOn ? 'false' : 'true');
       }
-      if (tagName) tagName.textContent = MATERIALS[s.material].name + ' · ' + f.name;
+      if (tagName) tagName.textContent = MATERIALS[s.material].name + ', ' + f.name;
       if (tagDot) {
         tagDot.style.setProperty('--rf-hi', f.hi);
         tagDot.style.setProperty('--rf-body', f.body);
         tagDot.style.setProperty('--rf-sh', f.sh);
+        /* --rf-rim was never set here, and the disc's background is one
+           declaration: an undefined custom property inside it makes the WHOLE
+           `background` invalid, so the bead rendered as a plain circle rather
+           than as the material. Nine finishes now carry a rim in the table. */
+        tagDot.style.setProperty('--rf-rim', f.rim);
       }
     });
   }
@@ -869,7 +888,7 @@
     }
     /* The dots do the same job as the hero's swatches and go through the same
        setter, so a click here can cross the material boundary too — choosing
-       Onyx from the titanium side of the page is a legitimate thing to want. */
+       a ceramic from the metal side of the page is a legitimate thing to want. */
     for (var d = 0; d < dots.length; d++) {
       (function (el) {
         on(el, 'click', function () { setFinish(el.getAttribute('data-swatch')); });
@@ -880,15 +899,20 @@
     /* EACH COLUMN REMEMBERS ITS OWN FINISH, and it needs somewhere to remember
        it. The state object holds ONE finish — the one being bought — so a
        column whose material is not current has nothing in it to read. This map
-       is that memory: seeded with each material's first colourway so both
-       columns have a picture at load, and updated only for the material the
-       reader actually touched. The titanium column therefore keeps showing gold
+       is that memory: seeded with each material's first colourway so every
+       column has a picture at load, and updated only for the material the
+       reader actually touched. The metal column therefore keeps showing black
        while the reader is looking at ceramic, instead of blanking or falling
-       back to a default that has nothing to do with them. */
-    var shown = {
-      titanium: firstFinishOf('titanium').id,
-      ceramic: firstFinishOf('ceramic').id
-    };
+       back to a default that has nothing to do with them.
+
+       BUILT FROM `MATERIALS` SINCE 2026-09-17, not written out. It was two
+       named keys, so the third material added that day would have had no
+       memory at all and its column would have gone blank the moment the reader
+       chose one of the other two. */
+    var shown = {};
+    for (var m in MATERIALS) {
+      if (Object.prototype.hasOwnProperty.call(MATERIALS, m)) shown[m] = firstFinishOf(m).id;
+    }
 
     subscribe(function (s) {
       var cur = finishById(s.finish);
@@ -990,8 +1014,8 @@
          out of the plain-ground profile is recognisably that finish. */
       var frame = $('[data-gal-still] img[data-finish="' + s.finish + '"]');
       if (frame) thumb.src = frame.currentSrc || frame.src;
-      meta.textContent = money(MATERIALS[s.material].price) + ' · ' + f.name +
-        ' · ' + (s.kit ? 'sizing kit' : 'size ' + s.size);
+      meta.textContent = money(MATERIALS[s.material].price) + ', ' + f.name +
+        ', ' + (s.kit ? 'sizing kit' : 'size ' + s.size);
     });
   }
 

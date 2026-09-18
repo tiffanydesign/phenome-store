@@ -20,6 +20,10 @@
      class, so nothing here reaches the rest of the page. -->
 <link href="/phenome-store/devices/ring-lab/lab.css" rel="stylesheet"/>
 <script>document.documentElement.classList.add('lab-js');</script>
+<!-- The detail screen, shared with store/phenometech-ring/. Loaded last on both
+     pages; every selector in it is prefixed `rdet-` and carries no page class,
+     so the two pages cannot drift apart. -->
+<link href="/phenome-store/devices/ring/detail.css" rel="stylesheet"/>
 </head>
 <body class="ph-flat">
 <div data-ph-nav=""></div>
@@ -187,26 +191,175 @@
 </div>
 </div>
 </section>
+<!-- ==========================================================================
+     THE RING, IN DETAIL
+
+     Every line on this screen is quoted from the PhenomeTech Ring leaflets and
+     the outer carton, which are the only real specification this product has.
+     The nine readings and the sentence under each are the leaflet's own feature
+     panel; the seven line table is its technical panel; the model numbers, the
+     box contents and the legal line are the carton; the three steps are its
+     wearing, charging and pairing guides. Nothing here is invented, which is
+     what separates this screen from every other one on the page.
+
+     Its stylesheet, devices/ring/detail.css, is shared with the other of the
+     two ring pages. Edit it once, not twice.
+     ====================================================================== -->
+<section class="rdet">
+<div class="rdet-wrap">
+
+<h2 class="ph-display is-ink rdet-h"><span class="ph-display-lead">The second generation</span><span>Reads you nine ways</span></h2>
+<p class="rdet-lede">Nine measurements, taken from the artery in your finger, through the night and through the day. This is the whole of what the ring records and the whole of what it is made from.</p>
+
+<div class="rdet-grid">
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 14.4A8.4 8.4 0 0 1 9.6 3.8a8.4 8.4 0 1 0 10.6 10.6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Sleep</h3>
+<p class="rdet-d">Records the parameters of every night, so the quality of your sleep is something you can work on rather than guess at.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.8 12.2h3.4l1.7-3.9 2.6 7.4 1.9-4.8 1.3 2.4h7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Heart rate</h3>
+<p class="rdet-d">Continuous tracking and analysis, from the moment you put it on to the moment you take it off again.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.2 17.4V6.6M20.8 17.4V6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 14.8c1.6 0 1.6-5.6 3.2-5.6s1.6 5.6 3.2 5.6 1.6-3.6 3.2-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Heart rate variability</h3>
+<p class="rdet-d">Measures and analyses the distance between beats, which is the closest thing the body has to a readout of its own strain.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.4c2.9 3.3 6 6.6 6 9.8a6 6 0 0 1-12 0c0-3.2 3.1-6.5 6-9.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.4 13.8a2.7 2.7 0 0 0 5.2 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Blood oxygen</h3>
+<p class="rdet-d">Continuous and periodic readings of the level of oxygen carried in your blood.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.4 19.2h17.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4.6 15.4l4.6-5.2 3.6 3.2 6.6-8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.4 5.2h4v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Blood pressure trends</h3>
+<p class="rdet-d">Follows the direction your blood pressure is moving in over weeks and months, rather than reading a single number once.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.8 13.6V5.2a1.9 1.9 0 0 0-3.8 0v8.4a3.6 3.6 0 1 0 3.8 0z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16.6 6.6h3M16.6 9.8h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Skin temperature</h3>
+<p class="rdet-d">Measures the change in your skin temperature on its own, at set intervals, right through the night.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2v7.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 11.6c0-2.6-1.4-4.4-3.6-4.4S4.6 9 4.6 11.8c0 3.6 1.2 7.6 3 7.6 1.4 0 1.6-2.2 2.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.6c0-2.6 1.4-4.4 3.6-4.4s3.8 1.8 3.8 4.6c0 3.6-1.2 7.6-3 7.6-1.4 0-1.6-2.2-2.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Respiratory rate</h3>
+<p class="rdet-d">Measures how often you breathe while you sleep and while you rest.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="14.6" cy="4.8" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 20.4l2.6-5 2.8-1.8.8-4.2-3.4 1.6-1.6 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 13.6l3 2.6 1.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<h3 class="rdet-t">Activity and performance</h3>
+<p class="rdet-d">Steps, calories and distance, with support for a long list of scientifically defined exercise modes.</p>
+</article>
+
+<article class="rdet-card">
+<span class="rdet-ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.4c2.9 3.3 6 6.6 6 9.8a6 6 0 0 1-12 0c0-3.2 3.1-6.5 6-9.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.2 17.1a5.9 5.9 0 0 0 6.6-3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<h3 class="rdet-t">Water resistance</h3>
+<p class="rdet-d">Rated IP67, so it goes on reading reliably through hand washing, rain and a shower.</p>
+</article>
+
+</div>
+
+<div class="rdet-split">
+
+<div class="rdet-panel">
+<h3 class="rdet-k">Design and technical specification</h3>
+<dl class="rdet-dl">
+<div class="rdet-row"><dt>Bluetooth</dt><dd>4.2 BLE, low energy</dd></div>
+<div class="rdet-row"><dt>Water resistance</dt><dd>IP67</dd></div>
+<div class="rdet-row"><dt>Compatibility</dt><dd>iOS 11.0 and above, Android 6.0 and above</dd></div>
+<div class="rdet-row"><dt>Battery</dt><dd>High density lithium polymer, 18 mAh</dd></div>
+<div class="rdet-row"><dt>Charging</dt><dd>Magnetic, about 1.5 hours to full</dd></div>
+<div class="rdet-row"><dt>Between charges</dt><dd>5 to 7 days</dd></div>
+<div class="rdet-row"><dt>Controlled by</dt><dd>The Phenome Longevity app</dd></div>
+</dl>
+</div>
+
+<div class="rdet-panel">
+<h3 class="rdet-k">In the box</h3>
+<img class="rdet-box-shot" alt="The PhenomeTech Ring in black metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black_sq.webp" width="1100"/>
+<ul class="rdet-l">
+<li>PhenomeTech Ring, model PR101</li>
+<li>Magnetic ring charger, model PR111</li>
+<li>USB cable</li>
+<li>Quick start guide</li>
+</ul>
+<p class="rdet-made">Designed in Sweden, made in China. Two year warranty.</p>
+</div>
+
+</div>
+
+<div class="rdet-steps">
+
+<article class="rdet-step">
+<p class="rdet-n">01</p>
+<h3 class="rdet-t">Wear it sensor inwards</h3>
+<p class="rdet-d">Turn the ring so the sensor sits against the inside of your finger. We suggest the index finger, where the arterial flow is strongest and the reading steadiest.</p>
+</article>
+
+<article class="rdet-step">
+<p class="rdet-n">02</p>
+<h3 class="rdet-t">Charge it magnetically</h3>
+<p class="rdet-d">Line the magnetic pin up with the port on the ring. A red light blinking once a second means it is charging, a steady green light means it is done.</p>
+</article>
+
+<article class="rdet-step">
+<p class="rdet-n">03</p>
+<h3 class="rdet-t">Pair it in the app</h3>
+<p class="rdet-d">Open Phenome Longevity, sign in or create an account, then allow the ring to sync. It begins matching your health data in real time.</p>
+</article>
+
+</div>
+
+<p class="rdet-note">The PhenomeTech Ring is a wellness device, not a medical device. It does not diagnose, treat, cure or prevent any condition. Speak to a qualified clinician about anything that concerns you.</p>
+
+</div>
+</section>
 <section class="section pick" data-pick="">
 <div class="wrap-wide opener">
 <div class="opener-t"><h2 class="ph-display is-ink is-left pick-h"><span class="ph-display-lead">Choose</span><span>Your ring.</span></h2></div>
-<p class="lede" style="margin-left:0">Both rings read exactly the same signals, the choice is purely yours. Ceramic for a refined, featherlight finish; Titanium for durable, all day strength. No subscription, either way.</p>
+<p class="lede" style="margin-left:0">Three materials, nine finishes, and every one of them reads exactly the same nine signals. Metal for a hard, bright edge; Matte for a surface that takes no fingerprints; Ceramic for a fired glaze that stays cool and featherlight. No subscription, whichever you choose.</p>
 <!-- Each card carries its own colourway swatches under the photograph (moved
      here from the "Two rings" section, 2026-09-14). A swatch swaps the photograph
      and marks the colour in the line under the name; the card itself still
-     links to the store. -->
-<div class="pick-pair">
+     links to the store.
+
+     THREE CARDS AND NINE FINISHES SINCE 2026-09-17, by request, and the
+     photographs are no longer lifestyle shots. What the range actually is now
+     came in as nine renders shot from one angle on transparency
+     (~/Downloads/Assets/Rings/Ring_PNG), so the card shows the OBJECT on the
+     page's own tint rather than one ring lying on silk and another on stones —
+     which is the only way nine finishes can be compared at all.
+
+     PLACEHOLDER, FLAGGED: Ceramic silver has no render of its own in that
+     folder. It is standing on the metallic silver plate until one exists. -->
+<div class="pick-pair is-three">
 <div class="pick-card" data-pick-card="">
-<span class="pick-shot"><img class="on" data-tone-img="c-pink" alt="The Ceramic ring in pink, resting on folded blue silk" decoding="async" height="1226" loading="lazy" src="/phenome-store/assets/pages/ring_silk_ceramic.webp" width="1283" data-pick-img="" style="--d:-1"/><img data-tone-img="c-black" alt="A black ceramic PhenomeTech Ring balanced on smooth blue stones" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_stones_blue.webp" width="1536" data-pick-img="" style="--d:-1"/><img data-tone-img="c-white" alt="A white ceramic PhenomeTech Ring balanced on smooth blue stones" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_stones_white.webp" width="1536" data-pick-img="" style="--d:-1"/></span>
-<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Ceramic colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="c-pink" aria-label="Pink" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-white" aria-label="White" aria-checked="false" tabindex="-1"></button></span></div>
-<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Ceramic</a><span class="pick-price">From £199</span></span>
-<span class="pick-sub"><span data-tone-name="c-pink" aria-current="true">Pink</span>, <span data-tone-name="c-black">Black</span>, <span data-tone-name="c-white">White</span></span>
+<span class="pick-shot is-plate"><img class="on" data-tone-img="m-black" alt="The PhenomeTech Ring in black metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="m-silver" alt="The PhenomeTech Ring in polished silver metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="m-brushed" alt="The PhenomeTech Ring in brushed silver metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-brushed_sq.webp" width="1100" data-pick-img="" style="--d:-1"/></span>
+<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Metal colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="m-black" aria-label="Black" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="m-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="m-brushed" aria-label="Brushed silver" aria-checked="false" tabindex="-1"></button></span></div>
+<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Metal</a><span class="pick-price">From £179</span></span>
+<span class="pick-sub"><span data-tone-name="m-black" aria-current="true">Black</span>, <span data-tone-name="m-silver">Silver</span>, <span data-tone-name="m-brushed">Brushed silver</span></span>
 </div>
 <div class="pick-card" data-pick-card="">
-<span class="pick-shot"><img class="on" data-tone-img="t-gold" alt="The Titanium ring in gold, resting on folded blue silk" decoding="async" height="1226" loading="lazy" src="/phenome-store/assets/pages/ring_silk_titanium.webp" width="1283" data-pick-img="" style="--d:1"/><img data-tone-img="t-black" alt="A black titanium PhenomeTech Ring in a dark studio, sensor side to camera" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_studio_black.webp" width="1536" data-pick-img="" style="--d:1"/><img data-tone-img="t-silver" alt="A silver titanium PhenomeTech Ring on brushed blue metal" decoding="async" height="1024" loading="lazy" src="/phenome-store/assets/pages/ring_brushed_silver.webp" width="1536" data-pick-img="" style="--d:1"/></span>
-<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Titanium colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="t-gold" aria-label="Gold" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="t-black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="t-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button></span></div>
-<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Titanium</a><span class="pick-price">From £179</span></span>
-<span class="pick-sub"><span data-tone-name="t-gold" aria-current="true">Gold</span>, <span data-tone-name="t-black">Black</span>, <span data-tone-name="t-silver">Silver</span></span>
+<span class="pick-shot is-plate"><img class="on" data-tone-img="x-rose" alt="The PhenomeTech Ring in matte rose, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose_sq.webp" width="1100" data-pick-img="" style="--d:1"/><img data-tone-img="x-stealth" alt="The PhenomeTech Ring in stealth black, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth_sq.webp" width="1100" data-pick-img="" style="--d:1"/></span>
+<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Matte colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="x-rose" aria-label="Rose" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="x-stealth" aria-label="Stealth black" aria-checked="false" tabindex="-1"></button></span></div>
+<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Matte</a><span class="pick-price">From £189</span></span>
+<span class="pick-sub"><span data-tone-name="x-rose" aria-current="true">Rose</span>, <span data-tone-name="x-stealth">Stealth black</span></span>
+</div>
+<div class="pick-card" data-pick-card="">
+<span class="pick-shot is-plate"><img class="on" data-tone-img="c-black" alt="The PhenomeTech Ring in black ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-silver" alt="The PhenomeTech Ring in silver ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-pink" alt="The PhenomeTech Ring in pink ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-white" alt="The PhenomeTech Ring in white ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white_sq.webp" width="1100" data-pick-img="" style="--d:-1"/></span>
+<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Ceramic colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="c-black" aria-label="Black" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-pink" aria-label="Pink" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-white" aria-label="White" aria-checked="false" tabindex="-1"></button></span></div>
+<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Ceramic</a><span class="pick-price">From £199</span></span>
+<span class="pick-sub"><span data-tone-name="c-black" aria-current="true">Black</span>, <span data-tone-name="c-silver">Silver</span>, <span data-tone-name="c-pink">Pink</span>, <span data-tone-name="c-white">White</span></span>
 </div>
 </div>
 

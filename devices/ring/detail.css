@@ -1,0 +1,231 @@
+/* ===========================================================================
+   THE RING, IN DETAIL — a component shared by devices/ring/ and
+   store/phenometech-ring/, 2026-09-17, by request.
+
+   WHY IT IS ONE SHEET AND NOT TWO. Everything in it comes from one place: the
+   PhenomeTech Ring leaflets in `~/Downloads/Assets/Rings/Ring Turkish 2.0`,
+   which are the only real specification the ring has. Two copies of a spec
+   table drift; one copy on both pages cannot. So the selectors here carry no
+   page class, the sheet is loaded last on both pages, and every class is
+   prefixed `rdet-` so it can collide with nothing.
+
+   WHAT IS QUOTED, and where from:
+   · the nine readings, and the sentence under each one, are the leaflet's own
+     "Temel Özellikler" panel, translated;
+   · the seven line table is its "Tasarım ve Teknik Özellikler";
+   · the box contents, the model numbers, the two year warranty and the
+     legal line are the outer carton;
+   · the three steps are "Takma Kılavuzu", "Kablo ile Şarj Etme" and
+     "Akıllı Eşleştirme Kılavuzu".
+   Nothing on this screen is invented. That is the point of it: every other
+   screen on both pages is a claim, and this is the one that can be checked.
+
+   TYPE. The Band's ladder, which phenome-glass.css § 3 now states for the whole
+   store: 19 to 23 for a name, 17 for a line of copy, and nothing below 15
+   anywhere. The section heading is the two tone display pair.
+   ======================================================================== */
+
+.rdet {
+  padding-block: clamp(64px, 7vw, 116px);
+  background: #fff;
+}
+.rdet-wrap {
+  width: min(100% - 2 * var(--ph-margin, 22px), 1260px);
+  margin-inline: auto;
+}
+/* The kit's display clamp tops out at 132px, which is the size of a statement
+   that owns a whole screen. This one opens a reference screen and has a lede
+   directly under it, so it takes the Band's own heading step (clamp 40 / 5.6vw
+   / 84) that the rest of both ring pages is written to. */
+.rdet-h {
+  margin: 0 0 clamp(14px, 1.6vw, 22px);
+  font-size: clamp(38px, 5.2vw, 78px);
+}
+.rdet-lede {
+  margin: 0 auto;
+  max-width: 62ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-600);
+  text-align: center;
+}
+
+/* ---- 1 · THE NINE READINGS ------------------------------------------------
+   Three by three, which is the shape of the leaflet's own panel. The card is
+   the recess wash rather than a bordered box: nine hairlined rectangles at this
+   density read as a table of contents, and these are nine separate things. */
+.rdet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.2vw, 18px);
+  margin-top: clamp(34px, 4vw, 56px);
+}
+.rdet-card {
+  padding: clamp(22px, 2vw, 30px);
+  border-radius: var(--ph-r21, 16px);
+  background: var(--gl-tint-sunk, #f4f6fb);
+}
+.rdet-ic {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--phenome-blue-100, #e6e9f2);
+  color: var(--phenome-blue-500, #203a85);
+}
+.rdet-ic svg { width: 24px; height: 24px; }
+.rdet-t {
+  margin: 18px 0 0;
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+}
+.rdet-d {
+  margin: 8px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink-600);
+}
+
+/* ---- 2 · THE TABLE, AND WHAT IS IN THE BOX --------------------------------
+   One panel, split. The left half is the seven line table and the right half is
+   the ring itself over the four things the carton holds, because a list of
+   millimetres wants the object beside it and the object wants a caption. */
+.rdet-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.4vw, 44px);
+  /* Stretch, not start. The table is seven lines and the box is a photograph
+     over four, so at `start` the left panel stops 180px above the right one and
+     the pair reads as one panel and one offcut. Two tinted panels are a pair
+     only if they finish level. */
+  align-items: stretch;
+  margin-top: clamp(12px, 1.2vw, 18px);
+}
+.rdet-panel {
+  padding: clamp(26px, 2.6vw, 40px);
+  border-radius: var(--ph-r21, 16px);
+  background: var(--gl-tint-sunk, #f4f6fb);
+}
+.rdet-k {
+  margin: 0 0 clamp(16px, 1.6vw, 24px);
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+}
+/* A definition list, not a table element: every row here is one name and one
+   value, and a <table> would put a scroll container round it on a phone for
+   the sake of two columns that stack perfectly well. */
+.rdet-dl { margin: 0; }
+.rdet-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 10px 20px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(16, 33, 75, .1);
+}
+.rdet-row:first-child { border-top: 0; padding-top: 0; }
+.rdet-row dt {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--ink-600);
+}
+.rdet-row dd {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.rdet-box-shot {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto clamp(14px, 1.6vw, 22px);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+.rdet-l { margin: 0; padding: 0; list-style: none; }
+.rdet-l li {
+  position: relative;
+  padding-left: 20px;
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink-600);
+}
+.rdet-l li:first-child { margin-top: 0; }
+.rdet-l li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--phenome-blue-300, #7185bd);
+}
+.rdet-made {
+  margin: clamp(16px, 1.6vw, 22px) 0 0;
+  padding-top: clamp(14px, 1.4vw, 18px);
+  border-top: 1px solid rgba(16, 33, 75, .1);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-400);
+}
+
+/* ---- 3 · WEARING IT, CHARGING IT, PAIRING IT ------------------------------
+   Three steps, and the numeral is the held back ink rather than a filled disc:
+   a counter in the brand blue at this size would be three loud circles on a
+   screen whose whole job is to be quiet and checkable. */
+.rdet-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 44px);
+  margin-top: clamp(40px, 4.4vw, 70px);
+}
+.rdet-step { padding-top: 18px; border-top: 2px solid var(--ink-900); }
+.rdet-n {
+  margin: 0;
+  font-size: clamp(30px, 2.6vw, 40px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--phenome-blue-200, #a9b5d9);
+  font-variant-numeric: tabular-nums;
+}
+.rdet-step .rdet-t { margin-top: 12px; }
+
+.rdet-note {
+  margin: clamp(34px, 3.6vw, 52px) 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-400);
+  text-align: center;
+}
+
+/* ---- 4 · NARROWER SCREENS -------------------------------------------------
+   1040 is where the three reading cards stop holding a readable line, and 720
+   is where two of anything here stops being two columns. The split falls to one
+   column at 900 rather than 1040 because its right half is a photograph, which
+   survives a narrow column better than a paragraph does. */
+@media (max-width: 1040px) {
+  .rdet-grid,
+  .rdet-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .rdet-split { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 680px) {
+  .rdet-grid,
+  .rdet-steps { grid-template-columns: minmax(0, 1fr); }
+  .rdet-lede,
+  .rdet-note { text-align: left; }
+}

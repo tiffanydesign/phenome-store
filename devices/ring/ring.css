@@ -769,14 +769,29 @@
   --rf-fall: 51%;
 }
 
-/* TITANIUM — brushed. The band takes 15% to arrive and 70% to leave, which is
-   the same light spread along the grain instead of returned as a line. */
-.ph-flat .ringfam-dot[data-tone^="t-"] {
+/* METAL — the band takes 15% to arrive and 70% to leave, which is the same
+   light spread along the grain instead of returned as a line.
+
+   `m-` since 2026-09-17: the material is called Metal now, not Titanium, and
+   the prefix is the material. The old `t-` keys are gone from both ring pages
+   with the two card range they belonged to. */
+.ph-flat .ringfam-dot[data-tone^="m-"] {
   --rf-lift: 15%;
   --rf-hold: 36%;
   --rf-fall: 70%;
 }
-.ph-flat .ringfam-dot[data-tone^="t-"]::after {
+/* MATTE — no specular band at all. A diffuse surface returns the room as a wide
+   slow ramp rather than a line, so the highlight arrives late, never holds, and
+   falls away across almost the whole disc. It carries no grain: the grain is
+   what a polished surface does with a machining pass, and a matte one has
+   neither. This is the only one of the three you can tell apart with the colour
+   removed, which is the test a swatch has to pass. */
+.ph-flat .ringfam-dot[data-tone^="x-"] {
+  --rf-lift: 30%;
+  --rf-hold: 34%;
+  --rf-fall: 92%;
+}
+.ph-flat .ringfam-dot[data-tone^="m-"]::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -829,46 +844,67 @@
           mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
 }
 
-/* The six, and the tones are sampled off each ring's own photograph rather than
-   named from memory.
+/* The nine, and the tones are sampled off each ring's own render rather than
+   named from memory: the highlight, the body and the shaded side are read from
+   the top fifth of each plate in ~/Downloads/Assets/Rings/Ring_PNG, which is
+   the outer surface. Sampling the whole silhouette instead reads the gold
+   charging contacts and the black inner shell, and hands the rose ring a gold
+   highlight.
 
-   Two of them are called Black and they are not the same black. The ceramic is
-   a deep gloss with no warmth in it and a cool steel reflection — Oura's own
-   Midnight, near enough. The titanium is graphite, a lighter body with a paler
-   and much wider reflection, because a brushed dark metal never gets as close
-   to black as a fired glaze does.
+   Three of them are called Black and they are not the same black. The ceramic
+   is a deep gloss with no warmth in it and a cool steel reflection. The metal
+   is a lighter body with a paler and much wider reflection, because a polished
+   dark metal never gets as close to black as a fired glaze does. The matte is
+   neither: it has no reflection to speak of at all.
 
-   The highlight tints with the metal on the titaniums and does not on the
+   The highlight tints with the material on the metals and does not on the
    ceramics: a glaze reflects the room, a metal reflects the room through its own
-   colour, which is why the gold's highlight is cream rather than white.
+   colour.
 
    --rf-rim, the bounce along the lower edge, is now carrying the silhouette as
    well as the light — with the borders gone it is the only thing separating
    White from the pill it sits on, so it runs a little deeper than a pure
    reflection would. */
-.ph-flat .ringfam-dot[data-tone="c-pink"] {
-  --rf-hi: #fff7f9; --rf-body: #e6c2cd; --rf-sh: #a8848f; --rf-rim: #f1d5dd;
+.ph-flat .ringfam-dot[data-tone="m-black"] {
+  --rf-hi: #b4b3b2; --rf-body: #4a4b4a; --rf-sh: #101110; --rf-rim: #6d6e6d;
+  /* Overlay doubles a dark base under a white line, so the black metal takes
+     the lightest hand of the three or the grain becomes the object. */
+  --rf-brush: .5;
+}
+/* Silver and brushed silver are the same pigment, so the only thing that can
+   tell them apart at 24px is the LIGHT. Polished returns a hard bright line off
+   a dark body and carries almost no grain; brushed spreads the same light along
+   the pass and carries all of it. Given equal tones and equal grain — which is
+   how these two shipped first — the row shows one colour twice. */
+.ph-flat .ringfam-dot[data-tone="m-silver"] {
+  --rf-hi: #ffffff; --rf-body: #b4b5b9; --rf-sh: #4e5055; --rf-rim: #e8e8ea;
+  --rf-brush: .3;
+}
+.ph-flat .ringfam-dot[data-tone="m-brushed"] {
+  --rf-hi: #dfdee0; --rf-body: #9d9c9f; --rf-sh: #5c5d61; --rf-rim: #c6c5c7;
+  /* The one finish whose NAME is the texture, so it carries it hardest. */
+  --rf-brush: 1;
+}
+.ph-flat .ringfam-dot[data-tone="x-rose"] {
+  --rf-hi: #fbd3cf; --rf-body: #d3aba6; --rf-sh: #8f6560; --rf-rim: #eec4bf;
+}
+.ph-flat .ringfam-dot[data-tone="x-stealth"] {
+  --rf-hi: #82817f; --rf-body: #484948; --rf-sh: #151614; --rf-rim: #5e5f5d;
 }
 .ph-flat .ringfam-dot[data-tone="c-black"] {
   --rf-hi: #7e8996; --rf-body: #15171b; --rf-sh: #000000; --rf-rim: #3d444e;
 }
+/* Silver sits between Black and White in the same row, so it has to be read as
+   a grey glaze rather than as a second white. Its body is two steps down from
+   White's and its shaded side goes a long way darker. */
+.ph-flat .ringfam-dot[data-tone="c-silver"] {
+  --rf-hi: #ffffff; --rf-body: #bcbfc6; --rf-sh: #6d7179; --rf-rim: #dcdee4;
+}
+.ph-flat .ringfam-dot[data-tone="c-pink"] {
+  --rf-hi: #fff7f9; --rf-body: #f0c8ce; --rf-sh: #b4868f; --rf-rim: #f6dade;
+}
 .ph-flat .ringfam-dot[data-tone="c-white"] {
   --rf-hi: #ffffff; --rf-body: #dbe0e8; --rf-sh: #98a1b0; --rf-rim: #e4e9f1;
-}
-.ph-flat .ringfam-dot[data-tone="t-gold"] {
-  --rf-hi: #f8e4c4; --rf-body: #cfa878; --rf-sh: #7d5c3c; --rf-rim: #e6c99e;
-  --rf-brush: .72;
-}
-.ph-flat .ringfam-dot[data-tone="t-black"] {
-  --rf-hi: #8c8a9a; --rf-body: #2c2b36; --rf-sh: #0e0e15; --rf-rim: #4c4b59;
-  /* Overlay doubles a dark base under a white line, so graphite takes the
-     lightest hand of the three or the grain becomes the object. */
-  --rf-brush: .5;
-}
-.ph-flat .ringfam-dot[data-tone="t-silver"] {
-  --rf-hi: #eef2f7; --rf-body: #a3abb8; --rf-sh: #565e6c; --rf-rim: #ccd2db;
-  /* The one finish whose NAME is the texture, so it carries it hardest. */
-  --rf-brush: .85;
 }
 
 /* ---- TWO OBJECTS, TWO QUESTIONS. The marker says WHICH; the rule says HOW FAR.
@@ -1072,6 +1108,12 @@
   gap: clamp(20px, 2.2vw, 32px);
   margin-top: clamp(44px, 5vw, 72px);
 }
+/* THREE MATERIALS SINCE 2026-09-17. `.is-three` rather than a rewrite of the
+   rule above, because the two card arrangement is still what the pair means and
+   a third column is the only thing that changes. The middle card takes the same
+   --d as the outer two on purpose: at three across, alternating drift makes the
+   centre card the odd one out, so the outer pair moves against the middle. */
+.ph-flat .pick-pair.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 /* THE CARD IS NO LONGER AN ANCHOR (2026-09-14). It carries three swatch
    buttons now, and a button inside a link is invalid and unusable with a
    keyboard. So the card is a plain box, the product name is the link, and the
@@ -1117,6 +1159,26 @@
               opacity var(--ph-dur-base) var(--ease-frosted-out);
 }
 .ph-flat .pick-shot img.on { opacity: 1; }
+
+/* ---- THE PLATE, 2026-09-17. The three cards no longer hold lifestyle
+   photographs, they hold the nine renders, and a render on transparency wants
+   the opposite of `cover`: it is the object, not a scene, so it is CONTAINED
+   with air around it and sits directly on the page's own recess wash. That is
+   also the only arrangement in which nine finishes are comparable — one ring on
+   silk beside another on stones compares two photographers, not two materials.
+
+   The frame is shorter than the photographic one for the same reason: a
+   contained square in a 460px frame is a small object in a large empty box. */
+.ph-flat .pick-shot.is-plate {
+  height: clamp(250px, 23vw, 350px);
+  background: var(--gl-tint-sunk, #f4f6fb);
+}
+.ph-flat .pick-shot.is-plate img {
+  inset: 0;
+  height: 100%;
+  padding: clamp(14px, 1.6vw, 26px);
+  object-fit: contain;
+}
 .ph-flat .pick.is-lively .pick-shot img {
   /* --d comes from the markup and is +1 on one card, -1 on the other. The 0
      fallback is not decoration: an undefined custom property inside calc()
@@ -1211,9 +1273,16 @@
   font-weight: var(--ph-w-600);
 }
 
+/* Three cards need a step the pair never did: at 1040 a third column stops
+   holding the name, the price and four colour words on one line. */
+@media (max-width: 1040px) {
+  .ph-flat .pick-pair.is-three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 900px) {
-  .ph-flat .pick-pair { grid-template-columns: minmax(0, 1fr); }
+  .ph-flat .pick-pair,
+  .ph-flat .pick-pair.is-three { grid-template-columns: minmax(0, 1fr); }
   .ph-flat .pick-shot { height: clamp(260px, 62vw, 380px); }
+  .ph-flat .pick-shot.is-plate { height: clamp(260px, 56vw, 360px); }
   /* Stacked, the counter-drift stops being two objects moving apart and
      becomes two pictures in a column disagreeing about which way the page is
      going. Same reason the signal window loses its travel here. */
@@ -1410,6 +1479,7 @@ html.ph-reveal body.ph-flat main > section .cta-actions    { --rv-at: 245ms; }
    them. Same 55ms the figures used, and the same reason for it. */
 html.ph-reveal body.ph-flat main > section .pick-card:nth-child(1) { --rv-at: 150ms; }
 html.ph-reveal body.ph-flat main > section .pick-card:nth-child(2) { --rv-at: 205ms; }
+html.ph-reveal body.ph-flat main > section .pick-card:nth-child(3) { --rv-at: 260ms; }
 
 /* The full-bleed plate keeps the shared treatment and the shared reason: it is
    one image filling a fixed, clipped box, so sliding it would show a strip of
