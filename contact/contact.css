@@ -214,6 +214,13 @@
    ------------------------------------------------------------------------ */
 .ctc-col > :first-child { margin-top: 0; }
 
+/* The page title takes the kit's two tone pair, sized for a column that has a
+   gallery beside it rather than for a screen it owns: the same step the rest of
+   the page's headings are written to, not the kit's 132px clamp. */
+.ctc-h1 {
+  margin: 12px 0 0;
+  font-size: clamp(34px, 3.6vw, 56px);
+}
 .ctc-title {
   margin: 12px 0 0;
   font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04;
@@ -366,25 +373,32 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
    ------------------------------------------------------------------------ */
 .ctc-form-sec { background: var(--ctc-sunk); }
 
-/* The head sits BESIDE the form, not above it. Stacked, a 720px card under a
-   1260px heading left 450px of empty tint down the right of the section and
-   the page ended on an unbalanced half. The split is not a new geometry: it is
-   1.05fr / 1fr at a 64px gap, which is what `.opener` and `.hero-split` in
-   shared.css already are, so this section reads as the echo of the one above
-   it rather than as a fourth arrangement. */
-.ctc-form-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  column-gap: clamp(32px, 4.4vw, 64px);
-  align-items: start;
-}
-/* The head stays put: it scrolls with the page, never pinned beside the form. */
-.ctc-form-head .ctc-title { margin-top: 0; font-size: clamp(30px, 3.4vw, 48px); }
-.ctc-form-head .ctc-lede { margin-top: 14px; }
+/* CENTRED ON ONE AXIS, 2026-09-17, by request.
 
-@media (max-width: 1080px) {
-  .ctc-form-split { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+   It was a 1.05fr / 1fr split with the head beside the form, which is the
+   geometry of the screen above — and that screen is split because it has two
+   things to show at once, a gallery and an address. This one has ONE thing to
+   do. A form is the only moment on the site where the reader is being asked to
+   act rather than to read, and a single column on the page's centre line is the
+   arrangement that says so: nothing to the side of it, nothing to look at past
+   it, one measure from the heading to the button.
+
+   640px is the measure, and it is chosen from the CONTROLS rather than from the
+   text: two fields side by side want about 300 each to hold "hello@..." without
+   eliding, and the pair plus their 18px gutter is 618. The heading above runs
+   wider, at 18ch a line, because a display line at 60px in a 640px box breaks
+   after two words. */
+.ctc-form-split {
+  display: block;
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
 }
+.ctc-form-head { margin-bottom: clamp(28px, 3vw, 44px); }
+/* The pair takes the Band's heading step rather than the kit's full display
+   clamp: 132px over a 640px form is a headline with a coupon under it. */
+.ctc-form-h { font-size: clamp(34px, 4.4vw, 60px); }
+.ctc-form-head .ctc-lede { margin: 14px auto 0; }
 
 .ctc-form {
   padding: clamp(24px, 2.6vw, 36px);
@@ -442,10 +456,20 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
 .ctc-field select:hover,
 .ctc-field textarea:hover { border-color: var(--phenome-blue-300, #7185bd); }
 
+/* Inside the card the labels stay LEFT over their fields, and that is not an
+   exception to the centring — it is what centring a form means. A label
+   centred over a box the reader types left to right points at nothing, and a
+   centred placeholder moves as they type. The card is on the centre line; its
+   contents are aligned to the thing they describe. */
+.ctc-form { text-align: left; }
+/* The button is the exception back: it is the one control that is an action
+   rather than a field, so it sits on the section's own centre line. */
 .ctc-actions {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 16px;
   margin-top: 26px;
 }
+.ctc-actions .btn { min-width: 220px; justify-content: center; }
 .ctc-sent {
   margin: 0;
   font-size: 16px; line-height: 22px; font-weight: 600;
