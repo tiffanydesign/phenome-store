@@ -216,11 +216,24 @@
 
 /* The page title takes the kit's two tone pair, sized for a column that has a
    gallery beside it rather than for a screen it owns: the same step the rest of
-   the page's headings are written to, not the kit's 132px clamp. */
+   the page's headings are written to, not the kit's 132px clamp.
+
+   ONE LINE SINCE 2026-09-18, by request. The kit stacks the pair because its
+   usual job is a section's whole argument over two lines; this title is four
+   words. Both spans go inline at ONE size, so the held back blue and the ink
+   sit shoulder to shoulder and the colour carries the emphasis on its own,
+   which is the only thing the pair was ever for.
+
+   `nowrap` is safe at every width because the clamp is cut from the column, not
+   from the page: 3.4vw against a column that is a little under half the wrap
+   means the sentence is always about two thirds of the space it has. */
 .ctc-h1 {
   margin: 12px 0 0;
-  font-size: clamp(34px, 3.6vw, 56px);
+  font-size: clamp(30px, 3.4vw, 52px);
+  white-space: nowrap;
 }
+.ctc-h1 > span { display: inline; }
+.ctc-h1 .ph-display-lead { font-size: 1em; line-height: inherit; }
 .ctc-title {
   margin: 12px 0 0;
   font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04;
@@ -307,17 +320,10 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   column-gap: 24px;
   align-items: end;
 }
-/* Follow us: four names on one line, spaced like a row of tabs. */
-.ctc-social {
-  display: flex; flex-wrap: wrap;
-  gap: 8px 32px;
-}
-.ctc-social a {
-  font-size: 17px; line-height: 24px;
-  color: var(--ctc-blue);
-  text-decoration: none;
-}
-.ctc-social a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* `.ctc-social` stood here: "Follow us" and four social names on one line. The
+   block went from the markup on 2026-09-18, by request, because the footer on
+   every page of this site already carries all four, and the rules went with it
+   rather than being left behind styling nothing. */
 
 /* ---- the map -----------------------------------------------------------
    A strip, not a square. The reference's map is 626 x 85 and that ratio is the
@@ -373,32 +379,35 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
    ------------------------------------------------------------------------ */
 .ctc-form-sec { background: var(--ctc-sunk); }
 
-/* CENTRED ON ONE AXIS, 2026-09-17, by request.
+/* A SPLIT AGAIN, 2026-09-18, by request: words left, controls right.
 
-   It was a 1.05fr / 1fr split with the head beside the form, which is the
-   geometry of the screen above — and that screen is split because it has two
-   things to show at once, a gallery and an address. This one has ONE thing to
-   do. A form is the only moment on the site where the reader is being asked to
-   act rather than to read, and a single column on the page's centre line is the
-   arrangement that says so: nothing to the side of it, nothing to look at past
-   it, one measure from the heading to the button.
+   It was centred on one axis for a day, on the argument that a form is the one
+   moment where a reader acts rather than reads. What that produced in practice
+   was a 640px card under a 60px headline with a third of the page empty on
+   either side, and an enquiry form is not a newsletter box — it carries six
+   fields and a twenty eight item menu, and it is answering a question the
+   heading beside it asks.
 
-   640px is the measure, and it is chosen from the CONTROLS rather than from the
-   text: two fields side by side want about 300 each to hold "hello@..." without
-   eliding, and the pair plus their 18px gutter is 618. The heading above runs
-   wider, at 18ch a line, because a display line at 60px in a 640px box breaks
-   after two words. */
+   1fr / 1.15fr, with the controls taking the wider half, because the text side
+   is a heading and two short lines and the form side has to hold two fields
+   abreast without eliding an address. The head is sticky on wide screens: the
+   form runs taller than it does, and a heading that scrolls away leaves a
+   column of unlabelled boxes.
+
+   The two ledes stack rather than run together — one is the promise, one is the
+   audience, and they are not the same sentence. */
 .ctc-form-split {
-  display: block;
-  max-width: 640px;
-  margin-inline: auto;
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 4vw, 72px);
+  align-items: start;
+  text-align: left;
 }
-.ctc-form-head { margin-bottom: clamp(28px, 3vw, 44px); }
+.ctc-form-head { position: sticky; top: calc(var(--ph-nav-h, 48px) + 28px); }
 /* The pair takes the Band's heading step rather than the kit's full display
-   clamp: 132px over a 640px form is a headline with a coupon under it. */
-.ctc-form-h { font-size: clamp(34px, 4.4vw, 60px); }
-.ctc-form-head .ctc-lede { margin: 14px auto 0; }
+   clamp: 132px beside a form is a headline with a coupon next to it. */
+.ctc-form-h { font-size: clamp(32px, 3.6vw, 54px); }
+.ctc-form-head .ctc-lede { margin: 18px 0 0; max-width: 42ch; }
 
 .ctc-form {
   padding: clamp(24px, 2.6vw, 36px);
@@ -462,10 +471,11 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
    centred placeholder moves as they type. The card is on the centre line; its
    contents are aligned to the thing they describe. */
 .ctc-form { text-align: left; }
-/* The button is the exception back: it is the one control that is an action
-   rather than a field, so it sits on the section's own centre line. */
+/* The button starts where every label in the card starts. It was centred while
+   the card was, which is the one alignment that made sense on a centre line and
+   the wrong one inside a column a reader is filling top to bottom. */
 .ctc-actions {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: flex-start;
   flex-wrap: wrap; gap: 16px;
   margin-top: 26px;
 }
@@ -476,6 +486,15 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   color: var(--ctc-blue);
 }
 .ctc-sent[hidden] { display: none; }
+
+/* The captcha line. It is the smallest thing in the card and it is still 15px:
+   the site has a type floor and legal small print does not get an exemption
+   from it. Quiet ink, not a smaller size, is how it is held back. */
+.ctc-legal {
+  margin: 20px 0 0;
+  font-size: 15px; line-height: 22px;
+  color: var(--ctc-quiet);
+}
 
 /* ---------------------------------------------------------------------------
    5 · NARROWER SCREENS
@@ -490,6 +509,16 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   .ctc-gal-frame { aspect-ratio: 4 / 3; }
   .ctc-map { aspect-ratio: 16 / 5; }
 }
+/* The form split folds before the gallery split does, at 900 rather than 1080:
+   its right hand column is controls, and a 52px input in a 380px column is
+   still a usable input where a photograph at that width is not a photograph.
+   The sticky head is released with it, since there is nothing beside it to
+   stay level with. */
+@media (max-width: 900px) {
+  .ctc-form-split { grid-template-columns: minmax(0, 1fr); row-gap: clamp(28px, 5vw, 40px); }
+  .ctc-form-head { position: static; }
+  .ctc-form-head .ctc-lede { max-width: 46ch; }
+}
 @media (max-width: 560px) {
   .ctc-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
   .ctc-row-k { grid-column: 1; grid-row: 1; }
@@ -497,7 +526,10 @@ a.ctc-row:hover .ctc-row-go { color: var(--ctc-blue); translate: 3px 0; }
   .ctc-row-go { grid-column: 2; grid-row: 1 / span 2; }
   .ctc-find { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
   .ctc-maplink { justify-self: start; }
-  .ctc-social { gap: 8px 24px; }
+  /* The one title on the page that refuses to wrap has to be allowed to, once
+     the column is narrower than the sentence at its floor size. */
+  .ctc-h1 { white-space: normal; }
+  .ctc-actions .btn { min-width: 100%; }
 }
 @media (max-width: 720px) {
   .ctc-pair { grid-template-columns: minmax(0, 1fr); }
