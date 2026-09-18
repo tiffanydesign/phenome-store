@@ -223,19 +223,31 @@
    and nylon is a material, not a colour, and there is nothing to put in a
    disc. */
 .bd .bd-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+/* ICON ABOVE THE NAME SINCE 2026-09-18. The card was a name over a line of
+   small print counting the colours behind it; the count is now made by the
+   swatch row itself and the line is gone, so what sits above the name is a
+   drawing of the material. Two rows, both centred, because the icon is the
+   thing being compared and a left rail would put 34px of drawing beside two
+   words and call it a layout. */
 .bd .bd-choice {
-  display: grid; align-content: center; gap: 4px;
-  min-height: 74px; padding: 14px 16px;
-  text-align: left; cursor: pointer;
+  display: grid; align-content: center; justify-items: center; gap: 8px;
+  min-height: 92px; padding: 14px 16px;
+  text-align: center; cursor: pointer;
   -webkit-appearance: none; appearance: none;
   border: 0; border-radius: 14px;
   background: #fff;
   box-shadow: inset 0 0 0 1px var(--divider);
   transition: box-shadow .3s ease;
 }
+/* Quiet at rest, ink when chosen: the icon carries the selection alongside the
+   ring, so the card is legible as chosen at a glance rather than only at its
+   edge. */
+.bd .bd-choice-ic { display: block; width: 34px; height: 34px; color: var(--ph-text-2); transition: color .3s ease; }
+.bd .bd-choice-ic svg { display: block; width: 100%; height: 100%; }
+.bd .bd-choice.on .bd-choice-ic { color: var(--ink-900); }
 .bd .bd-choice .n { font-size: 17px; line-height: 23px; font-weight: 600; color: var(--ink-900); }
-.bd .bd-choice .p { font-size: 15px; line-height: 21px; color: var(--ph-text-2); }
 .bd .bd-choice:hover { box-shadow: inset 0 0 0 1px var(--phenome-blue-300, #7185bd); }
+.bd .bd-choice:hover .bd-choice-ic { color: var(--phenome-blue-500, #203a85); }
 .bd .bd-choice.on { box-shadow: inset 0 0 0 2px var(--ink-900); }
 .bd .bd-choice:focus-visible { outline: 2px solid var(--phenome-blue-400); outline-offset: 3px; }
 
