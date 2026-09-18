@@ -12,12 +12,33 @@
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
   function money(p) { return '£' + (p % 100 ? (p / 100).toFixed(2) : String(p / 100)); }
 
-  /* ONE COLOUR, 2026-09-16 by request. The map stays a map rather than a
-     constant: the control is still a radiogroup, the cart line still reads the
-     name from here, and a second colour is one entry away. */
-  var COLOURS = { black: { name: 'Black', hex: '#141414' } };
+  /* SIX COLOURS IN TWO STRAP MATERIALS, 2026-09-17 by request — the map the
+     2026-09-16 note said was one entry away from a second colour. Hexes are
+     sampled off the photographs, `strap` is which of the two rows a colour
+     belongs to, and `name` is what the cart line and the label read.
+
+     The material is part of the variant, not decoration: "Onyx" alone does not
+     say whether a silicone or a nylon strap is in the box. */
+  var COLOURS = {
+    onyx:     { name: 'Onyx',     hex: '#313131', strap: 'sport' },
+    ember:    { name: 'Ember',    hex: '#e4652e', strap: 'sport' },
+    harbour:  { name: 'Harbour',  hex: '#566a82', strap: 'sport' },
+    dune:     { name: 'Dune',     hex: '#e2d0c4', strap: 'sport' },
+    graphite: { name: 'Graphite', hex: '#242424', strap: 'woven' },
+    tidal:    { name: 'Tidal',    hex: '#394d68', strap: 'woven' }
+  };
+  var STRAPS = {
+    sport: { name: 'sport silicone' },
+    woven: { name: 'woven nylon' }
+  };
+  function firstColourOf(strap) {
+    for (var k in COLOURS) {
+      if (Object.prototype.hasOwnProperty.call(COLOURS, k) && COLOURS[k].strap === strap) return k;
+    }
+    return 'onyx';
+  }
   var BASE_PRICE = 14900;
-  var state = { colour: 'black', straps: [], extra: 0 };
+  var state = { colour: 'onyx', strap: 'sport', straps: [], extra: 0 };
   var subs = [];
   function publish() { subs.forEach(function (fn) { fn(state); }); }
 
@@ -78,8 +99,32 @@
       if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true);
     });
 
-    /* choosing a colour brings the product plate back to the front */
-    $$('.bd-sw').forEach(function (b) { b.addEventListener('click', function () { if (cur !== 0) go(0, true); }); });
+    /* choosing a colour or a strap brings the product plate back to the front */
+    $$('.bd-sw, .bd-choice').forEach(function (b) {
+      b.addEventListener('click', function () { if (cur !== 0) go(0, true); });
+    });
+
+    /* THE PLATE FOLLOWS THE COLOUR. Six photographs stacked in the first slide,
+       crossfading on a press — the same construction as the ring PDP's stills.
+       It subscribes rather than listening to the buttons, so it agrees with the
+       label and the cart line by construction rather than by coincidence. */
+    var plate = $('[data-gal-plate]');
+    if (plate) {
+      var shots = $$('[data-colour-img]', plate);
+      /* Tells the sheet the stack is now being driven, so its "show the first
+         one" fallback can stand down. Set here rather than in the markup: the
+         fallback has to hold for a page whose script never ran. */
+      gal.classList.add('is-live');
+      subs.push(function (s) {
+        shots.forEach(function (img) {
+          var on = img.getAttribute('data-colour-img') === s.colour;
+          img.classList.toggle('on', on);
+          /* A frame that is not showing is not announced, or six identical alt
+             lines are read out in a row. */
+          img.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+      });
+    }
 
     paint();
     schedule();
@@ -89,17 +134,55 @@
   function buyColumn() {
     var sws = $$('.bd-sw');
     if (!sws.length) return;
+    var choices = $$('.bd-choice');
+
+    /* THE STRAP IS THE FIRST QUESTION and the colour row answers it, so a
+       colour has to follow its material: kept if it belongs to the new strap,
+       otherwise that strap's first. Without this the page shows a nylon
+       photograph under a silicone label for one press. */
+    choices.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var t = b.getAttribute('data-strap-type');
+        if (state.strap === t) return;
+        state.strap = t;
+        if (COLOURS[state.colour].strap !== t) state.colour = firstColourOf(t);
+        publish();
+      });
+    });
+
     sws.forEach(function (b) {
       b.addEventListener('click', function () {
         state.colour = b.getAttribute('data-colour');
-        sws.forEach(function (o) { var on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-checked', on ? 'true' : 'false'); });
+        /* Choosing a colour also chooses its strap. A reader who clicks Tidal
+           has said "woven nylon" as clearly as if they had clicked the card —
+           though with the row filtered they can only reach their own. */
+        state.strap = COLOURS[state.colour].strap;
         publish();
       });
       b.addEventListener('keydown', function (e) {
-        var i = sws.indexOf(b), n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
         if (!n) return;
         e.preventDefault();
-        var t = sws[(i + n + sws.length) % sws.length]; t.focus(); t.click();
+        /* Walk the VISIBLE swatches only. Stepping onto a hidden one moves
+           focus to a button that is not on the screen. */
+        var live = sws.filter(function (o) { return !o.hidden; });
+        var i = live.indexOf(b);
+        var t = live[(i + n + live.length) % live.length];
+        t.focus(); t.click();
+      });
+    });
+
+    subs.push(function (s) {
+      choices.forEach(function (o) {
+        var on = o.getAttribute('data-strap-type') === s.strap;
+        o.classList.toggle('on', on);
+        o.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      sws.forEach(function (o) {
+        var on = o.getAttribute('data-colour') === s.colour;
+        o.classList.toggle('on', on);
+        o.setAttribute('aria-checked', on ? 'true' : 'false');
+        o.hidden = o.getAttribute('data-strap') !== s.strap;
       });
     });
 
@@ -119,7 +202,7 @@
       $$('[data-price], [data-price-echo]').forEach(function (el) { el.textContent = total; });
       var v = $('[data-cart-variant]');
       if (v) {
-        v.textContent = c.name +
+        v.textContent = c.name + ', ' + STRAPS[s.strap].name +
           (s.straps.length ? ', spare ' + (s.straps.length === 1 ? 'strap' : 'straps') + ' in ' + s.straps.join(' and ') : '');
       }
     });
@@ -153,8 +236,10 @@
     txt.appendChild(name); txt.appendChild(meta);
     subs.push(function (s) {
       thumb.style.setProperty('--sw', COLOURS[s.colour].hex);
-      meta.textContent = money(BASE_PRICE + s.extra) + ' · ' + COLOURS[s.colour].name +
-        (s.straps.length ? ' · ' + s.straps.length + ' spare ' + (s.straps.length === 1 ? 'strap' : 'straps') : '');
+      /* Commas, not middle dots: the site's copy rule has no dashes and no
+         middle dots in rendered text, and this line is rendered text. */
+      meta.textContent = money(BASE_PRICE + s.extra) + ', ' + COLOURS[s.colour].name +
+        (s.straps.length ? ', ' + s.straps.length + ' spare ' + (s.straps.length === 1 ? 'strap' : 'straps') : '');
     });
 
     /* over the dark bands the bar turns to ink so it never floats as a white slab */

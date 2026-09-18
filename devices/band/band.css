@@ -95,6 +95,17 @@
    which carries its own studio ground, fills the frame instead. */
 .bd .bd-slide img { position: absolute; inset: 9%; width: 82%; height: 82%; object-fit: contain; }
 .bd .bd-slide.is-fill img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* THE COLOUR PLATE, 2026-09-17: six photographs stacked in the first slide,
+   one per colourway, crossfading on a press. The `:first-of-type` fallback is
+   not decoration — with the script off, six images at opacity 0 is an empty
+   frame where the product should be. */
+.bd .bd-slide.is-plate { background: #fff; }
+.bd .bd-slide[data-gal-plate] img {
+  opacity: 0;
+  transition: opacity .42s var(--bd-ease);
+}
+.bd .bd-slide[data-gal-plate] img.on { opacity: 1; }
+.bd .bd-gal:not(.is-live) .bd-slide[data-gal-plate] img:first-of-type { opacity: 1; }
 .bd .bd-gal-arrow {
   position: absolute; top: 50%; z-index: 2; width: 44px; height: 44px; margin-top: -22px;
   border: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
@@ -190,6 +201,43 @@
     0 0 0 4.5px var(--ink-900);
 }
 .bd .bd-sw:focus-visible { outline: 2px solid var(--phenome-blue-400); outline-offset: 4px; }
+/* SILICONE HAS NO WEAVE, so the four sport chips do not get one. What they get
+   instead is the perforation, which is the thing you actually see across a
+   sport strap from a metre away: a fine dot field at the same scale the
+   photographs show. Drawn, not photographed — a 44px crop of a band reads as a
+   smudge, and the chip's one job is the pigment. */
+.bd .bd-sw.is-smooth {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, .3) 0 1.2px, rgba(0, 0, 0, 0) 1.6px) 0 0 / 9px 9px,
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, .3) 0 1.2px, rgba(0, 0, 0, 0) 1.6px) 4.5px 4.5px / 9px 9px,
+    linear-gradient(140deg, rgba(255, 255, 255, .16), rgba(0, 0, 0, .1)),
+    var(--sw, #141414);
+}
+/* `hidden` on a swatch has to win over the flex display the row gives it. */
+.bd .bd-sw[hidden] { display: none; }
+
+/* ---- THE STRAP, which is the first question the colour row answers. Two
+   cards, and they are the ring PDP's material cards at this page's own type:
+   name at 17, the count under it at 15 in the body ink, a hairline at rest and
+   the accent ring when chosen. Not swatches — the difference between silicone
+   and nylon is a material, not a colour, and there is nothing to put in a
+   disc. */
+.bd .bd-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.bd .bd-choice {
+  display: grid; align-content: center; gap: 4px;
+  min-height: 74px; padding: 14px 16px;
+  text-align: left; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  border: 0; border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--divider);
+  transition: box-shadow .3s ease;
+}
+.bd .bd-choice .n { font-size: 17px; line-height: 23px; font-weight: 600; color: var(--ink-900); }
+.bd .bd-choice .p { font-size: 15px; line-height: 21px; color: var(--ph-text-2); }
+.bd .bd-choice:hover { box-shadow: inset 0 0 0 1px var(--phenome-blue-300, #7185bd); }
+.bd .bd-choice.on { box-shadow: inset 0 0 0 2px var(--ink-900); }
+.bd .bd-choice:focus-visible { outline: 2px solid var(--phenome-blue-400); outline-offset: 3px; }
 
 .bd .bd-straps-d { margin: 6px 0 0; font-size: 16px; line-height: 1.5; color: var(--ph-text-2); }
 .bd .bd-acc { margin-top: 14px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--divider); }
@@ -215,14 +263,17 @@
 }
 .bd .bd-strap input { position: absolute; opacity: 0; pointer-events: none; }
 /* The same flat weave as the colour chip, in the strap's own pigment. */
+/* A PHOTOGRAPH, NOT A DRAWN CHIP, since 2026-09-17. The 44px control above is
+   drawn because a strap at 44px is a smudge; this row is a list of five things
+   to buy, each on its own line with its name beside it, and at 46px in a list
+   the real object tells the reader more than a rectangle of its colour does. */
 .bd .bd-strap-img {
-  width: 34px; height: 46px; border-radius: 8px;
-  background:
-    repeating-linear-gradient(118deg, rgba(255, 255, 255, .13) 0 1px, rgba(255, 255, 255, 0) 1px 4px),
-    repeating-linear-gradient(28deg, rgba(0, 0, 0, .20) 0 1px, rgba(0, 0, 0, 0) 1px 4px),
-    var(--sw);
-  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .12);
+  display: grid; place-items: center;
+  width: 46px; height: 46px; flex: none;
+  border-radius: 10px;
+  background: var(--gl-tint-sunk, #f4f6fb);
 }
+.bd .bd-strap-img img { width: 100%; height: 100%; object-fit: contain; }
 .bd .bd-strap-n { font-size: 15px; line-height: 1.35; color: var(--ink-900); }
 .bd .bd-strap-p { font-size: 15px; color: var(--ink-600); font-variant-numeric: tabular-nums; }
 .bd .bd-strap:has(input:checked) { background: #fff; box-shadow: inset 0 0 0 1.5px var(--phenome-blue-500); }
@@ -487,6 +538,17 @@
   transition: transform 1s var(--bd-ease);
 }
 .bd .bd-studio-shot:hover img { transform: scale(1.04); }
+/* The six colourway frames are product plates on white, not lit scenes, so the
+   ground behind them is white rather than the near black the scenes wanted, and
+   the object is contained with air around it rather than cropped to fill. */
+.bd .bd-studio-shot.is-plate { background: #fff; }
+.bd .bd-studio-shot.is-plate img { inset: 3% 6% 19%; width: 88%; height: 78%; object-fit: contain; }
+/* NO SCRIM ON A PLATE, and the caption goes to ink. The scrim above exists to
+   put white type over a lit scene; laid over a white plate it darkens the lower
+   third of the object it is captioning, so the strap fades into grey exactly
+   where the buckle is. The caption gets its own band of white instead. */
+.bd .bd-studio-shot.is-plate::after { display: none; }
+.bd .bd-studio-shot.is-plate figcaption { color: var(--ink-900); }
 .bd .bd-studio-shot::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   /* The Ring's studio films are dark, so the reference gets away with a light

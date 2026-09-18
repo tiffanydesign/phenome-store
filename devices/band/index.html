@@ -25,7 +25,7 @@
      every frame, so the captions no longer name a colourway. To be replaced by
      our own studio work before this page is anything but a mock. -->
 <link href="/phenome-store/devices/band/band.css" rel="stylesheet"/>
-<link rel="preload" as="image" href="/phenome-store/assets/band/shot-loop.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="/phenome-store/assets/band/band-onyx.webp" fetchpriority="high"/>
 </head>
 <body class="bd">
 <div class="ph-promo"><p class="ph-promo-inner">Welcome offer, 10% off your first order with code <b>Welcome10</b></p></div>
@@ -38,11 +38,25 @@
 <section class="hero bd-hero"><div class="wrap-wide">
 <div class="bd-buy">
 
+<!-- THE FIRST SLIDE IS THE CHOSEN COLOUR, 2026-09-17, by request. Six
+     photographs of the product arrived, one per colourway, so the plate at the
+     front of the gallery is now a STACK keyed to the colour control — the same
+     construction store/phenometech-ring uses for its nine finishes. Choosing a
+     colour changes the picture, which is the one thing the old single colour
+     control could never do. The two slides after it are the frame and the dock,
+     which are the same whichever strap is on it. -->
 <div class="bd-gal" data-gal="" aria-roledescription="carousel" aria-label="Band photographs" role="region">
 <div class="bd-gal-track" data-gal-track="">
-<figure class="bd-slide is-on" data-slide=""><img alt="The PhenomeTech Band in black, the woven loop seen from the side" decoding="async" height="1200" src="/phenome-store/assets/band/shot-loop.webp" width="1200"/></figure>
-<figure class="bd-slide" data-slide=""><img alt="The band front on, the case centred on the weave" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/shot-front.webp" width="1200"/></figure>
-<figure class="bd-slide is-fill" data-slide=""><img alt="The band worn on the wrist" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/shot-worn.webp" width="1200"/></figure>
+<figure class="bd-slide is-on is-plate" data-slide="" data-gal-plate="">
+<img alt="The PhenomeTech Band in Onyx, the perforated sport strap seen from the side" data-colour-img="onyx" decoding="async" height="1200" src="/phenome-store/assets/band/band-onyx.webp" width="1200"/>
+<img alt="The PhenomeTech Band in Ember, the perforated sport strap seen from the side" data-colour-img="ember" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-ember.webp" width="1200"/>
+<img alt="The PhenomeTech Band in Harbour, the perforated sport strap seen from the side" data-colour-img="harbour" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-harbour.webp" width="1200"/>
+<img alt="The PhenomeTech Band in Dune, the perforated sport strap seen from the side" data-colour-img="dune" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-dune.webp" width="1200"/>
+<img alt="The PhenomeTech Band in Graphite, the woven nylon loop seen from the side" data-colour-img="graphite" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-weave-graphite.webp" width="1200"/>
+<img alt="The PhenomeTech Band in Tidal, the woven nylon loop seen from the side" data-colour-img="tidal" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-weave-tidal.webp" width="1200"/>
+</figure>
+<figure class="bd-slide is-plate" data-slide=""><img alt="The aluminium frame lifted clear of the strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-frame.webp" width="900"/></figure>
+<figure class="bd-slide is-plate" data-slide=""><img alt="The charging dock with its cable running out of frame" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/></figure>
 </div>
 <button class="bd-gal-arrow is-prev" data-gal-prev="" type="button" aria-label="Previous photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button class="bd-gal-arrow is-next" data-gal-next="" type="button" aria-label="Next photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -67,29 +81,50 @@
 <p class="bd-lede">A screenless band that reads your heart, sleep, temperature and training all day, and turns it into a plan built around your genome and microbiome.</p>
 </div>
 
-<!-- THE COLOUR CONTROL, rebuilt 2026-09-16 by request. One colour, and the
-     chip is a flat piece of the material rather than a lit sphere: no
-     specular highlight, no bounce, no rim, no tinted drop. What is left is
-     the pigment and a fine woven line running across it, which is the only
-     thing the chip was ever meant to tell you. -->
+<!-- THE COLOUR CONTROL, rebuilt again 2026-09-17 by request. It was one colour
+     called Black, because the page had exactly one photograph of the product.
+     Six arrived, in two strap materials, so the control is now the shape the
+     ring pages already use: the MATERIAL is the first question and the colour
+     row answers it with that material's own colours. Nothing is disabled and
+     nothing is greyed — the other row is simply not the question being asked.
+
+     The chip stays a flat piece of the material rather than a lit sphere: no
+     specular highlight, no bounce, no rim, no tinted drop. What is left is the
+     pigment and its weave, and `.is-smooth` takes even the weave off the four
+     silicone straps, which do not have one. Colours are sampled off the
+     photographs themselves. -->
+<div class="bd-opt">
+<p class="bd-opt-k">Strap</p>
+<div class="bd-choices" role="radiogroup" aria-label="Strap">
+<button aria-checked="true" class="bd-choice on" data-strap-type="sport" role="radio" type="button"><span class="n">Sport silicone</span><span class="p">Perforated, four colours</span></button>
+<button aria-checked="false" class="bd-choice" data-strap-type="woven" role="radio" type="button"><span class="n">Woven nylon</span><span class="p">Elastic, two colours</span></button>
+</div>
+</div>
+
 <div class="bd-opt">
 <p class="bd-opt-k">Colour</p>
-<p class="bd-opt-v"><b data-colour-label="">Black</b></p>
+<p class="bd-opt-v"><b data-colour-label="">Onyx</b></p>
 <div class="bd-swatches" role="radiogroup" aria-label="Colour">
-<button aria-checked="true" class="bd-sw on" data-colour="black" role="radio" type="button" aria-label="Black"></button>
+<button aria-checked="true" class="bd-sw is-smooth on" data-colour="onyx" data-strap="sport" role="radio" type="button" aria-label="Onyx" style="--sw:#313131"></button>
+<button aria-checked="false" class="bd-sw is-smooth" data-colour="ember" data-strap="sport" role="radio" type="button" aria-label="Ember" style="--sw:#e4652e"></button>
+<button aria-checked="false" class="bd-sw is-smooth" data-colour="harbour" data-strap="sport" role="radio" type="button" aria-label="Harbour" style="--sw:#566a82"></button>
+<button aria-checked="false" class="bd-sw is-smooth" data-colour="dune" data-strap="sport" role="radio" type="button" aria-label="Dune" style="--sw:#e2d0c4"></button>
+<button aria-checked="false" class="bd-sw" data-colour="graphite" data-strap="woven" role="radio" type="button" aria-label="Graphite" style="--sw:#242424" hidden=""></button>
+<button aria-checked="false" class="bd-sw" data-colour="tidal" data-strap="woven" role="radio" type="button" aria-label="Tidal" style="--sw:#394d68" hidden=""></button>
 </div>
 </div>
 
 <div class="bd-opt bd-straps">
-<p class="bd-opt-k">Straps</p>
+<p class="bd-opt-k">Spare straps</p>
 <p class="bd-straps-d">Each strap arrives on its own frame, so a change takes a second. Pick a spare for the gym or the evening.</p>
 <details class="bd-acc" data-straps="">
 <summary><span>Add spare straps</span><i aria-hidden="true"></i></summary>
 <div class="bd-acc-b">
-<label class="bd-strap"><input type="checkbox" value="Sage" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#4f9e72"></span><span class="bd-strap-n">Sage weave</span><span class="bd-strap-p">£29</span></label>
-<label class="bd-strap"><input type="checkbox" value="Midnight" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#1d3aa0"></span><span class="bd-strap-n">Midnight weave</span><span class="bd-strap-p">£29</span></label>
-<label class="bd-strap"><input type="checkbox" value="Sand" data-strap-price="2900"/><span class="bd-strap-img" style="--sw:#c79a52"></span><span class="bd-strap-n">Sand weave</span><span class="bd-strap-p">£29</span></label>
-<label class="bd-strap"><input type="checkbox" value="Sport" data-strap-price="3900"/><span class="bd-strap-img" style="--sw:#10214b"></span><span class="bd-strap-n">Sport loop, sweat proof</span><span class="bd-strap-p">£39</span></label>
+<label class="bd-strap"><input type="checkbox" value="Ember" data-strap-price="2900"/><span class="bd-strap-img"><img alt="" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-ember_chip.webp" width="420"/></span><span class="bd-strap-n">Ember, sport silicone</span><span class="bd-strap-p">£29</span></label>
+<label class="bd-strap"><input type="checkbox" value="Harbour" data-strap-price="2900"/><span class="bd-strap-img"><img alt="" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-harbour_chip.webp" width="420"/></span><span class="bd-strap-n">Harbour, sport silicone</span><span class="bd-strap-p">£29</span></label>
+<label class="bd-strap"><input type="checkbox" value="Dune" data-strap-price="2900"/><span class="bd-strap-img"><img alt="" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-dune_chip.webp" width="420"/></span><span class="bd-strap-n">Dune, sport silicone</span><span class="bd-strap-p">£29</span></label>
+<label class="bd-strap"><input type="checkbox" value="Graphite" data-strap-price="3900"/><span class="bd-strap-img"><img alt="" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-weave-graphite_chip.webp" width="420"/></span><span class="bd-strap-n">Graphite, woven nylon</span><span class="bd-strap-p">£39</span></label>
+<label class="bd-strap"><input type="checkbox" value="Tidal" data-strap-price="3900"/><span class="bd-strap-img"><img alt="" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-weave-tidal_chip.webp" width="420"/></span><span class="bd-strap-n">Tidal, woven nylon</span><span class="bd-strap-p">£39</span></label>
 </div>
 </details>
 </div>
@@ -102,7 +137,7 @@
 
 
 <!-- Read by store/cart/cart.js: the whole choice as one line. -->
-<p class="bd-variant" data-cart-variant="" hidden="">Black</p>
+<p class="bd-variant" data-cart-variant="" hidden="">Onyx, sport silicone</p>
 
 <div class="bd-cta">
 <p class="bd-cta-price"><b data-price="">£149</b><span>Delivery, returns and the app included, no subscription</span></p>
@@ -140,12 +175,17 @@
 <h2 class="ph-solid bd-studio-h">Made to be worn, every day</h2>
 <div class="bd-studio-wrap">
 <button class="bd-studio-arrow is-prev" type="button" aria-label="Previous photographs"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg></button>
+<!-- SIX FRAMES, THE SIX COLOURWAYS, 2026-09-17. The row used to be five
+     pictures of one black band shot five ways, which is a photographer's
+     contact sheet rather than a range. It is the range now, in the order the
+     buy column offers it, with the dock at the end. -->
 <div class="bd-studio-track">
-<figure class="bd-studio-shot"><img alt="The Band seen at an angle, the metal case catching the light" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-studio-midnight.webp" width="900"/><figcaption>Anodised aluminium, turned in the light</figcaption></figure>
-<figure class="bd-studio-shot"><img alt="The charging dock with its cable running out of frame" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/><figcaption>The charging dock, and its cable</figcaption></figure>
-<figure class="bd-studio-shot"><img alt="The Band worn, the weave catching a cold light" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-studio-sage.webp" width="900"/><figcaption>The weave, in a cold light</figcaption></figure>
-<figure class="bd-studio-shot"><img alt="The woven loop seen from the side" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/shot-loop.webp" width="1200"/><figcaption>One woven loop, side on</figcaption></figure>
-<figure class="bd-studio-shot"><img alt="The frame lifted clear of the strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-frame.webp" width="900"/><figcaption>The frame, out in one click</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The Band in Onyx, the perforated sport strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-onyx_p.webp" width="900"/><figcaption>Onyx, the one that disappears</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The Band in Ember, the perforated sport strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-ember_p.webp" width="900"/><figcaption>Ember, for the ones who do not</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The Band in Harbour, the perforated sport strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-harbour_p.webp" width="900"/><figcaption>Harbour, a blue that holds its grey</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The Band in Dune, the perforated sport strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-dune_p.webp" width="900"/><figcaption>Dune, warm against the skin</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The Band in Tidal, the woven nylon loop" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-weave-tidal_p.webp" width="900"/><figcaption>Tidal, woven and elastic</figcaption></figure>
+<figure class="bd-studio-shot is-plate"><img alt="The charging dock with its cable running out of frame" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/><figcaption>The charging dock, and its cable</figcaption></figure>
 </div>
 <button class="bd-studio-arrow is-next" type="button" aria-label="Next photographs"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg></button>
 </div>
