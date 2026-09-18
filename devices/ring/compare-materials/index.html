@@ -4,20 +4,253 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Compare materials, PhenomeTech Ring</title>
-<meta content="Ceramic or titanium, both read exactly the same signals. The only difference is how it feels on your hand." name="description"/>
+<title>Compare materials, PhenomeTech</title>
+<meta content="Metal, matte, ceramic or the Band. Identical sensors, identical insight. Choose by feel, finish and how you intend to wear it." name="description"/>
 <link rel="preconnect" href="https://use.typekit.net"/>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin/>
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<!-- The page's own sheet, loaded last and scoped to `.cmp` on <body>, the same
+     convention as devices/band/band.css and devices/ring/ring.css.
+
+     REBUILT 2026-09-18, by request, against apple.com/iphone/compare. What
+     stood here was five screens on five different grounds comparing two things
+     in two incompatible ways: a hero, a price strip, a fourteen row table on a
+     black band, a paragraph of caveats and a grey call to action. It is one
+     arrangement now, on the page's own white, and it compares four things, the
+     Ring's three materials and the Band.
+
+     The copy is this page's own, extended to the two columns it did not have:
+     the three material portraits are the ones store/phenometech-ring already
+     runs under "Metal, matte / Or ceramic", and the Band's column is quoted
+     from devices/band's own specification grid. Every photograph is a cut out
+     render on a transparent ground, which is the reference's whole discipline
+     and the reason nothing on this page sits in a box. -->
+<link href="/phenome-store/devices/ring/compare-materials/compare.css" rel="stylesheet"/>
+<link rel="preload" as="image" href="/phenome-store/assets/ring/fin/metal-brushed.webp" fetchpriority="high"/>
 </head>
-<body>
+<body class="cmp">
 <div data-ph-nav=""></div>
-<main><section class="hero"><div class="wrap-wide hero-split"><div><h1 class="hero-title">Compare finishes.</h1><p class="lede" style="margin-left:0">Ceramic or titanium, both read exactly the same signals. The only difference is how it feels on your hand.</p></div><div class="hero-img"><img alt="The PhenomeTech Ring in white ceramic beside the same ring in brushed titanium, both on one pale ground" height="933" src="/phenome-store/assets/pages/ring_materials.webp" width="1400"/></div></div></section><section class="section section-tight"><div class="wrap-wide"><div class="compare"><div class="compare-side"><div class="k">Ceramic</div><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">From £199</p></div><div class="compare-side"><div class="k">Titanium</div><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">From £179</p></div></div><div class="cta-actions" style="justify-content:flex-start;margin-top:24px"><a class="btn" href="#">Buy</a><a class="btn ghost" href="#">Explore</a><a class="btn ghost" href="#">Buy</a><a class="btn ghost" href="#">Explore</a></div></div></section><section class="section section-black section-tight"><div class="wrap-wide"><div class="ctable-box"><table class="ctable"><thead><tr><th scope="col"></th><th scope="col">Ceramic</th><th scope="col">Titanium</th></tr></thead><tbody><tr><td></td><td>From £199</td><td>From £179</td></tr><tr><td>Material</td><td>Zirconia ceramic</td><td>Aerospace grade titanium</td></tr><tr><td>Finishes</td><td>Pink, Black, White</td><td>Gold, Black, Silver</td></tr><tr><td>Weight</td><td>~3 g, featherlight</td><td>~4 g, lightweight</td></tr><tr><td>Feel</td><td>Refined and warm</td><td>Durable and solid</td></tr><tr><td>Scratch resistance</td><td>Very high</td><td>High</td></tr><tr><td>Hypoallergenic</td><td>Yes</td><td>Yes</td></tr><tr><td>Water resistance</td><td>10 ATM, 100 m</td><td>10 ATM, 100 m</td></tr><tr><td>Battery life</td><td>Up to 7 days</td><td>Up to 7 days</td></tr><tr><td>Charge time</td><td>~90 minutes</td><td>~90 minutes</td></tr><tr><td>Sensors</td><td>Sleep, Heart, HRV, Temp, Activity</td><td>Sleep, Heart, HRV, Temp, Activity</td></tr><tr><td>Sizes</td><td>5 to 13</td><td>5 to 13</td></tr><tr><td>Subscription</td><td>£0, no subscription</td><td>£0, no subscription</td></tr><tr><td>Best for</td><td>A refined, featherlight finish</td><td>Durable, all day strength</td></tr></tbody></table></div></div></section><section class="section"><div class="wrap-wide"><p class="lede" style="margin-left:0">Indicative specifications shown, confirm final figures before publishing. Both finishes ship with the same sensors, app and 1 to 1 consultation.</p></div></section><section class="cta-band section-gray section-close"><div class="wrap"><h2>Wear it and forget it.</h2><p>Free sizer, 30 day returns, two year warranty.</p><div class="cta-actions"><a class="btn" href="/phenome-store/store/phenometech-ring/">Buy</a><a class="link-more" href="/phenome-store/devices/ring/find-your-size/">Find your size</a></div></div></section></main>
+<main>
+
+<!-- ==========================================================================
+     1 · THE OPENING · a title and one line, and nothing else on the screen.
+     The title takes the site's two tone display pair (phenome-glass.css § 3):
+     the held back line in blue 200, the statement it arrives at in the heading
+     ink. Same construction as "Metal, matte / Or ceramic" on the ring page and
+     "Read your / Biomarkers" on the Band.
+     ====================================================================== -->
+<section class="cmp-top"><div class="wrap-wide">
+<h1 class="ph-display is-ink is-left is-hero"><span class="ph-display-lead">Three materials</span><span>And one band</span></h1>
+<p class="cmp-lede">Identical sensors, identical insight, one app and no subscription behind any of them. What changes is the weight on your hand, the way the light comes off it, and whether you want it on your finger or your wrist.</p>
+<p class="cmp-swipe">On a narrow screen the four columns run past the edge, so the comparison scrolls sideways.</p>
+</div></section>
+
+<!-- ==========================================================================
+     2 · THE COMPARISON
+
+     Three grids sharing one column template: the photographs, the name bar that
+     sticks under the navigation for the whole length of the page, and the rows.
+     Each row is one label across the full width with four answers under it,
+     rather than the reference's repeated per column label, because four columns
+     would print the same two words four times on one line.
+
+     The colour discs are live. Choosing one changes the photograph above it,
+     which is what keeps this a comparison rather than a description of one.
+     ====================================================================== -->
+<section class="section section-tight"><div class="wrap-wide">
+
+<!-- THE PHOTOGRAPHS. Every render is cut out, so the four stand on the page's
+     own white with nothing behind them. The Band's frame is squarer than the
+     rings', so `.is-tall` holds it back to the height they occupy. -->
+<!-- The three grids are wrapped together because the name bar is sticky, and a
+     sticky element travels to the bottom of ITS OWN containing block. Without
+     this wrapper that block is the whole section, so the bar would hang in the
+     empty space under the closing notes with nothing left to label. -->
+<div class="cmp-table">
+
+<div class="cmp-figs">
+  <figure class="cmp-fig" data-fig="metal">
+    <img class="on" alt="The PhenomeTech Ring in brushed silver metal" data-finish="metal-brushed" decoding="async" height="960" src="/phenome-store/assets/ring/fin/metal-brushed.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in black metal" data-finish="metal-black" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in polished silver metal" data-finish="metal-silver" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver.webp" width="1400"/>
+  </figure>
+  <figure class="cmp-fig" data-fig="matte">
+    <img class="on" alt="The PhenomeTech Ring in matte rose" data-finish="matte-rose" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in stealth black" data-finish="matte-stealth" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth.webp" width="1400"/>
+  </figure>
+  <figure class="cmp-fig" data-fig="ceramic">
+    <img class="on" alt="The PhenomeTech Ring in white ceramic" data-finish="ceramic-white" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in black ceramic" data-finish="ceramic-black" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in silver ceramic" data-finish="ceramic-silver" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver.webp" width="1400"/>
+    <img alt="The PhenomeTech Ring in pink ceramic" data-finish="ceramic-pink" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink.webp" width="1400"/>
+  </figure>
+  <figure class="cmp-fig is-tall" data-fig="band">
+    <img class="on" alt="The PhenomeTech Band in Onyx, on the perforated sport strap" data-finish="band-onyx" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-onyx_chip.webp" width="420"/>
+    <img alt="The PhenomeTech Band in Ember, on the perforated sport strap" data-finish="band-ember" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-ember_chip.webp" width="420"/>
+    <img alt="The PhenomeTech Band in Harbour, on the perforated sport strap" data-finish="band-harbour" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-harbour_chip.webp" width="420"/>
+    <img alt="The PhenomeTech Band in Dune, on the perforated sport strap" data-finish="band-dune" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-dune_chip.webp" width="420"/>
+    <img alt="The PhenomeTech Band in Graphite, on the woven nylon loop" data-finish="band-graphite" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-weave-graphite_chip.webp" width="420"/>
+    <img alt="The PhenomeTech Band in Tidal, on the woven nylon loop" data-finish="band-tidal" decoding="async" height="420" loading="lazy" src="/phenome-store/assets/band/band-weave-tidal_chip.webp" width="420"/>
+  </figure>
+</div>
+
+<!-- THE NAME BAR. The one element on the page with a ground, and the ground is
+     the page's own white: without it the rows would scroll up through the type.
+     Its hairline is the hairline the rows use, so it reads as the first of them
+     rather than as a header bolted on. -->
+<div class="cmp-bar">
+  <div><h2 class="cmp-name">Metal</h2><p class="cmp-price">From £179</p></div>
+  <div><h2 class="cmp-name">Matte</h2><p class="cmp-price">From £189</p></div>
+  <div><h2 class="cmp-name">Ceramic</h2><p class="cmp-price">From £199</p></div>
+  <div><h2 class="cmp-name">Band</h2><p class="cmp-price">From £149</p></div>
+</div>
+
+<div class="cmp-rows">
+
+  <p class="cmp-k"><span>Finishes</span></p>
+  <div class="cmp-c">
+    <div class="cmp-dots" role="radiogroup" aria-label="Metal finishes" data-dots="metal">
+      <button aria-checked="true" aria-label="Brushed silver" class="cmp-dot on" data-finish="metal-brushed" data-name="Brushed silver" role="radio" style="--d:#b9bcc1" type="button"></button>
+      <button aria-checked="false" aria-label="Black" class="cmp-dot" data-finish="metal-black" data-name="Black" role="radio" style="--d:#2b2b2e" type="button"></button>
+      <button aria-checked="false" aria-label="Silver" class="cmp-dot" data-finish="metal-silver" data-name="Silver" role="radio" style="--d:#ccced2" type="button"></button>
+    </div>
+    <p class="cmp-dotname" data-name-for="metal">Brushed silver</p>
+  </div>
+  <div class="cmp-c">
+    <div class="cmp-dots" role="radiogroup" aria-label="Matte finishes" data-dots="matte">
+      <button aria-checked="true" aria-label="Rose" class="cmp-dot on" data-finish="matte-rose" data-name="Rose" role="radio" style="--d:#c9a49a" type="button"></button>
+      <button aria-checked="false" aria-label="Stealth black" class="cmp-dot" data-finish="matte-stealth" data-name="Stealth black" role="radio" style="--d:#2a2a2c" type="button"></button>
+    </div>
+    <p class="cmp-dotname" data-name-for="matte">Rose</p>
+  </div>
+  <div class="cmp-c">
+    <div class="cmp-dots" role="radiogroup" aria-label="Ceramic finishes" data-dots="ceramic">
+      <button aria-checked="true" aria-label="White" class="cmp-dot on" data-finish="ceramic-white" data-name="White" role="radio" style="--d:#eceef0" type="button"></button>
+      <button aria-checked="false" aria-label="Black" class="cmp-dot" data-finish="ceramic-black" data-name="Black" role="radio" style="--d:#1f1f21" type="button"></button>
+      <button aria-checked="false" aria-label="Silver" class="cmp-dot" data-finish="ceramic-silver" data-name="Silver" role="radio" style="--d:#cfd2d6" type="button"></button>
+      <button aria-checked="false" aria-label="Pink" class="cmp-dot" data-finish="ceramic-pink" data-name="Pink" role="radio" style="--d:#e3bfc4" type="button"></button>
+    </div>
+    <p class="cmp-dotname" data-name-for="ceramic">White</p>
+  </div>
+  <div class="cmp-c">
+    <div class="cmp-dots" role="radiogroup" aria-label="Band colours" data-dots="band">
+      <button aria-checked="true" aria-label="Onyx" class="cmp-dot on" data-finish="band-onyx" data-name="Onyx, sport silicone" role="radio" style="--d:#313131" type="button"></button>
+      <button aria-checked="false" aria-label="Ember" class="cmp-dot" data-finish="band-ember" data-name="Ember, sport silicone" role="radio" style="--d:#e4652e" type="button"></button>
+      <button aria-checked="false" aria-label="Harbour" class="cmp-dot" data-finish="band-harbour" data-name="Harbour, sport silicone" role="radio" style="--d:#566a82" type="button"></button>
+      <button aria-checked="false" aria-label="Dune" class="cmp-dot" data-finish="band-dune" data-name="Dune, sport silicone" role="radio" style="--d:#e2d0c4" type="button"></button>
+      <button aria-checked="false" aria-label="Graphite" class="cmp-dot" data-finish="band-graphite" data-name="Graphite, woven nylon" role="radio" style="--d:#242424" type="button"></button>
+      <button aria-checked="false" aria-label="Tidal" class="cmp-dot" data-finish="band-tidal" data-name="Tidal, woven nylon" role="radio" style="--d:#394d68" type="button"></button>
+    </div>
+    <p class="cmp-dotname" data-name-for="band">Onyx, sport silicone</p>
+  </div>
+
+  <p class="cmp-k"><span>Material</span></p>
+  <div class="cmp-c"><p class="cmp-v">Grade 5 aerospace titanium</p><p class="cmp-s">The alloy aircraft are built from, hard, light, and it does not corrode.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Titanium under a matte coat</p><p class="cmp-s">The same metal body, finished so it returns the room as a soft glow rather than a line.</p></div>
+  <div class="cmp-c"><p class="cmp-v">High density zirconia ceramic</p><p class="cmp-s">Harder than steel at the surface, and warm against the skin within minutes.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Anodised aluminium frame</p><p class="cmp-s">On a perforated sport silicone strap, or an elastic woven nylon loop.</p></div>
+
+  <p class="cmp-k"><span>Weight</span></p>
+  <div class="cmp-c"><p class="cmp-fig-v">4<small>g</small></p><p class="cmp-s">Approximately, at size 8.</p></div>
+  <div class="cmp-c"><p class="cmp-fig-v">4<small>g</small></p><p class="cmp-s">Approximately, at size 8.</p></div>
+  <div class="cmp-c"><p class="cmp-fig-v">6<small>g</small></p><p class="cmp-s">Approximately, at size 8.</p></div>
+  <div class="cmp-c"><p class="cmp-fig-v">24<small>g</small></p><p class="cmp-s">With a strap on it. The core alone is 11 g.</p></div>
+
+  <p class="cmp-k"><span>How it feels</span></p>
+  <div class="cmp-c"><p class="cmp-v">Durable and solid</p><p class="cmp-s">A mirror edge, or a fine directional grain that catches the light and hides a day of wear.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Quiet and soft</p><p class="cmp-s">Takes no fingerprints, and the one of the three that stays looking the same all day.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Refined and warm</p><p class="cmp-s">A fired glaze, the crispest reflection of the three, and the only one that will not scratch.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Firm through hard effort</p><p class="cmp-s">Held against the wrist rather than resting on it, which is what a hard hour asks for.</p></div>
+
+  <p class="cmp-k"><span>Scratch resistance</span></p>
+  <div class="cmp-c"><p class="cmp-v">High</p></div>
+  <div class="cmp-c"><p class="cmp-v">High</p></div>
+  <div class="cmp-c"><p class="cmp-v">Very high</p></div>
+  <div class="cmp-c"><p class="cmp-v">High</p></div>
+
+  <p class="cmp-k"><span>Sizes</span></p>
+  <div class="cmp-c"><p class="cmp-v">5 to 13</p><p class="cmp-s">A free sizing kit arrives before the ring does.</p></div>
+  <div class="cmp-c"><p class="cmp-v">5 to 13</p><p class="cmp-s">A free sizing kit arrives before the ring does.</p></div>
+  <div class="cmp-c"><p class="cmp-v">5 to 13</p><p class="cmp-s">A free sizing kit arrives before the ring does.</p></div>
+  <div class="cmp-c"><p class="cmp-v">130 to 210 mm wrist</p><p class="cmp-s">Both strap sizes are in every box, so there is nothing to measure first.</p></div>
+
+  <p class="cmp-k"><span>Charge time</span></p>
+  <div class="cmp-c"><p class="cmp-v">About 90 minutes</p></div>
+  <div class="cmp-c"><p class="cmp-v">About 90 minutes</p></div>
+  <div class="cmp-c"><p class="cmp-v">About 90 minutes</p></div>
+  <div class="cmp-c"><p class="cmp-v">About 60 minutes</p></div>
+
+  <p class="cmp-k"><span>Water resistance</span></p>
+  <div class="cmp-c"><p class="cmp-v">10 ATM, 100 m</p></div>
+  <div class="cmp-c"><p class="cmp-v">10 ATM, 100 m</p></div>
+  <div class="cmp-c"><p class="cmp-v">10 ATM, 100 m</p></div>
+  <div class="cmp-c"><p class="cmp-v">5 ATM, 50 m</p><p class="cmp-s">Safe for swimming and showers.</p></div>
+
+  <p class="cmp-k"><span>What it reads that the others do not</span></p>
+  <div class="cmp-c"><p class="cmp-v">Nothing extra</p><p class="cmp-s">The three ring materials carry one sensor stack between them.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Nothing extra</p><p class="cmp-s">The three ring materials carry one sensor stack between them.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Nothing extra</p><p class="cmp-s">The three ring materials carry one sensor stack between them.</p></div>
+  <div class="cmp-c"><p class="cmp-v">Blood oxygen, and training load</p><p class="cmp-s">Workouts are found on their own, scored, and answered with the recovery time they ask for.</p></div>
+
+  <p class="cmp-k"><span>Best for</span></p>
+  <div class="cmp-c"><p class="cmp-v">Durable strength, worn all day</p></div>
+  <div class="cmp-c"><p class="cmp-v">The quietest thing on your hand</p></div>
+  <div class="cmp-c"><p class="cmp-v">A refined finish that will not mark</p></div>
+  <div class="cmp-c"><p class="cmp-v">Training, and the day either side of it</p></div>
+
+  <p class="cmp-k"><span>Where to go next</span></p>
+  <div class="cmp-c"><div class="cmp-go"><a class="btn" href="/phenome-store/store/phenometech-ring/">Buy</a><a class="link-more" href="/phenome-store/devices/ring/">Explore the Ring</a></div></div>
+  <div class="cmp-c"><div class="cmp-go"><a class="btn" href="/phenome-store/store/phenometech-ring/">Buy</a><a class="link-more" href="/phenome-store/devices/ring/">Explore the Ring</a></div></div>
+  <div class="cmp-c"><div class="cmp-go"><a class="btn" href="/phenome-store/store/phenometech-ring/">Buy</a><a class="link-more" href="/phenome-store/devices/ring/">Explore the Ring</a></div></div>
+  <div class="cmp-c"><div class="cmp-go"><a class="btn" href="/phenome-store/devices/band/">Buy</a><a class="link-more" href="/phenome-store/devices/band/#specs">Explore the Band</a></div></div>
+
+</div>
+
+</div>
+
+<!-- WHAT IS THE SAME, stated once. This is where the page departs from the
+     reference and it is the whole argument: Apple repeats every specification
+     in every column because its phones genuinely differ down the list. Three
+     finishes of one ring do not, so everything identical is said here, full
+     width, and the rows above carry only what actually changes. -->
+<div class="cmp-same">
+  <h2 class="ph-solid cmp-same-h">The same in all four</h2>
+  <div class="cmp-same-grid">
+    <div><p class="cmp-same-t">One sensor stack</p><p class="cmp-same-d">Sleep and its stages, heart rate, heart rate variability, skin temperature and activity, read continuously for as long as it is on you.</p></div>
+    <div><p class="cmp-same-t">Up to 7 days a charge</p><p class="cmp-same-d">No screen on any of them, which is where the week comes from. The dock and its cable are in every box.</p></div>
+    <div><p class="cmp-same-t">One app, one account</p><p class="cmp-same-d">The Phenome Longevity app merges a ring and a band without counting a night or a workout twice.</p></div>
+    <div><p class="cmp-same-t">Your genome and microbiome</p><p class="cmp-same-d">If you have taken a Phenome test, your results set the baseline every reading is compared against.</p></div>
+    <div><p class="cmp-same-t">No subscription</p><p class="cmp-same-d">£0 a month. The app, your insights and future updates come with the device.</p></div>
+    <div><p class="cmp-same-t">Hypoallergenic throughout</p><p class="cmp-same-d">Every surface that touches skin, on all four, is chosen for skin that reacts to jewellery.</p></div>
+    <div><p class="cmp-same-t">Delivery and returns</p><p class="cmp-same-d">Free delivery, 30 days to send it back, and a two year warranty on every device.</p></div>
+    <div><p class="cmp-same-t">A consultation, one to one</p><p class="cmp-same-d">A specialist reads your first month with you, whichever of the four you chose.</p></div>
+  </div>
+  <p class="cmp-note">Specifications are indicative while this page is a mock, and every figure should be confirmed against the leaflet before it is published. Neither the Ring nor the Band is a medical device, and neither diagnoses nor treats any condition.</p>
+</div>
+
+</div></section>
+
+<!-- ==========================================================================
+     3 · THE CLOSE · no band, no grey, no box. A line, a line under it, and the
+     two links a reader who has finished comparing actually wants.
+     ====================================================================== -->
+<section class="cmp-end"><div class="wrap-wide">
+<h2 class="ph-display is-ink"><span class="ph-display-lead">Wear it</span><span>And forget it</span></h2>
+<p class="cmp-end-d">A free sizer, 30 days to change your mind, and two years of warranty behind whichever one you pick.</p>
+<div class="cmp-end-go">
+  <a class="btn" href="/phenome-store/store/phenometech-ring/">Buy the Ring</a>
+  <a class="link-more" href="/phenome-store/devices/ring/find-your-size/">Find your size</a>
+</div>
+</div></section>
+
+</main>
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<!-- AFTER shared.js, which builds the nav and the footer synchronously. -->
+<script src="/phenome-store/devices/ring/compare-materials/compare.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>

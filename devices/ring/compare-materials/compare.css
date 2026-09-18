@@ -1,0 +1,315 @@
+/* ============================================================================
+   devices/ring/compare-materials · page sheet, scoped to `.cmp` on <body>
+
+   THE REFERENCE IS apple.com/iphone/compare, and what is borrowed from it is a
+   discipline rather than a look: on that page there is no card, no tint, no
+   rule around anything, and no second colour. Four products stand on the white
+   of the page, their photographs cut out, and every fact underneath is set in
+   one of two inks at one of two sizes, separated by hairlines that run the full
+   width rather than boxing each cell.
+
+   WHAT THAT REPLACES HERE. This page was a hero, a two column price strip, a
+   fourteen row table on a black band, a paragraph of caveats and a grey call to
+   action: five different grounds in five screens, comparing two things in two
+   incompatible ways. It is one arrangement now, and it compares four.
+
+   THREE GRIDS, ONE COLUMN TEMPLATE. The photographs, the sticky name bar and
+   the rows are separate grids that share `--cmp-cols` and `--cmp-gap`, which is
+   what lets the bar stick on its own while staying in step with the columns
+   above and below it. One number changes all three.
+
+   NO TINTS AND NO BORDERS AROUND ANYTHING. The only rules on this page are the
+   full width hairlines between rows, and the only ground is the page's own.
+   ========================================================================= */
+
+.cmp {
+  --cmp-cols: repeat(4, minmax(0, 1fr));
+  --cmp-gap: clamp(14px, 2.2vw, 40px);
+  --cmp-rule: var(--divider, #10214b1f);
+  --cmp-ink: var(--ink-900);
+  --cmp-body: var(--ink-600);
+  --cmp-quiet: var(--ink-400);
+  --cmp-ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   1 · THE OPENING
+
+   A title and one line. The title takes the kit's two tone pair, which every
+   page in this round takes: the held back line in blue 200, the statement it
+   arrives at in the heading ink. Nothing else is on this screen, because the
+   four photographs directly under it are the page's actual opening.
+   ------------------------------------------------------------------------ */
+.cmp-top { padding: clamp(34px, 5vw, 76px) 0 clamp(26px, 3.4vw, 44px); }
+.cmp-lede {
+  margin: 20px 0 0;
+  max-width: 54ch;
+  font-size: 19px; line-height: 1.55;
+  color: var(--cmp-body);
+}
+/* Shown only where the table scrolls sideways, because a row of four columns
+   that runs past the edge of a phone has to say so. */
+.cmp-swipe {
+  display: none;
+  margin: 14px 0 0;
+  font-size: 16px; line-height: 1.5;
+  color: var(--cmp-quiet);
+}
+
+/* ---------------------------------------------------------------------------
+   2 · THE PHOTOGRAPHS
+
+   Cut out renders on the page's own white, contained rather than covered, so
+   the ring at the far left and the band at the far right sit at the same
+   optical size without being cropped to a common frame. `aspect-ratio` holds
+   the row level before the images decode, which is what keeps the sticky bar
+   underneath from jumping on load.
+   ------------------------------------------------------------------------ */
+/* The sticky bar's containing block, and the only reason this element exists:
+   a sticky item travels to the bottom of its own parent, so the parent has to
+   END where the rows end rather than where the section does. */
+.cmp-table { position: relative; }
+
+.cmp-figs {
+  display: grid;
+  grid-template-columns: var(--cmp-cols);
+  column-gap: var(--cmp-gap);
+  align-items: end;
+}
+.cmp-fig { position: relative; margin: 0; aspect-ratio: 4 / 3; }
+.cmp-fig img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0; visibility: hidden;
+  transition: opacity 340ms var(--cmp-ease);
+}
+.cmp-fig img.on { opacity: 1; visibility: visible; }
+/* The band render is a 1:1 crop where the rings are 1400 by 960, so at a shared
+   contained height it would stand a third taller than everything beside it.
+   Held back to the height the rings actually occupy inside their own frame. */
+.cmp-fig.is-tall img { padding: 6% 14%; box-sizing: border-box; }
+
+/* ---------------------------------------------------------------------------
+   3 · THE NAME BAR
+
+   Four names and four prices, stuck under the site's own navigation for the
+   whole length of the comparison. It is the one thing on the page with a
+   ground, and the ground is white, which is the page's: without it the rows
+   would scroll through the type. The hairline under it is the same hairline the
+   rows use, so the bar reads as the first of them rather than as a header
+   bolted on top.
+   ------------------------------------------------------------------------ */
+.cmp-bar {
+  position: sticky; top: var(--ph-nav-h, 44px); z-index: 5;
+  display: grid;
+  grid-template-columns: var(--cmp-cols);
+  column-gap: var(--cmp-gap);
+  padding: clamp(14px, 1.6vw, 22px) 0 14px;
+  background: #fff;
+  border-bottom: 1px solid var(--cmp-rule);
+}
+.cmp-name {
+  margin: 0;
+  font-size: clamp(21px, 1.9vw, 26px); line-height: 1.2;
+  font-weight: 600; letter-spacing: -0.015em;
+  color: var(--cmp-ink);
+}
+.cmp-price {
+  margin: 4px 0 0;
+  font-size: 17px; line-height: 24px;
+  color: var(--cmp-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   4 · THE ROWS
+
+   One label across the full width, then four answers under it. Apple repeats
+   the label inside every column; with four columns that is the same two words
+   printed four times on one line, so here it is printed once and the columns
+   underneath answer it. The hairline sits on the LABEL rather than around the
+   cells, so the page has nothing boxed on it.
+   ------------------------------------------------------------------------ */
+.cmp-rows {
+  display: grid;
+  grid-template-columns: var(--cmp-cols);
+  column-gap: var(--cmp-gap);
+}
+.cmp-k {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: clamp(26px, 2.8vw, 40px) 0 14px;
+  font-size: 17px; line-height: 24px; font-weight: 600;
+  color: var(--cmp-quiet);
+}
+.cmp-rows > .cmp-k + .cmp-k,
+.cmp-rows > .cmp-k:not(:first-child) { border-top: 1px solid var(--cmp-rule); }
+/* Every answer is wrapped, so a cell that holds a figure, a line and a caveat
+   is ONE grid item rather than three. Without it the auto placement would put
+   the caveat of the first column into the second column's slot. */
+.cmp-c { min-width: 0; padding-bottom: clamp(10px, 1.2vw, 18px); }
+.cmp-v {
+  margin: 0;
+  font-size: 19px; line-height: 1.45;
+  color: var(--cmp-ink);
+  text-wrap: pretty;
+}
+/* The second line inside a cell: what the figure above it means, or the caveat
+   it carries. Body ink at the site's floor, never smaller. */
+.cmp-s {
+  margin: 6px 0 0;
+  font-size: 16px; line-height: 1.5;
+  color: var(--cmp-body);
+}
+/* A figure large enough to compare across four columns at a glance, with its
+   unit held back so the number is the thing being read. */
+.cmp-fig-v {
+  display: block;
+  margin: 0;
+  font-size: clamp(30px, 2.8vw, 40px); line-height: 1.05;
+  font-weight: 600; letter-spacing: -0.02em;
+  color: var(--cmp-ink);
+  font-variant-numeric: tabular-nums;
+}
+.cmp-fig-v small { font-size: .45em; font-weight: 600; margin-left: .18em; color: var(--cmp-body); }
+
+/* ---- the finishes ------------------------------------------------------
+   Flat discs at the pigment, and nothing else: no lit sphere, no drop, no rim,
+   which is the same decision devices/band made about its colour chips. Selected
+   is a ring drawn OUTSIDE the disc so nothing is painted over the colour the
+   control exists to show. Clicking one changes the photograph above it, which
+   is what keeps this a comparison rather than a description of one.
+   ---------------------------------------------------------------------- */
+.cmp-dots { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 12px; }
+.cmp-dots + .cmp-dotname { margin: 0; }
+.cmp-dot {
+  width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%;
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+  background: var(--d, #2b2b2e);
+  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .18);
+  transition: box-shadow 240ms var(--cmp-ease);
+}
+.cmp-dot.on {
+  box-shadow:
+    inset 0 0 0 1px rgba(16, 33, 75, .26),
+    0 0 0 3px #fff,
+    0 0 0 4.5px var(--cmp-ink);
+}
+.cmp-dot:focus-visible { outline: 2px solid var(--phenome-blue-400, #4664b0); outline-offset: 4px; }
+.cmp-dotname {
+  margin: 0;
+  font-size: 17px; line-height: 24px;
+  color: var(--cmp-body);
+}
+
+/* ---- the two links that end every column ------------------------------- */
+.cmp-go { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.cmp-go .btn { width: 100%; justify-content: center; }
+.cmp-go .link-more { font-size: 17px; }
+
+/* ---------------------------------------------------------------------------
+   5 · WHAT IS THE SAME
+
+   The one place this page departs from Apple, and it is the whole argument.
+   Apple repeats every specification in every column because its phones
+   genuinely differ down the list; three finishes of one ring do not. Everything
+   identical is stated once, full width, in a run of short lines, and the rows
+   above carry only what actually changes between the four.
+   ------------------------------------------------------------------------ */
+.cmp-same { padding: clamp(40px, 5vw, 76px) 0 0;
+            border-top: 1px solid var(--cmp-rule); margin-top: clamp(30px, 3.4vw, 50px); }
+.cmp-same-h { margin: 0 0 clamp(20px, 2.2vw, 32px); }
+.cmp-same-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: clamp(20px, 2.4vw, 34px);
+}
+.cmp-same-t {
+  margin: 0;
+  font-size: 19px; line-height: 1.3; font-weight: 600;
+  color: var(--cmp-ink);
+}
+.cmp-same-d { margin: 7px 0 0; font-size: 16px; line-height: 1.5; color: var(--cmp-body); }
+
+.cmp-note {
+  margin: clamp(30px, 3.4vw, 50px) 0 0;
+  max-width: 62ch;
+  font-size: 16px; line-height: 1.55;
+  color: var(--cmp-quiet);
+}
+
+/* ---------------------------------------------------------------------------
+   6 · THE CLOSE
+
+   No band, no grey, no box. A line, a line under it, and the two links a reader
+   who has finished comparing actually wants.
+   ------------------------------------------------------------------------ */
+.cmp-end { padding: clamp(52px, 6vw, 96px) 0 clamp(60px, 7vw, 110px);
+           border-top: 1px solid var(--cmp-rule); text-align: center; }
+/* The kit's full clamp tops out at 132px, which is right for a statement that
+   owns a whole screen. This one closes a page that has already made its case,
+   and it has a line and two links under it. */
+.cmp-end .ph-display { font-size: clamp(36px, 4.8vw, 72px); }
+.cmp-end-d { margin: 18px auto 0; max-width: 46ch;
+             font-size: 19px; line-height: 1.55; color: var(--cmp-body); }
+.cmp-end-go { display: flex; align-items: center; justify-content: center;
+              flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+
+/* ---------------------------------------------------------------------------
+   7 · NARROWER SCREENS
+
+   Four columns hold to 900, where a cell is about 190px and a value of three
+   words still sets on two lines. Under it the comparison becomes two columns of
+   two, which is the only fold that keeps a comparison a comparison: one column
+   is a specification list, and this page already links to two of those.
+   ------------------------------------------------------------------------ */
+/* ---------------------------------------------------------------------------
+   7 · NARROWER SCREENS
+
+   THE COLUMNS DO NOT FOLD, and that decision is the whole section. Four columns
+   folding into two puts the third product's photograph directly above the first
+   product's name, and every row of four answers breaks into two rows of two
+   whose identity can only be worked out by counting. A comparison that has to
+   be counted is not one.
+
+   So the four stay four and the whole table scrolls sideways instead, as a
+   single scroller wrapping all three grids, which is what keeps the pictures,
+   the names and the rows travelling together. 680px is the floor: four columns
+   at about 155 each, wide enough for "Grade 5 aerospace titanium" to set on
+   three lines and for the finish discs to stay on one.
+
+   The labels stay readable through that scroll because the text inside each one
+   is stuck to the left edge of the scroller on the page's own white, so the row
+   a reader is on is named however far right they have swiped.
+   ------------------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .cmp { --cmp-gap: 16px; }
+  .cmp-table {
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    /* The section's own side margin, given back to the scroller so a column can
+       run to the edge of the screen rather than stopping short of it. */
+    margin-inline: calc(var(--ph-margin, 22px) * -1);
+    padding-inline: var(--ph-margin, 22px);
+  }
+  .cmp-figs, .cmp-bar, .cmp-rows { min-width: 680px; }
+  /* Sticky belongs to the scrollport, and the scrollport is now this container
+     rather than the page, so the bar would stick to nothing. */
+  .cmp-bar { position: static; }
+  .cmp-k > span {
+    position: sticky; left: 0;
+    display: inline-block;
+    padding-right: 14px;
+    background: #fff;
+  }
+  .cmp-swipe { display: block; }
+}
+@media (max-width: 560px) {
+  .cmp-fig-v { font-size: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmp-fig img, .cmp-dot { transition: none; }
+}
