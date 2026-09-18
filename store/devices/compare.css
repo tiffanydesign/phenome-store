@@ -99,12 +99,12 @@
   .dv-cmp { padding: 60px 0 80px; }
   .dv-cmp-title { padding: 0 20px; margin-bottom: 36px; }
   .dv-row { grid-template-columns: 132px repeat(4, 150px); min-width: 732px; }
-  .dv-name-cell { min-height: 64px; padding: 0 10px 0 16px; font-size: 14px; }
-  .dv-cell { min-height: 64px; font-size: 14px; }
+  .dv-name-cell { min-height: 64px; padding: 0 10px 0 16px; font-size: 16px; }
+  .dv-cell { min-height: 64px; font-size: 16px; }
   .dv-cell.is-us { left: 132px; }
-  .dv-row.is-head .dv-cell { font-size: 14px; }
+  .dv-row.is-head .dv-cell { font-size: 16px; }
   .dv-row.is-group .dv-name-cell { font-size: 17px; }
-  .dv-row.is-sub .dv-name-cell { font-size: 14px; }
+  .dv-row.is-sub .dv-name-cell { font-size: 16px; }
   .dv-mk { width: 26px; height: 26px; }
   .dv-dev { width: 22px; height: 22px; }
 }

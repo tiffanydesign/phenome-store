@@ -102,8 +102,31 @@
 
   /* size / line-height ladder. tokens type.lineHeightRule: line-height is
      size + 4 up to 21, size + 8 above. */
-  --ph-fs-12: 12px;  --ph-lh-12: 16px;
-  --ph-fs-14: 14px;  --ph-lh-14: 18px;
+
+  /* THE FLOOR IS 15px, 2026-09-17, by request, and the two rungs below it are
+     RAISED TO MEET IT rather than deleted.
+
+     The complaint was site wide type "the size of ants", and measuring it found
+     the cause was not one page: it was these two tokens, which 76 rules across
+     seven stylesheets read. The main navigation was 12px. So were the store
+     menu's eyebrows and its "Not sure where to start" links. The footer, the
+     promo bar, the ISO line, every product card's name and price, every catalogue
+     card's description and its Buy pill, and the homepage tiles' own buttons
+     were all 14. Raising the two tokens fixes all of it in one place; raising
+     the 76 rules would have left the next one to be written wrong again.
+
+     The NAMES are deliberately not changed, because they are the ladder's rungs
+     and every one of those 76 call sites names its rung. Read them as "the
+     smallest rung" and "the rung below body" — the number in the name is what
+     the rung used to measure, not what it measures now.
+
+     15 and 16, not 17 and 17: the point of a rung below body is that it is
+     below body. 17 everywhere would flatten a label, a price and a paragraph
+     into one voice, and the smallest of the three would stop reading as the
+     smallest. The line heights follow the same size + 4 and size + 6 rule the
+     rungs above them use. */
+  --ph-fs-12: 15px;  --ph-lh-12: 20px;
+  --ph-fs-14: 16px;  --ph-lh-14: 22px;
   --ph-fs-17: 17px;  --ph-lh-17: 21px;  --ph-lh-17-loose: 25px;
   --ph-fs-19: 19px;  --ph-lh-19: 23px;  --ph-lh-19-loose: 27px;
   --ph-fs-21: 21px;  --ph-lh-21: 25px;  --ph-lh-21-loose: 29px;
@@ -4149,7 +4172,7 @@ html.ph-drift .hero-img img, html.ph-drift .hero-figure img {
 .atile-art-card { display: flex; align-items: center; gap: 12px; text-align: left;
                   background: var(--ph-white); border-radius: var(--ph-r12); padding: 12px 14px; }
 .atile-dot { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; }
-.atile-art-eyebrow { font-size: 11px; line-height: 14px; letter-spacing: .08em;
+.atile-art-eyebrow { font-size: 15px; line-height: 20px; letter-spacing: .04em;
                      color: var(--ph-text-2); }
 .atile-art-title { font-size: var(--ph-fs-14); line-height: var(--ph-lh-14);
                    font-weight: var(--ph-w-600); color: var(--ph-text-1); }

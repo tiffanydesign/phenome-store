@@ -36,7 +36,7 @@
 .apxd .ap-feat-copy h3 { margin: 0; max-width: 18ch; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; font-weight: 400; letter-spacing: -0.02em; }
 .apxd .ap-feat-copy p { margin: 10px 0 18px; max-width: 46ch; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .82); }
 
-.apxd .ap-tag { align-self: flex-start; padding: 5px 10px; border-radius: 4px; background: var(--ap-ink); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .03em; }
+.apxd .ap-tag { align-self: flex-start; padding: 5px 10px; border-radius: 4px; background: var(--ap-ink); color: #fff; font-size: 15px; font-weight: 600; letter-spacing: .03em; }
 .apxd .ap-feat .ap-tag { position: absolute; top: 18px; left: 18px; z-index: 1; background: #fff; color: var(--ap-ink); }
 
 .apxd .ap-pill {

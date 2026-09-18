@@ -141,7 +141,7 @@ body.co { background: #fff; color: var(--co-ink); }
 .co-place:active { transform: scale(.99); }
 .co-place:focus-visible { outline: 2px solid var(--co-accent); outline-offset: 3px; }
 
-.co-legal { margin: 16px 0 0; font-size: 14px; line-height: 1.5; color: var(--co-ink-2); text-align: center; }
+.co-legal { margin: 16px 0 0; font-size: 16px; line-height: 1.5; color: var(--co-ink-2); text-align: center; }
 .co-legal a { color: inherit; }
 
 .co-policies {
@@ -159,13 +159,13 @@ body.co { background: #fff; color: var(--co-ink); }
 .co-item-img b {
   position: absolute; top: -8px; right: -8px; min-width: 23px; height: 23px; padding: 0 7px;
   display: grid; place-items: center; border-radius: 99px;
-  background: var(--co-navy); color: #fff; font-size: 12px; font-weight: 600;
+  background: var(--co-navy); color: #fff; font-size: 13px; font-weight: 600;
 }
 .co-item-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .co-item-name { font-size: 17px; line-height: 1.25; font-weight: 500; }
 .co-item-plan { font-size: 15px; line-height: 1.35; color: var(--co-ink-2); }
 .co-item-price { display: flex; flex-direction: column; align-items: flex-end; font-size: 17px; font-weight: 500; white-space: nowrap; }
-.co-item-price s { font-size: 14px; font-weight: 400; color: var(--co-ink-2); }
+.co-item-price s { font-size: 16px; font-weight: 400; color: var(--co-ink-2); }
 
 .co-code { display: grid; grid-template-columns: 1fr auto; gap: 12px; margin: 0 0 28px; }
 .co-code .co-field { margin: 0; }
@@ -187,7 +187,7 @@ body.co { background: #fff; color: var(--co-ink); }
 .co-row { display: flex; justify-content: space-between; gap: 16px; margin: 0 0 12px; font-size: 16px; color: var(--co-ink); }
 .co-save { color: var(--co-save); }
 .co-grand { margin-top: 20px; align-items: baseline; font-size: 22px; font-weight: 500; }
-.co-grand small { margin-right: 8px; font-size: 14px; font-weight: 400; color: var(--co-ink-2); }
+.co-grand small { margin-right: 8px; font-size: 16px; font-weight: 400; color: var(--co-ink-2); }
 .co-grand span:last-child { font-size: 27px; }
 
 .co-saving { display: flex; align-items: center; gap: 8px; margin: 4px 0 0; font-size: 16px; font-weight: 500; color: var(--co-accent); }

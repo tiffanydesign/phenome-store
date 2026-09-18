@@ -414,7 +414,7 @@
   <div class="ds-wrap">
 
     <header class="ds-mast">
-      <p class="ds-kicker">Phenome · Store</p>
+      <p class="ds-kicker">Phenome, Store</p>
       <h1>Design system</h1>
       <p class="ds-lede">The type, colour, surfaces and components the store is built from.</p>
       <dl class="ds-meta">
@@ -452,7 +452,7 @@
             <div class="ds-face gl">
               <div class="ds-face-name">
                 <h3>Helvetica Neue LT Pro</h3>
-                <span>400 · 500 · 700 · headings 500</span>
+                <span>400, 500, 700, headings 500</span>
               </div>
               <div class="ds-face-line ds-w400">Longevity, measured. <em>0123456789</em></div>
               <div class="ds-face-line ds-w500">Longevity, measured. <em>0123456789</em></div>
@@ -471,7 +471,7 @@
               <div class="gl-sunk">
                 <p class="ds-sub">The rule</p>
                 <ul class="ds-spec">
-                  <li><b>Digit advance</b><span>0.556em · every digit</span></li>
+                  <li><b>Digit advance</b><span>0.556em, every digit</span></li>
                   <li><b>Applied to</b><span>prices, stats, spec values</span></li>
                   <li><b>Held by</b><span>font-variant-numeric: tabular-nums</span></li>
                 </ul>
@@ -483,8 +483,13 @@
         <!-- ========================================================= 02 -->
         <section class="ds-sec" id="s02">
           <div class="ds-sec-h"><span class="n">02</span><h2>Type scale</h2></div>
-          <p class="ds-note">Twelve rungs. Tracking is negative at display sizes, zero at body,
-            +0.06em on the overline.</p>
+          <p class="ds-note">Twelve rungs, and the smallest is 15. Tracking is negative at display
+            sizes, zero at body, +0.04em on the overline. The bottom two rungs were 12 and
+            14 until 2026-09-17; they carried the navigation, the footer, every product card
+            and every catalogue description, and at those sizes none of it could be read
+            comfortably. Nothing below 15 appears in page copy now. The only type on the site
+            still smaller is inside a drawn interface, where it is a picture of a phone screen
+            rather than a line of text.</p>
 
           <div class="ds-block ds-scale">
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:64px;line-height:1;font-weight:500;letter-spacing:-.02em">Longevity</div><div class="ds-rung-m"><span>h1</span><b>80/88</b><span>−.020em</span><span>500</span></div></div>
@@ -497,8 +502,8 @@
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:21px;line-height:1;font-weight:400;letter-spacing:-.004em">Longevity, measured at home</div><div class="ds-rung-m"><span>lead</span><b>21/29</b><span>−.004em</span><span>400</span></div></div>
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:19px;line-height:1;font-weight:400;letter-spacing:-.002em">Longevity, measured at home</div><div class="ds-rung-m"><span>unnamed</span><b>19/23</b><span>−.002em</span><span>400</span></div></div>
             <div class="ds-rung"><div class="ds-rung-s" style="font-size:17px;line-height:1;font-weight:400;letter-spacing:0">Longevity, measured at home, over years</div><div class="ds-rung-m"><span>body</span><b>17/21</b><span>0</span><span>400</span></div></div>
-            <div class="ds-rung"><div class="ds-rung-s" style="font-size:14px;line-height:1;font-weight:400">Longevity, measured at home, over years</div><div class="ds-rung-m"><span>small</span><b>14/18</b><span>0</span><span>400</span></div></div>
-            <div class="ds-rung"><div class="ds-rung-s" style="font-size:12px;line-height:1;font-weight:500;letter-spacing:.06em;">Longevity, measured at home</div><div class="ds-rung-m"><span>overline</span><b>12/16</b><span>+.06em</span><span>500</span></div></div>
+            <div class="ds-rung"><div class="ds-rung-s" style="font-size:16px;line-height:1;font-weight:400">Longevity, measured at home, over years</div><div class="ds-rung-m"><span>small</span><b>16/22</b><span>0</span><span>400</span></div></div>
+            <div class="ds-rung"><div class="ds-rung-s" style="font-size:15px;line-height:1;font-weight:500;letter-spacing:.04em;">Longevity, measured at home</div><div class="ds-rung-m"><span>overline</span><b>15/20</b><span>+.04em</span><span>500</span></div></div>
           </div>
 
           <div class="ds-block">
@@ -507,12 +512,12 @@
               is the Band page&rsquo;s answer, taken for the whole store on 2026-09-16. Four rungs carry every statement on a page, and the
               rule that picks between them is about what the line is doing, not about how important it feels.</p>
             <ul class="ds-spec">
-              <li><b>Display &middot; <span class="ds-tok">.ph-display</span></b><span>clamp(44px, 8.4vw, 132px) &middot; 700 &middot; &minus;.035em &middot; two lines, two tone. A section&rsquo;s whole argument. Section 09 has the rest.</span></li>
-              <li><b>Solid &middot; <span class="ds-tok">.ph-solid</span></b><span>clamp(34px, 4.4vw, 60px) &middot; 600 &middot; &minus;.020em &middot; a section&rsquo;s name. One or two words, one ink, never two tone.</span></li>
-              <li><b>Name &middot; <span class="ds-tok">.ph-name</span></b><span>clamp(32px, 3.2vw, 48px) &middot; 600 &middot; &minus;.020em &middot; the product or the page itself, at the head of a decision column.</span></li>
-              <li><b>Promise &middot; <span class="ds-tok">.ph-promise</span></b><span>clamp(20px, 1.6vw, 24px) &middot; 600 &middot; &minus;.010em &middot; the one line under a name that says what the thing is for.</span></li>
-              <li><b>Support &middot; <span class="ds-tok">.ph-support</span></b><span>17/1.55 &middot; 400 &middot; the lede, the description, the caption. Everything that explains rather than announces.</span></li>
-              <li><b>Field &middot; <span class="ds-tok">.ph-field</span></b><span>16/22 &middot; name at 600, value at 400 beside it on one baseline. Every choice in a decision column.</span></li>
+              <li><b>Display, <span class="ds-tok">.ph-display</span></b><span>clamp(44px, 8.4vw, 132px), 700, &minus;.035em, two lines, two tone. A section&rsquo;s whole argument. Section 09 has the rest.</span></li>
+              <li><b>Solid, <span class="ds-tok">.ph-solid</span></b><span>clamp(34px, 4.4vw, 60px), 600, &minus;.020em, a section&rsquo;s name. One or two words, one ink, never two tone.</span></li>
+              <li><b>Name, <span class="ds-tok">.ph-name</span></b><span>clamp(32px, 3.2vw, 48px), 600, &minus;.020em, the product or the page itself, at the head of a decision column.</span></li>
+              <li><b>Promise, <span class="ds-tok">.ph-promise</span></b><span>clamp(20px, 1.6vw, 24px), 600, &minus;.010em, the one line under a name that says what the thing is for.</span></li>
+              <li><b>Support, <span class="ds-tok">.ph-support</span></b><span>17/1.55, 400, the lede, the description, the caption. Everything that explains rather than announces.</span></li>
+              <li><b>Field, <span class="ds-tok">.ph-field</span></b><span>16/22, name at 600, value at 400 beside it on one baseline. Every choice in a decision column.</span></li>
             </ul>
           </div>
 
@@ -528,14 +533,14 @@
                   <p style="margin:0;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;color:#203a85">Gut microbiome test</p>
                   <p style="margin:10px 0 0;font-size:34px;line-height:1.05;font-weight:600;letter-spacing:-.02em;color:#10214b">Your gut, fully understood</p>
                 </div>
-                <p class="ds-dsp-cap">Before &middot; 12/16 at +.06em &middot; the caps device on sentence case</p>
+                <p class="ds-dsp-cap">Before, 12/16 at +.06em, the caps device on sentence case</p>
               </div>
               <div>
                 <div class="ds-dsp-panel on-day" style="min-height:150px;display:block;padding:26px">
                   <p style="margin:0;font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.005em;color:#203a85">Gut microbiome test</p>
                   <p style="margin:8px 0 0;font-size:34px;line-height:1.05;font-weight:600;letter-spacing:-.02em;color:#10214b">Your gut, fully understood</p>
                 </div>
-                <p class="ds-dsp-cap">After &middot; 15/20 at &minus;.005em &middot; a promise line, set as one</p>
+                <p class="ds-dsp-cap">After, 15/20 at &minus;.005em, a promise line, set as one</p>
               </div>
             </div>
           </div>
@@ -561,7 +566,7 @@
           <p class="ds-note">Phenome Blue, with an ink scale struck off the same navy.</p>
 
           <div class="ds-block">
-            <p class="ds-sub">Brand · 500 accent, 700 hover, 900 active</p>
+            <p class="ds-sub">Brand, 500 accent, 700 hover, 900 active</p>
             <div class="ds-swatches">
               <div class="ds-sw"><i style="background:#0a1e57"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 900</b><span class="ds-sw-v">#0a1e57</span></div></div>
               <div class="ds-sw"><i style="background:#142b6e"></i><div class="ds-sw-t"><b class="ds-sw-n">Blue 700</b><span class="ds-sw-v">#142b6e</span></div></div>
@@ -596,16 +601,16 @@
           </div>
 
           <div class="ds-block">
-            <p class="ds-sub">Text inks &middot; what carries colour, and what does not</p>
+            <p class="ds-sub">Text inks, what carries colour, and what does not</p>
             <p class="ds-note" style="margin-top:0">The swatches above are the palette. These four are the whole of it that text is allowed to
               use, and they are the Band page&rsquo;s, promoted on 2026-09-16. <b>Nothing outside this list carries type colour.</b> A heading that
               picks its own grey, or a paragraph that borrows the link blue, has left the system.</p>
             <ul class="ds-spec">
-              <li><b><span class="ds-tok">--ph-tone-head</span> &middot; Ink 900</b><span>Every heading, every figure, every price. The default, and the only ink a number is set in.</span></li>
-              <li><b><span class="ds-tok">--ph-tone-promise</span> &middot; Blue 500</b><span>The promise line, and nothing else. This is the one line on a light page set in the brand colour, which is what keeps it meaning something.</span></li>
-              <li><b><span class="ds-tok">--ph-tone-body</span> &middot; Ink 600</b><span>Ledes, descriptions, captions, the value beside a field name. Everything that explains.</span></li>
-              <li><b><span class="ds-tok">--ph-tone-quiet</span> &middot; Ink 400</b><span>Legends, and the small print under a control.</span></li>
-              <li><b><span class="ds-tok">--ph-tone-lead</span> &middot; Blue 200</b><span>Not a fifth ink: the heading ink <em>held back</em>, for the display&rsquo;s first line. White at 55% on a dark ground.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-head</span>, Ink 900</b><span>Every heading, every figure, every price. The default, and the only ink a number is set in.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-promise</span>, Blue 500</b><span>The promise line, and nothing else. This is the one line on a light page set in the brand colour, which is what keeps it meaning something.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-body</span>, Ink 600</b><span>Ledes, descriptions, captions, the value beside a field name. Everything that explains.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-quiet</span>, Ink 400</b><span>Legends, and the small print under a control.</span></li>
+              <li><b><span class="ds-tok">--ph-tone-lead</span>, Blue 200</b><span>Not a fifth ink: the heading ink <em>held back</em>, for the display&rsquo;s first line. White at 55% on a dark ground.</span></li>
             </ul>
             <p class="ds-note">On a dark ground the whole ladder inverts under one class, <span class="ds-tok">.on-night</span> &mdash; head to white, promise
               and body to Blue 200 &mdash; so a section that changes its ground changes one class rather than nine colours.</p>
@@ -617,7 +622,7 @@
                   <p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:#4a5578">A screenless band that reads your heart, sleep, temperature and training all day.</p>
                   <p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:#8b93ad">Delivery, returns and the app included, no subscription</p>
                 </div>
-                <p class="ds-dsp-cap">Light ground &middot; head, promise, body, quiet</p>
+                <p class="ds-dsp-cap">Light ground, head, promise, body, quiet</p>
               </div>
               <div>
                 <div class="ds-dsp-panel on-night" style="display:block;padding:28px">
@@ -626,7 +631,7 @@
                   <p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:#a9b5d9">A screenless band that reads your heart, sleep, temperature and training all day.</p>
                   <p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:rgba(255,255,255,.55)">Delivery, returns and the app included, no subscription</p>
                 </div>
-                <p class="ds-dsp-cap">Dark ground &middot; the same four, inverted by .on-night</p>
+                <p class="ds-dsp-cap">Dark ground, the same four, inverted by .on-night</p>
               </div>
             </div>
           </div>
@@ -641,7 +646,7 @@
             <p class="ds-sub">The ground</p>
             <div class="ds-field"></div>
             <ul class="ds-spec">
-              <li><b>Base wash · 150°</b><span>#eef3f9 → #e5edf7 → #dce7f4</span></li>
+              <li><b>Base wash, 150°</b><span>#eef3f9 → #e5edf7 → #dce7f4</span></li>
               <li><b>Cyan pool, top right</b><span>#30b0cd 10%</span></li>
               <li><b>Brand pool, bottom left</b><span>#203a85 7%</span></li>
               <li><b>Corner lobe, top left</b><span>#c4daf7 45%</span></li>
@@ -651,7 +656,7 @@
           </div>
 
           <div class="ds-block">
-            <p class="ds-sub">Glass · five tiers</p>
+            <p class="ds-sub">Glass, five tiers</p>
             <p class="ds-note" style="margin:0 0 20px">Switch the ground to compare the tiers.</p>
 
             <div class="ds-stage-bar">
@@ -665,11 +670,11 @@
 
             <div class="ds-stage" data-bg="field" id="dsStage">
               <div class="ds-panes">
-                <div class="ds-pane t1"><b>Pane</b><span>42% · cards, panels</span></div>
-                <div class="ds-pane t2"><b>Chip</b><span>50% · chips, segments</span></div>
-                <div class="ds-pane t3"><b>Live</b><span>59% · over photography</span></div>
-                <div class="ds-pane t4"><b>Overlay</b><span>84% · menus, sheets</span></div>
-                <div class="ds-pane t5"><b>Recess</b><span>18% · troughs, wells</span></div>
+                <div class="ds-pane t1"><b>Pane</b><span>42%, cards, panels</span></div>
+                <div class="ds-pane t2"><b>Chip</b><span>50%, chips, segments</span></div>
+                <div class="ds-pane t3"><b>Live</b><span>59%, over photography</span></div>
+                <div class="ds-pane t4"><b>Overlay</b><span>84%, menus, sheets</span></div>
+                <div class="ds-pane t5"><b>Recess</b><span>18%, troughs, wells</span></div>
               </div>
             </div>
           </div>
@@ -678,9 +683,9 @@
             <p class="ds-sub">Material</p>
             <ul class="ds-spec">
               <li><b>Fill</b><span>one flat white, uniform through the pane</span></li>
-              <li><b>Backdrop</b><span>blur(24px) saturate(140%) · thin tier 14px</span></li>
-              <li><b>Shadow</b><span>0 8px 24px −18px · #4664a0 22%</span></li>
-              <li><b>Recess</b><span>one flat blue grey wash · no drop, no rim</span></li>
+              <li><b>Backdrop</b><span>blur(24px) saturate(140%), thin tier 14px</span></li>
+              <li><b>Shadow</b><span>0 8px 24px −18px, #4664a0 22%</span></li>
+              <li><b>Recess</b><span>one flat blue grey wash, no drop, no rim</span></li>
             </ul>
           </div>
         </section>
@@ -691,9 +696,9 @@
           <p class="ds-note">The pane lifts off the page or settles back. Only the drop changes.</p>
 
           <div class="ds-block ds-shadows">
-            <div class="rest"><div class="ds-shadow-fig"></div><p><b>Rest</b>0 8px 24px −18px · 22%</p></div>
-            <div class="lift"><div class="ds-shadow-fig"></div><p><b>Hover</b>0 14px 34px −18px · 30%</p></div>
-            <div class="press"><div class="ds-shadow-fig"></div><p><b>Press</b>0 3px 9px −10px · 24%</p></div>
+            <div class="rest"><div class="ds-shadow-fig"></div><p><b>Rest</b>0 8px 24px −18px, 22%</p></div>
+            <div class="lift"><div class="ds-shadow-fig"></div><p><b>Hover</b>0 14px 34px −18px, 30%</p></div>
+            <div class="press"><div class="ds-shadow-fig"></div><p><b>Press</b>0 3px 9px −10px, 24%</p></div>
           </div>
 
           <div class="ds-motion gl-sunk">
@@ -704,9 +709,9 @@
             </svg>
             <ul class="ds-spec">
               <li><b>Easing</b><span>cubic-bezier(.16, 1, .3, 1)</span></li>
-              <li><b>Fast · a control answering</b><span>160ms</span></li>
-              <li><b>Base · a surface changing</b><span>240ms</span></li>
-              <li><b>Reveal · a band settling</b><span>620ms</span></li>
+              <li><b>Fast, a control answering</b><span>160ms</span></li>
+              <li><b>Base, a surface changing</b><span>240ms</span></li>
+              <li><b>Reveal, a band settling</b><span>620ms</span></li>
             </ul>
           </div>
         </section>
@@ -784,7 +789,7 @@
             </div>
             <div class="g-light">
               <div><h4>Over the field</h4><p>The default. White 50%, thin blur, one drop.</p></div>
-              <a class="tag" href="#s07">Chip · 50%</a>
+              <a class="tag" href="#s07">Chip, 50%</a>
             </div>
           </div>
         </section><section class="ds-sec" id="s08"><div class="ds-sec-h"><span class="n">08</span><h2>Logo</h2></div>
@@ -796,9 +801,9 @@
 <p class="ds-sub">Full logo</p>
 <p class="ds-note" style="margin-top:0">The primary version, used in most applications. Full colour on white or light grounds only; the white monochrome cut on dark or photographic grounds (p.3, p.6).</p>
 <div class="ds-logo-grid">
-<div class="ds-logo-cell"><img alt="Phenome Longevity, full colour" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured, on white</span></div>
-<div class="ds-logo-cell on-tint"><img alt="Phenome Longevity, full colour on the tinted ground" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Coloured, on #f4f6fb</span></div>
-<div class="ds-logo-cell on-dark"><img alt="Phenome Longevity, white cut" class="full mono" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full &middot; Mono white, on dark</span></div>
+<div class="ds-logo-cell"><img alt="Phenome Longevity, full colour" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full, Coloured, on white</span></div>
+<div class="ds-logo-cell on-tint"><img alt="Phenome Longevity, full colour on the tinted ground" class="full" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full, Coloured, on #f4f6fb</span></div>
+<div class="ds-logo-cell on-dark"><img alt="Phenome Longevity, white cut" class="full mono" height="118" src="/phenome-store/assets/brand/phenome-logo.svg" width="770"/><span class="ds-logo-cap">Full, Mono white, on dark</span></div>
 </div>
 </div>
 
@@ -806,8 +811,8 @@
 <p class="ds-sub">Icon</p>
 <p class="ds-note" style="margin-top:0">The simplified mark, for compact spaces, favicons, wearables, a collapsed rail (p.4).</p>
 <div class="ds-logo-grid">
-<div class="ds-logo-cell"><img alt="Phenome icon, full colour" class="icon" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Coloured</span></div>
-<div class="ds-logo-cell on-dark"><img alt="Phenome icon, white cut" class="icon mono" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon &middot; Mono white</span></div>
+<div class="ds-logo-cell"><img alt="Phenome icon, full colour" class="icon" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon, Coloured</span></div>
+<div class="ds-logo-cell on-dark"><img alt="Phenome icon, white cut" class="icon mono" height="103" src="/phenome-store/assets/brand/phenome-icon.png" width="156"/><span class="ds-logo-cap">Icon, Mono white</span></div>
 </div>
 <p class="ds-note">The icon is a raster, not a vector. It is the portal&rsquo;s own <span class="ds-tok">EPlogo.png</span>; this site had no icon cut before. A vector replacement should land here rather than beside it.</p>
 </div>
@@ -848,13 +853,13 @@
 <div class="ds-dsp-panel on-night">
 <h3 class="ph-display"><span class="ph-display-lead">Tested through whole days</span><span>Not only the workout</span></h3>
 </div>
-<p class="ds-dsp-cap">Dark ground · lead at white 55% · second line white</p>
+<p class="ds-dsp-cap">Dark ground, lead at white 55%, second line white</p>
 </div>
 <div>
 <div class="ds-dsp-panel on-day">
 <h3 class="ph-display is-ink"><span class="ph-display-lead">Read your</span><span>Biomarkers</span></h3>
 </div>
-<p class="ds-dsp-cap">Light ground · lead at blue 200 · second line ink 900</p>
+<p class="ds-dsp-cap">Light ground, lead at blue 200, second line ink 900</p>
 </div>
 </div>
 </div>
@@ -867,13 +872,13 @@
 <div class="ds-dsp-panel on-day" style="min-height:190px">
 <h3 class="ph-display is-ink">Specifications</h3>
 </div>
-<p class="ds-dsp-cap">One word · solid ink 900</p>
+<p class="ds-dsp-cap">One word, solid ink 900</p>
 </div>
 <div>
 <div class="ds-dsp-panel on-night" style="min-height:190px">
 <h3 class="ph-display">Questions</h3>
 </div>
-<p class="ds-dsp-cap">One word · solid white</p>
+<p class="ds-dsp-cap">One word, solid white</p>
 </div>
 </div>
 </div>
