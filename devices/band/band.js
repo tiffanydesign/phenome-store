@@ -195,6 +195,26 @@
       });
     });
 
+    /* THE BOX FOLLOWS THE COLOUR TOO. Two stacks of six down the page — the
+       Band and the spare strap in "What is in the box" — driven exactly the way
+       the hero's first slide is, and for the same reason: a reader who has
+       chosen Dune should not be shown an Onyx box forty lines later.
+
+       One query rather than two, because both stacks answer the same question
+       and the dock between them carries no `data-colour-img` to match. */
+    var boxShots = $$('[data-box-colour] [data-colour-img]');
+    if (boxShots.length) {
+      subs.push(function (s) {
+        boxShots.forEach(function (img) {
+          var on = img.getAttribute('data-colour-img') === s.colour;
+          img.classList.toggle('on', on);
+          /* A plate that is not showing is not announced, or six identical alt
+             lines are read out in a row. */
+          img.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+      });
+    }
+
     subs.push(function (s) {
       var c = COLOURS[s.colour];
       var label = $('[data-colour-label]'); if (label) label.textContent = c.name;
