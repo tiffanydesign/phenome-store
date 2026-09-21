@@ -994,14 +994,29 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    bottom strip can never reach it at any desktop width.
    Below 1024 there is no right-hand side to use, so the photograph drops into
    the flow between the copy and the strip instead of sitting behind both. */
-.pdp .pdp-sig {
+/* THE FRAME GROWS, 2026-09-21 (supplements/nad "Feel the difference", after
+   the Oura Ring 4 page). Everything this screen draws now lives on
+   .pdp-sig-box, which pdp.js scales from .86 to 1 while the track's top climbs
+   from 80% down the window to its top; the stage is sticky, so the box then
+   holds full screen for most of a screen. The section itself is only the
+   scroll room: no padding, and no overflow hidden, which would make it a
+   scroll container and leave the sticky stage stuck to nothing. */
+.pdp .pdp-sig { padding: 0; overflow: visible; }
+.pdp .pdp-sig-track { position: relative; height: calc(100svh + 70vh); }
+.pdp .pdp-sig-stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.pdp .pdp-sig-box {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  overflow: clip;
   display: flex;
-  min-height: clamp(720px, 64vw, 920px);
-  padding-block: clamp(64px, 6vw, 96px);
+  height: 100svh;
+  min-height: 620px;
+  padding-block: clamp(88px, 8vw, 120px) clamp(40px, 4vw, 64px);
+  border-radius: var(--sig-rad, 0px);
+  transform: scale(var(--sig-s, 1)); transform-origin: 50% 50%;
 }
+/* the photograph keeps its size while the frame grows: only the crop changes */
+.pdp .pdp-sig-bg { scale: calc(1 / var(--sig-s, 1)); }
 .pdp .pdp-sig-bg { position: absolute; inset: 0; z-index: -2; }
 .pdp .pdp-sig-bg img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -1010,7 +1025,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 /* Two washes, each seating one zone and leaving the middle alone: a navy bloom
    behind the copy in the upper right, where the tiles are near-white, and a
    floor under the strip. The ring sits between them in untouched light. */
-.pdp .pdp-sig::before {
+.pdp .pdp-sig-box::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
   /* Under both washes, a flat near-black veil over the whole photograph: the
@@ -1111,11 +1126,14 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
   .pdp .pdp-sig-cell svg { width: 32px; height: 32px; }
 }
 @media (max-width: 1023px) {
-  .pdp .pdp-sig {
-    min-height: 0; display: block;
+  .pdp .pdp-sig-track { height: auto; }
+  .pdp .pdp-sig-stage { position: static; height: auto; overflow: visible; }
+  .pdp .pdp-sig-box {
+    height: auto; min-height: 0; display: block; transform: none; border-radius: 0;
+    padding-block: clamp(64px, 6vw, 96px);
     background: var(--phenome-blue-900);
   }
-  .pdp .pdp-sig-bg, .pdp .pdp-sig::before { display: none; }
+  .pdp .pdp-sig-bg, .pdp .pdp-sig-box::before { display: none; }
   .pdp .pdp-sig-in { gap: 28px; }
   .pdp .pdp-sig-copy { margin-right: 0; width: auto; max-width: 62ch; }
   .pdp .pdp-sig-frame {

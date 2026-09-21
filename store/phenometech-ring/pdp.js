@@ -1020,6 +1020,42 @@
   }
 
   /* ==========================================================================
+     THE SIGNALS SCREEN GROWS (2026-09-21)
+     supplements/nad's essGrow(), on this page's scroll readers: progress runs
+     0 to 1 while the track's top climbs from 80% down the window to its top,
+     the frame's scale follows a smoothstep from .86 to 1, and its corner is
+     divided by the scale so the visible corner closes as the frame opens.
+     Desktop only, as the CSS is.
+     ====================================================================== */
+  function sigGrow() {
+    var sec = $('[data-sig]');
+    if (!sec) return;
+    var track = $('.pdp-sig-track', sec);
+    var box = $('.pdp-sig-box', sec);
+    if (!track || !box) return;
+    var narrow = window.matchMedia ? window.matchMedia('(max-width: 1023px)') : { matches: false };
+    var S0 = 0.86, R = 28, last = -1;
+    watch(function () {
+      if (narrow.matches) {
+        if (last !== -2) { box.style.removeProperty('--sig-s'); box.style.removeProperty('--sig-rad'); last = -2; }
+        return;
+      }
+      var vh = window.innerHeight;
+      var r = track.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 1.5) return;
+      var run = vh * 0.8;
+      var p = still.matches ? 1 : (run - r.top) / run;
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      var e = p * p * (3 - 2 * p);
+      if (Math.abs(e - last) < 0.0005) return;
+      last = e;
+      var s = S0 + (1 - S0) * e;
+      box.style.setProperty('--sig-s', s.toFixed(4));
+      box.style.setProperty('--sig-rad', (R * (1 - e) / s).toFixed(2) + 'px');
+    });
+  }
+
+  /* ==========================================================================
      BOOT
      Order matters in one place only: dock() reads the gallery's frames for its
      thumbnail, so gallery() has to have marked the frames first. Everything
@@ -1034,6 +1070,7 @@
   filmControls();
   compare();
   highlights();
+  sigGrow();
   dock();
   publish();
 
