@@ -620,323 +620,10 @@
    ground and the hairline, which ARE this page's own. */
 
 /* ---------------------------------------------------------------------------
-   4 . THE COLOURWAY SWATCHES.
-
-   The "Two rings" section that held these is gone (2026-09-14); the swatches
-   now sit under the photograph on each "Choose your ring" card, one capsule
-   per material (§ 9d). .ringfam-pill and .ringfam-dot keep their names and
-   everything below: Oura's capsule proportions and the material rendering.
+   4 . THE COLOURWAY SWATCHES moved to devices/ring/finish.css (2026-09-21),
+   shared with compare-materials as `.fin-dot`. The lighting model and the nine
+   sampled tones are unchanged; the long notes on why are in git history here.
    ------------------------------------------------------------------------ */
-
-/* The capsule. Oura's proportions: 16px vertical padding, 20px horizontal, and
-   a radius large enough to be a stadium rather than a rounded rectangle.
-
-   OPAQUE WHITE, NOT GLASS, and this is the one place on the page where that is
-   the considered answer rather than the lazy one. The old tab bar was glass, on
-   the argument that the reader should see the piece through its own chrome —
-   but a blur behind small colour swatches drags whatever is behind them into
-   them, and a swatch whose job is to BE a colour cannot afford to be tinted by
-   the photograph it is sitting on. White is what keeps the six readable as six
-   colours regardless of what the ring is doing behind them, and it is Oura's
-   answer to the identical problem.
-
-   A hairline instead of a shadow, per §1 and §2: this is chrome floating over
-   content, so it takes a real border rather than the drop that Oura uses. */
-.ph-flat .ringfam-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 20px;
-  border-radius: 999px;
-  background: var(--flat-page);
-  border: 1px solid var(--divider);
-}
-
-/* ---- THE SWATCHES ARE THE FINISHES, not indicator pips.
-
-   Each one is asked to look like the ring it stands for. Not "the right colour
-   with a bit of shine on it" — the right MATERIAL, because the whole question
-   this section exists to ask is which of two materials you would wear, and the
-   two answer light in completely different ways.
-
-   ---- THE LIGHTING MODEL IS OURA'S, READ OFF THEIR OWN SWATCHES.
-
-   ouraring.com/store/rings/oura-ring-4-ceramic serves its four finish swatches
-   as rendered PNGs. Enlarged, they are not the bead-with-a-hotspot that a
-   radial-gradient gives you and that these swatches used to be. They are:
-
-     · a BROAD SPECULAR BAND running diagonally across the disc from the upper
-       left, with a fairly crisp upper edge where it meets the body — a rolled
-       surface catching a window, not a point light on a sphere;
-     · a thin DARKER SLIVER outboard of that band, at the very top-left corner,
-       which is what makes the band read as a reflection rather than as the
-       object simply being paler up there;
-     · a soft BOUNCE along the lower edge, light coming back off whatever the
-       ring is sitting on;
-     · and, on the pale finishes, very little contrast between any of them. The
-       three light ceramics are almost flat. Only Midnight, the black, has the
-       band at full strength, because a dark gloss is mostly reflection.
-
-   So the construction here is a linear-gradient along a 128° axis carrying
-   shade → highlight → body → shade, with a radial bounce laid under its lower
-   edge. Four stops that move per family rather than four colours per swatch.
-
-   ---- AND THEN THE PART OURA DOES NOT DO: THE TITANIUM IS BRUSHED.
-
-   Their range is ceramic only, so every swatch is a gloss. Half of ours is
-   metal, and a brushed metal is not a duller gloss — it is a different optical
-   object. Two things separate them here and both are physical rather than
-   decorative:
-
-     · ANISOTROPY. A polished surface returns a point as a point; a brushed one
-       smears it along the grain. So the titanium's highlight band is wider and
-       its edges softer (--rf-lift / --rf-hold / --rf-fall move), and the grain
-       runs parallel to the band, which is where a real smear would lie.
-     · THE GRAIN ITSELF. See the note on the ::after below — it is the part of
-       this that fought the rasteriser hardest.
-
-   ---- NO BORDER ON THE DISC, AND THE CAPSULE IS WHAT MADE THAT POSSIBLE.
-
-   Every version of these swatches until now carried a 1px ring, first one grey
-   for all six and then one per finish. It was never wanted: a drawn outline
-   around a rendered material is an interface element sitting on top of an
-   object, and at 24px it is a tenth of the disc's diameter spent on something
-   that is not the material. It was load-bearing only because White and Pink,
-   over a near-white photographic stage, had nothing else to separate them from
-   their background.
-
-   The capsule takes that job. On a known white ground the pale finishes are
-   held by their own shading — the bounce along the lower edge and the shade at
-   the rim are darker than the pill they sit on — so the disc can be pure
-   material with nothing drawn around it. That is the whole reason the capsule
-   earns its place: not tidiness, but that it is what lets the swatches lose
-   their outlines.
-
-   THE HIT TARGET IS THE 32px CELL, THE MATERIAL IS THE 24px DISC. The button is
-   the cell and is transparent; ::before is the disc. So the pointer gets Oura's
-   comfortable target and the eye gets their tighter swatch, and the marker has
-   a real box to ring rather than a ring floated over a gap. */
-.ph-flat .ringfam-dot {
-  width: var(--rf-cell);
-  height: var(--rf-cell);
-  flex: none;
-  padding: 0;
-  position: relative;
-  border: 0;
-  background: none;
-  border-radius: 50%;
-  cursor: pointer;
-  /* So the grain's blend stays inside the disc rather than reaching the pill. */
-  isolation: isolate;
-  transition: scale 240ms var(--ease-frosted-out);
-}
-.ph-flat .ringfam-dot::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--rf-dot);
-  height: var(--rf-dot);
-  margin: calc(var(--rf-dot) / -2) 0 0 calc(var(--rf-dot) / -2);
-  border-radius: 50%;
-  background:
-    /* the bounce, under the lower edge */
-    radial-gradient(58% 42% at 62% 102%,
-      var(--rf-rim) 0%,
-      transparent 68%),
-    /* the specular band, and the dark sliver outboard of it */
-    linear-gradient(128deg,
-      var(--rf-sh)   0%,
-      var(--rf-hi)   var(--rf-lift),
-      var(--rf-hi)   var(--rf-hold),
-      var(--rf-body) var(--rf-fall),
-      var(--rf-body) 80%,
-      var(--rf-sh)   100%);
-}
-.ph-flat .ringfam-dot:hover { scale: 1.09; }
-.ph-flat .ringfam-dot:focus-visible {
-  outline: 2px solid var(--ph-focus);
-  outline-offset: 2px;
-  border-radius: 50%;
-}
-
-/* CERAMIC — a glaze. The band lifts almost immediately off the edge (7%), which
-   is the crisp wet line a fired surface gives, holds narrow, and falls away
-   early into a large untroubled body. */
-.ph-flat .ringfam-dot[data-tone^="c-"] {
-  --rf-lift: 7%;
-  --rf-hold: 23%;
-  --rf-fall: 51%;
-}
-
-/* METAL — the band takes 15% to arrive and 70% to leave, which is the same
-   light spread along the grain instead of returned as a line.
-
-   `m-` since 2026-09-17: the material is called Metal now, not Titanium, and
-   the prefix is the material. The old `t-` keys are gone from both ring pages
-   with the two card range they belonged to. */
-.ph-flat .ringfam-dot[data-tone^="m-"] {
-  --rf-lift: 15%;
-  --rf-hold: 36%;
-  --rf-fall: 70%;
-}
-/* MATTE — no specular band at all. A diffuse surface returns the room as a wide
-   slow ramp rather than a line, so the highlight arrives late, never holds, and
-   falls away across almost the whole disc. It carries no grain: the grain is
-   what a polished surface does with a machining pass, and a matte one has
-   neither. This is the only one of the three you can tell apart with the colour
-   removed, which is the test a swatch has to pass. */
-.ph-flat .ringfam-dot[data-tone^="x-"] {
-  --rf-lift: 30%;
-  --rf-hold: 34%;
-  --rf-fall: 92%;
-}
-.ph-flat .ringfam-dot[data-tone^="m-"]::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--rf-dot);
-  height: var(--rf-dot);
-  margin: calc(var(--rf-dot) / -2) 0 0 calc(var(--rf-dot) / -2);
-  border-radius: 50%;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  opacity: var(--rf-brush);
-
-  /* THE GRAIN IS DRAWN WITH HARD STOPS, AND THAT IS NOT A STYLE CHOICE.
-
-     Two attempts failed here and both failed the same way, so it is worth
-     stating what the rasteriser actually does. A repeating-linear-gradient with
-     SOFT ramps and a period under about 3px does not come out as fine lines: the
-     browser dithers the ramp, the dither is an ordered grid, and the grid crosses
-     the lines. The swatch comes out looking like woven fabric. It is not moire
-     between two frequencies — one soft 2.4px gradient alone does it — and it
-     does not go away by choosing periods that do not divide into each other,
-     which was the first fix and made it worse by adding a second grid.
-
-     What survives the rasteriser is hard stops at 4px and above. There is no
-     ramp to dither, so the lines are lines. That sets the floor on how fine the
-     grain can be, and 4px over a 24px disc is six grooves — coarser than a real
-     brushed surface and the closest this can get without the texture turning
-     into a screen door.
-
-     The second layer is the coarse one, at 12px and soft — three times the
-     period, so it cannot beat against the first — and it is what stops six even
-     grooves reading as a hatch. It shades whole groups lighter and darker, the
-     way the pressure of a real pass varies along it.
-
-     Laid in `overlay`, so each groove lightens or darkens in proportion to what
-     is under it: the grain is bright where the specular band crosses it and
-     nearly gone in the shaded corner, which is how a groove behaves and what a
-     flat white line over the top does not do. */
-  background:
-    repeating-linear-gradient(122deg,
-      rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .26) 1.2px,
-      rgba(0, 0, 0, .14)     1.2px, rgba(0, 0, 0, .14)     2.6px,
-      rgba(255, 255, 255, 0) 2.6px, rgba(255, 255, 255, 0) 4px),
-    repeating-linear-gradient(122deg,
-      rgba(255, 255, 255, .15) 0,
-      rgba(255, 255, 255, 0)   6px,
-      rgba(0, 0, 0, .12)       12px);
-  /* The grain turns away from the eye at the rim of a curved surface. */
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
-          mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
-}
-
-/* The nine, and the tones are sampled off each ring's own render rather than
-   named from memory: the highlight, the body and the shaded side are read from
-   the top fifth of each plate in ~/Downloads/Assets/Rings/Ring_PNG, which is
-   the outer surface. Sampling the whole silhouette instead reads the gold
-   charging contacts and the black inner shell, and hands the rose ring a gold
-   highlight.
-
-   Three of them are called Black and they are not the same black. The ceramic
-   is a deep gloss with no warmth in it and a cool steel reflection. The metal
-   is a lighter body with a paler and much wider reflection, because a polished
-   dark metal never gets as close to black as a fired glaze does. The matte is
-   neither: it has no reflection to speak of at all.
-
-   The highlight tints with the material on the metals and does not on the
-   ceramics: a glaze reflects the room, a metal reflects the room through its own
-   colour.
-
-   --rf-rim, the bounce along the lower edge, is now carrying the silhouette as
-   well as the light — with the borders gone it is the only thing separating
-   White from the pill it sits on, so it runs a little deeper than a pure
-   reflection would. */
-.ph-flat .ringfam-dot[data-tone="m-black"] {
-  --rf-hi: #b4b3b2; --rf-body: #4a4b4a; --rf-sh: #101110; --rf-rim: #6d6e6d;
-  /* Overlay doubles a dark base under a white line, so the black metal takes
-     the lightest hand of the three or the grain becomes the object. */
-  --rf-brush: .5;
-}
-/* Silver and brushed silver are the same pigment, so the only thing that can
-   tell them apart at 24px is the LIGHT. Polished returns a hard bright line off
-   a dark body and carries almost no grain; brushed spreads the same light along
-   the pass and carries all of it. Given equal tones and equal grain — which is
-   how these two shipped first — the row shows one colour twice. */
-.ph-flat .ringfam-dot[data-tone="m-silver"] {
-  --rf-hi: #ffffff; --rf-body: #b4b5b9; --rf-sh: #4e5055; --rf-rim: #e8e8ea;
-  --rf-brush: .3;
-}
-.ph-flat .ringfam-dot[data-tone="m-brushed"] {
-  --rf-hi: #dfdee0; --rf-body: #9d9c9f; --rf-sh: #5c5d61; --rf-rim: #c6c5c7;
-  /* The one finish whose NAME is the texture, so it carries it hardest. */
-  --rf-brush: 1;
-}
-.ph-flat .ringfam-dot[data-tone="x-rose"] {
-  --rf-hi: #fbd3cf; --rf-body: #d3aba6; --rf-sh: #8f6560; --rf-rim: #eec4bf;
-}
-.ph-flat .ringfam-dot[data-tone="x-stealth"] {
-  --rf-hi: #82817f; --rf-body: #484948; --rf-sh: #151614; --rf-rim: #5e5f5d;
-}
-.ph-flat .ringfam-dot[data-tone="c-black"] {
-  --rf-hi: #7e8996; --rf-body: #15171b; --rf-sh: #000000; --rf-rim: #3d444e;
-}
-/* Silver sits between Black and White in the same row, so it has to be read as
-   a grey glaze rather than as a second white. Its body is two steps down from
-   White's and its shaded side goes a long way darker. */
-.ph-flat .ringfam-dot[data-tone="c-silver"] {
-  --rf-hi: #ffffff; --rf-body: #bcbfc6; --rf-sh: #6d7179; --rf-rim: #dcdee4;
-}
-.ph-flat .ringfam-dot[data-tone="c-pink"] {
-  --rf-hi: #fff7f9; --rf-body: #f0c8ce; --rf-sh: #b4868f; --rf-rim: #f6dade;
-}
-.ph-flat .ringfam-dot[data-tone="c-white"] {
-  --rf-hi: #ffffff; --rf-body: #dbe0e8; --rf-sh: #98a1b0; --rf-rim: #e4e9f1;
-}
-
-/* ---- TWO OBJECTS, TWO QUESTIONS. The marker says WHICH; the rule says HOW FAR.
-
-   The section's problem was never which card was showing; it was that between
-   one card and the next there was a band of scroll in which the wheel turned
-   and the screen did not answer. The showcase cannot help with that — its one
-   message is an integer and it runs its own eased turn between cards — so the
-/* ---- THE PRESSED SWATCH IS RINGED AT THE CELL.
-
-   This is what the gliding marker was, minus the glide. A ring at the cell
-   boundary reads as the swatch's own selected state because the cell IS the
-   button; a ring at any intermediate diameter reads as a separate object
-   parked over it. Oura's is 2px and dark - a hairline in the page's own ink
-   keeps the precision and loses the weight, and a hairline is what everything
-   else on this page is drawn with.
-
-   inset, so it lands on the 32px cell rather than outside it, and on the
-   button rather than on ::before, which is the 24px disc and is carrying the
-   material. The !important is section 1's doing: this page strips every
-   box-shadow with a universal rule, and this one is a selected state rather
-   than a drop. */
-.ph-flat .ringfam-dot[aria-current="true"] {
-  box-shadow: inset 0 0 0 1px var(--ink-900) !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ph-flat .ringfam-dot { transition: none; }
-  .ph-flat .ringfam-dot:hover { scale: 1; }
-  .ph-flat .pick-shot img,
-  .ph-flat .pick-sub span { transition: none; }
-}
 
 /* ---------------------------------------------------------------------------
    8 · TYPESETTING REPAIRS · three places the shared components come apart here
@@ -1013,8 +700,7 @@
              above in the middle of it, and an arc that closes as you scroll.
      plate   the bedroom photograph, now with the crop travelling — the breath
              between the dark stage and the choice.
-     pick    two cards instead of two ticks, each with the ring it is actually
-             selling, drifting against each other.
+     pick    three columns, set the way compare-materials sets its heads.
      closer  the last frame, over a photograph, rather than centred on white.
 
    EVERY NUMBER ON SCREEN IS ONE THE COPY ALREADY CARRIED. Nothing here invents
@@ -1042,7 +728,6 @@
      --rc-t   per service, -.5 to +.5 across its own slot. The card drifts
               outward on it, in the direction its side of the ring says.
      --rt-r   per tick, the same number the card it marks is on.
-     --pk-p   0 to 1 as `pick` crosses. The two cards drift against it.
      --pr-p   0 to 1 as a plate crosses. Its crop travels on it.
 
    AND EVERY ONE OF THEM HAS A FALLBACK IN THE var(). A reader who asked for
@@ -1087,207 +772,67 @@
   transform: translate3d(0, calc((.5 - var(--pr-p, .5)) * 17%), 0);
 }
 
-/* ---- 9d · CHOOSE YOUR RING · two cards, and the ring on each one -------
+/* ---- 9d · CHOOSE YOUR RING · three columns, as compare-materials sets them
 
-   THE TICK LIST WAS THE PROBLEM. Six items in a three-column .assure, the
-   first two of which were the two products with their prices and the other
-   four assurances about both — so the section that asks the reader to choose
-   between two rings showed neither of them, and put the choice in the same
-   typographic voice as "30-day returns". The two products become two cards
-   with the ring photographed in each finish, the four assurances stay as
-   assurances, and the difference between a product and a reassurance is
-   visible again.
+   Rebuilt 2026-09-21 (user request) on the column head of
+   devices/ring/compare-materials: no card and no tint, the cut out render
+   standing on the section's own white, then the finish discs, the finish name,
+   the product name, the price and Buy, in that order. Only the three rings, so
+   no picker. The discs are finish.css's lit materials.
 
-   The photographs drift against each other on the scroll: --d is +1 on one
-   card and -1 on the other, which is the only thing separating the two rules.
-   A pair of pictures moving the same way is a page scrolling; a pair moving
-   apart is two objects. */
-.ph-flat .pick-pair {
+   The heads are a subgrid, so the three Buy buttons sit on one line however
+   many discs a column carries.
+   ------------------------------------------------------------------------ */
+.ph-flat .pick-cols {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 2.2vw, 32px);
-  margin-top: clamp(44px, 5vw, 72px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(16px, 2.6vw, 48px);
+  margin-top: clamp(40px, 4.6vw, 68px);
 }
-/* THREE MATERIALS SINCE 2026-09-17. `.is-three` rather than a rewrite of the
-   rule above, because the two card arrangement is still what the pair means and
-   a third column is the only thing that changes. The middle card takes the same
-   --d as the outer two on purpose: at three across, alternating drift makes the
-   centre card the odd one out, so the outer pair moves against the middle. */
-.ph-flat .pick-pair.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-/* THE CARD IS NO LONGER AN ANCHOR (2026-09-14). It carries three swatch
-   buttons now, and a button inside a link is invalid and unusable with a
-   keyboard. So the card is a plain box, the product name is the link, and the
-   name's ::after is stretched over the whole card — the card stays one click
-   target, and the swatches sit above that layer on their own stacking order. */
-.ph-flat .pick-card {
-  position: relative;
-  display: block;
-  padding-bottom: clamp(24px, 2.4vw, 34px);
-  border-radius: var(--ph-r27);
-  overflow: hidden;
-  background: var(--flat-band);
-  color: var(--ph-text-1);
+.ph-flat .pick-card { display: flex; flex-direction: column; min-width: 0; }
+@supports (grid-template-rows: subgrid) {
+  /* photograph, discs, finish name, name, price, buy */
+  .ph-flat .pick-cols { grid-template-rows: repeat(6, auto); }
+  .ph-flat .pick-card { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; }
 }
-/* --flat-band, because the section it is in is white. That is § 2's ladder and
-   not a colour choice; the inverse rule is not written here because there is
-   no grey instance of this card on the page, and § 2 is where it goes if one
-   ever appears. */
-
-.ph-flat .pick-shot {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  height: clamp(300px, 30vw, 460px);
-  margin-bottom: clamp(22px, 2.2vw, 30px);
-  background: var(--ph-pill);
-}
-.ph-flat .pick-shot img {
-  position: absolute;
-  inset: -8% 0 auto 0;
-  width: 100%;
-  height: 116%;
-  object-fit: cover;
-  display: block;
-  /* The hover zoom rides the independent `scale` so it composes with the
-     parallax `transform` instead of replacing it. Two properties, two owners,
-     no arbitration. */
-  scale: 1;
-  /* Three photographs stacked, one per colourway, crossfading on a press —
-     the same construction the colourway plate used before this moved here. */
+.ph-flat .pick-fig { position: relative; margin: 0 0 clamp(16px, 1.8vw, 24px); aspect-ratio: 4 / 3; }
+.ph-flat .pick-fig img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center bottom;
   opacity: 0;
-  transition: scale 620ms var(--ease-frosted-out),
-              opacity var(--ph-dur-base) var(--ease-frosted-out);
+  transition: opacity 320ms var(--ease-frosted-out);
 }
-.ph-flat .pick-shot img.on { opacity: 1; }
-
-/* ---- THE PLATE, 2026-09-17. The three cards no longer hold lifestyle
-   photographs, they hold the nine renders, and a render on transparency wants
-   the opposite of `cover`: it is the object, not a scene, so it is CONTAINED
-   with air around it and sits directly on the page's own recess wash. That is
-   also the only arrangement in which nine finishes are comparable — one ring on
-   silk beside another on stones compares two photographers, not two materials.
-
-   The frame is shorter than the photographic one for the same reason: a
-   contained square in a 460px frame is a small object in a large empty box. */
-.ph-flat .pick-shot.is-plate {
-  height: clamp(250px, 23vw, 350px);
-  background: var(--gl-tint-sunk, #f4f6fb);
-}
-.ph-flat .pick-shot.is-plate img {
-  inset: 0;
-  height: 100%;
-  padding: clamp(14px, 1.6vw, 26px);
-  object-fit: contain;
-}
-.ph-flat .pick.is-lively .pick-shot img {
-  /* --d comes from the markup and is +1 on one card, -1 on the other. The 0
-     fallback is not decoration: an undefined custom property inside calc()
-     makes the whole declaration invalid, and an invalid transform here would
-     drop the parallax silently on both cards rather than on the one that lost
-     its attribute. 0 is "no drift", which is a state someone can see. */
-  transform: translate3d(0, calc((.5 - var(--pk-p, .5)) * var(--d, 0) * 12%), 0);
-}
-.ph-flat .pick-card:hover .pick-shot img,
-.ph-flat .pick-card:focus-within .pick-shot img { scale: 1.035; }
-
-/* ---- the swatches, under the photograph. One capsule per card, because the
-   card IS the material — the two labels the capsules carried in the old
-   section are the card names now, so the pill holds three colours and nothing
-   else. It sits above the stretched link and keeps a hairline of its own
-   ground, so a press lands on the button rather than on the card's link. */
-.ph-flat .pick-swatch {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  padding: 0 clamp(24px, 2.4vw, 34px) clamp(20px, 2vw, 26px);
-  /* The two sizes the discs are drawn at. They were declared on .ringfam-rail,
-     which went with the section this moved out of; the capsule reads them off
-     whatever holds it, so they are declared here instead of in .ringfam-dot,
-     which stays a component that takes its size from its container. */
-  --rf-dot: 24px;
-  --rf-cell: 32px;
-}
-/* In the card the capsule has the card's own ground behind it rather than a
-   photograph, so the white pill and its hairline would be a box drawn around
-   three discs for no reason. The discs stand on the ground directly. */
-.ph-flat .pick-swatch .ringfam-pill {
-  padding: 0;
-  background: none;
-  border: 0;
-  gap: 10px;
-}
-
-.ph-flat .pick-line,
-.ph-flat .pick-sub { padding-inline: clamp(24px, 2.4vw, 34px); }
-.ph-flat .pick-line {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
-/* The name is the card's link, and its ::after is the card's click target.
-   The outline is drawn on the card so a keyboard ring surrounds the thing
-   being activated rather than two words of it. */
+.ph-flat .pick-fig img.on { opacity: 1; }
+.ph-flat .pick-dots { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px -4px; min-height: 32px; }
+.ph-flat .pick-dotname { margin: 0 0 14px; font-size: 16px; line-height: 22px; color: var(--ink-600); }
 .ph-flat .pick-name {
-  font-size: var(--ph-h3-size);
-  line-height: var(--ph-h3-lh);
-  font-weight: var(--ph-w-600);
-  letter-spacing: var(--ph-h3-tr);
-  color: inherit;
-  text-decoration: none;
-}
-.ph-flat .pick-name::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-.ph-flat .pick-card:has(.pick-name:focus-visible) {
-  outline: 2px solid var(--ph-focus);
-  outline-offset: 3px;
-}
-@supports not selector(:has(*)) {
-  .ph-flat .pick-name:focus-visible { outline: 2px solid var(--ph-focus); outline-offset: 3px; }
+  margin: 0;
+  font-size: clamp(21px, 1.9vw, 26px); line-height: 1.2;
+  font-weight: 600; letter-spacing: -0.015em;
+  color: var(--ink-900);
 }
 .ph-flat .pick-price {
-  font-size: var(--ph-fs-19);
-  line-height: var(--ph-lh-19);
-  color: var(--ph-text-2);
-  white-space: nowrap;
+  margin: 6px 0 16px;
+  font-size: 17px; line-height: 24px;
+  color: var(--ink-600);
+  font-variant-numeric: tabular-nums;
 }
-/* The three colour names double as the swatch's label: the chosen one takes
-   the page's ink and the other two stay tertiary, so the row says which of the
-   three discs is pressed without a second marker anywhere. */
-.ph-flat .pick-sub {
-  display: block;
-  margin-top: 8px;
-  font-size: var(--ph-fs-17);
-  line-height: var(--ph-lh-17);
-  color: var(--ph-tertiary);
-}
-.ph-flat .pick-sub span {
-  transition: color var(--ph-dur-base) var(--ease-frosted-out);
-}
-.ph-flat .pick-sub span[aria-current="true"] {
-  color: var(--ink-900);
-  font-weight: var(--ph-w-600);
-}
+.ph-flat .pick-buy { align-self: start; width: 100%; justify-content: center; }
 
-/* Three cards need a step the pair never did: at 1040 a third column stops
-   holding the name, the price and four colour words on one line. */
-@media (max-width: 1040px) {
-  .ph-flat .pick-pair.is-three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+/* Under 900px the three stay three and scroll sideways, the way the compare
+   page does, rather than stacking into a list of one ring at a time. */
 @media (max-width: 900px) {
-  .ph-flat .pick-pair,
-  .ph-flat .pick-pair.is-three { grid-template-columns: minmax(0, 1fr); }
-  .ph-flat .pick-shot { height: clamp(260px, 62vw, 380px); }
-  .ph-flat .pick-shot.is-plate { height: clamp(260px, 56vw, 360px); }
-  /* Stacked, the counter-drift stops being two objects moving apart and
-     becomes two pictures in a column disagreeing about which way the page is
-     going. Same reason the signal window loses its travel here. */
-  .ph-flat .pick-shot img { inset: 0; height: 100%; }
-  .ph-flat .pick.is-lively .pick-shot img { transform: none; }
+  .ph-flat .pick-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin-inline: calc(var(--ph-margin, 22px) * -1);
+    padding-inline: var(--ph-margin, 22px);
+  }
+  .ph-flat .pick-cols { min-width: 640px; column-gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .pick-fig img { transition: none; }
 }
 
 /* ---- 9f · THE LAST FRAME ----------------------------------------------

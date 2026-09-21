@@ -5,7 +5,7 @@
 
    1 · THE PICKERS. Five products, three columns. Choosing a product in one
        column rewrites that column: its photograph, its finishes, its name, its
-       price, the two links under them, its line in the sticky bar, and its
+       price, where Buy goes, its line in the sticky bar, and its
        answer in every row of the table. Nothing else on the page moves.
 
        A product already on screen is DISABLED in the other two dropdowns
@@ -33,18 +33,10 @@
   var RING = '/phenome-store/assets/ring/fin/';
   var BAND = '/phenome-store/assets/band/';
 
-  /* The two links under Buy, shared by the three ring materials and by the two
-     Band straps, so they are written once. */
-  var RING_LINKS = {
-    buy: '/phenome-store/store/phenometech-ring/',
-    more: '/phenome-store/devices/ring/',
-    moreText: 'Explore the Ring'
-  };
-  var BAND_LINKS = {
-    buy: '/phenome-store/devices/band/',
-    more: '/phenome-store/devices/band/#specs',
-    moreText: 'Explore the Band'
-  };
+  /* Where Buy goes, shared by the three ring materials and by the two Band
+     straps, so it is written once. */
+  var RING_LINKS = { buy: '/phenome-store/store/phenometech-ring/' };
+  var BAND_LINKS = { buy: '/phenome-store/devices/band/' };
 
   /* The sentence carried identically by the three ring materials, and the one
      carried identically by the two straps. */
@@ -258,11 +250,8 @@
 
     var dots = document.querySelectorAll('[data-slot="' + slot + '"] .cmp-dot');
     for (i = 0; i < dots.length; i++) {
-      /* `classList.toggle` with a second argument is the one form of it
-         Internet Explorer never shipped, and this file is written to the same
-         floor shared.js is, so the branch is spelled out. */
+      /* The selected ring is drawn from aria-checked (finish.css). */
       var on = dots[i].getAttribute('data-finish') === chosen[0];
-      dots[i].className = on ? 'cmp-dot on' : 'cmp-dot';
       dots[i].setAttribute('aria-checked', on ? 'true' : 'false');
     }
 
@@ -288,7 +277,7 @@
       for (var i = 0; i < product.finishes.length; i++) {
         var f = product.finishes[i];
         html += '<button aria-checked="false" aria-label="' + esc(f[1]) + '"' +
-                ' class="cmp-dot" data-finish="' + esc(f[0]) + '"' +
+                ' class="cmp-dot fin-dot" data-finish="' + esc(f[0]) + '"' +
                 ' role="radio" style="--d:' + esc(f[2]) + '" type="button"></button>';
       }
       group.innerHTML = html;
@@ -303,11 +292,6 @@
 
     var buy = q(slot, ' [data-buy]');
     if (buy) buy.setAttribute('href', product.links.buy);
-    var more = q(slot, ' [data-more]');
-    if (more) {
-      more.setAttribute('href', product.links.more);
-      more.textContent = product.links.moreText;
-    }
 
     for (var row in product.rows) {
       if (Object.prototype.hasOwnProperty.call(product.rows, row)) {

@@ -24,6 +24,7 @@
      pages; every selector in it is prefixed `rdet-` and carries no page class,
      so the two pages cannot drift apart. -->
 <link href="/phenome-store/devices/ring/detail.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring/finish.css" rel="stylesheet"/>
 </head>
 <body class="ph-flat">
 <div data-ph-nav=""></div>
@@ -324,42 +325,44 @@
 
 </div>
 </section>
-<section class="section pick" data-pick="">
+<section class="section pick">
 <div class="wrap-wide opener">
 <div class="opener-t"><h2 class="ph-display is-ink is-left pick-h"><span class="ph-display-lead">Choose</span><span>Your ring.</span></h2></div>
 <p class="lede" style="margin-left:0">Three materials, nine finishes, and every one of them reads exactly the same nine signals. Metal for a hard, bright edge; Matte for a surface that takes no fingerprints; Ceramic for a fired glaze that stays cool and featherlight. No subscription, whichever you choose.</p>
-<!-- Each card carries its own colourway swatches under the photograph (moved
-     here from the "Two rings" section, 2026-09-14). A swatch swaps the photograph
-     and marks the colour in the line under the name; the card itself still
-     links to the store.
+<!-- Three columns, set the way devices/ring/compare-materials sets its column
+     heads (2026-09-21, user request): the cut out render on the section's own
+     white, the finish discs (finish.css, the lit materials), the finish name,
+     the product name, the price and Buy. Only the three rings, so no picker.
+     A disc crossfades to its render and renames the finish under it.
 
-     THREE CARDS AND NINE FINISHES SINCE 2026-09-17, by request, and the
-     photographs are no longer lifestyle shots. What the range actually is now
-     came in as nine renders shot from one angle on transparency
-     (~/Downloads/Assets/Rings/Ring_PNG), so the card shows the OBJECT on the
-     page's own tint rather than one ring lying on silk and another on stones —
-     which is the only way nine finishes can be compared at all.
-
-     PLACEHOLDER, FLAGGED: Ceramic silver has no render of its own in that
-     folder. It is standing on the metallic silver plate until one exists. -->
-<div class="pick-pair is-three">
+     PLACEHOLDER, FLAGGED: Ceramic silver has no render of its own. It stands on
+     the metallic silver plate until one exists. -->
+<div class="pick-scroll">
+<div class="pick-cols">
 <div class="pick-card" data-pick-card="">
-<span class="pick-shot is-plate"><img class="on" data-tone-img="m-black" alt="The PhenomeTech Ring in black metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="m-silver" alt="The PhenomeTech Ring in polished silver metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="m-brushed" alt="The PhenomeTech Ring in brushed silver metal, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/metal-brushed_sq.webp" width="1100" data-pick-img="" style="--d:-1"/></span>
-<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Metal colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="m-black" aria-label="Black" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="m-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="m-brushed" aria-label="Brushed silver" aria-checked="false" tabindex="-1"></button></span></div>
-<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Metal</a><span class="pick-price">From £179</span></span>
-<span class="pick-sub"><span data-tone-name="m-black" aria-current="true">Black</span>, <span data-tone-name="m-silver">Silver</span>, <span data-tone-name="m-brushed">Brushed silver</span></span>
+<figure class="pick-fig"><img class="on" data-fin-img="metal-brushed" alt="The PhenomeTech Ring in brushed silver metal" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-brushed.webp" width="1400"/><img data-fin-img="metal-black" alt="The PhenomeTech Ring in black metal" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-black.webp" width="1400"/><img data-fin-img="metal-silver" alt="The PhenomeTech Ring in polished silver metal" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/metal-silver.webp" width="1400"/></figure>
+<div class="pick-dots" role="radiogroup" aria-label="Metal finishes"><button class="fin-dot" type="button" role="radio" data-finish="metal-brushed" data-finish-name="Brushed silver" aria-label="Brushed silver" aria-checked="true" tabindex="0"></button><button class="fin-dot" type="button" role="radio" data-finish="metal-black" data-finish-name="Black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="fin-dot" type="button" role="radio" data-finish="metal-silver" data-finish-name="Silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button></div>
+<p class="pick-dotname" data-pick-dotname="">Brushed silver</p>
+<h3 class="pick-name">Ring, Metal</h3>
+<p class="pick-price">From £179</p>
+<a class="btn pick-buy" href="/phenome-store/store/phenometech-ring/">Buy</a>
 </div>
 <div class="pick-card" data-pick-card="">
-<span class="pick-shot is-plate"><img class="on" data-tone-img="x-rose" alt="The PhenomeTech Ring in matte rose, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose_sq.webp" width="1100" data-pick-img="" style="--d:1"/><img data-tone-img="x-stealth" alt="The PhenomeTech Ring in stealth black, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth_sq.webp" width="1100" data-pick-img="" style="--d:1"/></span>
-<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Matte colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="x-rose" aria-label="Rose" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="x-stealth" aria-label="Stealth black" aria-checked="false" tabindex="-1"></button></span></div>
-<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Matte</a><span class="pick-price">From £189</span></span>
-<span class="pick-sub"><span data-tone-name="x-rose" aria-current="true">Rose</span>, <span data-tone-name="x-stealth">Stealth black</span></span>
+<figure class="pick-fig"><img class="on" data-fin-img="matte-rose" alt="The PhenomeTech Ring in matte rose" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-rose.webp" width="1400"/><img data-fin-img="matte-stealth" alt="The PhenomeTech Ring in stealth black" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/matte-stealth.webp" width="1400"/></figure>
+<div class="pick-dots" role="radiogroup" aria-label="Matte finishes"><button class="fin-dot" type="button" role="radio" data-finish="matte-rose" data-finish-name="Rose" aria-label="Rose" aria-checked="true" tabindex="0"></button><button class="fin-dot" type="button" role="radio" data-finish="matte-stealth" data-finish-name="Stealth black" aria-label="Stealth black" aria-checked="false" tabindex="-1"></button></div>
+<p class="pick-dotname" data-pick-dotname="">Rose</p>
+<h3 class="pick-name">Ring, Matte</h3>
+<p class="pick-price">From £189</p>
+<a class="btn pick-buy" href="/phenome-store/store/phenometech-ring/">Buy</a>
 </div>
 <div class="pick-card" data-pick-card="">
-<span class="pick-shot is-plate"><img class="on" data-tone-img="c-black" alt="The PhenomeTech Ring in black ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-silver" alt="The PhenomeTech Ring in silver ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-pink" alt="The PhenomeTech Ring in pink ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink_sq.webp" width="1100" data-pick-img="" style="--d:-1"/><img data-tone-img="c-white" alt="The PhenomeTech Ring in white ceramic, three quarter view" decoding="async" height="1100" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white_sq.webp" width="1100" data-pick-img="" style="--d:-1"/></span>
-<div class="pick-swatch"><span class="ringfam-pill" role="radiogroup" aria-label="Ceramic colourway"><button class="ringfam-dot" type="button" role="radio" data-tone="c-black" aria-label="Black" aria-checked="true" aria-current="true" tabindex="0"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-pink" aria-label="Pink" aria-checked="false" tabindex="-1"></button><button class="ringfam-dot" type="button" role="radio" data-tone="c-white" aria-label="White" aria-checked="false" tabindex="-1"></button></span></div>
-<span class="pick-line"><a class="pick-name" href="/phenome-store/store/phenometech-ring/">Ceramic</a><span class="pick-price">From £199</span></span>
-<span class="pick-sub"><span data-tone-name="c-black" aria-current="true">Black</span>, <span data-tone-name="c-silver">Silver</span>, <span data-tone-name="c-pink">Pink</span>, <span data-tone-name="c-white">White</span></span>
+<figure class="pick-fig"><img class="on" data-fin-img="ceramic-white" alt="The PhenomeTech Ring in white ceramic" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-white.webp" width="1400"/><img data-fin-img="ceramic-black" alt="The PhenomeTech Ring in black ceramic" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-black.webp" width="1400"/><img data-fin-img="ceramic-silver" alt="The PhenomeTech Ring in silver ceramic" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-silver.webp" width="1400"/><img data-fin-img="ceramic-pink" alt="The PhenomeTech Ring in pink ceramic" decoding="async" height="960" loading="lazy" src="/phenome-store/assets/ring/fin/ceramic-pink.webp" width="1400"/></figure>
+<div class="pick-dots" role="radiogroup" aria-label="Ceramic finishes"><button class="fin-dot" type="button" role="radio" data-finish="ceramic-white" data-finish-name="White" aria-label="White" aria-checked="true" tabindex="0"></button><button class="fin-dot" type="button" role="radio" data-finish="ceramic-black" data-finish-name="Black" aria-label="Black" aria-checked="false" tabindex="-1"></button><button class="fin-dot" type="button" role="radio" data-finish="ceramic-silver" data-finish-name="Silver" aria-label="Silver" aria-checked="false" tabindex="-1"></button><button class="fin-dot" type="button" role="radio" data-finish="ceramic-pink" data-finish-name="Pink" aria-label="Pink" aria-checked="false" tabindex="-1"></button></div>
+<p class="pick-dotname" data-pick-dotname="">White</p>
+<h3 class="pick-name">Ring, Ceramic</h3>
+<p class="pick-price">From £199</p>
+<a class="btn pick-buy" href="/phenome-store/store/phenometech-ring/">Buy</a>
+</div>
 </div>
 </div>
 
@@ -378,39 +381,28 @@
 <script src="/phenome-store/devices/ring/bio.js"></script>
 <script src="/phenome-store/devices/ring-lab/lab.js"></script>
 <script>
-/* The colourway swatches on the two "Choose your ring" cards.
+/* The finish discs on the three "Choose your ring" columns.
 
-   Each card is its own radio group: three buttons, one photograph per colour
-   stacked in the frame, and the colour names under the price. A press moves
-   aria-current (what the CSS rings and highlights) and crossfades the
-   photograph; the arrow keys walk the group the way a radio group does. The
-   card's link is the name, stretched over the card, so the buttons are never
-   inside an anchor. */
+   Each column is its own radio group: a press marks the disc (aria-checked,
+   which finish.css rings), crossfades to that finish's render and writes its
+   name under the discs; the arrow keys walk the group. */
 (function () {
   var cards = [].slice.call(document.querySelectorAll('[data-pick-card]'));
-  for (var c = 0; c < cards.length; c++) (function (card) {
-    var dots = [].slice.call(card.querySelectorAll('[data-tone]'));
-    var imgs = [].slice.call(card.querySelectorAll('[data-tone-img]'));
-    var names = [].slice.call(card.querySelectorAll('[data-tone-name]'));
-    if (!dots.length) return;
-
+  cards.forEach(function (card) {
+    var dots = [].slice.call(card.querySelectorAll('.fin-dot'));
+    var imgs = [].slice.call(card.querySelectorAll('[data-fin-img]'));
+    var label = card.querySelector('[data-pick-dotname]');
     function show(n) {
-      var tone = dots[n].getAttribute('data-tone');
-      for (var i = 0; i < dots.length; i++) {
-        var on = i === n;
-        dots[i].setAttribute('aria-checked', on ? 'true' : 'false');
-        if (on) dots[i].setAttribute('aria-current', 'true'); else dots[i].removeAttribute('aria-current');
-        dots[i].tabIndex = on ? 0 : -1;
-      }
-      for (var j = 0; j < imgs.length; j++) {
-        imgs[j].classList.toggle('on', imgs[j].getAttribute('data-tone-img') === tone);
-      }
-      for (var k = 0; k < names.length; k++) {
-        if (names[k].getAttribute('data-tone-name') === tone) names[k].setAttribute('aria-current', 'true');
-        else names[k].removeAttribute('aria-current');
-      }
+      var fin = dots[n].getAttribute('data-finish');
+      dots.forEach(function (d, i) {
+        d.setAttribute('aria-checked', i === n ? 'true' : 'false');
+        d.tabIndex = i === n ? 0 : -1;
+      });
+      imgs.forEach(function (img) {
+        img.classList.toggle('on', img.getAttribute('data-fin-img') === fin);
+      });
+      if (label) label.textContent = dots[n].getAttribute('data-finish-name');
     }
-
     dots.forEach(function (dot, n) {
       dot.addEventListener('click', function () { show(n); });
       dot.addEventListener('keydown', function (e) {
@@ -423,7 +415,7 @@
         dots[m].focus();
       });
     });
-  })(cards[c]);
+  });
 })();
 
 /* THE BAR TAKES ITS COLOUR FROM THE FILM.
@@ -789,17 +781,6 @@
   /* 9a (the dial) and 9b (the ring stage) were here. Both bands were replaced
      on 2026-09-14 by the sensing film, which runs its own timeline in
      story.js; the two writers went with them. */
-
-  /* ---- 9d · the two cards, drifting apart. One number; the direction is in
-     the markup, as --d on each picture, because it is a property of which card
-     it is rather than of where the page is. */
-  var pick = document.querySelector('[data-pick]');
-  if (pick) {
-    pick.classList.add('is-lively');
-    writers.push(function () {
-      pick.style.setProperty('--pk-p', cross(pick).toFixed(4));
-    });
-  }
 
   /* ---- 9f · the closing frame. It was two bands sharing this loop until the
      plate became a film in § 9c and lost its parallax with its photograph —

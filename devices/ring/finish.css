@@ -1,0 +1,114 @@
+/* ============================================================================
+   devices/ring/finish.css · THE FINISH DISC, a component shared by
+   devices/ring ("Choose your ring") and devices/ring/compare-materials.
+
+   No page class: every rule is keyed on `.fin-dot` and on the finish id in
+   `data-finish`, which is also the render's filename in assets/ring/fin/, so
+   markup, files and swatch cannot disagree.
+
+   The lighting model is ring.css § 4's, moved here whole so the two pages draw
+   the same nine materials (that section's long note says why each stop sits
+   where it does):
+     · a linear gradient on a 128deg axis, shade, highlight, body, shade, with
+       a radial bounce under the lower edge;
+     · three families that move the stops, not the colours: ceramic is a glaze
+       (crisp early band), metal spreads the band along a grain, matte has no
+       band at all;
+     · the metals carry a hard stop brushed grain in `overlay` on ::after.
+
+   The button is the 32px cell (the hit target), ::before is the 24px disc
+   (the material). Selected is a 1px ink ring at the cell. A finish with no
+   entry below, the Band's straps, takes its colour from `--d` and is lit as a
+   matte, which is what silicone and woven nylon are.
+   ========================================================================= */
+
+.fin-dot {
+  --fd-dot: 24px;
+  --fd-cell: 32px;
+  /* default: matte, coloured from --d */
+  --fd-body: var(--d, #6b6d72);
+  --fd-hi: color-mix(in srgb, var(--fd-body) 62%, #fff);
+  --fd-sh: color-mix(in srgb, var(--fd-body) 55%, #000);
+  --fd-rim: color-mix(in srgb, var(--fd-body) 80%, #fff);
+  --fd-lift: 30%;
+  --fd-hold: 34%;
+  --fd-fall: 92%;
+  --fd-brush: 0;
+  position: relative;
+  flex: none;
+  width: var(--fd-cell);
+  height: var(--fd-cell);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+          appearance: none;
+  isolation: isolate;
+  transition: scale 240ms cubic-bezier(.2, .8, .2, 1), box-shadow 240ms;
+}
+.fin-dot::before,
+.fin-dot::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--fd-dot);
+  height: var(--fd-dot);
+  margin: calc(var(--fd-dot) / -2) 0 0 calc(var(--fd-dot) / -2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.fin-dot::before {
+  background:
+    radial-gradient(58% 42% at 62% 102%, var(--fd-rim) 0%, transparent 68%),
+    linear-gradient(128deg,
+      var(--fd-sh)   0%,
+      var(--fd-hi)   var(--fd-lift),
+      var(--fd-hi)   var(--fd-hold),
+      var(--fd-body) var(--fd-fall),
+      var(--fd-body) 80%,
+      var(--fd-sh)   100%);
+}
+/* The grain. Hard stops at 4px and up, because soft ramps under ~3px dither
+   into a woven pattern (ring.css § 4 has the whole story). */
+.fin-dot::after {
+  opacity: var(--fd-brush);
+  mix-blend-mode: overlay;
+  background:
+    repeating-linear-gradient(122deg,
+      rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .26) 1.2px,
+      rgba(0, 0, 0, .14)     1.2px, rgba(0, 0, 0, .14)     2.6px,
+      rgba(255, 255, 255, 0) 2.6px, rgba(255, 255, 255, 0) 4px),
+    repeating-linear-gradient(122deg,
+      rgba(255, 255, 255, .15) 0,
+      rgba(255, 255, 255, 0)   6px,
+      rgba(0, 0, 0, .12)       12px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
+}
+.fin-dot:hover { scale: 1.09; }
+.fin-dot:focus-visible { outline: 2px solid var(--ph-focus, #4664b0); outline-offset: 2px; }
+.fin-dot[aria-checked="true"] { box-shadow: inset 0 0 0 1px var(--ink-900, #10214b) !important; }
+
+/* ---- the three families ---- */
+.fin-dot[data-finish^="ceramic-"] { --fd-lift: 7%;  --fd-hold: 23%; --fd-fall: 51%; }
+.fin-dot[data-finish^="metal-"]   { --fd-lift: 15%; --fd-hold: 36%; --fd-fall: 70%; }
+.fin-dot[data-finish^="matte-"]   { --fd-lift: 30%; --fd-hold: 34%; --fd-fall: 92%; }
+
+/* ---- the nine, sampled off the top fifth of each render ---- */
+.fin-dot[data-finish="metal-black"]    { --fd-hi: #b4b3b2; --fd-body: #4a4b4a; --fd-sh: #101110; --fd-rim: #6d6e6d; --fd-brush: .5; }
+.fin-dot[data-finish="metal-silver"]   { --fd-hi: #ffffff; --fd-body: #b4b5b9; --fd-sh: #4e5055; --fd-rim: #e8e8ea; --fd-brush: .3; }
+.fin-dot[data-finish="metal-brushed"]  { --fd-hi: #dfdee0; --fd-body: #9d9c9f; --fd-sh: #5c5d61; --fd-rim: #c6c5c7; --fd-brush: 1; }
+.fin-dot[data-finish="matte-rose"]     { --fd-hi: #fbd3cf; --fd-body: #d3aba6; --fd-sh: #8f6560; --fd-rim: #eec4bf; }
+.fin-dot[data-finish="matte-stealth"]  { --fd-hi: #82817f; --fd-body: #484948; --fd-sh: #151614; --fd-rim: #5e5f5d; }
+.fin-dot[data-finish="ceramic-black"]  { --fd-hi: #7e8996; --fd-body: #15171b; --fd-sh: #000000; --fd-rim: #3d444e; }
+.fin-dot[data-finish="ceramic-silver"] { --fd-hi: #ffffff; --fd-body: #bcbfc6; --fd-sh: #6d7179; --fd-rim: #dcdee4; }
+.fin-dot[data-finish="ceramic-pink"]   { --fd-hi: #fff7f9; --fd-body: #f0c8ce; --fd-sh: #b4868f; --fd-rim: #f6dade; }
+.fin-dot[data-finish="ceramic-white"]  { --fd-hi: #ffffff; --fd-body: #dbe0e8; --fd-sh: #98a1b0; --fd-rim: #e4e9f1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fin-dot { transition: none; }
+  .fin-dot:hover { scale: 1; }
+}

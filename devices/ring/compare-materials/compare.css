@@ -103,8 +103,8 @@
 .cmp-head { display: flex; flex-direction: column; min-width: 0; }
 
 @supports (grid-template-rows: subgrid) {
-  /* picker · photograph · discs · finish name · name · price · buy · more */
-  .cmp-heads { grid-template-rows: repeat(8, auto); }
+  /* picker, photograph, discs, finish name, name, price, buy */
+  .cmp-heads { grid-template-rows: repeat(7, auto); }
   .cmp-head {
     display: grid;
     grid-row: 1 / -1;
@@ -173,27 +173,12 @@
 .cmp-fig.is-swapping img { opacity: 0; }
 
 /* ---- the finishes ------------------------------------------------------
-   Flat discs at the pigment, and nothing else: no lit sphere, no drop, no rim,
-   which is the same decision devices/band made about its colour chips. Selected
-   is a ring drawn OUTSIDE the disc so nothing is painted over the colour the
-   control exists to show. Clicking one changes the photograph above it, which
-   is what keeps this a comparison rather than a description of one.
+   The lit material discs from devices/ring/finish.css, the same nine the ring
+   page draws, so a brushed silver reads as brushed and a matte as matte rather
+   than as three flat greys. The Band's straps have no entry there and are lit
+   as a matte in their own colour. Clicking one changes the photograph above.
    ---------------------------------------------------------------------- */
-.cmp-dots { display: flex; flex-wrap: wrap; gap: 11px; margin: 0 0 12px; min-height: 26px; }
-.cmp-dot {
-  width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%;
-  cursor: pointer; -webkit-appearance: none; appearance: none;
-  background: var(--d, #2b2b2e);
-  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .18);
-  transition: box-shadow 240ms var(--cmp-ease);
-}
-.cmp-dot.on {
-  box-shadow:
-    inset 0 0 0 1px rgba(16, 33, 75, .26),
-    0 0 0 3px #fff,
-    0 0 0 4.5px var(--cmp-ink);
-}
-.cmp-dot:focus-visible { outline: 2px solid var(--phenome-blue-400, #4664b0); outline-offset: 4px; }
+.cmp-dots { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px -4px; min-height: 32px; }
 /* The name of the chosen finish, under its discs, which is where the reference
    sets it on every page that has a colour to name. */
 .cmp-dotname {
@@ -221,11 +206,8 @@
   font-variant-numeric: tabular-nums;
 }
 .cmp-buy { align-self: start; justify-self: start; width: 100%; justify-content: center; }
-.cmp-more { margin-top: 14px; font-size: 17px; }
-/* In the subgrid the head's last two rows are as tall as the tallest column's,
-   so a short link would float in the middle of its own. */
 @supports (grid-template-rows: subgrid) {
-  .cmp-buy, .cmp-more { align-self: start; }
+  .cmp-buy { align-self: start; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -337,7 +319,10 @@
    ------------------------------------------------------------------------ */
 .cmp-same { padding: clamp(40px, 5vw, 76px) 0 0;
             border-top: 1px solid var(--cmp-rule); margin-top: clamp(30px, 3.4vw, 50px); }
-.cmp-same-h { margin: 0 0 clamp(20px, 2.2vw, 32px); }
+/* The kit's two tone pair, stepped down the way the close is: this heading
+   sits over a run of short notes, not a screen of its own. */
+.cmp-same-h { margin: 0 0 clamp(24px, 2.6vw, 40px); }
+.cmp-same .ph-display { font-size: clamp(36px, 4.8vw, 72px); }
 .cmp-same-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -423,5 +408,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cmp-fig img, .cmp-dot, .cmp-pick select { transition: none; }
+  .cmp-fig img, .cmp-pick select { transition: none; }
 }
