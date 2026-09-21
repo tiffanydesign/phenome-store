@@ -1,0 +1,127 @@
+/* ============================================================================
+   devices/ring-lab · "Supplements are everywhere", scoped to `.supx`
+
+   Moved here 2026-09-21 from the home page of phenomelongevity.com (Shopify
+   section `images_with_text_overlay`), kept as that page builds it:
+
+     · a navy field, rgb(10 30 87) at full strength;
+     · three rows of product tiles, the whole grid turned 50deg and each tile
+       turned back -90deg, so the bottles lie at a slant across the field;
+     · the rows at 30%, 20% and 10%, so the field reads as a texture and the
+       type over it stays the only thing at full strength;
+     · on scroll the rows slide sideways, neighbours in opposite directions,
+       over the section's whole pass through the screen (sup.js);
+     · the copy bottom left, its second line filled with the site's cyan to
+       blue gradient, which sweeps in from the left when the block is in view.
+
+   A `<div>`, not a `<section>`: shared.js reveal() transforms the children of
+   `main > section`, which would fight the rows' own transforms.
+   ========================================================================= */
+
+.supx {
+  --sx-navy: 10 30 87;
+  --sx-grad: linear-gradient(267deg, #30b0cd, #2394cc 48%, #2e74b2);
+  --sx-tile: 30vw;
+  --sx-m: 1vw;
+  position: relative;
+  overflow: clip;
+  height: clamp(560px, 45vw, 650px);
+  background: rgb(var(--sx-navy));
+  color: #fff;
+}
+
+/* ---- the field ---------------------------------------------------------- */
+.supx-field {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%) rotate(50deg);
+  pointer-events: none;
+}
+.supx-row { display: flex; will-change: transform; }
+.supx-row:nth-child(1) { opacity: .3; }
+.supx-row:nth-child(2) { opacity: .2; }
+.supx-row:nth-child(3) { opacity: .1; }
+.supx-tile {
+  flex: none;
+  width: var(--sx-tile);
+  height: var(--sx-tile);
+  margin: var(--sx-m);
+  border-radius: 16px;
+  background-size: cover;
+  background-position: 50% 50%;
+  rotate: -90deg;
+}
+
+/* ---- the copy ----------------------------------------------------------- */
+.supx-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--ph-margin, 48px) clamp(48px, 3.4vw, 56px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.supx-box { max-width: 64rem; }
+.supx-h {
+  margin: 0;
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #fff;
+}
+.supx-h em {
+  display: inline-block;
+  font-style: normal;
+  color: #2394cc;
+}
+/* The sweep. Script present: the line starts unfilled and fills left to right
+   once in view. Without script it is simply filled. */
+.lab-js .supx-h em {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+  background-image: var(--sx-grad);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 100%;
+  transition: background-size 1.2s cubic-bezier(.65, 0, .35, 1);
+}
+.lab-js .supx.is-in .supx-h em { background-size: 100% 100%; }
+.supx-d {
+  margin: clamp(22px, 2vw, 32px) 0 0;
+  max-width: 56rem;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #fff;
+}
+.supx-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(28px, 3vw, 44px);
+  height: 56px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: #fff;
+  color: #203a85;
+  font-size: 17px;
+  text-decoration: none;
+  transition: background-color .3s, color .3s;
+}
+.supx-go svg { width: 20px; height: 20px; transition: translate .3s; }
+.supx-go:hover { background: #e8effb; }
+.supx-go:hover svg { translate: 4px 0; }
+.supx-go:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+@media (max-width: 767px) {
+  .supx { --sx-tile: 46vw; height: 100svh; }
+  .supx-copy { align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-js .supx-h em { transition: none; background-size: 100% 100%; }
+  .supx-go svg { transition: none; }
+}
