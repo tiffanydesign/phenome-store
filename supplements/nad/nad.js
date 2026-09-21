@@ -347,16 +347,17 @@
 
   /* ---- 2b · ingredient ring (2026-09-21) -----------------------------------
      The circles open out once the ring is in view. Pointing at one (or
-     tabbing to it) names it in the centre with the product it goes into, and
-     the centre link follows it; leaving the ring puts the default back. */
+     tabbing to it) puts its name, its amount and the product it is in at the
+     centre; leaving the ring puts "All ingredients" back. */
   function ring() {
     var box = $('[data-ring]');
     if (!box) return;
     var core = $('.nd-ring-core', box);
     var k = $('[data-ring-k]', box);
-    var go = $('[data-ring-go]', box);
-    if (!core || !k || !go) return;
-    var base = { k: k.textContent, go: go.textContent, href: go.getAttribute('href') };
+    var amt = $('[data-ring-amt]', box);
+    var per = $('[data-ring-per]', box);
+    if (!core || !k || !amt || !per) return;
+    var base = { k: k.textContent, amt: '', per: '' };
     var shown = base, timer = null;
 
     if ('IntersectionObserver' in window && !still.matches) {
@@ -365,19 +366,19 @@
     }
 
     function show(next) {
-      if (next.k === shown.k) return;
+      if (next === shown) return;
       shown = next;
       clearTimeout(timer);
       core.classList.add('is-swap');
       timer = setTimeout(function () {
         k.textContent = next.k;
-        go.textContent = next.go;
-        go.setAttribute('href', next.href);
+        amt.textContent = next.amt;
+        per.textContent = next.per;
         core.classList.remove('is-swap');
-      }, still.matches ? 0 : 180);
+      }, still.matches ? 0 : 160);
     }
     $$('.nd-ring-list a', box).forEach(function (a) {
-      var item = { k: a.getAttribute('data-name'), go: 'In ' + a.getAttribute('data-in'), href: a.getAttribute('href') };
+      var item = { k: a.getAttribute('data-name'), amt: a.getAttribute('data-amt'), per: a.getAttribute('data-per') };
       a.addEventListener('pointerenter', function () { show(item); });
       a.addEventListener('focus', function () { show(item); });
     });

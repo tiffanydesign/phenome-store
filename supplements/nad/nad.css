@@ -805,14 +805,15 @@
    Ten circles on a ring, placed with cos() and sin() from their index. The
    ring turns once every 160s and each circle turns back at the same rate, so
    the photographs stay upright; pointing at the ring pauses both. */
-.nadp .nd-src { overflow: clip; }
-.nadp .nd-src-grid {
-  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
-  gap: clamp(40px, 6vw, 96px); align-items: center;
-}
+.nadp .nd-src { overflow: clip; padding-block: clamp(56px, 6vw, 96px); }
+/* statement and ring are meant to be read as one screen, so the ring is held
+   to 62% of the window's height as well as to the column */
+/* the statement on top, centred; the ring centred under it */
+.nadp .nd-src-grid { display: grid; justify-items: center; gap: clamp(24px, 3vw, 48px); text-align: center; }
+.nadp .nd-src-h { margin-inline: auto; align-items: center; }
 .nadp .nd-ring {
   --d: 21%; --rad: 39.5%; --turn: 160s;
-  position: relative; width: min(100%, 640px); aspect-ratio: 1; justify-self: center;
+  position: relative; width: min(100%, 640px, 62svh); aspect-ratio: 1; justify-self: center;
 }
 .nadp .nd-ring::before {
   content: ""; position: absolute; inset: 14%; border-radius: 50%;
@@ -847,17 +848,19 @@
   transition-delay: calc(var(--i) * 70ms);
 }
 .nadp .nd-ring[data-armed].is-in .nd-ring-list li { opacity: 1; scale: 1; }
+/* The centre: "All ingredients" at rest; pointing at a circle puts that
+   ingredient's name, its amount (the one large figure) and the product it is
+   in there instead. Empty lines take no room, so the rest state is one line. */
 .nadp .nd-ring-core {
-  position: absolute; inset: 30%; z-index: 1; display: grid; place-content: center; justify-items: center;
-  gap: 10px; text-align: center;
+  position: absolute; inset: 29%; z-index: 1; display: grid; place-content: center; justify-items: center;
+  gap: 6px; text-align: center; transition: opacity .2s;
 }
-.nadp .nd-ring-k { margin: 0; font-size: clamp(20px, 1.7vw, 26px); line-height: 1.2; font-weight: 600; letter-spacing: -.01em; color: var(--nd-navy); transition: opacity .25s; }
-.nadp .nd-ring-go {
-  font-size: 16px; line-height: 1.35; color: var(--nd-accent); text-decoration: underline;
-  text-underline-offset: 4px; text-decoration-thickness: 1px; transition: opacity .25s;
-}
-.nadp .nd-ring-core.is-swap .nd-ring-k, .nadp .nd-ring-core.is-swap .nd-ring-go { opacity: 0; }
-.nadp .nd-src-p { margin-top: 28px; max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.55; color: var(--nd-ink); }
+.nadp .nd-ring-core p { margin: 0; }
+.nadp .nd-ring-core p:empty { display: none; }
+.nadp .nd-ring-k { font-size: clamp(20px, 1.7vw, 26px); line-height: 1.2; font-weight: 600; letter-spacing: -.01em; color: var(--nd-navy); text-wrap: balance; }
+.nadp .nd-ring-amt { font-size: clamp(34px, 3.4vw, 52px); line-height: 1.05; font-weight: 700; letter-spacing: -.03em; color: var(--nd-accent); font-variant-numeric: tabular-nums; }
+.nadp .nd-ring-per { max-width: 22ch; font-size: 15px; line-height: 1.4; color: var(--nd-ink-2); text-wrap: balance; }
+.nadp .nd-ring-core.is-swap { opacity: 0; }
 
 /* ---- 7 · standards on the supplements field ------------------------------ */
 .nadp .nd-std { position: relative; overflow: clip; background: rgb(10 30 87); color: #fff; }
@@ -892,8 +895,6 @@
 .nadp .nd-std-list p { margin: 0; font-size: 16px; line-height: 1.4; color: #fff; }
 
 @media (max-width: 1024px) {
-  .nadp .nd-src-grid { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-src-copy { order: -1; }
   .nadp .nd-std-list { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
 }
 /* Under 760px the card does not grow: a phone's screen is already the frame,
@@ -904,6 +905,9 @@
   .nadp .nd-ess .nd-ess-hero { height: auto; min-height: 620px; border-radius: var(--nd-r-lg); transform: none; padding: 40px 20px 20px; }
   .nadp .nd-ess .nd-ess-bg { scale: none; }
   .nadp .nd-ring { --d: 22%; --rad: 38.5%; }
+  .nadp .nd-ring-core { inset: 27%; gap: 4px; }
+  .nadp .nd-ring-k { font-size: 17px; }
+  .nadp .nd-ring-amt { font-size: 28px; }
   .nadp .nd-std-field { --st-tile: 46vw; }
   .nadp .nd-std-in::after { background: rgb(10 30 87 / .6); }
 }
