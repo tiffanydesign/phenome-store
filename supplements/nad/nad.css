@@ -548,21 +548,6 @@
 .nadp .nd-kit-plans button:focus-visible { outline: 2px solid var(--nd-accent); outline-offset: 2px; }
 
 /* ---------------------------------------------------------------------------
-   7 · STANDARDS
-   ------------------------------------------------------------------------ */
-.nadp .nd-std { background: var(--nd-sunk); padding-block: clamp(64px, 6vw, 96px); }
-.nadp .nd-std-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 48px; align-items: center; }
-.nadp .nd-std-p { margin-top: 20px; font-size: 17px; line-height: 1.55; color: var(--nd-ink); max-width: 42ch; }
-.nadp .nd-std-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.nadp .nd-std-cards li {
-  list-style: none; display: grid; justify-items: center; gap: 18px; text-align: center;
-  padding: 36px 20px; border-radius: var(--nd-r-md); background: #fff; color: var(--nd-navy);
-  transition: translate .5s var(--nd-ease);
-}
-.nadp .nd-std-cards li:hover { translate: 0 -4px; }
-.nadp .nd-std-cards p { font-size: 15px; line-height: 1.4; color: var(--nd-ink); }
-
-/* ---------------------------------------------------------------------------
    8 · QUESTIONS
    ------------------------------------------------------------------------ */
 /* the list is the shared `.acc.is-faq`; View all sits centred under it */
@@ -744,7 +729,7 @@
   .nadp .nd-buy { max-width: 640px; }
   .nadp .nd-ess-panel { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
   .nadp .nd-ess-panel h3 { margin-top: 16px; }
-  .nadp .nd-compare-grid, .nadp .nd-std-grid { grid-template-columns: minmax(0, 1fr); }
+  .nadp .nd-compare-grid { grid-template-columns: minmax(0, 1fr); }
   .nadp .nd-compare .nd-compare-h { max-width: none; }
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
 }
@@ -762,8 +747,6 @@
   /* min-height 0: with a ratio, a min-height is also a min-width (380 x 1.6). */
   .nadp .nd-kit-img { aspect-ratio: 16 / 10; min-height: 0; }
   .nadp .nd-kit-body { padding: 8px; }
-  .nadp .nd-std-cards { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-std-cards li { grid-template-columns: 44px 1fr; justify-items: start; text-align: left; padding: 20px; }
   .nadp .nd-badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nadp .nd-table { --c2: 84px; --c3: 104px; --pad: 14px; }
   .nadp .nd-tr { font-size: 16px; min-height: 68px; }
