@@ -41,7 +41,6 @@ var ROUTES = [
   ["/design-system/", "Design system"],
   ["/devices/band/", "PhenomeTech Band"],
   ["/devices/ring/", "PhenomeTech Ring"],
-  ["/devices/ring-lab/", "PhenomeTech Ring Lab"],
   ["/devices/ring/compare-materials/", "Compare materials"],
   ["/devices/ring/find-your-size/", "Find your size"],
   ["/devices/ring/how-it-works/", "How it works"],

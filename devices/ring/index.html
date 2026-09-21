@@ -14,16 +14,18 @@
 <link href="/phenome-store/devices/ring/ring.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/bio.css" rel="stylesheet"/>
 <script>document.documentElement.classList.add('rbio-js');</script>
-<!-- Sections 2 to 8 of devices/ring-lab stand on this page (see the note above
+<!-- Sections 2 to 8 of the ring lab (now its own site, websitelab) stand on this page (see the note above
      the `.lab` block), so they are drawn by the lab's own sheet and script.
      Every rule in it is scoped `.lab ...`, and the wrapper div carries that
      class, so nothing here reaches the rest of the page. -->
-<link href="/phenome-store/devices/ring-lab/lab.css" rel="stylesheet"/>
+<!-- lab.css / lab.js / fit.css / fit.js moved here from devices/ring-lab on
+     2026-09-21, when the lab page left this site for its own repository. -->
+<link href="/phenome-store/devices/ring/lab.css" rel="stylesheet"/>
 <script>document.documentElement.classList.add('lab-js');</script>
 <!-- devices/ring-lab's "Tuned to you" stands on this page too, drawn by the
      lab's own fit sheet inside a `.lab` wrapper; kit.css is the box and the
      setup slides after it. -->
-<link href="/phenome-store/devices/ring-lab/fit.css" rel="stylesheet"/>
+<link href="/phenome-store/devices/ring/fit.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/kit.css" rel="stylesheet"/>
 <link href="/phenome-store/devices/ring/finish.css" rel="stylesheet"/>
 </head>
@@ -123,9 +125,7 @@
 </li>
 <li class="lab-card">
 <div class="lab-card-media is-photo">
-<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/ring/intel/intel-app.webp" preload="metadata" src="/phenome-store/assets/ring/intel/intel-app.mp4" aria-hidden="true"></video>
-<div class="intel-modes" aria-hidden="true"><span class="intel-mode">Quick answer</span><span class="intel-mode">Deep review</span></div>
-</div>
+<video autoplay="" loop="" muted="" playsinline="" poster="/phenome-store/assets/ring/intel/intel-app.webp" preload="metadata" src="/phenome-store/assets/ring/intel/intel-app.mp4" aria-hidden="true"></video></div>
 <p class="lab-card-t">Two modes, one system</p>
 <p class="lab-card-b">A quick answer for today, or a deep review of months of data when you want to see the long trend.</p>
 </li>
@@ -384,8 +384,8 @@
 </section>
 <!-- ==========================================================================
      IN THE BOX, 2026-09-21 by request. Replaces the table, box and steps
-     panels of the shared detail screen on this page (store/phenometech-ring
-     keeps detail.css as it was).
+     panels of the old shared detail screen (deleted 2026-09-21 from
+     store/phenometech-ring too, with detail.css).
 
      devices/ring-lab's "How the PhenomeTech Ring helps" (gen-a.css § 19): one
      panel held sticky on the left for a screen while navy slides pass it on the
@@ -483,8 +483,8 @@
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
 <script src="/phenome-store/devices/ring/bio.js"></script>
-<script src="/phenome-store/devices/ring-lab/lab.js"></script>
-<script src="/phenome-store/devices/ring-lab/fit.js"></script>
+<script src="/phenome-store/devices/ring/lab.js"></script>
+<script src="/phenome-store/devices/ring/fit.js"></script>
 <script>
 /* The finish discs on the three "Choose your ring" columns.
 

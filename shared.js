@@ -958,8 +958,7 @@
       '<a href="/phenome-store/account/orders/">Track an order</a>' +
       '<a href="/phenome-store/account/activate/">Activate a kit</a>' +
       '<a href="/phenome-store/legal/privacy.html">Privacy and data</a>' +
-      '<a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/sitemap/">Sitemap</a>' +
-      '<a href="/phenome-store/devices/ring-lab/">Lab</a></div>' +
+      '<a href="/phenome-store/legal/terms.html">Terms</a><a href="/phenome-store/sitemap/">Sitemap</a></div>' +
       '</div>' +
       '<div class="trust" style="margin-top:40px;border-bottom:0">' +
       '<span><b>ISO 15189</b> accredited lab</span>' +
