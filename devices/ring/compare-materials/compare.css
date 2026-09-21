@@ -38,6 +38,8 @@
   --cmp-ink: var(--ink-900);
   --cmp-body: var(--ink-600);
   --cmp-quiet: var(--ink-400);
+  --cmp-accent: var(--phenome-blue-500, #203a85);
+  --cmp-tint: var(--gl-tint-sunk, #f4f6fb);
   --cmp-ease: cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -275,7 +277,9 @@
   margin: 0;
   padding: clamp(26px, 2.8vw, 40px) 0 14px;
   font-size: 17px; line-height: 24px; font-weight: 600;
-  color: var(--cmp-quiet);
+  /* Theme blue, 2026-09-21 by request: the row names are the page's signposts,
+     and in the quiet ink they sank into the answers under them. */
+  color: var(--cmp-accent);
 }
 .cmp-rows > .cmp-k + .cmp-k,
 .cmp-rows > .cmp-k:not(:first-child) { border-top: 1px solid var(--cmp-rule); }
@@ -320,44 +324,106 @@
 .cmp-same { padding: clamp(40px, 5vw, 76px) 0 0;
             border-top: 1px solid var(--cmp-rule); margin-top: clamp(30px, 3.4vw, 50px); }
 /* The kit's two tone pair, stepped down the way the close is: this heading
-   sits over a run of short notes, not a screen of its own. */
-.cmp-same-h { margin: 0 0 clamp(24px, 2.6vw, 40px); }
+   sits over a grid of blocks, not a screen of its own. Centred, because the
+   Band's Specifications heading that this grid is copied from is centred. */
+.cmp-same-h { margin: 0 auto clamp(30px, 3.4vw, 50px); }
 .cmp-same .ph-display { font-size: clamp(36px, 4.8vw, 72px); }
+
+/* devices/band's Specifications grid (band.css § 5), 2026-09-21 by request, at
+   that page's own numbers: four to a row, 12 apart, a tinted block at radius
+   21, the name at 19 to 23 in the heading ink with a 26px blue glyph beside it,
+   and each fact at 17 in the body ink behind a 6px blue dot. The tint is the
+   one ground on this page: a block is separated from the white it sits on by
+   one step of the ramp, never by a border. */
 .cmp-same-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: clamp(20px, 2.4vw, 34px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
 }
-.cmp-same-t {
+.cmp-spec {
   margin: 0;
-  font-size: 19px; line-height: 1.3; font-weight: 600;
+  padding: clamp(22px, 2vw, 30px);
+  border-radius: var(--ph-r21, 21px);
+  background: var(--cmp-tint);
+}
+.cmp-spec-k {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0;
+  font-size: clamp(19px, 1.6vw, 23px); line-height: 1.2; font-weight: 600;
   color: var(--cmp-ink);
 }
-.cmp-same-d { margin: 7px 0 0; font-size: 16px; line-height: 1.5; color: var(--cmp-body); }
+.cmp-spec-k svg { flex: none; width: 26px; height: 26px; color: var(--cmp-accent); }
+.cmp-spec-l { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.cmp-spec-l li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 17px; line-height: 1.45;
+  color: var(--cmp-body);
+}
+.cmp-spec-l li::before {
+  content: "";
+  position: absolute; left: 0; top: .6em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--phenome-blue-300, #7185bd);
+}
 
 .cmp-note {
-  margin: clamp(30px, 3.4vw, 50px) 0 0;
+  margin: clamp(30px, 3.4vw, 50px) auto 0;
   max-width: 62ch;
   font-size: 16px; line-height: 1.55;
   color: var(--cmp-quiet);
+  text-align: center;
 }
 
 /* ---------------------------------------------------------------------------
    6 · THE CLOSE
 
-   No band, no grey, no box. A line, a line under it, and the two links a reader
-   who has finished comparing actually wants.
+   supplements/nad's old standards band (nad.css § 7, since deleted there),
+   2026-09-21 by request, at its own numbers: the recess wash full width, a
+   copy column and a card column at 1 : 1.35, 48 between, both centred on one
+   line; three white cards at radius 20, each a 44px line glyph in the brand
+   blue over a short line, lifting 4px under a pointer. The buttons stay with
+   the copy, because the cards are promises and not links.
    ------------------------------------------------------------------------ */
-.cmp-end { padding: clamp(52px, 6vw, 96px) 0 clamp(60px, 7vw, 110px);
-           border-top: 1px solid var(--cmp-rule); text-align: center; }
-/* The kit's full clamp tops out at 132px, which is right for a statement that
-   owns a whole screen. This one closes a page that has already made its case,
-   and it has a line and two links under it. */
-.cmp-end .ph-display { font-size: clamp(36px, 4.8vw, 72px); }
-.cmp-end-d { margin: 18px auto 0; max-width: 46ch;
-             font-size: 19px; line-height: 1.55; color: var(--cmp-body); }
-.cmp-end-go { display: flex; align-items: center; justify-content: center;
-              flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+.cmp-end {
+  margin-top: clamp(40px, 5vw, 80px);
+  padding-block: clamp(64px, 6vw, 96px);
+  background: var(--cmp-tint);
+}
+.cmp-end-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 48px;
+  align-items: center;
+}
+/* nad.css's step: the display carries copy beside it, so it is held to 36 to
+   68 and the pair is kept to a measure it cannot break badly in. */
+.cmp-end .ph-display { font-size: clamp(36px, 4.4vw, 68px); max-width: 22ch; }
+.cmp-end-d { margin: 20px 0 0; max-width: 42ch;
+             font-size: 17px; line-height: 1.55; color: var(--cmp-ink); }
+.cmp-end-go { display: flex; align-items: center;
+              flex-wrap: wrap; gap: 18px; margin-top: 28px; }
+.cmp-end-cards {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  margin: 0; padding: 0; list-style: none;
+}
+.cmp-end-cards li {
+  display: grid; justify-items: center; align-content: start; gap: 18px;
+  padding: 36px 20px;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--phenome-blue-900, #0a1e57);
+  text-align: center;
+  transition: translate .5s cubic-bezier(.16, 1, .3, 1);
+}
+.cmp-end-cards li:hover { translate: 0 -4px; }
+.cmp-end-ic {
+  width: 44px; height: 44px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.cmp-end-cards p { margin: 0; font-size: 17px; line-height: 1.4; color: var(--cmp-ink); }
 
 /* ---------------------------------------------------------------------------
    7 · NARROWER SCREENS
@@ -403,10 +469,23 @@
   .cmp-swipe { display: block; }
   .cmp-pick select { font-size: 16px; padding-inline: 12px 32px; background-position: right 11px center; }
 }
+@media (max-width: 1180px) {
+  .cmp-same-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1000px) {
+  .cmp-end-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+@media (max-width: 760px) {
+  .cmp-end-cards { grid-template-columns: minmax(0, 1fr); }
+  .cmp-end-cards li { grid-template-columns: 44px 1fr; justify-items: start; align-items: center; text-align: left; padding: 20px; }
+}
+@media (max-width: 620px) {
+  .cmp-same-grid { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 560px) {
   .cmp-fig-v { font-size: 30px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cmp-fig img, .cmp-pick select { transition: none; }
+  .cmp-fig img, .cmp-pick select, .cmp-end-cards li { transition: none; }
 }
