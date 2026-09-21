@@ -783,6 +783,20 @@
    The heads are a subgrid, so the three Buy buttons sit on one line however
    many discs a column carries.
    ------------------------------------------------------------------------ */
+/* 2026-09-21: the lede that sat beside the heading is deleted, which made the
+   scroller the opener's SECOND child, and shared.css puts a second child in
+   the lede's right hand column, so all three rings were packed into it. The
+   scroller now spans the row, and the heading and each column are centred,
+   three rings standing evenly across the page. */
+.ph-flat .pick .opener > .pick-scroll,
+.ph-flat .pick .opener > .opener-t { grid-column: 1 / -1; }
+.ph-flat .pick .opener-t { text-align: center; }
+.ph-flat .pick .pick-h { align-items: center; text-align: center; margin-inline: auto; }
+.ph-flat .pick-card { align-items: center; justify-items: center; text-align: center; }
+/* The figure's images are absolute, so a centred figure would shrink to no
+   width at all; it keeps the full column. */
+.ph-flat .pick-card .pick-fig { justify-self: stretch; align-self: stretch; width: 100%; }
+.ph-flat .pick-card .pick-dots { justify-content: center; margin-left: 0; }
 .ph-flat .pick-cols {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -818,7 +832,7 @@
   color: var(--ink-600);
   font-variant-numeric: tabular-nums;
 }
-.ph-flat .pick-buy { align-self: start; width: 100%; justify-content: center; }
+.ph-flat .pick-buy { align-self: start; justify-self: center; width: min(100%, 280px); justify-content: center; }
 
 /* Under 900px the three stay three and scroll sideways, the way the compare
    page does, rather than stacking into a list of one ring at a time. */
@@ -1096,3 +1110,70 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
    row with copy. */
 .ph-flat .pick-h { margin: 0; font-size: clamp(40px, 5vw, 76px); }
 .ph-flat .closer-copy .ph-display { font-size: clamp(44px, 6vw, 92px); }
+
+/* ==========================================================================
+   § 12 · TUNED TO YOU, 2026-09-21 by request.
+
+   devices/ring-lab's § 14 stands on this page inside a `.lab.rtune-lab`
+   wrapper and is drawn by the lab's own fit.css / fit.js. Only three things
+   depart from the lab, and all three are this page's rules rather than taste:
+   the heading is the kit's two tone pair, the ink is the site's navy ramp
+   rather than the lab's near black, and the feature copy sits on the Band's
+   ladder. The drawn phone screens keep the lab's sizes: they are a picture of
+   an interface, the one exemption the type floor has always had.
+   ======================================================================== */
+.ph-flat .rtune-lab .rtune-h { margin: 0 auto clamp(20px, 3vw, 60px); }
+.ph-flat .rtune-lab .fit-show { padding-top: clamp(72px, 8vw, 128px); }
+.ph-flat .rtune-lab .fit-name {
+  font-size: clamp(28px, 2.4vw, 36px); font-weight: 600; letter-spacing: -0.02em;
+  color: var(--ink-900);
+}
+.ph-flat .rtune-lab .fit-desc { font-size: clamp(18px, 1.35vw, 20px); line-height: 1.55; color: var(--ink-600); }
+.ph-flat .rtune-lab .fit-dots button.on { background: var(--phenome-blue-500, #203a85); }
+.ph-flat .rtune-lab .fit-arr { color: var(--ink-900); }
+
+/* The phone, a size up from the lab's. At 260 wide the lab's screens set their
+   labels at 7.5 to 10px, which on a product page reads as small print. At 300
+   they carry 10.5 to 15, the largest a drawn screen this size can hold without
+   its cards overflowing. --fit-top recentres it for the extra height, and the
+   text columns give back the width it took. */
+.ph-flat .rtune-lab .fit-show { --fit-top: calc(56px + max(24px, (100vh - 56px - 630px) / 2)); }
+.ph-flat .rtune-lab .fit-phone { width: 300px; aspect-ratio: 300 / 623; border-radius: 50px; }
+.ph-flat .rtune-lab .fit-scr { border-radius: 42px; padding: 50px 16px 16px; }
+.ph-flat .rtune-lab .fit-notch { top: 22px; width: 90px; height: 25px; }
+.ph-flat .rtune-lab .fit-text { width: calc(50% - 190px); }
+/* The rail stands in the right hand column, so a right hand item stops short
+   of it rather than running under the dashes. */
+.ph-flat .rtune-lab .fit-item.is-right .fit-text { margin-right: 60px; width: calc(50% - 250px); }
+.ph-flat .rtune-lab .fs-bar { top: 16px; left: 30px; right: 28px; font-size: 12px; }
+.ph-flat .rtune-lab .fs-head { font-size: 15px; }
+.ph-flat .rtune-lab .fs-date { font-size: 12px; margin: 8px 0 12px; }
+.ph-flat .rtune-lab .fs-card { padding: 14px; border-radius: 16px; }
+.ph-flat .rtune-lab .fs-k { font-size: 12.5px; }
+.ph-flat .rtune-lab .fs-note { font-size: 12px; }
+.ph-flat .rtune-lab .fs-dial,
+.ph-flat .rtune-lab .fs-rings { width: 116px; }
+.ph-flat .rtune-lab .fs-dial b { font-size: 30px; }
+.ph-flat .rtune-lab .fs-dial small { font-size: 11px; }
+.ph-flat .rtune-lab .fs-pair small,
+.ph-flat .rtune-lab .fs-split small { font-size: 11px; }
+.ph-flat .rtune-lab .fs-pair b { font-size: 17px; }
+.ph-flat .rtune-lab .fs-pair i { font-size: 11px; }
+.ph-flat .rtune-lab .fs-split b { font-size: 15px; }
+.ph-flat .rtune-lab .fs-legend { font-size: 10.5px; gap: 4px 10px; }
+.ph-flat .rtune-lab .fs-legend span::before { width: 6px; height: 6px; }
+.ph-flat .rtune-lab .fs-big { font-size: 32px; }
+.ph-flat .rtune-lab .fs-big small { font-size: 12px; }
+.ph-flat .rtune-lab .fs-axis { font-size: 10.5px; }
+.ph-flat .rtune-lab .fs-list li { font-size: 12.5px; padding: 9px 0; }
+.ph-flat .rtune-lab .fs-hyp { height: 64px; }
+@media (max-width: 1100px) {
+  .ph-flat .rtune-lab .fit-text { width: calc(50% - 175px); }
+  .ph-flat .rtune-lab .fit-item.is-right .fit-text { width: calc(50% - 235px); }
+}
+@media (max-width: 900px) {
+  .ph-flat .rtune-lab .fit-text,
+  .ph-flat .rtune-lab .fit-item.is-right .fit-text { width: 100%; margin-right: 0; }
+  .ph-flat .rtune-lab .fit-mini { width: 280px; }
+  .ph-flat .rtune-lab .fit-mini .fit-phone { width: 100%; }
+}

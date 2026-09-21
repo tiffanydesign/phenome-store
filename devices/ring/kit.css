@@ -1,0 +1,169 @@
+/* ===========================================================================
+   devices/ring · IN THE BOX, 2026-09-21 by request.
+
+   The shape is devices/ring-lab's "How the PhenomeTech Ring helps" (gen-a.css
+   § 19, ringconn.com gen 2): a panel on the left and a navy slide on the
+   right, joined into one rounded block. The three setup slides that scrolled
+   past a sticky panel were deleted the same day by request; with one slide
+   left there is nothing to scroll past, so the two halves simply finish level.
+   On the lab the left panel is a photograph; here it is the box, the ring over
+   what ships with it.
+
+   Sizes are the Band's ladder, not the lab's vw scale: a slide title at 24 to
+   32, copy at 17 to 19, detail at 17, and nothing under 15 anywhere. The
+   heading is the kit's two tone pair.
+
+   Every word is the leaflet's or the carton's. The detail screen these lines
+   used to sit in (detail.css) still serves store/phenometech-ring.
+   ======================================================================== */
+
+.rkit {
+  --rkit-navy: #13244f;
+  --rkit-ui: linear-gradient(180deg, #101a3e, #0c1433);
+  --rkit-r: clamp(14px, 1.2vw, 22px);
+  --rkit-bar: var(--ph-nav-h, 44px);
+  padding: clamp(64px, 7vw, 116px) 0 clamp(64px, 7vw, 110px);
+  background: #fff;
+}
+.ph-flat .rkit-h {
+  margin: 0 auto clamp(30px, 3.4vw, 54px);
+  padding: 0 var(--ph-margin, 22px);
+  font-size: clamp(40px, 5.6vw, 84px);
+}
+
+.rkit-row {
+  display: flex;
+  align-items: stretch;
+  width: min(100% - 2 * var(--ph-margin, 22px), 1440px);
+  margin: 0 auto;
+}
+
+/* ---- the box panel ------------------------------------------------------
+   A column whose image takes whatever height the heading, the list and the
+   carton line leave over, so it always finishes level with the slide. */
+.rkit-box { flex: 0 0 46%; position: relative; }
+.rkit-box-in {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 560px;
+  padding: clamp(28px, 2.8vw, 48px);
+  box-sizing: border-box;
+  border-radius: var(--rkit-r) 0 0 var(--rkit-r);
+  background: var(--gl-tint-sunk, #f4f6fb);
+}
+.rkit-box-k {
+  margin: 0;
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink-900);
+}
+.rkit-box-shot {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  margin: clamp(8px, 1vw, 16px) 0;
+  object-fit: contain;
+}
+.rkit-box-l {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.rkit-box-l li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink-600);
+}
+.rkit-box-l li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--phenome-blue-300, #7185bd);
+}
+.rkit-made {
+  margin: clamp(16px, 1.6vw, 22px) 0 0;
+  padding-top: clamp(14px, 1.4vw, 18px);
+  border-top: 1px solid rgba(16, 33, 75, .1);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-400);
+}
+
+/* ---- the slides ---------------------------------------------------------- */
+.rkit-list { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.rkit-slide {
+  position: relative;
+  flex: 1;
+  padding: clamp(40px, 4.4vw, 84px) clamp(28px, 3.4vw, 64px) clamp(36px, 3.2vw, 56px) clamp(28px, 4.2vw, 80px);
+  border-radius: 0 var(--rkit-r) var(--rkit-r) 0;
+  background: var(--rkit-navy);
+  color: #fff;
+}
+.rkit-ic {
+  position: absolute;
+  top: clamp(28px, 2.6vw, 48px);
+  right: clamp(24px, 3.4vw, 64px);
+  width: clamp(36px, 3vw, 52px);
+  height: auto;
+}
+.rkit-t {
+  margin: 0;
+  padding-right: clamp(56px, 5vw, 90px);
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+.rkit-d {
+  margin: 14px 0 0;
+  max-width: 34em;
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .86);
+}
+
+/* The readout card under the slide copy, the lab's `.gx-ui` card. */
+.rkit-ui {
+  margin: clamp(22px, 2.2vw, 36px) 0 0;
+  max-width: 560px;
+  padding: clamp(20px, 1.8vw, 30px) clamp(22px, 2vw, 34px);
+  border-radius: clamp(12px, .9vw, 16px);
+  background: var(--rkit-ui);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .05) inset;
+  list-style: none;
+}
+
+/* the specification, one name and one value to a row */
+.rkit-dl div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 6px 18px;
+  padding: 13px 0;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+.rkit-dl div:first-child { border-top: 0; padding-top: 0; }
+.rkit-dl div:last-child { padding-bottom: 0; }
+.rkit-dl dt { margin: 0; font-size: 17px; line-height: 1.4; color: rgba(255, 255, 255, .6); }
+.rkit-dl dd { margin: 0; font-size: 17px; line-height: 1.4; font-weight: 600; color: #fff; }
+
+/* ---- narrower ------------------------------------------------------------
+   Under 900 the box stacks over the slide, at its own height. */
+@media (max-width: 900px) {
+  .rkit-row { flex-direction: column; }
+  .rkit-box-in { height: auto; min-height: 0; border-radius: var(--rkit-r) var(--rkit-r) 0 0; }
+  .rkit-box-shot { flex: none; max-width: 320px; margin-inline: auto; }
+  .rkit-slide { border-radius: 0 0 var(--rkit-r) var(--rkit-r); }
+  .rkit-dl div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
