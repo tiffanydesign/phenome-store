@@ -1177,3 +1177,61 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
   .ph-flat .rtune-lab .fit-mini { width: 280px; }
   .ph-flat .rtune-lab .fit-mini .fit-phone { width: 100%; }
 }
+
+/* ==========================================================================
+   § 13 · PHENOME INTELLIGENCE, REAL PICTURES, 2026-09-21 by request.
+
+   The last three carousel cards were drawn diagrams (a node map, a mode
+   toggle over bars, a padlock). They are real material from the brand folder
+   now, each graded onto the card's own navy so the row reads as one set:
+     kits   the test kit photograph, room pushed to navy, ring set in the light
+     app    the app film's phone, difference keyed off its pastel ground
+     case   the charging case light reveal, screen blended, lid kept shut
+   Built by a scratchpad script (build_intel.py); the ground it bakes in is
+   lab.css's linear-gradient(160deg, #0d1531, #060a1a), so no edge shows.
+   ======================================================================== */
+.ph-flat .lab .lab-card-media.is-photo img,
+.ph-flat .lab .lab-card-media.is-photo video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph-flat .lab .intel-still { transform-origin: 30% 62%; animation: intel-push 16s ease-in-out infinite alternate; }
+@keyframes intel-push { from { transform: scale(1); } to { transform: scale(1.09); } }
+
+/* the two modes, as one glass segmented pill over the phone */
+.ph-flat .lab .intel-modes {
+  position: absolute; left: 50%; top: 20px; transform: translateX(-50%);
+  display: flex; gap: 4px; padding: 4px; border-radius: 99px; white-space: nowrap;
+  background: rgba(10, 16, 40, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.ph-flat .lab .intel-mode {
+  padding: 8px 16px; border-radius: 99px; font-size: 15px; line-height: 1.2;
+  color: rgba(255, 255, 255, .62); animation: intel-mode 9s infinite;
+}
+.ph-flat .lab .intel-mode + .intel-mode { animation-delay: -4.5s; }
+@keyframes intel-mode {
+  0%, 46% { background: rgba(138, 174, 255, .32); color: #fff; }
+  50%, 96% { background: transparent; color: rgba(255, 255, 255, .62); }
+  100% { background: rgba(138, 174, 255, .32); color: #fff; }
+}
+
+/* the privacy card's own line, a glass chip at the foot of the film */
+.ph-flat .lab .intel-chip {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); margin: 0;
+  display: flex; align-items: center; gap: 8px; padding: 9px 16px 9px 12px; white-space: nowrap;
+  border-radius: 99px; font-size: 15px; line-height: 1.2; color: rgba(255, 255, 255, .86);
+  background: rgba(10, 16, 40, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.ph-flat .lab .intel-chip svg { width: 20px; height: 20px; fill: none; stroke: var(--lab-blue, #8aaeff); stroke-width: 4; stroke-linecap: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ph-flat .lab .intel-still, .ph-flat .lab .intel-mode { animation: none; }
+  .ph-flat .lab .intel-mode:first-child { background: rgba(138, 174, 255, .32); color: #fff; }
+}
+/* a 260px card has no room above the phone for the pill, so the film steps
+   down and in rather than the pill shrinking under the type floor */
+@media (max-width: 560px) {
+  .ph-flat .lab .intel-modes { top: 12px; padding: 3px; }
+  .ph-flat .lab .intel-mode { padding: 6px 12px; }
+  .ph-flat .lab .lab-card-media:has(.intel-modes) video { transform: translateY(9%) scale(.88); }
+  .ph-flat .lab .intel-chip { bottom: 14px; }
+}
