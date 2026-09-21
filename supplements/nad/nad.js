@@ -347,8 +347,8 @@
 
   /* ---- 2b · ingredient ring (2026-09-21) -----------------------------------
      The circles open out once the ring is in view. Pointing at one (or
-     tabbing to it) puts its name, its amount and the product it is in at the
-     centre; leaving the ring puts "All ingredients" back. */
+     tabbing or tapping) puts its name, its amount and the product it is in at
+     the centre; leaving the ring puts "All ingredients" back. */
   function ring() {
     var box = $('[data-ring]');
     if (!box) return;
@@ -377,10 +377,11 @@
         core.classList.remove('is-swap');
       }, still.matches ? 0 : 160);
     }
-    $$('.nd-ring-list a', box).forEach(function (a) {
-      var item = { k: a.getAttribute('data-name'), amt: a.getAttribute('data-amt'), per: a.getAttribute('data-per') };
-      a.addEventListener('pointerenter', function () { show(item); });
-      a.addEventListener('focus', function () { show(item); });
+    $$('.nd-ring-list button', box).forEach(function (b) {
+      var item = { k: b.getAttribute('data-name'), amt: b.getAttribute('data-amt'), per: b.getAttribute('data-per') };
+      b.addEventListener('pointerenter', function () { show(item); });
+      b.addEventListener('focus', function () { show(item); });
+      b.addEventListener('click', function () { show(item); });
     });
     box.addEventListener('pointerleave', function () { show(base); });
     box.addEventListener('focusout', function (e) { if (!box.contains(e.relatedTarget)) show(base); });

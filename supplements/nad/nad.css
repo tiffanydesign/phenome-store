@@ -779,18 +779,18 @@
   left: calc(50% + var(--rad) * cos(var(--i) * 36deg - 90deg) - var(--d) / 2);
   top: calc(50% + var(--rad) * sin(var(--i) * 36deg - 90deg) - var(--d) / 2);
 }
-.nadp .nd-ring-list a {
-  display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+.nadp .nd-ring-list button {
+  display: block; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
   box-shadow: 0 14px 34px rgba(10, 30, 87, .14);
   animation: nd-orbit var(--turn) linear infinite reverse;
   transition: scale .5s var(--nd-ease), box-shadow .5s var(--nd-ease);
 }
 .nadp .nd-ring-list img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale .9s var(--nd-ease); }
-.nadp .nd-ring-list a:hover, .nadp .nd-ring-list a:focus-visible { scale: 1.1; box-shadow: 0 20px 44px rgba(10, 30, 87, .24); }
-.nadp .nd-ring-list a:hover img { scale: 1.08; }
-.nadp .nd-ring-list a:focus-visible { outline: 2px solid var(--nd-accent); outline-offset: 4px; }
-.nadp .nd-ring:hover .nd-ring-list, .nadp .nd-ring:hover .nd-ring-list a,
-.nadp .nd-ring:focus-within .nd-ring-list, .nadp .nd-ring:focus-within .nd-ring-list a { animation-play-state: paused; }
+.nadp .nd-ring-list button:hover, .nadp .nd-ring-list button:focus-visible { scale: 1.1; box-shadow: 0 20px 44px rgba(10, 30, 87, .24); }
+.nadp .nd-ring-list button:hover img { scale: 1.08; }
+.nadp .nd-ring-list button:focus-visible { outline: 2px solid var(--nd-accent); outline-offset: 4px; }
+.nadp .nd-ring:hover .nd-ring-list, .nadp .nd-ring:hover .nd-ring-list button,
+.nadp .nd-ring:focus-within .nd-ring-list, .nadp .nd-ring:focus-within .nd-ring-list button { animation-play-state: paused; }
 @keyframes nd-orbit { to { rotate: 360deg; } }
 /* arrival: the circles open one after another, only once nad.js has armed
    the ring, so with no script nothing is ever hidden */
@@ -816,7 +816,8 @@
 
 /* ---- 7 · standards on the supplements field ------------------------------ */
 .nadp .nd-std { position: relative; overflow: clip; background: rgb(10 30 87); color: #fff; }
-.nadp .nd-std-in { position: relative; min-height: clamp(600px, 48vw, 720px); display: flex; align-items: flex-end; }
+/* copy in the middle of the left side (2026-09-21, it sat too low at the foot) */
+.nadp .nd-std-in { position: relative; min-height: clamp(600px, 48vw, 720px); display: flex; align-items: center; }
 .nadp .nd-std-field {
   --st-tile: 30vw; position: absolute; top: 50%; left: 62%;
   transform: translate(-50%, -50%) rotate(50deg); pointer-events: none;
@@ -835,7 +836,7 @@
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(90deg, rgb(10 30 87 / .9) 0%, rgb(10 30 87 / .55) 42%, rgb(10 30 87 / 0) 72%);
 }
-.nadp .nd-std-copy { position: relative; z-index: 1; padding-block: clamp(72px, 8vw, 128px) clamp(48px, 4vw, 64px); }
+.nadp .nd-std-copy { position: relative; z-index: 1; padding-block: clamp(64px, 6vw, 96px); }
 .nadp .nd-std-p { margin-top: 24px; max-width: 44ch; font-size: clamp(18px, 1.35vw, 21px); line-height: 1.5; color: rgba(255, 255, 255, .88); }
 .nadp .nd-std-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin: clamp(32px, 3.4vw, 48px) 0 0; padding: 0; }
 .nadp .nd-std-list li {
@@ -865,5 +866,5 @@
   .nadp .nd-std-in::after { background: rgb(10 30 87 / .6); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nadp .nd-ring::before, .nadp .nd-ring-list, .nadp .nd-ring-list a { animation: none; }
+  .nadp .nd-ring::before, .nadp .nd-ring-list, .nadp .nd-ring-list button { animation: none; }
 }
