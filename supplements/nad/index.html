@@ -181,10 +181,14 @@
 
 <!-- ==========================================================================
      2 · ESSENTIALS · Seed's photo panel with the four promises on a glass
-     strip, then an image card beside a dark card that explains delivery.
+     strip. Since 2026-09-21 it opens as ouraring.com/store/rings/oura-ring-4
+     opens "Thoughtfully crafted": an inset rounded card that grows to fill the
+     screen as it arrives, holds there pinned, then scrolls on. The frame is
+     scaled, the photograph inside it counter scaled, so only the crop changes.
      ======================================================================= -->
-<section class="nd-sec nd-ess">
-  <div class="nd-bleed">
+<section class="nd-sec nd-ess" data-ess>
+  <div class="nd-ess-track">
+    <div class="nd-ess-stage">
     <div class="nd-ess-hero">
       <img class="nd-ess-bg" alt="" height="2133" loading="lazy" src="/phenome-store/assets/pages/nad_02.webp" width="1200" data-drift/>
       <h2 class="ph-display is-left nd-ess-h"><span class="ph-display-lead">Feel the difference</span><span>Of cells that keep up</span></h2>
@@ -211,7 +215,42 @@
         </li>
       </ul>
     </div>
+    </div>
+  </div>
+</section>
 
+<!-- ==========================================================================
+     2b · INGREDIENTS, 2026-09-21 by request. The arrangement is
+     viome.com/products/precision-supplements "What you put in your body
+     changes everything": ten ingredients in a ring around a soft glow, the
+     statement beside it. Ours are the still lifes shot for the Phenome+ range
+     (assets/pages/*_05, cropped to assets/nad/ing). Each circle is a link to
+     the product it goes into; pointing at one names it in the centre.
+     ======================================================================= -->
+<section class="nd-sec nd-src">
+  <div class="nd-wrap nd-src-grid">
+    <div class="nd-ring" data-ring>
+      <div class="nd-ring-core" aria-live="polite">
+        <p class="nd-ring-k" data-ring-k>Our ingredients</p>
+        <a class="nd-ring-go" href="/phenome-store/supplements/" data-ring-go>Explore the full range</a>
+      </div>
+      <ul class="nd-ring-list">
+        <li style="--i:0"><a href="/phenome-store/supplements/nad/" data-name="Elderflower" data-in="Phenome+ NAD+"><img alt="Elderflower" src="/phenome-store/assets/nad/ing/elderflower.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:1"><a href="/phenome-store/supplements/bromelain-capsules/" data-name="Pineapple" data-in="Bromelain"><img alt="Pineapple" src="/phenome-store/assets/nad/ing/pineapple.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:2"><a href="/phenome-store/supplements/guarana-capsules/" data-name="Guarana" data-in="Guarana"><img alt="Guarana" src="/phenome-store/assets/nad/ing/guarana.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:3"><a href="/phenome-store/supplements/nigella-sativa-seed-oil/" data-name="Black seed" data-in="Nigella sativa seed oil"><img alt="Black seed" src="/phenome-store/assets/nad/ing/black-seed.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:4"><a href="/phenome-store/supplements/sambucus-gummies/" data-name="Elderberry" data-in="Sambucus gummies"><img alt="Elderberry" src="/phenome-store/assets/nad/ing/elderberry.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:5"><a href="/phenome-store/supplements/quercetin-capsules/" data-name="Acerola cherry" data-in="Quercetin"><img alt="Acerola cherry" src="/phenome-store/assets/nad/ing/acerola.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:6"><a href="/phenome-store/supplements/propolis-throat-lozenges/" data-name="Propolis" data-in="Propolis throat lozenges"><img alt="Propolis" src="/phenome-store/assets/nad/ing/propolis.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:7"><a href="/phenome-store/supplements/throat-relief-lozenges/" data-name="Honeycomb" data-in="Throat relief lozenges"><img alt="Honeycomb" src="/phenome-store/assets/nad/ing/honeycomb.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:8"><a href="/phenome-store/supplements/flexicream/" data-name="Arnica" data-in="FlexiCream"><img alt="Arnica" src="/phenome-store/assets/nad/ing/arnica.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+        <li style="--i:9"><a href="/phenome-store/supplements/broccoli-complex-capsules/" data-name="Cinnamon" data-in="Broccoli complex"><img alt="Cinnamon" src="/phenome-store/assets/nad/ing/cinnamon.webp" width="480" height="480" loading="lazy" decoding="async"/></a></li>
+      </ul>
+    </div>
+    <div class="nd-src-copy">
+      <h2 class="ph-display is-ink is-left nd-src-h"><span class="ph-display-lead">What goes into your body</span><span>Shapes everything</span></h2>
+      <p class="nd-src-p">That is why every ingredient in the Phenome+ range starts from a higher bar: chosen for its scientific evidence, its quality and its relevance to your biology, then made in the UK to Good Manufacturing Practice.</p>
+    </div>
   </div>
 </section>
 
@@ -365,6 +404,28 @@
         </div>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     7 · STANDARDS, restored 2026-09-21 by request and set on the field of
+     websitelab's "Supplements are everywhere" band (phenomelongevity.com's
+     home page): a navy ground, three rows of product tiles turned 50deg at
+     30, 20 and 10 percent, sliding in opposite directions as the band passes. The field sits one
+     level down (.nd-std-in) so shared.js's reveal transform cannot reach it.
+     ======================================================================= -->
+<section class="nd-std" data-std="/phenome-store/assets/lab/sup/nad.webp,/phenome-store/assets/lab/sup/immune.webp,/phenome-store/assets/lab/sup/mito.webp,/phenome-store/assets/lab/sup/collagen.webp,/phenome-store/assets/lab/sup/flexicream.webp">
+  <div class="nd-std-in">
+  <div class="nd-std-field" aria-hidden="true"></div>
+  <div class="nd-wrap nd-std-copy">
+    <h2 class="ph-display is-left nd-std-h"><span class="ph-display-lead">Made to</span><span>A higher standard</span></h2>
+    <p class="nd-std-p">Every batch is manufactured in the UK, because what is not in your sachet matters too.</p>
+    <ul class="nd-std-list">
+      <li><svg class="nd-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l14 6v10c0 9-6 16-14 20-8-4-14-11-14-20V12z"/><path d="M18 24l4 4 8-9"/></svg><p>Allergen free and non genetically modified</p></li>
+      <li><svg class="nd-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10M21 6v12L11 38a3 3 0 0 0 3 4h20a3 3 0 0 0 3-4L27 18V6"/><path d="M15 30h18"/></svg><p>Manufactured to Good Manufacturing Practice</p></li>
+      <li><svg class="nd-ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="10" stroke-dasharray="2 3"/><circle cx="24" cy="24" r="3"/></svg><p>Liposomal liquid, made to reach your cells</p></li>
+    </ul>
+  </div>
   </div>
 </section>
 

@@ -310,6 +310,119 @@
     });
   }
 
+  /* ---- 2 · essentials grows to fill the screen (2026-09-21) ---------------
+     Progress runs 0 to 1 while the track's top climbs from 80% of the way
+     down the window to its top, so the card is seen inset before it grows;
+     from there the stage is pinned and the frame stays full. The scale is a
+     smoothstep, and the corner is divided by the scale so the corner you see
+     closes at the same pace as the frame opens. */
+  function essGrow() {
+    var sec = $('[data-ess]');
+    if (!sec) return;
+    var track = $('.nd-ess-track', sec);
+    var hero = $('.nd-ess-hero', sec);
+    if (!track || !hero) return;
+    var narrow = window.matchMedia ? window.matchMedia('(max-width: 760px)') : { matches: false };
+    var S0 = 0.86, R = 28;
+    var last = -1;
+    onFrame(function () {
+      if (narrow.matches) {
+        if (last !== -2) { hero.style.removeProperty('--ess-s'); hero.style.removeProperty('--ess-rad'); last = -2; }
+        return;
+      }
+      var vh = window.innerHeight;
+      var r = track.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 1.5) return;
+      var run = vh * 0.8;
+      var p = still.matches ? 1 : (run - r.top) / run;
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      var e = p * p * (3 - 2 * p);
+      if (Math.abs(e - last) < 0.0005) return;
+      last = e;
+      var s = S0 + (1 - S0) * e;
+      hero.style.setProperty('--ess-s', s.toFixed(4));
+      hero.style.setProperty('--ess-rad', (R * (1 - e) / s).toFixed(2) + 'px');
+    });
+  }
+
+  /* ---- 2b · ingredient ring (2026-09-21) -----------------------------------
+     The circles open out once the ring is in view. Pointing at one (or
+     tabbing to it) names it in the centre with the product it goes into, and
+     the centre link follows it; leaving the ring puts the default back. */
+  function ring() {
+    var box = $('[data-ring]');
+    if (!box) return;
+    var core = $('.nd-ring-core', box);
+    var k = $('[data-ring-k]', box);
+    var go = $('[data-ring-go]', box);
+    if (!core || !k || !go) return;
+    var base = { k: k.textContent, go: go.textContent, href: go.getAttribute('href') };
+    var shown = base, timer = null;
+
+    if ('IntersectionObserver' in window && !still.matches) {
+      box.setAttribute('data-armed', '');
+      onceInView(box, 'is-in', '0px 0px -20% 0px');
+    }
+
+    function show(next) {
+      if (next.k === shown.k) return;
+      shown = next;
+      clearTimeout(timer);
+      core.classList.add('is-swap');
+      timer = setTimeout(function () {
+        k.textContent = next.k;
+        go.textContent = next.go;
+        go.setAttribute('href', next.href);
+        core.classList.remove('is-swap');
+      }, still.matches ? 0 : 180);
+    }
+    $$('.nd-ring-list a', box).forEach(function (a) {
+      var item = { k: a.getAttribute('data-name'), go: 'In ' + a.getAttribute('data-in'), href: a.getAttribute('href') };
+      a.addEventListener('pointerenter', function () { show(item); });
+      a.addEventListener('focus', function () { show(item); });
+    });
+    box.addEventListener('pointerleave', function () { show(base); });
+    box.addEventListener('focusout', function (e) { if (!box.contains(e.relatedTarget)) show(base); });
+  }
+
+  /* ---- 7 · standards field (2026-09-21) -------------------------------------
+     websitelab's sup.js, on this page's frame loop: three rows of eight tiles
+     from the shots listed on the section, each row starting two shots on, and
+     every row sliding 60% sideways across the section's pass through the
+     window, neighbours in opposite directions. */
+  function stdField() {
+    var sec = $('[data-std]');
+    if (!sec) return;
+    var field = $('.nd-std-field', sec);
+    var shots = (sec.getAttribute('data-std') || '').split(',');
+    if (!field || !shots[0]) return;
+    var ROWS = 3, PER_ROW = 8, TRAVEL = 60, rows = [];
+    for (var r = 0; r < ROWS; r++) {
+      var row = doc.createElement('div');
+      row.className = 'nd-std-row';
+      for (var t = 0; t < PER_ROW; t++) {
+        var tile = doc.createElement('span');
+        tile.className = 'nd-std-tile';
+        tile.style.backgroundImage = 'url("' + shots[(t + r * 2) % shots.length] + '")';
+        row.appendChild(tile);
+      }
+      field.appendChild(row);
+      rows.push(row);
+    }
+    if (still.matches) return;
+    onFrame(function () {
+      var box = sec.getBoundingClientRect();
+      var vh = window.innerHeight;
+      if (box.bottom < -200 || box.top > vh + 200) return;
+      var p = (vh - box.top) / (vh + box.height);
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      for (var i = 0; i < rows.length; i++) {
+        var x = i % 2 === 0 ? -TRAVEL * (1 - p) : -TRAVEL * p;
+        rows[i].style.transform = 'translate3d(' + x.toFixed(3) + '%, 0, 0)';
+      }
+    });
+  }
+
   /* ---- 3 · timeline · MOVED TO shared.js 2026-09-16 -----------------------
      The rail, its fill, the cumulative lighting and the collage drift are the
      kit's now (phenome-glass.css § 9, shared.js § the timeline), because
@@ -462,6 +575,9 @@
   dock();
   plans();
   essentials();
+  essGrow();
+  ring();
+  stdField();
   onceInView($('.nd-table'), 'is-in', '0px 0px -10% 0px');
   faq();
   reviews();

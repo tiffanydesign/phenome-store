@@ -776,3 +776,137 @@
   .nadp .nd-still-dots, .nadp .nd-end-sachet { animation: none; }
   .nadp .nd-table [role="row"] { opacity: 1; translate: none; }
 }
+
+/* ===========================================================================
+   2026-09-21 · THREE SCREENS, by request
+   ======================================================================== */
+
+/* ---- 2 · essentials grows to fill the screen ------------------------------
+   The reference is the Oura Ring 4 page on ouraring.com, "Thoughtfully
+   crafted": the frame arrives as an inset rounded card at .86 and reaches the
+   full screen, corners square, as its top meets the top of the window; it then
+   holds pinned for most of a screen before the page moves on. nad.js writes
+   --ess-s (the frame's scale) and --ess-rad (its corner, already divided by
+   the scale so the visible corner shrinks evenly). The photograph is counter
+   scaled so it keeps its size and only the crop changes. */
+.nadp .nd-ess-track { position: relative; height: calc(100svh + 70vh); }
+.nadp .nd-ess-stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.nadp .nd-ess .nd-ess-hero {
+  width: 100%; height: 100svh; min-height: 0;
+  border-radius: var(--ess-rad, 0px);
+  transform: scale(var(--ess-s, 1)); transform-origin: 50% 50%;
+  padding: clamp(96px, 9vw, 136px) clamp(24px, 4vw, 72px) clamp(24px, 3vw, 48px);
+}
+.nadp .nd-ess .nd-ess-bg { scale: calc(1 / var(--ess-s, 1)); }
+.nadp .nd-ess .nd-ess-h { font-size: clamp(40px, 5vw, 80px); }
+.nadp .nd-ess .nd-ess-panel { margin-inline: 0; }
+
+/* ---- 2b · ingredients -----------------------------------------------------
+   Ten circles on a ring, placed with cos() and sin() from their index. The
+   ring turns once every 160s and each circle turns back at the same rate, so
+   the photographs stay upright; pointing at the ring pauses both. */
+.nadp .nd-src { overflow: clip; }
+.nadp .nd-src-grid {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.nadp .nd-ring {
+  --d: 21%; --rad: 39.5%; --turn: 160s;
+  position: relative; width: min(100%, 640px); aspect-ratio: 1; justify-self: center;
+}
+.nadp .nd-ring::before {
+  content: ""; position: absolute; inset: 14%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 179, 232, .26) 0%, rgba(173, 196, 238, .32) 34%, rgba(230, 233, 242, .5) 52%, rgba(255, 255, 255, 0) 72%);
+  filter: blur(8px); animation: nd-breathe 7s ease-in-out infinite alternate;
+}
+@keyframes nd-breathe { from { scale: .92; opacity: .8; } to { scale: 1.06; opacity: 1; } }
+.nadp .nd-ring-list { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; animation: nd-orbit var(--turn) linear infinite; }
+.nadp .nd-ring-list li {
+  position: absolute; width: var(--d); aspect-ratio: 1;
+  left: calc(50% + var(--rad) * cos(var(--i) * 36deg - 90deg) - var(--d) / 2);
+  top: calc(50% + var(--rad) * sin(var(--i) * 36deg - 90deg) - var(--d) / 2);
+}
+.nadp .nd-ring-list a {
+  display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+  box-shadow: 0 14px 34px rgba(10, 30, 87, .14);
+  animation: nd-orbit var(--turn) linear infinite reverse;
+  transition: scale .5s var(--nd-ease), box-shadow .5s var(--nd-ease);
+}
+.nadp .nd-ring-list img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale .9s var(--nd-ease); }
+.nadp .nd-ring-list a:hover, .nadp .nd-ring-list a:focus-visible { scale: 1.1; box-shadow: 0 20px 44px rgba(10, 30, 87, .24); }
+.nadp .nd-ring-list a:hover img { scale: 1.08; }
+.nadp .nd-ring-list a:focus-visible { outline: 2px solid var(--nd-accent); outline-offset: 4px; }
+.nadp .nd-ring:hover .nd-ring-list, .nadp .nd-ring:hover .nd-ring-list a,
+.nadp .nd-ring:focus-within .nd-ring-list, .nadp .nd-ring:focus-within .nd-ring-list a { animation-play-state: paused; }
+@keyframes nd-orbit { to { rotate: 360deg; } }
+/* arrival: the circles open one after another, only once nad.js has armed
+   the ring, so with no script nothing is ever hidden */
+.nadp .nd-ring[data-armed] .nd-ring-list li {
+  opacity: 0; scale: .6;
+  transition: opacity .7s var(--nd-ease), scale .9s var(--nd-ease);
+  transition-delay: calc(var(--i) * 70ms);
+}
+.nadp .nd-ring[data-armed].is-in .nd-ring-list li { opacity: 1; scale: 1; }
+.nadp .nd-ring-core {
+  position: absolute; inset: 30%; z-index: 1; display: grid; place-content: center; justify-items: center;
+  gap: 10px; text-align: center;
+}
+.nadp .nd-ring-k { margin: 0; font-size: clamp(20px, 1.7vw, 26px); line-height: 1.2; font-weight: 600; letter-spacing: -.01em; color: var(--nd-navy); transition: opacity .25s; }
+.nadp .nd-ring-go {
+  font-size: 16px; line-height: 1.35; color: var(--nd-accent); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-thickness: 1px; transition: opacity .25s;
+}
+.nadp .nd-ring-core.is-swap .nd-ring-k, .nadp .nd-ring-core.is-swap .nd-ring-go { opacity: 0; }
+.nadp .nd-src-p { margin-top: 28px; max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.55; color: var(--nd-ink); }
+
+/* ---- 7 · standards on the supplements field ------------------------------ */
+.nadp .nd-std { position: relative; overflow: clip; background: rgb(10 30 87); color: #fff; }
+.nadp .nd-std-in { position: relative; min-height: clamp(600px, 48vw, 720px); display: flex; align-items: flex-end; }
+.nadp .nd-std-field {
+  --st-tile: 30vw; position: absolute; top: 50%; left: 62%;
+  transform: translate(-50%, -50%) rotate(50deg); pointer-events: none;
+}
+.nadp .nd-std-row { display: flex; will-change: transform; }
+.nadp .nd-std-row:nth-child(1) { opacity: .3; }
+.nadp .nd-std-row:nth-child(2) { opacity: .2; }
+.nadp .nd-std-row:nth-child(3) { opacity: .1; }
+.nadp .nd-std-tile {
+  flex: none; width: var(--st-tile); height: var(--st-tile); margin: 1vw; border-radius: 16px;
+  background-size: cover; background-position: 50% 50%; rotate: -90deg;
+}
+/* the copy sits bottom left, as on the band it copies; a navy wash from the
+   left keeps the tiles off the words without dimming the rest of the field */
+.nadp .nd-std-in::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgb(10 30 87 / .9) 0%, rgb(10 30 87 / .55) 42%, rgb(10 30 87 / 0) 72%);
+}
+.nadp .nd-std-copy { position: relative; z-index: 1; padding-block: clamp(72px, 8vw, 128px) clamp(48px, 4vw, 64px); }
+.nadp .nd-std-p { margin-top: 24px; max-width: 44ch; font-size: clamp(18px, 1.35vw, 21px); line-height: 1.5; color: rgba(255, 255, 255, .88); }
+.nadp .nd-std-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin: clamp(32px, 3.4vw, 48px) 0 0; padding: 0; }
+.nadp .nd-std-list li {
+  list-style: none; display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: var(--nd-r-md);
+  background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.nadp .nd-std-list .nd-ic { width: 40px; height: 40px; stroke-width: 1.3; color: #fff; }
+.nadp .nd-std-list p { margin: 0; font-size: 16px; line-height: 1.4; color: #fff; }
+
+@media (max-width: 1024px) {
+  .nadp .nd-src-grid { grid-template-columns: minmax(0, 1fr); }
+  .nadp .nd-src-copy { order: -1; }
+  .nadp .nd-std-list { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+}
+/* Under 760px the card does not grow: a phone's screen is already the frame,
+   so the section is the plain rounded card it always was. */
+@media (max-width: 760px) {
+  .nadp .nd-ess-track { height: auto; }
+  .nadp .nd-ess-stage { position: static; height: auto; overflow: visible; padding-inline: var(--nd-gut); }
+  .nadp .nd-ess .nd-ess-hero { height: auto; min-height: 620px; border-radius: var(--nd-r-lg); transform: none; padding: 40px 20px 20px; }
+  .nadp .nd-ess .nd-ess-bg { scale: none; }
+  .nadp .nd-ring { --d: 22%; --rad: 38.5%; }
+  .nadp .nd-std-field { --st-tile: 46vw; }
+  .nadp .nd-std-in::after { background: rgb(10 30 87 / .6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nadp .nd-ring::before, .nadp .nd-ring-list, .nadp .nd-ring-list a { animation: none; }
+}
