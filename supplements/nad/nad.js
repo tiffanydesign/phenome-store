@@ -579,7 +579,6 @@
   essGrow();
   ring();
   stdField();
-  onceInView($('.nd-table'), 'is-in', '0px 0px -10% 0px');
   faq();
   reviews();
   request();
