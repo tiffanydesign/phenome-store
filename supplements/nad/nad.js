@@ -296,20 +296,6 @@
     });
   }
 
-  /* ---- 2 · essentials: photo drift --------------------------------------- */
-  function essentials() {
-    var bg = $('[data-drift]');
-    if (!bg || still.matches) return;
-    var box = bg.parentNode;
-    onFrame(function () {
-      var r = box.getBoundingClientRect();
-      var vh = window.innerHeight;
-      if (r.bottom < 0 || r.top > vh) return;
-      var p = (vh - r.top) / (vh + r.height); /* 0 entering, 1 leaving */
-      bg.style.translate = '0 ' + ((p - 0.5) * -7).toFixed(2) + '%';
-    });
-  }
-
   /* ---- 3 · timeline · MOVED TO shared.js 2026-09-16 -----------------------
      The rail, its fill, the cumulative lighting and the collage drift are the
      kit's now (phenome-glass.css § 9, shared.js § the timeline), because
@@ -461,8 +447,6 @@
   viewer(gallery());
   dock();
   plans();
-  essentials();
-  onceInView($('.nd-table'), 'is-in', '0px 0px -10% 0px');
   faq();
   reviews();
   request();
