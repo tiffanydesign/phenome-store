@@ -1,0 +1,196 @@
+/* ==========================================================================
+   store/supplements, the supplements explore page.
+   Layout follows ritual.com's home page: a split hero with the picture held
+   to the left edge, product rails that run off the right edge of the screen,
+   a full width brand band, and an editorial picture beside a short statement.
+   Headlines use the kit's two tone .ph-display (phenome-glass.css § 3), the
+   same pair devices/band sets. Everything here is scoped to body.sx.
+   ========================================================================== */
+
+.sx {
+  --sx-max: 1320px;
+  --sx-edge: max(var(--ph-margin), calc((100% - var(--sx-max)) / 2));
+  --sx-plate: #e2e5ed;            /* the ground baked into assets/shop/supp-*.webp */
+  --sx-mist: #f4f6fb;
+  --sx-ink: var(--ink-900);
+  --sx-sub: var(--ink-600);
+  --sx-navy: var(--phenome-blue-900);
+}
+
+.sx main { overflow-x: clip; }
+.sx .sx-in { padding-inline: var(--sx-edge); }
+.sx .crumb { font-size: 15px; }
+
+/* 1 · Hero ---------------------------------------------------------------- */
+.sx .sx-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 88px);
+  padding: 24px var(--sx-edge) clamp(56px, 7vw, 104px) 0;
+}
+.sx .sx-hero-art {
+  position: relative;
+  min-height: clamp(420px, 70svh, 720px);
+  display: grid; place-items: center;
+  background:
+    radial-gradient(60% 55% at 58% 42%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(160deg, var(--sx-mist) 0%, var(--sx-plate) 100%);
+  border-radius: 0 28px 28px 0;
+  overflow: hidden;
+}
+.sx .sx-hero-art::after {          /* a soft floor shadow under the capsule */
+  content: ""; position: absolute; left: 50%; top: 66%;
+  width: 46%; height: 7%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(16, 33, 75, .16), rgba(16, 33, 75, 0));
+  animation: sx-shadow 7s ease-in-out infinite;
+}
+.sx .sx-hero-art svg {
+  width: min(78%, 560px); height: auto;
+  transform: rotate(-24deg);
+  animation: sx-float 7s ease-in-out infinite;
+  filter: drop-shadow(0 30px 40px rgba(16, 33, 75, .18));
+}
+@keyframes sx-float {
+  0%, 100% { transform: translateY(0) rotate(-24deg); }
+  50%      { transform: translateY(-16px) rotate(-21deg); }
+}
+@keyframes sx-shadow {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50%      { opacity: .7; transform: translateX(-50%) scale(.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sx .sx-hero-art svg, .sx .sx-hero-art::after { animation: none; }
+}
+
+.sx .sx-hero-copy { max-width: 560px; }
+.sx .sx-kicker {
+  margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0;
+  color: var(--phenome-blue-500);
+}
+.sx .sx-hero .ph-display.is-hero { font-size: clamp(42px, 5.2vw, 80px); margin-top: 16px; }
+.sx .sx-hero-lede {
+  margin: 28px 0 0; max-width: 34em;
+  font-size: clamp(18px, 1.4vw, 21px); line-height: 1.5; color: var(--sx-sub);
+}
+.sx .sx-jump { display: flex; flex-wrap: wrap; gap: 10px; margin: 36px 0 0; padding: 0; list-style: none; }
+.sx .sx-jump a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
+  border-radius: 999px; border: 1px solid rgba(16, 33, 75, .18);
+  font-size: 16px; font-weight: 500; color: var(--sx-ink); text-decoration: none;
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+.sx .sx-jump a:hover { background: var(--sx-ink); border-color: var(--sx-ink); color: #fff; }
+
+/* 2 · Category rails ------------------------------------------------------ */
+.sx .sx-cat { padding: clamp(56px, 7vw, 112px) 0 0; scroll-margin-top: 80px; }
+.sx .sx-cat-head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 32px;
+  padding-inline: var(--sx-edge);
+  margin-bottom: clamp(28px, 3vw, 44px);
+}
+.sx .sx-cat-head .ph-display {
+  font-size: clamp(34px, 4.2vw, 62px);
+  max-width: 15em;
+}
+.sx .sx-cat-head .ph-rail-nav { padding-bottom: 6px; }
+
+.sx .sx-rail {
+  display: flex; gap: 16px;
+  margin: 0; padding: 0 var(--sx-edge) 4px; list-style: none;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--sx-edge);
+  scrollbar-width: none;
+}
+.sx .sx-rail::-webkit-scrollbar { display: none; }
+.sx .sx-rail > li { flex: 0 0 clamp(250px, 21vw, 310px); scroll-snap-align: start; }
+
+.sx .sx-card { display: block; color: var(--sx-ink); text-decoration: none; }
+.sx .sx-card-media {
+  position: relative; display: block;
+  aspect-ratio: 5 / 6; overflow: hidden;
+  background: var(--sx-plate); border-radius: 6px;
+}
+.sx .sx-card-media img {
+  /* square shots in a 5:6 frame: contain, sat on the floor, so no label is cut
+     and the plate ground above them is the frame's own colour */
+  width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; display: block;
+  transform-origin: 50% 100%;
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+.sx a.sx-card:hover .sx-card-media img { transform: scale(1.045); }
+.sx .sx-card-media svg { position: absolute; inset: 0; margin: auto; width: 62%; height: auto; transform: rotate(-24deg); }
+.sx .sx-add {
+  position: absolute; right: 14px; bottom: 14px;
+  display: inline-flex; align-items: center; height: 40px; padding: 0 18px;
+  border-radius: 999px; background: #fff; color: var(--sx-ink);
+  font-size: 16px; font-weight: 600;
+  box-shadow: 0 1px 2px rgba(16, 33, 75, .08);
+  transition: background-color .2s, color .2s;
+}
+.sx a.sx-card:hover .sx-add { background: var(--sx-ink); color: #fff; }
+.sx .sx-card-name { display: block; margin: 16px 0 0; font-size: 19px; font-weight: 600; line-height: 1.3; }
+.sx .sx-card-price { display: block; margin: 4px 0 0; font-size: 17px; line-height: 1.4; color: var(--sx-sub); }
+
+/* 3 · How matching works, the one dark band -------------------------------- */
+.sx .sx-how {
+  margin-top: clamp(80px, 9vw, 140px);
+  padding: clamp(72px, 8vw, 128px) var(--sx-edge);
+  background:
+    radial-gradient(70% 90% at 85% 0%, rgba(67, 91, 161, .45), rgba(67, 91, 161, 0) 70%),
+    var(--sx-navy);
+  color: #fff;
+}
+.sx .sx-how .ph-display { font-size: clamp(38px, 5vw, 76px); max-width: 15em; margin-inline: auto; }
+.sx .sx-steps {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  margin: clamp(48px, 5vw, 80px) auto 0; padding: 0; list-style: none;
+  max-width: 1120px; text-align: center;
+}
+.sx .sx-step-ic {
+  width: 64px; height: 64px; margin: 0 auto; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, .1); color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+}
+.sx .sx-step-ic svg { width: 28px; height: 28px; }
+.sx .sx-step-n { margin: 22px 0 0; font-size: 15px; font-weight: 600; color: var(--phenome-blue-200); }
+.sx .sx-step-t { margin: 6px 0 0; font-size: clamp(21px, 1.7vw, 24px); font-weight: 600; line-height: 1.25; }
+.sx .sx-step-d {
+  margin: 10px auto 0; max-width: 26em;
+  font-size: 17px; line-height: 1.55; color: rgba(255, 255, 255, .72);
+}
+
+/* 4 · Editorial close ----------------------------------------------------- */
+.sx .sx-close {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center; gap: clamp(32px, 6vw, 110px);
+  padding: clamp(80px, 9vw, 140px) var(--sx-edge);
+}
+.sx .sx-close-img { margin: 0; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 6px; background: var(--sx-plate); }
+.sx .sx-close-img img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; display: block; }
+.sx .sx-close .ph-display { font-size: clamp(38px, 4.4vw, 68px); }
+.sx .sx-close-d { margin: 24px 0 0; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.5; color: var(--sx-sub); }
+.sx .sx-close-act { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+.sx .sx-link {
+  font-size: 17px; font-weight: 600; color: var(--sx-ink);
+  text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px;
+}
+.sx .sx-link:hover { color: var(--phenome-blue-500); }
+
+/* 5 · Narrow screens ------------------------------------------------------ */
+@media (max-width: 900px) {
+  .sx .sx-hero { grid-template-columns: 1fr; padding: 16px 0 56px; gap: 36px; }
+  .sx .sx-hero-art { min-height: 0; aspect-ratio: 4 / 3; border-radius: 0; }
+  .sx .sx-hero-copy { padding-inline: var(--sx-edge); max-width: none; }
+  .sx .sx-steps { grid-template-columns: 1fr; max-width: 420px; gap: 44px; }
+  .sx .sx-close { grid-template-columns: 1fr; }
+  .sx .sx-close-img { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 560px) {
+  .sx .sx-cat-head .ph-rail-nav { display: none; }   /* the 74% peek says "swipe" */
+  .sx .sx-rail > li { flex-basis: 74%; }
+  .sx .sx-card-name { font-size: 18px; }
+}
