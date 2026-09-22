@@ -4601,7 +4601,7 @@ body:not(:has(.ds-launch)) .ph-top {
   .ph-nav .ph-panel .ph-panel-col a,
   .ph-nav .ph-panel .ph-panel-col .ph-panel-label {
     display: inline-flex; align-items: baseline; padding: 4px 0;
-    font-size: 15px; line-height: 20px; font-weight: 600;
+    font-size: 17px; line-height: 22px; font-weight: 600;
     letter-spacing: -0.005em;
     color: var(--ph-text-1);
     white-space: nowrap;
@@ -4614,7 +4614,7 @@ body:not(:has(.ds-launch)) .ph-top {
   /* The column's small closing links, Apple's "Compare Mac models". */
   .ph-nav .ph-panel .ph-panel-col.is-lead a.ph-panel-sm {
     padding: 4px 0;
-    font-size: 15px; line-height: 20px; letter-spacing: -0.005em;
+    font-size: 17px; line-height: 22px; letter-spacing: -0.005em;
   }
   .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) + a.ph-panel-sm { margin-top: 12px; }
   .ph-nav .ph-panel .ph-panel-col a:hover { color: var(--ph-accent-link); text-decoration: none; }
@@ -4667,12 +4667,15 @@ body:not(:has(.ds-launch)) .ph-top {
 /* Every picture card carries a category flag at its top, the same navy pill
    Shop all puts on its cards (store/shop.css .pcard-tag). */
 .ph-feat-img { position: relative; }
+/* 2026-09-22 by request: a quiet corner mark, not a banner. Small frosted
+   pill tucked into the corner so it never sits over the product itself. */
 .ph-feat-tag {
-  position: absolute; top: 10px; left: 10px; z-index: 1;
+  position: absolute; top: 7px; left: 7px; z-index: 1;
   display: inline-flex; align-items: center;
-  height: 26px; padding: 0 11px; border-radius: 50px;
-  background: var(--ph-accent); color: var(--ph-white);
-  font-size: 15px; line-height: 1; font-weight: 600; letter-spacing: 0;
+  height: 20px; padding: 0 8px; border-radius: 50px;
+  background: rgba(255, 255, 255, .78); color: var(--ph-accent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-size: 12px; line-height: 1; font-weight: 500; letter-spacing: .01em;
   white-space: nowrap; pointer-events: none;
 }
 /* A column title that is a link (Shop genetic testing = that category's shop
@@ -4696,7 +4699,13 @@ body:not(:has(.ds-launch)) .ph-top {
    a shrinking column overprint the next one), so below 1280 the card gives way
    and the gaps and lead size tighten until the four fit. */
 @media (min-width: 901px) {
-  .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col { flex-shrink: 0; }
+  /* Words never shrink under themselves; the cards give way instead. */
+  .ph-panel .ph-panel-cols, .ph-panel-cols > .ph-panel-col { flex-shrink: 0; }
+  .ph-panel-feat { min-width: 0; flex-shrink: 1; }
+  .ph-panel-feat .ph-feat:not(:only-child) { flex: 0 1 auto; min-width: 120px; }
+  /* 17px column links (2026-09-22) made the four a line wider; tighter gaps keep the card. */
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 32px; }
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 24px; }
   .ph-panel-inner:has(.ph-panel-col:nth-child(4)) .ph-feat { width: clamp(150px, 12vw, 190px); }
 }
 @media (min-width: 901px) and (max-width: 1365px) {
@@ -4710,6 +4719,12 @@ body:not(:has(.ds-launch)) .ph-top {
 @media (min-width: 901px) and (max-width: 1023px) {
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 22px; }
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 0; }
+}
+/* Below 1100 the four Testing columns only fit at the old 15px link size. */
+@media (min-width: 901px) and (max-width: 1099px) {
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col:not(.is-lead) a:not(.ph-panel-col-t) {
+    font-size: 15px; line-height: 20px;
+  }
   .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
     font-size: 18px; line-height: 24px;
   }
@@ -4730,6 +4745,12 @@ body:not(:has(.ds-launch)) .ph-top {
   .ph-panel .ph-panel-col, .ph-feat { animation: none; }
   .ph-feat-img img, .ph-feat-cap svg { transition: none; }
 }
+/* 2026-09-22 by request: the links in the columns after the lead are set at
+   regular weight, one step down (15/20), at every width. The lead column's
+   doors, the grey column titles and the cards keep their own size and weight. */
+.ph-nav .ph-panel .ph-panel-col:not(.is-lead) a:not(.ph-panel-col-t) {
+  font-size: 15px; line-height: 20px; font-weight: 400;
+}
 /* ring.css paints every panel link accent blue on .ph-flat pages (0,2,1);
    the .ph-nav prefix above (0,3,1) keeps one ink and one hover everywhere. */
 
@@ -4740,6 +4761,7 @@ body:not(:has(.ds-launch)) .ph-top {
                               margin-bottom: 4px; }
   .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) { font-size: 21px; line-height: 28px; font-weight: 600; }
   .ph-panel .ph-panel-col a { font-weight: 600; }
+  .ph-nav .ph-panel .ph-panel-col a:not(.ph-panel-col-t) { font-size: 17px; }
   .ph-panel-feat {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
     margin-top: 20px;

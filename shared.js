@@ -285,17 +285,6 @@
       "href": "/phenome-store/contact/",
       "columns": [
         {
-          "title": "Explore support",
-          "lead": true,
-          "links": [
-            { "label": "Testing", "href": "/phenome-store/testing/" },
-            { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
-            { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
-            { "label": "The app", "href": "/phenome-store/app/" },
-            { "label": "Your account", "href": "/phenome-store/account/" }
-          ]
-        },
-        {
           "title": "Get help",
           "links": [
             { "label": "Contact us", "href": "/phenome-store/contact/" },
