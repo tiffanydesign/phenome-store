@@ -142,10 +142,10 @@
           "title": "Energy & Cognition",
           "href": "/phenome-store/store/#energy-and-cognition",
           "links": [
+            { "label": "Phenome+ NAD+", "href": "/phenome-store/supplements/nad/" },
             { "label": "NAD+ Boost", "href": "/phenome-store/supplements/nad-boost/" },
             { "label": "Gly-NAC", "href": "/phenome-store/supplements/gly-nac/" },
-            { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" },
-            { "label": "NAD+ (liposomal)", "href": "/phenome-store/supplements/nad/" }
+            { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" }
           ]
         },
         {
