@@ -4784,6 +4784,11 @@ body:not(:has(.ds-launch)) .ph-top {
   }
   #phPanel-supplements .ph-panel-col.is-shop .ph-panel-note { margin-left: 0; }
 }
+/* Devices has four short columns, so its two cards (matte ring, woven band)
+   still fit the line down to 1240, where Testing's four long ones do not. */
+@media (min-width: 1240px) and (max-width: 1365px) {
+  .ph-nav #phPanel-devices .ph-panel-feat { display: flex; }
+}
 /* ring.css paints every panel link accent blue on .ph-flat pages (0,2,1);
    the .ph-nav prefix above (0,3,1) keeps one ink and one hover everywhere. */
 

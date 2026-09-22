@@ -68,6 +68,7 @@
     },
     {
       "key": "testing",
+      "pin": true,
       "trigger": "Testing",
       "href": "",
       "columns": [
@@ -119,6 +120,7 @@
     },
     {
       "key": "supplements",
+      "pin": true,
       "trigger": "Supplements",
       "href": "/phenome-store/store/supplements/",
       "columns": [
@@ -177,41 +179,56 @@
     },
     {
       "key": "devices",
+      "pin": true,
       "trigger": "Devices",
       "href": "/phenome-store/store/devices/",
       "columns": [
+        /* Testing's arrangement (2026-09-22): lead doors, then one Shop column
+           per device whose linked title opens its buy page and whose rows are the
+           materials, then the plain help column, then two cards, the matte ring
+           and the woven band. */
         {
           "title": "Explore devices",
           "lead": true,
           "links": [
             { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
-            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/", "note": "New" },
-            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/", "small": true },
-            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/", "small": true }
+            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" }
           ]
         },
         {
-          "title": "Shop devices",
+          "title": "Shop the Ring",
+          "href": "/phenome-store/store/phenometech-ring/",
           "links": [
-            { "label": "Shop the Ring", "href": "/phenome-store/store/phenometech-ring/" },
-            { "label": "Shop the Band", "href": "/phenome-store/devices/band/" },
-            { "label": "Metal, from £179", "href": "/phenome-store/devices/ring/compare-materials/" },
-            { "label": "Matte, from £189", "href": "/phenome-store/devices/ring/compare-materials/" },
-            { "label": "Ceramic, from £199", "href": "/phenome-store/devices/ring/compare-materials/" }
+            { "label": "Metal, from £179", "href": "/phenome-store/store/phenometech-ring/" },
+            { "label": "Matte, from £189", "href": "/phenome-store/store/phenometech-ring/" },
+            { "label": "Ceramic, from £199", "href": "/phenome-store/store/phenometech-ring/" }
           ]
         },
         {
-          "title": "More from devices",
+          "title": "Shop the Band",
+          "href": "/phenome-store/devices/band/",
           "links": [
+            { "label": "Sport silicone, £149", "href": "/phenome-store/devices/band/" },
+            { "label": "Woven nylon, £149", "href": "/phenome-store/devices/band/" }
+          ]
+        },
+        {
+          "title": "Get started",
+          "links": [
+            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/" },
+            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/" },
             { "label": "How it works", "href": "/phenome-store/devices/ring/how-it-works/" },
             { "label": "Warranty and returns", "href": "/phenome-store/devices/ring/warranty-returns/" }
           ]
         }
       ],
       "featured": [
-        { "name": "Explore PhenomeTech Ring", "price": "from £179", "tag": "New",
-          "href": "/phenome-store/devices/ring/",
-          "img": "/phenome-store/assets/menu/tile-devices-ring.webp" }
+        { "name": "Ring, Matte", "price": "from £189", "tag": "New",
+          "href": "/phenome-store/store/phenometech-ring/",
+          "img": "/phenome-store/assets/menu/tile-devices-ring-matte.webp" },
+        { "name": "Band, Woven nylon", "price": "£149", "tag": "New",
+          "href": "/phenome-store/devices/band/",
+          "img": "/phenome-store/assets/menu/tile-devices-band-woven.webp" }
       ]
     },
     {
@@ -442,7 +459,12 @@
          already resets background/border/padding and inherits the font, and the top
          row's letter-spacing comes from `.ph-links > .ph-item > .ph-trigger` (0,3,0),
          which outranks `.ph-trigger`'s own `normal` (0,1,0) for either element. */
-      var t = p.href
+      /* PINNED TRIGGERS, 2026-09-22 by request: Testing, Supplements and Devices
+         do not navigate. A click pins their panel open (it stays when the pointer
+         leaves the bar) and a second click, Escape or a click outside closes it.
+         They are built as <button> for the reason given above; `href` stays in the
+         data for search and for the current section mark. */
+      var t = p.href && !p.pin
         ? '<a class="ph-trigger" href="' + esc(p.href) + '" data-trigger="' + p.key + '" ' +
           'aria-expanded="false" aria-controls="phPanel-' + p.key + '">' +
           esc(p.trigger) + '</a>'
@@ -521,6 +543,9 @@
     /* Which control opened the panel, so Escape hands focus back to it. Hover sets
        nothing, and then Escape falls back to the trigger, as it always did. */
     var openedBy = null;
+    /* NOT `pinned`: a function of that name further down this IIFE drives the
+       scroll pinned bands, and a var here would overwrite it. */
+    var menuPin = false;   /* a pinned panel ignores the pointer leaving the bar */
 
     /* One panel now has two controls — the trigger, which a screen reader reaches
        first, and the chevron, which is what actually expands it wherever the label
@@ -581,6 +606,7 @@
       mark(open, false);
       open = null;
       openedBy = null;
+      menuPin = false;
       document.documentElement.classList.remove('ph-menu-open');
       veil(false);
     }
@@ -610,7 +636,12 @@
         clearTimeout(openT);
         /* A short intent delay: sweeping the pointer across the bar to reach
            something else must not flash three panels on the way past. */
-        openT = setTimeout(function () { show(key); }, 120);
+        openT = setTimeout(function () {
+          /* Sliding across to a neighbour keeps a pinned menu pinned. */
+          var keep = menuPin;
+          show(key);
+          menuPin = keep && open === key;
+        }, 120);
       });
       t.addEventListener('mouseleave', function () { clearTimeout(openT); });
 
@@ -631,7 +662,11 @@
       t.addEventListener('click', function (e) {
         if (!isLink) {
           e.preventDefault();
-          if (open === key) hide(true); else { show(key); openedBy = t; }
+          clearTimeout(openT);   /* the hover timer must not reopen what this click closes */
+          /* Hover has usually opened it already, so the click's job is to PIN it;
+             only a click on a panel that is already pinned closes it. */
+          if (open === key && menuPin) { hide(true); return; }
+          show(key); openedBy = t; menuPin = true;
           return;
         }
         if (hoverable.matches) return;
@@ -664,6 +699,7 @@
     header.addEventListener('mouseleave', function () {
       if (!hoverable.matches) return;
       clearTimeout(openT);
+      if (menuPin) return;
       /* Grace on the way out: the pointer travels diagonally from the trigger to the
          panel and briefly leaves both. Closing instantly makes the menu unusable. */
       closeT = setTimeout(function () { hide(true); }, 180);
