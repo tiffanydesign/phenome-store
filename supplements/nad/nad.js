@@ -88,7 +88,11 @@
       dots.forEach(function (dt, k) { dt.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
     }
 
-    var held = still.matches, hover = false, offscreen = false;
+    /* Autoplay is ON by default (2026-09-22, by request), whatever the OS
+       motion setting and wherever the pointer rests; the hold button is the
+       one way to stop it. It still waits while the frame is off screen, the
+       tab is hidden or the full size viewer is open (hover, set by the viewer). */
+    var held = false, hover = false, offscreen = false;
     var timer = null, started = 0, remaining = DWELL;
     function paused() { return held || hover || offscreen || doc.hidden; }
     function stopTimer() {
@@ -147,8 +151,6 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, -1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, 1); }
     });
-    main.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; sync(); } });
-    main.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; sync(); } });
     var sx = 0, sy = 0, tracking = false;
     main.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' || e.target.closest('button')) return;
