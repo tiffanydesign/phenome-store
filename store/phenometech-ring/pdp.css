@@ -1207,15 +1207,17 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    in the same strip — 96px of clearance rather than the component's 40 keeps
    the two off each other at every width the tile takes. */
 .pdp .ph-tl-big figcaption { max-width: calc(100% - 96px); }
-/* THE FILM IS COVERED, NOT CONTAINED, and the choice is the whole reason the
-   film could stay in a tile drawn for a landscape photograph. Contained, a
-   900x1124 portrait inside 16:10 is a strip of phone between two navy margins
-   that take more than half the tile. Covered, the crop keeps the middle band
-   of the screen at the tile's full width, which is where the Health Monitor's
-   rows peel out — the only part of the frame this section is quoting. Object
-   position holds that band rather than the default centre. */
-.pdp .ph-tl-big { background: var(--phenome-blue-900); }
-.pdp .ph-tl-big video { object-position: 50% 42%; }
+/* THE FILM ALONE, AT ITS OWN SHAPE (2026-09-22, by request). The two small
+   photographs under it are gone, so the collage grid is dropped and the tile
+   takes the film's own 900x1124 ratio instead of the kit's 16:10, which had
+   cut the portrait phone down to a band across its middle. Width is capped so
+   the tile stands about as tall as the rail beside it; centred in its column. */
+.pdp .pdp-when .ph-tl-media { display: flex; justify-content: center; }
+.pdp .ph-tl-big {
+  width: min(100%, 540px);
+  aspect-ratio: 900 / 1124;
+  background: var(--phenome-blue-900);
+}
 
 .pdp .pdp-when-ic { width: 32px; height: 32px; flex: none; color: var(--ph-accent); }
 /* The film's two controls, and they are the same object as devices/ring's
@@ -1475,9 +1477,15 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
    plate sits on the page's own wash, contained rather than cropped. The white
    ceramic is the reason the chosen column does NOT go lighter here: a white
    ring on a white card is a ring with no silhouette. */
+/* NO PLATE, 2026-09-22 (by request): the cut out rings stand straight on the
+   column, no tinted panel behind them. The soft floor shadow is what keeps the
+   white ceramic's silhouette on a white column now that the panel is gone. */
 .pdp .pdp-vs-fig.is-plate,
-.pdp .pdp-vs-col[data-on] .pdp-vs-fig.is-plate { background: var(--gl-tint-sunk); }
-.pdp .pdp-vs-fig.is-plate img { object-fit: contain; padding: 6%; }
+.pdp .pdp-vs-col[data-on] .pdp-vs-fig.is-plate { background: transparent; border-radius: 0; overflow: visible; }
+.pdp .pdp-vs-fig.is-plate img {
+  object-fit: contain; padding: 2%;
+  filter: drop-shadow(0 14px 18px rgba(10, 30, 87, .12));
+}
 .pdp .pdp-vs-fig img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
