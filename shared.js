@@ -123,54 +123,56 @@
       "href": "/phenome-store/store/supplements/",
       "columns": [
         {
+          /* The title is the door to the supplements explore page; Shop all opens
+             the Shop all catalogue at its first supplements category. */
           "title": "Explore supplements",
+          "href": "/phenome-store/store/supplements/",
           "lead": true,
           "links": [
-            { "label": "Shop all", "href": "/phenome-store/store/supplements/" },
-            { "label": "Longevity", "href": "/phenome-store/store/#longevity" },
-            { "label": "Cellular support", "href": "/phenome-store/store/#cellular-support" },
-            { "label": "Energy and cognition", "href": "/phenome-store/store/#energy-and-cognition" },
-            { "label": "Immunity", "href": "/phenome-store/store/#immunity-and-respiratory" },
-            { "label": "Inflammation", "href": "/phenome-store/store/#inflammation-support" },
-            { "label": "Skin and everyday", "href": "/phenome-store/store/#skin-and-everyday" }
+            { "label": "Shop all", "href": "/phenome-store/store/#energy-and-cognition" }
           ]
         },
         {
-          "title": "Longevity range",
+          /* Sub categories from the Phenome+ range by goal (2026-09-22), listing
+             only products that have a page. Everyday Essentials has none yet, so
+             it is not drawn. Four product columns side by side, and no picture
+             card: the fourth column takes the card's place (user, 2026-09-22). */
+          "title": "Energy & Cognition",
+          "href": "/phenome-store/store/#energy-and-cognition",
           "links": [
-            { "label": "NAD+", "href": "/phenome-store/supplements/nad/", "note": "Liposomal" },
             { "label": "NAD+ Boost", "href": "/phenome-store/supplements/nad-boost/" },
-            { "label": "NAD+ Betaine", "href": "/phenome-store/supplements/nad-betaine/" },
-            { "label": "NAD+ Resveratrol", "href": "/phenome-store/supplements/nad-resveratrol/" },
-            { "label": "NAD+ Spermidine", "href": "/phenome-store/supplements/nad-spermidine/" },
             { "label": "Gly-NAC", "href": "/phenome-store/supplements/gly-nac/" },
-            { "label": "Ser-NAC", "href": "/phenome-store/supplements/ser-nac/" },
-            { "label": "Broccoli Complex", "href": "/phenome-store/supplements/broccoli-complex-capsules/" }
+            { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" },
+            { "label": "NAD+ (liposomal)", "href": "/phenome-store/supplements/nad/" }
           ]
         },
         {
-          "title": "Everyday range",
+          "title": "Immunity & Respiratory",
+          "href": "/phenome-store/store/#immunity-and-respiratory",
           "links": [
-            { "label": "Mitochondria Boost", "href": "/phenome-store/supplements/mitochondria-boost/" },
-            { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" },
-            { "label": "Guarana", "href": "/phenome-store/supplements/guarana-capsules/" },
-            { "label": "Quercetin", "href": "/phenome-store/supplements/quercetin-capsules/" },
             { "label": "Sambucus Gummies", "href": "/phenome-store/supplements/sambucus-gummies/" },
             { "label": "Throat Relief Lozenges", "href": "/phenome-store/supplements/throat-relief-lozenges/" },
-            { "label": "Propolis Lozenges", "href": "/phenome-store/supplements/propolis-throat-lozenges/" },
-            { "label": "Pelargonium Lozenges", "href": "/phenome-store/supplements/pelargonium-throat-lozenges/" },
-            { "label": "Joint Boost", "href": "/phenome-store/supplements/joint-boost-capsules/" },
-            { "label": "Bromelain", "href": "/phenome-store/supplements/bromelain-capsules/" },
+            { "label": "Propolis Throat Lozenges", "href": "/phenome-store/supplements/propolis-throat-lozenges/" },
+            { "label": "Pelargonium Throat Lozenges", "href": "/phenome-store/supplements/pelargonium-throat-lozenges/" },
+            { "label": "Quercetin Capsules", "href": "/phenome-store/supplements/quercetin-capsules/" }
+          ]
+        },
+        {
+          "title": "Anti-Inflammatory",
+          "href": "/phenome-store/store/#anti-inflammatory",
+          "links": [
+            { "label": "Joint Boost Capsules", "href": "/phenome-store/supplements/joint-boost-capsules/" },
             { "label": "FlexiCream", "href": "/phenome-store/supplements/flexicream/" },
-            { "label": "Multi Collagen Powder", "href": "/phenome-store/supplements/multi-collagen-powder/" },
-            { "label": "Nigella Sativa Seed Oil", "href": "/phenome-store/supplements/nigella-sativa-seed-oil/" }
+            { "label": "Bromelain Capsules", "href": "/phenome-store/supplements/bromelain-capsules/" }
+          ]
+        },
+        {
+          "title": "Skin & Beauty",
+          "href": "/phenome-store/store/#skin-and-beauty",
+          "links": [
+            { "label": "Multi-Collagen Powder", "href": "/phenome-store/supplements/multi-collagen-powder/" }
           ]
         }
-      ],
-      "featured": [
-        { "name": "NAD+, liposomal", "price": "", "tag": "Popular",
-          "href": "/phenome-store/supplements/nad/",
-          "img": "/phenome-store/assets/menu/tile-supp-nad.webp" }
       ]
     },
     {
@@ -354,24 +356,27 @@
              (l.todo ? ' data-todo-link' : '') + '>' + esc(l.label) + note + '</a>';
     }
 
+    function colTitle(c, extra) {
+      return c.href
+        ? '<a class="ph-panel-col-t is-link' + extra + '" href="' + esc(c.href) + '">' + esc(c.title) + '</a>'
+        : '<div class="ph-panel-col-t' + extra + '">' + esc(c.title) + '</div>';
+    }
+
     p.columns.forEach(function (c, i) {
       /* --i staggers each column's rise by its position, left to right. */
       /* A column with `href` has a title that is itself the door: Shop genetic
          testing IS "shop all" for that category, so no separate row repeats it. */
-      h += '<div class="ph-panel-col' + (c.lead ? ' is-lead' : '') + '" style="--i:' + i + '">' +
-           (c.href
-             ? '<a class="ph-panel-col-t is-link" href="' + esc(c.href) + '">' + esc(c.title) +
-               '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false">' +
-               '<path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" ' +
-               'stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
-             : '<div class="ph-panel-col-t">' + esc(c.title) + '</div>');
+      /* is-shop marks a column of products under a linked title; its product
+         names are set a step up from the plain link columns. */
+      h += '<div class="ph-panel-col' + (c.lead ? ' is-lead' : (c.href ? ' is-shop' : '')) +
+           '" style="--i:' + i + '">' + colTitle(c, '');
       c.links.forEach(function (l) { h += row(l); });
       /* A second titled block stacked under this column rather than beside it —
-         Supplements draws Skin & Beauty under Anti-Inflammatory and More from
-         supplements under Everyday Essentials. It lives INSIDE the column div, so
+         Supplements draws Skin & Beauty under Energy & Cognition and Everyday
+         Essentials under Anti-Inflammatory. It lives INSIDE the column div, so
          the grid keeps its track count and nothing wraps. */
       if (c.below) {
-        h += '<div class="ph-panel-col-t ph-panel-col-t2">' + esc(c.below.title) + '</div>';
+        h += colTitle(c.below, ' ph-panel-col-t2');
         c.below.links.forEach(function (l) { h += row(l); });
       }
       h += '</div>';
@@ -1793,6 +1798,7 @@
         (c.links || []).forEach(function (l) {
           add(l.label, l.href, p.trigger + ', ' + c.title, '');
         });
+        if (c.below && c.below.href) add(c.below.title, c.below.href, p.trigger, '');
         if (c.below) (c.below.links || []).forEach(function (l) {
           add(l.label, l.href, p.trigger + ', ' + c.below.title, '');
         });

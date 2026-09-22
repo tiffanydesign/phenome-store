@@ -4616,7 +4616,7 @@ body:not(:has(.ds-launch)) .ph-top {
     padding: 4px 0;
     font-size: 17px; line-height: 22px; letter-spacing: -0.005em;
   }
-  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) + a.ph-panel-sm { margin-top: 12px; }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) + a.ph-panel-sm { margin-top: 12px; }
   .ph-nav .ph-panel .ph-panel-col a:hover { color: var(--ph-accent-link); text-decoration: none; }
   .ph-panel .ph-panel-note {
     align-self: center;
@@ -4679,18 +4679,15 @@ body:not(:has(.ds-launch)) .ph-top {
   white-space: nowrap; pointer-events: none;
 }
 /* A column title that is a link (Shop genetic testing = that category's shop
-   all): it keeps the title's grey and size, and a chevron says it goes somewhere. */
+   all): it keeps the title's grey and size; only its hover says it goes somewhere
+   (the chevron was removed 2026-09-22 by request). */
 .ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link {
-  display: inline-flex; align-items: center; gap: 4px;
+  display: inline-flex; align-items: center;
   min-height: 0; padding: 0; margin: 0 0 12px;
   font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: 0;
   color: var(--ph-text-2); border-bottom: 0;
 }
-.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link svg {
-  flex: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1);
-}
 .ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link:hover { color: var(--ph-accent-link); }
-.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link:hover svg { transform: translateX(3px); }
 @media (max-width: 900px) {
   .ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link { margin-bottom: 4px; min-height: 44px; }
 }
@@ -4712,7 +4709,7 @@ body:not(:has(.ds-launch)) .ph-top {
   .ph-panel-inner:has(.ph-panel-col:nth-child(4)) .ph-panel-feat { display: none; }
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 32px; }
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 16px; }
-  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) {
     font-size: 21px; line-height: 26px;
   }
 }
@@ -4720,18 +4717,22 @@ body:not(:has(.ds-launch)) .ph-top {
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 22px; }
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 0; }
 }
-/* Below 1100 the four Testing columns only fit at the old 15px link size. */
+/* The bold 17px product columns need the gaps a little tighter up to 1099,
+   and under 960 the products drop back to 15 (still bold) to fit the line. */
+@media (min-width: 1024px) and (max-width: 1099px) {
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 26px; }
+}
+@media (min-width: 901px) and (max-width: 959px) {
+  .ph-nav .ph-panel .ph-panel-cols .ph-panel-col.is-shop a:not(.ph-panel-col-t) { font-size: 15px; line-height: 20px; }
+}
 @media (min-width: 901px) and (max-width: 1099px) {
-  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col:not(.is-lead) a:not(.ph-panel-col-t) {
-    font-size: 15px; line-height: 20px;
-  }
-  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) {
     font-size: 18px; line-height: 24px;
   }
 }
 @media (min-width: 901px) and (max-width: 959px) {
   .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 14px; }
-  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) {
     font-size: 17px; line-height: 22px;
   }
 }
@@ -4739,7 +4740,7 @@ body:not(:has(.ds-launch)) .ph-top {
 /* Narrower desktops: the links come first, so the card gives way. */
 @media (min-width: 901px) and (max-width: 1099px) {
   .ph-panel-feat { display: none; }
-  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) { font-size: 21px; line-height: 26px; }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) { font-size: 21px; line-height: 26px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ph-panel .ph-panel-col, .ph-feat { animation: none; }
@@ -4751,6 +4752,38 @@ body:not(:has(.ds-launch)) .ph-top {
 .ph-nav .ph-panel .ph-panel-col:not(.is-lead) a:not(.ph-panel-col-t) {
   font-size: 15px; line-height: 20px; font-weight: 400;
 }
+/* The product columns under a linked "Shop …" title (Testing's genetic and
+   microbiome columns) are a step up and bold, so the products outrank the
+   plain help links beside them. */
+.ph-nav .ph-panel .ph-panel-col.is-shop a:not(.ph-panel-col-t),
+.ph-nav .ph-panel .ph-panel-col.is-shop .ph-panel-label {
+  font-size: 17px; line-height: 22px; font-weight: 600;
+}
+/* A product with no page yet (Supplements' Coming soon rows) is a label, not a
+   link: same size and weight as its neighbours, in the quieter ink. */
+.ph-nav .ph-panel .ph-panel-col.is-shop .ph-panel-label { color: var(--ph-text-2); }
+/* A flag beside a product (Testing's Sold out) is a small mark, the same size as
+   the card corner tag, so it never competes with the product name. */
+.ph-nav .ph-panel .ph-panel-col.is-shop .ph-panel-note {
+  align-self: center;
+  margin-left: 8px; padding: 0 7px;
+  font-size: 12px; line-height: 20px; font-weight: 500;
+}
+/* A stacked second title that is a link keeps the gap above it; the is-link
+   rule's `margin: 0 0 12px` would otherwise zero it. */
+.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link.ph-panel-col-t2 { margin-top: 24px; }
+/* Supplements carries four product columns of long names and no card, a line
+   too wide for the no-shrink rule the other panels use. Here the columns may
+   shrink and a long name may wrap. */
+@media (min-width: 901px) {
+  #phPanel-supplements .ph-panel-cols { flex: 0 1 auto; min-width: 0; }
+  #phPanel-supplements .ph-panel-cols > .ph-panel-col.is-shop { flex: 0 1 auto; min-width: 0; }
+  .ph-nav #phPanel-supplements .ph-panel-col.is-shop a:not(.ph-panel-col-t),
+  .ph-nav #phPanel-supplements .ph-panel-col.is-shop .ph-panel-label {
+    white-space: normal; flex-wrap: wrap; column-gap: 10px; row-gap: 4px;
+  }
+  #phPanel-supplements .ph-panel-col.is-shop .ph-panel-note { margin-left: 0; }
+}
 /* ring.css paints every panel link accent blue on .ph-flat pages (0,2,1);
    the .ph-nav prefix above (0,3,1) keeps one ink and one hover everywhere. */
 
@@ -4759,7 +4792,7 @@ body:not(:has(.ds-launch)) .ph-top {
 @media (max-width: 900px) {
   .ph-panel .ph-panel-col-t { font-size: 15px; font-weight: 400; color: var(--ph-text-2);
                               margin-bottom: 4px; }
-  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) { font-size: 21px; line-height: 28px; font-weight: 600; }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm):not(.ph-panel-col-t) { font-size: 21px; line-height: 28px; font-weight: 600; }
   .ph-panel .ph-panel-col a { font-weight: 600; }
   .ph-nav .ph-panel .ph-panel-col a:not(.ph-panel-col-t) { font-size: 17px; }
   .ph-panel-feat {
