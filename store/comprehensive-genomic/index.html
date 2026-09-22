@@ -10,6 +10,7 @@
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<link href="/phenome-store/store/comprehensive-genomic/cg.css" rel="stylesheet"/>
 <style>
 /* ===========================================================================
    PAGE-LOCAL LAYOUT — /store/comprehensive-genomic/          2026-09-03
@@ -220,12 +221,49 @@
 </div>
 </section>
 
-<section class="section section-black">
+<!-- How it works: the NAD page's timeline (the .ph-tl kit component). The rail
+     fills with scroll and lights each step as it passes, beside a collage. -->
+<section class="section cg-steps" id="how">
 <div class="wrap-wide">
-<div class="eyebrow">One sample, every layer</div>
-<h2 class="sec-title">From sample to insight, in four steps.</h2>
-<div class="steps steps-4" style="margin-top:44px"><div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3.2 7.4 12 3l8.8 4.4v9.2L12 21l-8.8-4.4z"></path><path d="M3.2 7.4 12 11.8l8.8-4.4M12 11.8V21"></path></svg></div><div class="num">01</div><div class="t">Order your kit</div><p>Free next day UK delivery in discreet packaging, with prepaid return postage included.</p></div><div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 3.4c3.5 4 5.3 6.6 5.3 9.1a5.3 5.3 0 0 1-10.6 0c0-2.5 1.8-5.1 5.3-9.1z"></path><path d="M9.4 13.2a2.6 2.6 0 0 0 2.6 2.6"></path></svg></div><div class="num">02</div><div class="t">Collect at home</div><p>A simple saliva sample. The kit walks you through it step by step, no clinic visit, no blood draw.</p></div><div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M9.6 3h4.8M10.6 3v6.3l-4.9 8.1a2 2 0 0 0 1.7 3.1h9.2a2 2 0 0 0 1.7-3.1l-4.9-8.1V3"></path><path d="M8.1 14.2h7.8"></path></svg></div><div class="num">03</div><div class="t">Lab analysis</div><p>Whole genome sequencing at 30× depth on Illumina instruments in our accredited laboratory.</p></div><div class="step"><div class="step-mark"><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect height="18.8" rx="2" width="12" x="6" y="2.6"></rect><path d="M9.4 7.6h5.2M9.4 11.2h5.2M9.4 14.8h3.1"></path></svg></div><div class="num">04</div><div class="t">Report and counselling</div><p>A 12 section report in the Phenome app, plus a 1:1 session with a genetic counsellor to walk through it.</p></div></div>
-<div class="cta-actions" style="justify-content:flex-start">
+<header class="cg-head">
+<h2 class="ph-display is-ink"><span class="ph-display-lead">One sample, every layer</span><span>From sample to insight, in four steps</span></h2>
+<p class="cg-sub">Everything comes from one saliva sample, collected at home.</p>
+</header>
+<div class="ph-tl">
+<div class="ph-tl-steps" data-ph-tl="">
+<span aria-hidden="true" class="ph-tl-rail"><i></i></span>
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Step 1</span>Order your kit</p>
+<ul><li>Free next day UK delivery</li><li>Discreet packaging</li><li>Prepaid return postage included</li></ul>
+</div>
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Step 2</span>Collect at home</p>
+<ul><li>A simple saliva sample</li><li>The kit walks you through it step by step</li><li>No clinic visit, no blood draw</li></ul>
+</div>
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Step 3</span>Lab analysis</p>
+<ul><li>Whole genome sequencing at 30× depth</li><li>Run on Illumina instruments</li><li>In our accredited laboratory</li></ul>
+</div>
+<div class="ph-tl-step">
+<p class="ph-tl-step-h"><span class="ph-tl-pill">Step 4</span>Report and counselling</p>
+<ul><li>A 12 section report in the Phenome app</li><li>A 1:1 session with a genetic counsellor</li><li>To walk you through every result</li></ul>
+</div>
+<p class="ph-tl-foot">Results in two to three weeks from the day your sample reaches the lab.</p>
+</div>
+<div class="ph-tl-media">
+<figure class="ph-tl-big">
+<img alt="A sequencing run being loaded in the laboratory" height="1001" loading="lazy" src="/phenome-store/assets/science/illumina-lab.webp" width="1800"/>
+<figcaption>Sequenced at 30× depth on Illumina instruments.</figcaption>
+</figure>
+<figure class="ph-tl-sm" data-ph-float="-1"><img alt="" height="930" loading="lazy" src="/phenome-store/assets/pages/reports.webp" width="1400"/></figure>
+<figure class="ph-tl-round" data-ph-float="1"><img alt="" height="1200" loading="lazy" src="/phenome-store/assets/science/kit-genomic.webp" width="1200"/></figure>
+</div>
+</div>
+<div class="cg-foot">
+<div class="ph-tl-note">
+<svg aria-hidden="true" class="cg-note-ic" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 3.4c3.5 4 5.3 6.6 5.3 9.1a5.3 5.3 0 0 1-10.6 0c0-2.5 1.8-5.1 5.3-9.1z"></path><path d="M9.4 13.2a2.6 2.6 0 0 0 2.6 2.6"></path></svg>
+<p><b>How to collect</b><span>No eating, drinking or brushing for 30 minutes first.</span></p>
+</div>
 <a class="btn ghost" href="/phenome-store/testing/comprehensive-genomic/">See what is in the report</a>
 </div>
 </div>
