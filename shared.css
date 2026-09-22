@@ -426,6 +426,25 @@ textarea:focus-visible, details:focus-visible {
   width: 44px; height: 44px; color: var(--ph-text-1); text-decoration: none;
 }
 .ph-nav-icon:hover { color: var(--ph-accent-link); }
+
+/* ---- the profile icon, 2026-09-22 by request, cost the bar 54px it did not
+   have below 1180 (the logo was squeezed). Between 901 and 1179 the row gaps
+   close up; on phones the icons keep a 36px target around their 18px glyph. */
+@media (min-width: 901px) and (max-width: 1179px) {
+  .ph-nav .ph-links { gap: 12px; }
+  .ph-nav .ph-nav-end { gap: 2px; }
+  .ph-nav .ph-brand { flex-shrink: 0; }
+}
+@media (min-width: 901px) and (max-width: 979px) {
+  .ph-nav .ph-links { gap: 4px; }
+  .ph-nav .ph-nav-inner { padding-inline: 24px; }
+}
+@media (max-width: 480px) {
+  .ph-nav .ph-brand { flex-shrink: 0; }
+  .ph-nav .ph-nav-end { gap: 2px; }
+  .ph-nav .ph-nav-icon { width: 36px; }
+  .ph-nav .ph-burger { padding: 8px 4px 8px 8px; }
+}
 /* Below 901 the drawer owns the links and the row must not grow: the bar already
    has only 0px of slack at 901 (see .ph-toggle's note), so the pill and the CTA
    step out and the two icons stay — they are the only things a phone can use
@@ -1486,6 +1505,89 @@ html.ph-reveal main > section.band.ph-r > * { transform: none; }
    too, where the old box still gave 109. */
 .ph-footer .legal { max-width: var(--ph-measure); margin: 0 0 18px; }
 .ph-footer .bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+/* ---- REGION, in the footer, 2026-09-22 by request ------------------------
+   First drawn in the nav after ultrahuman.com/se's round flag pill, then moved
+   down here the same day: the disclaimer row's right end was the footer's one
+   empty stretch. A grey "Shopping from" over a white pill (flag, full country
+   name, chevron); the menu opens UPWARD, because below it is the page's end.
+   UI ONLY, see regionKit() in shared.js. */
+.ph-footer .foot-legal-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  flex-wrap: wrap; gap: 24px 48px; margin: 0 0 22px;
+}
+.ph-footer .foot-legal-row .legal { margin: 0; }
+.ph-region { position: relative; flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.ph-region-k { font-size: 15px; line-height: 20px; color: var(--ph-text-2); }
+.ph-region-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  height: 42px; padding: 0 14px 0 9px; border-radius: 99px;
+  border: 1px solid var(--ph-line); background: var(--ph-white);
+  color: var(--ph-text-1); cursor: pointer;
+  font: inherit; font-size: 15px; line-height: 1; font-weight: 600; letter-spacing: normal;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.ph-region-btn:hover,
+.ph-region.is-open .ph-region-btn {
+  border-color: color-mix(in srgb, var(--ph-accent) 45%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ph-accent) 8%, transparent);
+}
+.ph-region-btn:focus-visible { outline: 2px solid var(--ph-accent-link); outline-offset: 2px; }
+.ph-region-chev {
+  width: 12px; height: 12px; margin-left: 2px; color: var(--ph-text-2);
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+}
+.ph-region.is-open .ph-region-chev { transform: rotate(180deg); }
+.ph-flag {
+  flex: none; display: block; width: 24px; height: 24px; border-radius: 50%;
+  overflow: hidden; box-shadow: 0 0 0 1px rgba(10, 30, 87, .1);
+}
+/* A choice lands with the new flag turning in, so the swap is seen, not missed. */
+.ph-region.is-changed .ph-region-btn .ph-flag { animation: ph-flag-in .55s cubic-bezier(.2, .9, .25, 1.2); }
+@keyframes ph-flag-in {
+  from { transform: rotate(-90deg) scale(.4); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.ph-region-menu {
+  position: absolute; bottom: calc(100% + 10px); right: 0; z-index: 60;
+  width: 288px; padding: 8px; border-radius: 18px;
+  background: rgba(255, 255, 255, .96);
+  -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: 0 0 0 1px rgba(10, 30, 87, .08), 0 -2px 10px rgba(10, 30, 87, .04),
+              0 24px 48px -16px rgba(10, 30, 87, .3);
+  color: var(--ph-text-1);
+  opacity: 0; transform: translateY(8px) scale(.97); transform-origin: bottom right;
+  transition: opacity .18s ease, transform .26s cubic-bezier(.2, .8, .2, 1);
+}
+.ph-region.is-open .ph-region-menu { opacity: 1; transform: none; }
+.ph-region-h { padding: 8px 10px 10px; font-size: 15px; line-height: 20px; color: var(--ph-text-2); }
+.ph-region-opt {
+  display: grid; grid-template-columns: 28px minmax(0, 1fr) 20px; align-items: center; gap: 12px;
+  width: 100%; padding: 10px; border: 0; border-radius: 12px;
+  background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: background-color .15s ease;
+}
+.ph-region-opt .ph-flag { width: 28px; height: 28px; }
+.ph-region-opt:hover,
+.ph-region-opt:focus-visible { background: #f1f4fa; outline: none; }
+.ph-region-opt[aria-checked="true"] { background: #e8effb; }
+.ph-region-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ph-region-name { font-size: 16px; line-height: 21px; font-weight: 600; }
+.ph-region-money { font-size: 15px; line-height: 20px; color: var(--ph-text-2); }
+.ph-region-tick { width: 20px; height: 20px; color: var(--ph-accent); opacity: 0; transform: scale(.6);
+                  transition: opacity .2s ease, transform .25s cubic-bezier(.2, .9, .25, 1.3); }
+.ph-region-opt[aria-checked="true"] .ph-region-tick { opacity: 1; transform: none; }
+/* When the row stacks, the switcher follows the text to the left edge. */
+@media (max-width: 760px) {
+  .ph-footer .foot-legal-row { align-items: flex-start; }
+  .ph-region { align-items: flex-start; }
+  .ph-region-menu { right: auto; left: 0; transform-origin: bottom left;
+                    width: min(288px, calc(100vw - 48px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-region-menu, .ph-region-tick, .ph-region-chev { transition: none; }
+  .ph-region.is-changed .ph-region-btn .ph-flag { animation: none; }
+}
 
 /* ---- CTA band ---- */
 .cta-band { padding: var(--ph-sec-top) 0 var(--ph-sec-bottom); text-align: center; }
@@ -4526,7 +4628,9 @@ body:not(:has(.ds-launch)) .ph-top {
   }
 
   /* ---- the one picture card, at the right end of the line */
-  .ph-panel-feat { flex: 0 0 auto; display: flex; }
+  .ph-panel-feat { flex: 0 0 auto; display: flex; gap: 20px; }
+  /* Store carries three cards; they step down so the row still fits the line. */
+  .ph-feat:not(:only-child) { width: clamp(150px, 12.5vw, 200px); }
   .ph-feat {
     display: flex; flex-direction: column; gap: 14px;
     width: clamp(176px, 15vw, 220px);
@@ -4560,6 +4664,63 @@ body:not(:has(.ds-launch)) .ph-top {
 
   .ph-links > .ph-item > .ph-trigger[aria-expanded="true"] { color: var(--ph-text-1); }
 }
+/* Every picture card carries a category flag at its top, the same navy pill
+   Shop all puts on its cards (store/shop.css .pcard-tag). */
+.ph-feat-img { position: relative; }
+.ph-feat-tag {
+  position: absolute; top: 10px; left: 10px; z-index: 1;
+  display: inline-flex; align-items: center;
+  height: 26px; padding: 0 11px; border-radius: 50px;
+  background: var(--ph-accent); color: var(--ph-white);
+  font-size: 15px; line-height: 1; font-weight: 600; letter-spacing: 0;
+  white-space: nowrap; pointer-events: none;
+}
+/* A column title that is a link (Shop genetic testing = that category's shop
+   all): it keeps the title's grey and size, and a chevron says it goes somewhere. */
+.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 0; padding: 0; margin: 0 0 12px;
+  font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: 0;
+  color: var(--ph-text-2); border-bottom: 0;
+}
+.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link svg {
+  flex: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1);
+}
+.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link:hover { color: var(--ph-accent-link); }
+.ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link:hover svg { transform: translateX(3px); }
+@media (max-width: 900px) {
+  .ph-nav .ph-panel .ph-panel-col a.ph-panel-col-t.is-link { margin-bottom: 4px; min-height: 44px; }
+}
+
+/* Testing has four columns. Its text never shrinks under itself (nowrap links in
+   a shrinking column overprint the next one), so below 1280 the card gives way
+   and the gaps and lead size tighten until the four fit. */
+@media (min-width: 901px) {
+  .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col { flex-shrink: 0; }
+  .ph-panel-inner:has(.ph-panel-col:nth-child(4)) .ph-feat { width: clamp(150px, 12vw, 190px); }
+}
+@media (min-width: 901px) and (max-width: 1365px) {
+  .ph-panel-inner:has(.ph-panel-col:nth-child(4)) .ph-panel-feat { display: none; }
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 32px; }
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 16px; }
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+    font-size: 21px; line-height: 26px;
+  }
+}
+@media (min-width: 901px) and (max-width: 1023px) {
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 22px; }
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) > .ph-panel-col.is-lead { margin-right: 0; }
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+    font-size: 18px; line-height: 24px;
+  }
+}
+@media (min-width: 901px) and (max-width: 959px) {
+  .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) { gap: 14px; }
+  .ph-nav .ph-panel .ph-panel-cols:has(> .ph-panel-col:nth-child(4)) .ph-panel-col.is-lead a:not(.ph-panel-sm) {
+    font-size: 17px; line-height: 22px;
+  }
+}
+
 /* Narrower desktops: the links come first, so the card gives way. */
 @media (min-width: 901px) and (max-width: 1099px) {
   .ph-panel-feat { display: none; }
@@ -4583,6 +4744,7 @@ body:not(:has(.ds-launch)) .ph-top {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
     margin-top: 20px;
   }
+  .ph-panel-feat:has(> .ph-feat:nth-child(3)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ph-feat { display: flex; flex-direction: column; gap: 10px;
              color: var(--ph-text-1) !important; text-decoration: none !important;
              border-bottom: 0 !important; padding: 0 !important; width: auto !important; }

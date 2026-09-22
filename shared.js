@@ -35,12 +35,12 @@
           "lead": true,
           "links": [
             { "label": "Shop all", "href": "/phenome-store/store/" },
-            { "label": "Genetic tests", "href": "/phenome-store/store/genetic/" },
-            { "label": "Microbiome tests", "href": "/phenome-store/store/microbiome/" },
+            { "label": "Genetic tests", "href": "/phenome-store/testing/genetic/" },
+            { "label": "Microbiome tests", "href": "/phenome-store/testing/microbiome/" },
             { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
-            { "label": "PhenomeTech Ring", "href": "/phenome-store/store/phenometech-ring/" },
+            { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
             { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" },
-            { "label": "Not sure where to start", "href": "/phenome-store/quiz/", "small": true }
+            { "label": "Shop by goal", "href": "/phenome-store/quiz/", "small": true }
           ]
         },
         {
@@ -51,20 +51,19 @@
             { "label": "Shipping and returns", "href": "/phenome-store/devices/ring/warranty-returns/" },
             { "label": "Contact us", "href": "/phenome-store/contact/" }
           ]
-        },
-        {
-          "title": "Shop by device",
-          "links": [
-            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/" },
-            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/" },
-            { "label": "All devices", "href": "/phenome-store/store/devices/" }
-          ]
         }
       ],
+      /* Store is the one panel with three cards, one per range: ring, test, supplement. */
       "featured": [
-        { "name": "Shop the PhenomeTech Ring", "price": "from £179",
+        { "name": "PhenomeTech Ring", "price": "from £179", "tag": "New",
           "href": "/phenome-store/store/phenometech-ring/",
-          "img": "/phenome-store/assets/menu/tile-store-ring.webp" }
+          "img": "/phenome-store/assets/menu/tile-store-ring.webp" },
+        { "name": "Comprehensive Genomic Test", "price": "£650", "tag": "Popular",
+          "href": "/phenome-store/testing/comprehensive-genomic/",
+          "img": "/phenome-store/assets/menu/tile-testing-genetic.webp" },
+        { "name": "NAD+", "price": "", "tag": "Popular",
+          "href": "/phenome-store/supplements/nad/",
+          "img": "/phenome-store/assets/menu/tile-supp-nad.webp" }
       ]
     },
     {
@@ -76,34 +75,44 @@
           "title": "Explore testing",
           "lead": true,
           "links": [
+            { "label": "Genetic testing", "href": "/phenome-store/testing/genetic/" },
+            { "label": "Microbiome testing", "href": "/phenome-store/testing/microbiome/" }
+          ]
+        },
+        {
+          /* Shop testing: one column per sub category. The column TITLE is the
+             link to that category in the Shop all catalogue; every product row goes
+             to its buy page (genomic lives under /testing/, the rest under /store/). */
+          "title": "Shop genetic testing",
+          "href": "/phenome-store/store/#genetic-testing",
+          "links": [
             { "label": "Comprehensive Genomic Test", "href": "/phenome-store/testing/comprehensive-genomic/" },
-            { "label": "Carrier Screening Test", "href": "/phenome-store/testing/carrier-screening/" },
-            { "label": "Newborn Screening Test", "href": "/phenome-store/testing/newborn-screening/", "note": "Sold out" },
-            { "label": "Sports Performance Test", "href": "/phenome-store/testing/sports-performance/" },
-            { "label": "Gut Microbiome Test", "href": "/phenome-store/testing/gut-microbiome/" },
-            { "label": "Oral Microbiome Test", "href": "/phenome-store/testing/oral-microbiome/" },
-            { "label": "Compare tests", "href": "/phenome-store/testing/compare/", "small": true }
+            { "label": "Carrier Screening Test", "href": "/phenome-store/store/carrier-screening/" },
+            { "label": "Newborn Screening Test", "href": "/phenome-store/store/newborn-screening/", "note": "Sold out" },
+            { "label": "Sports Performance Test", "href": "/phenome-store/store/sports-performance/" }
+          ]
+        },
+        {
+          "title": "Shop microbiome testing",
+          "href": "/phenome-store/store/#microbiome-testing",
+          "links": [
+            { "label": "Gut Microbiome Test", "href": "/phenome-store/store/gut-microbiome/" },
+            { "label": "Oral Microbiome Test", "href": "/phenome-store/store/oral-microbiome/" }
           ]
         },
         {
           "title": "Get tested",
           "links": [
             { "label": "How testing works", "href": "/phenome-store/testing/how-it-works/" },
+            { "label": "Compare tests", "href": "/phenome-store/testing/compare/" },
             { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
-            { "label": "Results and counselling", "href": "/phenome-store/app/results-and-reports/" }
-          ]
-        },
-        {
-          "title": "More from testing",
-          "links": [
-            { "label": "Genetic testing", "href": "/phenome-store/testing/genetic/" },
-            { "label": "Microbiome testing", "href": "/phenome-store/testing/microbiome/" },
+            { "label": "Results and counselling", "href": "/phenome-store/app/results-and-reports/" },
             { "label": "Whole genome sequencing", "href": "/phenome-store/science/whole-genome-sequencing/" }
           ]
         }
       ],
       "featured": [
-        { "name": "Comprehensive Genomic Test", "price": "£650",
+        { "name": "Comprehensive Genomic Test", "price": "£650", "tag": "Popular",
           "href": "/phenome-store/testing/comprehensive-genomic/",
           "img": "/phenome-store/assets/menu/tile-testing-genetic.webp" }
       ]
@@ -159,7 +168,7 @@
         }
       ],
       "featured": [
-        { "name": "NAD+, liposomal", "price": "",
+        { "name": "NAD+, liposomal", "price": "", "tag": "Popular",
           "href": "/phenome-store/supplements/nad/",
           "img": "/phenome-store/assets/menu/tile-supp-nad.webp" }
       ]
@@ -198,7 +207,7 @@
         }
       ],
       "featured": [
-        { "name": "Explore PhenomeTech Ring", "price": "from £179",
+        { "name": "Explore PhenomeTech Ring", "price": "from £179", "tag": "New",
           "href": "/phenome-store/devices/ring/",
           "img": "/phenome-store/assets/menu/tile-devices-ring.webp" }
       ]
@@ -235,7 +244,7 @@
         }
       ],
       "featured": [
-        { "name": "See what the app tracks", "price": "",
+        { "name": "See what the app tracks", "price": "", "tag": "Featured",
           "href": "/phenome-store/app/",
           "img": "/phenome-store/assets/menu/tile-app.webp" }
       ]
@@ -265,7 +274,7 @@
         }
       ],
       "featured": [
-        { "name": "Our research", "price": "",
+        { "name": "Our research", "price": "", "tag": "Featured",
           "href": "/phenome-store/science/our-research/",
           "img": "/phenome-store/assets/menu/tile-science-research.webp" }
       ]
@@ -305,7 +314,7 @@
         }
       ],
       "featured": [
-        { "name": "Talk to our team", "price": "",
+        { "name": "Talk to our team", "price": "", "tag": "Featured",
           "href": "/phenome-store/contact/",
           "img": "/phenome-store/assets/menu/tile-support-contact.webp" }
       ]
@@ -358,8 +367,15 @@
 
     p.columns.forEach(function (c, i) {
       /* --i staggers each column's rise by its position, left to right. */
+      /* A column with `href` has a title that is itself the door: Shop genetic
+         testing IS "shop all" for that category, so no separate row repeats it. */
       h += '<div class="ph-panel-col' + (c.lead ? ' is-lead' : '') + '" style="--i:' + i + '">' +
-           '<div class="ph-panel-col-t">' + esc(c.title) + '</div>';
+           (c.href
+             ? '<a class="ph-panel-col-t is-link" href="' + esc(c.href) + '">' + esc(c.title) +
+               '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false">' +
+               '<path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+               'stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+             : '<div class="ph-panel-col-t">' + esc(c.title) + '</div>');
       c.links.forEach(function (l) { h += row(l); });
       /* A second titled block stacked under this column rather than beside it —
          Supplements draws Skin & Beauty under Anti-Inflammatory and More from
@@ -380,7 +396,9 @@
       h += '<div class="ph-panel-feat">';
       p.featured.forEach(function (f, i) {
         h += '<a class="ph-feat" href="' + esc(f.href) + '" style="--i:' + (p.columns.length + i) + '">' +
-             '<span class="ph-feat-img"><img src="' + esc(f.img) + '" alt="" loading="lazy" ' +
+             '<span class="ph-feat-img">' +
+             (f.tag ? '<span class="ph-feat-tag">' + esc(f.tag) + '</span>' : '') +
+             '<img src="' + esc(f.img) + '" alt="" loading="lazy" ' +
              'decoding="async" width="480" height="480"></span>' +
              '<span class="ph-feat-cap"><span class="ph-feat-name">' + esc(f.name) + '</span>' +
              '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">' +
@@ -490,6 +508,11 @@
       '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
       'stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6"></circle>' +
       '<path d="M13.5 13.5 L18 18" stroke-linecap="round"></path></svg></a>' +
+      /* Profile, 2026-09-22 by request: the icon only, onto the account page. */
+      '<a class="ph-nav-icon ph-nav-profile" href="/phenome-store/account/" aria-label="Your account">' +
+      '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="6.6" r="3.4"></circle>' +
+      '<path d="M3.6 17.6c.9-3.3 3.4-5.1 6.4-5.1s5.5 1.8 6.4 5.1"></path></svg></a>' +
       '<a class="ph-nav-icon" href="/phenome-store/store/cart/" aria-label="Basket">' +
       '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" ' +
       'stroke="currentColor" stroke-width="1.6"><path d="M4 6h12l-1 11H5L4 6Z" ' +
@@ -794,7 +817,13 @@
       '<span>Built on <b>Illumina</b> sequencing</span>' +
       '<span><b>Clinician reviewed</b> reports</span></div>' +
       '<div class="rule"></div>' +
+      /* The region switcher lives here, 2026-09-22 by request (moved out of the
+         nav): the right end of the disclaimer row was the footer's one empty
+         stretch. regionKit() fills the host; UI ONLY. */
+      '<div class="foot-legal-row">' +
       '<p class="legal">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment. Samples are processed in accredited laboratories. Your data is encrypted and never sold.</p>' +
+      '<div class="ph-region is-foot" data-ph-region></div>' +
+      '</div>' +
       '<div class="bar"><span>© 2026 Phenome Longevity Ltd. All rights reserved.</span>' +
       /* The four platform names are the deck's own — group_j's Footer frame lists
          "Instagram", "YouTube", "LinkedIn", "X" — but Phenome has supplied no accounts,
@@ -1602,6 +1631,124 @@
      to start" inside the Store panel, which is a fine thing to hover over and a poor
      thing to read at the top of a search sheet. Both halves are checked against the
      index when the list is built, so a quick link cannot outlive the page it names. */
+  /* ---- REGION, 2026-09-22 by request ------------------------------------------
+     The round flag pill from ultrahuman.com/se (round flag, a hairline pill),
+     in the FOOTER's disclaimer row, opening UPWARD into a small menu of two
+     regions. First drawn in the nav, moved here the same day. UI ONLY: the
+     choice swaps the pill, marks <html data-region> and is remembered per
+     browser. Prices, copy and routes do not change. Flags are inline SVG so the
+     pill needs no request; ids are made unique per drawing because the trigger
+     and the menu draw the same flag twice. */
+  var PH_REGIONS = [
+    { code: 'UK', name: 'United Kingdom', money: '£ GBP', flag: 'gb' },
+    { code: 'TR', name: 'Türkiye', money: '₺ TRY', flag: 'tr' }
+  ];
+  var flagN = 0;
+  function flagSVG(f) {
+    if (f === 'tr') {
+      return '<svg class="ph-flag" viewBox="0 0 30 30" aria-hidden="true" focusable="false">' +
+        '<rect width="30" height="30" fill="#E30A17"/><circle cx="12" cy="15" r="7.2" fill="#fff"/>' +
+        '<circle cx="13.9" cy="15" r="5.8" fill="#E30A17"/>' +
+        '<path fill="#fff" d="M16.1 15 18.23 14.3 18.24 12.05 19.57 13.86 21.71 13.18 20.4 15 ' +
+        '21.71 16.82 19.57 16.14 18.24 17.95 18.23 15.71Z"/></svg>';
+    }
+    var id = 'phGbClip' + (++flagN);
+    return '<svg class="ph-flag" viewBox="15 0 30 30" aria-hidden="true" focusable="false">' +
+      '<clipPath id="' + id + '"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath>' +
+      '<rect width="60" height="30" fill="#012169"/>' +
+      '<path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/>' +
+      '<path d="M0 0l60 30m0-30L0 30" clip-path="url(#' + id + ')" stroke="#C8102E" stroke-width="4"/>' +
+      '<path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/>' +
+      '<path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></svg>';
+  }
+
+  function regionKit() {
+    var host = document.querySelector('[data-ph-region]');
+    if (!host) return;
+    var KEY = 'phenome.region.v1';
+    var cur = 'UK';
+    try { var saved = localStorage.getItem(KEY); if (saved === 'UK' || saved === 'TR') cur = saved; } catch (e) {}
+    function byCode(c) { return PH_REGIONS.filter(function (r) { return r.code === c; })[0]; }
+
+    host.innerHTML =
+      '<span class="ph-region-k" aria-hidden="true">Shopping from</span>' +
+      '<button class="ph-region-btn" type="button" aria-haspopup="true" aria-expanded="false" ' +
+      'aria-controls="phRegionMenu"></button>' +
+      '<div class="ph-region-menu" id="phRegionMenu" role="menu" aria-label="Choose your region" hidden>' +
+      '<div class="ph-region-h">Choose your region</div>' +
+      PH_REGIONS.map(function (r) {
+        return '<button class="ph-region-opt" type="button" role="menuitemradio" data-region="' + r.code + '">' +
+          flagSVG(r.flag) +
+          '<span class="ph-region-txt"><span class="ph-region-name">' + esc(r.name) + '</span>' +
+          '<span class="ph-region-money">' + esc(r.money) + '</span></span>' +
+          '<svg class="ph-region-tick" viewBox="0 0 20 20" aria-hidden="true" focusable="false">' +
+          '<path d="M4.5 10.5 8.3 14 15.5 6" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+          'stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+      }).join('') +
+      '</div>';
+
+    var btn = host.querySelector('.ph-region-btn');
+    var menu = host.querySelector('.ph-region-menu');
+    var opts = Array.prototype.slice.call(host.querySelectorAll('.ph-region-opt'));
+
+    function paint() {
+      var r = byCode(cur);
+      btn.innerHTML = flagSVG(r.flag) + '<span class="ph-region-code">' + esc(r.name) + '</span>' +
+        '<svg class="ph-region-chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false">' +
+        '<path d="M2.5 7.5 6 4l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" ' +
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.setAttribute('aria-label', 'Region, ' + r.name + '. Change region');
+      opts.forEach(function (o) {
+        o.setAttribute('aria-checked', o.getAttribute('data-region') === cur ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('data-region', cur.toLowerCase());
+    }
+    function setOpen(on, focusBack) {
+      if (on) {
+        closeMenus();
+        menu.hidden = false;
+        /* next frame, so the opening transition has a closed state to leave */
+        requestAnimationFrame(function () { host.classList.add('is-open'); });
+        var sel = host.querySelector('.ph-region-opt[aria-checked="true"]') || opts[0];
+        sel.focus({ preventScroll: true });
+      } else {
+        host.classList.remove('is-open');
+        menu.hidden = true;
+        if (focusBack) btn.focus({ preventScroll: true });
+      }
+      btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    function isOpen() { return !menu.hidden; }
+
+    btn.addEventListener('click', function () { setOpen(!isOpen(), false); });
+    opts.forEach(function (o, i) {
+      o.addEventListener('click', function () {
+        cur = o.getAttribute('data-region');
+        try { localStorage.setItem(KEY, cur); } catch (e) {}
+        paint();
+        setOpen(false, true);
+        host.classList.add('is-changed');
+        setTimeout(function () { host.classList.remove('is-changed'); }, 600);
+      });
+      o.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          opts[(i + (e.key === 'ArrowDown' ? 1 : -1) + opts.length) % opts.length].focus();
+        }
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) setOpen(false, true);
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (isOpen() && !host.contains(e.target)) setOpen(false, false);
+    });
+    host.addEventListener('focusout', function (e) {
+      if (isOpen() && e.relatedTarget && !host.contains(e.relatedTarget)) setOpen(false, false);
+    });
+    paint();
+  }
+
   var PH_FIND_QUICK = [
     { href: '/phenome-store/store/', label: 'Shop all' },
     { href: '/phenome-store/store/phenometech-ring/', label: 'PhenomeTech Ring' },
@@ -1653,6 +1800,7 @@
         add(f.name, f.href, p.trigger, f.price || '');
       });
       (p.columns || []).forEach(function (c) {
+        if (c.href) add(c.title, c.href, p.trigger, '');
         (c.links || []).forEach(function (l) {
           add(l.label, l.href, p.trigger + ', ' + c.title, '');
         });
@@ -1993,6 +2141,7 @@
   rails();
   watchStill();
   searchKit();
+  regionKit();
   backToTop();
   productBar();
   carousels();
