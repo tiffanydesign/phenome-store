@@ -84,16 +84,37 @@
   position: relative; border-radius: var(--bd-r); overflow: clip;
   aspect-ratio: 8 / 7; background: #fff;
   box-shadow: inset 0 0 0 1px var(--divider);
-  position: sticky; top: 24px;
+  /* Sticks BELOW the bar. At 24px it slid 20px under the 44px nav, and the
+     product bar that replaces the nav on scroll covered the same strip. */
+  position: sticky; top: calc(var(--ph-nav-h, 44px) + 18px);
+  touch-action: pan-y;
 }
-.bd .bd-gal-track { position: absolute; inset: 0; }
+.bd .bd-gal-track { position: absolute; inset: 0; overflow: clip; }
+/* THE RING PDP'S MOTION, 2026-09-22. Every slide sits in one cell, moved by
+   `--o` (its offset from the current slide, written by band.js). A slide that
+   would cross the whole frame on a wrap gets `data-snap` and jumps unseen. The
+   picture inside eases slower than its slide and against it, so a change reads
+   as a camera pan rather than a card being swapped. */
 .bd .bd-slide {
-  position: absolute; inset: 0; margin: 0;
-  transform: translateX(var(--x, 100%)); transition: transform .8s var(--bd-ease);
+  position: absolute; inset: 0; margin: 0; overflow: hidden;
+  transform: translate3d(calc(var(--o, 0) * 100%), 0, 0);
+  transition: transform 760ms cubic-bezier(.65, 0, .25, 1);
 }
-/* A product plate sits inside its frame with air around it; the worn shot,
-   which carries its own studio ground, fills the frame instead. */
-.bd .bd-slide img { position: absolute; inset: 9%; width: 82%; height: 82%; object-fit: contain; }
+/* A slide that has left is hidden once its move ends: at a fractional frame
+   width its neighbour otherwise showed as a coloured hairline on the edge. */
+.bd .bd-slide[aria-hidden="true"] {
+  visibility: hidden;
+  transition: transform 760ms cubic-bezier(.65, 0, .25, 1), visibility 0s linear 760ms;
+}
+.bd .bd-slide[data-snap] { transition: none; }
+/* A product plate sits inside its frame with air around it; a worn photograph,
+   which carries its own ground, fills the frame instead. */
+.bd .bd-slide img {
+  position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: contain;
+  transform: translate3d(calc(var(--o, 0) * -12%), 0, 0) scale(1.02);
+  transition: transform 900ms cubic-bezier(.65, 0, .25, 1), opacity .42s var(--bd-ease);
+}
+.bd .bd-slide[data-snap] img { transition: opacity .42s var(--bd-ease); }
 .bd .bd-slide.is-fill img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* THE COLOUR PLATE, 2026-09-17: six photographs stacked in the first slide,
    one per colourway, crossfading on a press. The `:first-of-type` fallback is
@@ -106,38 +127,94 @@
 }
 .bd .bd-slide[data-gal-plate] img.on { opacity: 1; }
 .bd .bd-gal:not(.is-live) .bd-slide[data-gal-plate] img:first-of-type { opacity: 1; }
-.bd .bd-gal-arrow {
-  position: absolute; top: 50%; z-index: 2; width: 44px; height: 44px; margin-top: -22px;
-  border: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
-  color: var(--ink-900); background: rgba(255, 255, 255, .7);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .1);
-  opacity: 0; transition: opacity .25s ease, transform .25s ease;
+/* ---- the frame's furniture, one dark glass family (the ring PDP's) ------
+   Navy glass with a white glyph reads on the white plates AND on the worn
+   photographs; a light disc disappears on the first and a dark one on nothing. */
+/* Denser than the PDP's 34%: that value is tuned for dark film, and over a
+   white plate it composited to a pale lilac that white type could not hold. */
+.bd {
+  --bd-glass: rgba(10, 30, 87, .72);
+  --bd-glass-hi: rgba(10, 30, 87, .86);
 }
-.bd .bd-gal-arrow svg { width: 20px; height: 20px; }
-.bd .bd-gal-arrow.is-prev { left: 16px; transform: translateX(-6px); }
-.bd .bd-gal-arrow.is-next { right: 16px; transform: translateX(6px); }
-.bd .bd-gal:hover .bd-gal-arrow,
-.bd .bd-gal-arrow:focus-visible { opacity: 1; transform: none; }
-.bd .bd-gal-dots {
-  position: absolute; left: 50%; bottom: 18px; z-index: 2; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 99px;
-  background: rgba(10, 18, 51, .38);
-  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+.bd .bd-gal-tag,
+.bd .bd-gal-tool,
+.bd .bd-gal-nav {
+  background: var(--bd-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(130%); backdrop-filter: blur(18px) saturate(130%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2);
+  color: #fff;
 }
+/* The finish, named on the picture that shows it: only on the colour plate,
+   which is the one slide that follows the swatch. */
+.bd .bd-gal-tag {
+  position: absolute; left: 16px; top: 16px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 9px;
+  height: 34px; padding: 0 14px 0 10px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; white-space: nowrap;
+  transition: opacity .42s var(--bd-ease), transform .42s var(--bd-ease);
+}
+.bd .bd-gal-tag i {
+  width: 14px; height: 14px; border-radius: 50%; flex: none;
+  background: var(--sw, #313131);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45), inset 0 -3px 5px rgba(0, 0, 0, .25);
+  transition: background-color .3s ease;
+}
+.bd .bd-gal.is-live:not([data-follow]) .bd-gal-tag { opacity: 0; transform: translateY(-4px); pointer-events: none; }
+
+.bd .bd-gal-tools { position: absolute; right: 14px; top: 14px; z-index: 2; display: flex; gap: 9px; }
+.bd .bd-gal-tool {
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.bd .bd-gal-tool:hover { background: var(--bd-glass-hi); }
+.bd .bd-gal-tool:active { transform: scale(.95); }
+.bd .bd-gal-tool:focus-visible { outline: 2px solid var(--ph-accent-link); outline-offset: 2px; }
+.bd .bd-gal-tool svg { width: 16px; height: 16px; display: block; fill: currentColor; }
+.bd .bd-gal-tool .i-play { display: none; }
+.bd .bd-gal-tool[data-paused] .i-play { display: block; }
+.bd .bd-gal-tool[data-paused] .i-pause { display: none; }
+
+/* Previous, a dot per slide, next. The dots are 6px marks in 20px targets;
+   the current one is 32px long and fills over `--dwell`, pausing with the
+   slideshow, so it is always an honest countdown. */
+.bd .bd-gal-nav {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; align-items: center; gap: 2px;
+  height: 40px; padding: 0 6px; border-radius: 99px;
+}
+.bd .bd-gal-nav[hidden] { display: none; }
+.bd .bd-gal-arrow,
 .bd .bd-gal-dot {
-  position: relative; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px;
-  background: rgba(255, 255, 255, .5); cursor: pointer; overflow: hidden;
-  transition: width .45s var(--bd-ease), background-color .3s ease;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; background: none; color: inherit; cursor: pointer; border-radius: 99px;
 }
-.bd .bd-gal-dot::before { content: ""; position: absolute; inset: -8px -3px; }
-.bd .bd-gal-dot.on { width: 30px; background: rgba(255, 255, 255, .42); }
-.bd .bd-gal-dot.on::after {
+.bd .bd-gal-arrow { width: 30px; height: 30px; opacity: .8; transition: opacity .2s ease, background-color .2s ease; }
+.bd .bd-gal-arrow:hover { opacity: 1; background: rgba(255, 255, 255, .12); }
+.bd .bd-gal-arrow svg { width: 16px; height: 16px; display: block; }
+.bd .bd-gal-dots { display: flex; align-items: center; padding: 0 4px; }
+.bd .bd-gal-dot { width: 14px; height: 20px; }
+.bd .bd-gal-dot i {
+  position: relative; display: block; overflow: hidden;
+  width: 6px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .4);
+  transition: background-color .2s ease;
+}
+.bd .bd-gal-dot:hover i { background: rgba(255, 255, 255, .7); }
+.bd .bd-gal-dot[aria-current="true"] { width: 40px; }
+.bd .bd-gal-dot[aria-current="true"] i { width: 32px; background: rgba(255, 255, 255, .35); }
+.bd .bd-gal-dot[aria-current="true"] i::after {
   content: ""; position: absolute; inset: 0; background: #fff; border-radius: inherit;
-  transform-origin: left; animation: bd-dot var(--gal-ms, 5000ms) linear forwards;
+  transform-origin: left center; transform: scaleX(0);
+  animation: bd-dwell var(--dwell, 5s) linear forwards;
 }
-.bd .bd-gal.is-held .bd-gal-dot.on::after { animation: none; transform: none; }
-@keyframes bd-dot { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bd .bd-gal[data-hover] .bd-gal-dot[aria-current="true"] i::after,
+.bd .bd-gal[data-away] .bd-gal-dot[aria-current="true"] i::after { animation-play-state: paused; }
+/* Held for good: the countdown is not paused, it is not happening, so the bar
+   reads full rather than frozen. */
+.bd .bd-gal[data-held] .bd-gal-dot[aria-current="true"] i::after { animation: none; transform: none; }
+.bd .bd-gal-arrow:focus-visible,
+.bd .bd-gal-dot:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+@keyframes bd-dwell { to { transform: scaleX(1); } }
 
 /* ---- 1b · THE DECISION COLUMN ----------------------------------------------
    RESPACED TWICE, 2026-09-16. The first pass opened a crowded column up to a
@@ -730,10 +807,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bd .bd-slide { transition: none; }
+  .bd .bd-slide, .bd .bd-slide img { transition: opacity .42s ease; }
   .bd .bd-mq-row { animation: none; }
   .bd .bd-mq { overflow-x: auto; }
-  .bd .bd-gal-dot.on::after { animation: none; transform: none; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -750,5 +826,20 @@
      tallest thing on the page and left the product floating in the middle of
      it. A square is 100px shorter than the column at 1440 and it follows the
      reader down rather than ending, so the two tracks still finish together. */
-  .bd .bd-gal { aspect-ratio: 1; align-self: start; min-height: 0; position: sticky; top: 24px; }
+  /* 4:5 like the ring PDP's frame, 2026-09-22, but never taller than the
+     window under the bar: a sticky frame taller than the screen hides its own
+     foot, which is where the dots are. */
+  .bd .bd-gal {
+    /* 150px = promo bar 40 + nav 44 + the hero's 40 top + air, so the dots
+       are on screen at first load as well as once the frame is stuck. */
+    aspect-ratio: 4 / 5; max-height: calc(100svh - 150px); width: 100%;
+    align-self: start; min-height: 0;
+    position: sticky; top: calc(var(--ph-nav-h, 44px) + 18px);
+  }
+}
+@media (max-width: 560px) {
+  .bd .bd-gal { aspect-ratio: 4 / 5; }
+  .bd .bd-gal-tag { left: 12px; top: 12px; height: 32px; }
+  .bd .bd-gal-tools { right: 10px; top: 10px; }
+  .bd .bd-gal-nav { right: 10px; bottom: 10px; }
 }

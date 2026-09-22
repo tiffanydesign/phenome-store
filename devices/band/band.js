@@ -42,67 +42,143 @@
   var subs = [];
   function publish() { subs.forEach(function (fn) { fn(state); }); }
 
-  /* ---- 1 · gallery: slides move sideways, a glass pill of dots below ------ */
+  /* ---- 1 · gallery: the ring PDP's slideshow ------------------------------
+     2026-09-22 by request, "播放形式和效果参考" store/phenometech-ring. Slides
+     are moved by their CIRCULAR offset from the current one, so a wrap from the
+     last to the first is one step, not a rewind through all of them; a slide
+     whose offset jumps by more than one is snapped without a transition. The
+     countdown pauses under a pointer, off screen and in a hidden tab, and the
+     hold button stops it for good. Autoplay starts whatever the motion setting
+     (the site rule since the NAD hero, 2026-09-22): reduced motion only takes
+     the slide and pan animation away. */
   function gallery() {
     var gal = $('[data-gal]');
     if (!gal) return;
     var slides = $$('[data-slide]', gal);
-    var dots = $('[data-gal-dots]', gal);
-    var MS = 5000, cur = 0, timer = 0;
-    gal.style.setProperty('--gal-ms', MS + 'ms');
+    var nav = $('[data-gal-nav]', gal);
+    var holdBtn = $('[data-gal-hold]', gal);
+    var n = slides.length;
+    var DWELL = 5000, cur = 0, timer = 0, started = 0, left = DWELL;
+    var held = false, hover = false, away = false;
+    gal.style.setProperty('--dwell', DWELL + 'ms');
+    gal.classList.add('is-live');
 
-    var btns = slides.map(function (s, i) {
-      var b = doc.createElement('button');
-      b.type = 'button'; b.className = 'bd-gal-dot'; b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', 'Photograph ' + (i + 1) + ' of ' + slides.length);
-      b.addEventListener('click', function () { go(i, true); });
-      dots.appendChild(b);
-      return b;
-    });
+    var CHEV = function (d) {
+      return '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="' + d +
+        '" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    };
+    nav.innerHTML =
+      '<button class="bd-gal-arrow" type="button" data-gal-prev aria-label="Previous photograph">' + CHEV('M10 3.5 5.5 8l4.5 4.5') + '</button>' +
+      '<span class="bd-gal-dots">' + slides.map(function (s, i) {
+        return '<button class="bd-gal-dot" type="button" aria-label="Photograph ' + (i + 1) + ' of ' + n + '"><i></i></button>';
+      }).join('') + '</span>' +
+      '<button class="bd-gal-arrow" type="button" data-gal-next aria-label="Next photograph">' + CHEV('M6 3.5 10.5 8 6 12.5') + '</button>';
+    nav.hidden = false;
+    var dots = $$('.bd-gal-dot', nav);
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i); }); });
+
+    /* -1, 0, +1, ... around the ring, so both neighbours are always one away */
+    function offset(i, c) {
+      var o = ((i - c) % n + n) % n;
+      return o > n / 2 ? o - n : o;
+    }
+    var prevO = slides.map(function (s, i) { return offset(i, 0); });
 
     function paint() {
       slides.forEach(function (s, i) {
-        var o = i - cur;
-        s.style.setProperty('--x', (o * 100) + '%');
+        var o = offset(i, cur);
+        if (Math.abs(o - prevO[i]) > 1) s.setAttribute('data-snap', '');
+        else s.removeAttribute('data-snap');
+        s.style.setProperty('--o', o);
+        prevO[i] = o;
         s.setAttribute('aria-hidden', o === 0 ? 'false' : 'true');
       });
-      btns.forEach(function (b, i) {
-        b.classList.remove('on');
-        b.setAttribute('aria-selected', i === cur ? 'true' : 'false');
+      dots.forEach(function (d, i) {
+        d.removeAttribute('aria-current');
+        if (i === cur) {
+          /* a fresh node restarts the countdown's CSS animation */
+          var fresh = d.querySelector('i'); d.replaceChild(fresh.cloneNode(false), fresh);
+          d.setAttribute('aria-current', 'true');
+        }
       });
-      /* restart the progress fill by re-adding the class on the next frame */
-      requestAnimationFrame(function () { btns[cur].classList.add('on'); });
+      gal.toggleAttribute('data-follow', slides[cur].hasAttribute('data-follows'));
     }
-    function go(i, user) {
-      cur = (i + slides.length) % slides.length;
-      paint();
-      if (user) hold(false);
-      schedule();
-    }
-    function schedule() {
-      clearTimeout(timer);
-      if (still.matches || gal.classList.contains('is-held')) return;
-      timer = setTimeout(function () { go(cur + 1); }, MS);
-    }
-    function hold(on) { gal.classList.toggle('is-held', on); if (on) clearTimeout(timer); else schedule(); }
 
-    $('[data-gal-prev]', gal).addEventListener('click', function () { go(cur - 1, true); });
-    $('[data-gal-next]', gal).addEventListener('click', function () { go(cur + 1, true); });
-    gal.addEventListener('mouseenter', function () { hold(true); });
-    gal.addEventListener('mouseleave', function () { hold(false); });
+    function run() {
+      clearTimeout(timer);
+      if (held || hover || away) return;
+      started = Date.now();
+      timer = setTimeout(function () { go(cur + 1, true); }, left);
+    }
+    function pause() {
+      if (timer) { clearTimeout(timer); timer = 0; left = Math.max(0, left - (Date.now() - started)); }
+    }
+    function go(i, auto) {
+      cur = ((i % n) + n) % n;
+      left = DWELL;
+      paint();
+      /* a press on an arrow or a dot is a request to look, not to stop; the
+         countdown starts over from the slide the reader chose */
+      if (!auto) { clearTimeout(timer); timer = 0; }
+      run();
+    }
+    function setHeld(on) {
+      held = on;
+      gal.toggleAttribute('data-held', on);
+      holdBtn.toggleAttribute('data-paused', on);
+      holdBtn.setAttribute('aria-label', on ? 'Play the slideshow' : 'Pause the slideshow');
+      if (on) pause(); else { left = DWELL; paint(); run(); }
+    }
+
+    $('[data-gal-prev]', nav).addEventListener('click', function () { go(cur - 1); });
+    $('[data-gal-next]', nav).addEventListener('click', function () { go(cur + 1); });
+    holdBtn.addEventListener('click', function () { setHeld(!held); });
+
+    var fine = window.matchMedia('(hover: hover)');
+    gal.addEventListener('mouseenter', function () {
+      if (!fine.matches) return;
+      hover = true; gal.setAttribute('data-hover', ''); pause();
+    });
+    gal.addEventListener('mouseleave', function () {
+      hover = false; gal.removeAttribute('data-hover'); run();
+    });
+    function setAway(on) {
+      away = on; gal.toggleAttribute('data-away', on);
+      if (on) pause(); else run();
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        setAway(!es[0].isIntersecting || doc.hidden);
+      }, { threshold: 0.25 }).observe(gal);
+    }
+    doc.addEventListener('visibilitychange', function () { setAway(doc.hidden); });
 
     var x0 = null;
     gal.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') x0 = e.clientX; });
     gal.addEventListener('pointerup', function (e) {
       if (x0 === null) return;
       var dx = e.clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true);
+      if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    });
+    gal.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
     });
 
     /* choosing a colour or a strap brings the product plate back to the front */
     $$('.bd-sw, .bd-choice').forEach(function (b) {
-      b.addEventListener('click', function () { if (cur !== 0) go(0, true); });
+      b.addEventListener('click', function () { if (cur !== 0) go(0); });
     });
+
+    /* the tag names the chosen strap and colour, bead in the sampled tone */
+    var tag = $('[data-gal-tag]', gal);
+    if (tag) {
+      subs.push(function (s) {
+        var c = COLOURS[s.colour], st = STRAPS[c.strap].name;
+        tag.querySelector('span').textContent = st.charAt(0).toUpperCase() + st.slice(1) + ', ' + c.name;
+        tag.style.setProperty('--sw', c.hex);
+      });
+    }
 
     /* THE PLATE FOLLOWS THE COLOUR. Six photographs stacked in the first slide,
        crossfading on a press — the same construction as the ring PDP's stills.
@@ -127,7 +203,7 @@
     }
 
     paint();
-    schedule();
+    run();
   }
 
   /* ---- 1 · decision column ------------------------------------------------ */

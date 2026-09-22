@@ -45,9 +45,17 @@
      colour changes the picture, which is the one thing the old single colour
      control could never do. The two slides after it are the frame and the dock,
      which are the same whichever strap is on it. -->
+<!-- THE FRAME PLAYS LIKE THE RING PDP'S, 2026-09-22 by request: slides stacked
+     and moved by their offset from the current one (a wrap moves one step, it
+     does not rewind), the picture inside pans a touch slower than its slide,
+     the finish tag top left, the hold button top right, and a dark glass pill
+     of previous, dots and next at the foot. The frame is sticky BELOW the bar
+     now; it used to stick at 24px and slide 20px under the 44px nav. The six
+     colour plates were re-cut from the 3000px masters with air all round: the
+     old crops cut the strap off at the top and bottom of the picture. -->
 <div class="bd-gal" data-gal="" aria-roledescription="carousel" aria-label="Band photographs" role="region">
 <div class="bd-gal-track" data-gal-track="">
-<figure class="bd-slide is-on is-plate" data-slide="" data-gal-plate="">
+<figure class="bd-slide is-on is-plate" data-slide="" data-follows="" data-gal-plate="">
 <img alt="The PhenomeTech Band in Onyx, the perforated sport strap seen from the side" data-colour-img="onyx" decoding="async" height="1200" src="/phenome-store/assets/band/band-onyx.webp" width="1200"/>
 <img alt="The PhenomeTech Band in Ember, the perforated sport strap seen from the side" data-colour-img="ember" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-ember.webp" width="1200"/>
 <img alt="The PhenomeTech Band in Harbour, the perforated sport strap seen from the side" data-colour-img="harbour" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/band-harbour.webp" width="1200"/>
@@ -58,9 +66,12 @@
 <figure class="bd-slide is-plate" data-slide=""><img alt="The aluminium frame lifted clear of the strap" decoding="async" height="1200" loading="lazy" src="/phenome-store/assets/band/hero-frame.webp" width="900"/></figure>
 <figure class="bd-slide is-plate" data-slide=""><img alt="The charging dock with its cable running out of frame" decoding="async" height="800" loading="lazy" src="/phenome-store/assets/band/box-charger.webp" width="800"/></figure>
 </div>
-<button class="bd-gal-arrow is-prev" data-gal-prev="" type="button" aria-label="Previous photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<button class="bd-gal-arrow is-next" data-gal-next="" type="button" aria-label="Next photograph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="bd-gal-dots" data-gal-dots="" role="tablist" aria-label="Choose a photograph"></div>
+<span class="bd-gal-tag" data-gal-tag=""><i></i><span>Sport silicone, Onyx</span></span>
+<div class="bd-gal-tools">
+<button aria-label="Pause the slideshow" class="bd-gal-tool" data-gal-hold="" type="button"><svg aria-hidden="true" class="i-pause" focusable="false" viewBox="0 0 16 16"><rect height="12" rx="1" width="4" x="2" y="2"></rect><rect height="12" rx="1" width="4" x="10" y="2"></rect></svg><svg aria-hidden="true" class="i-play" focusable="false" viewBox="0 0 16 16"><path d="M4 2.5l9 5.5-9 5.5z"></path></svg></button>
+</div>
+<!-- Filled by band.js: previous, one dot per slide, next. -->
+<div class="bd-gal-nav" data-gal-nav="" hidden=""></div>
 </div>
 
 <div class="bd-col">
