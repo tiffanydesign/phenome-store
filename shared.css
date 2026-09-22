@@ -4454,84 +4454,89 @@ body:not(:has(.ds-launch)) .ph-top {
 }
 .ph-bar-name:hover { color: var(--ph-accent-link); }
 
-/* ================================================= MEGA MENU, WHOOP SHAPE
-   2026-09-22 by request: the dropdown's hierarchy, type sizes and picture
-   cards are taken from shop.whoop.com, measured at 1440 with Playwright:
+/* ================================================= MEGA MENU, APPLE SHAPE
+   2026-09-22 by request: the dropdown follows apple.com/se's global nav,
+   measured at 1440 with Playwright, and keeps ONE picture card at the right
+   end of the line (the user's condition).
 
-     sheet     full bleed white, 40px top, content on the page's own line
-     titles    16/24, 400, grey, 16px under each
-     lead      24/32 at 600, 16px apart (48px pitch), the doors of the section
-     links     16/24 at 600, 16px apart (40px pitch)
-     columns   80px apart
-     cards     204px squares, radius 16, 24px apart, right aligned; caption
-               16/24 at 600 with an arrow on the right, 16px under the picture
+     sheet     content starts on the bar's own left line, 40px under the bar
+     titles    grey, regular, 16px above the first link
+     column 1  "Explore …", links 24/28 at 600 on a 38px pitch; a `small`
+               link closes the column at the small size, 12px below
+     cols 2-3  "Shop …" / "More from …", links 600 on a 28px pitch
+     gaps      88px after the first column, 44px between the others
+     no bar    Apple marks the open trigger by its ink alone
 
-   Declared LAST so it overrides the older panel rules without editing them;
-   the ≤900 drawer keeps its own block further down this section. The site's
-   own ink and blue replace WHOOP's black, and the triggers stay mixed case,
-   because this site sets no copy in capitals. */
+   Apple's small size is 12px; this site's floor is 15, so the small links and
+   the titles are 15. Declared LAST so it overrides the older panel rules; the
+   ≤900 drawer keeps its own block at the foot of this section. */
 @media (min-width: 901px) {
   .ph-panel-inner {
     display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 40px;
-    padding-block: 40px 48px;
+    gap: 44px;
+    padding-block: 40px 64px;
   }
   .ph-panel .ph-panel-cols {
     display: flex; align-items: flex-start;
-    gap: clamp(36px, 4.6vw, 80px);
+    gap: 44px;
     min-width: 0;
     animation: none;
   }
+  .ph-panel .ph-panel-col.is-lead { margin-right: 44px; }
   .ph-panel .ph-panel-col {
     flex: 0 1 auto; min-width: 0;
-    display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+    display: flex; flex-direction: column; align-items: flex-start;
     animation: ph-search-rise .5s cubic-bezier(.2, .8, .2, 1) both;
-    animation-delay: calc(.05s + var(--i, 0) * .04s);
+    animation-delay: calc(.04s + var(--i, 0) * .05s);
   }
   .ph-panel .ph-panel-col-t {
-    font-size: 16px; line-height: 24px; font-weight: 400;
-    color: var(--ph-text-2); margin: 0;
+    font-size: 15px; line-height: 20px; font-weight: 400;
+    color: var(--ph-text-2); margin: 0 0 12px;
     white-space: nowrap;
   }
-  /* The column's own gap already puts 16px under the title; a second group
-     needs a clear break above it, the height of one skipped row. */
   .ph-panel .ph-panel-col-t2 { margin-top: 24px; }
 
   .ph-nav .ph-panel .ph-panel-col a,
   .ph-nav .ph-panel .ph-panel-col .ph-panel-label {
-    display: inline-flex; align-items: baseline; padding: 0;
-    font-size: 16px; line-height: 24px; font-weight: 600;
-    letter-spacing: -.005em;
+    display: inline-flex; align-items: baseline; padding: 4px 0;
+    font-size: 15px; line-height: 20px; font-weight: 600;
+    letter-spacing: -0.005em;
     color: var(--ph-text-1);
     white-space: nowrap;
     transition: color var(--ph-dur-fast, .15s) ease;
   }
   .ph-nav .ph-panel .ph-panel-col.is-lead a {
-    font-size: 24px; line-height: 32px; letter-spacing: -.015em;
+    padding: 5px 0;
+    font-size: 24px; line-height: 28px; letter-spacing: -0.015em;
   }
+  /* The column's small closing links, Apple's "Compare Mac models". */
+  .ph-nav .ph-panel .ph-panel-col.is-lead a.ph-panel-sm {
+    padding: 4px 0;
+    font-size: 15px; line-height: 20px; letter-spacing: -0.005em;
+  }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) + a.ph-panel-sm { margin-top: 12px; }
   .ph-nav .ph-panel .ph-panel-col a:hover { color: var(--ph-accent-link); text-decoration: none; }
   .ph-panel .ph-panel-note {
+    align-self: center;
     margin-left: 10px; padding: 0 9px;
-    font-size: 15px; line-height: 22px; font-weight: 500;
+    font-size: 15px; line-height: 22px; font-weight: 500; letter-spacing: 0;
     color: var(--ph-accent-link);
     background: color-mix(in srgb, var(--ph-accent-link) 9%, transparent);
     border-radius: 99px;
   }
 
-  /* ---- picture cards */
-  .ph-panel-feat {
-    flex: 0 0 auto; display: flex; gap: 24px;
-  }
+  /* ---- the one picture card, at the right end of the line */
+  .ph-panel-feat { flex: 0 0 auto; display: flex; }
   .ph-feat {
-    display: flex; flex-direction: column; gap: 16px;
-    width: clamp(168px, 14.2vw, 204px);
+    display: flex; flex-direction: column; gap: 14px;
+    width: clamp(176px, 15vw, 220px);
     color: var(--ph-text-1) !important; text-decoration: none !important;
     animation: ph-search-rise .5s cubic-bezier(.2, .8, .2, 1) both;
-    animation-delay: calc(.05s + var(--i, 0) * .04s);
+    animation-delay: calc(.04s + var(--i, 0) * .05s);
   }
   .ph-feat-img {
     display: block; aspect-ratio: 1; overflow: hidden;
-    border-radius: 16px; background: #EEF1F8;
+    border-radius: 18px; background: #EEF1F8;
   }
   .ph-feat-img img {
     width: 100%; height: 100%; object-fit: cover; display: block;
@@ -4539,10 +4544,10 @@ body:not(:has(.ds-launch)) .ph-top {
   }
   .ph-feat-cap {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
-    font-size: 16px; line-height: 24px; font-weight: 600;
+    font-size: 15px; line-height: 20px; font-weight: 600;
   }
   .ph-feat-cap svg {
-    flex: none; margin-top: 2px;
+    flex: none; width: 18px; height: 18px; margin-top: 1px;
     transition: transform .3s cubic-bezier(.2, .8, .2, 1);
   }
   .ph-feat:hover .ph-feat-img img { transform: scale(1.04); }
@@ -4553,45 +4558,26 @@ body:not(:has(.ds-launch)) .ph-top {
     outline: 2px solid var(--ph-accent-link); outline-offset: 3px;
   }
 
-  /* ---- the open trigger carries a bar on the bar's bottom edge, as WHOOP's
-     does. Drawn on the trigger, not on .ph-item: the item must stay
-     position:static or the sheet loses the full width bar as its containing
-     block. */
-  .ph-links > .ph-item > .ph-trigger { position: relative; }
-  .ph-links > .ph-item > .ph-trigger::after {
-    content: ""; position: absolute; left: 0; right: 0;
-    bottom: calc((var(--ph-nav-h) - 100%) / -2);
-    height: 2px; border-radius: 2px;
-    background: currentColor;
-    transform: scaleX(0); transition: transform .28s cubic-bezier(.2, .8, .2, 1);
-  }
   .ph-links > .ph-item > .ph-trigger[aria-expanded="true"] { color: var(--ph-text-1); }
-  .ph-links > .ph-item > .ph-trigger[aria-expanded="true"]::after { transform: scaleX(1); }
 }
-/* Narrower desktops: the columns come first, so the cards give way. One card
-   under 1280, none under 1100, where four columns and a lead already fill the
-   line. */
-@media (min-width: 901px) and (max-width: 1279px) {
-  .ph-panel-feat .ph-feat:nth-child(n+2) { display: none; }
-}
+/* Narrower desktops: the links come first, so the card gives way. */
 @media (min-width: 901px) and (max-width: 1099px) {
   .ph-panel-feat { display: none; }
-  .ph-nav .ph-panel .ph-panel-col.is-lead a { font-size: 21px; line-height: 28px; }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) { font-size: 21px; line-height: 26px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ph-panel .ph-panel-col, .ph-feat { animation: none; }
   .ph-feat-img img, .ph-feat-cap svg { transition: none; }
 }
-
 /* ring.css paints every panel link accent blue on .ph-flat pages (0,2,1);
    the .ph-nav prefix above (0,3,1) keeps one ink and one hover everywhere. */
 
 /* ---- the drawer (≤900): the same hierarchy, stacked. The lead column's doors
-   stay a size up, and the cards sit two across under the links. */
+   stay a size up, and the card sits under the links at half the width. */
 @media (max-width: 900px) {
   .ph-panel .ph-panel-col-t { font-size: 15px; font-weight: 400; color: var(--ph-text-2);
                               margin-bottom: 4px; }
-  .ph-panel .ph-panel-col.is-lead a { font-size: 21px; line-height: 28px; font-weight: 600; }
+  .ph-nav .ph-panel .ph-panel-col.is-lead a:not(.ph-panel-sm) { font-size: 21px; line-height: 28px; font-weight: 600; }
   .ph-panel .ph-panel-col a { font-weight: 600; }
   .ph-panel-feat {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;

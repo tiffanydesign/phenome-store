@@ -12,19 +12,18 @@
   }
 
   /* === MENU DATA — edit here; build/build_menu.py no longer exists === */
-  /* THE PANEL SHAPE IS WHOOP'S (shop.whoop.com, measured 2026-09-22 at 1440).
-     Every panel reads left to right in three kinds of thing:
-       · a LEAD column (`lead: true`) — a grey 16px title over three or so
-         destinations set large, 24/32 at 600. These are the doors, not the
-         products.
-       · grouped columns — the same grey title over 16/24 links at 600, 16px
-         apart. A `below` block stacks a second group in the same column so a
-         wide catalogue does not become a wide panel.
-       · one or two square picture cards, right aligned, with a caption and an
-         arrow under each. `name` is the caption AND the search row, so it has
-         to be a real label for a real page.
-     Search (searchKit below) reads featured names and every column link off
-     this one table, the lead column included, so nothing is authored twice. */
+  /* THE PANEL SHAPE IS APPLE'S (apple.com/se, measured 2026-09-22 at 1440),
+     with one picture card kept at the right end by request.
+       · column 1 (`lead: true`) — "Explore …": the section's own doors, set
+         large (24/28 at 600, 38px pitch). A link marked `small` closes the
+         column at the small size, the way Apple ends Mac with "Compare Mac
+         models".
+       · columns 2 and 3 — "Shop …" and "More from …": grey title, links at
+         the small size. Never more than three columns.
+       · `featured` — ONE square card, right aligned, caption and arrow under
+         it. `name` is the caption AND the search row.
+     Search (searchKit below) reads every column link and the card off this
+     one table, so nothing is authored twice. */
   var PH_MENU = [
     {
       "key": "store",
@@ -36,24 +35,12 @@
           "lead": true,
           "links": [
             { "label": "Shop all", "href": "/phenome-store/store/" },
-            { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
-            { "label": "Devices", "href": "/phenome-store/store/devices/" }
-          ]
-        },
-        {
-          "title": "Tests",
-          "links": [
             { "label": "Genetic tests", "href": "/phenome-store/store/genetic/" },
             { "label": "Microbiome tests", "href": "/phenome-store/store/microbiome/" },
-            { "label": "Not sure where to start", "href": "/phenome-store/quiz/" }
-          ]
-        },
-        {
-          "title": "Devices",
-          "links": [
+            { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
             { "label": "PhenomeTech Ring", "href": "/phenome-store/store/phenometech-ring/" },
-            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/", "note": "New" },
-            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/" }
+            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" },
+            { "label": "Not sure where to start", "href": "/phenome-store/quiz/", "small": true }
           ]
         },
         {
@@ -64,15 +51,20 @@
             { "label": "Shipping and returns", "href": "/phenome-store/devices/ring/warranty-returns/" },
             { "label": "Contact us", "href": "/phenome-store/contact/" }
           ]
+        },
+        {
+          "title": "Shop by device",
+          "links": [
+            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/" },
+            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/" },
+            { "label": "All devices", "href": "/phenome-store/store/devices/" }
+          ]
         }
       ],
       "featured": [
         { "name": "Shop the PhenomeTech Ring", "price": "from £179",
           "href": "/phenome-store/store/phenometech-ring/",
-          "img": "/phenome-store/assets/menu/tile-store-ring.webp" },
-        { "name": "Comprehensive Genomic Test", "price": "£650",
-          "href": "/phenome-store/store/comprehensive-genomic/",
-          "img": "/phenome-store/assets/menu/tile-store-genome.webp" }
+          "img": "/phenome-store/assets/menu/tile-store-ring.webp" }
       ]
     },
     {
@@ -84,44 +76,36 @@
           "title": "Explore testing",
           "lead": true,
           "links": [
-            { "label": "Genetic testing", "href": "/phenome-store/testing/genetic/" },
-            { "label": "Microbiome testing", "href": "/phenome-store/testing/microbiome/" },
-            { "label": "Compare tests", "href": "/phenome-store/testing/compare/" }
-          ]
-        },
-        {
-          "title": "Genetic tests",
-          "links": [
             { "label": "Comprehensive Genomic Test", "href": "/phenome-store/testing/comprehensive-genomic/" },
             { "label": "Carrier Screening Test", "href": "/phenome-store/testing/carrier-screening/" },
             { "label": "Newborn Screening Test", "href": "/phenome-store/testing/newborn-screening/", "note": "Sold out" },
-            { "label": "Sports Performance Test", "href": "/phenome-store/testing/sports-performance/" }
+            { "label": "Sports Performance Test", "href": "/phenome-store/testing/sports-performance/" },
+            { "label": "Gut Microbiome Test", "href": "/phenome-store/testing/gut-microbiome/" },
+            { "label": "Oral Microbiome Test", "href": "/phenome-store/testing/oral-microbiome/" },
+            { "label": "Compare tests", "href": "/phenome-store/testing/compare/", "small": true }
           ]
         },
         {
-          "title": "Microbiome tests",
+          "title": "Get tested",
           "links": [
-            { "label": "Gut Microbiome Test", "href": "/phenome-store/testing/gut-microbiome/" },
-            { "label": "Oral Microbiome Test", "href": "/phenome-store/testing/oral-microbiome/" }
-          ],
-          "below": {
-            "title": "More from testing",
-            "links": [
-              { "label": "How testing works", "href": "/phenome-store/testing/how-it-works/" },
-              { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
-              { "label": "Whole genome sequencing", "href": "/phenome-store/science/whole-genome-sequencing/" },
-              { "label": "Results and counselling", "href": "/phenome-store/app/results-and-reports/" }
-            ]
-          }
+            { "label": "How testing works", "href": "/phenome-store/testing/how-it-works/" },
+            { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
+            { "label": "Results and counselling", "href": "/phenome-store/app/results-and-reports/" }
+          ]
+        },
+        {
+          "title": "More from testing",
+          "links": [
+            { "label": "Genetic testing", "href": "/phenome-store/testing/genetic/" },
+            { "label": "Microbiome testing", "href": "/phenome-store/testing/microbiome/" },
+            { "label": "Whole genome sequencing", "href": "/phenome-store/science/whole-genome-sequencing/" }
+          ]
         }
       ],
       "featured": [
         { "name": "Comprehensive Genomic Test", "price": "£650",
           "href": "/phenome-store/testing/comprehensive-genomic/",
-          "img": "/phenome-store/assets/menu/tile-testing-genetic.webp" },
-        { "name": "Gut Microbiome Test", "price": "£200",
-          "href": "/phenome-store/testing/gut-microbiome/",
-          "img": "/phenome-store/assets/menu/tile-testing-gut.webp" }
+          "img": "/phenome-store/assets/menu/tile-testing-genetic.webp" }
       ]
     },
     {
@@ -135,59 +119,43 @@
           "links": [
             { "label": "Shop all", "href": "/phenome-store/store/supplements/" },
             { "label": "Longevity", "href": "/phenome-store/store/#longevity" },
-            { "label": "Immunity", "href": "/phenome-store/store/#immunity-and-respiratory" }
+            { "label": "Cellular support", "href": "/phenome-store/store/#cellular-support" },
+            { "label": "Energy and cognition", "href": "/phenome-store/store/#energy-and-cognition" },
+            { "label": "Immunity", "href": "/phenome-store/store/#immunity-and-respiratory" },
+            { "label": "Inflammation", "href": "/phenome-store/store/#inflammation-support" },
+            { "label": "Skin and everyday", "href": "/phenome-store/store/#skin-and-everyday" }
           ]
         },
         {
-          "title": "Longevity",
+          "title": "Longevity range",
           "links": [
             { "label": "NAD+", "href": "/phenome-store/supplements/nad/", "note": "Liposomal" },
             { "label": "NAD+ Boost", "href": "/phenome-store/supplements/nad-boost/" },
             { "label": "NAD+ Betaine", "href": "/phenome-store/supplements/nad-betaine/" },
             { "label": "NAD+ Resveratrol", "href": "/phenome-store/supplements/nad-resveratrol/" },
-            { "label": "NAD+ Spermidine", "href": "/phenome-store/supplements/nad-spermidine/" }
-          ],
-          "below": {
-            "title": "Cellular support",
-            "links": [
-              { "label": "Gly-NAC", "href": "/phenome-store/supplements/gly-nac/" },
-              { "label": "Ser-NAC", "href": "/phenome-store/supplements/ser-nac/" },
-              { "label": "Broccoli Complex", "href": "/phenome-store/supplements/broccoli-complex-capsules/" }
-            ]
-          }
+            { "label": "NAD+ Spermidine", "href": "/phenome-store/supplements/nad-spermidine/" },
+            { "label": "Gly-NAC", "href": "/phenome-store/supplements/gly-nac/" },
+            { "label": "Ser-NAC", "href": "/phenome-store/supplements/ser-nac/" },
+            { "label": "Broccoli Complex", "href": "/phenome-store/supplements/broccoli-complex-capsules/" }
+          ]
         },
         {
-          "title": "Energy and cognition",
+          "title": "Everyday range",
           "links": [
             { "label": "Mitochondria Boost", "href": "/phenome-store/supplements/mitochondria-boost/" },
             { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" },
-            { "label": "Guarana", "href": "/phenome-store/supplements/guarana-capsules/" }
-          ],
-          "below": {
-            "title": "Skin and everyday",
-            "links": [
-              { "label": "Multi Collagen Powder", "href": "/phenome-store/supplements/multi-collagen-powder/" },
-              { "label": "Nigella Sativa Seed Oil", "href": "/phenome-store/supplements/nigella-sativa-seed-oil/" }
-            ]
-          }
-        },
-        {
-          "title": "Immunity and respiratory",
-          "links": [
+            { "label": "Guarana", "href": "/phenome-store/supplements/guarana-capsules/" },
             { "label": "Quercetin", "href": "/phenome-store/supplements/quercetin-capsules/" },
             { "label": "Sambucus Gummies", "href": "/phenome-store/supplements/sambucus-gummies/" },
             { "label": "Throat Relief Lozenges", "href": "/phenome-store/supplements/throat-relief-lozenges/" },
             { "label": "Propolis Lozenges", "href": "/phenome-store/supplements/propolis-throat-lozenges/" },
-            { "label": "Pelargonium Lozenges", "href": "/phenome-store/supplements/pelargonium-throat-lozenges/" }
-          ],
-          "below": {
-            "title": "Inflammation support",
-            "links": [
-              { "label": "Joint Boost", "href": "/phenome-store/supplements/joint-boost-capsules/" },
-              { "label": "Bromelain", "href": "/phenome-store/supplements/bromelain-capsules/" },
-              { "label": "FlexiCream", "href": "/phenome-store/supplements/flexicream/" }
-            ]
-          }
+            { "label": "Pelargonium Lozenges", "href": "/phenome-store/supplements/pelargonium-throat-lozenges/" },
+            { "label": "Joint Boost", "href": "/phenome-store/supplements/joint-boost-capsules/" },
+            { "label": "Bromelain", "href": "/phenome-store/supplements/bromelain-capsules/" },
+            { "label": "FlexiCream", "href": "/phenome-store/supplements/flexicream/" },
+            { "label": "Multi Collagen Powder", "href": "/phenome-store/supplements/multi-collagen-powder/" },
+            { "label": "Nigella Sativa Seed Oil", "href": "/phenome-store/supplements/nigella-sativa-seed-oil/" }
+          ]
         }
       ],
       "featured": [
@@ -206,30 +174,25 @@
           "lead": true,
           "links": [
             { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
-            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" },
-            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/" }
+            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/", "note": "New" },
+            { "label": "Compare materials", "href": "/phenome-store/devices/ring/compare-materials/", "small": true },
+            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/", "small": true }
           ]
         },
         {
-          "title": "Ring",
+          "title": "Shop devices",
           "links": [
             { "label": "Shop the Ring", "href": "/phenome-store/store/phenometech-ring/" },
-            { "label": "Find your size", "href": "/phenome-store/devices/ring/find-your-size/" },
-            { "label": "How it works", "href": "/phenome-store/devices/ring/how-it-works/" }
-          ]
-        },
-        {
-          "title": "Ring materials",
-          "links": [
+            { "label": "Shop the Band", "href": "/phenome-store/devices/band/" },
             { "label": "Metal, from £179", "href": "/phenome-store/devices/ring/compare-materials/" },
             { "label": "Matte, from £189", "href": "/phenome-store/devices/ring/compare-materials/" },
             { "label": "Ceramic, from £199", "href": "/phenome-store/devices/ring/compare-materials/" }
           ]
         },
         {
-          "title": "Band",
+          "title": "More from devices",
           "links": [
-            { "label": "Shop the Band", "href": "/phenome-store/devices/band/", "note": "New" },
+            { "label": "How it works", "href": "/phenome-store/devices/ring/how-it-works/" },
             { "label": "Warranty and returns", "href": "/phenome-store/devices/ring/warranty-returns/" }
           ]
         }
@@ -237,10 +200,7 @@
       "featured": [
         { "name": "Explore PhenomeTech Ring", "price": "from £179",
           "href": "/phenome-store/devices/ring/",
-          "img": "/phenome-store/assets/menu/tile-devices-ring.webp" },
-        { "name": "Meet PhenomeTech Band", "price": "£149",
-          "href": "/phenome-store/devices/band/",
-          "img": "/phenome-store/assets/menu/tile-devices-band.webp" }
+          "img": "/phenome-store/assets/menu/tile-devices-ring.webp" }
       ]
     },
     {
@@ -254,21 +214,16 @@
           "links": [
             { "label": "Explore the app", "href": "/phenome-store/app/" },
             { "label": "Your dashboard", "href": "/phenome-store/app/dashboard/" },
-            { "label": "Results and reports", "href": "/phenome-store/app/results-and-reports/" }
-          ]
-        },
-        {
-          "title": "Inside the app",
-          "links": [
-            { "label": "Trends over time", "href": "/phenome-store/app/trends/" },
-            { "label": "Book a session", "href": "/phenome-store/app/book-a-session/" }
+            { "label": "Results and reports", "href": "/phenome-store/app/results-and-reports/" },
+            { "label": "Trends over time", "href": "/phenome-store/app/trends/" }
           ]
         },
         {
           "title": "Get started",
           "links": [
             { "label": "Create an account", "href": "/phenome-store/account/" },
-            { "label": "Activate a kit", "href": "/phenome-store/account/activate/" }
+            { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
+            { "label": "Book a session", "href": "/phenome-store/app/book-a-session/" }
           ]
         },
         {
@@ -295,21 +250,16 @@
           "lead": true,
           "links": [
             { "label": "Our research", "href": "/phenome-store/science/our-research/" },
-            { "label": "The Longevity Hub", "href": "/phenome-store/hub/" },
-            { "label": "Meet the team", "href": "/phenome-store/about/" }
-          ]
-        },
-        {
-          "title": "Our methods",
-          "links": [
             { "label": "Whole genome sequencing", "href": "/phenome-store/science/whole-genome-sequencing/" },
             { "label": "Multiomics", "href": "/phenome-store/science/multiomics/" },
-            { "label": "Systems biology", "href": "/phenome-store/science/systems-biology/" }
+            { "label": "Systems biology", "href": "/phenome-store/science/systems-biology/" },
+            { "label": "The Longevity Hub", "href": "/phenome-store/hub/" }
           ]
         },
         {
-          "title": "Work with us",
+          "title": "About us",
           "links": [
+            { "label": "Meet the team", "href": "/phenome-store/about/" },
             { "label": "Partner with us", "href": "/phenome-store/careers/" }
           ]
         }
@@ -317,10 +267,7 @@
       "featured": [
         { "name": "Our research", "price": "",
           "href": "/phenome-store/science/our-research/",
-          "img": "/phenome-store/assets/menu/tile-science-research.webp" },
-        { "name": "Multiomics, explained", "price": "",
-          "href": "/phenome-store/science/multiomics/",
-          "img": "/phenome-store/assets/menu/tile-science-multiomics.webp" }
+          "img": "/phenome-store/assets/menu/tile-science-research.webp" }
       ]
     },
     {
@@ -332,24 +279,19 @@
           "title": "Explore support",
           "lead": true,
           "links": [
-            { "label": "Contact us", "href": "/phenome-store/contact/" },
-            { "label": "Track order", "href": "/phenome-store/account/orders/" },
-            { "label": "Activate a kit", "href": "/phenome-store/account/activate/" }
-          ]
-        },
-        {
-          "title": "Products",
-          "links": [
             { "label": "Testing", "href": "/phenome-store/testing/" },
             { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
             { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
-            { "label": "The app", "href": "/phenome-store/app/" }
+            { "label": "The app", "href": "/phenome-store/app/" },
+            { "label": "Your account", "href": "/phenome-store/account/" }
           ]
         },
         {
-          "title": "Orders",
+          "title": "Get help",
           "links": [
-            { "label": "Your account", "href": "/phenome-store/account/" },
+            { "label": "Contact us", "href": "/phenome-store/contact/" },
+            { "label": "Track order", "href": "/phenome-store/account/orders/" },
+            { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
             { "label": "Returns and refunds", "href": "/phenome-store/devices/ring/warranty-returns/" },
             { "label": "Report a problem", "href": "/phenome-store/contact/" }
           ]
@@ -365,10 +307,7 @@
       "featured": [
         { "name": "Talk to our team", "price": "",
           "href": "/phenome-store/contact/",
-          "img": "/phenome-store/assets/menu/tile-support-contact.webp" },
-        { "name": "Find your ring size", "price": "",
-          "href": "/phenome-store/devices/ring/find-your-size/",
-          "img": "/phenome-store/assets/menu/tile-support-size.webp" }
+          "img": "/phenome-store/assets/menu/tile-support-contact.webp" }
       ]
     }
   ];
@@ -1647,8 +1586,6 @@
     '/phenome-store/testing/gut-microbiome/':
       'bloating digestion ibs stool bacteria diversity fibre',
     '/phenome-store/testing/oral-microbiome/': 'mouth saliva gums teeth breath',
-    '/phenome-store/store/comprehensive-genomic/':
-      'dna genome sequencing wgs variants risk panels',
     '/phenome-store/testing/comprehensive-genomic/':
       'dna genome sequencing wgs variants risk panels',
     '/phenome-store/testing/carrier-screening/':
