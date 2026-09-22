@@ -109,9 +109,14 @@
 .bd .bd-slide[data-snap] { transition: none; }
 /* A product plate sits inside its frame with air around it; a worn photograph,
    which carries its own ground, fills the frame instead. */
+/* NOTHING SITS ON THE PRODUCT, 2026-09-22 by request: the picture is fitted
+   inside a safe area that stops short of the finish tag and hold button at the
+   top and the glass pill at the foot, and it is no longer scaled past that box,
+   so on a short window the band is never cut or covered. */
 .bd .bd-slide img {
-  position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: contain;
-  transform: translate3d(calc(var(--o, 0) * -12%), 0, 0) scale(1.02);
+  position: absolute; top: 64px; bottom: 72px; left: 6%; right: 6%;
+  width: 88%; height: calc(100% - 136px); object-fit: contain;
+  transform: translate3d(calc(var(--o, 0) * -12%), 0, 0);
   transition: transform 900ms cubic-bezier(.65, 0, .25, 1), opacity .42s var(--bd-ease);
 }
 .bd .bd-slide[data-snap] img { transition: opacity .42s var(--bd-ease); }
@@ -300,15 +305,11 @@
    and nylon is a material, not a colour, and there is nothing to put in a
    disc. */
 .bd .bd-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-/* ICON ABOVE THE NAME SINCE 2026-09-18. The card was a name over a line of
-   small print counting the colours behind it; the count is now made by the
-   swatch row itself and the line is gone, so what sits above the name is a
-   drawing of the material. Two rows, both centred, because the icon is the
-   thing being compared and a left rail would put 34px of drawing beside two
-   words and call it a layout. */
+/* THE NAME ONLY, 2026-09-22 by request: the material icon that sat above it
+   (2026-09-18) is gone, so the card is one centred line. */
 .bd .bd-choice {
-  display: grid; align-content: center; justify-items: center; gap: 8px;
-  min-height: 92px; padding: 14px 16px;
+  display: grid; align-content: center; justify-items: center;
+  min-height: 60px; padding: 14px 16px;
   text-align: center; cursor: pointer;
   -webkit-appearance: none; appearance: none;
   border: 0; border-radius: 14px;
@@ -316,15 +317,8 @@
   box-shadow: inset 0 0 0 1px var(--divider);
   transition: box-shadow .3s ease;
 }
-/* Quiet at rest, ink when chosen: the icon carries the selection alongside the
-   ring, so the card is legible as chosen at a glance rather than only at its
-   edge. */
-.bd .bd-choice-ic { display: block; width: 34px; height: 34px; color: var(--ph-text-2); transition: color .3s ease; }
-.bd .bd-choice-ic svg { display: block; width: 100%; height: 100%; }
-.bd .bd-choice.on .bd-choice-ic { color: var(--ink-900); }
 .bd .bd-choice .n { font-size: 17px; line-height: 23px; font-weight: 600; color: var(--ink-900); }
 .bd .bd-choice:hover { box-shadow: inset 0 0 0 1px var(--phenome-blue-300, #7185bd); }
-.bd .bd-choice:hover .bd-choice-ic { color: var(--phenome-blue-500, #203a85); }
 .bd .bd-choice.on { box-shadow: inset 0 0 0 2px var(--ink-900); }
 .bd .bd-choice:focus-visible { outline: 2px solid var(--phenome-blue-400); outline-offset: 3px; }
 
@@ -787,7 +781,8 @@
 }
 @media (max-width: 1024px) {
   .bd .bd-buy { grid-template-columns: 1fr; }
-  .bd .bd-gal { position: relative; top: 0; aspect-ratio: 1; }
+  /* Never taller than the window, or its foot (and the dots) falls off it. */
+  .bd .bd-gal { position: relative; top: 0; aspect-ratio: 1; max-height: calc(100svh - 150px); width: 100%; }
 }
 @media (max-width: 760px) {
   .bd .bd-coach { height: 190vh; }
@@ -842,4 +837,5 @@
   .bd .bd-gal-tag { left: 12px; top: 12px; height: 32px; }
   .bd .bd-gal-tools { right: 10px; top: 10px; }
   .bd .bd-gal-nav { right: 10px; bottom: 10px; }
+  .bd .bd-slide img { top: 54px; bottom: 60px; height: calc(100% - 114px); }
 }
