@@ -413,7 +413,6 @@
 .nadp .nd-ess-panel h3 { margin-top: 28px; font-size: 19px; line-height: 1.25; font-weight: 600; color: #fff; }
 .nadp .nd-ess-panel p { margin-top: 10px; font-size: 15px; line-height: 1.45; color: rgba(255, 255, 255, .86); max-width: 30ch; }
 
-@keyframes nd-spin { to { rotate: 360deg; } }
 @keyframes nd-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
 
 /* ---------------------------------------------------------------------------
@@ -435,33 +434,6 @@
 .nadp .nd-howto-sachet { width: 30px; height: 49px; rotate: -8deg; filter: drop-shadow(0 4px 6px rgba(10, 30, 87, .2)); }
 .nadp .nd-howto-sachet + .nd-howto-sachet { margin-left: -26px; rotate: 6deg; }
 
-/* ---------------------------------------------------------------------------
-   4 · FORMULA
-   ------------------------------------------------------------------------ */
-.nadp .nd-formula { background: var(--nd-sunk); }
-.nadp .nd-formula-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
-.nadp .nd-formula-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(40px, 6vw, 96px); align-items: center; margin-top: clamp(40px, 5vw, 72px);
-}
-.nadp .nd-still { position: relative; aspect-ratio: 1; max-width: 560px; width: 100%; justify-self: center; }
-.nadp .nd-still-dots { position: absolute; inset: 0; width: 100%; height: 100%; animation: nd-spin 240s linear infinite; }
-/* The real product, cut out on transparency (2026-09-21, replacing the drawn
-   sachet), standing upright and still in the middle of the turning dots. */
-.nadp .nd-still-bottle {
-  position: absolute; left: 50%; top: 50%; height: 62%; width: auto;
-  translate: -50% -50%;
-  filter: drop-shadow(0 28px 26px rgba(10, 30, 87, .26));
-}
-/* the bottle stands still (2026-09-22, by request); only the dots turn */
-.nadp .nd-ing .nd-acc-item > summary { display: grid; grid-template-columns: 1fr auto 14px; }
-.nadp .nd-ing .nd-acc-item:first-child { border-top-color: var(--nd-rule); }
-.nadp .nd-ing-n { font-size: 17px; }
-.nadp .nd-mono { font-family: var(--nd-mono); font-size: 16px; font-weight: 400; letter-spacing: .02em; color: var(--nd-ink-2); }
-.nadp .nd-ing .nd-acc-body p { max-width: 56ch; color: var(--nd-ink-2); }
-.nadp .nd-badges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 16px; margin-top: 40px; padding-left: 0; }
-.nadp .nd-badges li { list-style: none; display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 1.3; color: var(--nd-navy); }
-.nadp .nd-badges .nd-ic { width: 40px; height: 40px; stroke-width: 1.3; }
 
 /* ---------------------------------------------------------------------------
    6 · DELIVERED MONTHLY
@@ -703,8 +675,6 @@
   .nadp .nd-kits { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 1024px) {
-  .nadp .nd-formula-grid { grid-template-columns: minmax(0, 1fr); }
-  .nadp .nd-still { max-width: 420px; }
   .nadp .nd-rv { grid-template-columns: minmax(0, 1fr) auto; }
   .nadp .nd-rv-main { grid-column: 1 / -1; grid-row: 2; }
   .nadp .nd-rv time { grid-column: 2; grid-row: 1; }
@@ -716,7 +686,6 @@
   /* min-height 0: with a ratio, a min-height is also a min-width (380 x 1.6). */
   .nadp .nd-kit-img { aspect-ratio: 16 / 10; min-height: 0; }
   .nadp .nd-kit-body { padding: 8px; }
-  .nadp .nd-badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nadp .nd-dist { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 560px) {
@@ -738,7 +707,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nadp .nd-still-dots { animation: none; }
   .nadp .nd-end-film { display: none; }
   .nadp .nd-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
 }
