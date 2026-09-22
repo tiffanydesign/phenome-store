@@ -34,3 +34,78 @@
 @media (max-width: 640px) {
   .cg-foot .ph-tl-note { display: flex; width: 100%; }
 }
+
+/* ---------------------------------------------------------------------------
+   Related tests (2026-09-22, user request): the ring lab's "Read your
+   Biomarkers" cards. Square photographs, the name and price set on the
+   picture, the description opening on hover. Only tests of the same kind
+   (saliva DNA) and at most two, so nothing repeats what this page sells.
+   ------------------------------------------------------------------------ */
+.cg-rel {
+  --cg-ease: cubic-bezier(.2, .8, .2, 1);
+  padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 7vw, 110px);
+}
+.cg-rel-head { padding-inline: 24px; text-align: center; }
+.cg-rel .ph-display { align-items: center; font-size: clamp(40px, 5.6vw, 84px); }
+.cg-rel-grid {
+  width: min(1120px, calc(100% - 48px)); margin: clamp(40px, 5vw, 72px) auto 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.cg-rel-card {
+  position: relative; display: block; aspect-ratio: 1; overflow: hidden;
+  border-radius: 28px; background: #e9ebef; isolation: isolate;
+  color: #fff !important; text-decoration: none !important;
+}
+.cg-rel-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.1s var(--cg-ease);
+}
+/* Both photographs are high key, so the scrim is deeper than the lab's. */
+.cg-rel-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(10, 18, 51, .72) 100%);
+  transition: background .5s ease;
+}
+.cg-rel-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 0 36px 34px; text-align: center;
+  display: grid; grid-template-rows: auto auto 0fr auto;
+  transition: grid-template-rows .6s var(--cg-ease);
+}
+.cg-rel-copy h3 { margin: 0; font-size: clamp(22px, 2.3vw, 32px); font-weight: 700; letter-spacing: -0.01em; color: #fff; }
+.cg-rel-price { margin: 6px 0 0; font-size: 17px; font-weight: 600; color: rgba(255, 255, 255, .86); }
+.cg-rel-d {
+  margin: 0 auto; padding-top: 12px; max-width: 34ch; min-height: 0; overflow: hidden;
+  font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .9);
+  opacity: 0; transition: opacity .4s ease;
+}
+.cg-rel-go {
+  justify-self: center; display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; padding: 10px 20px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; color: #0a1233;
+  background: rgba(255, 255, 255, .92);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: background .3s ease;
+}
+.cg-rel-go::after { content: "\2192"; transition: transform .3s var(--cg-ease); }
+@media (hover: hover) {
+  .cg-rel-card:hover img { transform: scale(1.06); }
+  .cg-rel-card:hover .cg-rel-copy { grid-template-rows: auto auto 1fr auto; }
+  .cg-rel-card:hover .cg-rel-d { opacity: 1; }
+  .cg-rel-card:hover::after { background: linear-gradient(180deg, transparent 25%, rgba(10, 18, 51, .82) 100%); }
+  .cg-rel-card:hover .cg-rel-go { background: #fff; }
+  .cg-rel-card:hover .cg-rel-go::after { transform: translateX(3px); }
+}
+@media (hover: none) {
+  .cg-rel-copy { grid-template-rows: auto auto 1fr auto; }
+  .cg-rel-d { opacity: 1; }
+  .cg-rel-card::after { background: linear-gradient(180deg, transparent 25%, rgba(10, 18, 51, .82) 100%); }
+}
+.cg-rel-card:focus-visible { outline: 2px solid var(--ph-accent-link, #203a85); outline-offset: 4px; }
+@media (max-width: 760px) {
+  .cg-rel-grid { grid-template-columns: 1fr; }
+  .cg-rel-copy { padding: 0 22px 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cg-rel-card img, .cg-rel-copy, .cg-rel-d { transition: none; }
+}
