@@ -1020,7 +1020,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 .pdp .pdp-sig-bg { position: absolute; inset: 0; z-index: -2; }
 .pdp .pdp-sig-bg img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  object-position: 47% 50%;
+  object-position: 40% 50%;
 }
 /* Two washes, each seating one zone and leaving the middle alone: a navy bloom
    behind the copy in the upper right, where the tiles are near-white, and a
@@ -1033,7 +1033,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
      not just behind the copy. */
   background:
     linear-gradient(rgba(4, 7, 14, .52), rgba(4, 7, 14, .52)),
-    radial-gradient(ellipse 58% 62% at 12% 18%, rgba(10, 30, 87, .70) 0%, rgba(10, 30, 87, .44) 48%, rgba(10, 30, 87, 0) 100%),
+    radial-gradient(ellipse 58% 62% at 88% 18%, rgba(10, 30, 87, .70) 0%, rgba(10, 30, 87, .44) 48%, rgba(10, 30, 87, 0) 100%),
     linear-gradient(0deg, rgba(10, 30, 87, .50) 0%, rgba(10, 30, 87, 0) 34%);
 }
 
@@ -1045,8 +1045,11 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
 /* THE COPY IS ON THE LEFT NOW, which is the side nad's hero states from and the
    side every two tone display on this site is set against. The ring sits at 47%
    of the frame, so a column that stops at 620px still clears it at 1024 and up. */
+/* RIGHT AGAIN, 2026-09-22: the running photograph puts the hand and ring at
+   ~37% of the frame, under a left column, and gives the right half a black
+   tank top, which is the quietest ground on the picture for white type. */
 .pdp .pdp-sig-copy {
-  margin-right: auto;
+  margin-left: auto;
   width: min(100%, 620px);
 }
 .pdp .pdp-sig-frame { display: none; }
@@ -1140,7 +1143,7 @@ html.pdp-lb-open, body.pdp-lb-open { overflow: hidden; }
     display: block;
     aspect-ratio: 4 / 3;
     border-radius: var(--ph-r18);
-    background: url("/phenome-store/assets/pages/ring_worn_water.webp") 47% 50% / cover no-repeat;
+    background: url("/phenome-store/assets/pages/ring_worn_run.webp") 40% 50% / cover no-repeat;
   }
   .pdp .pdp-sig-glass {
     background: rgba(255, 255, 255, .07);
