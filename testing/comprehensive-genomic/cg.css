@@ -1,15 +1,436 @@
-/* Comprehensive Genomic Test (store) — page scoped rules, one section only.
+/* ============================================================================
+   testing/comprehensive-genomic · page sheet, scoped to body.cgp
 
-   "From sample to insight" takes the NAD page's timeline: the .ph-tl kit
-   component from phenome-glass.css (rail filled by shared.js on scroll, a
-   collage whose two small tiles drift). Everything here is layout around it,
-   scoped to .cg-steps so no other page can pick it up. */
+   2026-09-22, by request: the hero keeps its own words and its own aurora film,
+   and everything else on the page is rebuilt in the arrangement of
+   supplements/nad — the rotating product frame with its glass pagination pill,
+   the essentials card that grows to fill the screen, the ingredient ring, the
+   timeline, the navy field, the kit cards, the folded questions, the reviews
+   and the closing card. Class names are this page's (`cg-`), the geometry and
+   the timings are nad.css's, and the type ladder is devices/band's:
 
+     display   .ph-display          the kit's two tone pair (phenome-glass § 3)
+     h2        clamp(34, 4.4vw, 60) 600, the solid heading for a short line
+     lede      17 / 1.55
+     body      17, labels 16, nothing under 15
+
+   Two traps from shared.css shape this file, as they shape nad.css:
+   - shared.css reveals `main > section > *` with a transform, so anything that
+     needs its own motion on such an element uses `translate` / `rotate`.
+   - phenome-glass.css forces text-transform none, so capitals live in markup.
+   ========================================================================= */
+
+.cgp {
+  --cg-navy: var(--phenome-blue-900, #0a1e57);
+  --cg-navy-2: var(--phenome-blue-700, #142b6e);
+  --cg-accent: var(--phenome-blue-500, #203a85);
+  --cg-soft: var(--phenome-blue-100, #e6e9f2);
+  --cg-sunk: var(--gl-tint-sunk, #f4f6fb);
+  --cg-rule: #203a851f;
+  --cg-ink: var(--ph-text-1, #10214b);
+  --cg-ink-2: var(--ph-text-2, #4a5578);
+  --cg-ease: var(--ease-frosted-out, cubic-bezier(.16, 1, .3, 1));
+  --cg-gut: clamp(16px, 1.4vw, 24px);
+  --cg-r-lg: 28px;
+  --cg-r-md: 20px;
+  interpolate-size: allow-keywords;
+  background: #fff;
+}
+
+.cgp .cg-wrap {
+  width: 100%; margin-inline: auto;
+  max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
+  padding-inline: var(--ph-margin, 90px);
+}
+.cgp .cg-sec { padding-block: clamp(72px, 8vw, 128px); }
+.cgp .cg-center { text-align: center; }
+
+/* The page's SOLID heading, for a line short enough not to break. Anything
+   longer is the kit's two tone display, sized a step down from the Band's own
+   clamp(44, 8.4vw, 132) because this page carries copy beside its headings. */
+.cgp .cg-h2 {
+  font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; letter-spacing: -0.02em;
+  font-weight: 600; color: var(--ink-900); text-wrap: balance;
+}
+.cgp .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
+.cgp .ph-display.is-left { max-width: 22ch; }
+.cgp .cg-lede { margin-top: 20px; font-size: 17px; line-height: 1.55; color: var(--cg-ink-2); max-width: 62ch; }
+
+.cgp .cg-ic { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ---------------------------------------------------------------------------
+   1 · THE HERO · supplements/nad's buy box, on this page's film
+   ---------------------------------------------------------------------------
+   The NAD page's hero is one row: a rotating frame on the left and ONE column
+   on the right holding the whole decision, from the product name down to the
+   folded detail. This hero was a centred head over a 1fr/600px split with a
+   glass card in it; 2026-09-22, by request, it is that row instead.
+
+   NO CARD, AND NO FILM. The glass pane existed to lift type off the aurora
+   film, and it cut the column in half while it was at it: the name and the
+   lede sat above it, the price inside it. Both are gone (the film by request,
+   2026-09-22, after a round of trying to keep it), so the column is one thing
+   on a white ground, exactly as the reference page has it.
+
+   The row's edges are the page's: the frame's left edge is the left edge of
+   every heading below it, and the column is nad's clamp(408, 32vw, 476).
+   ------------------------------------------------------------------------ */
+/* nad's own hero padding, and its ground: white, not the shared hero's grey to
+   white ramp, because the row below it opens on white too. */
+.cgp main > section.cg-hero { padding: 40px 0 clamp(56px, 6vw, 96px); background: #fff; }
+.cgp .cg-hero-grid {
+  width: 100%; margin-inline: auto;
+  max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
+  padding-inline: var(--ph-margin, 90px);
+  display: grid; grid-template-columns: minmax(0, 1fr) clamp(408px, 32vw, 476px);
+  gap: clamp(32px, 3vw, 56px); align-items: stretch;
+}
+
+/* The frame takes the row's height, as it does on the NAD page: whatever the
+   reader opens on the right, the two columns finish level, and `object-fit:
+   cover` on a portrait source means a taller frame crops LESS, not more. */
+.cgp .cg-gal { position: relative; min-width: 0; align-self: stretch; min-height: 0; }
+.cgp .cg-gal-main {
+  position: relative; width: 100%; height: 100%; min-height: 560px;
+  border-radius: var(--cg-r-lg); overflow: hidden;
+  background: var(--cg-soft); touch-action: pan-y;
+}
+.cgp .cg-gal-track {
+  position: absolute; inset: 0; display: flex;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.cgp .cg-gal-track::-webkit-scrollbar { display: none; }
+.cgp .cg-slide { position: relative; flex: 0 0 100%; overflow: hidden; scroll-snap-align: start; }
+.cgp .cg-slide > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* `clip`, not `hidden`, and no snapping once the script stacks the slides: with
+   `hidden` the browser scrolls the track to snap onto the translated slides. */
+.cgp .cg-gal-main[data-live] .cg-gal-track { display: block; overflow: hidden; overflow: clip; scroll-snap-type: none; }
+.cgp .cg-gal-main[data-live] .cg-slide {
+  position: absolute; inset: 0;
+  transform: translate3d(calc(var(--o, 0) * 100%), 0, 0);
+  transition: transform 760ms cubic-bezier(.65, 0, .25, 1);
+}
+.cgp .cg-gal-main[data-live] .cg-slide[data-snap] { transition: none; }
+.cgp .cg-gal-main[data-live] .cg-slide > * {
+  transform: translate3d(calc(var(--o, 0) * -12%), 0, 0) scale(1.02);
+  transition: transform 900ms cubic-bezier(.65, 0, .25, 1);
+}
+.cgp .cg-gal-main[data-live] .cg-slide[data-snap] > * { transition: none; }
+
+/* The last slide is the specification, set as the NAD page sets its sachet
+   facts: a bordered card on the navy, the one slide that is type rather than
+   photograph, and the panel the "See the specification" link opens. */
+.cgp .cg-slide-facts {
+  display: grid; place-items: center; color: #fff;
+  background: radial-gradient(120% 90% at 20% 0%, var(--cg-navy-2), var(--cg-navy) 70%);
+}
+.cgp .cg-facts {
+  display: block; width: min(84%, 460px); padding: 22px 24px; text-align: left;
+  border: 1px solid rgba(255, 255, 255, .7);
+}
+.cgp .cg-facts-h { display: block; font-size: clamp(24px, 2vw, 30px); line-height: 1.15; font-weight: 700; padding-bottom: 10px; border-bottom: 8px solid #fff; }
+.cgp .cg-facts-r {
+  display: flex; justify-content: space-between; gap: 16px; padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .35); font-size: 17px; line-height: 1.35;
+}
+.cgp .cg-facts-top { border-bottom-width: 3px; border-bottom-color: #fff; }
+.cgp .cg-facts-r b { font-weight: 700; white-space: nowrap; }
+.cgp .cg-facts-foot { display: block; margin-top: 12px; font-size: 15px; line-height: 1.45; opacity: .8; }
+
+.cgp .cg-gal-main::after {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 22%; pointer-events: none;
+  background: linear-gradient(#0a1e5752, #0a1e5700);
+}
+.cgp .cg-gal-tools { position: absolute; right: 14px; top: 14px; z-index: 2; display: flex; gap: 9px; }
+.cgp .cg-gal-tool {
+  width: 44px; height: 44px; border-radius: 50%; padding: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #ffffff2b; background: #0a1e5757; color: #fff;
+  -webkit-backdrop-filter: blur(16px) saturate(130%); backdrop-filter: blur(16px) saturate(130%);
+  transition: opacity .2s ease, background .2s ease, transform .2s ease;
+}
+.cgp .cg-gal-tool:hover { background: #0a1e5788; }
+.cgp .cg-gal-tool:active { transform: scale(.95); }
+.cgp .cg-gal-tool:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.cgp .cg-gal-tool svg { width: 17px; height: 17px; display: block; }
+.cgp .cg-gal-zoom { opacity: 0; }
+.cgp .cg-gal-main:hover .cg-gal-zoom, .cgp .cg-gal-zoom:focus-visible { opacity: 1; }
+.cgp .cg-gal-hold .i-play { display: none; }
+.cgp .cg-gal-hold[data-paused] .i-play { display: block; }
+.cgp .cg-gal-hold[data-paused] .i-pause { display: none; }
+
+.cgp .cg-gal-nav {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; align-items: center; gap: 2px; height: 44px; padding: 0 6px; border-radius: 99px;
+  background: #0a1e5757; color: #fff; box-shadow: inset 0 0 0 1px #ffffff2b;
+  -webkit-backdrop-filter: blur(18px) saturate(130%); backdrop-filter: blur(18px) saturate(130%);
+}
+.cgp .cg-gal-arrow, .cgp .cg-gal-dot {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; background: none; color: inherit; cursor: pointer; border-radius: 99px;
+}
+.cgp .cg-gal-arrow { width: 32px; height: 32px; opacity: .85; transition: opacity .2s, background .2s; }
+.cgp .cg-gal-arrow:hover { opacity: 1; background: #ffffff1f; }
+.cgp .cg-gal-arrow svg { width: 16px; height: 16px; display: block; }
+.cgp .cg-gal-dots { display: flex; align-items: center; padding: 0 4px; }
+.cgp .cg-gal-dot { width: 16px; height: 22px; }
+.cgp .cg-gal-dot i { position: relative; display: block; overflow: hidden; width: 7px; height: 7px; border-radius: 4px; background: #ffffff66; }
+.cgp .cg-gal-dot:hover i { background: #ffffffb3; }
+.cgp .cg-gal-dot[aria-current="true"] { width: 44px; }
+.cgp .cg-gal-dot[aria-current="true"] i { width: 34px; background: #ffffff59; }
+.cgp .cg-gal-dot[aria-current="true"] i::after {
+  content: ""; position: absolute; inset: 0; background: #fff; border-radius: inherit;
+  transform-origin: left center; transform: scaleX(0);
+  animation: cg-dwell var(--dwell, 5s) linear forwards;
+}
+.cgp .cg-gal-main[data-hover] .cg-gal-dot[aria-current="true"] i::after { animation-play-state: paused; }
+.cgp .cg-gal-main[data-held] .cg-gal-dot[aria-current="true"] i::after { animation: none; transform: none; }
+@keyframes cg-dwell { to { transform: scaleX(1); } }
+.cgp .cg-gal-arrow:focus-visible, .cgp .cg-gal-dot:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+
+/* ---- the decision column ------------------------------------------------
+   nad.css's own ladder, one rung larger where this page's column is wider:
+
+     52  name            the two tone display, sized for a 476px track
+     18  lede
+     21  figure value    the three proofs
+     40  price
+     16  ticks, folds    the site floor is 15; nothing here is under 16
+
+   The rhythm is nad's too, and it is what makes the column read as three
+   blocks rather than one list: 6px inside a pair, 18 to 24 between groups, and
+   a hairline above the figures and above the price — identity, proof,
+   decision. */
+.cgp .cg-buy { align-self: start; padding-top: 4px; }
+.cgp .cg-buy > * { margin-bottom: 0; }
+.cgp .cg-name { margin: 12px 0 0; font-size: clamp(32px, 3.4vw, 52px); }
+/* nad's .supp-badge, in this page's tokens: the format chip under the name. */
+.cgp .cg-badge {
+  display: inline-flex; align-items: center; min-height: 32px; margin-top: 18px;
+  padding: 0 14px; border-radius: 99px;
+  background: var(--cg-soft); color: var(--cg-navy);
+  font-size: 15px; line-height: 1.2; font-weight: 600;
+}
+/* nad's rating line, in the place nad puts it: under the format chip, above
+   the copy, pointing at the reviews the page already carries. */
+.cgp .cg-rate { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 15px; color: var(--cg-ink); }
+.cgp .cg-rate .cg-stars { font-size: 16px; letter-spacing: 1px; }
+.cgp .cg-rate a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--cg-rule); }
+.cgp .cg-rate a:hover { color: var(--cg-navy); text-decoration-color: currentColor; }
+.cgp .cg-hero-lede { margin: 18px 0 0; font-size: 18px; line-height: 1.5; color: var(--cg-ink); }
+
+.cgp .cg-stats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--cg-rule);
+}
+.cgp .cg-stat > p { margin: 0; }
+.cgp .cg-stat-v { font-size: 21px; line-height: 1.15; font-weight: 600; letter-spacing: -.015em; color: var(--ink-900); }
+.cgp .cg-stat-l { margin-top: 5px; font-size: 15px; line-height: 1.3; color: var(--cg-ink-2); }
+
+.cgp .cg-price {
+  margin: 24px 0 0; padding-top: 22px; border-top: 1px solid var(--cg-rule);
+  font-size: clamp(34px, 2.8vw, 40px); line-height: 1.05; font-weight: 600; letter-spacing: -.02em; color: var(--ink-900);
+}
+.cgp .cg-pnote { margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: var(--cg-ink-2); }
+
+.cgp .cg-ticks { margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.cgp .cg-ticks li {
+  list-style: none; display: flex; align-items: flex-start; gap: 12px;
+  font-size: 16px; line-height: 1.45; color: var(--cg-ink);
+}
+.cgp .cg-ticks svg {
+  flex: none; width: 18px; height: 18px; margin-top: 2px;
+  fill: none; stroke: currentColor; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round;
+  color: var(--cg-navy);
+}
+
+/* A 476px wide button 44px tall reads as a bar, not a button (nad.css). */
+.cgp .cg-cta {
+  display: inline-flex; justify-content: center; width: 100%; margin-top: 24px;
+  min-height: 54px; font-size: 17px; font-weight: 600;
+}
+.cgp .cg-note { margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--cg-ink-2); text-align: center; }
+
+/* The folds are the page's own accordion, and nad's `name` attribute makes
+   them exclusive: one open body is ~160px, so the frame beside them grows by
+   that and no more. */
+.cgp .cg-buy-acc { margin-top: 26px; }
+.cgp .cg-buy-acc .cg-acc-item > summary { padding: 17px 0; }
+.cgp .cg-buy-acc .cg-bullets { margin: 0; padding-left: 20px; }
+.cgp .cg-buy-acc .cg-bullets li { list-style: disc; margin-top: 6px; }
+.cgp .cg-buy-acc .cg-bullets li::marker { color: var(--cg-accent); }
+
+.cgp .cg-hero-link {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 12px;
+  font-size: 16px; font-weight: 600; color: var(--cg-navy);
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+}
+.cgp .cg-hero-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: translate .3s var(--cg-ease); }
+.cgp .cg-hero-link:hover svg { translate: 4px 0; }
+
+/* The line inside the kit fold that opens the specification slide. */
+.cgp .cg-spec-link {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 16px; line-height: 1.4; font-weight: 600; color: var(--cg-navy);
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+}
+.cgp .cg-spec-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: translate .3s var(--cg-ease); }
+.cgp .cg-spec-link:hover svg { translate: 4px 0; }
+
+/* ---------------------------------------------------------------------------
+   2 · WHAT THE TEST IS, on a card that grows to fill the screen
+   ouraring.com/store/rings/oura-ring-4 "Thoughtfully crafted", by way of the
+   NAD page: the frame arrives inset at .86 and reaches the full screen as its
+   top meets the top of the window, holds pinned, then scrolls on. cg.js writes
+   --ess-s and --ess-rad; the photograph is counter scaled so only the crop
+   changes.
+   ------------------------------------------------------------------------ */
+.cgp .cg-ess { padding-block: 0; }
+.cgp .cg-ess-track { position: relative; height: calc(100svh + 70vh); }
+.cgp .cg-ess-stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.cgp .cg-ess-hero {
+  position: relative; overflow: clip; isolation: isolate; color: #fff;
+  width: 100%; height: 100svh;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: clamp(96px, 9vw, 136px) clamp(24px, 4vw, 72px) clamp(24px, 3vw, 48px);
+  border-radius: var(--ess-rad, 0px);
+  transform: scale(var(--ess-s, 1)); transform-origin: 50% 50%;
+}
+.cgp .cg-ess-bg {
+  position: absolute; left: 0; top: -8%; width: 100%; height: 116%; z-index: -2;
+  object-fit: cover; object-position: 50% 42%; scale: calc(1 / var(--ess-s, 1));
+}
+.cgp .cg-ess-hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(10, 30, 87, .46) 0%, rgba(10, 30, 87, .08) 38%, rgba(10, 30, 87, .55) 100%);
+}
+.cgp .cg-ess-h { max-width: 20ch; font-size: clamp(40px, 5vw, 80px); }
+.cgp .cg-ess-sub { margin-top: 18px; max-width: 46ch; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5; color: rgba(255, 255, 255, .88); }
+.cgp .cg-ess-panel {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  margin: 40px 0 0; padding: clamp(28px, 3vw, 44px) clamp(24px, 3vw, 48px);
+  border-radius: var(--cg-r-md); background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .2);
+  -webkit-backdrop-filter: blur(22px) saturate(140%); backdrop-filter: blur(22px) saturate(140%);
+}
+.cgp .cg-ess-panel li { list-style: none; }
+.cgp .cg-ess-panel .cg-ic { width: 52px; height: 52px; stroke-width: 1.3; }
+.cgp .cg-ess-panel h3 { margin: 28px 0 0; font-size: 19px; line-height: 1.25; font-weight: 600; color: #fff; }
+.cgp .cg-ess-panel p { margin: 10px 0 0; font-size: 16px; line-height: 1.45; color: rgba(255, 255, 255, .86); max-width: 30ch; }
+
+/* ---------------------------------------------------------------------------
+   3 · THE NINE AREAS, on the NAD page's ring
+   viome.com/products/precision-supplements by way of nad.css: circles placed
+   with cos() and sin(), the ring turning once every 200s and each circle
+   turning back at the same rate. Ours hold a drawn glyph and the area's name
+   rather than a photograph, and the centre names what the area covers.
+   ------------------------------------------------------------------------ */
+.cgp .cg-src { overflow: clip; padding-block: clamp(56px, 6vw, 96px); }
+.cgp .cg-src-grid {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px); align-items: center;
+}
+.cgp .cg-ring {
+  /* Nine discs, so the step is 40deg and the gap between two neighbours is
+     2 * rad * sin(20deg) = 25.6% of the ring. A disc of 23.5% leaves 2% of air
+     between them at every size. */
+  --d: 23.5%; --rad: 37.5%; --turn: 200s;
+  position: relative; width: min(100%, 720px, 82svh); aspect-ratio: 1; justify-self: center;
+}
+.cgp .cg-ring::before {
+  content: ""; position: absolute; inset: 14%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 179, 232, .26) 0%, rgba(173, 196, 238, .32) 34%, rgba(230, 233, 242, .5) 52%, rgba(255, 255, 255, 0) 72%);
+  filter: blur(8px); animation: cg-breathe 7s ease-in-out infinite alternate;
+}
+@keyframes cg-breathe { from { scale: .92; opacity: .8; } to { scale: 1.06; opacity: 1; } }
+.cgp .cg-ring-list { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; animation: cg-orbit var(--turn) linear infinite; }
+.cgp .cg-ring-list li {
+  position: absolute; width: var(--d); aspect-ratio: 1;
+  left: calc(50% + var(--rad) * cos(var(--i) * 40deg - 90deg) - var(--d) / 2);
+  top: calc(50% + var(--rad) * sin(var(--i) * 40deg - 90deg) - var(--d) / 2);
+}
+.cgp .cg-ring-list button {
+  display: grid; place-content: center; justify-items: center; gap: 6px;
+  width: 100%; height: 100%; padding: 8% 9%; border: 0; border-radius: 50%; cursor: pointer;
+  font: inherit; text-align: center; color: var(--cg-navy); background: #fff;
+  box-shadow: 0 14px 34px rgba(10, 30, 87, .14);
+  animation: cg-orbit var(--turn) linear infinite reverse;
+  transition: scale .5s var(--cg-ease), box-shadow .5s var(--cg-ease), background .4s;
+}
+/* stroke-width is in the symbol's own 48 unit space, so a 30px disc draws it
+   at 30/48 of the figure: 2.2 here is 1.4px on the glass. */
+.cgp .cg-ring-list svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.cgp .cg-ring-list b { font-size: 15px; line-height: 1.2; font-weight: 600; text-wrap: balance; }
+.cgp .cg-ring-list button:hover, .cgp .cg-ring-list button:focus-visible,
+.cgp .cg-ring-list button[aria-current="true"] {
+  scale: 1.08; background: var(--cg-navy); color: #fff;
+  box-shadow: 0 20px 44px rgba(10, 30, 87, .24);
+}
+.cgp .cg-ring-list button:focus-visible { outline: 2px solid var(--cg-accent); outline-offset: 4px; }
+.cgp .cg-ring:hover .cg-ring-list, .cgp .cg-ring:hover .cg-ring-list button,
+.cgp .cg-ring:focus-within .cg-ring-list, .cgp .cg-ring:focus-within .cg-ring-list button { animation-play-state: paused; }
+@keyframes cg-orbit { to { rotate: 360deg; } }
+.cgp .cg-ring[data-armed] .cg-ring-list li {
+  opacity: 0; scale: .6;
+  transition: opacity .7s var(--cg-ease), scale .9s var(--cg-ease);
+  transition-delay: calc(var(--i) * 70ms);
+}
+.cgp .cg-ring[data-armed].is-in .cg-ring-list li { opacity: 1; scale: 1; }
+.cgp .cg-ring-core {
+  position: absolute; inset: 27%; z-index: 1; display: grid; place-content: center; justify-items: center;
+  gap: 8px; text-align: center; transition: opacity .2s;
+}
+.cgp .cg-ring-core p { margin: 0; }
+.cgp .cg-ring-core p:empty { display: none; }
+.cgp .cg-ring-k { font-size: clamp(20px, 1.9vw, 28px); line-height: 1.15; font-weight: 600; letter-spacing: -.01em; color: var(--cg-navy); text-wrap: balance; }
+.cgp .cg-ring-d { max-width: 24ch; font-size: 16px; line-height: 1.45; color: var(--cg-ink-2); text-wrap: balance; }
+.cgp .cg-ring-core.is-swap { opacity: 0; }
+
+/* ---------------------------------------------------------------------------
+   4 · THE REPORT · the NAD page's folded list, with the headline held sticky
+   beside it. Thirteen panels set out in full is a wall; folded, the reader
+   opens the two or three that are theirs.
+   ------------------------------------------------------------------------ */
+.cgp .cg-rep-grid {
+  display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 88px); align-items: start;
+}
+.cgp .cg-rep-copy { position: sticky; top: calc(var(--ph-nav-h, 44px) + 32px); }
+.cgp .cg-rep-fig { margin: clamp(28px, 3vw, 40px) 0 0; border-radius: var(--cg-r-lg); overflow: hidden; background: var(--cg-soft); }
+.cgp .cg-rep-fig img { width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 4 / 3; }
+
+.cgp .cg-acc { width: 100%; }
+.cgp .cg-acc-item { border-bottom: 1px solid var(--cg-rule); }
+.cgp .cg-acc-item:first-child { border-top: 1px solid var(--cg-rule); }
+.cgp .cg-acc-item > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 16px;
+  padding: 18px 0; font-size: 17px; line-height: 1.35; font-weight: 600; color: var(--cg-navy);
+}
+.cgp .cg-acc-item > summary::-webkit-details-marker { display: none; }
+.cgp .cg-acc-ic { position: relative; flex: none; width: 14px; height: 14px; margin-left: auto; }
+.cgp .cg-acc-ic::before, .cgp .cg-acc-ic::after {
+  content: ""; position: absolute; left: 0; top: 50%; width: 14px; height: 1.5px; margin-top: -.75px;
+  background: currentColor; border-radius: 2px; transition: rotate .35s var(--cg-ease);
+}
+.cgp .cg-acc-ic::after { rotate: 90deg; }
+.cgp .cg-acc-item[open] > summary .cg-acc-ic::after { rotate: 0deg; }
+.cgp .cg-acc-item::details-content {
+  block-size: 0; overflow: clip;
+  transition: block-size .45s var(--cg-ease), content-visibility .45s allow-discrete;
+}
+.cgp .cg-acc-item[open]::details-content { block-size: auto; }
+.cgp .cg-acc-body { padding: 0 0 22px; font-size: 17px; line-height: 1.6; color: var(--cg-ink); }
+.cgp .cg-acc-body p { margin: 0; max-width: 62ch; }
+
+/* ---------------------------------------------------------------------------
+   5 · FROM SAMPLE TO INSIGHT · the .ph-tl kit component (phenome-glass.css § 9,
+   rail filled by shared.js on scroll, collage tiles drifting). Everything here
+   is the layout around it.
+   ------------------------------------------------------------------------ */
 .cg-steps { padding-top: clamp(64px, 7vw, 112px); }
 
 .cg-head { text-align: center; }
-/* The kit's own clamp(44, 8.4vw, 132) is sized for a hero. This is a section
-   head with a rail and a collage under it, so it takes the NAD page's step. */
 .cg-steps .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
 .cg-sub {
   margin: 20px auto 0; max-width: none;
@@ -36,13 +457,152 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Related tests (2026-09-22, user request): the ring lab's "Read your
-   Biomarkers" cards. Square photographs, the name and price set on the
-   picture, the description opening on hover. Only tests of the same kind
-   (saliva DNA) and at most two, so nothing repeats what this page sells.
+   6 · THE SCIENCE, on the NAD page's navy field
+   Three rows of kit photographs turned 50deg at 30, 20 and 10 percent, sliding
+   in opposite directions as the band passes. The field sits one level down
+   (.cg-std-in) so shared.css's reveal transform cannot reach it.
+   ------------------------------------------------------------------------ */
+.cgp .cg-std { position: relative; overflow: clip; background: rgb(10 30 87); color: #fff; }
+.cgp .cg-std-in { position: relative; min-height: clamp(600px, 48vw, 720px); display: flex; align-items: center; }
+.cgp .cg-std-field {
+  --st-tile: 30vw; position: absolute; top: 50%; left: 62%;
+  transform: translate(-50%, -50%) rotate(50deg); pointer-events: none;
+}
+.cgp .cg-std-row { display: flex; will-change: transform; }
+.cgp .cg-std-row:nth-child(1) { opacity: .3; }
+.cgp .cg-std-row:nth-child(2) { opacity: .2; }
+.cgp .cg-std-row:nth-child(3) { opacity: .1; }
+.cgp .cg-std-tile {
+  flex: none; width: var(--st-tile); height: var(--st-tile); margin: 1vw; border-radius: 16px;
+  background-size: cover; background-position: 50% 50%; rotate: -90deg;
+}
+.cgp .cg-std-in::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgb(10 30 87 / .9) 0%, rgb(10 30 87 / .55) 42%, rgb(10 30 87 / 0) 72%);
+}
+.cgp .cg-std-copy { position: relative; z-index: 1; padding-block: clamp(64px, 6vw, 96px); }
+.cgp .cg-std-p { margin-top: 24px; max-width: 46ch; font-size: clamp(18px, 1.35vw, 21px); line-height: 1.5; color: rgba(255, 255, 255, .88); }
+.cgp .cg-std-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin: clamp(32px, 3.4vw, 48px) 0 0; padding: 0; }
+.cgp .cg-std-list li {
+  list-style: none; display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: var(--cg-r-md);
+  background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.cgp .cg-std-list .cg-ic { width: 40px; height: 40px; stroke-width: 1.3; color: #fff; }
+.cgp .cg-std-list p { margin: 0; font-size: 16px; line-height: 1.4; color: #fff; }
+
+/* ---------------------------------------------------------------------------
+   7 · WHAT COMES BACK, on the NAD page's two kit cards
+   ------------------------------------------------------------------------ */
+.cgp .cg-kits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cg-gut); margin-top: clamp(40px, 4vw, 64px); }
+.cgp .cg-kit {
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: 16px;
+  padding: 16px; border-radius: var(--cg-r-lg); background: var(--cg-sunk);
+}
+.cgp .cg-kit-img { border-radius: var(--cg-r-md); overflow: hidden; min-height: 380px; background: var(--cg-soft); }
+.cgp .cg-kit-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale .9s var(--cg-ease); }
+.cgp .cg-kit:hover .cg-kit-img img { scale: 1.04; }
+.cgp .cg-kit:first-child .cg-kit-img img { object-position: 50% 55%; }
+.cgp .cg-kit:last-child .cg-kit-img img { object-position: 50% 40%; }
+.cgp .cg-kit-body { align-self: center; padding: 16px 20px 16px 12px; }
+.cgp .cg-kit h3 { margin: 0; font-size: clamp(22px, 1.8vw, 27px); line-height: 1.2; letter-spacing: -.015em; font-weight: 500; color: var(--cg-navy); }
+.cgp .cg-kit-sub { margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: var(--cg-ink); }
+.cgp .cg-kit ul { margin: 20px 0 0; padding: 0; }
+.cgp .cg-kit li { list-style: none; display: flex; align-items: center; gap: 14px; padding: 12px 0; }
+.cgp .cg-kit li + li { border-top: 1px solid var(--cg-rule); }
+.cgp .cg-kit li > span { display: block; }
+.cgp .cg-kit li svg { flex: none; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; color: var(--cg-navy); }
+.cgp .cg-kit li b { display: block; font-size: 17px; line-height: 1.3; color: var(--cg-navy); }
+.cgp .cg-kit li span span { font-size: 16px; line-height: 1.35; color: var(--cg-ink-2); }
+
+/* ---------------------------------------------------------------------------
+   8 · QUESTIONS · the shared `.acc.is-faq`, with the NAD page's View all
+   ------------------------------------------------------------------------ */
+.cgp .cg-faq-more { display: flex; justify-content: center; margin-top: 22px; }
+.cgp .cg-faq-list:not(.is-all) [data-more] { display: none; }
+.cgp .cg-viewall {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 0; border: 0; background: none;
+  font: inherit; font-size: 16px; font-weight: 600; color: var(--cg-navy); cursor: pointer;
+}
+.cgp .cg-viewall-ic { position: relative; width: 20px; height: 20px; border-radius: 50%; border: 1px solid currentColor; }
+.cgp .cg-viewall-ic::after {
+  content: ""; position: absolute; left: 50%; top: 45%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
+  border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; rotate: 45deg;
+  transition: rotate .35s var(--cg-ease), top .35s;
+}
+.cgp .cg-viewall[aria-expanded="true"] .cg-viewall-ic::after { rotate: 225deg; top: 62%; }
+
+/* ---------------------------------------------------------------------------
+   9 · REVIEWS · the NAD page's list, its topics, its search and its pager.
+   No distribution bars and no dates: four reviews is what this page has.
+   ------------------------------------------------------------------------ */
+.cgp .cg-reviews { background: #fafbfd; }
+.cgp .cg-score { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+.cgp .cg-score b { font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -.03em; color: var(--cg-navy); }
+.cgp .cg-score > span { display: grid; gap: 2px; font-size: 16px; color: var(--cg-ink); }
+.cgp .cg-stars { color: var(--cg-navy); font-size: 22px; letter-spacing: 2px; }
+.cgp .cg-rv-tools { margin-top: 48px; }
+.cgp .cg-search {
+  display: flex; align-items: center; gap: 10px; width: min(100%, 360px); height: 44px; padding: 0 14px;
+  border: 1px solid var(--ph-line, #203a8529); border-radius: 10px; background: #fff;
+}
+.cgp .cg-search:focus-within { border-color: var(--cg-accent); }
+.cgp .cg-search svg { width: 17px; height: 17px; fill: none; stroke: var(--cg-ink-2); stroke-width: 1.6; stroke-linecap: round; flex: none; }
+.cgp .cg-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--cg-ink); }
+.cgp .cg-topics-h { margin: 22px 0 0; font-size: 16px; font-weight: 600; color: var(--cg-navy); }
+.cgp .cg-rv-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--cg-rule); }
+.cgp .cg-topics { display: flex; flex-wrap: wrap; gap: 10px; }
+.cgp .cg-topics button {
+  height: 36px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--ph-line, #203a8529);
+  background: #fff; font: inherit; font-size: 16px; color: var(--cg-ink); cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.cgp .cg-topics button:hover { border-color: var(--cg-accent); }
+.cgp .cg-topics button[aria-pressed="true"] { background: var(--cg-navy); border-color: var(--cg-navy); color: #fff; }
+.cgp .cg-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; color: var(--cg-ink); }
+.cgp .cg-sort select { border: 0; background: none; font: inherit; font-weight: 600; color: var(--cg-navy); cursor: pointer; padding: 6px 2px; }
+
+.cgp .cg-rv {
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 24px;
+  margin: 0; padding: 32px 0; border-bottom: 1px solid var(--cg-rule);
+  animation: cg-in .5s var(--cg-ease) both;
+}
+@keyframes cg-in { from { opacity: 0; translate: 0 8px; } }
+/* `display: grid` outranks the UA's [hidden] rule, so without this the topic
+   filter and the pager would hide nothing. */
+.cgp .cg-rv[hidden] { display: none; }
+.cgp .cg-rv-who { display: grid; align-content: start; gap: 3px; font-size: 16px; color: var(--cg-ink-2); }
+.cgp .cg-rv-who b { font-size: 16px; color: var(--cg-navy); }
+.cgp .cg-rv-main .cg-stars { font-size: 18px; }
+.cgp .cg-rv blockquote { margin: 10px 0 0; font-size: 17px; line-height: 1.6; color: var(--cg-ink); max-width: 72ch; }
+.cgp .cg-rv-empty { padding: 48px 0; text-align: center; color: var(--cg-ink-2); }
+
+.cgp .cg-pager { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 40px; }
+.cgp .cg-pager[hidden] { display: none; }
+.cgp .cg-pg {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%; background: none; cursor: pointer;
+  font: inherit; font-size: 16px; line-height: 1; font-weight: 500;
+  font-variant-numeric: tabular-nums; color: var(--cg-ink-2);
+  transition: background .25s var(--cg-ease), color .25s var(--cg-ease);
+}
+.cgp .cg-pg:hover:not(:disabled):not([aria-current]) { background: var(--cg-soft); color: var(--cg-navy); }
+.cgp .cg-pg[aria-current="page"] { background: var(--cg-navy); color: #fff; cursor: default; }
+.cgp .cg-pg:focus-visible { outline: 2px solid var(--cg-accent); outline-offset: 2px; }
+.cgp .cg-pg-step { color: var(--cg-navy); }
+.cgp .cg-pg-step:first-child { margin-right: 10px; }
+.cgp .cg-pg-step:last-child { margin-left: 10px; }
+.cgp .cg-pg-step:disabled { opacity: .28; cursor: default; }
+.cgp .cg-pg-step svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------------------------------------------------------------------------
+   10 · RELATED TESTS (2026-09-22): the ring lab's "Read your Biomarkers"
+   cards. Square photographs, the name and price set on the picture, the
+   description opening on hover. Only tests of the same kind (saliva DNA) and
+   at most two, so nothing repeats what this page sells.
    ------------------------------------------------------------------------ */
 .cg-rel {
-  --cg-ease: cubic-bezier(.2, .8, .2, 1);
+  --cg-rel-ease: cubic-bezier(.2, .8, .2, 1);
   padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 7vw, 110px);
 }
 .cg-rel-head { padding-inline: 24px; text-align: center; }
@@ -58,7 +618,7 @@
 }
 .cg-rel-card img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  transition: transform 1.1s var(--cg-ease);
+  transition: transform 1.1s var(--cg-rel-ease);
 }
 /* Both photographs are high key, so the scrim is deeper than the lab's. */
 .cg-rel-card::after {
@@ -70,7 +630,7 @@
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
   padding: 0 36px 34px; text-align: center;
   display: grid; grid-template-rows: auto auto 0fr auto;
-  transition: grid-template-rows .6s var(--cg-ease);
+  transition: grid-template-rows .6s var(--cg-rel-ease);
 }
 .cg-rel-copy h3 { margin: 0; font-size: clamp(22px, 2.3vw, 32px); font-weight: 700; letter-spacing: -0.01em; color: #fff; }
 .cg-rel-price { margin: 6px 0 0; font-size: 17px; font-weight: 600; color: rgba(255, 255, 255, .86); }
@@ -87,7 +647,7 @@
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   transition: background .3s ease;
 }
-.cg-rel-go::after { content: "\2192"; transition: transform .3s var(--cg-ease); }
+.cg-rel-go::after { content: "\2192"; transition: transform .3s var(--cg-rel-ease); }
 @media (hover: hover) {
   .cg-rel-card:hover img { transform: scale(1.06); }
   .cg-rel-card:hover .cg-rel-copy { grid-template-rows: auto auto 1fr auto; }
@@ -102,10 +662,128 @@
   .cg-rel-card::after { background: linear-gradient(180deg, transparent 25%, rgba(10, 18, 51, .82) 100%); }
 }
 .cg-rel-card:focus-visible { outline: 2px solid var(--ph-accent-link, #203a85); outline-offset: 4px; }
+
+/* ---------------------------------------------------------------------------
+   11 · CLOSE · the NAD page's card: the hero's own aurora film under the
+   card's radial navy, the kit standing on it.
+   ------------------------------------------------------------------------ */
+.cgp .cg-end { padding: 16px 0 clamp(56px, 6vw, 96px); background: #fafbfd; }
+.cgp .cg-bleed { width: 100%; max-width: 1536px; margin-inline: auto; padding-inline: var(--cg-gut); }
+.cgp .cg-end-card {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  align-items: center; gap: clamp(32px, 6vw, 110px);
+  padding: clamp(56px, 7vw, 110px) clamp(28px, 8vw, 150px); border-radius: 32px; color: #fff;
+}
+.cgp .cg-end-film {
+  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%;
+  object-fit: cover; pointer-events: none;
+}
+.cgp .cg-end-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(70% 140% at 12% 50%, rgba(29, 61, 152, .55) 0%, rgba(10, 30, 87, .62) 60%, rgba(7, 22, 65, .78) 100%);
+}
+.cgp .cg-end-kit {
+  width: clamp(200px, 22vw, 320px); height: auto;
+  filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .35));
+}
+.cgp .cg-end-h { font-size: clamp(38px, 4.4vw, 66px); }
+.cgp .cg-end-lede { margin: 18px 0 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
+.cgp .cg-end-price { margin: 26px 0 0; font-size: 19px; font-weight: 600; }
+.cgp .cg-end-cta { display: inline-flex; margin-top: 24px; min-width: 180px; justify-content: center; }
+.cgp .cg-end-note { margin: 16px 0 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
+.cgp .cg-end-note a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------------------
+   THE VIEWER, opened from the frame or from the specification link
+   ------------------------------------------------------------------------ */
+.cg-lb {
+  position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: rgba(6, 14, 40, .94); color: #fff;
+}
+.cg-lb::backdrop { background: transparent; }
+.cg-lb[open] { display: grid; place-items: center; animation: cg-fade .3s ease both; }
+@keyframes cg-fade { from { opacity: 0; } }
+.cg-lb-stage { width: min(92vw, 1100px); height: min(84dvh, 900px); display: grid; place-items: center; }
+.cg-lb-stage > * { animation: cg-fade .35s ease both; }
+.cg-lb-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 16px; }
+.cg-lb-stage .cg-facts { display: block; width: min(90vw, 480px); padding: 24px; border: 1px solid #fff; color: #fff; }
+.cg-lb-count { position: absolute; left: 50%; bottom: 20px; translate: -50% 0; font-size: 16px; opacity: .8; }
+.cg-lb-btn {
+  position: absolute; width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: rgba(255, 255, 255, .14); color: #fff; transition: background .2s;
+}
+.cg-lb-btn:hover { background: rgba(255, 255, 255, .26); }
+.cg-lb-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cg-lb-close { top: 20px; right: 20px; }
+.cg-lb-prev { left: 20px; top: 50%; margin-top: -24px; }
+.cg-lb-next { right: 20px; top: 50%; margin-top: -24px; }
+
+/* ---------------------------------------------------------------------------
+   THE PRODUCT BAR · the nav leaves and the product bar takes the top, which
+   shared.css § "the swap" does; only this page's material is below.
+   ------------------------------------------------------------------------ */
+.cgp .ph-bar-thumb { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex: none; display: block; background: var(--cg-sunk); }
+.cgp .ph-bar-inner { gap: 14px; justify-content: flex-start; }
+.cgp .ph-bar-txt { min-width: 0; flex: 1 1 auto; display: flex; align-items: baseline; gap: 12px; }
+.cgp .ph-bar-meta { font-size: 16px; color: var(--cg-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cgp .ph-bar .btn.small { flex: none; }
+
+/* ---------------------------------------------------------------------------
+   NARROW WIDTHS
+   ------------------------------------------------------------------------ */
+@media (max-width: 1279px) {
+  .cgp .cg-rep-grid { grid-template-columns: minmax(0, 1fr); }
+  .cgp .cg-rep-copy { position: static; }
+  .cgp .cg-rep-fig { display: none; }
+}
+@media (max-width: 1180px) {
+  /* One column, so there is no second track to match: the frame takes a ratio
+     back and both blocks are held to a readable measure. */
+  .cgp .cg-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .cgp .cg-gal-main { height: auto; min-height: 0; aspect-ratio: 1 / 1; max-width: 760px; }
+  .cgp .cg-buy { max-width: 640px; }
+  .cgp .cg-ess-panel { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
+  .cgp .cg-ess-panel h3 { margin-top: 16px; }
+  .cgp .cg-kits { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 1024px) {
+  .cgp .cg-std-list { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+  .cgp .cg-src-grid { grid-template-columns: minmax(0, 1fr); }
+  .cgp .cg-rv { grid-template-columns: minmax(0, 1fr); }
+  .cgp .cg-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+}
 @media (max-width: 760px) {
+  /* A phone's screen is already the frame, so the card does not grow. */
+  .cgp .cg-ess-track { height: auto; }
+  .cgp .cg-ess-stage { position: static; height: auto; overflow: visible; padding-inline: var(--cg-gut); }
+  .cgp .cg-ess-hero { height: auto; min-height: 620px; border-radius: var(--cg-r-lg); transform: none; padding: 40px 20px 20px; }
+  .cgp .cg-ess-bg { scale: none; }
+  .cgp .cg-ring { --d: 27%; --rad: 36.5%; }
+  .cgp .cg-ring-list svg { width: 22px; height: 22px; }
+  .cgp .cg-ring-core { inset: 25%; gap: 4px; }
+  .cgp .cg-ring-k { font-size: 18px; }
+  .cgp .cg-ring-d { font-size: 15px; }
+  .cgp .cg-std-field { --st-tile: 46vw; }
+  .cgp .cg-std-in::after { background: rgb(10 30 87 / .6); }
+  .cgp .cg-kit { grid-template-columns: minmax(0, 1fr); }
+  /* min-height 0: with a ratio, a min-height is also a min-width (380 x 1.6). */
+  .cgp .cg-kit-img { aspect-ratio: 16 / 10; min-height: 0; }
+  .cgp .cg-kit-body { padding: 8px; }
   .cg-rel-grid { grid-template-columns: 1fr; }
   .cg-rel-copy { padding: 0 22px 24px; }
 }
+@media (max-width: 560px) {
+  .cgp .cg-ess-panel { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+  .cgp .cg-ess-panel li { display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
+  .cgp .cg-ess-panel .cg-ic { width: 40px; height: 40px; grid-row: span 2; }
+  .cgp .cg-ess-panel h3 { margin-top: 0; }
+  .cgp .cg-ess-panel p { margin-top: 4px; }
+  .cgp .ph-bar-meta { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .cgp .cg-ring::before, .cgp .cg-ring-list, .cgp .cg-ring-list button { animation: none; }
+  .cgp .cg-end-film { display: none; }
+  .cgp .cg-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
   .cg-rel-card img, .cg-rel-copy, .cg-rel-d { transition: none; }
 }

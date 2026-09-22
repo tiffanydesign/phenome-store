@@ -10,229 +10,240 @@
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<!-- The page's own sheet, scoped to `.cgp` on <body>. The whole page follows
+     supplements/nad section for section, hero included: same white ground,
+     same row, same components, this page's words and pictures. -->
 <link href="/phenome-store/testing/comprehensive-genomic/cg.css" rel="stylesheet"/>
-<style>
-/* ===========================================================================
-   PAGE-LOCAL LAYOUT — /store/comprehensive-genomic/          2026-09-03
-   ---------------------------------------------------------------------------
-   Everything below is scoped to this page. The six Archetype-A buy pages keep
-   the shared arrangement; this one moves because a £650 test is the most
-   considered purchase in the store and its hero was spending 1166px to put the
-   price and the CTA 170px BELOW the fold at 1440x900.
+<link rel="preload" as="image" href="/phenome-store/assets/genomic/gal-kit.webp" fetchpriority="high"/>
 
-   Three deliberate departures from shared.css, each argued where it happens:
-   the head anchors left instead of centring, the decision column sticks
-   instead of stretching, and the film is allowed to be seen.
-   ======================================================================== */
-
-/* ---- 1 · The head anchors left -----------------------------------------
-   .buy-head centres, and its .lede is capped at --ph-measure-lead (46ch) and
-   auto-margined, so the shared arrangement reads: centred eyebrow, centred
-   80px line, a narrow centred column — and then an ASYMMETRIC 1fr/600px
-   split underneath it. Two axes, one above the other. Borrowing .opener, the
-   two-voice arrangement already on 57 pages, puts the title and the lede on
-   one baseline and lets the whole hero share a single split. */
-.buy-head.opener { text-align: left; }
-.buy-head.opener > .lede { margin-inline: 0; }
-/* 1.4fr, not .opener's 1.05fr. .opener was cut for an h2 at 48px; an h1 at 80
-   in a 610px column breaks "Your entire genome, decoded." over three lines and
-   spends 300px of first-screen budget doing it. At 1.4fr column 1 is 698px,
-   which takes "Your entire genome," whole and leaves "decoded." on the second
-   line — the two-line break the layout was drawn around. */
-.buy-head.opener { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
-/* The link belongs under the lede, in its column. Left to .opener's own rule
-   it lands in row 2 as a full-width band, and because row 1 is as tall as the
-   80px title that put 165px of nothing between the lede and the link. Column 1
-   spans both rows instead, so the head is as tall as its taller column and no
-   taller. */
-.buy-head.opener > .opener-t { grid-row: 1 / 3; }
-.buy-head.opener > .lede { grid-column: 2; grid-row: 1; }
-.buy-head.opener > .buy-links {
-  grid-column: 2; grid-row: 2; align-self: start; justify-content: flex-start;
-}
-
-/* ---- 2 · The decision column sticks -----------------------------------
-   This page leaves the equal-height contract recorded at shared.css:2506-2535
-   ("sagdaki cam tasarim soldaki visual slide kartinin boyunda olsun"). That
-   rule exists so the glass card matches a single 488/526 carousel frame; it is
-   kept for the other five pages and is not touched here. On this page the left
-   column is an editorial stack that is deliberately TALLER than any card, so
-   matching it would mean a card with a hole in it — which is exactly what
-   was shipping: `.btn { margin-top: auto }` left 190px of nothing between the
-   last tick and "Add to cart". Sticky answers both at once: no void, and the
-   price stays reachable for the whole length of the stack.
-
-   overflow: clip, not hidden. .hero.on-film sets overflow:hidden to keep the
-   film inside the band, and a scroll container is precisely what breaks a
-   sticky descendant — clip does the same clipping without becoming one. A
-   browser without clip support simply gets a card that does not stick. */
-.hero.on-film.buy-hero { overflow: clip; }
-/* 44, not the shared 56. The centred head needed the larger step because it
-   ended on a centred link with nothing under it; a left-anchored head already
-   ends on the same axis the split begins on, and the 12px buys the CTA its
-   clearance above the fold. */
-.buy-hero .buy { align-items: start; margin-top: 44px; }
-.buy-hero .buy-col { position: sticky; top: calc(var(--ph-nav-h) + 20px); }
-/* Restores the authored 24px. With the column at content height `margin-top:
-   auto` resolves to 0 anyway; stated so it cannot come back if the shared
-   rule's :has() branch is ever widened. */
-.buy-hero .buy-card { flex: none; }
-.buy-hero .buy-card > .btn { margin-top: 24px; }
-/* The name, because a sticky card outlives the headline that named it. It is
-   not in the .glass-video inversion list in shared.css, so left alone it would
-   inherit ink-900 on a dark pane. */
-.buy-hero .buy-card .buy-label { color: rgba(255, 255, 255, .82); }
-.buy-hero .buy-card .stat-num { margin-top: 10px; }
-/* The card's rows are flex items, so the paragraph margins shared.css gives
-   every <p> (14 above, 28 below) never collapse against their neighbours' —
-   they stack on top of the explicit margin-top each row already declares. That
-   was 42px of unasked-for air between the name and the price and 30px between
-   the delivery line and the badge, and it is what pushed "Add to cart" 36px
-   past the fold at 1440x900. Every row here states its own top margin; none of
-   them wants a bottom one. */
-.buy-hero .buy-card > p { margin-bottom: 0; }
-.buy-hero .buy-card > .buy-label { margin-top: 0; }
-
-/* ---- 3 · The media column becomes a stack ---------------------------
-   Not .buy-media: that slot is 488/526, with a centred flex box and a
-   min-height calc above 1280, all of which exist to hold one carousel frame.
-   The four ring_worn* photographs the carousel held belong to
-   /store/phenometech-ring/ and were showing a titanium ring on a page selling
-   a genome.
-
-   Two frames, each at the ratio its own photograph was shot at, so neither is
-   cropped into: the kit at 3/2 (1400x933 native, the box centred with margin
-   to spare) and the morning frame at 4/5 (a centred 4:5 crop of a 3:2 plate
-   keeps the subject whole and loses only bed and plant at the edges). */
-.buy-stack { display: grid; gap: 20px; align-content: start; min-width: 0; }
-.buy-stack > img {
-  width: 100%; display: block; object-fit: cover;
-  border-radius: var(--ph-r18); background: rgba(255, 255, 255, .04);
-}
-.buy-stack > img:nth-of-type(1) { aspect-ratio: 3 / 2; }
-.buy-stack > img:nth-of-type(2) { aspect-ratio: 4 / 5; }
-
-/* ---- 4 · The film is allowed to be seen ----------------------------
-   The shared scrim is a vertical 64%-to-72% navy wash, and hero-aurora.webm
-   loads and plays underneath it unseen — the whole cost of a video, none of
-   the effect, and a .glass-video card with 26px of backdrop-blur refracting a
-   flat gradient. With the type now anchored left the scrim can be weighted the
-   same way: heaviest where the words are, opening out to the right where the
-   card floats. Contrast measured at 1440 on both the 80px title and the 28px
-   lede before this shipped. */
-.buy-hero.on-film::after {
-  background: linear-gradient(100deg, #06122ef2 0%, #06122edb 34%, #06122e94 68%, #06122e63 100%);
-}
-
-/* ---- 5 · Below the split ------------------------------------------------
-   .opener sets its lede at 28px, a size cut for a section that opens under an
-   h2. It only has the measure for it at 1440, where column 2 is 494px wide; at
-   1280 that column is 449 and the same paragraph runs to six lines and 216px,
-   which makes the HEAD the tall column and puts the CTA back below the fold.
-   Below 1440 the lede returns to the lead rung, which moves with the width. */
-@media (max-width: 1439px) {
-  .buy-head.opener > .lede {
-    font-size: var(--ph-lead-size); line-height: var(--ph-lead-lh);
-  }
-}
-/* .buy collapses to one column at 1279 (shared.css). Sticky has nothing to
-   travel against in a single column, and at that width the sticky CTA is
-   already the injected .ph-bar's job.
-
-   The stack has to stop being a stack at the same moment. In one column its
-   frames take the full 1141px measure, and a 4:5 frame 1141px wide is 1426px
-   tall — measured at 1279 the two of them came to 2207px and put the price
-   2656px down the page, longer than the arrangement they replaced. Side by
-   side and landscape instead: two frames on one row, 373px tall at 1279,
-   which is the same beat the shared 4/3 slot keeps at this width. */
-@media (max-width: 1279px) {
-  .buy-hero .buy-col { position: static; }
-  .buy-stack { grid-template-columns: 1fr 1fr; }
-  .buy-stack > img:nth-of-type(2) { aspect-ratio: 3 / 2; }
-}
-/* .opener is a two-column grid at every width, and at 1023 the h1 drops to
-   48px against a 28px lede in half the measure — too little room for
-   either. One voice below the tablet step. */
-@media (max-width: 1023px) {
-  .buy-head.opener { grid-template-columns: 1fr; row-gap: 20px; }
-  .buy-head.opener > .opener-t { grid-row: auto; }
-  .buy-head.opener > .lede,
-  .buy-head.opener > .buy-links { grid-column: 1; grid-row: auto; }
-}
-/* On a phone the second frame is 331px of scroll standing between the reader
-   and the price. The kit is the frame that has to be there; the morning frame
-   is the one that can wait for a wider screen. */
-@media (max-width: 799px) {
-  .buy-stack { grid-template-columns: 1fr; }
-  .buy-stack > img:nth-of-type(2) { display: none; }
-  .buy-hero.on-film::after {
-    background: linear-gradient(180deg, #06122ecc 0%, #06122ee0 100%);
-  }
-}
-</style>
 </head>
-<body>
+<body class="cgp">
 <div class="ph-promo"><p class="ph-promo-inner">Welcome offer, 10% off your first order with code <b>Welcome10</b></p></div>
 <div data-ph-nav=""></div>
+
+<!-- One drawing per idea, used at three sizes. -->
+<svg class="cg-sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="cgHelix" viewBox="0 0 48 48"><path d="M17 6c0 10 14 10 14 21s-14 11-14 21M31 6c0 10-14 10-14 21s14 11 14 21M19 13h10M17 21h14M17 32h14M19 40h10"/></symbol>
+    <symbol id="cgGenes" viewBox="0 0 48 48"><path d="M9 14h30M9 24h30M9 34h30"/><circle cx="18" cy="14" r="3.4"/><circle cx="30" cy="24" r="3.4"/><circle cx="22" cy="34" r="3.4"/></symbol>
+    <symbol id="cgReport" viewBox="0 0 48 48"><path d="M13 7h16l6 6v28H13z"/><path d="M29 7v6h6M19 24h11M19 31h8"/></symbol>
+    <symbol id="cgLoop" viewBox="0 0 48 48"><path d="M38 24a14 14 0 1 1-4.1-9.9"/><path d="M38 8v8h-8"/></symbol>
+    <symbol id="cgHeart" viewBox="0 0 48 48"><path d="M24 38S10 30 10 20a7 7 0 0 1 14-3 7 7 0 0 1 14 3c0 10-14 18-14 18z"/><path d="M10 24h7l3-5 4 10 3-5h11"/></symbol>
+    <symbol id="cgFamily" viewBox="0 0 48 48"><circle cx="16" cy="16" r="5"/><circle cx="32" cy="16" r="5"/><path d="M7 38v-3a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8v3M24 38v-3a8 8 0 0 1 8-8h1a8 8 0 0 1 8 8v3"/></symbol>
+    <symbol id="cgPill" viewBox="0 0 48 48"><rect x="7" y="18" width="34" height="12" rx="6"/><path d="M24 18v12"/></symbol>
+    <symbol id="cgLeaf" viewBox="0 0 48 48"><path d="M13 36c0-12 8-21 25-23 2 15-7 25-19 25-3 0-6-1-6-2z"/><path d="M14 40c6-9 12-14 19-17"/></symbol>
+    <symbol id="cgRun" viewBox="0 0 48 48"><circle cx="29" cy="10" r="4"/><path d="M13 41l7-10 6-3-2-9 7 6 7 1M20 28l-7-1-2 6"/></symbol>
+    <symbol id="cgBrain" viewBox="0 0 48 48"><path d="M31 42v-5c0-3 5-5 5-11A13 13 0 0 0 12 19c0 3 1 4 2 6s-2 3-2 5 3 2 3 4v8"/><path d="M19 17a5 5 0 0 1 7 6"/></symbol>
+    <symbol id="cgDrop" viewBox="0 0 48 48"><path d="M24 7c6 8 11 13 11 18a11 11 0 0 1-22 0c0-5 5-10 11-18z"/><path d="M18 26a6 6 0 0 0 6 6"/></symbol>
+    <symbol id="cgBolt" viewBox="0 0 48 48"><path d="M27 5L13 27h9l-1 16 14-22h-9z"/></symbol>
+    <symbol id="cgFlask" viewBox="0 0 48 48"><path d="M20 6v13L11 36a4 4 0 0 0 4 6h18a4 4 0 0 0 4-6l-9-17V6"/><path d="M18 6h12M16 29h16"/></symbol>
+    <symbol id="cgShield" viewBox="0 0 48 48"><path d="M24 6l14 6v10c0 9-6 16-14 20-8-4-14-11-14-20V12z"/><path d="M18 24l4 4 8-9"/></symbol>
+    <symbol id="cgPerson" viewBox="0 0 48 48"><circle cx="24" cy="16" r="6"/><path d="M10 40v-2a11 11 0 0 1 11-11h6a11 11 0 0 1 11 11v2"/></symbol>
+    <symbol id="cgApp" viewBox="0 0 48 48"><rect x="15" y="5" width="18" height="38" rx="4"/><path d="M21 11h6M19 30h4v6h-4zM25 24h4v12h-4z"/></symbol>
+    <symbol id="cgCheck" viewBox="0 0 48 48"><path d="M9 25l9 9 21-21"/></symbol>
+    <symbol id="cgArrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></symbol>
+  </defs>
+</svg>
+
 <main>
 
-<section class="hero on-dark on-film buy-hero">
-<video aria-hidden="true" autoplay="" class="hero-film" loop="" muted="" playsinline="" poster="/phenome-store/assets/video/hero-aurora.webp" preload="metadata" tabindex="-1"><source src="/phenome-store/assets/video/hero-aurora.webm" type="video/webm"/><source src="/phenome-store/assets/video/hero-aurora.mp4" type="video/mp4"/></video>
-<div class="wrap-wide">
-<div class="buy-head opener">
-<div class="opener-t">
+<!-- ==========================================================================
+     1 · BUY BOX
+     supplements/nad's hero, on this page's words. One rotating frame on the
+     left and ONE column on the right, from the product name down to the folded
+     detail: nad's row (1fr + clamp(408, 32vw, 476)), nad's white ground.
+
+     THE AURORA FILM IS GONE (2026-09-22, by request). It was this page's own
+     ground from 2026-09-03, and with the copy moved into a single right hand
+     column it was costing more than it paid: the scrim had to be heavy enough
+     to carry white type over moving picture, which left the film invisible
+     anyway and the whole first screen dark. The reference page is white, so
+     this one is white, and the only colour in the band is the kit itself.
+     ======================================================================= -->
+<section class="hero cg-hero">
+<div class="cg-hero-grid">
+<div class="cg-gal">
+<div class="cg-gal-main" data-gal-main="" role="region" aria-roledescription="carousel" aria-label="Kit images">
+<div class="cg-gal-track" data-gal-track="">
+<div class="cg-slide" data-slide="" data-n="0" role="group" aria-roledescription="slide" aria-label="1 of 6">
+<img alt="The Comprehensive Genomic Test collection kit" fetchpriority="high" height="1650" src="/phenome-store/assets/genomic/gal-kit.webp" width="1200"/>
+</div>
+<div class="cg-slide" data-slide="" data-n="1" role="group" aria-roledescription="slide" aria-label="2 of 6">
+<img alt="The kit opened, with the welcome letter inside the lid" decoding="async" height="1500" loading="lazy" src="/phenome-store/assets/genomic/gal-open.webp" width="1200"/>
+</div>
+<div class="cg-slide" data-slide="" data-n="2" role="group" aria-roledescription="slide" aria-label="3 of 6">
+<img alt="What comes in the box: two saliva tubes, the instructions and the prepaid return label" decoding="async" height="1500" loading="lazy" src="/phenome-store/assets/genomic/gal-contents.webp" width="1200"/>
+</div>
+<div class="cg-slide" data-slide="" data-n="3" role="group" aria-roledescription="slide" aria-label="4 of 6">
+<img alt="Three kits stacked on a table" decoding="async" height="1500" loading="lazy" src="/phenome-store/assets/genomic/gal-stack.webp" width="1200"/>
+</div>
+<div class="cg-slide" data-slide="" data-n="4" role="group" aria-roledescription="slide" aria-label="5 of 6">
+<img alt="A woman sitting cross legged on a rug in a bright bedroom in morning light, eyes closed" decoding="async" height="1500" loading="lazy" src="/phenome-store/assets/genomic/gal-morning.webp" width="1200"/>
+</div>
+<div class="cg-slide cg-slide-facts" data-slide="" data-n="5" role="group" aria-roledescription="slide" aria-label="6 of 6">
+<span class="cg-facts" data-facts="">
+<span class="cg-facts-h">The specification</span>
+<span class="cg-facts-r cg-facts-top"><span>Method</span><b>Whole genome sequencing</b></span>
+<span class="cg-facts-r"><span>Coverage</span><b>3 billion base pairs</b></span>
+<span class="cg-facts-r"><span>Depth</span><b>30×</b></span>
+<span class="cg-facts-r"><span>Genes analysed</span><b>20,000+</b></span>
+<span class="cg-facts-r"><span>Sample</span><b>Saliva, at home</b></span>
+<span class="cg-facts-r"><span>Report</span><b>13 health panels</b></span>
+<span class="cg-facts-r"><span>Results</span><b>2 to 3 weeks</b></span>
+<span class="cg-facts-foot">Sequenced on Illumina instruments in an accredited laboratory, reported to ACMG and ACGS standards</span>
+</span>
+</div>
+</div>
+<div class="cg-gal-tools">
+<button class="cg-gal-tool cg-gal-hold" type="button" data-gal-hold="" aria-label="Pause the slideshow"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="2" width="4" height="12" rx="1" fill="currentColor"></rect><rect x="10" y="2" width="4" height="12" rx="1" fill="currentColor"></rect></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5l9 5.5-9 5.5z" fill="currentColor"></path></svg></button>
+<button class="cg-gal-tool cg-gal-zoom" type="button" data-gal-zoom="" aria-label="Open at full size"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+<!-- Filled by cg.js: previous, one dot per slide, next. -->
+<div class="cg-gal-nav" data-gal-nav="" hidden=""></div>
+</div>
+</div>
+<div class="cg-buy">
 <div class="eyebrow">Comprehensive genomic test</div>
-<h1 class="ph-display is-auto is-hero"><span class="ph-display-lead">Your entire genome</span><span>Decoded</span></h1>
+<h1 class="ph-display is-ink is-left cg-name"><span class="ph-display-lead">Your entire genome</span><span>Decoded</span></h1>
+<span class="cg-badge">Whole genome sequencing, 20,000+ genes</span>
+<p class="cg-rate"><span class="cg-stars" aria-hidden="true">★★★★★</span><a href="#reviews">5.0, rated by early customers</a></p>
+<p class="cg-hero-lede">Whole genome sequencing reads all three billion base pairs of your DNA, turning 20,000+ genes into clear, clinical grade guidance for your health, longevity and prevention.</p>
+<div class="cg-stats">
+<div class="cg-stat"><p class="cg-stat-v">3 billion</p><p class="cg-stat-l">Base pairs read</p></div>
+<div class="cg-stat"><p class="cg-stat-v">30×</p><p class="cg-stat-l">Sequencing depth</p></div>
+<div class="cg-stat"><p class="cg-stat-v">13</p><p class="cg-stat-l">Health panels</p></div>
 </div>
-<p class="lede">Whole genome sequencing reads all three billion base pairs of your DNA, turning 20,000+ genes into clear, clinical grade guidance for your health, longevity and prevention.</p>
-<div class="buy-links"><a class="link-more" href="/phenome-store/science/whole-genome-sequencing/">How the sequencing works</a></div>
-</div>
-<div class="buy">
-<div class="buy-stack">
-<img alt="The Comprehensive Genomic Test sample collection kit" fetchpriority="high" height="933" src="/phenome-store/assets/pages/kit_genomic.webp" width="1400"/>
-<img alt="A woman sitting cross legged on a rug in a bright bedroom in morning light, eyes closed" decoding="async" height="1600" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp" width="2400"/>
-</div>
-<div class="buy-col">
-<div class="buy-card glass glass-video">
-<p class="buy-label"><b>Comprehensive Genomic Test</b></p>
-<p class="stat-num">£650</p>
-<p class="buy-sub">Results within 2 to 3 weeks, in stock, ready to ship</p>
-<span class="buy-badge">Whole genome sequencing, 20,000+ genes</span>
-<ul class="ticks"><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>At home saliva collection kit</li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Whole genome sequencing at 30× depth</li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>12 section personalised genomic report</li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>A 1:1 session with a genetic counsellor</li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg>Prepaid, recyclable return packaging</li></ul>
-<a class="btn" href="/phenome-store/store/cart/">Add to cart, £650</a>
-<p class="buy-note">Free next day delivery and returns, GDPR secure</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+<p class="cg-price">£650</p>
+<p class="cg-pnote">Results within 2 to 3 weeks, in stock, ready to ship</p>
+<ul class="cg-ticks"><li><svg aria-hidden="true" focusable="false"><use href="#cgCheck"></use></svg>At home saliva collection kit</li><li><svg aria-hidden="true" focusable="false"><use href="#cgCheck"></use></svg>Whole genome sequencing at 30× depth</li><li><svg aria-hidden="true" focusable="false"><use href="#cgCheck"></use></svg>13 panel personalised genomic report</li><li><svg aria-hidden="true" focusable="false"><use href="#cgCheck"></use></svg>A 1:1 session with a genetic counsellor</li><li><svg aria-hidden="true" focusable="false"><use href="#cgCheck"></use></svg>Prepaid, recyclable return packaging</li></ul>
+<a class="btn cg-cta" href="/phenome-store/store/cart/">Add to cart, £650</a>
+<p class="cg-note">Free next day delivery and returns, GDPR secure</p>
 
-<section class="section section-tight">
-<div class="wrap-wide">
-<div class="figures figures-4"><div class="figure"><div class="n">3<small>B</small></div><div class="l">Base pairs read</div></div><div class="figure"><div class="n">20,000<small>+</small></div><div class="l">Genes analysed</div></div><div class="figure"><div class="n">30<small>×</small></div><div class="l">Sequencing depth</div></div><div class="figure"><div class="n">12</div><div class="l">Report sections</div></div></div>
+<!-- The detail, folded as the NAD column folds it: one open body at a time, so
+     the frame beside it grows by that much and no more. -->
+<div class="cg-acc cg-buy-acc">
+<details class="cg-acc-item" name="cg-buy-acc"><summary>What the test reads<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>All three billion base pairs, at 30× depth, rather than the fixed list of markers a genotyping chip checks. Your genome never changes, so reading it once gives you clarity for life.</p></div></details>
+<details class="cg-acc-item" name="cg-buy-acc"><summary>What comes in the kit<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><ul class="cg-bullets"><li>Two saliva collection tubes and stabilising solution</li><li>Step by step instructions and your activation code</li><li>Prepaid, recyclable return packaging</li></ul><button class="cg-spec-link" type="button" data-open-facts="">See the full specification<svg aria-hidden="true" focusable="false"><use href="#cgArrow"></use></svg></button></div></details>
+<details class="cg-acc-item" name="cg-buy-acc"><summary>Delivery, results and privacy<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Free next day UK delivery, and results in two to three weeks from the day your sample reaches the laboratory. Your sequence is stored encrypted in the UK under GDPR, never sold and never shared with insurers or employers.</p></div></details>
+</div>
+<a class="cg-hero-link" href="/phenome-store/science/whole-genome-sequencing/">How the sequencing works<svg aria-hidden="true" focusable="false"><use href="#cgArrow"></use></svg></a>
+</div>
 </div>
 </section>
 
-<section class="section section-tight"><div class="wrap-wide"><div class="pills"><span class="pill-lab">Illumina</span><span class="pill-lab">ScandiBio</span><span class="pill-lab">KTH Royal Institute</span><span class="pill-lab">Inserm</span><span class="pill-lab">Silk Longevity</span></div></div></section>
 
-<section class="section"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">Why it matters</div><h2 class="sec-title">Why Whole Genome Sequencing is different.</h2></div><p class="lede" style="margin-left:0">Most genetic tests analyse a tiny fraction of your DNA. This test reads all of it. Your genome never changes, so understanding it once gives you clarity for life. A complete read shows how your genes shape everything from disease risk to metabolism, cognition, and how you age.</p><div class="grid grid-4 rail" style="margin-top:44px;text-align:left"><div><div style="font-size:var(--ph-h2-size);line-height:var(--ph-h2-lh);font-weight:var(--ph-w-600);letter-spacing:var(--ph-h2-tr)">100%</div><p class="body-text" style="margin-top:8px">Of your genome sequenced</p><p class="body-text" style="margin-top:4px;font-size:var(--ph-fs-14);line-height:var(--ph-lh-14);color:var(--ph-text-2)">vs ~0.02% with standard SNP arrays</p></div><div><div style="font-size:var(--ph-h2-size);line-height:var(--ph-h2-lh);font-weight:var(--ph-w-600);letter-spacing:var(--ph-h2-tr)">20,000+</div><p class="body-text" style="margin-top:8px">Genes analysed</p><p class="body-text" style="margin-top:4px;font-size:var(--ph-fs-14);line-height:var(--ph-lh-14);color:var(--ph-text-2)">Coding and noncoding regions</p></div><div><div style="font-size:var(--ph-h2-size);line-height:var(--ph-h2-lh);font-weight:var(--ph-w-600);letter-spacing:var(--ph-h2-tr)">Lifelong</div><p class="body-text" style="margin-top:8px">Reanalysis</p><p class="body-text" style="margin-top:4px;font-size:var(--ph-fs-14);line-height:var(--ph-lh-14);color:var(--ph-text-2)">New discoveries applied to your genome</p></div><div><div style="font-size:var(--ph-h2-size);line-height:var(--ph-h2-lh);font-weight:var(--ph-w-600);letter-spacing:var(--ph-h2-tr)">13</div><p class="body-text" style="margin-top:8px">Report panels</p><p class="body-text" style="margin-top:4px;font-size:var(--ph-fs-14);line-height:var(--ph-lh-14);color:var(--ph-text-2)">Disease risk, pharmacogenomics and more</p></div></div></div></section>
 
-<section class="section">
-<div class="wrap-wide">
-<h2 class="sec-title">What your genome reveals.</h2>
-<p class="lede" style="margin-left:0">Nine areas, read from one sample. Every one of them comes back in the same report.</p>
-<div class="grid grid-3 rail" style="margin-top:44px"><div class="card-gray"><h3 class="card-title">Disease predisposition</h3><p>Cardiac, metabolic, neurological, immune and cancer risk.</p></div><div class="card-gray"><h3 class="card-title">Carrier screening</h3><p>Recessive and X-linked variants you could pass on.</p></div><div class="card-gray"><h3 class="card-title">Pharmacogenomics</h3><p>How you metabolise and respond to common medications.</p></div><div class="card-gray"><h3 class="card-title">Nutrigenomics</h3><p>Nutrient handling, vitamin needs and metabolism.</p></div><div class="card-gray"><h3 class="card-title">Sports genetics</h3><p>Strength, endurance and recovery profile.</p></div><div class="card-gray"><h3 class="card-title">Longevity pathways</h3><p>Inflammation, DNA repair and oxidative stress.</p></div><div class="card-gray"><h3 class="card-title">Brain, mood and sleep</h3><p>Neurotransmitters and circadian rhythm.</p></div><div class="card-gray"><h3 class="card-title">Hormonal health</h3><p>Thyroid, reproductive and adrenal signalling.</p></div><div class="card-gray"><h3 class="card-title">Mitochondrial function</h3><p>Energy efficiency and susceptibility to fatigue.</p></div></div>
-</div>
+<!-- ==========================================================================
+     2 · WHY WHOLE GENOME SEQUENCING · the NAD page's essentials card, which
+     opens the way ouraring.com's Ring 4 page opens "Thoughtfully crafted": an
+     inset rounded card that grows to fill the screen as it arrives, holds
+     there pinned, then scrolls on. It carries what the four figures and the
+     "why it matters" grid used to say, in the words they said it in.
+     ======================================================================= -->
+<section class="cg-sec cg-ess" data-ess="">
+  <div class="cg-ess-track">
+    <div class="cg-ess-stage">
+      <div class="cg-ess-hero">
+        <img class="cg-ess-bg" alt="" height="1600" loading="lazy" src="/phenome-store/assets/pages/plate_genomic_morning.webp" width="2400" data-drift=""/>
+        <div>
+          <h2 class="ph-display is-left cg-ess-h"><span class="ph-display-lead">Read it once</span><span>Clarity for life</span></h2>
+          <p class="cg-ess-sub">Most genetic tests analyse a tiny fraction of your DNA. This test reads all of it, and your genome never changes.</p>
+        </div>
+        <ul class="cg-ess-panel">
+          <li>
+            <svg class="cg-ic" aria-hidden="true"><use href="#cgHelix"></use></svg>
+            <h3>3 billion base pairs</h3>
+            <p>100% of your genome, against roughly 0.02% on a standard array.</p>
+          </li>
+          <li>
+            <svg class="cg-ic" aria-hidden="true"><use href="#cgGenes"></use></svg>
+            <h3>20,000+ genes</h3>
+            <p>Coding and noncoding regions, all read at 30× depth.</p>
+          </li>
+          <li>
+            <svg class="cg-ic" aria-hidden="true"><use href="#cgReport"></use></svg>
+            <h3>13 health panels</h3>
+            <p>Disease risk, medication response, metabolism, longevity and more.</p>
+          </li>
+          <li>
+            <svg class="cg-ic" aria-hidden="true"><use href="#cgLoop"></use></svg>
+            <h3>Lifelong reanalysis</h3>
+            <p>New discoveries applied to the data you already have, with no new test.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="band"><img alt="Three generations of a family together in soft daylight" decoding="async" height="1030" loading="lazy" src="/phenome-store/assets/pages/band_genomic.webp" width="2400"/></section>
+<!-- ==========================================================================
+     3 · WHAT YOUR GENOME REVEALS · the nine areas, on the ring the NAD page
+     uses for its ingredients (viome.com's "What you put in your body"). The
+     circles are buttons, not links: nothing leaves the page, and pointing at
+     one, tapping it or tabbing to it names what that area covers at the
+     centre.
+     ======================================================================= -->
+<section class="cg-sec cg-src">
+  <div class="cg-wrap cg-src-grid">
+    <header class="cg-src-copy">
+      <h2 class="ph-display is-ink is-left"><span class="ph-display-lead">Nine areas, one sample</span><span>What your genome reveals</span></h2>
+      <p class="cg-lede">Every one of them comes back in the same report, read from the same saliva sample.</p>
+    </header>
+    <div class="cg-ring" data-ring="">
+      <div class="cg-ring-core" aria-live="polite">
+        <p class="cg-ring-k" data-ring-k="">Nine areas</p>
+        <p class="cg-ring-d" data-ring-d="">One sample, one report.</p>
+      </div>
+      <ul class="cg-ring-list">
+        <li style="--i:0"><button type="button" data-name="Disease predisposition" data-d="Cardiac, metabolic, neurological, immune and cancer risk." aria-label="Disease predisposition"><svg aria-hidden="true"><use href="#cgHeart"></use></svg><b>Disease risk</b></button></li>
+        <li style="--i:1"><button type="button" data-name="Carrier screening" data-d="Recessive and X-linked variants you could pass on." aria-label="Carrier screening"><svg aria-hidden="true"><use href="#cgFamily"></use></svg><b>Carrier screening</b></button></li>
+        <li style="--i:2"><button type="button" data-name="Pharmacogenomics" data-d="How you metabolise and respond to common medications." aria-label="Pharmacogenomics"><svg aria-hidden="true"><use href="#cgPill"></use></svg><b>Medication</b></button></li>
+        <li style="--i:3"><button type="button" data-name="Nutrigenomics" data-d="Nutrient handling, vitamin needs and metabolism." aria-label="Nutrigenomics"><svg aria-hidden="true"><use href="#cgLeaf"></use></svg><b>Nutrition</b></button></li>
+        <li style="--i:4"><button type="button" data-name="Sports genetics" data-d="Strength, endurance and recovery profile." aria-label="Sports genetics"><svg aria-hidden="true"><use href="#cgRun"></use></svg><b>Sport</b></button></li>
+        <li style="--i:5"><button type="button" data-name="Longevity pathways" data-d="Inflammation, DNA repair and oxidative stress." aria-label="Longevity pathways"><svg aria-hidden="true"><use href="#cgLoop"></use></svg><b>Longevity</b></button></li>
+        <li style="--i:6"><button type="button" data-name="Brain, mood and sleep" data-d="Neurotransmitters and circadian rhythm." aria-label="Brain, mood and sleep"><svg aria-hidden="true"><use href="#cgBrain"></use></svg><b>Brain and sleep</b></button></li>
+        <li style="--i:7"><button type="button" data-name="Hormonal health" data-d="Thyroid, reproductive and adrenal signalling." aria-label="Hormonal health"><svg aria-hidden="true"><use href="#cgDrop"></use></svg><b>Hormones</b></button></li>
+        <li style="--i:8"><button type="button" data-name="Mitochondrial function" data-d="Energy efficiency and susceptibility to fatigue." aria-label="Mitochondrial function"><svg aria-hidden="true"><use href="#cgBolt"></use></svg><b>Energy</b></button></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-<section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">Who it’s for</div><h2 class="sec-title">This test is highly recommended for</h2><div class="grid grid-3 rail" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Prevention and longevity</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Detecting genetic risks before symptoms appear, building a long term health plan based on DNA insight, a proactive approach to disease prevention.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Families and future planning</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Understanding hereditary factors before starting a family, managing family history of inherited conditions, ensuring future generations have their genomic data.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Performance and optimisation</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Tailoring nutrition, recovery, and training to your genetics, understanding how genes influence energy and ageing, a deeper picture of your biological profile.</p></div></div></div></section>
+<!-- ==========================================================================
+     4 · THE REPORT · thirteen panels, folded the way the NAD page folds its
+     buy column, with the headline and the kit held sticky beside them. Set out
+     in full this section was 13 headings and 13 paragraphs of a single wall;
+     folded, a reader opens the two or three that are theirs.
+     ======================================================================= -->
+<section class="cg-sec" id="report">
+  <div class="cg-wrap cg-rep-grid">
+    <header class="cg-rep-copy">
+      <h2 class="ph-display is-ink is-left"><span class="ph-display-lead">Your report</span><span>Thirteen health panels</span></h2>
+      <p class="cg-lede">A complete analysis of your DNA, covering disease risk, medication response, metabolism, longevity, performance, brain health, hormones and carrier status. Each panel translates complex genomic data into clear, actionable insight.</p>
+      <figure class="cg-rep-fig"><img alt="The report and the collection kit on a table" decoding="async" height="1050" loading="lazy" src="/phenome-store/assets/genomic/kit-table.webp" width="1400"/></figure>
+    </header>
+    <div class="cg-acc">
+      <details class="cg-acc-item" open=""><summary>Personalised genomic summary<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>A plain language overview and interpretation of your whole report, drawing together the key findings across all panels and what they mean for you.</p></div></details>
+      <details class="cg-acc-item"><summary>Disease predisposition and risk analysis<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genetic variants associated with complex and monogenic conditions, each classified by clinical relevance and inheritance pattern, so you can see which areas may need preventive monitoring or professional advice.</p></div></details>
+      <details class="cg-acc-item"><summary>Carrier screening and inherited variants<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Whether you carry genetic variants that could be passed to your children, supporting informed family planning.</p></div></details>
+      <details class="cg-acc-item"><summary>Pharmacogenomic insights<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>How your genes influence your response to medications, antidepressants, cardiovascular drugs, anticoagulants, pain relief and metabolic agents, helping professionals choose the safest, most effective options.</p></div></details>
+      <details class="cg-acc-item"><summary>Nutrigenomic and metabolic health<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>How your body metabolises nutrients and responds to different diets, including vitamin absorption, caffeine and lactose metabolism, fat storage, weight regulation and insulin response.</p></div></details>
+      <details class="cg-acc-item"><summary>Lifestyle and wellness genetics<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genetic traits that influence diet, metabolism and lifestyle response, with insight into nutrient processing, exercise response and sleep regulation.</p></div></details>
+      <details class="cg-acc-item"><summary>Longevity and ageing pathways<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genes involved in cellular repair, inflammation control and antioxidant activity that influence ageing rate, metabolic health and lifespan potential.</p></div></details>
+      <details class="cg-acc-item"><summary>Mental and cognitive health<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genes associated with neurological, cognitive and psychological function, including influences on mood, memory, focus and certain neuropsychiatric traits.</p></div></details>
+      <details class="cg-acc-item"><summary>Sports and exercise genetics<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Traits affecting strength, endurance, muscle recovery and injury susceptibility, to help optimise training and long term fitness.</p></div></details>
+      <details class="cg-acc-item"><summary>Hormonal and reproductive health<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Insights into hormone metabolism, fertility and reproductive wellbeing, including PCOS, ovarian reserve, sperm quality and hormonal balance.</p></div></details>
+      <details class="cg-acc-item"><summary>Cardiovascular and lipid metabolism<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genes associated with heart health, cholesterol and blood pressure, identifying hereditary cardiovascular risks and supporting prevention.</p></div></details>
+      <details class="cg-acc-item"><summary>Mitochondrial and energy function<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>Genes involved in mitochondrial performance and energy efficiency, helping explain potential causes of fatigue or low energy production.</p></div></details>
+      <details class="cg-acc-item"><summary>Detoxification and environmental response<span class="cg-acc-ic" aria-hidden="true"></span></summary><div class="cg-acc-body"><p>How your genes process and eliminate toxins from the environment, alcohol and drugs, and your sensitivity to pollutants, oxidative stress and chemical exposures.</p></div></details>
+    </div>
+  </div>
+</section>
 
-<section class="section" id="report"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">Your report</div><h2 class="sec-title">What’s included in your Comprehensive Genomic Report</h2></div><p class="lede" style="margin-left:0">A complete analysis of your DNA across 13 health panels, covering disease risk, medication response, metabolism, longevity, performance, brain health, hormones, and carrier status. Each panel translates complex genomic data into clear, actionable insights.</p><ul class="assure assure-3"><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Personalised Genomic Summary</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A plain language overview and interpretation of your whole report, drawing together the key findings across all panels and what they mean for you.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Disease Predisposition and Risk Analysis</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genetic variants associated with complex and monogenic conditions, each classified by clinical relevance and inheritance pattern, so you can see which areas may need preventive monitoring or professional advice.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Carrier Screening and Inherited Variants</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Whether you carry genetic variants that could be passed to your children, supporting informed family planning.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Pharmacogenomic Insights</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">How your genes influence your response to medications, antidepressants, cardiovascular drugs, anticoagulants, pain relief, and metabolic agents, helping professionals choose the safest, most effective options.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Nutrigenomic and Metabolic Health</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">How your body metabolises nutrients and responds to different diets, including vitamin absorption, caffeine and lactose metabolism, fat storage, weight regulation, and insulin response.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Lifestyle and Wellness Genetics</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genetic traits that influence diet, metabolism, and lifestyle response, with insight into nutrient processing, exercise response, and sleep regulation.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Longevity and Ageing Pathways</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genes involved in cellular repair, inflammation control, and antioxidant activity that influence ageing rate, metabolic health, and lifespan potential.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Mental and Cognitive Health</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genes associated with neurological, cognitive, and psychological function, including influences on mood, memory, focus, and certain neuropsychiatric traits.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Sports and Exercise Genetics</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Traits affecting strength, endurance, muscle recovery, and injury susceptibility, to help optimise training and long term fitness.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Hormonal and Reproductive Health</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Insights into hormone metabolism, fertility, and reproductive wellbeing, including PCOS, ovarian reserve, sperm quality, and hormonal balance.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Cardiovascular and Lipid Metabolism</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genes associated with heart health, cholesterol, and blood pressure, identifying hereditary cardiovascular risks and supporting prevention.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Mitochondrial and Energy Function</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Genes involved in mitochondrial performance and energy efficiency, helping explain potential causes of fatigue or low energy production.</p></div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Detoxification and Environmental Response</b><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">How your genes process and eliminate toxins from the environment, alcohol, and drugs, and your sensitivity to pollutants, oxidative stress, and chemical exposures.</p></div></li></ul></div></section>
-
-<section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">Your comprehensive genomic report</div><h2 class="sec-title">Your complete genomic report.</h2><h3 class="card-title" style="margin-top:28px">13 health panels</h3><p class="body-text" style="margin-top:8px">Whole genome sequenced, 20,000+ genes at 100% coverage.</p><div class="grid grid-2" style="margin-top:40px"><div class="card-gray"><h3 class="card-title" style="font-size:21px">Full results in the Phenome app</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">All 13 panels visualised clearly, with plain language explanations for every finding.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Clinically reviewed PDF report</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Reviewed by clinical scientists following ACMG and ACGS guidelines, suitable to share with your GP, specialist, or family.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Complimentary genetic counselling</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A 1 to 1 session with a certified Phenome genetic counsellor to go over your findings and build a plan.</p></div><div class="card-gray"><h3 class="card-title" style="font-size:21px">Lifelong reanalysis</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">As genomics science advances, your data can be reinterpreted to surface new discoveries, without another test.</p></div></div></div></section>
-
+<!-- ==========================================================================
+     5 · FROM SAMPLE TO INSIGHT · the NAD page's timeline, which is the kit's
+     .ph-tl component (phenome-glass.css § 9, rail filled by shared.js).
+     ======================================================================= -->
 <section class="section cg-steps" id="how">
 <div class="wrap-wide">
 <header class="cg-head">
@@ -256,7 +267,7 @@
 </div>
 <div class="ph-tl-step">
 <p class="ph-tl-step-h"><span class="ph-tl-pill">Step 4</span>Report and counselling</p>
-<ul><li>A 12 section report in the Phenome app</li><li>A 1:1 session with a genetic counsellor</li><li>To walk you through every result</li></ul>
+<ul><li>A 13 panel report in the Phenome app</li><li>A 1:1 session with a genetic counsellor</li><li>To walk you through every result</li></ul>
 </div>
 <p class="ph-tl-foot">Results in two to three weeks from the day your sample reaches the lab.</p>
 </div>
@@ -279,14 +290,118 @@
 </div>
 </section>
 
-<section class="section"><div class="wrap-wide"><div class="eyebrow">Reviews</div><h2 class="sec-title">Real results, real people.</h2><div aria-label="Rated 5 out of 5" class="quote-stars" role="img"><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg></div><div class="grid grid-4 rail"><figure class="quote"><div aria-label="Rated 5 out of 5" class="quote-stars" role="img"><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg></div><blockquote>“Heart issues have always been common in my family, and I just wanted to understand my own risk without guessing. The report helped me see the patterns clearly and made me more aware of what I can actually control.”</blockquote><figcaption>James P., 44, Comprehensive Genomic Test</figcaption></figure><figure class="quote"><div aria-label="Rated 5 out of 5" class="quote-stars" role="img"><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg></div><blockquote>“My partner and I did this before planning for a baby. It gave us so much clarity. Knowing we both had healthy profiles felt like a quiet relief we didn’t know we needed.”</blockquote><figcaption>Daniel and Maya L., 33, Comprehensive Genomic Test</figcaption></figure><figure class="quote"><div aria-label="Rated 5 out of 5" class="quote-stars" role="img"><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg></div><blockquote>“I’ve always had bad reactions to painkillers with codeine, nauseous or nothing at all, and never knew why. This test finally explained it. It felt good to understand that my body just processes things differently.”</blockquote><figcaption>Hannah W., 37, Comprehensive Genomic Test</figcaption></figure><figure class="quote"><div aria-label="Rated 5 out of 5" class="quote-stars" role="img"><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg><svg aria-hidden="true" fill="currentColor" focusable="false" viewbox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z"></path></svg></div><blockquote>“Reading through my results felt like reading a detailed version of myself. The parts about sleep, stress, and focus were so accurate it made me laugh. It’s strange but comforting to understand yourself like that.”</blockquote><figcaption>Olivia R., 29, Comprehensive Genomic Test</figcaption></figure></div></div></section>
+<!-- ==========================================================================
+     6 · THE SCIENCE · the NAD page's standards band: a navy ground, three rows
+     of kit photographs turned 50deg at 30, 20 and 10 percent, sliding in
+     opposite directions as the band passes. The field sits one level down
+     (.cg-std-in) so shared.js's reveal transform cannot reach it.
+     ======================================================================= -->
+<section class="cg-std" data-std="/phenome-store/assets/genomic/field/f1.webp,/phenome-store/assets/genomic/field/f2.webp,/phenome-store/assets/genomic/field/f3.webp,/phenome-store/assets/genomic/field/f4.webp,/phenome-store/assets/genomic/field/f5.webp,/phenome-store/assets/genomic/field/f6.webp">
+  <div class="cg-std-in">
+    <div class="cg-std-field" aria-hidden="true"></div>
+    <div class="cg-wrap cg-std-copy">
+      <h2 class="ph-display is-left"><span class="ph-display-lead">Grounded in</span><span>Peer reviewed genomics</span></h2>
+      <p class="cg-std-p">Every panel is built on published science. Our analysis is traceable to the literature and reviewed by certified clinical scientists.</p>
+      <ul class="cg-std-list">
+        <li><svg class="cg-ic" aria-hidden="true"><use href="#cgFlask"></use></svg><p>Peer reviewed methodology, traceable to published literature</p></li>
+        <li><svg class="cg-ic" aria-hidden="true"><use href="#cgShield"></use></svg><p>ACMG and ACGS variant classification standards</p></li>
+        <li><svg class="cg-ic" aria-hidden="true"><use href="#cgPerson"></use></svg><p>Every report reviewed by certified clinical scientists</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-<section class="section section-gray"><div class="wrap-wide"><div class="eyebrow">The science</div><h2 class="sec-title">Grounded in peer reviewed genomics research.</h2><p class="lede" style="margin-left:0">Every panel is built on published science. Our analysis is traceable to the literature and reviewed by certified clinical scientists following ACMG and ACGS guidelines.</p><div class="grid grid-3" style="margin-top:40px"><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Peer reviewed methodology, Traceable to published literature</p></div><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">ACMG and ACGS guidelines, Variant classification standards</p></div><div class="card-gray"><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Clinician reviewed reports, Certified clinical scientists</p></div></div></div></section>
+<!-- ==========================================================================
+     7 · WHAT COMES BACK, AND WHO IT IS FOR · the NAD page's two kit cards.
+     ======================================================================= -->
+<section class="cg-sec">
+  <div class="cg-wrap">
+    <h2 class="ph-display is-ink is-left"><span class="ph-display-lead">After the lab</span><span>What comes back to you</span></h2>
+    <div class="cg-kits">
+      <article class="cg-kit">
+        <div class="cg-kit-img"><img alt="The genomic report open on a table" decoding="async" height="930" loading="lazy" src="/phenome-store/assets/pages/reports.webp" width="1400"/></div>
+        <div class="cg-kit-body">
+          <h3>In your report</h3>
+          <p class="cg-kit-sub">Thirteen panels, whole genome sequenced at 100% coverage.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#cgApp"></use></svg><span><b>Full results in the Phenome app</b><span>Every panel visualised, in plain language</span></span></li>
+            <li><svg aria-hidden="true"><use href="#cgReport"></use></svg><span><b>Clinically reviewed PDF report</b><span>To share with your GP, specialist or family</span></span></li>
+            <li><svg aria-hidden="true"><use href="#cgPerson"></use></svg><span><b>Complimentary genetic counselling</b><span>A 1:1 session to build a plan around it</span></span></li>
+            <li><svg aria-hidden="true"><use href="#cgLoop"></use></svg><span><b>Lifelong reanalysis</b><span>New science applied, without another test</span></span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="cg-kit">
+        <div class="cg-kit-img"><img alt="Three generations of a family together in soft daylight" decoding="async" height="1500" loading="lazy" src="/phenome-store/assets/genomic/who-family.webp" width="1200"/></div>
+        <div class="cg-kit-body">
+          <h3>Who it is for</h3>
+          <p class="cg-kit-sub">Highly recommended if any of this is why you are here.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#cgHeart"></use></svg><span><b>Prevention and longevity</b><span>Genetic risks seen before symptoms appear</span></span></li>
+            <li><svg aria-hidden="true"><use href="#cgFamily"></use></svg><span><b>Families and future planning</b><span>Hereditary factors, understood before you start</span></span></li>
+            <li><svg aria-hidden="true"><use href="#cgRun"></use></svg><span><b>Performance and optimisation</b><span>Nutrition, recovery and training set to your genetics</span></span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-<section class="section">
-<div class="wrap-wide"><h2 class="faq-h">Common questions.</h2>
-<div class="acc is-faq" data-faq-list=""><details class="acc-item" open=""><summary>What does the test analyse?</summary><div class="acc-body"><div><p>Your entire genome, all three billion base pairs, rather than a preselected subset of markers. We report the variants that carry evidence for health, longevity, metabolism and medication response across twelve panels.</p></div></div></details><details class="acc-item"><summary>How is it different from consumer DNA kits?</summary><div class="acc-body"><div><p>Consumer kits use a genotyping chip, which checks a fixed list of roughly half a million positions and infers the rest statistically. This is whole genome sequencing: every base is read directly, at 30× depth, so rare and novel variants that a chip has no probe for are still visible. It is run in an accredited laboratory and reported to clinical standards, and it comes with a genetic counsellor rather than a dashboard alone.</p></div></div></details><details class="acc-item"><summary>Does it cover disease risk and carrier status?</summary><div class="acc-body"><div><p>Both. Predisposition covers cardiac, metabolic, neurological, immune and cancer related variants; carrier screening covers more than 300 recessive and X-linked conditions, which is the part that matters if you are planning a family. Clinically actionable findings are flagged separately so they are not lost among the wellness results.</p></div></div></details><details class="acc-item"><summary>Will I get medication (pharmacogenomic) insights?</summary><div class="acc-body"><div><p>Yes. The report covers the drug metabolising enzymes with established prescribing guidance, among them CYP2D6, CYP2C19 and DPYD, and explains what each result means for dosing. It is written so you can hand it to your GP or consultant, but it does not replace their advice, and no medication should be started or stopped on the strength of it alone.</p></div></div></details><details class="acc-item"><summary>How do I collect my saliva sample?</summary><div class="acc-body"><div><p>A simple saliva sample, collected at home. Detailed instructions are printed in the kit: avoid eating, drinking and brushing for thirty minutes beforehand, fill the tube to the marked line, seal it, and post it back in the prepaid envelope supplied.</p></div></div></details><details class="acc-item"><summary>Can my data be reanalysed as science advances?</summary><div class="acc-body"><div><p>That is the argument for sequencing the whole genome once rather than genotyping repeatedly. Your raw sequence stays on file, so when a gene, condition association reaches clinical evidence we can revisit your existing data instead of asking for a new sample. You can request a reanalysis, or a copy of your raw data, at any time from your account.</p></div></div></details><details class="acc-item"><summary>How long until my results are ready?</summary><div class="acc-body"><div><p>Two to three weeks from the day your sample reaches the laboratory. You are notified when it arrives, and again when the report is released in the Phenome app; the counselling session can be booked as soon as the report is live.</p></div></div></details><details class="acc-item"><summary>Is my genetic data kept private?</summary><div class="acc-body"><div><p>Your sequence is stored encrypted in the UK and processed under GDPR as special category data. It is never sold, never shared with insurers or employers, and is used for research only if you opt in separately, that consent is not part of buying the test, and you can withdraw it later. You can export or permanently delete your data from your account at any time.</p></div></div></details><details class="acc-item"><summary>Who should take this test?</summary><div class="acc-body"><div><p>Suitable for anyone over 18 wanting a complete overview of their genetic health, for proactive healthcare, personalised nutrition, or understanding inherited risks before planning a family.</p></div></div></details><details class="acc-item"><summary>How accurate are the results?</summary><div class="acc-body"><div><p>Next generation sequencing with high read depth achieves over 99% accuracy for variant detection. All results are reviewed and interpreted by certified genetic specialists.</p></div></div></details><details class="acc-item"><summary>Where can I see my results?</summary><div class="acc-body"><div><p>Uploaded automatically to your secure profile in the app, created with the email you provided at checkout, and downloadable as a PDF anytime.</p></div></div></details><details class="acc-item"><summary>What should I do after receiving my report?</summary><div class="acc-body"><div><p>If the report identifies variants of clinical relevance, you’re encouraged to book a genetic counselling session to understand your results and next steps.</p></div></div></details></div>
+<!-- ==========================================================================
+     8 · QUESTIONS · the shared component, with the NAD page's View all.
+     ======================================================================= -->
+<section class="cg-sec" id="faq">
+<div class="cg-wrap"><h2 class="faq-h">Common questions.</h2>
+<div class="acc is-faq cg-faq-list" data-faq="" data-faq-list=""><details class="acc-item" open=""><summary>What does the test analyse?</summary><div class="acc-body"><div><p>Your entire genome, all three billion base pairs, rather than a preselected subset of markers. We report the variants that carry evidence for health, longevity, metabolism and medication response across thirteen panels.</p></div></div></details><details class="acc-item"><summary>How is it different from consumer DNA kits?</summary><div class="acc-body"><div><p>Consumer kits use a genotyping chip, which checks a fixed list of roughly half a million positions and infers the rest statistically. This is whole genome sequencing: every base is read directly, at 30× depth, so rare and novel variants that a chip has no probe for are still visible. It is run in an accredited laboratory and reported to clinical standards, and it comes with a genetic counsellor rather than a dashboard alone.</p></div></div></details><details class="acc-item"><summary>Does it cover disease risk and carrier status?</summary><div class="acc-body"><div><p>Both. Predisposition covers cardiac, metabolic, neurological, immune and cancer related variants; carrier screening covers more than 300 recessive and X-linked conditions, which is the part that matters if you are planning a family. Clinically actionable findings are flagged separately so they are not lost among the wellness results.</p></div></div></details><details class="acc-item"><summary>Will I get medication (pharmacogenomic) insights?</summary><div class="acc-body"><div><p>Yes. The report covers the drug metabolising enzymes with established prescribing guidance, among them CYP2D6, CYP2C19 and DPYD, and explains what each result means for dosing. It is written so you can hand it to your GP or consultant, but it does not replace their advice, and no medication should be started or stopped on the strength of it alone.</p></div></div></details><details class="acc-item" data-more=""><summary>How do I collect my saliva sample?</summary><div class="acc-body"><div><p>A simple saliva sample, collected at home. Detailed instructions are printed in the kit: avoid eating, drinking and brushing for thirty minutes beforehand, fill the tube to the marked line, seal it, and post it back in the prepaid envelope supplied.</p></div></div></details><details class="acc-item" data-more=""><summary>Can my data be reanalysed as science advances?</summary><div class="acc-body"><div><p>That is the argument for sequencing the whole genome once rather than genotyping repeatedly. Your raw sequence stays on file, so when a gene, condition association reaches clinical evidence we can revisit your existing data instead of asking for a new sample. You can request a reanalysis, or a copy of your raw data, at any time from your account.</p></div></div></details><details class="acc-item" data-more=""><summary>How long until my results are ready?</summary><div class="acc-body"><div><p>Two to three weeks from the day your sample reaches the laboratory. You are notified when it arrives, and again when the report is released in the Phenome app; the counselling session can be booked as soon as the report is live.</p></div></div></details><details class="acc-item" data-more=""><summary>Is my genetic data kept private?</summary><div class="acc-body"><div><p>Your sequence is stored encrypted in the UK and processed under GDPR as special category data. It is never sold, never shared with insurers or employers, and is used for research only if you opt in separately, that consent is not part of buying the test, and you can withdraw it later. You can export or permanently delete your data from your account at any time.</p></div></div></details><details class="acc-item" data-more=""><summary>Who should take this test?</summary><div class="acc-body"><div><p>Suitable for anyone over 18 wanting a complete overview of their genetic health, for proactive healthcare, personalised nutrition, or understanding inherited risks before planning a family.</p></div></div></details><details class="acc-item" data-more=""><summary>How accurate are the results?</summary><div class="acc-body"><div><p>Next generation sequencing with high read depth achieves over 99% accuracy for variant detection. All results are reviewed and interpreted by certified genetic specialists.</p></div></div></details><details class="acc-item" data-more=""><summary>Where can I see my results?</summary><div class="acc-body"><div><p>Uploaded automatically to your secure profile in the app, created with the email you provided at checkout, and downloadable as a PDF anytime.</p></div></div></details><details class="acc-item" data-more=""><summary>What should I do after receiving my report?</summary><div class="acc-body"><div><p>If the report identifies variants of clinical relevance, you’re encouraged to book a genetic counselling session to understand your results and next steps.</p></div></div></details></div>
+<div class="cg-faq-more"><button class="cg-viewall" type="button" data-faq-toggle="" aria-expanded="false"><span class="cg-viewall-ic" aria-hidden="true"></span><span data-label="">View all</span></button></div>
 </div>
+</section>
+
+<!-- ==========================================================================
+     9 · REVIEWS · the NAD page's list, its topics, its search and its pager.
+     Four reviews, two to a page, and no distribution bars: this page has the
+     four it shipped with and invents nothing else.
+     ======================================================================= -->
+<section class="cg-sec cg-reviews" id="reviews">
+  <div class="cg-wrap">
+    <h2 class="ph-display is-ink"><span class="ph-display-lead">In their own words</span><span>Real results, real people</span></h2>
+    <div class="cg-score">
+      <b>5.0</b><span><span class="cg-stars" aria-label="Rated 5 out of 5">★★★★★</span><span>Rated by early customers</span></span>
+    </div>
+    <div class="cg-rv-tools">
+      <label class="cg-search"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none"><circle cx="9" cy="9" r="6"></circle><path d="M13.5 13.5L17 17"></path></svg><input type="search" placeholder="Search reviews" aria-label="Search reviews" data-rv-search=""/></label>
+      <p class="cg-topics-h">Popular topics</p>
+      <div class="cg-rv-row">
+        <div class="cg-topics" data-rv-topics="">
+          <button type="button" data-topic="family">family</button>
+          <button type="button" data-topic="heart">heart</button>
+          <button type="button" data-topic="medication">medication</button>
+          <button type="button" data-topic="sleep">sleep</button>
+        </div>
+      </div>
+    </div>
+    <div class="cg-rv-list" data-rv-list="">
+      <figure class="cg-rv" data-topics="heart family">
+        <div class="cg-rv-who"><b>James P.</b><span>Aged 44</span></div>
+        <div class="cg-rv-main"><p class="cg-stars" aria-label="5 out of 5">★★★★★</p><blockquote>“Heart issues have always been common in my family, and I just wanted to understand my own risk without guessing. The report helped me see the patterns clearly and made me more aware of what I can actually control.”</blockquote></div>
+      </figure>
+      <figure class="cg-rv" data-topics="family">
+        <div class="cg-rv-who"><b>Daniel and Maya L.</b><span>Aged 33</span></div>
+        <div class="cg-rv-main"><p class="cg-stars" aria-label="5 out of 5">★★★★★</p><blockquote>“My partner and I did this before planning for a baby. It gave us so much clarity. Knowing we both had healthy profiles felt like a quiet relief we didn’t know we needed.”</blockquote></div>
+      </figure>
+      <figure class="cg-rv" data-topics="medication">
+        <div class="cg-rv-who"><b>Hannah W.</b><span>Aged 37</span></div>
+        <div class="cg-rv-main"><p class="cg-stars" aria-label="5 out of 5">★★★★★</p><blockquote>“I’ve always had bad reactions to painkillers with codeine, nauseous or nothing at all, and never knew why. This test finally explained it. It felt good to understand that my body just processes things differently.”</blockquote></div>
+      </figure>
+      <figure class="cg-rv" data-topics="sleep">
+        <div class="cg-rv-who"><b>Olivia R.</b><span>Aged 29</span></div>
+        <div class="cg-rv-main"><p class="cg-stars" aria-label="5 out of 5">★★★★★</p><blockquote>“Reading through my results felt like reading a detailed version of myself. The parts about sleep, stress, and focus were so accurate it made me laugh. It’s strange but comforting to understand yourself like that.”</blockquote></div>
+      </figure>
+      <p class="cg-rv-empty" data-rv-empty="" hidden="">No reviews match that search.</p>
+    </div>
+    <!-- Filled by cg.js: previous, one number per page, next. -->
+    <nav class="cg-pager" data-rv-pager="" aria-label="Review pages" hidden=""></nav>
+  </div>
 </section>
 
 <section class="cg-rel">
@@ -297,21 +412,42 @@
 </div>
 </section>
 
-<section class="cta-band section-gray section-close">
-<div class="wrap">
-<h2>Not sure this is the right test?</h2>
-<p>Answer six questions and we will match the products to your goal.</p>
-<div class="cta-actions">
-<a class="btn" href="/phenome-store/quiz/">Take the quiz</a>
-<a class="link-more" href="/phenome-store/testing/compare/">Compare all tests</a>
-</div>
-</div>
+<!-- ==========================================================================
+     10 · CLOSE · the NAD page's closing card: the hero's own aurora film under
+     the card's radial navy, the kit standing on it, the decision repeated.
+     ======================================================================= -->
+<section class="cg-sec cg-end">
+  <div class="cg-bleed">
+    <div class="cg-end-card">
+      <video class="cg-end-film" aria-hidden="true" tabindex="-1" autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="/phenome-store/assets/video/hero-aurora.webp"><source src="/phenome-store/assets/video/hero-aurora.webm" type="video/webm"/><source src="/phenome-store/assets/video/hero-aurora.mp4" type="video/mp4"/></video>
+      <img class="cg-end-kit" src="/phenome-store/assets/genomic/kit-cut.webp" alt="The Comprehensive Genomic Test kit" width="900" height="735" loading="lazy" decoding="async"/>
+      <div class="cg-end-copy">
+        <h2 class="ph-display is-auto cg-end-h"><span class="ph-display-lead">One sample</span><span>Everything it holds</span></h2>
+        <p class="cg-end-lede">Whole genome sequencing at 30× depth, a 13 panel report, and a session with a genetic counsellor to read it with you.</p>
+        <p class="cg-end-price">£650, results in 2 to 3 weeks, free UK delivery</p>
+        <a class="btn ghost cg-end-cta" href="/phenome-store/store/cart/">Add to cart</a>
+        <p class="cg-end-note">Not sure this is the right test? <a href="/phenome-store/quiz/">Take the quiz</a> or <a href="/phenome-store/testing/compare/">compare all tests</a>.</p>
+        <p class="cg-end-note">Free next day delivery and returns, GDPR secure, your data is never sold</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 </main>
+
+<!-- The viewer the frame and the specification link open. -->
+<dialog class="cg-lb" data-lb="" aria-label="Kit images">
+  <div class="cg-lb-stage" data-lb-stage=""></div>
+  <p class="cg-lb-count" data-lb-count=""></p>
+  <button class="cg-lb-btn cg-lb-close" type="button" data-lb-close="" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"></path></svg></button>
+  <button class="cg-lb-btn cg-lb-prev" type="button" data-lb-step="-1" aria-label="Previous image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6"></path></svg></button>
+  <button class="cg-lb-btn cg-lb-next" type="button" data-lb-step="1" aria-label="Next image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"></path></svg></button>
+</dialog>
+
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/testing/comprehensive-genomic/cg.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>
