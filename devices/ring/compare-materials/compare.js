@@ -288,6 +288,40 @@
     }
 
     setFinish(slot, finishId || product.finishes[0][0]);
+    prune();
+  }
+
+  /* ---- only what differs -------------------------------------------------
+     User rule, 2026-09-22: a line on which the three columns say the same
+     thing is not a comparison, so it is not shown; a group left with no line
+     is not shown either. Three rings side by side therefore lose Fit, Charging
+     and Extra readings and the shared IP67 line, and all of it comes back the
+     moment a Band is put in a column. Run after every column change. Nothing
+     is folded and nothing can be collapsed: every line that differs is out. */
+  function prune() {
+    var groups = document.querySelectorAll('.cmp-grp');
+    for (var g = 0; g < groups.length; g++) {
+      var lines = groups[g].querySelectorAll('.cmp-ln');
+      var byLine = {};
+      var order = [];
+      for (var l = 0; l < lines.length; l++) {
+        var key = lines[l].getAttribute('data-line');
+        if (!byLine[key]) { byLine[key] = []; order.push(key); }
+        byLine[key].push(lines[l]);
+      }
+      var shown = 0;
+      for (var k = 0; k < order.length; k++) {
+        var cells = byLine[order[k]];
+        var first = cells[0].textContent + '|' + cells[0].className;
+        var same = true;
+        for (var c = 1; c < cells.length; c++) {
+          if (cells[c].textContent + '|' + cells[c].className !== first) same = false;
+        }
+        for (var c2 = 0; c2 < cells.length; c2++) cells[c2].hidden = same;
+        if (!same) shown++;
+      }
+      groups[g].hidden = shown === 0;
+    }
   }
 
   /* ---- no column may show what another column is showing -------------------
@@ -383,26 +417,6 @@
 
   lockDuplicates();
 
-  /* ---- the fold ----------------------------------------------------------
-     Sonos opens on the first groups and keeps the rest behind one "show the
-     comparison" control. Only the script folds: without it every group is
-     simply there, which is why the button ships `hidden` and the rows ship
-     without `is-folded`. */
-  var rows = document.querySelector('[data-rows]');
-  var more = document.querySelector('[data-more]');
-  if (rows && more) {
-    var label = more.querySelector('[data-more-label]');
-    rows.classList.add('is-folded');
-    more.parentNode.hidden = false;
-    more.addEventListener('click', function () {
-      var open = rows.classList.toggle('is-folded') === false;
-      more.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (label) label.textContent = open ? 'Show less' : 'Show the full comparison';
-      /* Closing from far down the list would leave the reader under the fold
-         with nothing left to read, so the button is brought back into view. */
-      if (!open) more.scrollIntoView({ block: 'center' });
-    });
-  }
 
   /* ---- the closing frame's drift -------------------------------------------
      devices/ring's § 9f writer, the same number: --pr-p is how far the band
