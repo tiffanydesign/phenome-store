@@ -16,15 +16,19 @@
        band at all;
      · the metals carry a hard stop brushed grain in `overlay` on ::after.
 
-   The button is the 32px cell (the hit target), ::before is the 24px disc
-   (the material). Selected is a 1px ink ring at the cell. A finish with no
-   entry below, the Band's straps, takes its colour from `--d` and is lit as a
-   matte, which is what silicone and woven nylon are.
+   The button is the 40px cell (the hit target), ::before is the 30px disc
+   (the material).
+   ONE LOOK SITE WIDE, 2026-09-22 by request: a ring disc is drawn exactly as
+   the buy column of store/phenometech-ring draws it (30px, the same soft drop,
+   chosen = a 2px ink ring 3px outside the disc, 1.08 on hover), and a Band
+   strap (`band-*`) exactly as devices/band's hero draws its colour chip: flat
+   pigment with no light, the perforation field on the sport silicone and the
+   crossed weave on the woven nylon, chosen = a white gap and an ink ring.
    ========================================================================= */
 
 .fin-dot {
-  --fd-dot: 24px;
-  --fd-cell: 32px;
+  --fd-dot: 30px;
+  --fd-cell: 40px;
   /* default: matte, coloured from --d */
   --fd-body: var(--d, #6b6d72);
   --fd-hi: color-mix(in srgb, var(--fd-body) 62%, #fff);
@@ -61,6 +65,7 @@
   pointer-events: none;
 }
 .fin-dot::before {
+  box-shadow: 0 2px 5px -2px #10214b47;
   background:
     radial-gradient(58% 42% at 62% 102%, var(--fd-rim) 0%, transparent 68%),
     linear-gradient(128deg,
@@ -88,9 +93,9 @@
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
           mask-image: radial-gradient(circle at 50% 50%, #000 46%, rgba(0, 0, 0, .3) 86%, transparent 100%);
 }
-.fin-dot:hover { scale: 1.09; }
+.fin-dot:hover { scale: 1.08; }
 .fin-dot:focus-visible { outline: 2px solid var(--ph-focus, #4664b0); outline-offset: 2px; }
-.fin-dot[aria-checked="true"] { box-shadow: inset 0 0 0 1px var(--ink-900, #10214b) !important; }
+.fin-dot[aria-checked="true"]::before { outline: 2px solid var(--ink-900, #10214b); outline-offset: 3px; }
 
 /* ---- the three families ---- */
 .fin-dot[data-finish^="ceramic-"] { --fd-lift: 7%;  --fd-hold: 23%; --fd-fall: 51%; }
@@ -108,6 +113,29 @@
 .fin-dot[data-finish="ceramic-pink"]   { --fd-hi: #fff7f9; --fd-body: #f0c8ce; --fd-sh: #b4868f; --fd-rim: #f6dade; }
 .fin-dot[data-finish="ceramic-white"]  { --fd-hi: #ffffff; --fd-body: #dbe0e8; --fd-sh: #98a1b0; --fd-rim: #e4e9f1; }
 
+/* ---- the Band's straps: devices/band's colour chip, not a lit disc ---- */
+.fin-dot[data-finish^="band-"]::before {
+  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .16);
+  background:
+    repeating-linear-gradient(118deg, rgba(255, 255, 255, .11) 0 1px, rgba(255, 255, 255, 0) 1px 4px),
+    repeating-linear-gradient(28deg, rgba(0, 0, 0, .22) 0 1px, rgba(0, 0, 0, 0) 1px 4px),
+    var(--d, #141414);
+}
+.fin-dot[data-finish="band-onyx"]::before,
+.fin-dot[data-finish="band-ember"]::before,
+.fin-dot[data-finish="band-harbour"]::before,
+.fin-dot[data-finish="band-dune"]::before {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, .3) 0 1.2px, rgba(0, 0, 0, 0) 1.6px) 0 0 / 9px 9px,
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, .3) 0 1.2px, rgba(0, 0, 0, 0) 1.6px) 4.5px 4.5px / 9px 9px,
+    linear-gradient(140deg, rgba(255, 255, 255, .16), rgba(0, 0, 0, .1)),
+    var(--d, #141414);
+}
+.fin-dot[data-finish^="band-"]::after { display: none; }
+.fin-dot[data-finish^="band-"][aria-checked="true"]::before {
+  outline: 0;
+  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .28), 0 0 0 3px #fff, 0 0 0 4.5px var(--ink-900, #10214b);
+}
 @media (prefers-reduced-motion: reduce) {
   .fin-dot { transition: none; }
   .fin-dot:hover { scale: 1; }

@@ -818,7 +818,10 @@
   transition: opacity 320ms var(--ease-frosted-out);
 }
 .ph-flat .pick-fig img.on { opacity: 1; }
-.ph-flat .pick-dots { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px -4px; min-height: 32px; }
+.ph-flat .pick-dots { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px -5px; min-height: 40px; }
+/* The finish disc keeps the ring PDP's soft drop (finish.css), the one shadow
+   § 1's page wide strip is not allowed to take: it is part of the material. */
+.ph-flat .fin-dot::before { box-shadow: 0 2px 5px -2px #10214b47 !important; }
 .ph-flat .pick-dotname { margin: 0 0 14px; font-size: 16px; line-height: 22px; color: var(--ink-600); }
 .ph-flat .pick-name {
   margin: 0;
