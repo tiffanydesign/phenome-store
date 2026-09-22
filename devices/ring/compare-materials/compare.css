@@ -259,58 +259,87 @@
 }
 
 /* ---------------------------------------------------------------------------
-   4 · THE ROWS
+   4 · THE ROWS, IN SONOS'S SHAPE
 
-   One label across the full width, then three answers under it. Apple repeats
-   the label inside every column; with three columns that is the same two words
-   printed three times on one line, so here it is printed once and the columns
-   underneath answer it. The hairline sits on the LABEL rather than around the
-   cells, so the page has nothing boxed on it.
+   sonos.com/sv-se/products/headphones, measured 2026-09-22 at 1440: each group
+   is a pill (icon and name) sitting on a full width hairline, then one fact per
+   line, centred in its column, the columns answering on the SAME line so a
+   reader's eye runs straight across. No row labels anywhere: every line says
+   what it is ("Very high scratch resistance", not "Very high" under a label).
+   A product with nothing on a line gets a short drawn dash.
+
+   The lines are one grid per group, written row major (line 0 of all three
+   columns, then line 1), so a line that wraps in one column pushes the whole
+   line down in all three and nothing drifts out of step.
    ------------------------------------------------------------------------ */
-.cmp-rows {
+.cmp-rows { display: block; }
+.cmp-grp { padding: clamp(36px, 3.6vw, 56px) 0 clamp(8px, 1vw, 16px); }
+.cmp-grp:first-child { padding-top: clamp(28px, 3vw, 44px); }
+
+.cmp-grp-h {
+  position: relative;
+  display: flex; justify-content: center;
+  margin: 0 0 clamp(26px, 2.6vw, 36px);
+  font: inherit;
+}
+.cmp-grp-h::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 1px; background: var(--cmp-rule);
+}
+.cmp-pill {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 7px 18px 7px 15px;
+  border-radius: 99px;
+  background: var(--cmp-tint);
+  font-size: 17px; line-height: 22px; font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--cmp-accent);
+}
+.cmp-pill svg { width: 20px; height: 20px; flex: none; }
+
+.cmp-lines {
   display: grid;
   grid-template-columns: var(--cmp-cols);
   column-gap: var(--cmp-gap);
+  row-gap: 20px;
 }
-.cmp-k {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: clamp(26px, 2.8vw, 40px) 0 14px;
-  font-size: 17px; line-height: 24px; font-weight: 600;
-  /* Theme blue, 2026-09-21 by request: the row names are the page's signposts,
-     and in the quiet ink they sank into the answers under them. */
-  color: var(--cmp-accent);
-}
-.cmp-rows > .cmp-k + .cmp-k,
-.cmp-rows > .cmp-k:not(:first-child) { border-top: 1px solid var(--cmp-rule); }
-/* Every answer is wrapped, so a cell that holds a figure, a line and a caveat
-   is ONE grid item rather than three. Without it the auto placement would put
-   the caveat of the first column into the second column's slot. */
-.cmp-c { min-width: 0; padding-bottom: clamp(10px, 1.2vw, 18px); }
-.cmp-v {
-  margin: 0;
-  font-size: 19px; line-height: 1.45;
+.cmp-ln {
+  margin: 0; min-width: 0;
+  padding-inline: clamp(0px, 1.6vw, 24px);
+  font-size: 17px; line-height: 24px;
   color: var(--cmp-ink);
-  text-wrap: pretty;
+  text-align: center;
+  text-wrap: balance;
 }
-/* The second line inside a cell: what the figure above it means, or the caveat
-   it carries. Body ink at the site's floor, never smaller. */
-.cmp-s {
-  margin: 6px 0 0;
-  font-size: 16px; line-height: 1.5;
-  color: var(--cmp-body);
+/* The dash is drawn, not typed: a 16 by 2 bar in the quiet ink, centred on
+   the line's own x height, so it reads as an absence and never as copy. */
+.cmp-none {
+  display: inline-block; vertical-align: middle;
+  width: 16px; height: 2px; border-radius: 2px;
+  background: var(--cmp-ink);
 }
-/* A figure large enough to compare across three columns at a glance, with its
-   unit held back so the number is the thing being read. */
-.cmp-fig-v {
-  display: block;
-  margin: 0;
-  font-size: clamp(30px, 2.8vw, 40px); line-height: 1.05;
-  font-weight: 600; letter-spacing: -0.02em;
+
+/* ---- the fold. Only the script folds (compare.js), from the fourth group on,
+   and the last group still showing fades into the page under it, so the
+   control reads as "there is more below" rather than as the end. */
+.cmp-rows.is-folded .cmp-grp:nth-child(n+4) { display: none; }
+.cmp-rows.is-folded .cmp-grp:nth-child(3) {
+  -webkit-mask-image: linear-gradient(#000 45%, transparent);
+          mask-image: linear-gradient(#000 45%, transparent);
+}
+.cmp-more { display: flex; justify-content: center; padding-top: 8px; }
+.cmp-more[hidden] { display: none; }
+.cmp-more-btn {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 18px; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 17px; line-height: 24px; font-weight: 600;
   color: var(--cmp-ink);
-  font-variant-numeric: tabular-nums;
 }
-.cmp-fig-v small { font-size: .45em; font-weight: 600; margin-left: .18em; color: var(--cmp-body); }
+.cmp-more-btn svg { transition: transform .3s var(--cmp-ease); }
+.cmp-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.cmp-more-btn:hover { color: var(--cmp-accent); }
+.cmp-more-btn:focus-visible { outline: 2px solid var(--cmp-accent); outline-offset: 2px; border-radius: 12px; }
 
 /* ---------------------------------------------------------------------------
    5 · WHAT IS THE SAME
@@ -368,62 +397,64 @@
   background: var(--phenome-blue-300, #7185bd);
 }
 
-.cmp-note {
-  margin: clamp(30px, 3.4vw, 50px) auto 0;
-  max-width: 62ch;
-  font-size: 16px; line-height: 1.55;
-  color: var(--cmp-quiet);
-  text-align: center;
-}
-
 /* ---------------------------------------------------------------------------
    6 · THE CLOSE
 
-   supplements/nad's old standards band (nad.css § 7, since deleted there),
-   2026-09-21 by request, at its own numbers: the recess wash full width, a
-   copy column and a card column at 1 : 1.35, 48 between, both centred on one
-   line; three white cards at radius 20, each a 44px line glyph in the brand
-   blue over a short line, lifting 4px under a pointer. The buttons stay with
-   the copy, because the cards are promises and not links.
+   devices/ring's closing frame (ring.css § 9e/9f, `.ph-flat .closer`),
+   2026-09-22 by request, at that page's own numbers: the forest photograph
+   full bleed, a navy ramp from the left where the copy sits, the kit's two tone
+   pair in white, one line, and the filled button inverted to white because the
+   accent on this navy has no findable edge. The picture drifts against the
+   scroll (compare.js, `[data-par]`), same arithmetic as the ring page: 126%
+   tall on a 13% overhang, travelling +-8.5%.
    ------------------------------------------------------------------------ */
-.cmp-end {
+.cmp-closer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   margin-top: clamp(40px, 5vw, 80px);
-  padding-block: clamp(64px, 6vw, 96px);
-  background: var(--cmp-tint);
 }
-.cmp-end-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: 48px;
-  align-items: center;
+.cmp-closer-win { position: absolute; inset: 0; overflow: hidden; }
+.cmp-closer-win img {
+  position: absolute;
+  inset: -13% 0 auto 0;
+  width: 100%; height: 126%;
+  object-fit: cover;
+  display: block;
 }
-/* nad.css's step: the display carries copy beside it, so it is held to 36 to
-   68 and the pair is kept to a measure it cannot break badly in. */
-.cmp-end .ph-display { font-size: clamp(36px, 4.4vw, 68px); max-width: 22ch; }
-.cmp-end-d { margin: 20px 0 0; max-width: 42ch;
-             font-size: 17px; line-height: 1.55; color: var(--cmp-ink); }
-.cmp-end-go { display: flex; align-items: center;
-              flex-wrap: wrap; gap: 18px; margin-top: 28px; }
-.cmp-end-cards {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
-  margin: 0; padding: 0; list-style: none;
+.cmp-closer.is-lively .cmp-closer-win img {
+  transform: translate3d(0, calc((.5 - var(--pr-p, .5)) * 17%), 0);
 }
-.cmp-end-cards li {
-  display: grid; justify-items: center; align-content: start; gap: 18px;
-  padding: 36px 20px;
-  border-radius: 20px;
-  background: #fff;
-  color: var(--phenome-blue-900, #0a1e57);
-  text-align: center;
-  transition: translate .5s cubic-bezier(.16, 1, .3, 1);
+.cmp-closer-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 30, 87, .84) 0%,
+    rgba(10, 30, 87, .66) 36%,
+    rgba(10, 30, 87, .28) 74%,
+    rgba(10, 30, 87, .12) 100%
+  );
 }
-.cmp-end-cards li:hover { translate: 0 -4px; }
-.cmp-end-ic {
-  width: 44px; height: 44px; flex: none;
-  fill: none; stroke: currentColor; stroke-width: 1.5;
-  stroke-linecap: round; stroke-linejoin: round;
+.cmp-closer-copy {
+  position: relative;
+  padding-block: clamp(112px, 13vw, 188px);
 }
-.cmp-end-cards p { margin: 0; font-size: 17px; line-height: 1.4; color: var(--cmp-ink); }
+.cmp-closer-copy .ph-display { margin: 0; font-size: clamp(44px, 6vw, 92px); }
+.cmp-closer-copy p {
+  margin: 16px 0 0;
+  max-width: 42ch;
+  font-size: var(--ph-lead-size);
+  line-height: var(--ph-lead-lh);
+  letter-spacing: var(--ph-tr-21-400);
+  color: rgba(255, 255, 255, .82);
+}
+.cmp-closer-copy .cta-actions { justify-content: flex-start; }
+.cmp-closer-copy .btn {
+  background: var(--ph-white, #fff);
+  color: var(--ph-text-1) !important;
+}
+.cmp-closer-copy .btn:hover { background: #f2f4f9; }
+.cmp-closer-copy .btn:active { background: var(--cmp-tint); }
 
 /* ---------------------------------------------------------------------------
    7 · NARROWER SCREENS
@@ -460,32 +491,31 @@
      rather than the page, so the bar would stick to nothing. */
   .cmp-bar { position: static; }
   .cmp-barc img { display: none; }
-  .cmp-k > span {
-    position: sticky; left: 0;
-    display: inline-block;
-    padding-right: 14px;
-    background: #fff;
-  }
+  .cmp-grp-h { justify-content: flex-start; }
+  .cmp-pill { position: sticky; left: 0; }
   .cmp-swipe { display: block; }
   .cmp-pick select { font-size: 16px; padding-inline: 12px 32px; background-position: right 11px center; }
 }
 @media (max-width: 1180px) {
   .cmp-same-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 1000px) {
-  .cmp-end-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-}
-@media (max-width: 760px) {
-  .cmp-end-cards { grid-template-columns: minmax(0, 1fr); }
-  .cmp-end-cards li { grid-template-columns: 44px 1fr; justify-items: start; align-items: center; text-align: left; padding: 20px; }
+/* The ramp turns vertical with the composition: at one column the copy sits
+   over the middle of the frame rather than its left third. */
+@media (max-width: 900px) {
+  .cmp-closer-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 30, 87, .58) 0%,
+      rgba(10, 30, 87, .82) 58%,
+      rgba(10, 30, 87, .9) 100%
+    );
+  }
 }
 @media (max-width: 620px) {
   .cmp-same-grid { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 560px) {
-  .cmp-fig-v { font-size: 30px; }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .cmp-fig img, .cmp-pick select, .cmp-end-cards li { transition: none; }
+  .cmp-fig img, .cmp-pick select { transition: none; }
+  .cmp-closer.is-lively .cmp-closer-win img { transform: none; }
 }

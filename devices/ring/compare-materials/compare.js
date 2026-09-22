@@ -60,16 +60,14 @@
         ['metal-black', 'Black', '#2b2b2e', RING + 'metal-black.webp', 'The PhenomeTech Ring in black metal'],
         ['metal-silver', 'Silver', '#ccced2', RING + 'metal-silver.webp', 'The PhenomeTech Ring in polished silver metal']
       ],
-      rows: {
-        material: ['Grade 5 aerospace titanium', 'The alloy aircraft are built from, hard, light, and it does not corrode.'],
-        weight: ['4', 'g', 'Approximately, at size 8.'],
-        feel: ['Durable and solid', 'A mirror edge, or a fine directional grain that catches the light and hides a day of wear.'],
-        scratch: ['High', ''],
-        sizes: ['5 to 13', RING_SIZING],
-        charge: ['About 90 minutes', ''],
-        water: ['10 ATM, 100 m', ''],
-        extra: ['Nothing extra', RING_SENSORS],
-        best: ['Durable strength, worn all day', '']
+      spec: {
+        material: ["Grade 5 aerospace titanium", "Durable and solid, mirror or brushed"],
+        weight: ["About 4 g at size 8"],
+        durability: ["High scratch resistance", "IP67, safe for washing and rain"],
+        fit: ["Sizes 5 to 13", "Free sizing kit before the ring"],
+        charge: ["Full charge in about 90 minutes"],
+        extra: [null, null],
+        best: ["Durable strength, worn all day"]
       }
     },
 
@@ -84,16 +82,14 @@
         ['matte-rose', 'Rose', '#c9a49a', RING + 'matte-rose.webp', 'The PhenomeTech Ring in matte rose'],
         ['matte-stealth', 'Stealth black', '#2a2a2c', RING + 'matte-stealth.webp', 'The PhenomeTech Ring in stealth black']
       ],
-      rows: {
-        material: ['Titanium under a matte coat', 'The same metal body, finished so it returns the room as a soft glow rather than a line.'],
-        weight: ['4', 'g', 'Approximately, at size 8.'],
-        feel: ['Quiet and soft', 'Takes no fingerprints, and the one of the three that stays looking the same all day.'],
-        scratch: ['High', ''],
-        sizes: ['5 to 13', RING_SIZING],
-        charge: ['About 90 minutes', ''],
-        water: ['10 ATM, 100 m', ''],
-        extra: ['Nothing extra', RING_SENSORS],
-        best: ['The quietest thing on your hand', '']
+      spec: {
+        material: ["Titanium under a matte coat", "Quiet and soft, takes no fingerprints"],
+        weight: ["About 4 g at size 8"],
+        durability: ["High scratch resistance", "IP67, safe for washing and rain"],
+        fit: ["Sizes 5 to 13", "Free sizing kit before the ring"],
+        charge: ["Full charge in about 90 minutes"],
+        extra: [null, null],
+        best: ["The quietest thing on your hand"]
       }
     },
 
@@ -110,16 +106,14 @@
         ['ceramic-silver', 'Silver', '#cfd2d6', RING + 'ceramic-silver.webp', 'The PhenomeTech Ring in silver ceramic'],
         ['ceramic-pink', 'Pink', '#e3bfc4', RING + 'ceramic-pink.webp', 'The PhenomeTech Ring in pink ceramic']
       ],
-      rows: {
-        material: ['High density zirconia ceramic', 'Harder than steel at the surface, and warm against the skin within minutes.'],
-        weight: ['6', 'g', 'Approximately, at size 8.'],
-        feel: ['Refined and warm', 'A fired glaze, the crispest reflection of the three, and the only one that will not scratch.'],
-        scratch: ['Very high', ''],
-        sizes: ['5 to 13', RING_SIZING],
-        charge: ['About 90 minutes', ''],
-        water: ['10 ATM, 100 m', ''],
-        extra: ['Nothing extra', RING_SENSORS],
-        best: ['A refined finish that will not mark', '']
+      spec: {
+        material: ["High density zirconia ceramic", "Refined and warm, a fired glaze"],
+        weight: ["About 6 g at size 8"],
+        durability: ["Very high scratch resistance", "IP67, safe for washing and rain"],
+        fit: ["Sizes 5 to 13", "Free sizing kit before the ring"],
+        charge: ["Full charge in about 90 minutes"],
+        extra: [null, null],
+        best: ["A refined finish that will not mark"]
       }
     },
 
@@ -139,16 +133,14 @@
         ['band-harbour', 'Harbour', '#566a82', BAND + 'band-harbour_cut.webp', 'The PhenomeTech Band in Harbour, on the perforated sport strap'],
         ['band-dune', 'Dune', '#e2d0c4', BAND + 'band-dune_cut.webp', 'The PhenomeTech Band in Dune, on the perforated sport strap']
       ],
-      rows: {
-        material: ['Anodised aluminium frame', 'On a perforated sport silicone strap, moulded in one piece.'],
-        weight: ['24', 'g', 'With the sport strap on it. The core alone is 11 g.'],
-        feel: ['Firm through hard effort', 'Held against the wrist rather than resting on it, which is what a hard hour asks for.'],
-        scratch: ['High', ''],
-        sizes: ['130 to 210 mm wrist', 'Both strap lengths are in every box, so there is nothing to measure first.'],
-        charge: ['About 60 minutes', ''],
-        water: ['5 ATM, 50 m', 'Safe for swimming and showers.'],
-        extra: ['Blood oxygen, and training load', BAND_SENSORS],
-        best: ['Training, and the day either side of it', '']
+      spec: {
+        material: ["Anodised aluminium frame", "Perforated sport silicone strap"],
+        weight: ["24 g with the strap, 11 g core"],
+        durability: ["High scratch resistance", "5 ATM, safe for swimming and showers"],
+        fit: ["Fits 130 to 210 mm wrists", "Both strap lengths in the box"],
+        charge: ["Full charge in about 60 minutes"],
+        extra: ["Blood oxygen", "Training load and recovery time"],
+        best: ["Training, and the day either side of it"]
       }
     },
 
@@ -163,16 +155,14 @@
         ['band-graphite', 'Graphite', '#242424', BAND + 'band-weave-graphite_cut.webp', 'The PhenomeTech Band in Graphite, on the woven nylon loop'],
         ['band-tidal', 'Tidal', '#394d68', BAND + 'band-weave-tidal_cut.webp', 'The PhenomeTech Band in Tidal, on the woven nylon loop']
       ],
-      rows: {
-        material: ['Anodised aluminium frame', 'On an elastic woven nylon loop, with no buckle to find in the dark.'],
-        weight: ['21', 'g', 'With the woven loop on it. The core alone is 11 g.'],
-        feel: ['Soft, and barely there', 'The loop gives with the wrist, so it can be worn through a night as easily as through an hour.'],
-        scratch: ['High', ''],
-        sizes: ['135 to 205 mm wrist', 'One continuous loop, pulled to whatever tension you want.'],
-        charge: ['About 60 minutes', ''],
-        water: ['5 ATM, 50 m', 'Safe for showers. Wrung out and air dried after a swim.'],
-        extra: ['Blood oxygen, and training load', BAND_SENSORS],
-        best: ['Long wear, and sleeping in it', '']
+      spec: {
+        material: ["Anodised aluminium frame", "Elastic woven nylon loop"],
+        weight: ["21 g with the loop, 11 g core"],
+        durability: ["High scratch resistance", "5 ATM, safe for showers"],
+        fit: ["Fits 135 to 205 mm wrists", "One loop, pulled to any tension"],
+        charge: ["Full charge in about 60 minutes"],
+        extra: ["Blood oxygen", "Training load and recovery time"],
+        best: ["Long wear, and sleeping in it"]
       }
     }
   };
@@ -193,26 +183,24 @@
   function q(slot, sel) {
     return document.querySelector('[data-slot="' + slot + '"]' + sel);
   }
-  function cell(slot, row) {
-    return document.querySelector('.cmp-c[data-slot="' + slot + '"][data-row="' + row + '"]');
-  }
-
-  /* ---- one cell of the table ---------------------------------------------
-     Three shapes only: a value, a value with a second line under it, and the
-     one row set as a figure. `weight` is the figure row and is the only one
-     with three parts, which is why it is spelled out rather than looped. */
-  function fillCell(slot, row, data) {
-    var el = cell(slot, row);
-    if (!el) return;
-    var html;
-    if (row === 'weight') {
-      html = '<p class="cmp-fig-v">' + esc(data[0]) + '<small>' + esc(data[1]) + '</small></p>';
-      if (data[2]) html += '<p class="cmp-s">' + esc(data[2]) + '</p>';
-    } else {
-      html = '<p class="cmp-v">' + esc(data[0]) + '</p>';
-      if (data[1]) html += '<p class="cmp-s">' + esc(data[1]) + '</p>';
+  /* ---- one group of the table, in one column --------------------------------
+     THE SONOS SHAPE (sonos.com/sv-se/products/headphones, 2026-09-22): each
+     group is a pill on a hairline, then one short fact per line, the three
+     columns answering on the same line. A product with nothing to say on a
+     line gets a drawn dash, not an empty gap, so the eye reads "not on this
+     one" rather than "not loaded yet". `null` in the catalogue is that dash. */
+  function fillGroup(slot, key, lines) {
+    for (var i = 0; i < lines.length; i++) {
+      var el = document.querySelector('.cmp-ln[data-slot="' + slot + '"][data-line="' + key + ':' + i + '"]');
+      if (!el) continue;
+      if (lines[i] === null) {
+        el.className = 'cmp-ln is-none';
+        el.innerHTML = '<span class="cmp-none" role="img" aria-label="Not on this one"></span>';
+      } else {
+        el.className = 'cmp-ln';
+        el.textContent = lines[i];
+      }
     }
-    el.innerHTML = html;
   }
 
   /* ---- the finish, within one column -------------------------------------
@@ -293,9 +281,9 @@
     var buy = q(slot, ' [data-buy]');
     if (buy) buy.setAttribute('href', product.links.buy);
 
-    for (var row in product.rows) {
-      if (Object.prototype.hasOwnProperty.call(product.rows, row)) {
-        fillCell(slot, row, product.rows[row]);
+    for (var key in product.spec) {
+      if (Object.prototype.hasOwnProperty.call(product.spec, key)) {
+        fillGroup(slot, key, product.spec[key]);
       }
     }
 
@@ -394,4 +382,51 @@
   }
 
   lockDuplicates();
+
+  /* ---- the fold ----------------------------------------------------------
+     Sonos opens on the first groups and keeps the rest behind one "show the
+     comparison" control. Only the script folds: without it every group is
+     simply there, which is why the button ships `hidden` and the rows ship
+     without `is-folded`. */
+  var rows = document.querySelector('[data-rows]');
+  var more = document.querySelector('[data-more]');
+  if (rows && more) {
+    var label = more.querySelector('[data-more-label]');
+    rows.classList.add('is-folded');
+    more.parentNode.hidden = false;
+    more.addEventListener('click', function () {
+      var open = rows.classList.toggle('is-folded') === false;
+      more.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (label) label.textContent = open ? 'Show less' : 'Show the full comparison';
+      /* Closing from far down the list would leave the reader under the fold
+         with nothing left to read, so the button is brought back into view. */
+      if (!open) more.scrollIntoView({ block: 'center' });
+    });
+  }
+
+  /* ---- the closing frame's drift -------------------------------------------
+     devices/ring's § 9f writer, the same number: --pr-p is how far the band
+     has crossed the screen, 0 as its top meets the bottom of the viewport, 1
+     as its bottom leaves the top, so .5 is the band centred and at rest. */
+  var par = document.querySelector('[data-par]');
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (par && !calm) {
+    par.classList.add('is-lively');
+    var queued = false;
+    var write = function () {
+      queued = false;
+      var b = par.getBoundingClientRect();
+      var h = innerHeight || 1;
+      var p = (h - b.top) / (h + b.height);
+      par.style.setProperty('--pr-p', (p < 0 ? 0 : p > 1 ? 1 : p).toFixed(4));
+    };
+    var request = function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(write);
+    };
+    write();
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', request);
+  }
 })();
