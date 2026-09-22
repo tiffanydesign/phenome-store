@@ -1,0 +1,629 @@
+/* ============================================================================
+   testing/genetic · dna.css · the page sheet for "Genetic testing"
+
+   Scoped to `.dna` on <body>, loaded last, so a bad rule here breaks one URL.
+
+   THE ARGUMENT. The page reads like an instrument: the science is set on a
+   laboratory ink ground, every decision the reader has to make is set on white
+   paper, and the page alternates between the two. Nothing is decorative that
+   is not also carrying a reading.
+
+   Motion is taken, section for section, from the interaction library at
+   tiffanydesign.github.io/websitelab:
+     · the hero film card with a figures bar and a running line   (lab 51)
+     · one sentence lit word by word across a pinned travel       (lab 52)
+     · a list on the left whose picture is held on the right      (lab 55)
+     · a comparison table that arrives row by row                 (lab 56)
+     · cards that lift, with an arrow foot                        (lab 57)
+     · a photograph that drifts against the scroll                (lab 60)
+
+   TYPE IS NOT TAKEN FROM THE LIBRARY. The library sets its display in a
+   condensed italic at 13 to 15px; this page is on the Band's ladder instead,
+   which is the store's own: the two tone `.ph-display` for every statement,
+   600 weight names, 17px body, 15px floor, one family.
+
+   COPY RULE, page wide: no dashes, no connecting hyphens, no all caps.
+   ========================================================================== */
+
+.dna {
+  /* grounds */
+  --d-ink:     #050912;
+  --d-ink-2:   #0b1226;
+  --d-paper:   #ffffff;
+  --d-tint:    var(--gl-tint-sunk);
+
+  /* rules and inks */
+  --d-line:    rgba(16, 33, 75, .12);
+  --d-line-d:  rgba(255, 255, 255, .13);
+  --d-dim:     rgba(255, 255, 255, .3);
+  --d-body-d:  rgba(255, 255, 255, .72);
+
+  /* the signal. Navy on paper, a lifted step of it on ink, because the brand
+     navy disappears against #050912. */
+  --d-accent:  var(--ph-accent);
+  --d-lit:     #93a9ff;
+  --d-bloom:   rgba(96, 126, 255, .42);
+
+  --d-ease:    cubic-bezier(.16, 1, .3, 1);
+  --d-gut:     var(--ph-margin);
+
+  background: var(--d-paper);
+}
+
+/* the page's own container, the site measure */
+.dna .dna-wrap {
+  width: 100%; max-width: calc(var(--ph-content-max) + var(--d-gut) * 2);
+  margin-inline: auto; padding-inline: var(--d-gut); box-sizing: border-box;
+}
+.dna .dna-read-wrap { max-width: calc(980px + var(--d-gut) * 2); }
+
+/* ---------------------------------------------------------------------------
+   1 · THE LADDER · the Band's sizes, stated once
+   ------------------------------------------------------------------------ */
+.dna .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
+.dna .ph-display.is-hero { margin: 16px 0 0; font-size: clamp(38px, 5.2vw, 76px); }
+.dna .ph-solid { font-size: clamp(32px, 3.6vw, 52px); }
+
+.dna .dna-label {
+  margin: 0; font-size: 15px; line-height: 1.3; font-weight: 500;
+  letter-spacing: .01em; color: var(--phenome-blue-500);
+}
+.dna .on-ink .dna-label,
+.dna .dna-on-ink .dna-label { color: var(--phenome-blue-200); }
+
+.dna .dna-lede {
+  margin: 20px 0 0; max-width: 62ch;
+  font-size: 17px; line-height: 1.6; color: var(--ph-tone-body);
+}
+.dna .dna-on-ink .dna-lede { color: var(--d-body-d); }
+.dna .dna-centre { margin-inline: auto; text-align: center; }
+
+.dna .dna-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.dna .dna-actions.is-centre { justify-content: center; }
+/* on ink the primary control is white, because the brand navy on #050912 is a
+   pill the reader has to hunt for */
+.dna .dna-on-ink .btn { background: #fff; color: var(--ink-900) !important; }
+.dna .dna-on-ink .btn:hover { background: var(--phenome-blue-100); }
+.dna .dna-on-ink .btn.ghost {
+  background: transparent; color: #fff !important; border-color: rgba(255, 255, 255, .34);
+}
+.dna .dna-on-ink .btn.ghost:hover { background: rgba(255, 255, 255, .12); border-color: transparent; }
+
+.dna .dna-link {
+  display: inline-flex; align-items: center; gap: 8px; align-self: center;
+  font-size: 17px; font-weight: 500; color: #fff !important; text-decoration: none !important;
+}
+.dna .dna-link::after {
+  content: ''; width: 16px; height: 16px;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9M8.5 4.5L12 8l-3.5 3.5' fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  transition: transform .3s var(--d-ease);
+}
+.dna .dna-link:hover::after { transform: translateX(4px); }
+
+/* the one reveal, keyed to a class set before first paint */
+.dna-js .dna .dna-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .85s ease, transform 1.05s var(--d-ease);
+}
+.dna-js .dna .dna-up.is-in { opacity: 1; transform: none; }
+.dna-js .dna .dna-up.d1 { transition-delay: .07s; }
+.dna-js .dna .dna-up.d2 { transition-delay: .14s; }
+.dna-js .dna .dna-up.d3 { transition-delay: .21s; }
+
+/* ---------------------------------------------------------------------------
+   2 · HERO · a helix held behind the ink, the kit raised on a plate,
+   the three figures along the foot, the readings running under it
+   ------------------------------------------------------------------------ */
+.dna .dna-hero { position: relative; background: var(--d-paper); }
+.dna .dna-hero-card {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: max(620px, 86svh); display: flex; flex-direction: column;
+  padding: clamp(48px, 6vw, 92px) 0 clamp(24px, 2.6vw, 38px);
+  border-radius: 0 0 clamp(16px, 1.6vw, 26px) clamp(16px, 1.6vw, 26px);
+  background: var(--d-ink); color: #fff;
+}
+/* the helix is the ground's texture, not its subject: held back to a third and
+   pushed to the right so it runs out from behind the headline */
+.dna .dna-hero-film { position: absolute; inset: 0; z-index: -2; }
+.dna .dna-hero-film img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 62% 46%;
+  opacity: .58; transform: scale(1.06) translateY(calc(var(--par, .5) * -3%));
+}
+.dna .dna-hero-card::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(70% 55% at 76% 42%, var(--d-bloom), rgba(96, 126, 255, 0) 70%),
+    linear-gradient(96deg, var(--d-ink) 18%, rgba(5, 9, 18, .58) 58%, rgba(5, 9, 18, .82));
+}
+.dna .dna-hero-grid {
+  flex: 1; display: grid; align-items: center;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(30px, 4vw, 64px);
+}
+.dna .dna-hero-copy { max-width: 620px; }
+.dna .dna-hero-copy .dna-lede { color: rgba(255, 255, 255, .84); max-width: 52ch; }
+
+/* the kit, lit like a still on a bench */
+.dna .dna-hero-plate {
+  position: relative; margin: 0; justify-self: end; width: min(100%, 520px);
+  aspect-ratio: 5 / 4; border-radius: clamp(16px, 1.6vw, 22px); overflow: hidden;
+  box-shadow: 0 60px 90px -50px rgba(0, 0, 0, .9), inset 0 0 0 1px rgba(255, 255, 255, .1);
+}
+/* the kit is shot on a wide neutral sweep; the frame crops into it so the box
+   is the subject rather than a stamp in the middle of a grey card */
+.dna .dna-hero-plate img {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 48%; transform: scale(1.12);
+}
+.dna .dna-hero-plate::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(90% 70% at 50% 34%, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, rgba(5, 9, 18, 0) 52%, rgba(5, 9, 18, .26));
+}
+
+.dna .dna-figs {
+  display: flex; flex-wrap: wrap; gap: 0; margin: clamp(36px, 4vw, 60px) 0 0; padding: 0; list-style: none;
+}
+.dna .dna-figs li { padding: 0 clamp(20px, 2.6vw, 46px); border-left: 1px solid rgba(255, 255, 255, .24); }
+.dna .dna-figs li:first-child { padding-left: 0; border-left: 0; }
+.dna .dna-figs b {
+  display: block; font-size: clamp(30px, 2.8vw, 44px); line-height: 1.04;
+  font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+}
+.dna .dna-figs span { display: block; margin-top: 8px; font-size: 16px; line-height: 1.35; color: rgba(255, 255, 255, .7); }
+
+.dna-js .dna .dna-hero-copy > *,
+.dna-js .dna .dna-hero-plate,
+.dna-js .dna .dna-figs {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 1s ease, transform 1.15s var(--d-ease);
+}
+.dna-js .dna .dna-hero.is-in .dna-hero-copy > *,
+.dna-js .dna .dna-hero.is-in .dna-hero-plate,
+.dna-js .dna .dna-hero.is-in .dna-figs { opacity: 1; transform: none; }
+.dna-js .dna .dna-hero.is-in .dna-hero-copy > :nth-child(2) { transition-delay: .09s; }
+.dna-js .dna .dna-hero.is-in .dna-hero-copy > :nth-child(3) { transition-delay: .18s; }
+.dna-js .dna .dna-hero.is-in .dna-hero-copy > :nth-child(4) { transition-delay: .27s; }
+.dna-js .dna .dna-hero.is-in .dna-hero-plate { transition-delay: .2s; }
+.dna-js .dna .dna-hero.is-in .dna-figs { transition-delay: .4s; }
+
+/* the running line of what is read */
+.dna .dna-run { overflow: hidden; padding: 20px 0; }
+.dna .dna-run ul {
+  display: flex; gap: clamp(30px, 3.2vw, 52px); width: max-content;
+  margin: 0; padding: 0; list-style: none; animation: dna-drift 62s linear infinite;
+}
+.dna .dna-run li {
+  flex: none; display: flex; align-items: center; gap: 12px;
+  font-size: 15px; line-height: 1.2; white-space: nowrap; color: var(--ph-tone-body);
+}
+.dna .dna-run li::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--d-accent);
+}
+.dna .dna-close .dna-run li { color: rgba(255, 255, 255, .58); }
+.dna .dna-close .dna-run li::before { background: var(--d-lit); }
+@keyframes dna-drift { to { transform: translateX(-50%); } }
+
+@media (max-width: 1023px) {
+  .dna .dna-hero-grid { grid-template-columns: minmax(0, 1fr); gap: clamp(30px, 5vw, 48px); }
+  .dna .dna-hero-plate { justify-self: start; width: min(100%, 460px); }
+  .dna .dna-hero-film img { object-position: 60% 40%; opacity: .42; }
+  .dna .dna-hero-card::before {
+    background:
+      radial-gradient(80% 44% at 62% 26%, var(--d-bloom), rgba(96, 126, 255, 0) 72%),
+      linear-gradient(180deg, rgba(5, 9, 18, .72) 12%, rgba(5, 9, 18, .9));
+  }
+}
+@media (max-width: 560px) {
+  .dna .dna-figs li { padding: 0 16px; }
+  .dna .dna-figs b { font-size: 28px; }
+}
+
+/* ---------------------------------------------------------------------------
+   3 · WHAT A GENE IS · the definition lit word by word against the diagram
+   held beside it. The words are wrapped by dna.js, so the paragraph ships as
+   one readable sentence and a page without script shows it whole.
+   ------------------------------------------------------------------------ */
+.dna .dna-gene { background: var(--d-paper); height: 300vh; }
+.dna .dna-gene-pin {
+  position: sticky; top: var(--ph-nav-h); height: calc(100svh - var(--ph-nav-h));
+  display: flex; align-items: center; overflow: hidden;
+}
+.dna .dna-gene-grid {
+  display: grid; align-items: center; width: 100%;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: clamp(30px, 5vw, 80px);
+}
+.dna .dna-gene-h { margin-bottom: clamp(22px, 2.4vw, 34px); }
+.dna .dna-gene-p {
+  margin: 0; max-width: 34ch;
+  font-size: clamp(21px, 1.9vw, 28px); line-height: 1.45; font-weight: 500; letter-spacing: -0.012em;
+}
+.dna .dna-gene-p span { color: var(--ink-400); transition: color .28s ease; }
+.dna .dna-gene-p span.on { color: var(--ink-900); }
+.dna .dna-gene-art { position: relative; justify-self: center; width: min(100%, 560px); }
+.dna .dna-gene-art img {
+  display: block; width: 100%; height: auto; mix-blend-mode: multiply;
+  transform: scale(calc(.92 + var(--gp, 0) * .08));
+  transition: transform .4s linear;
+}
+/* the diagram reads left to right and top to bottom; a soft wash follows the
+   sentence across it so the picture is being read at the same pace */
+.dna .dna-gene-art::after {
+  content: ''; position: absolute; inset: -6%;
+  background: radial-gradient(42% 42% at calc(12% + var(--gp, 0) * 74%) calc(24% + var(--gp, 0) * 56%), rgba(32, 58, 133, .12), rgba(32, 58, 133, 0) 70%);
+  pointer-events: none;
+}
+@media (max-width: 899px) {
+  .dna .dna-gene { height: 260vh; }
+  .dna .dna-gene-grid { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .dna .dna-gene-art { display: none; }
+  .dna .dna-gene-p { max-width: none; font-size: clamp(19px, 4.4vw, 24px); }
+}
+
+/* ---------------------------------------------------------------------------
+   4 · THE FOUR TESTS · a quiet index, numbered, on hairlines. It names the
+   range; the cards at the foot of the page sell it, so this stays flat.
+   ------------------------------------------------------------------------ */
+.dna .dna-four { padding: clamp(70px, 8vw, 120px) 0 clamp(80px, 9vw, 130px); background: var(--d-paper); }
+.dna .dna-four-h { margin: 0; text-align: left; color: var(--ink-900); }
+.dna .dna-four-list {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0; margin: clamp(36px, 4vw, 58px) 0 0; padding: 0; list-style: none;
+  border-top: 1px solid var(--d-line);
+}
+.dna .dna-four-item {
+  position: relative; padding: clamp(26px, 2.4vw, 36px) clamp(18px, 1.8vw, 28px) clamp(30px, 3vw, 44px);
+  border-left: 1px solid var(--d-line);
+  transition: background .4s ease;
+}
+.dna .dna-four-item:first-child { border-left: 0; padding-left: 0; }
+.dna .dna-four-item:last-child { padding-right: 0; }
+.dna .dna-four-item:hover { background: var(--d-tint); }
+/* The accent bar draws across the top of the column on hover. It is scaled from
+   the left rather than grown by width: a solid bar is identical either way, and
+   scaleX stays on the compositor instead of laying the row out sixty times a
+   second. */
+.dna .dna-four-item::after {
+  content: ''; position: absolute; left: 0; top: -1px; width: 100%; height: 2px;
+  background: var(--d-accent);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .6s var(--d-ease);
+}
+.dna .dna-four-item:hover::after { transform: scaleX(1); }
+.dna .dna-four-n {
+  display: block; font-size: 15px; line-height: 1; font-weight: 600;
+  letter-spacing: .04em; color: var(--phenome-blue-300); font-variant-numeric: tabular-nums;
+}
+.dna .dna-four-t {
+  margin: clamp(30px, 3vw, 46px) 0 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2;
+  font-weight: 600; letter-spacing: -0.012em; color: var(--ink-900);
+}
+.dna .dna-four-d { margin: 12px 0 0; font-size: 17px; line-height: 1.5; color: var(--ph-tone-body); }
+@media (max-width: 1023px) { .dna .dna-four-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dna .dna-four-item:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .dna .dna-four-item:nth-child(even) { padding-right: 0; }
+  .dna .dna-four-item:nth-child(n+3) { border-top: 1px solid var(--d-line); }
+}
+@media (max-width: 620px) { .dna .dna-four-list { grid-template-columns: minmax(0, 1fr); }
+  .dna .dna-four-item { border-left: 0; padding-inline: 0; }
+  .dna .dna-four-item + .dna-four-item { border-top: 1px solid var(--d-line); }
+}
+
+/* ---------------------------------------------------------------------------
+   5 · NINE READINGS · the list travels, its picture is held beside it, and a
+   rail fills to say how far through the nine the reader is
+   ------------------------------------------------------------------------ */
+.dna .dna-read { position: relative; background: var(--d-ink); color: #fff; }
+/* padding-block, not the shorthand: these elements are also .dna-wrap, whose
+   padding-inline is the page margin and must survive */
+.dna .dna-read-head { padding-block: clamp(90px, 10vw, 150px) clamp(20px, 3vw, 46px); }
+.dna .dna-read-head .dna-label { margin-bottom: 18px; }
+.dna .dna-read-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 90px); padding-bottom: clamp(80px, 9vw, 140px);
+}
+.dna .dna-read-list { position: relative; }
+.dna .dna-read-item {
+  min-height: 68vh; max-width: 440px; display: flex; flex-direction: column; justify-content: center;
+  opacity: .26; transition: opacity .5s ease;
+}
+.dna .dna-read-item.on { opacity: 1; }
+.dna .dna-read-n {
+  font-size: 15px; line-height: 1; font-weight: 600; letter-spacing: .04em;
+  color: var(--d-lit); font-variant-numeric: tabular-nums;
+}
+.dna .dna-read-t {
+  margin: 16px 0 0; font-size: clamp(28px, 2.6vw, 40px); line-height: 1.08;
+  font-weight: 600; letter-spacing: -0.02em; color: #fff;
+}
+.dna .dna-read-d { margin: 14px 0 0; font-size: 17px; line-height: 1.6; color: var(--d-body-d); }
+.dna .dna-read-rail { position: absolute; right: -2px; top: 0; bottom: 0; width: 2px; background: var(--d-line-d); }
+.dna .dna-read-rail i { position: absolute; left: 0; top: 0; width: 2px; height: var(--rail, 0%); background: var(--d-lit); }
+.dna .dna-read-rail i::after {
+  content: ''; position: absolute; left: -4px; bottom: -5px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--d-lit); box-shadow: 0 0 0 6px rgba(147, 169, 255, .18);
+}
+
+.dna .dna-read-hold { position: sticky; top: 16vh; height: 68vh; }
+.dna .dna-vis {
+  position: absolute; inset: 0; border-radius: clamp(16px, 1.6vw, 24px); overflow: hidden;
+  background: radial-gradient(120% 90% at 28% 18%, #1b2547, #070c1c 72%);
+  box-shadow: inset 0 0 0 1px var(--d-line-d);
+  display: grid; place-items: center;
+  opacity: 0; transform: translateY(22px) scale(.985);
+  transition: opacity .6s ease, transform .85s var(--d-ease);
+}
+.dna .dna-vis.on { opacity: 1; transform: none; }
+.dna .dna-vis img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* two of the nine are drawings, not photographs: one is navy line art on white,
+   one is white type on transparency. Both are set to contain, on their own ground. */
+.dna .dna-vis.is-plate { background: #fff; }
+.dna .dna-vis.is-plate img,
+.dna .dna-vis.is-plain img { object-fit: contain; padding: clamp(20px, 2.4vw, 38px); box-sizing: border-box; }
+.dna .dna-vis-c {
+  position: absolute; left: clamp(16px, 1.6vw, 24px); bottom: clamp(16px, 1.6vw, 24px);
+  margin: 0; padding: 9px 16px; border-radius: 99px;
+  font-size: 15px; line-height: 1.2; color: #fff;
+  background: rgba(7, 12, 30, .6); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.dna .dna-vis.is-plate .dna-vis-c { background: rgba(16, 33, 75, .82); }
+@media (max-width: 899px) {
+  .dna .dna-read-grid { grid-template-columns: minmax(0, 1fr); }
+  .dna .dna-read-hold { top: calc(var(--ph-nav-h) + 12px); height: 46vh; order: -1; z-index: 2; margin-bottom: 26px; }
+  .dna .dna-read-item { min-height: 54vh; max-width: none; }
+  .dna .dna-read-rail { display: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   6 · WHY IT MATTERS · the same five areas, read twice. Each row fills from
+   the left as it crosses the window, which is the whole argument of the
+   section drawn once: the difference is when you look, not what you look at.
+   ------------------------------------------------------------------------ */
+.dna .dna-shift { padding: clamp(90px, 10vw, 150px) 0 clamp(90px, 10vw, 150px); background: var(--d-paper); }
+.dna .dna-shift-head { max-width: 900px; }
+.dna .dna-shift-head .dna-label { margin-bottom: 18px; }
+.dna .dna-shift-stage { margin-top: clamp(48px, 5.4vw, 86px); }
+.dna .dna-shift-h {
+  margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.25;
+  font-weight: 600; letter-spacing: -0.012em; color: var(--ink-900);
+}
+.dna .dna-shift-keys {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin: clamp(22px, 2.4vw, 34px) 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--d-line);
+}
+.dna .dna-shift-k {
+  font-size: 16px; line-height: 1.3; font-weight: 500; color: var(--ink-400);
+  transition: color .5s ease;
+}
+.dna .dna-shift-k.is-to { color: var(--d-accent); font-weight: 600; }
+.dna .dna-shift-rows { margin: 0; padding: 0; list-style: none; }
+.dna .dna-shift-row {
+  position: relative; display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px);
+  padding: clamp(20px, 2vw, 30px) 0; border-bottom: 1px solid var(--d-line);
+  overflow: hidden;
+}
+/* the fill is a band of the tint, then the navy edge that leads it */
+.dna .dna-shift-row::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; z-index: 0;
+  width: calc(var(--p, 0) * 100%);
+  background: linear-gradient(90deg, rgba(32, 58, 133, .06), rgba(32, 58, 133, .12));
+}
+.dna .dna-shift-row::after {
+  content: ''; position: absolute; top: 0; bottom: 0; z-index: 1;
+  left: calc(var(--p, 0) * 100%); width: 2px; background: var(--d-accent);
+  opacity: calc(min(1, var(--p, 0) * 6) * (1 - max(0, var(--p, 0) - .94) * 16));
+}
+.dna .dna-shift-dot {
+  position: relative; z-index: 2; flex: none; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--phenome-blue-100); box-shadow: inset 0 0 0 1px rgba(32, 58, 133, .2);
+  transition: background .4s ease, box-shadow .4s ease;
+}
+.dna .dna-shift-row.is-done .dna-shift-dot {
+  background: var(--d-accent); box-shadow: 0 0 0 5px rgba(32, 58, 133, .12);
+}
+.dna .dna-shift-t {
+  position: relative; z-index: 2; flex: 1;
+  font-size: clamp(19px, 1.6vw, 24px); line-height: 1.3; font-weight: 500;
+  letter-spacing: -0.012em; color: var(--ink-400); transition: color .45s ease;
+}
+.dna .dna-shift-row.is-done .dna-shift-t { color: var(--ink-900); font-weight: 600; }
+.dna .dna-shift-mark {
+  position: relative; z-index: 2; flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--d-accent) no-repeat center / 12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 5' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  opacity: 0; transform: scale(.6); transition: opacity .4s ease, transform .5s var(--d-ease);
+}
+.dna .dna-shift-row.is-done .dna-shift-mark { opacity: 1; transform: none; }
+@media (max-width: 560px) { .dna .dna-shift-t { font-size: 17px; } }
+
+/* ---------------------------------------------------------------------------
+   7 · THE PHOTOGRAPH · full bleed, drifting against the scroll
+   ------------------------------------------------------------------------ */
+.dna .dna-band {
+  position: relative; height: clamp(420px, 62svh, 720px); overflow: clip; background: var(--d-ink);
+}
+.dna .dna-band img {
+  position: absolute; inset: -9% 0; width: 100%; height: 118%; object-fit: cover;
+  transform: translateY(calc((var(--par, .5) - .5) * -9%));
+}
+
+/* ---------------------------------------------------------------------------
+   8 · WHOLE GENOME SEQUENCING · the table, our column raised out of it
+   ------------------------------------------------------------------------ */
+.dna .dna-cmp { padding: clamp(90px, 10vw, 150px) 0 clamp(90px, 10vw, 150px); background: var(--d-tint); }
+.dna .dna-cmp-head { text-align: center; }
+.dna .dna-cmp-head .dna-label { margin-bottom: 18px; }
+.dna .dna-cmp-head .dna-lede { max-width: 76ch; }
+.dna .dna-table {
+  position: relative; max-width: 1080px; margin: clamp(44px, 5vw, 76px) auto 0;
+}
+/* the panel that raises the third column, sized off the first column's width so
+   it lands exactly on the column edge */
+.dna .dna-table::before {
+  content: ''; position: absolute; z-index: 0; top: -14px; bottom: -14px; right: 0;
+  width: calc((100% - var(--cmp-k, 30%)) / 2);
+  border-radius: clamp(14px, 1.4vw, 20px); background: var(--d-paper);
+  box-shadow: 0 40px 70px -46px rgba(10, 18, 51, .4), inset 0 0 0 1px rgba(32, 58, 133, .14);
+}
+.dna .dna-tr {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: var(--cmp-k, 30%) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start; border-bottom: 1px solid var(--d-line);
+}
+.dna .dna-tr:last-child { border-bottom: 0; }
+.dna .dna-tr > * { padding: clamp(16px, 1.6vw, 22px) clamp(14px, 1.4vw, 22px); font-size: 17px; line-height: 1.5; }
+.dna .dna-tr > :first-child {
+  display: flex; align-items: center; gap: 12px; padding-left: 0;
+  font-weight: 600; color: var(--ink-900);
+}
+.dna .dna-tr > :nth-child(2) { color: var(--ph-tone-body); }
+.dna .dna-tr > :nth-child(3) { color: var(--ink-900); font-weight: 500; }
+.dna .dna-tr.is-head > * {
+  padding-block: 14px; font-size: 16px; font-weight: 500; color: var(--ink-400);
+  border-bottom: 1px solid rgba(32, 58, 133, .18);
+}
+.dna .dna-tr.is-head > :nth-child(3) { color: var(--d-accent); font-weight: 600; }
+.dna .dna-tr > :first-child svg {
+  width: 20px; height: 20px; flex: none; fill: none;
+  stroke: var(--d-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+@media (max-width: 860px) {
+  .dna .dna-table::before { display: none; }
+  .dna .dna-tr { grid-template-columns: minmax(0, 1fr); border-bottom: 0; padding-bottom: 18px; }
+  .dna .dna-tr + .dna-tr { border-top: 1px solid var(--d-line); padding-top: 18px; }
+  .dna .dna-tr.is-head { display: none; }
+  .dna .dna-tr > * { padding: 4px 0; }
+  .dna .dna-tr > :nth-child(2)::before,
+  .dna .dna-tr > :nth-child(3)::before {
+    content: attr(data-k); display: block; margin-bottom: 4px;
+    font-size: 15px; font-weight: 500; color: var(--ink-400);
+  }
+  .dna .dna-tr > :nth-child(3) {
+    margin-top: 10px; padding: 14px 16px; border-radius: 14px;
+    background: var(--d-paper); box-shadow: inset 0 0 0 1px rgba(32, 58, 133, .14);
+  }
+  .dna .dna-tr > :nth-child(3)::before { color: var(--d-accent); }
+}
+
+/* ---------------------------------------------------------------------------
+   9 · ILLUMINA · the sequencer held on the left, the standards on the right
+   ------------------------------------------------------------------------ */
+.dna .dna-part {
+  position: relative; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  align-items: center; background: var(--d-ink); color: #fff; overflow: clip;
+}
+.dna .dna-part-media { position: relative; align-self: stretch; min-height: clamp(380px, 46vw, 680px); }
+.dna .dna-part-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* the scrim has to REACH the ink at the seam, not stop just short of it, or the
+   photograph ends on a visible vertical edge */
+.dna .dna-part-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(92deg, rgba(5, 9, 18, .26) 24%, rgba(5, 9, 18, .84) 74%, var(--d-ink) 100%);
+}
+.dna .dna-part-copy {
+  padding: clamp(70px, 8vw, 128px) var(--d-gut) clamp(70px, 8vw, 128px) clamp(24px, 3.4vw, 64px);
+  max-width: calc(var(--ph-content-max) / 2 + var(--d-gut)); box-sizing: border-box;
+}
+.dna .dna-part-copy .dna-label { margin-bottom: 18px; }
+/* the column is half the page, so the full display clamp would set three lines
+   of 80 point type against a four line paragraph */
+.dna .dna-part-copy .ph-display { text-align: left; font-size: clamp(36px, 4.2vw, 64px); }
+.dna .dna-part-h {
+  margin: clamp(40px, 4.4vw, 68px) 0 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.25;
+  font-weight: 600; letter-spacing: -0.012em; color: #fff;
+}
+.dna .dna-std { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.dna .dna-std li {
+  display: flex; align-items: center; gap: 14px; padding: 15px 0;
+  border-top: 1px solid var(--d-line-d); font-size: 17px; line-height: 1.4; color: rgba(255, 255, 255, .88);
+}
+.dna .dna-std li::before {
+  content: ''; flex: none; width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(147, 169, 255, .16) no-repeat center / 13px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 5' fill='none' stroke='%2393a9ff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (max-width: 899px) {
+  .dna .dna-part { grid-template-columns: minmax(0, 1fr); }
+  .dna .dna-part-media { min-height: clamp(280px, 56vw, 420px); }
+  .dna .dna-part-media::after { background: linear-gradient(180deg, rgba(5, 9, 18, .2) 40%, rgba(5, 9, 18, .96)); }
+  .dna .dna-part-copy { max-width: none; padding-inline: var(--d-gut); padding-top: clamp(40px, 6vw, 60px); }
+}
+
+/* ---------------------------------------------------------------------------
+   10 · THE FOUR CARDS · the range, priced, with an arrow foot
+   ------------------------------------------------------------------------ */
+.dna .dna-shop { padding: clamp(90px, 10vw, 150px) 0 clamp(90px, 10vw, 150px); background: var(--d-paper); }
+.dna .dna-shop-head { text-align: center; }
+.dna .dna-cards {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.4vw, 22px);
+  margin-top: clamp(44px, 5vw, 76px);
+}
+.dna .dna-card {
+  display: flex; flex-direction: column; padding: 14px 14px 20px;
+  border-radius: clamp(16px, 1.4vw, 22px); background: var(--d-tint);
+  color: inherit !important; text-decoration: none !important;
+  transition: transform .55s var(--d-ease), box-shadow .55s ease, background .55s ease;
+}
+.dna .dna-card:hover {
+  transform: translateY(-6px); background: var(--d-paper);
+  box-shadow: 0 40px 70px -44px rgba(10, 18, 51, .4), inset 0 0 0 1px rgba(32, 58, 133, .12);
+}
+.dna .dna-card-media {
+  position: relative; border-radius: clamp(10px, 1vw, 14px); overflow: hidden;
+  background: var(--phenome-blue-100); aspect-ratio: 4 / 3;
+}
+.dna .dna-card-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--d-ease);
+}
+.dna .dna-card:hover .dna-card-media img { transform: scale(1.04); }
+.dna .dna-card-t {
+  margin: clamp(20px, 1.8vw, 26px) 0 0; padding-inline: 6px;
+  font-size: clamp(19px, 1.5vw, 22px); line-height: 1.2; font-weight: 600;
+  letter-spacing: -0.012em; color: var(--ink-900);
+}
+.dna .dna-card-d { margin: 10px 0 0; padding-inline: 6px; font-size: 17px; line-height: 1.5; color: var(--ph-tone-body); }
+.dna .dna-card-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: auto 0 0; padding: clamp(24px, 2.2vw, 34px) 6px 0;
+}
+/* four names, one of which runs to two lines: hold the row so the ledes under
+   them start level */
+@media (min-width: 1024px) { .dna .dna-card-t { min-height: 2.4em; } }
+.dna .dna-card-p {
+  margin: 0; padding: 0;
+  font-size: clamp(20px, 1.6vw, 24px); line-height: 1.1; font-weight: 600;
+  letter-spacing: -0.02em; color: var(--ink-900); font-variant-numeric: tabular-nums;
+}
+.dna .dna-card-go {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--phenome-blue-100); transition: background .4s ease, transform .4s var(--d-ease);
+}
+.dna .dna-card-go svg { width: 15px; height: 15px; fill: none; stroke: var(--d-accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.dna .dna-card:hover .dna-card-go { background: var(--d-accent); transform: translateX(3px); }
+.dna .dna-card:hover .dna-card-go svg { stroke: #fff; }
+@media (max-width: 1023px) { .dna .dna-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .dna .dna-cards { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   11 · THE CLOSE · the ink again, and the readings running out under it
+   ------------------------------------------------------------------------ */
+.dna .dna-close { position: relative; background: var(--d-ink); color: #fff; overflow: clip; }
+.dna .dna-close::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(60% 70% at 50% 8%, var(--d-bloom), rgba(96, 126, 255, 0) 68%);
+}
+.dna .dna-close-in { position: relative; padding-block: clamp(90px, 10vw, 150px) clamp(50px, 5vw, 80px); text-align: center; }
+.dna .dna-close-in .dna-lede { color: rgba(255, 255, 255, .78); max-width: 46ch; }
+.dna .dna-close .dna-run { position: relative; padding-bottom: clamp(40px, 5vw, 70px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dna .dna-run ul { animation: none; }
+  .dna-js .dna .dna-up,
+  .dna-js .dna .dna-hero-copy > *,
+  .dna-js .dna .dna-hero-plate,
+  .dna-js .dna .dna-figs { opacity: 1; transform: none; transition: none; }
+  .dna .dna-card, .dna .dna-card-media img, .dna .dna-vis,
+  .dna .dna-four-item, .dna .dna-four-item::after { transition: none; }
+}
