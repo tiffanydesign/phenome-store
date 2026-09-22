@@ -1,0 +1,36 @@
+/* Comprehensive Genomic Test (store) — page scoped rules, one section only.
+
+   "From sample to insight" takes the NAD page's timeline: the .ph-tl kit
+   component from phenome-glass.css (rail filled by shared.js on scroll, a
+   collage whose two small tiles drift). Everything here is layout around it,
+   scoped to .cg-steps so no other page can pick it up. */
+
+.cg-steps { padding-top: clamp(64px, 7vw, 112px); }
+
+.cg-head { text-align: center; }
+/* The kit's own clamp(44, 8.4vw, 132) is sized for a hero. This is a section
+   head with a rail and a collage under it, so it takes the NAD page's step. */
+.cg-steps .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
+.cg-sub {
+  margin: 20px auto 0; max-width: none;
+  font-size: 17px; line-height: 1.5; color: var(--ph-text-2);
+}
+
+/* The lab photograph is framed on the instrument, the report on the page. */
+.cg-steps .ph-tl-big img { object-position: 50% 45%; }
+.cg-steps .ph-tl-sm img { object-position: 40% 60%; }
+.cg-steps .ph-tl-round { background: #eef1f8; }
+.cg-steps .ph-tl-round img { object-fit: contain; padding: 4%; }
+
+/* The closing chip, with the report link beside it on the same line. */
+.cg-foot {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px;
+  margin-top: 24px;
+}
+.cg-foot .ph-tl-note { margin-top: 0; }
+.cg-note-ic { width: 30px; height: 30px; color: var(--phenome-blue-900); flex: none; }
+.cg-foot .btn { margin: 0; }
+
+@media (max-width: 640px) {
+  .cg-foot .ph-tl-note { display: flex; width: 100%; }
+}

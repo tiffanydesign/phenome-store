@@ -63,7 +63,6 @@ var ROUTES = [
   ["/store/carrier-screening/", "Carrier Screening Test"],
   ["/store/checkout/", "Checkout"],
   ["/store/checkout/confirmed/", "Order confirmed"],
-  ["/store/comprehensive-genomic/", "Comprehensive Genomic Test"],
   ["/store/devices/", "Devices"],
   ["/store/genetic/", "Genetic"],
   ["/store/gut-microbiome/", "Gut Microbiome Test"],
