@@ -158,40 +158,7 @@
 .sx .ph-tl-sm img { object-position: 45% 50%; }
 .sx .ph-tl-round img { object-position: 50% 45%; }
 
-/* 4 · Close, the supplements/nad closing card ------------------------------
-   Same card as .nd-end on the NAD+ page: the aurora film under a translucent
-   radial navy, a product still on the left, white copy on the right. */
-.sx .sx-close { padding: clamp(80px, 9vw, 140px) var(--sx-edge) clamp(56px, 6vw, 96px); }
-.sx .sx-end-card {
-  position: relative; overflow: hidden; isolation: isolate;
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center; gap: clamp(32px, 5vw, 90px);
-  padding: clamp(56px, 7vw, 110px) clamp(28px, 6vw, 110px); border-radius: 32px; color: #fff;
-  background: radial-gradient(70% 140% at 12% 50%, #1d3d98 0%, var(--sx-navy) 60%, #071641 100%);
-}
-.sx .sx-end-film {
-  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%;
-  object-fit: cover; pointer-events: none;
-}
-.sx .sx-end-card::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(70% 140% at 12% 50%, rgba(29, 61, 152, .55) 0%, rgba(10, 30, 87, .62) 60%, rgba(7, 22, 65, .78) 100%);
-}
-.sx .sx-end-range {
-  width: 100%; max-width: 520px; height: auto; justify-self: center;
-  filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .35));
-}
-.sx .sx-close .ph-display { font-size: clamp(38px, 4.4vw, 66px); }
-.sx .sx-end-lede { margin: 18px 0 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
-.sx .sx-end-act { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 30px; }
-.sx .sx-end-cta { display: inline-flex; min-width: 180px; justify-content: center; }
-.sx .sx-end-link {
-  font-size: 17px; font-weight: 600; color: #fff;
-  text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px;
-}
-.sx .sx-end-link:hover { color: var(--phenome-blue-200); }
-
-/* 5 · Narrow screens ------------------------------------------------------ */
+/* 4 · Narrow screens ------------------------------------------------------ */
 /* The copy panel outgrows a 16:9 film beside it below 1280 (ritual's copy is
    shorter), so the film goes full width on top and the panel follows. */
 @media (max-width: 1279px) {
@@ -199,20 +166,10 @@
   .sx .sx-hero-media { height: auto; aspect-ratio: 16 / 9; }
   .sx .sx-hero-copy { padding: 36px var(--sx-edge) 44px; }
 }
-@media (max-width: 900px) {
-  .sx .sx-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
-  .sx .sx-end-range { max-width: 380px; }
-  .sx .sx-end-act { justify-content: center; }
-}
 @media (max-width: 560px) {
   .sx .sx-cat-head .ph-rail-nav { display: none; }   /* the 74% peek says "swipe" */
   .sx .sx-rail > li { flex-basis: 74%; }
   .sx .sx-card-name { font-size: 18px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sx .sx-end-film { display: none; }
-  .sx .sx-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
 }
 
 /* sx.js hides the arrows of a rail that fits its row */

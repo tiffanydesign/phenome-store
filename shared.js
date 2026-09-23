@@ -39,8 +39,7 @@
             { "label": "Microbiome tests", "href": "/phenome-store/testing/microbiome/" },
             { "label": "Supplements", "href": "/phenome-store/store/supplements/" },
             { "label": "PhenomeTech Ring", "href": "/phenome-store/devices/ring/" },
-            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" },
-            { "label": "Shop by goal", "href": "/phenome-store/quiz/", "small": true }
+            { "label": "PhenomeTech Band", "href": "/phenome-store/devices/band/" }
           ]
         },
         {
@@ -509,8 +508,7 @@
       '<nav class="ph-links" id="phLinks">' + triggers + '</nav>' +
       '<div class="ph-nav-end">' +
       /* No "Find your test" here. It was ours, not the design's; Can asked twice for
-         the frame's own header and overruled the argument for keeping it. The quiz
-         is still linked from /testing/, /store/ and the Store panel. */
+         the frame's own header and overruled the argument for keeping it. */
       clinicHTML +
       /* Search and cart are in the design and Can asked for them explicitly after
          being told neither function exists yet: "onları gene de ekle, onları
@@ -798,7 +796,6 @@
       '<a href="/phenome-store/devices/ring/">PhenomeTech Ring</a>' +
       '<a href="/phenome-store/supplements/">Supplements</a>' +
       '<a href="/phenome-store/store/">Shop all</a>' +
-      '<a href="/phenome-store/quiz/">Shop by goal</a>' +
       '<a href="/phenome-store/store/microbiome/">Microbiome</a>' +
       '<a href="/phenome-store/store/genetic/">Genetic</a>' +
       '<a href="/phenome-store/store/devices/">Devices</a>' +
@@ -1573,8 +1570,6 @@
       keys: 'bloating digestion ibs microbiome guide' },
     { label: 'Search the Hub', href: '/phenome-store/hub/search/', section: 'Explore',
       keys: 'find results' },
-    { label: 'Find your test', href: '/phenome-store/quiz/', section: 'Store',
-      keys: 'quiz recommend where to start not sure goal' },
     { label: 'Your account', href: '/phenome-store/account/', section: 'Support',
       keys: 'sign in log in login profile' },
     { label: 'Track an order', href: '/phenome-store/account/orders/', section: 'Support',
@@ -1657,9 +1652,8 @@
 
   /* Six, because seven starts to read as a menu rather than a shortcut. Each one names
      BOTH the destination and the wording it should be listed under: several of these
-     pages are reachable from the bar under a second label — /quiz/ is "Not sure where
-     to start" inside the Store panel, which is a fine thing to hover over and a poor
-     thing to read at the top of a search sheet. Both halves are checked against the
+     pages are reachable from the bar under a second label, which is a fine thing to
+     hover over and a poor thing to read at the top of a search sheet. Both halves are checked against the
      index when the list is built, so a quick link cannot outlive the page it names. */
   /* ---- REGION, 2026-09-22 by request ------------------------------------------
      The round flag pill from ultrahuman.com/se (round flag, a hairline pill),
@@ -1782,7 +1776,7 @@
   var PH_FIND_QUICK = [
     { href: '/phenome-store/store/', label: 'Shop all' },
     { href: '/phenome-store/store/phenometech-ring/', label: 'PhenomeTech Ring' },
-    { href: '/phenome-store/quiz/', label: 'Find your test' },
+    { href: '/phenome-store/testing/compare/', label: 'Compare tests' },
     { href: '/phenome-store/hub/', label: 'Longevity Hub' },
     { href: '/phenome-store/account/orders/', label: 'Track an order' },
     { href: '/phenome-store/account/activate/', label: 'Activate a kit' }
@@ -1797,8 +1791,7 @@
 
     /* ---- the index -------------------------------------------------------- */
     /* ONE row per destination. The same page is often reachable from the bar under two
-       wordings — /quiz/ is both "Not sure where to start" and "Find your test" — and a
-       list that offers the reader the same page twice under two names is a list they
+       wordings, and a list that offers the reader the same page twice under two names is a list they
        have to read twice. A later add() MERGES into the row that is already there and
        keeps both sets of keywords, so nothing that used to match stops matching.
 

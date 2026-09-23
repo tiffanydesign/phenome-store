@@ -52,7 +52,6 @@ var ROUTES = [
   ["/legal/privacy.html", "Privacy and data"],
   ["/legal/terms.html", "Terms"],
   ["/press/", "Press"],
-  ["/quiz/", "Shop by goal"],
   ["/science/", "The Science"],
   ["/science/multiomics/", "Multiomics"],
   ["/science/our-research/", "Our research"],
