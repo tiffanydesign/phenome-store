@@ -480,20 +480,7 @@
 /* ---------------------------------------------------------------------------
    8 · QUESTIONS
    ------------------------------------------------------------------------ */
-/* the list is the shared `.acc.is-faq`; View all sits centred under it */
-.nadp .nd-faq-more { display: flex; justify-content: center; margin-top: 22px; }
-.nadp .nd-faq-list:not(.is-all) [data-more] { display: none; }
-.nadp .nd-viewall {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 0; border: 0; background: none;
-  font: inherit; font-size: 16px; font-weight: 600; color: var(--nd-navy); cursor: pointer;
-}
-.nadp .nd-viewall-ic { position: relative; width: 20px; height: 20px; border-radius: 50%; border: 1px solid currentColor; }
-.nadp .nd-viewall-ic::after {
-  content: ""; position: absolute; left: 50%; top: 45%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
-  border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; rotate: 45deg;
-  transition: rotate .35s var(--nd-ease), top .35s;
-}
-.nadp .nd-viewall[aria-expanded="true"] .nd-viewall-ic::after { rotate: 225deg; top: 62%; }
+/* the list is the shared `.acc.is-faq`; every question is listed */
 
 /* ---------------------------------------------------------------------------
    9 · REVIEWS

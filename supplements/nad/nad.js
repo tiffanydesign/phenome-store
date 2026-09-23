@@ -436,20 +436,6 @@
      data-ph-tl, which is what the shared driver looks for.
      ------------------------------------------------------------------------ */
 
-  /* ---- 8 · FAQ: View all -------------------------------------------------- */
-  function faq() {
-    var list = $('[data-faq]');
-    var btn = $('[data-faq-toggle]');
-    if (!list || !btn) return;
-    var label = $('[data-label]', btn);
-    btn.addEventListener('click', function () {
-      var all = !list.classList.contains('is-all');
-      list.classList.toggle('is-all', all);
-      btn.setAttribute('aria-expanded', all ? 'true' : 'false');
-      label.textContent = all ? 'View less' : 'View all';
-    });
-  }
-
   /* ---- 9 · reviews: topics, search, sort, helpful votes ------------------ */
   function reviews() {
     var list = $('[data-rv-list]');
@@ -582,7 +568,6 @@
   essGrow();
   ring();
   stdField();
-  faq();
   reviews();
   request();
 })();
