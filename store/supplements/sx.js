@@ -31,4 +31,41 @@
   }
   play();
   paint();
+
+  /* The timeline's rail stops on the last dot. The kit's rail runs to a foot
+     line this page does not have, so its end is measured here: the distance
+     from the last step's dot to the bottom of the rail column. */
+  (function railEnd() {
+    var box = document.querySelector('.sx-how [data-ph-tl]');
+    if (!box) return;
+    function set() {
+      var steps = box.querySelectorAll('.ph-tl-step');
+      var last = steps[steps.length - 1];
+      if (!last) return;
+      var end = box.clientHeight - (last.offsetTop + 23);
+      box.style.setProperty('--tl-end', Math.max(0, end) + 'px');
+    }
+    set();
+    window.addEventListener('resize', set, { passive: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(set);
+  })();
+
+  /* A rail that fits its row has nothing to page through, so its arrows go.
+     Skin & Beauty has one product and Anti-Inflammatory three: at desktop
+     widths their arrows would sit there disabled, which reads as broken. */
+  (function railArrows() {
+    var cats = document.querySelectorAll('.sx-cat');
+    if (!cats.length) return;
+    function set() {
+      Array.prototype.forEach.call(cats, function (c) {
+        var rail = c.querySelector('[data-rail]');
+        var nav = c.querySelector('[data-rail-nav]');
+        if (!rail || !nav) return;
+        nav.hidden = rail.scrollWidth <= rail.clientWidth + 2;
+      });
+    }
+    set();
+    window.addEventListener('resize', set, { passive: true });
+    window.addEventListener('load', set);
+  })();
 })();

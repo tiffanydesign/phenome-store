@@ -27,12 +27,19 @@
    16:9 (scratchpad build_brom.py). */
 .sx .sx-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) max(400px, 30%);
+  /* The copy column is wide enough for the four range tiles to sit two by
+     two with every name on one line (the longest, "Immunity & Respiratory",
+     is 173px at 16px). */
+  grid-template-columns: minmax(0, 1fr) max(500px, 35%);
   align-items: stretch;
+  /* 2026-09-23 by request: the first screen is one full screen. The 16:9
+     film left 330px of the next section showing at 1440x900; the hero now
+     takes the height under the promo bar and the nav, and the film covers. */
+  height: clamp(560px, calc(100svh - 80px), 940px);
 }
 .sx .sx-hero-media {
   position: relative; margin: 0; overflow: hidden;
-  aspect-ratio: 16 / 9; width: 100%; min-width: 0;
+  width: 100%; height: 100%; min-width: 0;
   /* width: 100% because a grid item WITH a ratio is not stretched: it would
      take height * 16/9 and run over the column and the panel beside it.
      And never a min-height here, which a ratio turns into a min-width. */
@@ -63,23 +70,26 @@
   padding: clamp(32px, 3.4vw, 56px) clamp(28px, 3.4vw, 56px);
   background: var(--sx-mist);
 }
-.sx .sx-kicker {
-  margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0;
-  color: var(--phenome-blue-500);
-}
-.sx .sx-hero .ph-display.is-hero { font-size: clamp(36px, 3.5vw, 60px); margin-top: 14px; }
+.sx .sx-hero .ph-display.is-hero { font-size: clamp(40px, 3.8vw, 66px); }
 .sx .sx-hero-lede {
   margin: 22px 0 0; max-width: 34em;
   font-size: clamp(17px, 1.25vw, 19px); line-height: 1.5; color: var(--sx-sub);
 }
-.sx .sx-jump { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+/* Four ranges, two by two (2026-09-23 by request), equal cells. */
+.sx .sx-jump { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.sx .sx-jump li { display: flex; min-width: 0; }
 .sx .sx-jump a {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
-  border-radius: 999px; border: 1px solid rgba(16, 33, 75, .18);
+  flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 8px 10px;
+  box-sizing: border-box; text-align: center; line-height: 1.25; white-space: nowrap;
+  border-radius: 16px; border: 1px solid rgba(16, 33, 75, .18);
   font-size: 16px; font-weight: 500; color: var(--sx-ink); text-decoration: none;
   transition: background-color .2s, border-color .2s, color .2s;
 }
 .sx .sx-jump a:hover { background: var(--sx-ink); border-color: var(--sx-ink); color: #fff; }
+/* On a phone the cells are narrower than the longest name, so names wrap. */
+@media (max-width: 560px) {
+  .sx .sx-jump a { white-space: normal; font-size: 15px; padding-inline: 8px; }
+}
 
 /* 2 · Category rails ------------------------------------------------------ */
 .sx .sx-cat { padding: clamp(56px, 7vw, 112px) 0 0; scroll-margin-top: 80px; }
@@ -122,35 +132,31 @@
 .sx .sx-card-name { display: block; margin: 16px 0 0; font-size: 19px; font-weight: 600; line-height: 1.3; }
 .sx .sx-card-price { display: block; margin: 4px 0 0; font-size: 17px; line-height: 1.4; color: var(--sx-sub); }
 
-/* 3 · How matching works, the one dark band -------------------------------- */
-.sx .sx-how {
-  margin-top: clamp(80px, 9vw, 140px);
-  padding: clamp(72px, 8vw, 128px) var(--sx-edge);
-  background:
-    radial-gradient(70% 90% at 85% 0%, rgba(67, 91, 161, .45), rgba(67, 91, 161, 0) 70%),
-    var(--sx-navy);
-  color: #fff;
-}
-.sx .sx-how .ph-display { font-size: clamp(38px, 5vw, 76px); max-width: 15em; margin-inline: auto; }
-.sx .sx-steps {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(24px, 3vw, 48px);
-  margin: clamp(48px, 5vw, 80px) auto 0; padding: 0; list-style: none;
-  max-width: 1120px; text-align: center;
-}
-.sx .sx-step-ic {
-  width: 64px; height: 64px; margin: 0 auto; border-radius: 50%;
-  display: grid; place-items: center;
-  background: rgba(255, 255, 255, .1); color: #fff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
-}
-.sx .sx-step-ic svg { width: 28px; height: 28px; }
-.sx .sx-step-n { margin: 22px 0 0; font-size: 15px; font-weight: 600; color: var(--phenome-blue-200); }
-.sx .sx-step-t { margin: 6px 0 0; font-size: clamp(21px, 1.7vw, 24px); font-weight: 600; line-height: 1.25; }
-.sx .sx-step-d {
-  margin: 10px auto 0; max-width: 26em;
-  font-size: 17px; line-height: 1.55; color: rgba(255, 255, 255, .72);
-}
+/* 3 · How matching works ---------------------------------------------------
+   2026-09-23 by request, supplements/nad's "Benefits that build over time":
+   the kit timeline (phenome-glass.css § 9, lit by shared.js through
+   data-ph-tl) with its three tile collage. This page has one sentence per
+   step rather than nad's three bullets, so a step is a pill, a name and a
+   line, and there is no foot line under the rail. Only what is true of this
+   page is written here: the heading size, the line, the rail's end and the
+   crops. */
+.sx .sx-how { padding: clamp(96px, 10vw, 160px) var(--sx-edge) clamp(80px, 8vw, 128px); }
+.sx .sx-how-in { max-width: var(--sx-max); margin-inline: auto; }
+.sx .sx-how-head { text-align: center; }
+.sx .sx-how .ph-display { font-size: clamp(36px, 4.4vw, 66px); max-width: 16em; margin-inline: auto; }
+.sx .sx-how .ph-tl { margin-top: clamp(56px, 6vw, 96px); }
+.sx .sx-how .ph-tl-steps { padding-block: 8px; }
+.sx .sx-how .ph-tl-step { padding-bottom: clamp(44px, 4vw, 60px); }
+.sx .sx-how .ph-tl-step:last-of-type { padding-bottom: 0; }
+.sx .sx-how .ph-tl-step-h { font-size: clamp(21px, 1.7vw, 25px); gap: 8px 14px; }
+.sx .sx-tl-d { margin: 14px 0 0; max-width: 32ch; font-size: 18px; line-height: 1.6; color: var(--sx-sub); }
+/* The rail ends on the last dot: the kit leaves room for a foot line here,
+   and this page has none. */
+.sx .sx-how .ph-tl-rail { top: 22px; bottom: var(--tl-end, 0px); }
+.sx .sx-how .ph-tl-step::before { top: 19px; }
+.sx .ph-tl-big img { object-position: 42% 55%; }
+.sx .ph-tl-sm img { object-position: 45% 50%; }
+.sx .ph-tl-round img { object-position: 50% 45%; }
 
 /* 4 · Close, the supplements/nad closing card ------------------------------
    Same card as .nd-end on the NAD+ page: the aurora film under a translucent
@@ -189,11 +195,11 @@
 /* The copy panel outgrows a 16:9 film beside it below 1280 (ritual's copy is
    shorter), so the film goes full width on top and the panel follows. */
 @media (max-width: 1279px) {
-  .sx .sx-hero { grid-template-columns: minmax(0, 1fr); }
+  .sx .sx-hero { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .sx .sx-hero-media { height: auto; aspect-ratio: 16 / 9; }
   .sx .sx-hero-copy { padding: 36px var(--sx-edge) 44px; }
 }
 @media (max-width: 900px) {
-  .sx .sx-steps { grid-template-columns: 1fr; max-width: 420px; gap: 44px; }
   .sx .sx-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
   .sx .sx-end-range { max-width: 380px; }
   .sx .sx-end-act { justify-content: center; }
@@ -208,3 +214,6 @@
   .sx .sx-end-film { display: none; }
   .sx .sx-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
 }
+
+/* sx.js hides the arrows of a rail that fits its row */
+.sx .sx-cat-head .ph-rail-nav[hidden] { display: none; }
