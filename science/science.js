@@ -75,6 +75,16 @@
     request();
   })();
 
+  /* ---- 6b · the card's aurora drifts at 0.4x, slower than the NAD card ---- */
+  (function film() {
+    var v = $('.sci-cmp-film');
+    if (!v) return;
+    function slow() { v.defaultPlaybackRate = .4; v.playbackRate = .4; }
+    slow();
+    v.addEventListener('loadedmetadata', slow);
+    v.addEventListener('play', slow);
+  })();
+
   /* ---- 6b · the comparison rows arrive behind their card ------------------ */
   (function table() {
     var t = $('[data-sci-table]');
