@@ -189,6 +189,53 @@
      columns answering on the same line. A product with nothing to say on a
      line gets a drawn dash, not an empty gap, so the eye reads "not on this
      one" rather than "not loaded yet". `null` in the catalogue is that dash. */
+  /* THE VALUE ICONS (2026-09-23, after apple.com/se/iphone/compare): each
+     answer carries a small drawing from assets/icons/compare.svg, keyed by
+     the answer's own words, so three different answers on one line show
+     three different pictures. index.html carries the same icons for the
+     opening three; an answer missing here is simply set without one. */
+  var ICON_SPRITE = '/phenome-store/assets/icons/compare.svg#';
+  var ICONS = {
+    'High density zirconia ceramic': 'ring-ceramic',
+    'Grade 5 aerospace titanium': 'ring-titanium',
+    'Titanium under a matte coat': 'ring-matte',
+    'Anodised aluminium frame': 'band-core',
+    'Refined and warm, a fired glaze': 'glaze',
+    'Durable and solid, mirror or brushed': 'shield',
+    'Quiet and soft, takes no fingerprints': 'no-print',
+    'Perforated sport silicone strap': 'strap-sport',
+    'Elastic woven nylon loop': 'strap-woven',
+    'About 6 g at size 8': 'feather',
+    'About 4 g at size 8': 'feather',
+    '24 g with the strap, 11 g core': 'weight',
+    '21 g with the loop, 11 g core': 'weight',
+    'Very high scratch resistance': 'diamond',
+    'High scratch resistance': 'shield',
+    'IP67, safe for washing and rain': 'drop',
+    '5 ATM, safe for swimming and showers': 'swim',
+    '5 ATM, safe for showers': 'shower',
+    'Sizes 5 to 13': 'ring-size',
+    'Fits 130 to 210 mm wrists': 'wrist-tape',
+    'Fits 135 to 205 mm wrists': 'wrist-tape',
+    'Free sizing kit before the ring': 'parcel',
+    'Both strap lengths in the box': 'two-straps',
+    'One loop, pulled to any tension': 'loop',
+    'Full charge in about 90 minutes': 'charge',
+    'Full charge in about 60 minutes': 'charge',
+    'Blood oxygen': 'oxygen',
+    'Training load and recovery time': 'gauge',
+    'A refined finish that will not mark': 'sparkle',
+    'Durable strength, worn all day': 'sun',
+    'The quietest thing on your hand': 'hand',
+    'Training, and the day either side of it': 'dumbbell',
+    'Long wear, and sleeping in it': 'moon'
+  };
+  function lineHtml(text) {
+    var id = ICONS[text];
+    var ic = id ? '<svg class="cmp-ic" aria-hidden="true" focusable="false"><use href="' + ICON_SPRITE + id + '"/></svg>' : '';
+    return ic + '<span>' + esc(text) + '</span>';
+  }
+
   function fillGroup(slot, key, lines) {
     for (var i = 0; i < lines.length; i++) {
       var el = document.querySelector('.cmp-ln[data-slot="' + slot + '"][data-line="' + key + ':' + i + '"]');
@@ -197,8 +244,8 @@
         el.className = 'cmp-ln is-none';
         el.innerHTML = '<span class="cmp-none" role="img" aria-label="Not on this one"></span>';
       } else {
-        el.className = 'cmp-ln';
-        el.textContent = lines[i];
+        el.className = ICONS[lines[i]] ? 'cmp-ln has-ic' : 'cmp-ln';
+        el.innerHTML = lineHtml(lines[i]);
       }
     }
   }

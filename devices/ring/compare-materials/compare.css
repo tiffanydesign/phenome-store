@@ -296,7 +296,7 @@
   letter-spacing: -0.005em;
   color: var(--cmp-accent);
 }
-.cmp-pill svg { width: 20px; height: 20px; flex: none; }
+.cmp-pill svg { width: 20px; height: 20px; flex: none; color: #000; }
 
 .cmp-lines {
   display: grid;
@@ -312,6 +312,33 @@
   text-align: center;
   text-wrap: balance;
 }
+/* THE VALUE ICONS, 2026-09-23 by request, after apple.com/se/iphone/compare,
+   which sets a small drawing over an answer so the eye finds the difference
+   before it reads it. One 40px drawing per LINE, chosen by the answer, not by
+   the row: IP67 is a drop, 5 ATM a swimmer, a shower a shower head, so three
+   different pictures on one line say "these differ" at a glance. The symbols
+   live in assets/icons/compare.svg, shared with testing/compare; stroke and
+   the two inks are set here and inherited into the <use> clone. */
+.cmp-ln.has-ic { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cmp-ic {
+  display: block; flex: none;
+  width: 40px; height: 40px;
+  /* Black (user ruling, 2026-09-23, after a dark grey round): every line of
+     the drawing is black; only the soft fill behind it stays a pale grey so
+     the shapes keep their body. The group pill glyphs and the "same in all"
+     glyphs are black too (see .cmp-pill svg and .cmp-spec-k svg). */
+  color: #000;
+  fill: none; stroke: currentColor; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+  --ic-a: #ececee;
+  --ic-b: #000;
+  overflow: visible;
+}
+.cmp-lines { row-gap: 28px; }
+/* A dash beside two drawn answers sits on their text line, not beside their
+   icons: the cells of one line share a row, so ending it lines them up. */
+.cmp-ln.is-none { align-self: end; }
+
 /* The dash is drawn, not typed: a 16 by 2 bar in the quiet ink, centred on
    the line's own x height, so it reads as an absence and never as copy. */
 .cmp-none {
@@ -350,7 +377,7 @@
 .cmp-same-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 .cmp-spec {
   margin: 0;
@@ -358,13 +385,19 @@
   border-radius: var(--ph-r21, 21px);
   background: var(--cmp-tint);
 }
+/* The glyph sits ABOVE the name, not beside it (2026-09-23): at four to a row
+   a block is about 300px wide, and a 26px glyph plus its gap beside the name
+   folded six of the eight names onto two lines. Stacked, the name has the
+   full width of the block and the glyphs line up down the row. */
 .cmp-spec-k {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
   margin: 0;
   font-size: clamp(19px, 1.6vw, 23px); line-height: 1.2; font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--cmp-ink);
+  text-wrap: balance;
 }
-.cmp-spec-k svg { flex: none; width: 26px; height: 26px; color: var(--cmp-accent); }
+.cmp-spec-k svg { flex: none; width: 28px; height: 28px; color: #000; }
 .cmp-spec-l { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .cmp-spec-l li {
   position: relative;
