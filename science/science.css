@@ -639,27 +639,80 @@
 }
 
 /* ---------------------------------------------------------------------------
-   9 · THE TESTS · four kits on their studio ground
-
-   The kit photographs are shot on a flat studio grey. Rather than cut them
-   out, the media plate is set to the same grey, so the shot and its plate are
-   one surface and the drop shadow in the render lands where it should.
+   9 · THE TESTS · the genomic buy page's "Related tests" cards (cg.css .cg-rel):
+   a photograph, a navy scrim at the foot, name and price on it, the
+   description opening on hover. 2026-09-23: the photographs are the real kits
+   (~/Downloads/Assets/Tests/Tests A33, A44, A45, A41, one grey studio set,
+   4:5, box in the upper middle, floor extended under the scrim) and all four
+   stand in one row at a smaller size. Price two rungs over the reference (17
+   to 21), description one (16 to 17).
    ------------------------------------------------------------------------ */
 .sci .sci-work { padding: clamp(50px, 5vw, 80px) 0 clamp(80px, 8vw, 130px); text-align: center; }
 .sci .sci-work .sci-h2 { max-width: 16ch; margin-inline: auto; }
-.sci .sci-kits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: clamp(40px, 4.4vw, 64px); text-align: left; }
-.sci .sci-kit { display: flex; flex-direction: column; }
-.sci .sci-kit-media { display: block; border-radius: 14px; overflow: hidden; background: var(--sci-studio); aspect-ratio: 1 / 1; }
-.sci .sci-kit-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--sci-ease); }
-.sci .sci-kit-media:hover img { transform: scale(1.04); }
-.sci .sci-kit h3 { margin: 20px 0 0; font-size: clamp(20px, 1.4vw, 22px); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
-.sci .sci-kit h3 a { color: var(--sci-ink) !important; text-decoration: none !important; }
-.sci .sci-kit h3 a:hover { color: var(--ph-accent, #203a85) !important; }
-.sci .sci-kit-p { margin: 8px 0 0; font-size: 19px; color: var(--sci-ink); }
-.sci .sci-kit-d { margin: 12px 0 24px; font-size: 17px; line-height: 1.55; color: var(--sci-grey); }
-.sci .sci-kit .sci-pill { margin-top: auto; align-self: start; }
-@media (max-width: 1000px) { .sci .sci-kits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 520px) { .sci .sci-kits { grid-template-columns: minmax(0, 1fr); } }
+.sci .sci-rel {
+  --sci-rel-ease: cubic-bezier(.2, .8, .2, 1);
+  width: min(1240px, 100%); margin: clamp(40px, 5vw, 72px) auto 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;
+}
+.sci .sci-rel-card {
+  position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: 22px; background: #e4e5e8; isolation: isolate;
+  color: #fff !important; text-decoration: none !important;
+}
+.sci .sci-rel-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.1s var(--sci-rel-ease);
+}
+.sci .sci-rel-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, transparent 56%, rgba(10, 18, 51, .8) 100%);
+  transition: background .5s ease;
+}
+.sci .sci-rel-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 0 14px 22px; text-align: center;
+  display: grid; grid-template-rows: auto auto 0fr auto;
+  transition: grid-template-rows .6s var(--sci-rel-ease);
+}
+.sci .sci-rel-copy h3 { margin: 0; font-size: clamp(18px, 1.3vw, 19px); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+.sci .sci-rel-price { margin: 6px 0 0; font-size: 21px; line-height: 1.2; font-weight: 600; color: rgba(255, 255, 255, .9); }
+.sci .sci-rel-d {
+  margin: 0 auto; padding-top: 12px; max-width: 34ch; min-height: 0; overflow: hidden;
+  font-size: 17px; line-height: 1.5; color: rgba(255, 255, 255, .92);
+  opacity: 0; transition: opacity .4s ease;
+}
+.sci .sci-rel-go {
+  justify-self: center; display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px; padding: 9px 20px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; color: #0a1233;
+  background: rgba(255, 255, 255, .92);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: background .3s ease;
+}
+.sci .sci-rel-go::after { content: "\2192"; transition: transform .3s var(--sci-rel-ease); }
+@media (hover: hover) {
+  .sci .sci-rel-card:hover img { transform: scale(1.06); }
+  .sci .sci-rel-card:hover .sci-rel-copy { grid-template-rows: auto auto 1fr auto; }
+  .sci .sci-rel-card:hover .sci-rel-d { opacity: 1; }
+  .sci .sci-rel-card:hover::after { background: linear-gradient(180deg, transparent 22%, rgba(10, 18, 51, .84) 100%); }
+  .sci .sci-rel-card:hover .sci-rel-go { background: #fff; }
+  .sci .sci-rel-card:hover .sci-rel-go::after { transform: translateX(3px); }
+}
+@media (hover: none) {
+  .sci .sci-rel-copy { grid-template-rows: auto auto 1fr auto; }
+  .sci .sci-rel-d { opacity: 1; }
+  .sci .sci-rel-card::after { background: linear-gradient(180deg, transparent 22%, rgba(10, 18, 51, .84) 100%); }
+}
+.sci .sci-rel-card:focus-visible { outline: 2px solid var(--ph-accent-link, #203a85); outline-offset: 4px; }
+@media (max-width: 1000px) {
+  .sci .sci-rel { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 720px; }
+}
+@media (max-width: 520px) {
+  .sci .sci-rel { grid-template-columns: minmax(0, 1fr); max-width: 400px; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sci .sci-rel-card img, .sci .sci-rel-copy, .sci .sci-rel-d { transition: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .sci-js .sci .sci-up, .sci-js .sci .sci-topic { opacity: 1; transform: none; transition: none; }
