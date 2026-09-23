@@ -1,15 +1,14 @@
 /* testing/genetic · behaviour for the genetic testing page.
 
-   Six blocks, each guarding on its own elements, all writing in one rAF pass:
+   Five blocks, each guarding on its own elements, all writing in one rAF pass:
      · the hero copy, plate and figures settle in once the card is reached,
-       and the helix behind them drifts against the scroll,
-     · the definition of a gene lights one word at a time across its pinned
-       travel, and the diagram beside it grows and is washed at the same pace,
+       and the laboratory slides in the plate turn every few seconds,
      · the nine readings light the item in the middle of the window, hold that
        item's picture on the right, and fill the rail beside it,
      · each row of "where earlier insight helps" fills from the left as it
        crosses the window, and the second key lights once the first row is full,
-     · the walled garden drifts against the scroll,
+     · the walled garden is held still behind a clipped window while the
+       page scrolls over it, darkening as it fills the screen,
      · everything marked .dna-up arrives from below, once.
 
    Nothing here measures anything a stylesheet could have measured. */
@@ -31,18 +30,6 @@
   addEventListener('scroll', request, { passive: true });
   addEventListener('resize', request, { passive: true });
 
-  /* how far a tall section has travelled under a pinned stage, 0 to 1 */
-  function travel(el) {
-    var r = el.getBoundingClientRect();
-    var t = r.height - innerHeight;
-    return t > 0 ? clamp(-r.top / t, 0, 1) : 0;
-  }
-  /* how far a short element has crossed the window, 0 to 1 */
-  function crossing(el) {
-    var r = el.getBoundingClientRect();
-    return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1);
-  }
-
   /* ---- reveals ------------------------------------------------------------ */
   (function reveal() {
     var els = $$('.dna-up, .dna-hero', root);
@@ -61,51 +48,50 @@
     els.forEach(function (e) { io.observe(e); });
   })();
 
-  /* ---- the helix behind the hero, and the garden, both drifting ----------- */
-  (function drift() {
-    var els = $$('[data-dna-par]', root);
-    if (!els.length || calm.matches) return;
-    writers.push(function () {
-      for (var i = 0; i < els.length; i++) {
-        els[i].style.setProperty('--par', crossing(els[i]).toFixed(3));
-      }
+  /* ---- the hero laboratory · three slides turning on their own -----------
+     The live dot fills over one slide's time (dna.css, --slide-ms) and its
+     animationend turns the slide, so the progress bar and the picture share
+     one clock, and a hidden tab, whose animations are held, holds both.
+     Still on the first slide for a reader who asked for less motion. */
+  (function slides() {
+    var box = $('[data-dna-slides]', root);
+    if (!box) return;
+    var imgs = $$('img', box), dots = $$('.dna-slide-dots i', box);
+    if (imgs.length < 2 || calm.matches || dots.length !== imgs.length) return;
+    var cur = 0;
+    function show(n) {
+      cur = (n + imgs.length) % imgs.length;
+      imgs.forEach(function (im, j) { im.classList.toggle('on', j === cur); });
+      /* segments before the live one stay full, the live one refills */
+      dots.forEach(function (d, j) {
+        d.classList.remove('on');
+        d.classList.toggle('is-done', j < cur);
+        if (j === cur) { void d.offsetWidth; d.classList.add('on'); }
+      });
+    }
+    dots.forEach(function (d) {
+      d.addEventListener('animationend', function () { show(cur + 1); });
     });
-    request();
   })();
 
-  /* ---- what a gene is · the sentence, word by word ------------------------
-     The words are wrapped here rather than in the markup, so the paragraph
-     ships as one readable sentence and a page without script shows it whole. */
-  (function gene() {
-    var sec = $('[data-dna-gene]', root);
+  /* ---- the walled garden · websitelab's off grid window ------------------
+     0 as the window's top meets the foot of the screen, 1 as it fills it.
+     The tint opens a third of the way in and stops at .8; the lede waits
+     until the window is nearly full. */
+  (function band() {
+    var sec = $('[data-dna-band]', root);
     if (!sec) return;
-    var p = $('.dna-gene-p', sec);
-    var pin = $('.dna-gene-pin', sec);
-    if (!p) return;
-
-    var words = p.textContent.trim().split(/\s+/);
-    p.textContent = '';
-    var spans = words.map(function (w, i) {
-      var s = doc.createElement('span');
-      s.textContent = w;
-      p.appendChild(s);
-      if (i < words.length - 1) p.appendChild(doc.createTextNode(' '));
-      return s;
-    });
-
+    function span(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
     if (calm.matches) {
-      spans.forEach(function (s) { s.classList.add('on'); });
+      sec.style.setProperty('--tint', '.6');
+      sec.style.setProperty('--tint-copy', '1');
       return;
     }
     writers.push(function () {
-      /* the first tenth and the last eighth of the travel are held, so the
-         sentence arrives dim and leaves fully lit rather than finishing
-         mid screen */
-      var t = travel(sec);
-      var p2 = clamp((t - .1) / .72, 0, 1);
-      var n = Math.round(p2 * spans.length);
-      for (var i = 0; i < spans.length; i++) spans[i].classList.toggle('on', i < n);
-      if (pin) pin.style.setProperty('--gp', p2.toFixed(4));
+      var r = sec.getBoundingClientRect();
+      var p = clamp((innerHeight - r.top) / innerHeight, 0, 1);
+      sec.style.setProperty('--tint', (0.8 * span(p, 0.35, 1)).toFixed(3));
+      sec.style.setProperty('--tint-copy', span(p, 0.7, 1).toFixed(3));
     });
     request();
   })();
