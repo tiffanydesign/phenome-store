@@ -1215,3 +1215,43 @@ html.ph-reveal body.ph-flat main > section.band.ph-in > * { opacity: 1; }
 @media (max-width: 560px) {
   .ph-flat .lab .intel-chip { bottom: 14px; }
 }
+
+/* ==========================================================================
+   § 14 · THE CHARGING CASE, SIX DETAILS, 2026-09-23 by request.
+
+   The six case features used to sit on black under "Power in your pocket";
+   they now fill the light screen that held "Ceramic and titanium, Made to
+   last" and its single ring. On the light ground each one is a white card in
+   three columns: a navy stroke glyph in a pale disc, the name on the card
+   title rung, the line under it on the detail rung. Same reveal as before
+   (lab.js adds .is-in to .lab-featlist), so the cards still deal in turn.
+   ======================================================================== */
+.ph-flat .lab .rcase { background: #f4f6fb; padding-bottom: clamp(80px, 9vw, 140px); }
+.ph-flat .lab .rcase-list {
+  max-width: 1180px; margin: clamp(44px, 5vw, 72px) auto 0; padding: 0 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+}
+.ph-flat .lab .rcase-list li {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: clamp(28px, 2.6vw, 40px); border-radius: 24px; background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(10, 30, 87, .06), 0 18px 40px -28px rgba(10, 30, 87, .28);
+}
+.ph-flat .lab .rcase-list svg {
+  width: 56px; height: 56px; padding: 10px; box-sizing: border-box;
+  border-radius: 50%; background: var(--phenome-blue-100, #e6e9f2);
+  stroke: var(--phenome-blue-500, #203a85); stroke-width: 1.6;
+}
+.ph-flat .lab .rcase-list .lab-ft { margin-top: 24px; font-weight: 600; color: var(--phenome-blue-900, #0a1e57); }
+.ph-flat .lab .rcase-list .lab-fd { color: #4a5470; }
+@media (max-width: 1000px) {
+  .ph-flat .lab .rcase-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .ph-flat .lab .rcase-list { grid-template-columns: minmax(0, 1fr); max-width: none; gap: 12px; padding: 0 16px; }
+}
+
+/* The coast road photograph carries the ring on the hand at about 63% height,
+   just left of centre, so the heading sits in the upper third, over the sky
+   and the headland, and the hand stays clear below it. */
+.ph-flat .lab .lab-offgrid-img img { object-position: 50% 50%; }
+.ph-flat .lab .lab-offgrid-text { justify-content: flex-start; padding-top: clamp(110px, 20vh, 220px); }

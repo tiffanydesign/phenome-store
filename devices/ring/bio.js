@@ -5,14 +5,20 @@
    in straight away. */
 (function () {
   'use strict';
-  var band = document.querySelector('[data-rbio]');
-  if (!band) return;
+  /* The band stands twice on the page since 2026-09-23, so each is watched. */
+  var bands = [].slice.call(document.querySelectorAll('[data-rbio]'));
+  if (!bands.length) return;
   var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (calm || !('IntersectionObserver' in window)) { band.classList.add('is-in'); return; }
+  if (calm || !('IntersectionObserver' in window)) {
+    bands.forEach(function (b) { b.classList.add('is-in'); });
+    return;
+  }
   var io = new IntersectionObserver(function (es) {
-    if (!es[0].isIntersecting) return;
-    band.classList.add('is-in');
-    io.disconnect();
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    });
   }, { rootMargin: '0px 0px -18% 0px', threshold: 0.05 });
-  io.observe(band);
+  bands.forEach(function (b) { io.observe(b); });
 })();
