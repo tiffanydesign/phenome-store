@@ -100,14 +100,6 @@
 .apx .ap-hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .apx .ap-hero-foot { padding: 0 clamp(22px, 2.6vw, 42px) clamp(22px, 2.6vw, 36px); }
 .apx .ap-hero-foot p { margin: 0; max-width: 40ch; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .86); }
-.apx .ap-ticker { margin-top: 22px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.apx .ap-ticker ul { display: flex; gap: 12px; width: max-content; margin: 0; padding: 0; list-style: none; animation: ap-drift 38s linear infinite; }
-.apx .ap-ticker li {
-  display: flex; align-items: center; gap: 8px; flex: none; height: 36px; padding: 0 16px; border-radius: 99px;
-  font-size: 16px; white-space: nowrap; background: rgba(255, 255, 255, .12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-}
-.apx .ap-ticker li svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-@keyframes ap-drift { to { transform: translateX(-50%); } }
 .apx-js .apx .ap-hero-card { animation: ap-card 1.2s var(--ap-ease) both; }
 .apx-js .apx .ap-hero-top > * { animation: ap-rise 1s var(--ap-ease) both; }
 .apx-js .apx .ap-hero-top > :nth-child(2) { animation-delay: .1s; }
@@ -186,45 +178,115 @@
 .apx .ap-s-omics b { display: inline-grid; place-items: center; min-width: 26px; height: 18px; padding: 0 5px; border-radius: 99px; background: #e3eafb; color: var(--ph-accent, #203a85); font-size: 9px; }
 @media (max-width: 760px) {
   .apx .ap-fan { height: 560px; }
-  .apx .ap-phone:not(.is-main):not([data-i="-1"]):not([data-i="1"]) { display: none; }
+  .apx .ap-fan .ap-phone:not(.is-main):not([data-i="-1"]):not([data-i="1"]) { display: none; }
 }
 
 /* ---------------------------------------------------------------------------
-   3 · THREE SCREENS
+   6 · LONGEVITY AI · the websitelab proof band (devices/ring-lab/bdx.css § 7
+   and § 7b), 2026-09-23 by request. Same ground, same heading, same glass
+   panels and the same accordion: one number, --ai-open, decides which card is
+   open, and every property that moves is computed from it, so the width, the
+   photograph, the panel, the line, the bars and the type all travel on one
+   620ms. Six cards, set as two rows of three (2026-09-23, by request), each row
+   its own accordion with the lab's 2.5 against 1 and its first card open
+   at rest. Type is held to this site's 15px floor.
    ------------------------------------------------------------------------ */
-/* The three screens are their own section now that the bento sits between them
-   and the fan of phones, so the gap that used to be this grid's top padding is
-   the section's bottom padding instead. */
-.apx .ap-three-sec { padding: 0 0 clamp(90px, 9vw, 140px); }
-.apx .ap-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 0; }
-.apx .ap-shot { position: relative; height: 240px; border-radius: 6px; overflow: hidden; background: linear-gradient(160deg, #cfd8ea, #e9edf5); }
-.apx .ap-shot .ap-phone { top: 26px; left: 50%; transform: none; width: 210px; margin-left: -105px; }
-.apx .ap-three h3 { margin: 18px 0 0; font-size: 21px; font-weight: 400; letter-spacing: -0.01em; }
-.apx .ap-three p { margin: 8px 0 0; font-size: 16px; line-height: 1.55; color: var(--ap-grey); }
-@media (max-width: 900px) { .apx .ap-three { grid-template-columns: minmax(0, 1fr); } }
-
-/* ---------------------------------------------------------------------------
-   4 · LONGEVITY AI · a display across, an image beside a paragraph and chips
-   ------------------------------------------------------------------------ */
-.apx .ap-evolve { padding: clamp(90px, 10vw, 150px) 0 clamp(80px, 8vw, 120px); }
-.apx .ap-evolve-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 4vw, 70px); align-items: center; margin-top: clamp(40px, 4vw, 64px); padding-inline: clamp(0px, 3vw, 44px); }
-.apx .ap-evolve-img { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 1; background: #d7deea; }
-.apx .ap-evolve-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .6s ease, transform 1.2s var(--ap-ease); }
-.apx .ap-evolve-img img.on { opacity: 1; transform: none; }
-.apx .ap-evolve-copy .ap-eyebrow { color: var(--ph-accent, #203a85); }
-.apx .ap-evolve-copy > p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ap-grey); max-width: 46ch; }
-.apx .ap-evolve-copy h3 { margin: 0 0 16px; max-width: 26ch; font-size: clamp(24px, 2vw, 30px); line-height: 1.25; font-weight: 400; letter-spacing: -0.015em; }
-.apx .ap-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 28px; max-width: 480px; }
-.apx .ap-chip {
-  display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 18px; border-radius: 12px; cursor: pointer;
-  border: 1px solid var(--ap-line); background: transparent; color: var(--ap-ink); font: inherit; font-size: 15px; text-align: left;
-  transition: background .25s ease, border-color .25s ease, color .25s ease;
+.apx .ap-evolve {
+  --ai-ease: cubic-bezier(.16, 1, .3, 1);
+  position: relative; color: #fff;
+  padding: clamp(70px, 8vw, 110px) 0 clamp(70px, 8vw, 120px);
+  background: linear-gradient(180deg, #070c24 0%, #2b3558 26%, #9aa3bd 48%, #eef1f7 70%, #fff 100%);
 }
-.apx .ap-chip svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.apx .ap-chip:hover { background: rgba(32, 58, 133, .06); border-color: rgba(32, 58, 133, .35); }
-.apx .ap-chip.on { background: var(--ap-ink); border-color: var(--ap-ink); color: #fff; }
-.apx .ap-ask { margin-top: 28px; }
-@media (max-width: 900px) { .apx .ap-evolve-row { grid-template-columns: minmax(0, 1fr); padding-inline: 0; } }
+.apx .ap-ai-head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 4vw, 64px); align-items: end; }
+.apx .ap-evolve .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
+.apx .ap-ai-intro .ap-eyebrow { color: rgba(255, 255, 255, .62); }
+.apx .ap-ai-intro h3 { margin: 0 0 14px; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; color: #fff; }
+.apx .ap-ai-intro > p:last-child { margin: 0; font-size: 17px; line-height: 1.55; color: rgba(255, 255, 255, .78); max-width: 46ch; }
+
+.apx .ap-ai + .ap-ai { margin-top: 16px; }
+.apx .ap-ai {
+  margin-top: clamp(30px, 3.4vw, 50px); display: grid; gap: 16px;
+  grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(360px, 60vw, 520px);
+}
+.apx .ap-ai-card { position: relative; border-radius: 28px; overflow: hidden; background: #1a2140; color: #fff; outline: none; }
+.apx .ap-ai-card.is-big { grid-column: 1 / -1; }
+.apx .ap-ai-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ai-ease); }
+.apx .ap-ai-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 12, 36, .18), transparent 40%, rgba(7, 12, 36, .66)); }
+.apx .ap-ai-panel {
+  position: absolute; z-index: 1; top: 18px; left: 18px; width: min(380px, calc(100% - 36px)); box-sizing: border-box;
+  padding: 16px 18px; border-radius: 16px; color: var(--ap-ink); background: rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+  transform: translateY(12px); opacity: 0; transition: transform .8s var(--ai-ease), opacity .6s ease;
+}
+.apx .ap-ai.is-in .ap-ai-panel { transform: none; opacity: 1; }
+.apx .ap-ai-k { margin: 0; font-size: 15px; font-weight: 600; color: var(--ap-grey); }
+.apx .ap-ai-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.apx .ap-ai-stats.is-one { grid-template-columns: 1fr; }
+.apx .ap-ai-stats p { margin: 0; padding: 12px; border-radius: 10px; background: #fff; }
+.apx .ap-ai-stats b { display: block; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.apx .ap-ai-stats span { display: block; margin-top: 2px; font-size: 15px; line-height: 1.3; color: var(--ap-grey); }
+.apx .ap-ai-q { margin: 10px 0 0; font-size: 19px; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; }
+.apx .ap-ai-a { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px 12px 12px 4px; background: #fff; font-size: 15px; line-height: 1.45; }
+.apx .ap-ai-line { display: block; width: 100%; height: 76px; margin-top: 10px; overflow: visible; }
+.apx .ap-ai-line path { fill: none; stroke: var(--ph-accent, #203a85); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 1.8s var(--ai-ease) .3s; }
+.apx .ap-ai.is-in .ap-ai-line path { stroke-dashoffset: 0; }
+.apx .ap-ai-bars { display: flex; align-items: flex-end; gap: 6px; height: 70px; margin-top: 12px; }
+.apx .ap-ai-bars i { flex: 1; height: 100%; border-radius: 4px; background: var(--ph-accent, #203a85); transform-origin: bottom; transform: scaleY(.05); transition: transform 1s var(--ai-ease) .4s; }
+.apx .ap-ai.is-in .ap-ai-bars i { transform: scaleY(var(--h)); }
+.apx .ap-ai-meter { height: 6px; margin-top: 12px; border-radius: 99px; background: rgba(10, 18, 51, .1); overflow: hidden; }
+.apx .ap-ai-meter i { display: block; height: 100%; width: calc(var(--p) * 100%); border-radius: inherit; background: #ffb35c; transform-origin: left; transform: scaleX(0); transition: transform 1.2s var(--ai-ease) .4s; }
+.apx .ap-ai.is-in .ap-ai-meter i { transform: none; }
+.apx .ap-ai-copy { position: absolute; z-index: 1; left: 24px; right: 24px; bottom: 26px; }
+.apx .ap-ai-copy h3 { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin: 0; font-size: clamp(21px, 1.8vw, 26px); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; }
+.apx .ap-ai-copy h3 svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.apx .ap-ai-copy p { margin: 10px 0 0; max-width: 34ch; font-size: 18px; line-height: 1.45; color: rgba(255, 255, 255, .88); }
+.apx .ap-ai-card:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* the accordion, where there is a pointer to hover and room for six */
+@media (min-width: 1025px) and (hover: hover) {
+  .apx .ap-ai { display: flex; align-items: stretch; gap: 16px; height: clamp(400px, 38vw, 540px); }
+  .apx .ap-ai-card {
+    --ai-open: 0;
+    flex: 1 1 0; min-width: 0;
+    flex-grow: calc(1 + var(--ai-open) * 1.5);
+    transition: flex-grow .62s var(--ai-ease);
+  }
+  .apx .ap-ai:not(:has(.ap-ai-card:hover)):not(:has(.ap-ai-card:focus-visible)) .ap-ai-card.is-big,
+  .apx .ap-ai-card:hover,
+  .apx .ap-ai-card:focus-visible { --ai-open: 1; }
+  .apx .ap-ai-card > img { transform: scale(calc(1 + var(--ai-open) * .05)); transition: transform .62s var(--ai-ease); }
+  .apx .ap-ai.is-in .ap-ai-panel {
+    opacity: var(--ai-open);
+    transform: translateY(calc((1 - var(--ai-open)) * 14px));
+    transition: transform .62s var(--ai-ease), opacity .45s var(--ai-ease);
+  }
+  .apx .ap-ai.is-in .ap-ai-line path { stroke-dashoffset: calc(400 * (1 - var(--ai-open))); transition: stroke-dashoffset 1.1s var(--ai-ease) .12s; }
+  .apx .ap-ai.is-in .ap-ai-bars i { transform: scaleY(calc(.05 + (var(--h) - .05) * var(--ai-open))); transition: transform .7s var(--ai-ease) .1s; }
+  .apx .ap-ai.is-in .ap-ai-meter i { transform: scaleX(var(--ai-open)); transition: transform .8s var(--ai-ease) .1s; }
+  .apx .ap-ai-copy { left: 26px; right: 26px; }
+  .apx .ap-ai-copy h3 { font-size: calc(clamp(20px, 1.7vw, 25px) + var(--ai-open) * 8px); transition: font-size .62s var(--ai-ease); }
+  .apx .ap-ai-copy p {
+    width: min(34ch, 360px);
+    opacity: var(--ai-open);
+    transform: translateY(calc((1 - var(--ai-open)) * 12px));
+    transition: opacity .45s var(--ai-ease) .06s, transform .62s var(--ai-ease);
+  }
+}
+@media (min-width: 1025px) and (hover: hover) and (prefers-reduced-motion: reduce) {
+  .apx .ap-ai-card > img, .apx .ap-ai.is-in .ap-ai-panel, .apx .ap-ai-copy p { transform: none; }
+  .apx .ap-ai-card, .apx .ap-ai.is-in .ap-ai-panel, .apx .ap-ai.is-in .ap-ai-line path,
+  .apx .ap-ai.is-in .ap-ai-bars i, .apx .ap-ai.is-in .ap-ai-meter i, .apx .ap-ai-copy h3, .apx .ap-ai-copy p { transition: none; }
+}
+@media (max-width: 900px) {
+  .apx .ap-ai-head { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .apx .ap-ai { grid-template-columns: minmax(0, 1fr); }
+  .apx .ap-ai-panel { right: 18px; width: auto; }
+}
+@media (max-width: 560px) {
+  .apx .ap-ai-stats b { font-size: 20px; }
+}
 
 /* ---------------------------------------------------------------------------
    5 · REAL INSIGHT · three cards
@@ -248,38 +310,100 @@
 .apx .ap-bento-sec { padding: clamp(70px, 7vw, 110px) 0 clamp(80px, 8vw, 120px); }
 .apx .ap-bento-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: end; margin-bottom: clamp(30px, 3.4vw, 50px); }
 .apx .ap-bento-head .ap-lede { margin: 0; font-size: 17px; }
-.apx .ap-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 250px; gap: 12px; }
+/* 2026-09-23 by request: the bento keeps its first arrangement (the big tile
+   top left, four small tiles beside it, one wide tile below) and takes the new
+   content: the three screens section is folded in, the tiles that repeated a
+   later section are gone, and every tile carries a picture where it used to
+   carry an icon. Six tiles for what were eight places, so the wide tile below
+   runs the full row. */
+.apx .ap-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 260px; gap: 12px; }
 .apx .ap-b {
   position: relative; overflow: hidden; border-radius: 16px; padding: 22px; box-sizing: border-box;
   background: var(--ap-sunk); box-shadow: inset 0 0 0 1px var(--ap-line); display: flex; flex-direction: column;
 }
-.apx .ap-b h3 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
-.apx .ap-b p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: var(--ap-grey); max-width: 34ch; }
-.apx .ap-b.is-film { grid-column: span 2; grid-row: span 2; padding: 0; background: linear-gradient(160deg, #dce6fb, #eef1f8); }
-.apx .ap-b.is-film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
-.apx .ap-b.is-film .ap-b-copy { position: absolute; left: 22px; right: 22px; bottom: 22px; padding: 18px 20px; border-radius: 14px; background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
-.apx .ap-b.is-dark { background: var(--ap-night); color: #fff; box-shadow: none; }
-.apx .ap-b.is-dark p { color: rgba(255, 255, 255, .72); }
-.apx .ap-b.is-wide { grid-column: span 2; }
-.apx .ap-b.is-ai { padding: 0; }
-.apx .ap-b.is-ai video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.apx .ap-b.is-ai::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(8, 12, 30, .8)); }
-.apx .ap-b.is-ai .ap-b-copy { position: absolute; left: 22px; right: 22px; bottom: 20px; z-index: 1; }
-.apx .ap-b-ic { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: auto; border-radius: 12px; background: #eaf0fc; color: var(--ph-accent, #203a85); }
-.apx .ap-b.is-dark .ap-b-ic { background: rgba(255, 255, 255, .1); color: #9fc0ff; }
-.apx .ap-b-ic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.apx .ap-b-ping { position: absolute; right: 24px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: #7fb2ff; }
-.apx .ap-b-ping::before, .apx .ap-b-ping::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1px solid #7fb2ff; animation: ap-ping 2.4s ease-out infinite; }
+.apx .ap-b-copy { margin-top: auto; }
+.apx .ap-b-copy h3 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
+.apx .ap-b-copy p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: var(--ap-grey); max-width: 34ch; }
+
+/* the big tile: a photograph full bleed, one reading on glass, the words on glass.
+   2026-09-23 by request, every drawn picture in the bento became a photograph
+   carrying ONE glass chip, the way "Find my ring" already did. */
+.apx .ap-b.is-film { grid-column: span 2; grid-row: span 2; padding: 0; }
+.apx .ap-b.is-film .ap-b-copy {
+  position: absolute; left: 22px; bottom: 22px; max-width: 330px; padding: 18px 20px; border-radius: 14px;
+  background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+.apx .ap-b-scr { position: absolute; inset: 0; background: #e9edf5; }
+.apx .ap-b-scr > img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; display: block; transition: transform 1.2s var(--ap-ease); }
+.apx .ap-b.is-film:hover .ap-b-scr > img { transform: scale(1.04); }
+
+/* the small tiles: a photograph where the icon used to be */
+.apx .ap-b-pic {
+  position: relative; flex: none; height: 104px; margin: -12px -12px 14px; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(160deg, #dce4f5, #eef1f8);
+}
+.apx .ap-b-pic.is-photo > img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 42%; display: block; transition: transform 1.2s var(--ap-ease); }
+.apx .ap-b:hover .ap-b-pic.is-photo > img { transform: scale(1.05); }
+.apx .ap-b-pic.is-report > img { object-position: 50% 55%; }
+.apx .ap-b-pic.is-mug > img { object-position: 40% 74%; }
+.apx .ap-b-pic.is-talk > img { object-position: 50% 45%; }
+
+/* the one glass chip every picture carries */
+.apx .ap-b-chip {
+  position: absolute; left: 10px; bottom: 10px; display: flex; align-items: center; gap: 8px;
+  padding: 6px 11px 6px 9px; border-radius: 99px; background: rgba(11, 16, 36, .62);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; font-size: 12px; font-weight: 500; white-space: nowrap;
+}
+.apx .ap-b-chip b { padding: 1px 7px; border-radius: 99px; background: #fff; color: var(--ph-accent, #203a85); font-size: 12px; }
+.apx .ap-b-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #7fb2ff; }
+.apx .ap-b-mark { width: 16px; height: 16px; filter: brightness(0) invert(1); }
+.apx .ap-b-ping { position: relative; flex: none; width: 8px; height: 8px; border-radius: 50%; background: #7fb2ff; }
+.apx .ap-b-ping::before, .apx .ap-b-ping::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid #7fb2ff; animation: ap-ping 2.4s ease-out infinite; }
 .apx .ap-b-ping::after { animation-delay: 1.2s; }
-@keyframes ap-ping { from { transform: scale(1); opacity: .9; } to { transform: scale(5); opacity: 0; } }
-@media (max-width: 1000px) {
+@keyframes ap-ping { from { transform: scale(1); opacity: .9; } to { transform: scale(4); opacity: 0; } }
+/* the big tile's chip is larger and sits top right, clear of the words */
+.apx .ap-b-chip.is-top { left: auto; right: 22px; top: 22px; bottom: auto; gap: 12px; padding: 10px 18px 10px 10px; border-radius: 16px; font-size: 15px; }
+.apx .ap-b-chip.is-top small { display: block; font-size: 12px; font-weight: 400; color: rgba(255, 255, 255, .72); }
+.apx .ap-b-dial {
+  flex: none; width: 34px; height: 34px; border-radius: 50%;
+  background: conic-gradient(#7fd4ff calc(var(--p) * 360deg), rgba(255, 255, 255, .18) 0);
+  -webkit-mask: radial-gradient(circle, transparent 58%, #000 59%); mask: radial-gradient(circle, transparent 58%, #000 59%);
+}
+
+/* the wide tile: the words left, a photograph across the rest of the row with
+   the trend on a glass card over it */
+.apx .ap-b.is-wide { grid-column: span 2; }
+.apx .ap-b.is-trend { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 28px; align-items: end; }
+.apx .ap-b-chart { position: relative; align-self: stretch; margin: -12px -12px -12px 0; border-radius: 12px; overflow: hidden; background: #e9edf5; }
+.apx .ap-b-chart-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; transition: transform 1.2s var(--ap-ease); }
+.apx .ap-b.is-trend:hover .ap-b-chart-bg { transform: scale(1.04); }
+.apx .ap-b-chart-card {
+  position: absolute; left: 16px; bottom: 16px; width: min(340px, calc(100% - 32px)); padding: 14px 16px 0; box-sizing: border-box;
+  border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; height: 150px;
+  background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+.apx .ap-b-chart-k { display: flex; align-items: baseline; gap: 12px; margin: 0; font-size: 15px; font-weight: 500; }
+.apx .ap-b-chart-k b { font-size: 30px; font-weight: 600; letter-spacing: -0.03em; color: var(--ph-accent, #203a85); }
+.apx .ap-b-chart-k small { margin-left: auto; font-size: 15px; font-weight: 400; color: var(--ap-grey); }
+.apx .ap-b-trend { flex: 1; width: calc(100% + 32px); margin: 6px -16px 0; min-height: 0; }
+.apx .ap-b-trend .is-fill { fill: rgba(32, 58, 133, .12); }
+.apx-js .apx .ap-b-trend path[pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s .5s var(--ap-ease); }
+.apx-js .apx .ap-up.is-in .ap-b-trend path[pathLength] { stroke-dashoffset: 0; }
+
+@media (max-width: 1200px) {
   .apx .ap-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1000px) {
   .apx .ap-bento-head { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 }
 @media (max-width: 600px) {
   .apx .ap-bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
-  .apx .ap-b { min-height: 220px; }
-  .apx .ap-b.is-film, .apx .ap-b.is-wide { grid-column: auto; grid-row: auto; min-height: 460px; }
+  .apx .ap-b { min-height: 250px; }
+  .apx .ap-b.is-film, .apx .ap-b.is-wide { grid-column: auto; grid-row: auto; min-height: 480px; }
+  .apx .ap-b.is-film .ap-b-copy { right: 14px; left: 14px; bottom: 14px; }
+  .apx .ap-b.is-trend { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .apx .ap-b-chart { height: 260px; margin: 0 -12px -12px; order: -1; }
+  .apx .ap-b-chip.is-top { right: 14px; top: 14px; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -303,14 +427,66 @@
 /* ---------------------------------------------------------------------------
    10 · START · words left, a photograph right
    ------------------------------------------------------------------------ */
-.apx .ap-start { padding: 0 0 clamp(80px, 8vw, 120px); }
-.apx .ap-start-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(30px, 4vw, 60px); align-items: center; }
-.apx .ap-start .ph-solid { font-size: clamp(32px, 3vw, 46px); }
-.apx .ap-start p { margin: 16px 0 26px; max-width: 40ch; font-size: 16px; line-height: 1.55; color: var(--ap-grey); }
-.apx .ap-start-cta { display: flex; flex-wrap: wrap; gap: 10px; }
-.apx .ap-start-img { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; background: #d7deea; }
-.apx .ap-start-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-@media (max-width: 860px) { .apx .ap-start-grid { grid-template-columns: minmax(0, 1fr); } }
+/* CLOSE · supplements/nad's `.nd-end` card, rescoped. Same film, same scrim,
+   same radius and padding ladder; the object is a drawn phone plus the ceramic
+   ring render instead of the bottle. */
+.apx .ap-start { padding: 16px 0 clamp(56px, 6vw, 96px); }
+.apx .ap-end-bleed { width: 100%; max-width: 1536px; margin-inline: auto; padding-inline: clamp(20px, 3.3vw, 48px); box-sizing: border-box; }
+.apx .ap-end-card {
+  position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: auto minmax(0, 1fr);
+  align-items: center; gap: clamp(32px, 6vw, 110px);
+  padding: clamp(56px, 7vw, 110px) clamp(28px, 8vw, 150px); border-radius: 32px; color: #fff;
+  background: radial-gradient(70% 140% at 12% 50%, #1d3d98 0%, #0a1e57 60%, #071641 100%);
+}
+.apx .ap-end-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.apx .ap-end-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(70% 140% at 12% 50%, rgba(29, 61, 152, .55) 0%, rgba(10, 30, 87, .62) 60%, rgba(7, 22, 65, .78) 100%);
+}
+
+/* the object: the phone stands a little back, the ring leans on its foot */
+.apx .ap-end-obj { position: relative; width: clamp(190px, 17vw, 250px); }
+.apx .ap-end-phone {
+  position: relative; width: 100%; aspect-ratio: 9 / 19.2; padding: 8px; box-sizing: border-box; border-radius: 36px;
+  background: #151a2b; transform: rotate(-4deg);
+  box-shadow: 0 50px 70px -30px rgba(0, 0, 0, .6), inset 0 0 0 1px rgba(255, 255, 255, .1), 0 0 0 1px rgba(255, 255, 255, .04);
+  transition: transform 1.1s var(--ap-ease);
+}
+.apx .ap-end-phone .ap-scr { font-size: 10px; }
+.apx .ap-end-ring {
+  position: absolute; right: -38%; bottom: -12%; width: 76%; height: auto; transform: rotate(-14deg);
+  filter: drop-shadow(0 28px 26px rgba(0, 0, 0, .45));
+  animation: ap-end-float 7s ease-in-out infinite;
+}
+@keyframes ap-end-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.apx .ap-end-card:hover .ap-end-phone { transform: rotate(-2deg) translateY(-6px); }
+
+/* the offer, on nad's ladder */
+.apx .ap-end-copy { position: relative; }
+.apx .ap-end-copy p { margin: 0; }
+.apx .ap-end .ap-end-h, .apx .ap-end-h { font-size: clamp(38px, 4.4vw, 66px); }
+.apx .ap-end-lede { margin-top: 18px !important; max-width: 34ch; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
+.apx .ap-end-price { margin-top: 26px !important; font-size: 19px; font-weight: 600; }
+.apx .ap-end-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.apx .ap-end-cta .ap-pill { min-width: 140px; }
+.apx .ap-end-note { margin-top: 16px !important; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
+.apx .ap-end-fine { margin-top: 8px !important; color: rgba(255, 255, 255, .6); }
+
+@media (max-width: 1024px) {
+  .apx .ap-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+  .apx .ap-end-lede { margin-inline: auto; }
+  .apx .ap-end-cta { justify-content: center; }
+  .apx .ap-end-obj { margin-right: 60px; }
+}
+@media (max-width: 560px) {
+  .apx .ap-end-card { padding: 56px 22px 48px; border-radius: 24px; }
+  .apx .ap-end-obj { width: 170px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .apx .ap-end-film { display: none; }
+  .apx .ap-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
+  .apx .ap-end-ring { animation: none; }
+}
 
 /* ---------------------------------------------------------------------------
    11 · INSIDE THE APP · DELETED 2026-09-16, by request. A slate panel closed
@@ -323,5 +499,6 @@
 @media (prefers-reduced-motion: reduce) {
   .apx-js .apx .ap-up { opacity: 1; transform: none; transition: none; }
   .apx-js .apx .ap-hero-card, .apx-js .apx .ap-hero-top > * { animation: none; }
-  .apx .ap-ticker ul, .apx .ap-b-ping::before, .apx .ap-b-ping::after { animation: none; }
+  .apx .ap-b-ping::before, .apx .ap-b-ping::after { animation: none; }
+  .apx-js .apx .ap-b-trend path { stroke-dashoffset: 0; transition: none; }
 }

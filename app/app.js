@@ -79,26 +79,6 @@
     request();
   })();
 
-  /* ---- 4 · chips change the photograph ------------------------------------ */
-  (function chips() {
-    var sec = $('[data-ap-evolve]');
-    if (!sec) return;
-    var buttons = $$('.ap-chip', sec);
-    var shots = $$('.ap-evolve-img img', sec);
-    function pick(id) {
-      buttons.forEach(function (b) {
-        var on = b.getAttribute('data-shot') === id;
-        b.classList.toggle('on', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      shots.forEach(function (im) { im.classList.toggle('on', im.getAttribute('data-shot') === id); });
-    }
-    buttons.forEach(function (b) {
-      b.addEventListener('click', function () { pick(b.getAttribute('data-shot')); });
-      b.addEventListener('mouseenter', function () { pick(b.getAttribute('data-shot')); });
-    });
-  })();
-
   /* ---- 8 · the privacy photograph drifts ---------------------------------- */
   (function drift() {
     var img = $('.ap-privacy-img');
