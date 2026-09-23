@@ -91,4 +91,24 @@
     request();
   })();
 
+  /* ---- 9 · the closing card's phone plays where alpha video works --------
+     VP9 with alpha plays in Chrome, Edge and Firefox. Safari decodes the
+     WebM but drops the alpha and paints a black box, so it keeps the still,
+     as does anyone who asked for less motion. */
+  (function endPhone() {
+    var box = $('[data-ap-end]');
+    if (!box || calm.matches) return;
+    var v = $('video', box);
+    var apple = /Apple/.test(navigator.vendor || '');
+    if (!v || apple || !v.canPlayType('video/webm; codecs="vp9"')) return;
+    v.addEventListener('playing', function () { box.classList.add('is-playing'); });
+    if (!('IntersectionObserver' in window)) { v.play().catch(function () {}); return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) v.play().catch(function () {});
+        else v.pause();
+      });
+    }, { threshold: 0.2 }).observe(box);
+  })();
+
 })();
