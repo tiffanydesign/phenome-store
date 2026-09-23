@@ -1,0 +1,62 @@
+/* ============================================================================
+   testing/compare · page sheet, scoped to `.tcmp` on <body>
+
+   Loaded AFTER devices/ring/compare-materials/compare.css, which draws the
+   heads, the sticky name bar, the Sonos shaped rows, the "same in all" grid
+   and the closing frame. This sheet only carries what the test page does
+   differently: the column head's six parts (picker, kit shot, category,
+   name, price, Buy; no finish discs) and the report section lists. Type is
+   on the Band ladder, nothing under 15px.
+   ========================================================================= */
+
+/* ---- 1 · the column head ---------------------------------------------------
+   Six parts in one order: picker, photograph, category, name, price, Buy. */
+@supports (grid-template-rows: subgrid) {
+  .tcmp .cmp-heads { grid-template-rows: repeat(6, auto); }
+}
+.tcmp .cmp-fig { aspect-ratio: 16 / 11; }
+.tcmp .cmp-fig img { object-position: center; padding: 4% 12% 2%; box-sizing: border-box; }
+.tcmp-cat {
+  margin: 0 0 6px;
+  font-size: 16px; line-height: 22px;
+  color: var(--cmp-accent);
+}
+.tcmp .cmp-name { font-size: clamp(21px, 1.8vw, 26px); }
+
+.tcmp .cmp-barc img { width: 44px; height: 36px; }
+
+/* ---- 2 · inside the report ------------------------------------------------
+   Every section each test's report carries, one list per column. Lists are
+   not line aligned: the counts differ (7 to 16) and that difference is the
+   point, so each list runs its own length. */
+.tcmp-lists { align-items: start; }
+.tcmp-list {
+  margin: 0; padding: 0 clamp(0px, 1.6vw, 24px);
+  list-style: none;
+  counter-reset: sec;
+  display: grid; gap: 12px;
+}
+.tcmp-list li {
+  counter-increment: sec;
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 8px;
+  font-size: 17px; line-height: 1.4;
+  color: var(--cmp-ink);
+}
+.tcmp-list li::before {
+  content: counter(sec, decimal-leading-zero);
+  font-size: 15px; line-height: 1.6; font-weight: 600;
+  color: var(--phenome-blue-300, #7185bd);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 3 · same in all six: three to a row, so six is two full rows ------- */
+.tcmp .tcmp-same-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* ---- 4 · narrower screens ------------------------------------------------- */
+@media (max-width: 1180px) {
+  .tcmp .tcmp-same-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .tcmp .tcmp-same-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
