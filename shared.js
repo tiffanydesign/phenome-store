@@ -2173,6 +2173,7 @@
   pinned();
   timelines();
   faq();
+  reviews();
   cartKit();
 
   /* Questions · one card open at a time, and a close that collapses.
@@ -2228,6 +2229,150 @@
       body.addEventListener('transitionend', end);
       setTimeout(end, 600);                 /* if the transition never fires */
     }
+  }
+
+  /* Reviews · topics, search, sort, helpful votes and the pager.
+
+     Lifted from supplements/nad's reviews() when every product page took its
+     reviews section (shared.css § Reviews). The filters and the sort decide
+     WHICH reviews and in what order, then the pager shows PER of them at a
+     time. Changing a filter or the sort goes back to page one; turning a page
+     keeps both. Votes are remembered per page, in this browser only. */
+  function reviews() {
+    var list = document.querySelector('[data-rv-list]');
+    if (!list) return;
+    var sec = list.closest('.rv-sec') || document;
+    function $(s, r) { return (r || sec).querySelector(s); }
+    function $$(s, r) { return [].slice.call((r || sec).querySelectorAll(s)); }
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var dist = $('.rv-dist');
+    if (dist) {
+      if (!('IntersectionObserver' in window)) dist.classList.add('is-in');
+      else {
+        var io = new IntersectionObserver(function (es) {
+          if (!es[0].isIntersecting) return;
+          dist.classList.add('is-in');
+          io.disconnect();
+        }, { rootMargin: '0px 0px -10% 0px' });
+        io.observe(dist);
+      }
+    }
+
+    var cards = $$('.rv', list);
+    var empty = $('[data-rv-empty]', list);
+    var search = $('[data-rv-search]');
+    var sort = $('[data-rv-sort]');
+    var topicBtns = $$('[data-topic]');
+    var topic = '';
+    var VOTES = 'phenome.votes.v1:' + location.pathname;
+    var voted = {};
+    try { voted = JSON.parse(localStorage.getItem(VOTES) || '{}') || {}; } catch (e) { voted = {}; }
+    topicBtns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+
+    var PER = 3;
+    var pager = $('[data-rv-pager]');
+    var page = 0;
+
+    function helpful(c) { return +c.getAttribute('data-helpful') + (voted[cards.indexOf(c)] ? 1 : 0); }
+    function apply() {
+      var q = (search && search.value || '').trim().toLowerCase();
+      var mode = sort ? sort.value : 'helpful';
+      var match = cards.filter(function (c) {
+        var okT = !topic || (' ' + c.getAttribute('data-topics') + ' ').indexOf(' ' + topic + ' ') > -1;
+        var okQ = !q || c.textContent.toLowerCase().indexOf(q) > -1;
+        return okT && okQ;
+      });
+      var order = match.slice().sort(function (a, b) {
+        if (mode === 'new') return a.getAttribute('data-date') < b.getAttribute('data-date') ? 1 : -1;
+        if (mode === 'rating') return (+b.getAttribute('data-rating') - +a.getAttribute('data-rating')) || (helpful(b) - helpful(a));
+        return helpful(b) - helpful(a);
+      });
+      var pages = Math.max(1, Math.ceil(order.length / PER));
+      page = Math.min(page, pages - 1);
+      var from = page * PER;
+      cards.forEach(function (c) { c.hidden = true; });
+      order.forEach(function (c, k) {
+        list.insertBefore(c, empty);
+        if (k < from || k >= from + PER) return;
+        c.hidden = false;
+        /* Replay the entry animation on what just came in. */
+        c.style.animation = 'none'; void c.offsetWidth; c.style.animation = '';
+      });
+      if (empty) empty.hidden = order.length > 0;
+      paintPager(pages);
+    }
+    function refilter() { page = 0; apply(); }
+
+    function pagerBtn(label, text, to, cls) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = cls;
+      b.setAttribute('aria-label', label);
+      b.setAttribute('data-to', to);
+      b.innerHTML = text;
+      return b;
+    }
+    function paintPager(pages) {
+      if (!pager) return;
+      pager.hidden = pages < 2;
+      pager.textContent = '';
+      if (pages < 2) return;
+      var prev = pagerBtn('Previous page', '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg>', page - 1, 'rv-pg rv-pg-step');
+      var next = pagerBtn('Next page', '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg>', page + 1, 'rv-pg rv-pg-step');
+      prev.disabled = page === 0;
+      next.disabled = page === pages - 1;
+      pager.appendChild(prev);
+      for (var i = 0; i < pages; i++) {
+        var n = pagerBtn('Page ' + (i + 1), String(i + 1), i, 'rv-pg');
+        if (i === page) n.setAttribute('aria-current', 'page');
+        pager.appendChild(n);
+      }
+      pager.appendChild(next);
+    }
+    if (pager) {
+      pager.addEventListener('click', function (e) {
+        var b = e.target.closest('button[data-to]');
+        if (!b || b.disabled || b.getAttribute('aria-current')) return;
+        page = +b.getAttribute('data-to');
+        apply();
+        /* Keep the reader's place: bring the list's head back into view when
+           the new page would otherwise start above the screen. */
+        var top = list.getBoundingClientRect().top;
+        if (top < 80) window.scrollBy({ top: top - 120, behavior: calm ? 'auto' : 'smooth' });
+        var cur = $('[aria-current="page"]', pager);
+        if (cur) cur.focus({ preventScroll: true });
+      });
+    }
+
+    topicBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var t = b.getAttribute('data-topic');
+        topic = topic === t ? '' : t;
+        topicBtns.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-topic') === topic ? 'true' : 'false'); });
+        refilter();
+      });
+    });
+    if (search) search.addEventListener('input', refilter);
+    if (sort) sort.addEventListener('change', refilter);
+
+    cards.forEach(function (c, i) {
+      var v = $('[data-vote]', c);
+      if (!v) return;
+      var n = $('span', v);
+      var base = +c.getAttribute('data-helpful');
+      function paint() {
+        v.setAttribute('aria-pressed', voted[i] ? 'true' : 'false');
+        n.textContent = base + (voted[i] ? 1 : 0);
+      }
+      v.addEventListener('click', function () {
+        voted[i] = !voted[i];
+        try { localStorage.setItem(VOTES, JSON.stringify(voted)); } catch (e) { /* per session only */ }
+        paint();
+      });
+      paint();
+    });
+    apply();
   }
 
   /* The cart drawer rides on every page that loads this file, so 80 pages do

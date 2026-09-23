@@ -214,6 +214,7 @@
 /* nad's rating line, in the place nad puts it: under the format chip, above
    the copy, pointing at the reviews the page already carries. */
 .cgp .cg-rate { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 15px; color: var(--cg-ink); }
+.cgp .cg-stars { color: var(--cg-navy); letter-spacing: 2px; }
 .cgp .cg-rate .cg-stars { font-size: 16px; letter-spacing: 1px; }
 .cgp .cg-rate a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--cg-rule); }
 .cgp .cg-rate a:hover { color: var(--cg-navy); text-decoration-color: currentColor; }
@@ -516,86 +517,6 @@
 .cgp .cg-kit li span span { font-size: 16px; line-height: 1.35; color: var(--cg-ink-2); }
 
 /* ---------------------------------------------------------------------------
-   8 · QUESTIONS · the shared `.acc.is-faq`, with the NAD page's View all
-   ------------------------------------------------------------------------ */
-.cgp .cg-faq-more { display: flex; justify-content: center; margin-top: 22px; }
-.cgp .cg-faq-list:not(.is-all) [data-more] { display: none; }
-.cgp .cg-viewall {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 0; border: 0; background: none;
-  font: inherit; font-size: 16px; font-weight: 600; color: var(--cg-navy); cursor: pointer;
-}
-.cgp .cg-viewall-ic { position: relative; width: 20px; height: 20px; border-radius: 50%; border: 1px solid currentColor; }
-.cgp .cg-viewall-ic::after {
-  content: ""; position: absolute; left: 50%; top: 45%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
-  border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; rotate: 45deg;
-  transition: rotate .35s var(--cg-ease), top .35s;
-}
-.cgp .cg-viewall[aria-expanded="true"] .cg-viewall-ic::after { rotate: 225deg; top: 62%; }
-
-/* ---------------------------------------------------------------------------
-   9 · REVIEWS · the NAD page's list, its topics, its search and its pager.
-   No distribution bars and no dates: four reviews is what this page has.
-   ------------------------------------------------------------------------ */
-.cgp .cg-reviews { background: #fafbfd; }
-.cgp .cg-score { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
-.cgp .cg-score b { font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -.03em; color: var(--cg-navy); }
-.cgp .cg-score > span { display: grid; gap: 2px; font-size: 16px; color: var(--cg-ink); }
-.cgp .cg-stars { color: var(--cg-navy); font-size: 22px; letter-spacing: 2px; }
-.cgp .cg-rv-tools { margin-top: 48px; }
-.cgp .cg-search {
-  display: flex; align-items: center; gap: 10px; width: min(100%, 360px); height: 44px; padding: 0 14px;
-  border: 1px solid var(--ph-line, #203a8529); border-radius: 10px; background: #fff;
-}
-.cgp .cg-search:focus-within { border-color: var(--cg-accent); }
-.cgp .cg-search svg { width: 17px; height: 17px; fill: none; stroke: var(--cg-ink-2); stroke-width: 1.6; stroke-linecap: round; flex: none; }
-.cgp .cg-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--cg-ink); }
-.cgp .cg-topics-h { margin: 22px 0 0; font-size: 16px; font-weight: 600; color: var(--cg-navy); }
-.cgp .cg-rv-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--cg-rule); }
-.cgp .cg-topics { display: flex; flex-wrap: wrap; gap: 10px; }
-.cgp .cg-topics button {
-  height: 36px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--ph-line, #203a8529);
-  background: #fff; font: inherit; font-size: 16px; color: var(--cg-ink); cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s;
-}
-.cgp .cg-topics button:hover { border-color: var(--cg-accent); }
-.cgp .cg-topics button[aria-pressed="true"] { background: var(--cg-navy); border-color: var(--cg-navy); color: #fff; }
-.cgp .cg-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; color: var(--cg-ink); }
-.cgp .cg-sort select { border: 0; background: none; font: inherit; font-weight: 600; color: var(--cg-navy); cursor: pointer; padding: 6px 2px; }
-
-.cgp .cg-rv {
-  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 24px;
-  margin: 0; padding: 32px 0; border-bottom: 1px solid var(--cg-rule);
-  animation: cg-in .5s var(--cg-ease) both;
-}
-@keyframes cg-in { from { opacity: 0; translate: 0 8px; } }
-/* `display: grid` outranks the UA's [hidden] rule, so without this the topic
-   filter and the pager would hide nothing. */
-.cgp .cg-rv[hidden] { display: none; }
-.cgp .cg-rv-who { display: grid; align-content: start; gap: 3px; font-size: 16px; color: var(--cg-ink-2); }
-.cgp .cg-rv-who b { font-size: 16px; color: var(--cg-navy); }
-.cgp .cg-rv-main .cg-stars { font-size: 18px; }
-.cgp .cg-rv blockquote { margin: 10px 0 0; font-size: 17px; line-height: 1.6; color: var(--cg-ink); max-width: 72ch; }
-.cgp .cg-rv-empty { padding: 48px 0; text-align: center; color: var(--cg-ink-2); }
-
-.cgp .cg-pager { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 40px; }
-.cgp .cg-pager[hidden] { display: none; }
-.cgp .cg-pg {
-  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
-  border: 0; border-radius: 50%; background: none; cursor: pointer;
-  font: inherit; font-size: 16px; line-height: 1; font-weight: 500;
-  font-variant-numeric: tabular-nums; color: var(--cg-ink-2);
-  transition: background .25s var(--cg-ease), color .25s var(--cg-ease);
-}
-.cgp .cg-pg:hover:not(:disabled):not([aria-current]) { background: var(--cg-soft); color: var(--cg-navy); }
-.cgp .cg-pg[aria-current="page"] { background: var(--cg-navy); color: #fff; cursor: default; }
-.cgp .cg-pg:focus-visible { outline: 2px solid var(--cg-accent); outline-offset: 2px; }
-.cgp .cg-pg-step { color: var(--cg-navy); }
-.cgp .cg-pg-step:first-child { margin-right: 10px; }
-.cgp .cg-pg-step:last-child { margin-left: 10px; }
-.cgp .cg-pg-step:disabled { opacity: .28; cursor: default; }
-.cgp .cg-pg-step svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ---------------------------------------------------------------------------
    10 · RELATED TESTS (2026-09-22): the ring lab's "Read your Biomarkers"
    cards. Square photographs, the name and price set on the picture, the
    description opening on hover. Only tests of the same kind (saliva DNA) and
@@ -750,7 +671,6 @@
 @media (max-width: 1024px) {
   .cgp .cg-std-list { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
   .cgp .cg-src-grid { grid-template-columns: minmax(0, 1fr); }
-  .cgp .cg-rv { grid-template-columns: minmax(0, 1fr); }
   .cgp .cg-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 }
 @media (max-width: 760px) {

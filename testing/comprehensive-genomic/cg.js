@@ -3,8 +3,8 @@
    `.ph-bar` synchronously, so everything here enhances rather than races.
    Every part guards on its own elements and the page reads fine without it.
 
-   The gallery, the viewer, the growing card, the ring, the navy field, the
-   View all toggle and the review list are supplements/nad's, section for
+   The gallery, the viewer, the growing card, the ring, the navy field and the
+   review list are supplements/nad's, section for
    section: same geometry, same timings, this page's names and content. */
 (function () {
   'use strict';
@@ -383,119 +383,11 @@
     });
   }
 
-  /* ---- 8 · questions: View all ------------------------------------------- */
-  function faq() {
-    var list = $('[data-faq]');
-    var btn = $('[data-faq-toggle]');
-    if (!list || !btn) return;
-    var label = $('[data-label]', btn);
-    btn.addEventListener('click', function () {
-      var all = !list.classList.contains('is-all');
-      list.classList.toggle('is-all', all);
-      btn.setAttribute('aria-expanded', all ? 'true' : 'false');
-      label.textContent = all ? 'View less' : 'View all';
-    });
-  }
-
-  /* ---- 9 · reviews: topics, search, and the pager ------------------------ */
-  function reviews() {
-    var list = $('[data-rv-list]');
-    if (!list) return;
-    var cards = $$('.cg-rv', list);
-    var empty = $('[data-rv-empty]', list);
-    var search = $('[data-rv-search]');
-    var topicBtns = $$('[data-topic]');
-    var topic = '';
-
-    topicBtns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-
-    var PER = 2;
-    var pager = $('[data-rv-pager]');
-    var page = 0;
-
-    function apply() {
-      var q = (search && search.value || '').trim().toLowerCase();
-      var match = cards.filter(function (c) {
-        var okT = !topic || (' ' + c.getAttribute('data-topics') + ' ').indexOf(' ' + topic + ' ') > -1;
-        var okQ = !q || c.textContent.toLowerCase().indexOf(q) > -1;
-        return okT && okQ;
-      });
-      var pages = Math.max(1, Math.ceil(match.length / PER));
-      page = Math.min(page, pages - 1);
-      var from = page * PER;
-      cards.forEach(function (c) { c.hidden = true; });
-      match.forEach(function (c, k) {
-        if (k < from || k >= from + PER) return;
-        c.hidden = false;
-        /* Replay the entry animation on what just came in. */
-        c.style.animation = 'none'; void c.offsetWidth; c.style.animation = '';
-      });
-      if (empty) empty.hidden = match.length > 0;
-      paintPager(pages);
-    }
-    function refilter() { page = 0; apply(); }
-
-    function pagerBtn(label, text, to, cls) {
-      var b = doc.createElement('button');
-      b.type = 'button';
-      b.className = cls;
-      b.setAttribute('aria-label', label);
-      b.setAttribute('data-to', to);
-      b.innerHTML = text;
-      return b;
-    }
-    function paintPager(pages) {
-      if (!pager) return;
-      pager.hidden = pages < 2;
-      pager.textContent = '';
-      if (pages < 2) return;
-      var prev = pagerBtn('Previous page', '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8l4.5 4.5"/></svg>', page - 1, 'cg-pg cg-pg-step');
-      var next = pagerBtn('Next page', '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg>', page + 1, 'cg-pg cg-pg-step');
-      prev.disabled = page === 0;
-      next.disabled = page === pages - 1;
-      pager.appendChild(prev);
-      for (var i = 0; i < pages; i++) {
-        var n = pagerBtn('Page ' + (i + 1), String(i + 1), i, 'cg-pg');
-        if (i === page) n.setAttribute('aria-current', 'page');
-        pager.appendChild(n);
-      }
-      pager.appendChild(next);
-    }
-    if (pager) {
-      pager.addEventListener('click', function (e) {
-        var b = e.target.closest('button[data-to]');
-        if (!b || b.disabled || b.getAttribute('aria-current')) return;
-        page = +b.getAttribute('data-to');
-        apply();
-        /* Keep the reader's place: bring the list's head back into view when
-           the new page would otherwise start above the screen. */
-        var top = list.getBoundingClientRect().top;
-        if (top < 80) window.scrollBy({ top: top - 120, behavior: still.matches ? 'auto' : 'smooth' });
-        var cur = $('[aria-current="page"]', pager);
-        if (cur) cur.focus({ preventScroll: true });
-      });
-    }
-
-    topicBtns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var t = b.getAttribute('data-topic');
-        topic = topic === t ? '' : t;
-        topicBtns.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-topic') === topic ? 'true' : 'false'); });
-        refilter();
-      });
-    });
-    if (search) search.addEventListener('input', refilter);
-
-    apply();
-  }
-
   viewer(gallery());
   dock();
   drift();
   essGrow();
   ring();
   stdField();
-  faq();
-  reviews();
   request();
 })();
