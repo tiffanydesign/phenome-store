@@ -678,9 +678,7 @@
   .cgp .cg-ess-track { height: auto; }
   .cgp .cg-ess-stage { position: static; height: auto; overflow: visible; padding-inline: var(--cg-gut); }
   .cgp .cg-ess-hero { height: auto; min-height: 620px; border-radius: var(--cg-r-lg); transform: none; padding: 40px 20px 20px; }
-  /* A tall card scales ess-kit by its height, so the kit would sit under the
-     copy: show the plain navy left of the frame instead. */
-  .cgp .cg-ess-bg { scale: none; object-position: 0% 42%; }
+  .cgp .cg-ess-bg { scale: none; }
   .cgp .cg-ring { --d: 27%; --rad: 36.5%; }
   .cgp .cg-ring-list svg { width: 22px; height: 22px; }
   .cgp .cg-ring-core { inset: 25%; gap: 4px; }
