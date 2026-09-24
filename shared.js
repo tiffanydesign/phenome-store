@@ -305,6 +305,7 @@
         {
           "title": "Get help",
           "links": [
+            { "label": "FAQ", "href": "/phenome-store/help/" },
             { "label": "Contact us", "href": "/phenome-store/contact/" },
             { "label": "Track order", "href": "/phenome-store/account/orders/" },
             { "label": "Activate a kit", "href": "/phenome-store/account/activate/" },
@@ -831,7 +832,7 @@
       '<a href="/phenome-store/devices/ring/how-it-works/">How the Ring works</a>' +
       '<a href="/phenome-store/hub/search/">Search the Hub</a></div>' +
       '<div class="col"><div class="col-t">Support</div>' +
-      '<a href="/phenome-store/contact/">Help centre</a>' +
+      '<a href="/phenome-store/help/">FAQ</a>' +
       '<a href="/phenome-store/account/">Your account</a>' +
       '<a href="/phenome-store/account/orders/">Track an order</a>' +
       '<a href="/phenome-store/account/activate/">Activate a kit</a>' +
@@ -1612,6 +1613,8 @@
       keys: 'jobs hiring roles work with us' },
     { label: 'Press', href: '/phenome-store/press/', section: 'Company',
       keys: 'media news coverage' },
+    { label: 'FAQ', href: '/phenome-store/help/', section: 'Support',
+      keys: 'faq questions answers help centre center kit activate results refund shipping' },
     { label: 'Contact us', href: '/phenome-store/contact/', section: 'Support',
       keys: 'help support email phone customer service' },
     { label: 'Privacy and data', href: '/phenome-store/legal/privacy.html', section: 'Support',

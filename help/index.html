@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>FAQ</title>
+<meta content="Search our guides, or browse by topic. Answers on tests, supplements, devices, the app, orders and partnerships." name="description"/>
+<link rel="preconnect" href="https://use.typekit.net"/>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin/>
+<link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
+<link href="/phenome-store/shared.css" rel="stylesheet"/>
+<link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<!-- The page's own sheet, scoped to `.hc` on <body>. The copy and the order of
+     the help centre are the company's; the ladder is the Band's (two tone
+     display for every statement, 17px body, 18px questions, 15px floor), and
+     the question cards are the site's one Questions component. -->
+<link href="/phenome-store/help/help.css" rel="stylesheet"/>
+</head>
+<body class="hc">
+<div data-ph-nav=""></div>
+
+<main>
+<!-- One <div>, not <section>s straight under <main>: shared.js reveal() moves
+     `main > section` children, and every view here is drawn by help.js after
+     that has run. The views are hash routes, so a topic is a link:
+       #/tests            a topic
+       #/tests/carrier-screening   a guide inside it -->
+<div class="hc-app" data-hc="">
+
+  <!-- ====================================================================
+       HERO · the greeting and the one field that answers most visits
+       ================================================================= -->
+  <section class="hc-hero" data-hc-hero="">
+    <div class="hc-wrap">
+      <nav class="hc-crumb" aria-label="Breadcrumb" data-hc-crumb=""><a href="/phenome-store/contact/">Support</a><span aria-hidden="true">›</span><a href="#/">FAQ</a></nav>
+      <h1 class="ph-display is-ink hc-h1" data-hc-title=""><span>How can we help?</span></h1>
+      <form class="hc-search" role="search" data-hc-search="" autocomplete="off">
+        <svg class="hc-search-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+        <label class="hc-vh" for="hcQ">Search for answers</label>
+        <input id="hcQ" name="q" type="search" placeholder="Search for answers" data-hc-q=""/>
+        <button class="hc-search-x" type="button" aria-label="Clear the search" data-hc-clear="" hidden=""><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 4 8 8M12 4l-8 8"/></svg></button>
+      </form>
+      <p class="hc-sub" data-hc-sub="" hidden=""></p>
+    </div>
+  </section>
+
+  <!-- Search results, when there is a query. They take the place of whatever
+       view is showing, and clearing the field brings it back. -->
+  <section class="hc-results" data-hc-results="" hidden="">
+    <div class="hc-wrap" data-hc-results-in=""></div>
+  </section>
+
+  <!-- The view: home, a topic, or a guide. Drawn by help.js. -->
+  <div class="hc-view" data-hc-view=""></div>
+
+  <!-- ====================================================================
+       STILL NEED HELP · on every view
+       ================================================================= -->
+  <section class="hc-more">
+    <div class="hc-wrap">
+      <!-- supplements/nad's closing card (`.nd-end`), without the product
+           shot: the aurora film under the card's own radial navy, laid over it
+           as a translucent scrim, and one centred column of copy. -->
+      <div class="hc-more-card">
+        <video class="hc-more-film" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline preload="metadata" poster="/phenome-store/assets/video/hero-aurora.webp"><source src="/phenome-store/assets/video/hero-aurora.webm" type="video/webm"/><source src="/phenome-store/assets/video/hero-aurora.mp4" type="video/mp4"/></video>
+        <div class="hc-more-copy">
+          <h2 class="ph-display hc-more-h"><span class="ph-display-lead">Still need help?</span><span>Our team answers within one working day.</span></h2>
+          <a class="hc-btn is-light hc-more-cta" href="/phenome-store/contact/">Contact us</a>
+          <p class="hc-more-note"><a href="mailto:hello@phenomelongevity.com">hello@phenomelongevity.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<div data-ph-footer=""></div>
+<script src="/phenome-store/shared.js"></script>
+<script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/help/help-data.js"></script>
+<script src="/phenome-store/help/help.js"></script>
+<a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
+</body>
+</html>

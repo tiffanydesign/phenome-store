@@ -1,0 +1,425 @@
+/* ============================================================================
+   help · the FAQ page sheet, scoped to body.hc
+
+   Direction A, 2026-09-24: laid out the way support.apple.com is. One centred
+   column. A greeting and a search field, then the seven topics as a row of
+   icons, the popular questions, and the product guides as a shelf of real
+   product shots. A topic keeps the same column and pins the seven topics
+   under the bar as a compact row, so moving sideways is one click.
+
+   Register: a health and genomics brand's help desk. People arrive with one
+   question, so the page is quiet (one accent, the brand navy, used only for
+   the open topic and the buttons), polished (hairlines, 16 to 24 radius, no
+   texture) and standard density (48 to 112 between sections).
+
+   TYPE SCALE, its own, not the Band ladder:
+     hero display   clamp(44, 5.4vw, 80)  700  -0.035em  lead line .62em
+     topic display  clamp(36, 4.2vw, 60)
+     section        clamp(32, 3.4vw, 52)  two tone, as every statement
+     group          24 / 600
+     question       18 / 600          answer   17 / 1.6
+     label          17 / 600          small    15 (counts, chips, crumbs)
+   Every statement is still two tone: the held back first line in blue 200,
+   then the line it arrives at in ink.
+   ========================================================================= */
+
+.hc {
+  --hc-ink:    #10214b;
+  --hc-body:   #4a5578;
+  --hc-quiet:  #636b8a;   /* 5.3:1 on white; ink 400 is 3.2:1, too light for 15px */
+  --hc-lead:   #a9b5d9;
+  --hc-blue:   #203a85;
+  --hc-navy:   #0a1e57;
+  --hc-panel:  #f4f6fb;
+  --hc-stage:  #e6e9f2;   /* the ground the product shots were cut onto */
+  --hc-line:   rgba(16, 33, 75, .10);
+  --hc-ease:   cubic-bezier(.16, 1, .3, 1);
+  --hc-gut:    clamp(20px, 4vw, 56px);
+  background: #fff;
+}
+
+.hc-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: var(--hc-gut);
+  box-sizing: border-box;
+}
+.hc-vh {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   1 · HERO
+   ------------------------------------------------------------------------ */
+.hc-hero {
+  padding: 40px 0 56px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--hc-panel) 0%, #fff 100%);
+}
+/* Top left, above the centred greeting, where a breadcrumb is read first. */
+.hc-crumb {
+  display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center;
+  gap: 6px 10px;
+  margin: 0 0 40px;
+  font-size: 15px; line-height: 22px;
+  color: var(--hc-quiet);
+}
+.hc-crumb a { color: var(--hc-quiet); text-decoration: none; transition: color .2s; }
+.hc-crumb a:hover { color: var(--hc-blue); }
+.hc-crumb [aria-current] { color: var(--hc-ink); font-weight: 600; }
+
+.hc .hc-h1 {
+  font-size: clamp(44px, 5.4vw, 80px);
+  max-width: 18ch;
+  margin: 0 auto;
+}
+.hc-app.is-topic .hc-hero { padding: 32px 0 40px; }
+.hc-app.is-topic .hc-crumb { margin-bottom: 24px; }
+.hc-app.is-topic .hc-h1 { font-size: clamp(36px, 4.2vw, 60px); max-width: 22ch; }
+
+.hc-search {
+  position: relative;
+  display: flex; align-items: center;
+  width: min(100%, 640px);
+  height: 60px;
+  margin: 40px auto 0;
+  padding: 0 8px 0 56px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .16);
+  transition: box-shadow .25s var(--hc-ease);
+}
+.hc-search:hover { box-shadow: inset 0 0 0 1px rgba(16, 33, 75, .30); }
+.hc-search:focus-within { box-shadow: inset 0 0 0 2px var(--hc-blue), 0 0 0 4px rgba(32, 58, 133, .12); }
+.hc-app.is-topic .hc-search { margin-top: 28px; height: 56px; }
+.hc-search-ic {
+  position: absolute; left: 20px; top: 50%;
+  width: 22px; height: 22px; margin-top: -11px;
+  fill: none; stroke: var(--hc-body); stroke-width: 1.7; stroke-linecap: round;
+}
+.hc-search input {
+  flex: 1; min-width: 0; height: 100%;
+  border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 18px; color: var(--hc-ink);
+  -webkit-appearance: none; appearance: none;
+}
+.hc-search input::placeholder { color: var(--hc-quiet); opacity: 1; }
+.hc-search input::-webkit-search-cancel-button { display: none; }
+.hc-search-x {
+  flex: none;
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border: 0; border-radius: 12px;
+  background: transparent; color: var(--hc-body);
+  cursor: pointer;
+  transition: background .2s;
+}
+.hc-search-x:hover { background: var(--hc-panel); }
+.hc-search-x svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.hc-search-x[hidden] { display: none; }
+
+.hc-sub {
+  max-width: 560px;
+  margin: 18px auto 0;
+  font-size: 17px; line-height: 1.55;
+  color: var(--hc-body);
+}
+
+/* ---------------------------------------------------------------------------
+   2 · SECTIONS AND THEIR HEADINGS
+   ------------------------------------------------------------------------ */
+.hc-sec { padding: 0 0 clamp(72px, 8vw, 112px); }
+.hc-sec .hc-h2.is-left { text-align: left; }
+.hc .hc-h2 { font-size: clamp(32px, 3.4vw, 52px); }
+
+/* ---------------------------------------------------------------------------
+   3 · BROWSE BY TOPIC · seven light cards of one kind
+   Four columns; Tests, the largest topic, spans two, so seven cards fill two
+   rows of four with nothing left alone on a third row. Every card has the
+   same parts in the same order: icon, topic name held back, its title, one
+   line of description, the count and an arrow at the foot.
+   ------------------------------------------------------------------------ */
+.hc-browse { padding-top: 16px; }
+.hc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+.hc-tile.is-wide { grid-column: span 2; }
+.hc-tile,
+.hc-guide {
+  display: flex; flex-direction: column;
+  min-height: 280px; box-sizing: border-box;
+  padding: 28px;
+  border-radius: 24px;
+  background: var(--hc-panel);
+  color: var(--hc-ink);
+  text-decoration: none;
+  transition: background .3s var(--hc-ease);
+}
+.hc-tile:hover,
+.hc-guide:hover { background: #ebeef6; }
+.hc-tile:hover .hc-go,
+.hc-guide:hover .hc-go { background: var(--hc-navy); color: #fff; transform: translateX(3px); }
+.hc-tile:focus-visible, .hc-guide:focus-visible { outline: 2px solid var(--hc-blue); outline-offset: 3px; }
+.hc-tile:hover .hc-tile-ic { background: var(--hc-navy); color: #fff; }
+
+.hc-tile-ic {
+  display: grid; place-items: center;
+  width: 56px; height: 56px;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  background: #fff; color: var(--hc-blue);
+  transition: background .3s var(--hc-ease), color .3s var(--hc-ease);
+}
+.hc-gl { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* The tile's own two tone pair: topic name held back, its title in ink. */
+.hc-tile-k { font-size: 15px; line-height: 1.3; font-weight: 600; color: #7d8bb8; }
+.hc-tile-t { margin-top: 4px; font-size: 24px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+.hc-tile.is-wide .hc-tile-t { font-size: clamp(24px, 2.4vw, 32px); }
+.hc-tile-d { margin-top: 10px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--hc-body); }
+.hc-tile-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: auto; padding-top: 24px;
+  font-size: 15px; line-height: 20px; color: var(--hc-quiet);
+}
+
+/* ---------------------------------------------------------------------------
+   4 · POPULAR RIGHT NOW · one centred column
+   ------------------------------------------------------------------------ */
+.hc-pop-col { max-width: 800px; margin: 0 auto; }
+.hc-pop .hc-h2 { margin-bottom: 40px; }
+
+/* A heading that is one sentence on one line: both halves inline at one size,
+   the held back word first. Colour alone carries the two tones. */
+.hc .ph-display.is-line > span { display: inline; }
+.hc .ph-display.is-line .ph-display-lead { font-size: 1em; line-height: inherit; }
+.hc .ph-display.is-line { line-height: 1.05; }
+
+/* ---------------------------------------------------------------------------
+   5 · THE QUESTION CARDS
+   The kit component (shared.css § Questions), let out of its 760px column.
+   ------------------------------------------------------------------------ */
+.hc .acc.is-faq.hc-acc { max-width: none; margin: 0; gap: 8px; }
+.hc .acc.is-faq .acc-item { border-radius: 16px; background: var(--hc-panel); }
+.hc .acc.is-faq .acc-item:hover { background: #ebeef6; }
+.hc .acc.is-faq .acc-item summary { padding: 20px 24px; }
+.hc .acc.is-faq .acc-item summary:focus-visible { outline: 2px solid var(--hc-blue); outline-offset: -2px; border-radius: 16px; }
+.hc-q { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.hc-q-crumb { font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: 0; color: var(--hc-quiet); }
+.hc-q-crumb i { font-style: normal; margin: 0 6px; }
+.hc-q-t { font-size: 18px; line-height: 1.4; }
+.hc .acc.is-faq .acc-body p { padding: 0 24px; margin: 0 0 12px; max-width: 66ch; font-size: 17px; line-height: 1.6; color: var(--hc-body); }
+.hc .acc.is-faq .acc-body > div > :last-child { margin-bottom: 0; padding-bottom: 24px; }
+.hc .acc.is-faq .acc-body ul { margin: 0 0 12px; padding: 0 24px 0 46px; max-width: 66ch; font-size: 17px; line-height: 1.6; color: var(--hc-body); }
+.hc .acc.is-faq .acc-body li { padding-left: 4px; }
+.hc .acc.is-faq .acc-body li::marker { color: var(--hc-blue); }
+.hc .acc.is-faq .acc-body a { color: var(--hc-blue); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.hc mark { background: rgba(169, 181, 217, .5); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+/* ---------------------------------------------------------------------------
+   6 · A TOPIC OR A GUIDE · side list left, groups right
+   ------------------------------------------------------------------------ */
+.hc-layout {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+  padding-top: 24px;
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+.hc-side { position: sticky; top: calc(var(--ph-nav-h, 44px) + 28px); }
+.hc-side-box > summary {
+  display: flex; align-items: center; justify-content: space-between;
+  list-style: none;
+  margin-bottom: 12px;
+  font-size: 15px; line-height: 22px; font-weight: 600; color: var(--hc-quiet);
+  cursor: default; pointer-events: none;
+}
+.hc-side-box > summary::-webkit-details-marker { display: none; }
+.hc-side-box > summary i { display: none; }
+.hc-side-list, .hc-side-sub { margin: 0; padding: 0; list-style: none; }
+.hc-side-list > li > a {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 44px; padding: 10px 14px; box-sizing: border-box;
+  border-radius: 14px;
+  font-size: 17px; line-height: 1.3; font-weight: 600;
+  color: var(--hc-body); text-decoration: none;
+  transition: background .25s var(--hc-ease), color .25s;
+}
+.hc-side-list > li > a:hover { background: var(--hc-panel); color: var(--hc-ink); }
+.hc-side-list > li.is-on > a { background: var(--hc-navy); color: #fff; }
+.hc-side-ic { display: grid; place-items: center; width: 24px; height: 24px; flex: none; }
+.hc-side-ic .hc-gl { width: 20px; height: 20px; }
+.hc-side-sub { margin: 8px 0 12px 26px; border-left: 1px solid var(--hc-line); }
+.hc-side-sub a {
+  display: block;
+  padding: 7px 0 7px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 15px; line-height: 21px;
+  color: var(--hc-body); text-decoration: none;
+  transition: color .2s, border-color .2s;
+}
+.hc-side-sub a:hover { color: var(--hc-ink); }
+.hc-side-sub a[aria-current] { color: var(--hc-ink); font-weight: 600; border-left-color: var(--hc-blue); }
+
+.hc-meta { margin: 0 0 8px; font-size: 15px; line-height: 22px; color: var(--hc-quiet); }
+.hc-group { padding-top: 48px; }
+.hc-group:first-of-type { padding-top: 8px; }
+.hc-group-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.hc-gh { margin: 0; font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -0.015em; color: var(--hc-ink); }
+.hc-gn {
+  display: inline-grid; place-items: center;
+  min-width: 30px; height: 26px; padding: 0 8px; box-sizing: border-box;
+  border-radius: 99px;
+  background: var(--hc-stage); color: var(--hc-blue);
+  font-size: 15px; line-height: 1; font-weight: 600;
+}
+
+.hc-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.hc-guide { min-height: 200px; }
+.hc-guide-t { font-size: 22px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; }
+.hc-guide-d { margin-top: 10px; font-size: 17px; line-height: 1.55; color: var(--hc-body); }
+
+.hc-next {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center; gap: 16px;
+  margin-top: 64px;
+  padding: 24px 24px 24px 28px;
+  border-radius: 20px;
+  background: var(--hc-panel);
+  color: var(--hc-ink); text-decoration: none;
+  transition: background .3s var(--hc-ease);
+}
+.hc-next:hover { background: #ebeef6; }
+.hc-next-tx { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.hc-next-k { font-size: 15px; line-height: 20px; color: var(--hc-quiet); }
+.hc-next-t { font-size: 22px; line-height: 1.25; font-weight: 600; }
+.hc-go {
+  display: grid; place-items: center; flex: none;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #fff; color: var(--hc-ink);
+  transition: background .3s var(--hc-ease), color .3s var(--hc-ease), transform .3s var(--hc-ease);
+}
+.hc-go svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.hc-next:hover .hc-go { background: var(--hc-navy); color: #fff; transform: translateX(3px); }
+
+/* ---------------------------------------------------------------------------
+   8 · SEARCH RESULTS
+   ------------------------------------------------------------------------ */
+.hc-results { padding: 8px 0 clamp(72px, 8vw, 112px); }
+.hc-results > .hc-wrap { max-width: 880px; }
+.hc-res-head { margin-bottom: 24px; }
+.hc-res-note, .hc-res-empty { margin: 10px 0 0; font-size: 17px; line-height: 1.6; color: var(--hc-body); }
+.hc-res-empty a:not(.hc-btn) { color: var(--hc-blue); }
+
+/* ---------------------------------------------------------------------------
+   9 · STILL NEED HELP
+   supplements/nad `.nd-end`, token for token, minus the bottle: radius 32,
+   the aurora film at the back, the card's radial navy over it as a
+   translucent scrim, so the card keeps its colour and only gains movement.
+   ------------------------------------------------------------------------ */
+.hc-more { padding: 0 0 clamp(56px, 6vw, 96px); }
+.hc-more > .hc-wrap { max-width: 1320px; }
+.hc-more-card {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; place-items: center;
+  padding: clamp(56px, 7vw, 110px) clamp(28px, 8vw, 150px);
+  border-radius: 32px;
+  color: #fff; text-align: center;
+  background: radial-gradient(70% 140% at 12% 50%, #1d3d98 0%, var(--hc-navy) 60%, #071641 100%);
+}
+.hc-more-film {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover; pointer-events: none;
+}
+.hc-more-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(70% 140% at 12% 50%, rgba(29, 61, 152, .55) 0%, rgba(10, 30, 87, .62) 60%, rgba(7, 22, 65, .78) 100%);
+}
+.hc-more-copy { display: flex; flex-direction: column; align-items: center; max-width: 900px; }
+.hc .hc-more-h { font-size: clamp(38px, 4.4vw, 66px); color: #fff; }
+.hc-more-cta { margin-top: 32px; min-width: 180px; }
+.hc-more-note { margin: 16px 0 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
+.hc-more-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.hc-more-note a:hover { color: #fff; }
+
+.hc-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 56px; padding: 0 32px; box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--hc-navy); color: #fff !important;
+  font-size: 17px; font-weight: 600; text-decoration: none;
+  transition: background .25s, transform .15s;
+}
+.hc-btn:hover { background: var(--hc-blue); }
+.hc-btn:active { transform: scale(.98); }
+.hc-btn.is-light { background: #fff; color: var(--hc-navy) !important; }
+.hc-btn.is-light:hover { background: var(--hc-stage); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-more-film { display: none; }
+  .hc-more-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
+}
+
+/* ---------------------------------------------------------------------------
+   10 · SMALLER SCREENS
+   ------------------------------------------------------------------------ */
+@media (max-width: 1100px) {
+  /* Two columns: Tests spans both, the other six pair up, 1 + 3 rows. */
+  .hc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hc-tile { min-height: 240px; }
+}
+
+@media (max-width: 1023px) {
+
+  .hc-layout { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .hc-side { position: static; }
+  .hc-side-box { border-radius: 18px; background: var(--hc-panel); }
+  .hc-side-box > summary {
+    margin: 0; padding: 16px 20px; min-height: 56px; box-sizing: border-box;
+    font-size: 17px; color: var(--hc-ink);
+    cursor: pointer; pointer-events: auto;
+  }
+  .hc-side-box > summary i {
+    display: block; width: 10px; height: 10px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform .3s var(--hc-ease);
+  }
+  .hc-side-box[open] > summary i { transform: translateY(2px) rotate(-135deg); }
+  .hc-side-list { padding: 0 10px 12px; }
+}
+
+@media (max-width: 720px) {
+  .hc-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .hc-tile.is-wide { grid-column: auto; }
+  .hc-tile { min-height: 0; }
+  .hc-guide-grid { grid-template-columns: minmax(0, 1fr); }
+  .hc-guide { min-height: 0; }
+}
+
+@media (max-width: 640px) {
+  .hc-hero { padding: 20px 0 40px; }
+  .hc-crumb { margin-bottom: 24px; }
+  .hc-search { height: 56px; margin-top: 28px; padding-left: 48px; }
+  .hc-search-ic { left: 16px; }
+  .hc-search input { font-size: 17px; }
+  .hc-tile, .hc-guide { padding: 24px; }
+  .hc .acc.is-faq .acc-item summary { padding: 16px 18px; }
+  .hc .acc.is-faq .acc-body p { padding: 0 18px; font-size: 16px; }
+  .hc .acc.is-faq .acc-body ul { padding: 0 18px 0 38px; font-size: 16px; }
+  .hc .acc.is-faq .acc-body > div > :last-child { padding-bottom: 18px; }
+  .hc-q-t { font-size: 17px; }
+  .hc-group { padding-top: 40px; }
+  .hc-gh { font-size: 22px; }
+  .hc-next-t { font-size: 19px; }
+  .hc-more-card { border-radius: 24px; }
+}

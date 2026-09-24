@@ -45,6 +45,7 @@ var ROUTES = [
   ["/devices/ring/find-your-size/", "Find your size"],
   ["/devices/ring/how-it-works/", "How it works"],
   ["/devices/ring/warranty-returns/", "Warranty and returns"],
+  ["/help/", "FAQ"],
   ["/hub/", "Longevity Hub"],
   ["/hub/gut-guide/", "The complete guide to gut health"],
   ["/hub/podcast/", "The Longevity Seat"],
