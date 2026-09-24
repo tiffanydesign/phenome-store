@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Home. Layout taken from dji.com/se's home page. Page scoped: every rule sits
+   under body.dj, so shared.css and phenome-glass.css stay untouched and a bad
+   rule here breaks one URL.
+
+   Measured off dji.com/se at 1440 x 900 (2026-09-24):
+     hero              800 tall, fade carousel, copy 64 from the top
+     product grid      16 padding, 16 gap, 689 x 576 cells, copy 48 from the top
+     film carousel     1200 x 720 slides, 16 gap, neighbours peek, 16 x 2 dashes
+     stories           40/44 title, 18/28 lede, two 592 cards
+   Ours, not the reference's:
+     hero dots         three dots bottom right; the live one is a pill that
+                       fills over the slide's time (the site's carousel rule:
+                       every carousel's dots show progress)
+     grid buttons      the site's own .atile-link capsules, filled Explore and
+                       outlined Buy, as on the tile home they replace
+   Nothing below 15px, the site's type floor.
+   ========================================================================== */
+
+.dj {
+  --dj-ink: rgba(0, 0, 0, .85);
+  --dj-ink-2: rgba(0, 0, 0, .65);
+  --dj-ink-3: rgba(0, 0, 0, .45);
+  --dj-wrap: 1200px;
+  --dj-navy: var(--phenome-blue-500, #203a85);
+  --dj-ease: cubic-bezier(.215, .61, .355, 1);
+  --dj-hero-ms: 6500ms;
+  --dj-film-ms: 7000ms;
+  background: #fff;
+}
+.dj-page { color: var(--dj-ink); overflow: clip; }
+:where(.dj-page) :where(h1, h2, h3, p) { margin: 0; }
+:where(.dj-page) :where(ul) { list-style: none; margin: 0; padding: 0; }
+.dj-wrap { width: min(var(--dj-wrap), calc(100% - 48px)); margin: 0 auto; }
+
+/* White type is the default; .is-ink turns a block to dark type on a light ground. */
+.dj-page .is-dark { --t1: #fff; --t2: rgba(255, 255, 255, .85); --t3: rgba(255, 255, 255, .62); }
+.dj-page .is-ink  { --t1: var(--dj-ink); --t2: var(--dj-ink); --t3: var(--dj-ink-3); }
+
+/* ---------- shared type ---------- */
+.dj-eyebrow { font-size: 16px; line-height: 20px; font-weight: 400; color: var(--t3); }
+.dj-title {
+  font-size: clamp(30px, 2.9vw, 42px); line-height: 1.1; font-weight: 600;
+  letter-spacing: -0.015em; color: var(--t1);
+}
+.dj-title > span { display: block; }
+.dj-title > .dj-lead { color: var(--t3); }
+.dj-sub { margin-top: 12px; font-size: 20px; line-height: 24px; font-weight: 500; color: var(--t2); }
+.dj-eyebrow + .dj-title { margin-top: 8px; }
+
+/* Outline pill, radius 64: the hero's one button. */
+.dj-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 24px; }
+.dj-btn {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 36px; padding: 0 14px 0 18px; border-radius: 64px;
+  border: 1px solid var(--t1); color: var(--t1) !important;
+  font-size: 15px; line-height: 20px; text-decoration: none !important;
+  transition: background-color .3s, color .3s, border-color .3s;
+}
+.dj-btn:hover { background: var(--t1); color: var(--dj-btn-hover-ink, #000) !important; }
+.is-ink .dj-btn:hover { --dj-btn-hover-ink: #fff; }
+.dj-btn:focus-visible { outline: 2px solid var(--t1); outline-offset: 3px; }
+
+/* Text link with a chevron: the film and story cards' link row. */
+.dj-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; margin-top: 24px; }
+.dj-link {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 17px; line-height: 24px; color: var(--t1) !important; text-decoration: none !important;
+  transition: color .3s, opacity .3s;
+}
+.dj-link::after, .dj-btn::after {
+  content: ""; width: 16px; height: 16px; flex: none; background: currentColor;
+  -webkit-mask: var(--dj-chev) center / 16px 16px no-repeat; mask: var(--dj-chev) center / 16px 16px no-repeat;
+  transition: transform .3s var(--dj-ease);
+}
+.dj-page { --dj-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6 3.5 10.5 8 6 12.5' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.dj-link:hover::after, .dj-btn:hover::after { transform: translateX(3px); }
+.is-ink .dj-link:hover { color: var(--dj-navy) !important; }
+.is-dark .dj-link:hover { opacity: .72; }
+
+/* The grid's buttons are the site's .atile-link capsules (shared.css +
+   phenome-glass.css), unchanged apart from the type floor. On a dark card the
+   outlined one takes the tile home's dark treatment; its hover needs four
+   classes to beat that, because shared.css's own hover is a three class tie. */
+.dj-ctas { position: relative; z-index: 2; display: flex; justify-content: center; gap: 14px; margin-top: 24px; }
+.dj-ctas .atile-link { font-size: 15px; line-height: 20px; }
+.dj-card.is-dark .atile-link.ghost { background: #ffffff1f; border-color: #ffffff8c; color: #fff; }
+.dj-card.is-dark .atile-link.ghost:hover { background: var(--ph-accent-hover); border-color: transparent; color: #fff; }
+.dj-ctas .atile-link:focus-visible { outline: 2px solid var(--t1); outline-offset: 3px; }
+
+/* A whole card is one link; the named links sit above it at z-index 2. */
+.dj-hit { position: absolute; inset: 0; z-index: 1; }
+.dj-hit:focus-visible { outline: 2px solid var(--dj-navy); outline-offset: -4px; }
+
+/* Section headings: the site's two tone kit, stepped down to the reference's size. */
+.dj-page .ph-display {
+  font-size: clamp(30px, 3.1vw, 44px); line-height: 1.1; font-weight: 600; letter-spacing: -0.02em;
+}
+.dj-lede {
+  max-width: 693px; margin: 24px auto 0; text-align: center;
+  font-size: 18px; line-height: 28px; color: var(--dj-ink-2);
+}
+
+/* ---------- media grounds ----------
+   .dj-fill   a photograph or film that covers its box.
+   .dj-stage  a product shot on a flat ground: the box takes the shot's own ground
+              (--g) and the shot sits at the foot, so the copy above has clear air. */
+.dj-media { position: absolute; inset: 0; overflow: hidden; background: var(--g, #000); }
+.dj-media > img, .dj-media > video { display: block; transition: transform .6s var(--dj-ease); }
+.dj-fill > img, .dj-fill > video { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+.dj-stage > img, .dj-stage > video {
+  position: absolute; left: 50%; bottom: var(--b, 0); transform: translateX(calc(var(--x, 50%) * -1));
+  height: var(--h, 70%); width: auto; max-width: none; aspect-ratio: var(--ar);
+  --m: linear-gradient(90deg, transparent, #000 var(--fade, 7%), #000 calc(100% - var(--fade, 7%)), transparent);
+  --mt: linear-gradient(180deg, transparent, #000 var(--fade-top, 10%));
+  -webkit-mask: var(--m), var(--mt); -webkit-mask-composite: source-in;
+          mask: var(--m), var(--mt); mask-composite: intersect;
+}
+.dj-scrim::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, var(--s, .5)) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+/* ==========================================================================
+   1 · HERO
+   ========================================================================== */
+.dj-hero {
+  position: relative; height: clamp(560px, calc(100svh - var(--ph-nav-h, 44px)), 800px);
+  background: #000; isolation: isolate;
+}
+.dj-slide {
+  position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  transition: opacity .8s linear, visibility 0s linear .8s;
+}
+.dj-slide.is-on { opacity: 1; visibility: visible; transition: opacity .8s linear; z-index: 1; }
+.dj-hero-copy {
+  position: relative; z-index: 2; padding: 64px 24px 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dj-hero-copy .dj-title { font-size: clamp(36px, 3.5vw, 52px); }
+.dj-hero-copy > * {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .6s linear, transform .6s var(--dj-ease);
+}
+.dj-slide.is-on .dj-hero-copy > * { opacity: 1; transform: none; }
+.dj-slide.is-on .dj-hero-copy > :nth-child(2) { transition-delay: .15s; }
+.dj-slide.is-on .dj-hero-copy > :nth-child(3) { transition-delay: .3s; }
+.dj-hero-copy .dj-sub { max-width: 640px; }
+
+/* Three dots, bottom right on the wrap's edge (clear of the fixed design system
+   launcher, which sits on the viewport's edge). The live dot opens into a pill
+   whose fill runs over the slide's time; its animationend advances the hero,
+   so the fill and the picture share one clock. */
+.dj-dots {
+  position: absolute; z-index: 3; bottom: 28px;
+  right: max(24px, calc((100% - var(--dj-wrap)) / 2));
+  display: flex; align-items: center; gap: 2px;
+  --dot: rgba(255, 255, 255, .45); --dot-fill: #fff;
+}
+.dj-hero.is-ink .dj-dots { --dot: rgba(0, 0, 0, .22); --dot-fill: rgba(0, 0, 0, .78); }
+.dj-dot {
+  display: grid; place-items: center; height: 32px; padding: 0 5px;
+  background: none; border: 0; cursor: pointer;
+}
+.dj-dot b {
+  position: relative; display: block; width: 8px; height: 8px; border-radius: 99px;
+  overflow: hidden; background: var(--dot);
+  transition: width .5s var(--dj-ease), background-color .3s;
+}
+.dj-dot:hover b { background: color-mix(in srgb, var(--dot-fill) 60%, transparent); }
+.dj-dot.is-on b { width: 36px; background: var(--dot); }
+.dj-dot i {
+  position: absolute; inset: 0; border-radius: inherit; background: var(--dot-fill);
+  transform: scaleX(0); transform-origin: 0 50%;
+}
+.dj-dot i.is-run { animation: dj-fill-x var(--dj-hero-ms) linear forwards; }
+.dj-dot:focus-visible { outline: 2px solid var(--dot-fill); outline-offset: -4px; border-radius: 99px; }
+.dj-hero.is-held .dj-dot i, .dj-films.is-held .dj-dash i { animation-play-state: paused; }
+@keyframes dj-fill-x { to { transform: scaleX(1); } }
+
+/* ==========================================================================
+   2 · PRODUCT GRID
+   ========================================================================== */
+.dj-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;
+  padding: 16px;
+}
+.dj-card { position: relative; aspect-ratio: 689 / 576; overflow: hidden; }
+.dj-card-copy {
+  position: relative; z-index: 2; padding: 48px 32px 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  pointer-events: none;
+}
+.dj-card-copy .dj-ctas { pointer-events: auto; }
+.dj-card:hover .dj-fill > img { transform: scale(1.04); }
+.dj-card:hover .dj-stage > img { transform: translateX(calc(var(--x, 50%) * -1)) scale(1.04); }
+.dj-card .dj-stage > img { transform-origin: 50% 100%; }
+
+/* ==========================================================================
+   3 · FILM CAROUSEL
+   ========================================================================== */
+.dj-films { position: relative; margin-top: 48px; overflow: hidden; }
+.dj-films-track {
+  display: flex; gap: 16px; will-change: transform;
+  transition: transform .7s var(--dj-ease);
+}
+.dj-films-track.is-snap { transition: none; }
+.dj-film {
+  position: relative; flex: none; width: min(var(--dj-wrap), calc(100vw - 64px));
+  aspect-ratio: 5 / 3; overflow: hidden; background: #000;
+}
+.dj-film-copy {
+  position: relative; z-index: 2; padding: 48px 24px 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  transition: opacity .5s linear;
+}
+.dj-film:not(.is-on) .dj-film-copy { opacity: 0; }
+.dj-film .dj-title { font-weight: 500; }
+.dj-film-nav {
+  position: absolute; z-index: 3; top: 0; bottom: 0; width: 88px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: 0; color: #fff; cursor: pointer; opacity: .9;
+  transition: opacity .3s;
+}
+.dj-film-nav:hover { opacity: 1; }
+.dj-film-nav svg { width: 12px; height: 22px; }
+.dj-film-nav.is-prev { left: calc((100% - min(var(--dj-wrap), 100vw - 64px)) / 2 + 8px); }
+.dj-film-nav.is-next { right: calc((100% - min(var(--dj-wrap), 100vw - 64px)) / 2 + 8px); }
+.dj-film-nav:focus-visible { outline: 2px solid #fff; outline-offset: -10px; }
+.dj-dashes {
+  position: absolute; z-index: 3; left: 0; right: 0; bottom: 48px;
+  display: flex; justify-content: center; gap: 4px;
+}
+.dj-dash {
+  width: 20px; height: 24px; padding: 11px 2px; background: none; border: 0; cursor: pointer;
+}
+.dj-dash b { position: relative; display: block; height: 2px; border-radius: 60px; overflow: hidden; background: rgba(255, 255, 255, .3); }
+.dj-dash i { position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: 0 50%; }
+.dj-dash.is-done i { transform: scaleX(1); }
+.dj-dash i.is-run { animation: dj-fill-x var(--dj-film-ms) linear forwards; }
+.dj-dash:focus-visible { outline: 2px solid #fff; border-radius: 4px; }
+
+/* ==========================================================================
+   4 · STORIES
+   ========================================================================== */
+.dj-stories { padding: 96px 0 64px; text-align: center; }
+.dj-stories-list {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 48px;
+}
+.dj-story { position: relative; aspect-ratio: 1; overflow: hidden; text-align: center; }
+.dj-story .dj-media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgb(246, 247, 250) 0%, rgba(246, 247, 250, .82) 26%, rgba(246, 247, 250, 0) 56%);
+}
+.dj-story-copy { position: relative; z-index: 2; padding: 48px 48px 0; display: flex; flex-direction: column; align-items: center; }
+.dj-story .dj-title { font-size: clamp(26px, 2.3vw, 32px); line-height: 1.25; max-width: 520px; }
+.dj-story .dj-links { margin-top: 16px; }
+.dj-story:hover .dj-fill > img { transform: scale(1.05); }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 767px) {
+  .dj-hero { height: clamp(560px, calc(100svh - var(--ph-nav-h, 44px)), 720px); }
+  .dj-hero-copy { padding-top: 48px; }
+  .dj-sub { font-size: 18px; line-height: 23px; }
+  .dj-dots { bottom: 16px; right: 16px; }
+  /* On a phone the product sits under the copy and clear of the dots. */
+  .dj-hero .dj-stage > * { height: auto; width: 130%; bottom: 72px; }
+  /* A wide film that covers the hero on a desktop is cropped to its middle on a
+     phone; this one shows a row of six kits, so it stands under the copy at
+     full width instead, its top and sides fading into --g. */
+  .dj-hero .dj-m-stage > video {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 160%; height: auto; aspect-ratio: 16 / 9;
+    --m: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+    --mt: linear-gradient(180deg, transparent, #000 30%);
+    -webkit-mask: var(--m), var(--mt); -webkit-mask-composite: source-in;
+            mask: var(--m), var(--mt); mask-composite: intersect;
+  }
+  .dj-grid { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+  .dj-card { aspect-ratio: 4 / 5; }
+  .dj-card-copy { padding: 40px 20px 0; }
+  .dj-film { aspect-ratio: 4 / 5; width: calc(100vw - 32px); }
+  .dj-film-nav { display: none; }
+  .dj-dashes { bottom: 24px; }
+  .dj-stories { padding: 72px 0 48px; }
+  .dj-stories-list { grid-template-columns: 1fr; }
+  .dj-story { aspect-ratio: 4 / 5; }
+  .dj-story-copy { padding: 40px 24px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dj-slide, .dj-hero-copy > *, .dj-films-track, .dj-media > img, .dj-dot b { transition: none !important; }
+  .dj-dot i.is-run, .dj-dash i.is-run { animation: none; transform: none; }
+}
