@@ -38,6 +38,10 @@
 .dj-page .is-ink  { --t1: var(--dj-ink); --t2: var(--dj-ink); --t3: var(--dj-ink-3); }
 
 /* ---------- shared type ---------- */
+/* The film links and the stories lede are set at the hero and grid subtitle's
+   size. The two story cards keep their own smaller eyebrow and link (user
+   ruling): 16/20 and 17/24. */
+.dj { --dj-small: 20px; --dj-small-lh: 26px; }
 .dj-eyebrow { font-size: 16px; line-height: 20px; font-weight: 400; color: var(--t3); }
 .dj-title {
   font-size: clamp(30px, 2.9vw, 42px); line-height: 1.1; font-weight: 600;
@@ -67,7 +71,7 @@
 .dj-link {
   position: relative; z-index: 2;
   display: inline-flex; align-items: center; gap: 2px;
-  font-size: 17px; line-height: 24px; color: var(--t1) !important; text-decoration: none !important;
+  font-size: var(--dj-small); line-height: var(--dj-small-lh); color: var(--t1) !important; text-decoration: none !important;
   transition: color .3s, opacity .3s;
 }
 .dj-link::after, .dj-btn::after {
@@ -100,7 +104,7 @@
 }
 .dj-lede {
   max-width: 693px; margin: 24px auto 0; text-align: center;
-  font-size: 18px; line-height: 28px; color: var(--dj-ink-2);
+  font-size: var(--dj-small); line-height: 30px; color: var(--dj-ink-2);
 }
 
 /* ---------- media grounds ----------
@@ -126,8 +130,12 @@
 /* ==========================================================================
    1 · HERO
    ========================================================================== */
+/* The hero runs under the bar, as on devices/ring: the page is pulled up by the
+   bar's own height (on .dj-page, not the hero, so its overflow clip cannot cut
+   the top off), and the hero grows by the same amount. */
+.dj-page { margin-top: calc(-1 * var(--ph-nav-h, 44px)); }
 .dj-hero {
-  position: relative; height: clamp(560px, calc(100svh - var(--ph-nav-h, 44px)), 800px);
+  position: relative; height: clamp(604px, 100svh, 844px);
   background: #000; isolation: isolate;
 }
 .dj-slide {
@@ -136,7 +144,7 @@
 }
 .dj-slide.is-on { opacity: 1; visibility: visible; transition: opacity .8s linear; z-index: 1; }
 .dj-hero-copy {
-  position: relative; z-index: 2; padding: 64px 24px 0; text-align: center;
+  position: relative; z-index: 2; padding: calc(64px + var(--ph-nav-h, 44px)) 24px 0; text-align: center;
   display: flex; flex-direction: column; align-items: center;
 }
 .dj-hero-copy .dj-title { font-size: clamp(36px, 3.5vw, 52px); }
@@ -179,6 +187,28 @@
 .dj-dot:focus-visible { outline: 2px solid var(--dot-fill); outline-offset: -4px; border-radius: 99px; }
 .dj-hero.is-held .dj-dot i, .dj-films.is-held .dj-dash i { animation-play-state: paused; }
 @keyframes dj-fill-x { to { transform: scaleX(1); } }
+
+/* ---- the bar over the hero takes its colour from the film behind it ----
+   The devices/ring bar, keyed to three films instead of one. home.js samples
+   the strip of picture under the bar and writes --nav-tint / --nav-ink /
+   --nav-rim; during a crossfade it mixes the two slides by their opacity, so
+   the bar changes with the picture. Past the hero the script drops the values
+   and every fallback here is the site's own white bar. No CSS transition on the
+   background: the easing is done per frame in script. */
+.dj .ph-nav {
+  background: rgba(var(--nav-tint, 255 255 255) / var(--nav-tint-alpha, .88));
+}
+.dj .ph-nav a,
+.dj .ph-links .ph-trigger,
+.dj .ph-nav-icon { color: var(--nav-ink, var(--ph-text-1)); }
+.dj .ph-nav-end .ph-item > .ph-trigger {
+  color: var(--nav-ink, var(--ph-text-1));
+  border-color: var(--nav-rim, var(--border-strong));
+}
+.dj .ph-burger span { background: var(--nav-ink, var(--ph-text-1)); }
+.dj.is-nav-dark .ph-brand img { filter: brightness(0) invert(1); }
+.dj .ph-panel { color: var(--ph-text-1); }
+.dj .ph-panel a { color: var(--ph-accent-link); }
 
 /* ==========================================================================
    2 · PRODUCT GRID
@@ -257,15 +287,18 @@
 .dj-story-copy { position: relative; z-index: 2; padding: 48px 48px 0; display: flex; flex-direction: column; align-items: center; }
 .dj-story .dj-title { font-size: clamp(26px, 2.3vw, 32px); line-height: 1.25; max-width: 520px; }
 .dj-story .dj-links { margin-top: 16px; }
+.dj-story .dj-link { font-size: 17px; line-height: 24px; }
 .dj-story:hover .dj-fill > img { transform: scale(1.05); }
 
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 767px) {
-  .dj-hero { height: clamp(560px, calc(100svh - var(--ph-nav-h, 44px)), 720px); }
-  .dj-hero-copy { padding-top: 48px; }
+  .dj-hero { height: clamp(604px, 100svh, 764px); }
+  .dj-hero-copy { padding-top: calc(48px + var(--ph-nav-h, 44px)); }
   .dj-sub { font-size: 18px; line-height: 23px; }
+  .dj { --dj-small: 18px; --dj-small-lh: 23px; }
+  .dj-lede { line-height: 27px; }
   .dj-dots { bottom: 16px; right: 16px; }
   /* On a phone the product sits under the copy and clear of the dots. */
   .dj-hero .dj-stage > * { height: auto; width: 130%; bottom: 72px; }
