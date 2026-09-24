@@ -4,7 +4,6 @@
        cornerstone photograph drifts against the scroll,
      · the guides rail: round arrows step one card, a progress line fills as
        the rail moves, the mouse can drag it,
-     · a topic figure scrolls to its guide and brings that card into the rail,
      · the hero's Search pill opens the site search panel.
    Every block guards on its own elements. */
 (function () {
@@ -128,27 +127,6 @@
         track.scrollTo({ left: i * step(), behavior: calm.matches ? 'auto' : 'smooth' });
       }
     };
-  })();
-
-  /* ---- topic figures jump to their guide ---------------------------------- */
-  (function topics() {
-    $$('.hb-figs a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var t = doc.getElementById(a.getAttribute('href').slice(1));
-        if (!t) return;
-        e.preventDefault();
-        var card = t.closest('.hb-guide');
-        var into = card || t;
-        into.scrollIntoView({ behavior: calm.matches ? 'auto' : 'smooth', block: card ? 'center' : 'start' });
-        if (card && rail) {
-          rail.show(card);
-          card.classList.remove('is-flash');
-          void card.offsetWidth;
-          card.classList.add('is-flash');
-        }
-        if (history.replaceState) history.replaceState(null, '', '#' + t.id);
-      });
-    });
   })();
 
   /* ---- the hero's Search pill opens the nav's search panel ---------------- */

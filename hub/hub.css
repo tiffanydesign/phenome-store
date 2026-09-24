@@ -126,33 +126,6 @@ html.ph-reveal body.hb main > section.ph-r > * { opacity: 1; transform: none; tr
 }
 
 /* ---------------------------------------------------------------------------
-   2 · TOPICS · Oura's centred statement over the row of figures. The figure
-   is the topic's name, the caption under it is how many reads it has here.
-   ------------------------------------------------------------------------ */
-.hb .hb-topics { padding: clamp(80px, 8vw, 128px) 0 clamp(72px, 6vw, 96px); }
-.hb .hb-figs {
-  list-style: none; margin: clamp(48px, 5.5vw, 80px) 0 0; padding: 0;
-  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 32px 20px;
-}
-.hb .hb-figs a {
-  display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
-  color: inherit; text-decoration: none;
-}
-.hb .hb-figs b {
-  font-size: clamp(26px, 2.5vw, 38px); line-height: 1.12; font-weight: 500; letter-spacing: -0.025em;
-  background: linear-gradient(currentColor, currentColor) 50% 100% / 0 1.5px no-repeat;
-  padding-bottom: 4px; transition: background-size .5s var(--hb-ease), color .25s ease;
-}
-.hb .hb-figs span { font-size: 16px; line-height: 22px; color: var(--hb-grey); }
-.hb .hb-figs a:hover b { background-size: 100% 1.5px; color: var(--ph-accent, #203a85); }
-@media (max-width: 1100px) {
-  .hb .hb-figs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@media (max-width: 620px) {
-  .hb .hb-figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-/* ---------------------------------------------------------------------------
    3 · CORNERSTONE · Oura's sensors band: the photograph runs the full width
    and a screen tall, the headline sits top left, the label, paragraph and
    pill bottom left, and the glass cards stack down the right hand column.
@@ -342,41 +315,38 @@ html.ph-reveal body.hb main > section.ph-r > * { opacity: 1; transform: none; tr
 .hb .hb-feat-copy h3 { margin: 0; max-width: 18em; font-size: clamp(26px, 2.5vw, 36px); line-height: 1.2; font-weight: 500; letter-spacing: -0.015em; }
 .hb .hb-feat-copy p { margin: 16px 0 0; max-width: 36em; font-size: 17px; line-height: 1.5; color: rgba(255, 255, 255, .82); }
 .hb .hb-pod-links { display: flex; flex-direction: column; gap: 24px; }
+/* Each link card is a photograph of somewhere people listen (a run, a ride, a
+   table), the platform name over a navy shade at the top, a white arrow at
+   the foot. */
 .hb .hb-plink {
+  position: relative; overflow: hidden; isolation: isolate;
   flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
   min-height: 150px; padding: 24px; box-sizing: border-box; border-radius: 8px;
-  background: #fff; color: var(--hb-ink) !important; text-decoration: none !important;
-  transition: background .3s ease;
+  background: var(--hb-night-2); color: #fff !important; text-decoration: none !important;
+}
+.hb .hb-plink > img {
+  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1.2s var(--hb-ease);
+}
+.hb .hb-plink::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(11, 16, 36, .66), rgba(11, 16, 36, .14) 58%, rgba(11, 16, 36, .3));
 }
 .hb .hb-plink b { font-size: clamp(22px, 1.8vw, 26px); line-height: 1.2; font-weight: 500; letter-spacing: -0.01em; }
-.hb .hb-plink .hb-arrow { align-self: flex-end; }
-.hb .hb-plink:hover { background: var(--hb-card-hi); }
+.hb .hb-plink .hb-arrow { align-self: flex-end; background: #fff; }
+.hb .hb-plink .hb-arrow::before { background: var(--hb-ink); }
+.hb .hb-plink:hover > img { transform: scale(1.05); }
 .hb .hb-plink:hover .hb-arrow { transform: rotate(45deg); background: var(--ph-accent, #203a85); }
+.hb .hb-plink:hover .hb-arrow::before { background: #fff; }
 @media (max-width: 900px) {
   .hb .hb-pod-grid { grid-template-columns: 1fr; gap: 16px; }
   .hb .hb-feat { min-height: 460px; }
   .hb .hb-pod-links { gap: 12px; }
-  .hb .hb-plink { min-height: 0; flex-direction: row; align-items: center; }
-  .hb .hb-plink .hb-arrow { align-self: center; }
+  .hb .hb-plink { min-height: 132px; flex-direction: row; align-items: flex-end; }
+  .hb .hb-plink::after { background: linear-gradient(90deg, rgba(11, 16, 36, .7), rgba(11, 16, 36, .15) 70%); }
+  .hb .hb-plink .hb-arrow { align-self: flex-end; }
   .hb .hb-chip { left: 20px; top: 20px; }
   .hb .hb-feat-copy { padding: 22px; }
-}
-
-/* ---------------------------------------------------------------------------
-   7 · CLOSE · Oura's closing call: copy in the left half, a rounded 2:1
-   photograph in the right
-   ------------------------------------------------------------------------ */
-.hb .hb-close { padding: clamp(80px, 7vw, 96px) 0 clamp(96px, 9vw, 128px); }
-.hb .hb-close-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 64px; align-items: center; }
-.hb .hb-close-copy { padding-left: clamp(0px, 4vw, 60px); }
-.hb .hb-close-copy .ph-solid { font-size: clamp(32px, 2.9vw, 42px); max-width: 12em; }
-.hb .hb-close-copy p { margin: 22px 0 30px; max-width: 28em; font-size: 18px; line-height: 1.5; color: var(--hb-grey); }
-.hb .hb-close-img { overflow: hidden; border-radius: 24px; aspect-ratio: 2 / 1; background: var(--hb-card); }
-.hb .hb-close-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; display: block; }
-@media (max-width: 900px) {
-  .hb .hb-close-grid { grid-template-columns: 1fr; gap: 40px; }
-  .hb .hb-close-copy { padding-left: 0; }
-  .hb .hb-close-img { aspect-ratio: 3 / 2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
