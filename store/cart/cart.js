@@ -471,6 +471,13 @@
     /* Add what the current page describes without opening the drawer, for an
        Add to cart control that goes straight on to checkout. */
     addHere: function (link) { var item = resolve(link || document.body); if (item) add(item); return !!item; },
+    /* Add one catalogue product by id, one time purchase at its list price,
+       for pages that recommend products they are not about (the quiz). */
+    add: function (id) {
+      var p = CAT[id];
+      if (p) add({ id: p.id, plan: 'once', variant: '', unit: p.sale || p.price, was: p.sale ? p.price : null });
+      return !!p;
+    },
     markReturn: function () {
       try { sessionStorage.setItem(RETURN, location.pathname + location.search + location.hash); } catch (err) { /* no return */ }
     },
