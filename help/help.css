@@ -143,6 +143,8 @@
    line of description, the count and an arrow at the foot.
    ------------------------------------------------------------------------ */
 .hc-browse { padding-top: 16px; }
+/* No heading over the grid: the tiles follow the search directly. */
+.hc-browse .hc-grid { margin-top: 0; }
 .hc-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -178,14 +180,14 @@
 }
 .hc-gl { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 /* The tile's own two tone pair: topic name held back, its title in ink. */
-.hc-tile-k { font-size: 15px; line-height: 1.3; font-weight: 600; color: #7d8bb8; }
+.hc-tile-k { font-size: 15px; line-height: 1.3; font-weight: 600; color: var(--hc-ink); }
 .hc-tile-t { margin-top: 4px; font-size: 24px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
 .hc-tile.is-wide .hc-tile-t { font-size: clamp(24px, 2.4vw, 32px); }
-.hc-tile-d { margin-top: 10px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--hc-body); }
+.hc-tile-d { margin-top: 10px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--hc-ink); }
 .hc-tile-foot {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   margin-top: auto; padding-top: 24px;
-  font-size: 15px; line-height: 20px; color: var(--hc-quiet);
+  font-size: 15px; line-height: 20px; color: var(--hc-ink);
 }
 
 /* ---------------------------------------------------------------------------
@@ -197,7 +199,7 @@
 /* A heading that is one sentence on one line: both halves inline at one size,
    the held back word first. Colour alone carries the two tones. */
 .hc .ph-display.is-line > span { display: inline; }
-.hc .ph-display.is-line .ph-display-lead { font-size: 1em; line-height: inherit; }
+.hc .ph-display.is-line .ph-display-lead { font-size: 1em; line-height: inherit; color: var(--hc-ink); }
 .hc .ph-display.is-line { line-height: 1.05; }
 
 /* ---------------------------------------------------------------------------

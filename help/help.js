@@ -46,9 +46,10 @@
     for (var i = 0; i < groups.length; i++) n += groups[i].qs.length;
     return n;
   }
-  function topicCount(t) {
+  /* `sep` lets a tile set the guide count on its own line. */
+  function topicCount(t, sep) {
     var s = countOf(t.groups) + ' answers';
-    if (t.guides && t.guides.length) s += ', ' + t.guides.length + ' ' + t.guideKind;
+    if (t.guides && t.guides.length) s += (sep || ', ') + t.guides.length + ' ' + t.guideKind;
     return s;
   }
 
@@ -154,7 +155,7 @@
         (t.name !== t.title ? '<span class="hc-tile-k">' + esc(t.name) + '</span>' : '') +
         '<span class="hc-tile-t">' + esc(t.title) + '</span>' +
         '<span class="hc-tile-d">' + esc(t.desc) + '</span>' +
-        '<span class="hc-tile-foot"><span>' + topicCount(t) + '</span><i class="hc-go">' + ARROW + '</i></span>' +
+        '<span class="hc-tile-foot"><span>' + topicCount(t, '<br>') + '</span><i class="hc-go">' + ARROW + '</i></span>' +
         '</a>';
     }
 
@@ -167,7 +168,6 @@
 
     view.innerHTML =
       '<section class="hc-sec hc-browse"><div class="hc-wrap">' +
-        '<h2 class="ph-display is-ink is-left is-line hc-h2"><span class="ph-display-lead">Browse</span> <span>by topic</span></h2>' +
         '<div class="hc-grid">' + tiles + '</div>' +
       '</div></section>' +
       '<section class="hc-sec hc-pop"><div class="hc-wrap"><div class="hc-pop-col">' +

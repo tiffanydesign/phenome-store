@@ -1032,7 +1032,7 @@ window.PH_HELP = (function () {
      PARTNER WITH US
      ==================================================================== */
   T.push({
-    id: 'partner', name: 'Partner with us', title: 'Partner with us',
+    id: 'partner', name: 'Partners', title: 'Partner with us',
     desc: 'For practitioners, clinics, affiliates and research collaborators.',
     glyph: 'hands',
     groups: [
