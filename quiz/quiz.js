@@ -121,7 +121,7 @@
     qEl.textContent = q.q;
     whyEl.textContent = q.why;
     backEl.hidden = step === 0;
-    hintEl.textContent = done() ? 'Change your answer, or press its number' : 'Pick one to continue, or press its number';
+    hintEl.textContent = done() ? 'Change your answer' : 'Pick one to continue';
     optsEl.setAttribute('aria-label', q.q);
     optsEl.innerHTML = '';
     q.opts.forEach(function (o, i) {

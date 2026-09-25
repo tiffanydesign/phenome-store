@@ -22,16 +22,15 @@
 
 /* ---- 1 · head -------------------------------------------------------- */
 .qz-sec { padding: clamp(40px, 5vw, 72px) 0 clamp(64px, 7vw, 112px); }
-.qz-head { max-width: 1100px; margin: 0 auto; text-align: center; }
-/* One line on purpose (user, 2026-09-25): a single line is set solid in the
-   ink, not two tone. Sized so the whole sentence fits the column at 1100+. */
-.qz .qz-title {
-  margin: 0; font-size: clamp(32px, 3.9vw, 56px); line-height: 1.08; font-weight: 700;
-  letter-spacing: -.035em; color: var(--qz-ink); text-wrap: balance;
+/* The visible headline was deleted (user, 2026-09-25); the page keeps an h1
+   for screen readers and the document outline. */
+.qz-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
 
 /* ---- 2 · stage ------------------------------------------------------- */
-.qz-stage { max-width: 880px; margin: clamp(36px, 4vw, 56px) auto 0; }
+.qz-stage { max-width: 880px; margin: 0 auto; }
 .qz-main { min-width: 0; }
 
 .qz-prog { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
