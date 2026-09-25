@@ -234,7 +234,8 @@
   /* ---- plan choice: hero radios, the price, the kit card, the bar -------- */
   var planSubs = [];
   function plans() {
-    var radios = $$('.supp-opt input[name="nad-plan"]');
+    /* any product page on this design: its own radio name, one group */
+    var radios = $$('.nd-buy .supp-opt input[type="radio"]');
     if (!radios.length) return;
     var price = $('[data-nd-price]');
     var kitBtns = $$('[data-plan]');
@@ -284,7 +285,10 @@
     thumb.className = 'ph-bar-thumb';
     thumb.alt = '';
     thumb.width = 32; thumb.height = 32;
-    thumb.src = '/phenome-store/assets/shop/supp-nad.webp';
+    /* The other supplement pages on this design name their own thumbnail and
+       pack on <body>; NAD+ carries neither and keeps its own. */
+    var pack = doc.body.getAttribute('data-dock-meta') || '30 sachets';
+    thumb.src = doc.body.getAttribute('data-dock-thumb') || '/phenome-store/assets/shop/supp-nad.webp';
     var txt = doc.createElement('span');
     txt.className = 'ph-bar-txt';
     var meta = doc.createElement('span');
@@ -294,7 +298,7 @@
     txt.appendChild(name);
     txt.appendChild(meta);
     planSubs.push(function (c) {
-      meta.textContent = c.price + ', ' + (c.value === 'subscribe' ? 'delivered monthly' : 'one time purchase') + ', 30 sachets';
+      meta.textContent = c.price + ', ' + (c.value === 'subscribe' ? 'delivered monthly' : 'one time purchase') + ', ' + pack;
     });
   }
 
