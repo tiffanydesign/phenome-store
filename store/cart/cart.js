@@ -478,6 +478,21 @@
       if (p) add({ id: p.id, plan: 'once', variant: '', unit: p.sale || p.price, was: p.sale ? p.price : null });
       return !!p;
     },
+    /* "Frequently bought together" on the supplement pages: every product in
+       the bundle as a one time purchase at `rate` off its list price, as its
+       own line (variant "Bundle"), so the drawer shows the struck price and
+       the saving. Returns how many were added. */
+    addBundle: function (ids, rate) {
+      var n = 0;
+      (ids || []).forEach(function (id) {
+        var p = CAT[id];
+        if (!p) return;
+        add({ id: p.id, plan: 'once', variant: 'Bundle, ' + Math.round(rate * 100) + '% off',
+          unit: Math.round(p.price * (1 - rate)), was: p.price });
+        n++;
+      });
+      return n;
+    },
     markReturn: function () {
       try { sessionStorage.setItem(RETURN, location.pathname + location.search + location.hash); } catch (err) { /* no return */ }
     },

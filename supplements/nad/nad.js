@@ -440,7 +440,27 @@
      data-ph-tl, which is what the shared driver looks for.
      ------------------------------------------------------------------------ */
 
+  /* ---- Frequently bought together (2026-09-25) ----------------------------
+     The button lists its products in data-bundle and the saving in
+     data-bundle-rate; cart.js adds them as discounted bundle lines and the
+     drawer opens on them. A stale cached cart.js without addBundle still adds
+     the products, at list price, rather than doing nothing. */
+  function bundles() {
+    $$('[data-bundle]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var cart = window.PhenomeCart;
+        if (!cart) return;
+        var ids = b.getAttribute('data-bundle').split(',');
+        var rate = parseFloat(b.getAttribute('data-bundle-rate')) || 0;
+        if (cart.addBundle) cart.addBundle(ids, rate);
+        else if (cart.add) ids.forEach(function (id) { cart.add(id); });
+        cart.open();
+      });
+    });
+  }
+
   viewer(gallery());
+  bundles();
   dock();
   plans();
   essentials();

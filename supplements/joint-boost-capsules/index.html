@@ -273,7 +273,8 @@
     </div>
   </div>
 </section>
-<!-- Frequently bought together, in the kit card's shape. -->
+<!-- Frequently bought together, in the kit card's shape. The button adds all
+     three to the cart at the saving shown (nad.js bundles(), cart.js addBundle). -->
 <section class="nd-sec nd-bundle">
   <div class="nd-wrap">
     <h2 class="nd-h2">Frequently bought together</h2>
@@ -282,14 +283,14 @@
       <div class="nd-kit-img"><img alt="" loading="lazy" src="/phenome-store/assets/supp/joint-boost-capsules/studio.webp"/></div>
       <div class="nd-kit-body">
         <h3>Buy all three together</h3>
-        <p class="nd-kit-sub">Save 10% when bought together, £75.57</p>
+        <p class="nd-kit-sub">Save 10% when bought together, £80.07</p>
         <ul>
-            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b>Joint Boost Capsules</b>£29.99</span></li>
-            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b>FlexiCream</b>£18.99</span></li>
-            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b>Curcumin</b>£34.99</span></li>
+            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b><a href="/phenome-store/supplements/joint-boost-capsules/">Joint Boost Capsules</a></b>£29.99</span></li>
+            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b><a href="/phenome-store/supplements/flexicream/">FlexiCream</a></b>£18.99</span></li>
+            <li><svg class="nd-kit-tick" aria-hidden="true"><use href="#ndTick"/></svg><span><b><a href="/phenome-store/supplements/bromelain-capsules/">Bromelain Capsules</a></b>£39.99</span></li>
         </ul>
-        <p class="nd-bundle-total">£83.97</p>
-        <a class="btn nd-bundle-cta" href="#">Add all to bag</a>
+        <p class="nd-bundle-total"><span class="nd-bundle-now">£80.07</span> <s>£88.97</s></p>
+        <button class="btn nd-bundle-cta" type="button" data-bundle="/supplements/joint-boost-capsules/,/supplements/flexicream/,/supplements/bromelain-capsules/" data-bundle-rate="0.1">Add all to bag</button>
       </div>
     </article>
   </div>
