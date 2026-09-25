@@ -12,12 +12,6 @@
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   1 · HERO · the eyebrow the page already had; no buttons, as on genetic
-   ------------------------------------------------------------------------ */
-.mb .dna-hero-head .dna-label { margin-bottom: 4px; }
-.dna-js .mb .dna-hero.is-in .dna-hero-head > :nth-child(3) { transition-delay: .14s; }
-
-/* ---------------------------------------------------------------------------
    1b · STANDARDS · four promises, a check disc each, on the paper
    ------------------------------------------------------------------------ */
 .mb .mb-trust { background: var(--d-paper); padding-block: clamp(36px, 4vw, 56px) 0; }
