@@ -87,17 +87,17 @@
           "href": "/phenome-store/store/#genetic-testing",
           "links": [
             { "label": "Comprehensive Genomic Test", "href": "/phenome-store/testing/comprehensive-genomic/" },
-            { "label": "Carrier Screening Test", "href": "/phenome-store/store/carrier-screening/" },
-            { "label": "Newborn Screening Test", "href": "/phenome-store/store/newborn-screening/", "note": "Sold out" },
-            { "label": "Sports Performance Test", "href": "/phenome-store/store/sports-performance/" }
+            { "label": "Carrier Screening Test", "href": "/phenome-store/testing/carrier-screening/" },
+            { "label": "Newborn Screening Test", "href": "/phenome-store/testing/newborn-screening/", "note": "Sold out" },
+            { "label": "Sports Performance Test", "href": "/phenome-store/testing/sports-performance/" }
           ]
         },
         {
           "title": "Shop microbiome testing",
           "href": "/phenome-store/store/#microbiome-testing",
           "links": [
-            { "label": "Gut Microbiome Test", "href": "/phenome-store/store/gut-microbiome/" },
-            { "label": "Oral Microbiome Test", "href": "/phenome-store/store/oral-microbiome/" }
+            { "label": "Gut Microbiome Test", "href": "/phenome-store/testing/gut-microbiome/" },
+            { "label": "Oral Microbiome Test", "href": "/phenome-store/testing/oral-microbiome/" }
           ]
         },
         {
@@ -1638,8 +1638,6 @@
     '/phenome-store/devices/ring/':
       'sleep heart rate hrv recovery readiness wearable titanium ceramic finger',
     '/phenome-store/devices/band/': 'wearable wrist steps screen sleep activity',
-    '/phenome-store/store/gut-microbiome/':
-      'bloating digestion ibs stool bacteria diversity fibre',
     '/phenome-store/testing/gut-microbiome/':
       'bloating digestion ibs stool bacteria diversity fibre',
     '/phenome-store/testing/oral-microbiome/': 'mouth saliva gums teeth breath',

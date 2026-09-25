@@ -81,7 +81,7 @@
    "name": "Gut Microbiome Test",
    "cat": "Microbiome testing",
    "price": "£180",
-   "buy": "/phenome-store/store/gut-microbiome/",
+   "buy": "/phenome-store/testing/gut-microbiome/",
    "alt": "The Gut Microbiome Test collection kit",
    "spec": {
     "sample": [
@@ -138,7 +138,7 @@
    "name": "Carrier Screening Test",
    "cat": "Genetic testing",
    "price": "£390",
-   "buy": "/phenome-store/store/carrier-screening/",
+   "buy": "/phenome-store/testing/carrier-screening/",
    "alt": "The Carrier Screening Test collection kit",
    "spec": {
     "sample": [
@@ -187,7 +187,7 @@
    "name": "Newborn Screening Test",
    "cat": "Genetic testing",
    "price": "£295",
-   "buy": "/phenome-store/store/newborn-screening/",
+   "buy": "/phenome-store/testing/newborn-screening/",
    "alt": "The Newborn Screening Test collection kit",
    "spec": {
     "sample": [
@@ -235,7 +235,7 @@
    "name": "Sports Performance Test",
    "cat": "Genetic testing",
    "price": "£220",
-   "buy": "/phenome-store/store/sports-performance/",
+   "buy": "/phenome-store/testing/sports-performance/",
    "alt": "The Sports Performance Test collection kit",
    "spec": {
     "sample": [
@@ -287,7 +287,7 @@
    "name": "Oral Microbiome Test",
    "cat": "Microbiome testing",
    "price": "£150",
-   "buy": "/phenome-store/store/oral-microbiome/",
+   "buy": "/phenome-store/testing/oral-microbiome/",
    "alt": "The Oral Microbiome Test collection kit",
    "spec": {
     "sample": [
