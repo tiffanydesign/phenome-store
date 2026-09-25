@@ -12,15 +12,10 @@
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   1 · HERO · the eyebrow and the two buttons the page already had
+   1 · HERO · the eyebrow the page already had; no buttons, as on genetic
    ------------------------------------------------------------------------ */
 .mb .dna-hero-head .dna-label { margin-bottom: 4px; }
-.mb .dna-hero-head .dna-actions { margin-top: 32px; }
-/* the site's glass ghost pill takes a blue rim; on the aurora it wants the
-   white rim dna.css asks for */
-.mb .dna-hero .dna-on-ink .btn.ghost { border: 1px solid rgba(255, 255, 255, .38); }
 .dna-js .mb .dna-hero.is-in .dna-hero-head > :nth-child(3) { transition-delay: .14s; }
-.dna-js .mb .dna-hero.is-in .dna-hero-head > :nth-child(4) { transition-delay: .2s; }
 
 /* ---------------------------------------------------------------------------
    1b · STANDARDS · four promises, a check disc each, on the paper
