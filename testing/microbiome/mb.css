@@ -1,0 +1,129 @@
+/* ============================================================================
+   testing/microbiome · mb.css · loaded AFTER testing/genetic/dna.css
+
+   The page wears the genetic page's design as it is: same sheet, same script,
+   same sections. This file only covers what the microbiome content asks of it
+   that the genetic content never did, scoped to `.mb` on <body>:
+     · a row of four standards under the hero,
+     · three kits in the bento instead of four, with longer sentences,
+     · a label and four figures on the off grid window,
+     · the balance pair in the comparison table's place.
+   COPY RULE, page wide: no dashes, no connecting hyphens, no all caps.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1 · HERO · the eyebrow and the two buttons the page already had
+   ------------------------------------------------------------------------ */
+.mb .dna-hero-head .dna-label { margin-bottom: 4px; }
+.mb .dna-hero-head .dna-actions { margin-top: 32px; }
+/* the site's glass ghost pill takes a blue rim; on the aurora it wants the
+   white rim dna.css asks for */
+.mb .dna-hero .dna-on-ink .btn.ghost { border: 1px solid rgba(255, 255, 255, .38); }
+.dna-js .mb .dna-hero.is-in .dna-hero-head > :nth-child(3) { transition-delay: .14s; }
+.dna-js .mb .dna-hero.is-in .dna-hero-head > :nth-child(4) { transition-delay: .2s; }
+
+/* ---------------------------------------------------------------------------
+   1b · STANDARDS · four promises, a check disc each, on the paper
+   ------------------------------------------------------------------------ */
+.mb .mb-trust { background: var(--d-paper); padding-block: clamp(36px, 4vw, 56px) 0; }
+.mb .mb-trust-list {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(16px, 2vw, 32px);
+  margin-block: 0; list-style: none;
+}
+.mb .mb-trust-list li {
+  display: flex; align-items: center; gap: 12px; padding: 18px 0;
+  border-bottom: 1px solid var(--d-line);
+  font-size: 17px; line-height: 1.35; font-weight: 500; color: var(--ink-900);
+}
+.mb .mb-trust-list li::before {
+  content: ''; flex: none; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--phenome-blue-100) no-repeat center / 13px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 5' fill='none' stroke='%23203a85' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (max-width: 1023px) { .mb .mb-trust-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .mb .mb-trust-list { grid-template-columns: minmax(0, 1fr); } }
+/* the definition follows straight on, so it opens a shorter break */
+.mb .mb-trust + .dna-gene { padding-top: clamp(70px, 8vw, 120px); }
+
+/* ---------------------------------------------------------------------------
+   3 · THREE KITS · the heading takes the section's lede under it; the three
+   cards fill the row, and in the stacked grid the third runs full width
+   ------------------------------------------------------------------------ */
+.mb .dna-four .dna-lede { max-width: 56ch; }
+@media (max-width: 1024px), (hover: none) {
+  .mb .mb-bento > :nth-child(3):last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 820px) {
+  .mb .mb-bento > :nth-child(3):last-child { grid-column: auto; }
+}
+/* these sentences run to three times the genetic ones, so the open card
+   gives them a wider measure and the copy block a taller fixed height */
+@media (min-width: 1025px) and (hover: hover) {
+  .mb .mb-bento .dna-bento-copy { height: 262px; }
+  .mb .mb-bento .dna-bento-copy p { width: min(52ch, 36vw); max-width: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   4 · FOUR READINGS · four items travel a shorter list, so the head sits
+   closer and the list keeps a little air at the foot
+   ------------------------------------------------------------------------ */
+.mb .dna-read-head { padding-bottom: clamp(10px, 2vw, 30px); }
+
+/* ---------------------------------------------------------------------------
+   5 · THE WINDOW · label, two tone heading, lede and four figures
+   ------------------------------------------------------------------------ */
+.mb .dna-band { height: auto; min-height: max(100vh, 760px); display: flex; }
+.mb .dna-band-text { position: relative; inset: auto; flex: 1; padding-block: clamp(80px, 9vw, 130px); }
+.mb .dna-band-text .dna-label { margin-bottom: 18px; }
+.mb .mb-band-h { font-size: clamp(36px, 4.6vw, 70px); max-width: 20ch; }
+.mb .mb-band-figs { justify-content: center; margin-top: clamp(40px, 4.4vw, 64px); }
+/* dna.css hides every .dna-figs until the HERO is reached; these ride the
+   window's own --tint-copy instead, so they arrive with the lede */
+.dna-js .mb .dna-band .mb-band-figs,
+.mb .dna-band .mb-band-figs {
+  opacity: var(--tint-copy, 1); transform: translateY(calc((1 - var(--tint-copy, 1)) * 20px));
+  transition: none;
+}
+.mb .mb-band-figs li { flex: 0 1 auto; padding: 0 clamp(18px, 2.6vw, 44px); text-align: left; }
+@media (max-width: 720px) {
+  .mb .mb-band-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 0; width: 100%; }
+  .mb .mb-band-figs li { padding: 0 16px; }
+  .mb .mb-band-figs li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .mb .mb-band-figs b { font-size: clamp(26px, 7vw, 32px); }
+}
+
+/* ---------------------------------------------------------------------------
+   6 · BALANCE · two states side by side on the tint. The balanced one is
+   raised on the paper panel genetic's table lifts its own column with.
+   ------------------------------------------------------------------------ */
+.mb .mb-bal { text-align: center; padding-bottom: clamp(70px, 8vw, 120px); }
+.mb .mb-bal .ph-display { align-items: center; }
+.mb .mb-bal-pair {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px);
+  max-width: 1080px; margin: clamp(44px, 5vw, 76px) auto 0; text-align: left;
+}
+.mb .mb-bal-side {
+  padding: clamp(28px, 3vw, 48px); border-radius: clamp(14px, 1.4vw, 20px);
+  box-shadow: inset 0 0 0 1px var(--d-line);
+}
+.mb .mb-bal-side.is-good {
+  background: var(--d-paper);
+  box-shadow: 0 40px 70px -46px rgba(10, 18, 51, .4), inset 0 0 0 1px rgba(32, 58, 133, .14);
+}
+.mb .mb-bal-k {
+  margin: clamp(22px, 2.4vw, 34px) 0 0; font-size: 17px; line-height: 1.3; font-weight: 500; color: var(--ink-400);
+}
+.mb .mb-bal-side.is-good .mb-bal-k { color: var(--d-accent); font-weight: 600; }
+.mb .mb-bal-d {
+  margin: 10px 0 0; max-width: 26ch;
+  font-size: clamp(22px, 2vw, 30px); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em;
+  color: var(--ink-900);
+}
+.mb .mb-bal-side:not(.is-good) .mb-bal-d { color: var(--ph-tone-body); font-weight: 500; }
+.mb .mb-bal-side:not(.is-good) .dna-ic { background: transparent; box-shadow: inset 0 0 0 1px var(--d-line); }
+.mb .mb-bal-side:not(.is-good) .dna-ic svg { stroke: var(--ink-400); }
+@media (max-width: 720px) { .mb .mb-bal-pair { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------------------------------------------------------------------------
+   7 · THE CLOSE · it follows the tint here, not the paper of a shop row
+   ------------------------------------------------------------------------ */
+.mb .dna-close { background: var(--d-tint); }
