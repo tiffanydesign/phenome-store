@@ -1,4 +1,4 @@
-/* Shop by goal quiz, page script for quiz/index.html (body .qz).
+/* Shop by goal quiz, page script for find-your-test/index.html (body .qz).
 
    One question at a time. Each answer quietly weights the products it points
    to; the result leads with the heaviest, pairs it with the next two, and
