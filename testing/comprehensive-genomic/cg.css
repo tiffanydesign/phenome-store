@@ -203,7 +203,12 @@
    decision. */
 .cgp .cg-buy { align-self: start; padding-top: 4px; }
 .cgp .cg-buy > * { margin-bottom: 0; }
-.cgp .cg-name { margin: 12px 0 0; font-size: clamp(32px, 3.4vw, 52px); }
+/* The name is the product's own name on one solid navy line (user ruling,
+   2026-09-25): the eyebrow and the two tone promise above it are gone. */
+.cgp .cg-name {
+  margin: 0; font-size: clamp(24px, 1.9vw, 30px); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.12; color: var(--phenome-blue-900);
+}
 /* nad's .supp-badge, in this page's tokens: the format chip under the name. */
 .cgp .cg-badge {
   display: inline-flex; align-items: center; min-height: 32px; margin-top: 18px;
