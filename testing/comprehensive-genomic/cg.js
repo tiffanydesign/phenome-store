@@ -243,12 +243,15 @@
     thumb.className = 'ph-bar-thumb';
     thumb.alt = '';
     thumb.width = 32; thumb.height = 32;
-    thumb.src = '/phenome-store/assets/shop/test-genomic.webp';
+    /* The other testing pages load this script too, and name their own
+       thumbnail and meta line on <body>. */
+    var body = doc.body;
+    thumb.src = body.getAttribute('data-dock-thumb') || '/phenome-store/assets/shop/test-genomic.webp';
     var txt = doc.createElement('span');
     txt.className = 'ph-bar-txt';
     var meta = doc.createElement('span');
     meta.className = 'ph-bar-meta';
-    meta.textContent = '£650, results in 2 to 3 weeks';
+    meta.textContent = body.getAttribute('data-dock-meta') || '£650, results in 2 to 3 weeks';
     inner.insertBefore(thumb, name);
     inner.insertBefore(txt, name);
     txt.appendChild(name);
