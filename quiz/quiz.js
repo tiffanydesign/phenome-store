@@ -1,10 +1,8 @@
 /* Shop by goal quiz, page script for quiz/index.html (body .qz).
 
-   One question at a time on the left; on the right a live plan panel lists
-   every product the quiz can recommend, ordered by the weight the answers so
-   far give it. Answering animates the bars and reorders the list (FLIP), and
-   hovering an answer previews the weight it would add, so the reader can see
-   why a product leads before the result screen says so.
+   One question at a time. Each answer quietly weights the products it points
+   to; the result leads with the heaviest, pairs it with the next two, and
+   says which answers brought it there. No running score is shown.
 
    Prices come from store/cart/cart.js (the site's price authority), and the
    cart ids match its catalogue so Add to cart hands straight to the drawer. */
@@ -16,9 +14,6 @@
 
   var BASE = '/phenome-store';
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)');
-  /* A bar is full at this weight, the most any product can collect from
-     answers that point at it, so bars only ever grow as answers come in. */
-  var FULL = 16;
 
   var P = {
     genomic:   { name: 'Comprehensive Genomic Test', cart: '/store/comprehensive-genomic/', href: '/testing/comprehensive-genomic/', tile: 'test-genomic', price: 65000,
@@ -86,9 +81,7 @@
   var ask = $('[data-qz-ask]'), card = $('[data-qz-card]'), qEl = $('[data-qz-q]');
   var whyEl = $('[data-qz-why]'), optsEl = $('[data-qz-opts]'), stepEl = $('[data-qz-step]');
   var progEl = $('[data-qz-prog]'), backEl = $('[data-qz-back]'), hintEl = $('[data-qz-hint]');
-  var resEl = $('[data-qz-result]'), planEl = $('[data-qz-plan]'), listEl = $('[data-qz-list]');
-  var recapEl = $('[data-qz-recap]'), noteEl = $('[data-qz-plan-note]'), planH = $('[data-qz-plan-h]');
-  var barEl = $('[data-qz-bar]'), barName = $('[data-qz-bar-name]'), barThumbs = $('[data-qz-bar-thumbs]');
+  var resEl = $('[data-qz-result]');
 
   var step = 0, answers = [], busy = false;
 
@@ -101,7 +94,7 @@
   function tile(k) { return BASE + '/assets/shop/' + P[k].tile + '.webp'; }
   function done() { return answers.length === Q.length && answers.every(function (a) { return a != null; }); }
 
-  function scores(extra) {
+  function scores() {
     var s = {}, why = {};
     ORDER.forEach(function (k) { s[k] = 0; why[k] = []; });
     answers.forEach(function (ai, qi) {
@@ -109,73 +102,11 @@
       var o = Q[qi].opts[ai];
       for (var k in o[1]) { s[k] += o[1][k]; why[k].push({ qi: qi, label: o[0], w: o[1][k] }); }
     });
-    var pre = {};
-    if (extra) for (var k2 in extra) pre[k2] = extra[k2];
-    return { s: s, why: why, pre: pre };
+    return { s: s, why: why };
   }
   function ranked(s) {
     return ORDER.slice().sort(function (a, b) { return s[b] - s[a] || ORDER.indexOf(a) - ORDER.indexOf(b); });
   }
-
-  /* ---- plan panel ------------------------------------------------------- */
-  var rows = {};
-  ORDER.forEach(function (k) {
-    var li = document.createElement('li');
-    li.className = 'qz-row';
-    li.innerHTML =
-      '<img class="qz-row-img" src="' + tile(k) + '" alt="" width="900" height="900" loading="lazy"/>' +
-      '<span class="qz-row-txt"><span class="qz-row-n">' + esc(P[k].name) + '</span>' +
-      '<span class="qz-row-p">' + money(P[k].price) + '</span></span>' +
-      '<span class="qz-row-d" aria-hidden="true"></span>' +
-      '<span class="qz-meter" aria-hidden="true"><i class="qz-meter-pre"></i><i class="qz-meter-on"></i></span>';
-    rows[k] = li;
-    listEl.appendChild(li);
-  });
-
-  /* FLIP: read every row's box, reorder, then play each row back from where
-     it was. Only transform animates, so a reorder costs no layout per frame. */
-  function paintPlan(extra, deltas) {
-    var r = scores(extra), s = r.s, order = ranked(s);
-    var first = {};
-    ORDER.forEach(function (k) { first[k] = rows[k].getBoundingClientRect().top; });
-
-    order.forEach(function (k, i) {
-      var li = rows[k], on = s[k] > 0;
-      li.classList.toggle('is-on', on);
-      li.classList.toggle('is-lead', i === 0 && on);
-      li.style.setProperty('--on', Math.min(s[k] / FULL, 1));
-      li.style.setProperty('--pre', Math.min((s[k] + (r.pre[k] || 0)) / FULL, 1));
-      li.classList.toggle('is-pre', !!r.pre[k]);
-      listEl.appendChild(li);
-    });
-
-    if (!RM.matches) {
-      ORDER.forEach(function (k) {
-        var dy = first[k] - rows[k].getBoundingClientRect().top;
-        if (!dy) return;
-        rows[k].animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }],
-          { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)' });
-      });
-    }
-
-    if (deltas) {
-      for (var k in deltas) {
-        var d = rows[k].querySelector('.qz-row-d');
-        d.textContent = '+' + deltas[k];
-        d.classList.remove('is-in'); void d.offsetWidth; d.classList.add('is-in');
-      }
-    }
-
-    var any = order.filter(function (k) { return s[k] > 0; });
-    listEl.classList.toggle('is-empty', !any.length);
-    noteEl.hidden = !!any.length;
-    barName.textContent = any.length ? P[any[0]].name : 'Answer a question to start';
-    barThumbs.innerHTML = any.slice(0, 3).map(function (k) {
-      return '<img src="' + tile(k) + '" alt="" width="900" height="900"/>';
-    }).join('');
-  }
-
-  function preview(o) { if (!done()) paintPlan(o ? o[1] : null); }
 
   /* ---- question ----------------------------------------------------------- */
   function renderProgress() {
@@ -205,10 +136,6 @@
         '<span class="qz-opt-s">' + (tags.length ? 'Lifts ' + esc(tags.join(', ')) : 'Adds nothing, and that is fine') + '</span></span>' +
         '<span class="qz-opt-c" aria-hidden="true"></span>';
       b.addEventListener('click', function () { choose(i); });
-      b.addEventListener('mouseenter', function () { preview(o); });
-      b.addEventListener('focus', function () { preview(o); });
-      b.addEventListener('mouseleave', function () { preview(null); });
-      b.addEventListener('blur', function () { preview(null); });
       optsEl.appendChild(b);
     });
     renderProgress();
@@ -238,13 +165,7 @@
       btn.classList.add('is-on', 'is-pick');
       btn.setAttribute('aria-pressed', 'true');
     }
-    var prev = answers[step];
     answers[step] = i;
-    var deltas = {};
-    var o = Q[step].opts[i][1];
-    for (var k in o) deltas[k] = o[k];
-    if (prev === i) deltas = null;
-    paintPlan(null, deltas);
     renderProgress();
 
     setTimeout(function () {
@@ -291,7 +212,7 @@
       '<p class="qz-hero-blurb">' + esc(p.blurb) + '</p>' +
       '<p class="qz-hero-k">Why it leads</p>' +
       '<ul class="qz-because">' + r.why[lead].map(function (w) {
-        return '<li><span class="qz-because-w">+' + w.w + '</span><span>You chose ' + esc(w.label.charAt(0).toLowerCase() + w.label.slice(1)) + '</span></li>';
+        return '<li><span>You chose ' + esc(w.label.charAt(0).toLowerCase() + w.label.slice(1)) + '</span></li>';
       }).join('') + '</ul>' +
       '<div class="qz-hero-cta">' + cartBtn([lead], 'Add to cart', 'btn') +
       '<a class="link-more" href="' + BASE + p.href + '">See the ' + (/Test$/.test(p.name) ? 'test' : 'product') + '</a></div>' +
@@ -316,17 +237,6 @@
       '<div class="qz-total-cta">' + cartBtn(all, all.length > 1 ? 'Add all to cart' : 'Add to cart', 'btn') +
       '<button type="button" class="btn ghost" data-qz-restart>Start over</button></div>';
 
-    planH.textContent = 'Your answers';
-    recapEl.innerHTML = Q.map(function (q, qi) {
-      return '<li><span class="qz-recap-k">' + q.short + '</span>' +
-        '<span class="qz-recap-a">' + esc(q.opts[answers[qi]][0]) + '</span>' +
-        '<button type="button" class="qz-recap-edit" data-qz-edit="' + qi + '" aria-label="Change ' + esc(q.short) + '">Change</button></li>';
-    }).join('');
-    recapEl.hidden = false;
-    listEl.hidden = true;
-    noteEl.hidden = true;
-    planEl.classList.add('is-result');
-
     ask.hidden = true;
     resEl.hidden = false;
     resEl.classList.remove('is-in'); void resEl.offsetWidth; resEl.classList.add('is-in');
@@ -338,13 +248,8 @@
   function backToQuestions(at) {
     resEl.hidden = true;
     ask.hidden = false;
-    listEl.hidden = false;
-    recapEl.hidden = true;
-    planH.textContent = 'Your plan so far';
-    planEl.classList.remove('is-result');
     step = at;
     renderQuestion();
-    paintPlan();
     qEl.focus({ preventScroll: true });
   }
 
@@ -362,22 +267,12 @@
       }
       return;
     }
-    var ed = e.target.closest('[data-qz-edit]');
-    if (ed) { backToQuestions(+ed.getAttribute('data-qz-edit')); return; }
     if (e.target.closest('[data-qz-restart]')) {
       answers = [];
-      paintPlan();
       backToQuestions(0);
       var top = root.getBoundingClientRect().top + scrollY - 96;
       scrollTo({ top: top, behavior: RM.matches ? 'auto' : 'smooth' });
     }
-  });
-
-  /* Under 960px the panel is a bar pinned to the foot of the stage; tapping
-     it opens the full list over the question. */
-  barEl.addEventListener('click', function () {
-    var open = planEl.classList.toggle('is-open');
-    barEl.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
   /* ---- goal photographs ------------------------------------------------ */
@@ -385,14 +280,10 @@
     g.addEventListener('click', function () {
       answers = [+g.getAttribute('data-goal')];
       backToQuestions(1);
-      var o = Q[0].opts[answers[0]][1], d = {};
-      for (var k in o) d[k] = o[k];
-      paintPlan(null, d);
       var top = root.getBoundingClientRect().top + scrollY - 96;
       scrollTo({ top: top, behavior: RM.matches ? 'auto' : 'smooth' });
     });
   });
 
   renderQuestion();
-  paintPlan();
 })();

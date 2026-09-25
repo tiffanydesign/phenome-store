@@ -1,15 +1,13 @@
 /* Shop by goal quiz, page sheet for quiz/index.html. Everything is scoped
    under body.qz, so nothing here can reach another page.
 
-   Layout: question column on the left, live plan panel on the right, held
-   sticky under the nav. Under 960px the panel folds into a bar pinned to the
-   foot of the stage that opens into the full list.
+   Layout: one centred question column, then the goal photographs, then the
+   closing card (the NAD+ page's .nd-end, rebuilt for the tests).
 
    Motion tokens, all transform and opacity:
      --qz-out   190ms  ease-in     card leaves
      --qz-in    320ms  settle      card and options arrive, 40ms stagger
-     --qz-bar   500ms  settle      meters fill
-     FLIP reorder 460ms settle (quiz.js) */
+     --qz-film  hero-aurora loop under the closing card's navy */
 
 .qz {
   --qz-settle: cubic-bezier(.2, .8, .2, 1);
@@ -24,15 +22,16 @@
 
 /* ---- 1 · head -------------------------------------------------------- */
 .qz-sec { padding: clamp(40px, 5vw, 72px) 0 clamp(64px, 7vw, 112px); }
-.qz-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; }
-.qz .qz-title { margin: 0; font-size: clamp(40px, 5.4vw, 80px); }
-.qz-lede { margin: 0 0 8px; max-width: 34ch; font-size: clamp(18px, 1.35vw, 21px); line-height: 1.5; color: var(--qz-ink-2); }
+.qz-head { max-width: 1100px; margin: 0 auto; text-align: center; }
+/* One line on purpose (user, 2026-09-25): a single line is set solid in the
+   ink, not two tone. Sized so the whole sentence fits the column at 1100+. */
+.qz .qz-title {
+  margin: 0; font-size: clamp(32px, 3.9vw, 56px); line-height: 1.08; font-weight: 700;
+  letter-spacing: -.035em; color: var(--qz-ink); text-wrap: balance;
+}
 
 /* ---- 2 · stage ------------------------------------------------------- */
-.qz-stage {
-  display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: clamp(32px, 4vw, 72px);
-  align-items: start; margin-top: clamp(36px, 4vw, 56px);
-}
+.qz-stage { max-width: 880px; margin: clamp(36px, 4vw, 56px) auto 0; }
 .qz-main { min-width: 0; }
 
 .qz-prog { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
@@ -110,91 +109,6 @@
 .qz-back[hidden] { display: none; }
 .qz-hint { font-size: 15px; color: var(--qz-ink-2); }
 
-/* ---- 3 · plan panel ------------------------------------------------ */
-.qz-plan {
-  position: sticky; top: calc(var(--ph-nav-h, 44px) + 24px);
-  border-radius: 24px; background: #fff; box-shadow: var(--gl-inner), 0 24px 60px #10214b14;
-}
-.qz-plan-bar { display: none; }
-.qz-plan-body { padding: 24px 20px 12px; }
-.qz-plan-head { padding: 0 4px 8px; }
-.qz-plan-h { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: var(--qz-ink); }
-.qz-plan-note { margin: 8px 0 4px; font-size: 15px; line-height: 1.5; color: var(--qz-ink-2); }
-.qz-plan-note[hidden] { display: none; }
-
-.qz-list { list-style: none; margin: 8px 0 0; padding: 0; }
-.qz-row {
-  position: relative; display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 14px; align-items: center;
-  padding: 10px 8px 14px; border-radius: 14px;
-  transition: background-color 300ms ease-out;
-}
-.qz-row + .qz-row { margin-top: 2px; }
-.qz-row-img {
-  width: 48px; height: 48px; border-radius: 12px; object-fit: cover; background: var(--qz-tile);
-  transition: opacity 300ms ease-out, filter 300ms ease-out;
-}
-.qz-row-txt { display: grid; min-width: 0; }
-.qz-row-n { font-size: 16px; font-weight: 600; line-height: 1.3; color: var(--qz-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.qz-row-p { font-size: 15px; color: var(--qz-ink-2); font-variant-numeric: tabular-nums; }
-/* Rows nothing has lifted yet shrink to one line, so the weighted ones own
-   the panel and the whole list still fits under the nav at 900px tall. */
-.qz-row:not(.is-on) { grid-template-columns: 32px minmax(0, 1fr); padding: 5px 8px; }
-.qz-row:not(.is-on) .qz-row-img { width: 32px; height: 32px; border-radius: 9px; opacity: .5; filter: saturate(.4); }
-.qz-row:not(.is-on) .qz-row-txt { grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline; }
-.qz-row:not(.is-on) .qz-row-n { color: var(--qz-ink-2); font-weight: 500; font-size: 15px; }
-.qz-row:not(.is-on) .qz-meter { opacity: 0; }
-.qz-row.is-lead { background: var(--qz-wash); }
-.qz-row.is-lead .qz-row-p::after {
-  content: 'Leading'; display: inline-block; margin-left: 10px; vertical-align: 1px;
-  padding: 1px 10px; border-radius: 99px; background: var(--qz-deep); color: #fff; font-size: 15px; font-weight: 600; line-height: 1.35;
-}
-
-/* Each row's meter: the lit part is the weight so far; the paler part in
-   front of it is what the answer under the pointer would add. */
-.qz-meter {
-  position: absolute; left: 70px; right: 8px; bottom: 6px; height: 4px; border-radius: 99px;
-  background: #10214b0d; overflow: hidden;
-}
-.qz-meter i {
-  position: absolute; inset: 0; border-radius: inherit; transform-origin: left;
-  transition: transform 500ms var(--qz-settle);
-}
-.qz-meter-on { background: var(--qz-navy); transform: scaleX(var(--on, 0)); }
-.qz-meter-pre { background: var(--phenome-blue-200); transform: scaleX(var(--pre, 0)); transition-duration: 220ms; }
-.qz-row.is-lead .qz-meter-on { background: var(--qz-deep); }
-
-.qz-row-d {
-  position: absolute; top: 10px; right: 12px;
-  font-size: 15px; font-weight: 700; color: var(--qz-navy); font-variant-numeric: tabular-nums;
-  opacity: 0; pointer-events: none;
-}
-.qz-row-d.is-in { animation: qz-delta 1400ms var(--qz-settle) both; }
-@keyframes qz-delta {
-  0% { opacity: 0; transform: translateY(8px); }
-  18% { opacity: 1; transform: none; }
-  75% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-6px); }
-}
-
-/* recap, once the plan is built */
-.qz-recap { list-style: none; margin: 8px 0 0; padding: 0; }
-.qz-recap[hidden], .qz-list[hidden] { display: none; }
-.qz-recap li {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: center;
-  padding: 12px 4px; border-top: 1px solid var(--qz-line);
-  animation: qz-rise 320ms var(--qz-settle) both;
-}
-.qz-recap li:nth-child(2) { animation-delay: 40ms; } .qz-recap li:nth-child(3) { animation-delay: 80ms; }
-.qz-recap li:nth-child(4) { animation-delay: 120ms; } .qz-recap li:nth-child(5) { animation-delay: 160ms; }
-.qz-recap li:nth-child(6) { animation-delay: 200ms; }
-.qz-recap-k { grid-column: 1; font-size: 15px; color: var(--qz-ink-2); }
-.qz-recap-a { grid-column: 1; font-size: 16px; font-weight: 600; line-height: 1.35; color: var(--qz-ink); }
-.qz-recap-edit {
-  grid-column: 2; grid-row: 1 / span 2; min-height: 44px; padding: 0 14px; border: 0; border-radius: 99px;
-  background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--qz-navy); cursor: pointer;
-}
-.qz-recap-edit:hover { background: var(--qz-wash); }
-
 /* ---- 4 · result ---------------------------------------------------- */
 .qz-result[hidden] { display: none; }
 .qz .qz-res-h { margin: 10px 0 0; font-size: clamp(36px, 4.2vw, 64px); outline: none; }
@@ -219,10 +133,10 @@
 .qz-hero-blurb { margin: 10px 0 0; font-size: 17px; line-height: 1.55; color: var(--qz-ink-2); }
 .qz-hero-k { margin: 22px 0 0; font-size: 15px; font-weight: 600; color: var(--qz-ink); }
 .qz-because { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
-.qz-because li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: 16px; line-height: 1.45; color: var(--qz-ink); }
-.qz-because-w {
-  justify-self: start; padding: 1px 9px; border-radius: 99px; background: #fff;
-  font-size: 15px; font-weight: 700; color: var(--qz-navy); font-variant-numeric: tabular-nums;
+.qz-because li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 16px; line-height: 1.45; color: var(--qz-ink); }
+.qz-because li::before {
+  content: ''; width: 22px; height: 22px; border-radius: 50%; margin-top: 1px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='%23203a85' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 22px no-repeat;
 }
 .qz-hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: auto; padding-top: 24px; }
 
@@ -264,7 +178,7 @@
 /* ---- 5 · goal photographs -------------------------------------------- */
 .qz-goals { padding: clamp(64px, 7vw, 112px) 0; background: var(--qz-wash); }
 .qz-goals-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 64px; align-items: end; }
-.qz .qz-goals-h, .qz .qz-how-h { margin: 0; font-size: clamp(34px, 4.2vw, 62px); }
+.qz .qz-goals-h { margin: 0; font-size: clamp(34px, 4.2vw, 62px); }
 .qz-goals-lede { margin: 0 0 8px; max-width: 36ch; font-size: 18px; line-height: 1.5; color: var(--qz-ink-2); }
 .qz-goal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 48px); }
 .qz-goal {
@@ -295,65 +209,56 @@
 .qz-goal:focus-visible { outline: 2px solid var(--qz-navy); outline-offset: 4px; }
 .qz-goal:active { transform: scale(.99); }
 
-/* ---- 6 · how the plan is built -------------------------------------- */
-.qz-how { padding: clamp(64px, 7vw, 112px) 0; }
-.qz-how-list {
-  list-style: none; counter-reset: qz; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 32px; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0;
+/* ---- 6 · closing card -------------------------------------------
+   The NAD+ page's closing card (supplements/nad/nad.css § 10) token for token:
+   the aurora film plays under a translucent version of the card's radial
+   navy, so the card keeps its colour and only gains the movement. The kit
+   cutout stands where the NAD+ bottle stands. */
+.qz-end { padding: 16px 0 clamp(56px, 6vw, 96px); }
+.qz-end-card {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 110px);
+  padding: clamp(56px, 7vw, 110px) clamp(28px, 8vw, 150px); border-radius: 32px; color: #fff;
+  background: radial-gradient(70% 140% at 12% 50%, #1d3d98 0%, var(--qz-deep) 60%, #071641 100%);
 }
-.qz-how-list li { counter-increment: qz; padding-top: 20px; border-top: 1px solid var(--qz-line); }
-.qz-how-list li::before {
-  content: counter(qz, decimal-leading-zero); display: block;
-  font-size: 15px; font-weight: 600; color: var(--qz-navy); font-variant-numeric: tabular-nums;
+.qz-end-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.qz-end-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(70% 140% at 12% 50%, rgba(29, 61, 152, .55) 0%, rgba(10, 30, 87, .62) 60%, rgba(7, 22, 65, .78) 100%);
 }
-.qz-how-list h3 { margin: 12px 0 0; font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--qz-ink); }
-.qz-how-list p { margin: 8px 0 0; font-size: 16px; line-height: 1.55; color: var(--qz-ink-2); }
+.qz-end-kits { width: clamp(200px, 24vw, 340px); height: auto; filter: drop-shadow(0 40px 40px rgba(0, 0, 0, .35)); }
+.qz .qz-end-h { font-size: clamp(38px, 4.4vw, 66px); }
+.qz-end-lede { margin: 18px 0 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: rgba(255, 255, 255, .86); }
+.qz-end-price { margin: 26px 0 0; font-size: 19px; font-weight: 600; }
+.qz .qz-end-cta { display: inline-flex; justify-content: center; min-width: 180px; margin-top: 24px; }
+.qz-end-note { margin: 16px 0 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .8); }
+.qz-end-note a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.qz-end-fine { margin-top: 8px; color: rgba(255, 255, 255, .6); }
 
 /* ---- 7 · narrow ----------------------------------------------------- */
 @media (max-width: 1100px) {
-  .qz-stage { grid-template-columns: minmax(0, 1fr) 340px; }
   .qz-hero { grid-template-columns: 1fr; }
   .qz-hero-media { aspect-ratio: 16 / 10; }
   .qz-hero-body { padding: 4px 8px 12px; }
   .qz-pair { grid-template-columns: 1fr; }
-  .qz-how-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qz-end-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 }
 @media (max-width: 960px) {
-  .qz-head, .qz-goals-head { grid-template-columns: 1fr; }
-  .qz-stage { grid-template-columns: minmax(0, 1fr); }
-  .qz-plan {
-    position: sticky; top: auto; bottom: 12px; z-index: 20; grid-row: 2;
-    border-radius: 20px; box-shadow: var(--gl-inner), 0 12px 40px #10214b2e;
-  }
-  .qz-plan-bar {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: center;
-    /* right padding clears the site's fixed .ds-launch button */
-    width: 100%; min-height: 64px; padding: 10px 76px 10px 16px; border: 0; border-radius: inherit;
-    background: transparent; font: inherit; text-align: left; cursor: pointer; color: var(--qz-ink);
-  }
-  .qz-plan-bar-k { grid-column: 1; font-size: 15px; color: var(--qz-ink-2); }
-  .qz-plan-bar-n { grid-column: 1; font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .qz-plan-bar-thumbs { grid-column: 2; grid-row: 1 / span 2; display: flex; }
-  .qz-plan-bar-thumbs img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; background: var(--qz-tile); box-shadow: 0 0 0 2px #fff; }
-  .qz-plan-bar-thumbs img + img { margin-left: -10px; }
-  .qz-plan-body { display: none; max-height: 62vh; overflow-y: auto; padding-top: 4px; border-top: 1px solid var(--qz-line); }
-  .qz-plan.is-open .qz-plan-body { display: block; }
-  .qz-plan.is-result { position: static; }
-  .qz-plan.is-result .qz-plan-bar { display: none; }
-  .qz-plan.is-result .qz-plan-body { display: block; max-height: none; border-top: 0; }
+  .qz-goals-head { grid-template-columns: 1fr; }
   .qz-goal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
   .qz-opt { grid-template-columns: 32px minmax(0, 1fr) 22px; gap: 12px; padding: 14px 14px 14px 12px; }
   .qz-opt-k { width: 32px; height: 32px; }
-  .qz-goal-grid, .qz-how-list { grid-template-columns: 1fr; }
+  .qz-goal-grid { grid-template-columns: 1fr; }
   .qz-goal { aspect-ratio: 4 / 3; }
   .qz-mini { grid-template-columns: 88px minmax(0, 1fr); }
   .qz-hint { display: none; }
-  .qz-plan-bar-thumbs img:nth-child(3) { display: none; }
 }
 @media (hover: none) { .qz-goal::after { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .qz *, .qz *::before, .qz *::after { animation: none !important; transition-duration: 1ms !important; }
+  .qz-end-film { display: none; }
+  .qz-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
 }
