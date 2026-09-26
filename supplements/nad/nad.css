@@ -839,17 +839,11 @@
    at the Band size it breaks into four lines in a half width column. */
 .nadp .nd-src-copy .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
 
-/* A PRODUCT'S OWN RING (2026-09-26, user rule: every ring shows only that
-   product's formula). Plant ingredients are photographs; anything that is not
-   a plant, or has no photograph, is a navy tile, a short mark large and the
-   name under it. Four ingredients sit on the quarter step. */
+/* A PRODUCT'S OWN RING (2026-09-26, user rule): every ring holds only that
+   product's formula, each ingredient a photograph (assets/supp/ing). One to
+   six ingredients, each count with its own step and circle size. One sits
+   above the centre, two face each other across it. */
+.nadp .nd-ring[data-n="1"] { --ring-step: 0deg; --d: 38%; }
+.nadp .nd-ring[data-n="2"] { --ring-step: 180deg; --d: 34%; }
+.nadp .nd-ring[data-n="3"] { --ring-step: 120deg; --d: 32%; }
 .nadp .nd-ring[data-n="4"] { --ring-step: 90deg; --d: 30%; }
-.nadp .nd-ring-list button.nd-el {
-  display: grid; place-content: center; justify-items: center; gap: 4px; padding: 10%;
-  text-align: center; color: #fff;
-  background: radial-gradient(120% 120% at 30% 20%, var(--phenome-blue-500, #203a85), var(--nd-navy) 72%);
-}
-.nadp .nd-ring-list button.nd-el b { font-size: clamp(28px, 2.8vw, 44px); line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
-.nadp .nd-ring-list button.nd-el b.is-word { font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; }
-.nadp .nd-ring-list button.nd-el span { font-size: 15px; line-height: 1.2; font-weight: 500; color: rgba(255, 255, 255, .8); text-wrap: balance; }
-@media (max-width: 760px) { .nadp .nd-ring-list button.nd-el span { display: none; } }
