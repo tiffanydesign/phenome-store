@@ -146,7 +146,7 @@
 
     'band-woven': {
       label: 'Band, Woven nylon',
-      price: 'From £159',
+      price: 'From £149',
       dotsLabel: 'Woven nylon colours',
       links: BAND_LINKS,
       tall: true,
