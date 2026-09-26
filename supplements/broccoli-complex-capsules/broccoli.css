@@ -71,14 +71,3 @@
 @media (max-width: 760px) { .nadp .bc-when-list { grid-template-columns: minmax(0, 1fr); } .nadp .bc-when-list li { min-height: 0; } }
 @media (max-width: 760px) { .nadp .bc-more, .nadp .bc-flow .nd-sub { text-align: left; } }
 
-/* The formula's own ring: broccoli and cinnamon are photographs; alpha lipoic
-   acid, magnesium and chromium are not plants, so they are drawn as element
-   tiles, the symbol large and the name under it. */
-.nadp .nd-ring-list button.bc-el {
-  display: grid; place-content: center; justify-items: center; gap: 4px; padding: 10%;
-  text-align: center; color: #fff;
-  background: radial-gradient(120% 120% at 30% 20%, var(--phenome-blue-500, #203a85), var(--nd-navy) 72%);
-}
-.nadp .nd-ring-list button.bc-el b { font-size: clamp(30px, 3vw, 46px); line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
-.nadp .nd-ring-list button.bc-el span { font-size: 15px; line-height: 1.2; font-weight: 500; color: rgba(255, 255, 255, .8); text-wrap: balance; }
-@media (max-width: 760px) { .nadp .nd-ring-list button.bc-el span { display: none; } }

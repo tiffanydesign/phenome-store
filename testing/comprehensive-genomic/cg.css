@@ -750,3 +750,43 @@
   .cgp .cg-end-card { background-image: url("/phenome-store/assets/video/hero-aurora.webp"); background-size: cover; }
   .cg-rel-card img, .cg-rel-copy, .cg-rel-d { transition: none; }
 }
+
+/* ===========================================================================
+   THE BAND LADDER, 2026-09-26 (user rule for every test and supplement buy
+   page: sizes and the two tone headline as on devices/band). One block at the
+   END of the sheet so it wins over every earlier rung without touching them.
+   The one line product name (.cg-name, 24 to 30px) is the user's own ruling
+   of 2026-09-25 and stays as it is.
+   ======================================================================== */
+.cgp .ph-display, .cg-steps .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
+.cgp .ph-display.is-left { max-width: 20ch; }
+.cgp .cg-ess .cg-ess-h, .cgp .cg-ess-h { font-size: clamp(40px, 5.6vw, 84px); }
+.cgp .cg-end-h { font-size: clamp(38px, 4.6vw, 70px); }
+.cgp .cg-badge { font-size: 16px; }
+.cgp .cg-rate, .cgp .cg-rate a { font-size: 16px; }
+.cgp .cg-hero-lede { font-size: 19px; }
+.cgp .cg-stat-v { font-size: 23px; }
+.cgp .cg-stat-l { font-size: 16px; }
+.cgp .cg-price { font-size: 36px; }
+.cgp .cg-ticks li { font-size: 17px; }
+.cgp .cg-note { font-size: 16px; }
+.cgp .cg-ess-panel h3 { font-size: clamp(19px, 1.6vw, 23px); }
+.cgp .cg-ess-panel p { font-size: 17px; line-height: 1.5; }
+.cgp .ph-tl-step-h { font-size: clamp(19px, 1.5vw, 23px); }
+.cgp .ph-tl-step li { font-size: 17px; }
+.cgp .ph-tl-foot { font-size: 17px; }
+.cgp .cg-std-list p { font-size: 17px; line-height: 1.45; }
+.cgp .cg-kit h3 { font-size: clamp(23px, 2vw, 30px); font-weight: 600; }
+.cgp .cg-kit-sub { font-size: 17px; line-height: 1.5; }
+.cgp .cg-sub, .cg-sub { font-size: clamp(18px, 1.35vw, 21px); }
+.cgp .cg-end-lede { font-size: clamp(19px, 1.5vw, 22px); }
+.cg-rel-d { font-size: 17px; }
+.cg-rel-go { font-size: 16px; }
+@media (max-width: 560px) {
+  .cgp .cg-stat-v { font-size: 20px; }
+  .cgp .cg-ess-panel p { font-size: 16px; }
+}
+
+/* A statement that shares its row with a ring or a list keeps the step below:
+   at the Band size it breaks into four lines in a half width column. */
+.cgp .cg-src-copy .ph-display, .cgp .cg-rep-copy .ph-display { font-size: clamp(36px, 4.4vw, 68px); }

@@ -1501,7 +1501,7 @@ html.ph-reveal main > section.band.ph-r > * { transform: none; }
   max-width: calc(var(--ph-content-max, 1260px) + var(--ph-margin, 90px) * 2);
   padding-inline: var(--ph-margin, 90px);
 }
-.rv-sec .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
+.rv-sec .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
 .rv-score { display: flex; justify-content: center; align-items: center; gap: clamp(28px, 4vw, 56px); margin-top: 40px; flex-wrap: wrap; }
 .rv-score-big { display: flex; align-items: center; gap: 12px; }
 .rv-score-big b { font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -.03em; color: var(--rv-navy); }

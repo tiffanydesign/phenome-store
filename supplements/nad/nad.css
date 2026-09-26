@@ -792,3 +792,64 @@
    the copy alone */
 .nadp .nd-end-bottle.is-wide { width: clamp(220px, 26vw, 380px); }
 .nadp .nd-end-card.is-solo { grid-template-columns: minmax(0, 1fr); }
+
+/* ===========================================================================
+   THE BAND LADDER, 2026-09-26 (user rule for every test and supplement buy
+   page: sizes and the two tone headline as on devices/band). One block at the
+   END of the sheet so it wins over every earlier rung without touching them.
+     section statement  .ph-display  clamp(40, 5.6vw, 84), the Band's own
+     product name       46 / 600, the Band's .bd-name
+     price              36 / 600, the Band's price
+     card title         23 / 600, figures 23
+     description        19,  body 17,  labels 16,  nothing under 15
+   ======================================================================== */
+.nadp .ph-display { font-size: clamp(40px, 5.6vw, 84px); }
+.nadp .ph-display.is-left { max-width: 20ch; }
+.nadp .nd-ess .nd-ess-h { font-size: clamp(40px, 5.6vw, 84px); }
+.nadp .nd-end .nd-end-h { font-size: clamp(38px, 4.6vw, 70px); }
+.nadp .nd-buy .supp-name { font-size: clamp(34px, 3.2vw, 46px); font-weight: 600; line-height: 1.04; }
+.nadp .nd-buy .supp-badge { font-size: 16px; letter-spacing: .01em; }
+.nadp .nd-buy .supp-subtitle { font-size: 17px; line-height: 1.5; }
+.nadp .nd-rate-link { font-size: 16px; }
+.nadp .nd-buy .supp-stat-v { font-size: 23px; font-weight: 600; }
+.nadp .nd-buy .supp-stat-l { font-size: 16px; letter-spacing: 0; }
+.nadp .nd-buy .supp-price { font-size: 36px; font-weight: 600; }
+.nadp .nd-buy .supp-opt-t { font-size: 17px; }
+.nadp .nd-buy .supp-fine, .nadp .nd-buy-acc .supp-fine { font-size: 16px; }
+.nadp .nd-bullets li { font-size: 17px; line-height: 1.5; }
+.nadp .nd-pair-t, .nadp .nd-pair-t b { font-size: 17px; }
+.nadp .nd-ess-panel h3 { font-size: clamp(19px, 1.6vw, 23px); }
+.nadp .nd-ess-panel p { font-size: 17px; line-height: 1.5; }
+.nadp .ph-tl-step-h { font-size: clamp(19px, 1.5vw, 23px); }
+.nadp .ph-tl-step li { font-size: 17px; }
+.nadp .ph-tl-foot { font-size: 17px; }
+.nadp .nd-std-list p { font-size: 17px; line-height: 1.45; }
+.nadp .nd-kit h3 { font-size: clamp(23px, 2vw, 30px); font-weight: 600; }
+.nadp .nd-kit-sub { font-size: 17px; line-height: 1.5; }
+.nadp .nd-kit li b { font-size: 17px; }
+.nadp .nd-kit li span { font-size: 16px; }
+.nadp .nd-sub { font-size: clamp(18px, 1.35vw, 21px); }
+.nadp .nd-end-lede { font-size: clamp(19px, 1.5vw, 22px); }
+@media (max-width: 560px) {
+  .nadp .nd-buy .supp-stat-v { font-size: 20px; }
+  .nadp .nd-ess-panel p { font-size: 16px; }
+}
+
+/* A statement that shares its row with a ring or a list keeps the step below:
+   at the Band size it breaks into four lines in a half width column. */
+.nadp .nd-src-copy .ph-display { font-size: clamp(36px, 4.4vw, 68px); }
+
+/* A PRODUCT'S OWN RING (2026-09-26, user rule: every ring shows only that
+   product's formula). Plant ingredients are photographs; anything that is not
+   a plant, or has no photograph, is a navy tile, a short mark large and the
+   name under it. Four ingredients sit on the quarter step. */
+.nadp .nd-ring[data-n="4"] { --ring-step: 90deg; --d: 30%; }
+.nadp .nd-ring-list button.nd-el {
+  display: grid; place-content: center; justify-items: center; gap: 4px; padding: 10%;
+  text-align: center; color: #fff;
+  background: radial-gradient(120% 120% at 30% 20%, var(--phenome-blue-500, #203a85), var(--nd-navy) 72%);
+}
+.nadp .nd-ring-list button.nd-el b { font-size: clamp(28px, 2.8vw, 44px); line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.nadp .nd-ring-list button.nd-el b.is-word { font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; }
+.nadp .nd-ring-list button.nd-el span { font-size: 15px; line-height: 1.2; font-weight: 500; color: rgba(255, 255, 255, .8); text-wrap: balance; }
+@media (max-width: 760px) { .nadp .nd-ring-list button.nd-el span { display: none; } }
