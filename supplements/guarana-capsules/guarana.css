@@ -1,0 +1,48 @@
+/* Guarana Capsules: the one block supplements/nad/nad.css does not carry,
+   "Natural release, not a spike", a navy band with a glass compare table
+   (after nad.css's retired compare screen). Everything scoped to .nadp. */
+.nadp .gu-vs {
+  position: relative; overflow: clip; color: #fff;
+  background: radial-gradient(80% 110% at 20% 100%, #1a3890 0%, var(--nd-navy) 58%, #071641 100%);
+}
+.nadp .gu-vs-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+  gap: clamp(32px, 5vw, 72px); align-items: start;
+}
+.nadp .gu-vs .ph-display { margin: 0; }
+.nadp .gu-vs .nd-sub { color: rgba(255, 255, 255, .82); max-width: 36ch; }
+.nadp .gu-table {
+  --pad: 24px;
+  position: relative; padding: 12px var(--pad); border-radius: 28px;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+}
+.nadp .gu-tr {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px; align-items: center; min-height: 72px; padding-block: 12px;
+  font-size: 16px; line-height: 1.35;
+}
+.nadp .gu-tr + .gu-tr { border-top: 1px solid rgba(255, 255, 255, .14); }
+.nadp .gu-tr > :first-child { font-weight: 600; }
+.nadp .gu-tr > .gu-us { font-weight: 600; color: #fff; }
+.nadp .gu-tr > :nth-child(3) { color: rgba(255, 255, 255, .72); }
+.nadp .gu-th { min-height: 56px; }
+.nadp .gu-chip {
+  display: inline-flex; align-items: center; min-height: 32px; padding: 4px 14px;
+  border: 1px solid #fff; border-radius: 99px; font-size: 16px; font-weight: 600;
+}
+.nadp .gu-th > :nth-child(3) { color: #fff; font-size: 16px; }
+.nadp .gu-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .nadp .gu-vs-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .nadp .gu-table { --pad: 16px; }
+  /* the row label moves above its two values */
+  .nadp .gu-tr { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px 14px; align-items: start; min-height: 0; padding-block: 16px; }
+  .nadp .gu-tr > :first-child { grid-column: 1 / -1; font-size: 15px; font-weight: 500; color: var(--nd-sky); }
+  .nadp .gu-th > :first-child { display: none; }
+  .nadp .gu-chip { font-size: 15px; padding: 4px 10px; }
+  .nadp .gu-th > :nth-child(3) { font-size: 15px; }
+}

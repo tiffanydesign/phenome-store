@@ -1,0 +1,30 @@
+/* Broccoli Complex: the one block supplements/nad/nad.css does not carry,
+   "From glucoraphanin to sulforaphane", a three step conversion set as a
+   left to right flow on the soft tint. Everything scoped to .nadp. */
+.nadp .bc-flow { background: var(--nd-sunk); }
+.nadp .bc-flow .nd-sub { max-width: 52ch; margin-inline: auto; }
+.nadp .bc-steps {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px); margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; list-style: none;
+}
+.nadp .bc-step {
+  position: relative; display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(24px, 2.6vw, 36px); border-radius: 28px; background: #fff; color: var(--nd-ink);
+}
+.nadp .bc-n {
+  display: inline-flex; align-self: flex-start; align-items: center; height: 32px; padding: 0 14px;
+  border-radius: 99px; background: var(--nd-navy); color: #fff; font-size: 15px; font-weight: 600;
+}
+.nadp .bc-step h3 { margin: 8px 0 0; font-size: clamp(24px, 2.2vw, 30px); line-height: 1.15; font-weight: 600; color: var(--nd-navy); }
+.nadp .bc-step p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--nd-ink-2); }
+/* the arrow that joins one step to the next */
+.nadp .bc-step:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: calc(-1 * clamp(16px, 2vw, 28px) / 2 - 14px);
+  z-index: 1; width: 28px; height: 28px; border-radius: 50%; translate: 0 -50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4' fill='none' stroke='%230a1e57' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat;
+  box-shadow: 0 0 0 4px var(--nd-sunk);
+}
+@media (max-width: 800px) {
+  .nadp .bc-steps { grid-template-columns: minmax(0, 1fr); }
+  .nadp .bc-step:not(:last-child)::after { top: auto; bottom: calc(-1 * clamp(16px, 2vw, 28px) / 2 - 14px); right: 50%; translate: 50% 0; rotate: 90deg; }
+}
