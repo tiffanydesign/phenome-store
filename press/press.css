@@ -1,0 +1,36 @@
+/* press/press.css · the press page's additions to kit/rf.css.
+   The three approved descriptions read as quotations: a white sheet each,
+   label left, the words right under an open quote mark, the type stepping
+   down as the length goes up. */
+.rf .pr-h1 { margin-top: 16px; font-size: clamp(44px, 5.2vw, 80px); }
+.rf .rf-after a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: currentColor; }
+.rf .pr-mail { font-weight: 600; }
+.rf .pr-desk { background: radial-gradient(120% 120% at 100% 0%, var(--rf-navy-2), var(--rf-navy) 70%); color: #fff; }
+.rf .pr-desk .rf-card-d { color: rgba(255, 255, 255, .8); }
+.rf .pr-desk .rf-card-d a.pr-mail { color: #fff; text-decoration-color: rgba(255, 255, 255, .5); }
+.rf .pr-desk .rf-card-ic { background: rgba(255, 255, 255, .12); color: #fff; }
+
+.rf .pr-quotes { display: grid; gap: clamp(14px, 1.4vw, 22px); margin-top: clamp(40px, 4.6vw, 72px); }
+.rf .pr-quote {
+  display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 20px clamp(28px, 5vw, 96px);
+  margin: 0; padding: clamp(28px, 3.4vw, 56px); border-radius: var(--rf-r-lg); background: #fff;
+}
+.rf .pr-quote figcaption { display: grid; align-content: start; gap: 8px; }
+.rf .pr-quote-n { font-size: 16px; font-weight: 600; color: var(--rf-accent); font-variant-numeric: tabular-nums; }
+.rf .pr-quote blockquote { position: relative; margin: 0; padding-top: 44px; }
+.rf .pr-quote blockquote::before {
+  content: "\201C"; position: absolute; top: -8px; left: -4px;
+  font-size: 88px; line-height: 1; font-weight: 600; color: var(--rf-soft);
+}
+.rf .pr-quote blockquote p { margin: 0; color: var(--rf-ink); letter-spacing: -0.01em; text-wrap: pretty; }
+.rf .pr-quote:nth-child(1) blockquote p { font-size: clamp(24px, 2.3vw, 34px); line-height: 1.3; font-weight: 500; }
+.rf .pr-quote:nth-child(2) blockquote p { font-size: clamp(18px, 1.4vw, 21px); line-height: 1.6; }
+.rf .pr-quote:nth-child(3) blockquote p { font-size: clamp(20px, 1.7vw, 25px); line-height: 1.45; }
+
+.rf .pr-note { max-width: 860px; margin: clamp(32px, 3.4vw, 48px) 0 0; }
+.rf .pr-note p { font-size: 17px; line-height: 1.55; }
+.rf .pr-duo .rf-duo-t { font-size: clamp(19px, 1.45vw, 23px); line-height: 1.5; font-weight: 400; }
+
+@media (max-width: 860px) {
+  .rf .pr-quote { grid-template-columns: minmax(0, 1fr); }
+}

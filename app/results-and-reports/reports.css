@@ -1,0 +1,28 @@
+/* app/results-and-reports · the PDF band: a drawn stack of reports beside the
+   statement. Every rule is scoped to body.rf (kit/rf.css). */
+.rf .rr-pdf {
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 120px); align-items: center; max-width: 1120px; margin-inline: auto;
+}
+.rf .rr-stack { position: relative; justify-self: center; width: min(300px, 70%); aspect-ratio: 3 / 4; }
+.rf .rr-doc {
+  position: absolute; inset: 0; border-radius: 18px;
+  background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+  transform-origin: 50% 100%;
+}
+.rf .rr-doc:nth-child(1) { rotate: -9deg; translate: -14% 2%; }
+.rf .rr-doc:nth-child(2) { rotate: 5deg; translate: 10% -2%; background: rgba(255, 255, 255, .14); }
+.rf .rr-doc.is-top {
+  display: flex; flex-direction: column; gap: 14px; padding: 28px;
+  background: #fff; box-shadow: 0 40px 70px -36px rgba(0, 0, 0, .6); color: var(--rf-navy);
+}
+.rf .rr-doc.is-top svg { width: 44px; height: 44px; margin-bottom: 10px; }
+.rf .rr-doc.is-top i { display: block; height: 10px; border-radius: 6px; background: var(--rf-soft); }
+.rf .rr-doc.is-top i:nth-of-type(1) { width: 86%; background: var(--rf-navy); opacity: .85; }
+.rf .rr-doc.is-top i:nth-of-type(2) { width: 100%; }
+.rf .rr-doc.is-top i:nth-of-type(3) { width: 72%; }
+.rf .rr-doc.is-top i:nth-of-type(4) { width: 90%; }
+@media (max-width: 860px) {
+  .rf .rr-pdf { grid-template-columns: minmax(0, 1fr); }
+  .rf .rr-stack { width: min(220px, 60%); }
+}

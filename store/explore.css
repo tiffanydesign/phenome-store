@@ -1,0 +1,51 @@
+/* store/explore.css · the three "explore by category" pages
+   (store/genetic, store/microbiome, store/devices), on top of kit/rf.css.
+   Only what the kit lacks: the crumb, the drawn mark in the hero frame, the
+   product card's foot (price left, arrow right, as on Shop all), a hairline
+   round the table when it sits on white, and the wearable comparison's title
+   set on the kit's ladder. Every rule is scoped to body.rf. */
+
+.rf .rf-crumb { margin: 0 0 clamp(20px, 2.4vw, 36px); font-size: 15px; line-height: 1.4; color: var(--rf-ink-2); }
+.rf .rf-crumb a { color: var(--rf-navy); font-weight: 600; text-decoration: none; }
+.rf .rf-crumb a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* the hero's drawn figure, held in the kit's frame on a quiet bloom */
+.rf .rf-mark {
+  display: grid; place-items: center;
+  background: radial-gradient(60% 60% at 50% 45%, #fff 0%, rgba(255, 255, 255, 0) 70%), var(--rf-soft);
+}
+.rf .rf-mark svg { display: block; width: min(56%, 360px); height: auto; animation: rf-settle 1.6s var(--rf-ease) both; }
+
+/* product cards: price and arrow on one line at the foot */
+.rf .rf-prods .rf-cards { margin-top: 0; }
+.rf .rf-prod .rf-card-body { gap: 12px; }
+.rf .rf-prod .rf-card-meta { margin: 0; }
+.rf .rf-prod ul { margin-bottom: 8px; }
+.rf .rf-prod-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 62px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--rf-rule);
+}
+.rf .rf-prod .rf-card-price { margin: 0; font-size: 20px; }
+.rf .rf-card-arrow {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--rf-sunk); color: var(--rf-navy); transition: background .3s, color .3s;
+}
+.rf .rf-card-arrow svg { width: 20px; height: 20px; transition: translate .35s var(--rf-ease); }
+.rf a.rf-prod:hover .rf-card-arrow { background: var(--rf-navy); color: #fff; }
+.rf a.rf-prod:hover .rf-card-arrow svg { translate: 2px 0; }
+.rf .rf-prod-acts { margin-top: clamp(32px, 3.4vw, 48px); }
+
+/* the compare table on a white ground */
+.rf .rf-table-line { border: 1px solid var(--rf-rule); }
+.rf .rf-table td.num { font-weight: 600; color: var(--rf-navy); font-variant-numeric: tabular-nums; }
+
+/* the wearable comparison (store/devices/compare.css) on the kit's ladder */
+.rf .rf-cmp .dv-cmp { padding-bottom: 24px; }
+.rf .rf-cmp .dv-cmp-title {
+  font-size: clamp(34px, 4.4vw, 60px); line-height: 1.04; font-weight: 600; color: var(--rf-ink); text-wrap: balance;
+}
+.rf .rf-cmp-acts { justify-content: center; margin: 16px 0 0; padding-bottom: clamp(76px, 8.4vw, 136px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rf .rf-mark svg { animation: none; }
+}

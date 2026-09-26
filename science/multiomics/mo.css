@@ -1,0 +1,31 @@
+/* science/multiomics · page sheet on top of kit/rf.css
+   The five layers as a stack of panes that darken as they go, genome first. */
+.rf .mo-stack { display: grid; gap: 12px; margin: clamp(40px, 4.6vw, 72px) 0 0; padding: 0; list-style: none; }
+.rf .mo-stack > li {
+  --mo-bg: var(--rf-sunk); --mo-fg: var(--rf-ink); --mo-fg2: var(--rf-ink-2); --mo-ic: #fff;
+  display: grid; grid-template-columns: 56px minmax(0, .8fr) minmax(0, 1.6fr); align-items: center;
+  gap: 14px clamp(20px, 3vw, 56px); padding: clamp(24px, 2.4vw, 34px) clamp(24px, 3vw, 44px);
+  border-radius: var(--rf-r-md); background: var(--mo-bg); color: var(--mo-fg);
+}
+.rf .mo-stack > li:nth-child(2) { --mo-bg: var(--rf-soft); }
+.rf .mo-stack > li:nth-child(3) { --mo-bg: #d4dcf0; --mo-ic: rgba(255, 255, 255, .7); }
+.rf .mo-stack > li:nth-child(4) { --mo-bg: var(--rf-accent); --mo-fg: #fff; --mo-fg2: rgba(255, 255, 255, .8); --mo-ic: rgba(255, 255, 255, .14); }
+.rf .mo-stack > li:nth-child(5) { --mo-bg: var(--rf-navy); --mo-fg: #fff; --mo-fg2: rgba(255, 255, 255, .78); --mo-ic: rgba(255, 255, 255, .12); }
+.rf .mo-ic { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--mo-ic); color: currentColor; }
+.rf .mo-ic svg { width: 26px; height: 26px; }
+.rf .mo-t { margin: 0; font-size: clamp(22px, 1.9vw, 30px); line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; color: inherit; }
+.rf .mo-d { margin: 0; font-size: 17px; line-height: 1.6; color: var(--mo-fg2); max-width: 60ch; }
+@media (max-width: 760px) {
+  .rf .mo-stack > li { grid-template-columns: 48px minmax(0, 1fr); }
+  .rf .mo-ic { width: 48px; height: 48px; }
+  .rf .mo-d { grid-column: 1 / -1; }
+}
+
+/* the three sums on navy, the last one answered in white */
+.rf .mo-eq .rf-card { min-height: clamp(240px, 22vw, 320px); }
+.rf .mo-eq .rf-card-meta { color: var(--phenome-blue-200, #a9b5d9); font-size: 17px; }
+.rf .mo-eq .rf-card-v { margin: 0 0 auto; padding-bottom: 20px; }
+.rf .rf-sec.is-ink .mo-eq .rf-card.is-sum { background: #fff; box-shadow: none; color: var(--rf-ink); }
+.rf .rf-sec.is-ink .mo-eq .is-sum .rf-card-meta { color: var(--rf-accent); }
+.rf .rf-sec.is-ink .mo-eq .is-sum .rf-card-v { color: var(--rf-navy); }
+.rf .rf-sec.is-ink .mo-eq .is-sum .rf-card-d { color: var(--rf-ink-2); }

@@ -1,0 +1,4 @@
+/* careers/careers.css · the careers page's additions to kit/rf.css. */
+.rf .rf-after a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.rf .cr-duo > div { min-height: clamp(220px, 20vw, 300px); }
+.rf .cr-duo > div:last-child .rf-duo-t { font-size: clamp(28px, 2.8vw, 44px); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; }

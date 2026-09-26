@@ -1,0 +1,14 @@
+/* science/our-research · page sheet on top of kit/rf.css
+   The publications as journal cards: the masthead on top, the year as a chip. */
+.rf .rs-pub { gap: 14px; min-height: clamp(320px, 26vw, 380px); }
+.rf .rs-pub-src {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 0 0 clamp(28px, 3vw, 48px); padding-bottom: 20px; border-bottom: 1px solid var(--rf-rule);
+}
+.rf .rs-pub-j { font-size: clamp(26px, 2.2vw, 34px); line-height: 1; font-weight: 700; letter-spacing: -0.025em; color: var(--rf-navy); }
+.rf .rs-pub-y {
+  display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 99px;
+  background: var(--rf-soft); color: var(--rf-navy); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.rf .rs-pub .rf-card-t { font-size: clamp(21px, 1.7vw, 26px); }
+.rf .rs-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }

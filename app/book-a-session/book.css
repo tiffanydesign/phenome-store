@@ -1,0 +1,45 @@
+/* app/book-a-session · the booking card, drawn as a white glass card on a soft
+   bloom. Every rule is scoped to body.rf (kit/rf.css). */
+.rf .bk-sec { overflow: clip; }
+.rf .bk-sec::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(40% 70% at 18% 30%, rgba(169, 181, 217, .55) 0%, rgba(169, 181, 217, 0) 70%),
+    radial-gradient(38% 70% at 84% 76%, rgba(32, 58, 133, .18) 0%, rgba(32, 58, 133, 0) 70%);
+}
+.rf .bk-card {
+  position: relative; max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 4vw, 72px); align-items: center;
+  padding: clamp(28px, 3.6vw, 56px); border-radius: var(--rf-r-lg);
+  background: rgba(255, 255, 255, .74); border: 1px solid rgba(255, 255, 255, .9);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4);
+  box-shadow: 0 1px 0 var(--rf-rule), 0 44px 80px -50px rgba(10, 30, 87, .5);
+}
+.rf .bk-who { display: flex; align-items: center; gap: clamp(18px, 2vw, 28px); min-width: 0; }
+.rf .bk-face {
+  flex: none; display: grid; place-items: center; width: clamp(76px, 7vw, 104px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(120% 120% at 20% 10%, var(--rf-navy-2), var(--rf-navy) 70%); color: #fff;
+}
+.rf .bk-face svg { width: 46%; height: 46%; }
+.rf .bk-k { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; font-weight: 600; color: var(--rf-accent); }
+.rf .bk-k svg { width: 20px; height: 20px; }
+.rf .bk-name { margin: 8px 0 0; font-size: clamp(28px, 2.8vw, 42px); line-height: 1.08; font-weight: 600; letter-spacing: -0.02em; color: var(--rf-ink); }
+.rf .bk-role { margin: 8px 0 0; font-size: 17px; line-height: 1.4; color: var(--rf-ink-2); }
+.rf .bk-star { font-weight: 600; color: var(--rf-navy); white-space: nowrap; }
+.rf .bk-pick { display: grid; gap: 22px; }
+.rf .bk-slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.rf .bk-slots li {
+  display: grid; place-items: center; height: 64px; border-radius: 16px;
+  background: #fff; box-shadow: inset 0 0 0 1px #d5dbea;
+}
+.rf .bk-slots h3 { margin: 0; font-size: 18px; font-weight: 600; color: var(--rf-ink); font-variant-numeric: tabular-nums; }
+.rf .bk-slots li.is-on { background: var(--rf-soft); box-shadow: inset 0 0 0 2px var(--rf-navy); }
+.rf .bk-slots li.is-on h3 { color: var(--rf-navy); }
+.rf .bk-pick .btn { justify-self: stretch; justify-content: center; height: 56px; margin: 0; font-size: 17px; font-weight: 600; }
+.rf .bk-one { --n: 1; }
+@media (max-width: 860px) {
+  .rf .bk-card { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .rf .bk-slots { grid-template-columns: minmax(0, 1fr); }
+}

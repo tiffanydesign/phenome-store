@@ -1,0 +1,18 @@
+/* store/checkout/confirmed/cf.css · the order confirmed page's additions to kit/rf.css.
+   The trust strip on the kit's 16px label size, the order summary slot that
+   checkout.js fills from sessionStorage, and the stacked links of the
+   "While you wait" card. */
+.rf .cf-hi { margin-top: 16px; font-size: clamp(40px, 4.9vw, 76px); }
+.rf .cf-order { margin-top: 32px; }
+.rf .cf-trust {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 44px; margin: 0; padding: 26px 0;
+  border-block: 1px solid var(--rf-rule); font-size: 16px; line-height: 1.4; color: var(--rf-ink-2);
+}
+.rf .cf-trust span { display: inline-flex; gap: 6px; }
+.rf .cf-trust b { color: var(--rf-ink); font-weight: 600; }
+.rf .cf-wait { align-self: center; }
+.rf .cf-links { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.rf .rf-card .cf-links li { padding: 0; }
+.rf .rf-card .cf-links li::before { content: none; }
+.rf .cf-links .rf-card-go { padding-top: 8px; }
+.rf .rf-sec.is-ink .link-more { color: #fff; }

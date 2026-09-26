@@ -1,0 +1,11 @@
+/* account/acct.css · the account pages' small additions to kit/rf.css.
+   A duo panel whose label is a link reads as one clickable panel, and the
+   label carries the kit's arrow; the Questions block's support link sits at
+   17px. Linked from account/ and account/orders/. */
+.rf .rf-duo > div.acct-go .rf-duo-k a { color: var(--phenome-blue-200, #a9b5d9); text-decoration: none; display: inline-flex; gap: 8px; }
+.rf .acct-go .rf-duo-k a::after { content: "\2192"; transition: translate .35s var(--rf-ease); }
+.rf .acct-go .rf-duo-k a::before { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.rf .acct-go { transition: translate .5s var(--rf-ease), box-shadow .5s var(--rf-ease); }
+.rf .acct-go:hover { translate: 0 -4px; box-shadow: 0 22px 44px -26px rgba(10, 30, 87, .45); }
+.rf .acct-go:hover .rf-duo-k a::after { translate: 4px 0; }
+.rf .faq-note a { margin-left: 0; font-size: 17px; font-weight: 600; }

@@ -1,0 +1,24 @@
+/* devices/ring/warranty-returns · figures, the covered / not covered pair and
+   the help band. Every rule is scoped to body.rf (kit/rf.css). */
+.rf .wr-h1 { margin-top: 16px; font-size: clamp(40px, 4.9vw, 76px); }
+.rf .wr-figs { margin-top: 0; }
+.rf .rf-card-v small { margin-left: 4px; font-size: 20px; font-weight: 600; letter-spacing: 0; color: var(--rf-ink-2); }
+.rf .rf-sec.is-tint .wr-duo > div:first-child { background: #fff; }
+.rf .wr-duo > div { min-height: 0; }
+.rf .wr-duo .rf-duo-k { font-size: 19px; }
+.rf .wr-list { display: grid; gap: 0; margin: 10px 0 0; padding: 0; list-style: none; }
+.rf .wr-list li {
+  display: flex; align-items: center; gap: 14px; padding: 16px 0;
+  border-top: 1px solid var(--rf-rule); font-size: 18px; line-height: 1.4; color: var(--rf-ink);
+}
+.rf .wr-list li span {
+  flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--rf-soft); color: var(--rf-navy); font-size: 15px; font-weight: 700;
+}
+.rf .wr-list.is-not li { border-color: rgba(255, 255, 255, .16); color: #fff; }
+.rf .wr-list.is-not li span { background: rgba(255, 255, 255, .12); color: #fff; }
+.rf .wr-swap { margin-top: 0; align-items: center; }
+.rf .wr-swap .rf-split-media { aspect-ratio: 5 / 4; }
+.rf .wr-swap-t .rf-lede { margin-top: 24px; }
+.rf .wr-help { align-items: center; }
+.rf .wr-help .rf-actions { margin-top: 24px; }

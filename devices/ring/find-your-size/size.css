@@ -1,0 +1,19 @@
+/* devices/ring/find-your-size · the order card that heads the sizing steps.
+   Every rule is scoped to body.rf (kit/rf.css). */
+.rf .fs-order {
+  padding: clamp(28px, 3.2vw, 48px); border-radius: var(--rf-r-lg);
+  background: rgba(255, 255, 255, .8); border: 1px solid rgba(255, 255, 255, .95);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 1px 0 var(--rf-rule), 0 40px 70px -46px rgba(10, 30, 87, .45);
+}
+.rf .fs-order-ic {
+  display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 22px; border-radius: 50%;
+  background: radial-gradient(120% 120% at 20% 10%, var(--rf-navy-2), var(--rf-navy) 70%); color: #fff;
+}
+.rf .fs-order-ic svg { width: 28px; height: 28px; }
+.rf .fs-order .rf-lede { margin-top: 18px; }
+.rf .fs-order-meta {
+  display: inline-flex; align-items: center; margin: 22px 0 0; padding: 10px 16px; border-radius: 12px;
+  background: var(--rf-soft); color: var(--rf-navy); font-size: 16px; line-height: 1.35; font-weight: 600;
+}
+.rf .fs-order .rf-actions { margin-top: 26px; }

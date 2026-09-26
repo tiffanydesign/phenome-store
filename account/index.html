@@ -11,103 +11,98 @@
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<link href="/phenome-store/kit/rf.css" rel="stylesheet"/>
+<link href="/phenome-store/account/acct.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="rf">
 <div data-ph-nav=""></div>
 <main>
-<section class="hero"><div class="wrap-wide hero-split">
+<section class="hero rf-hero"><div class="rf-wrap rf-hero-grid">
 <div>
-<div class="eyebrow">Your account</div>
-<h1 class="ph-display is-ink is-auto is-hero"><span class="ph-display-lead">One sign in</span><span>For everything you’ve learned about yourself</span></h1>
-<p class="lede" style="margin-left:0">Your results, your reports, your plan and your orders, held together in one place, on your phone and here. There is nothing to subscribe to.</p>
-<div class="hero-facts">
-<div class="hero-fact"><div class="k">sign in with</div><div class="v">Your email</div></div>
-<div class="hero-fact"><div class="k">subscription</div><div class="v">None</div></div>
-<div class="hero-fact"><div class="k">your data</div><div class="v">Delete it anytime</div></div>
+<p class="rf-kicker">Your account</p>
+<h1 class="ph-display is-ink is-left"><span class="ph-display-lead">One sign in</span><span>For everything you’ve learned about yourself</span></h1>
+<p class="rf-lede">Your results, your reports, your plan and your orders, held together in one place, on your phone and here. There is nothing to subscribe to.</p>
+<ul class="rf-facts">
+<li><b>Your email</b><span>Sign in with</span></li>
+<li><b>None</b><span>Subscription</span></li>
+<li><b>Delete it anytime</b><span>Your data</span></li>
+</ul>
 </div>
-</div>
-<div class="hero-img"><img alt="A hand about to close a shallow drawer holding a few plain everyday things" height="933" src="/phenome-store/assets/pages/account_hero.webp" width="1400"/></div></div></section>
-<section class="section"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">Sign in</div><h2 class="sec-title">Sign in</h2></div>
-<p class="lede" style="margin-left:0">Enter the email you ordered with and we’ll send you a link. No password to remember, and the same account opens the app.</p>
-<form onsubmit="event.preventDefault();this.querySelector('[data-sent]').style.display='block';" style="margin-top:32px;max-width:520px">
-<label style="font-size:14px;color:var(--gray);display:block">Email
-<input placeholder="you@email.com" required="" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px" type="email"/>
-</label>
-<div style="margin-top:20px"><button class="btn" type="submit">Email me a sign in link</button></div>
-<p data-sent="" style="display:none;margin-top:16px;color:var(--navy)">Check your inbox, if that address has a Phenome account, a sign in link is on its way. It opens the same account as the app.</p>
-</form>
-<p class="body-text" style="margin-top:20px;font-size:14px;color:var(--ph-text-2);line-height:18px">This build is not connected to the live account system, nothing you type here is submitted.</p>
-<p class="body-text" style="margin-top:24px">New here? You can create an account in the Phenome app, or start by choosing a test, the account is waiting when your kit arrives.</p>
-<div class="cta-actions" style="justify-content:flex-start;margin-top:20px">
+<figure class="rf-hero-media"><img alt="A hand about to close a shallow drawer holding a few plain everyday things" decoding="async" height="933" loading="eager" src="/phenome-store/assets/pages/account_hero.webp" width="1400"/></figure>
+</div></section>
+
+<section class="rf-sec" id="sign-in"><div class="rf-wrap rf-formgrid">
+<div>
+<h2 class="rf-solid">Sign in</h2>
+<p class="rf-lede">Enter the email you ordered with and we’ll send you a link. No password to remember, and the same account opens the app.</p>
+<p class="rf-p">New here? You can create an account in the Phenome app, or start by choosing a test, the account is waiting when your kit arrives.</p>
+<div class="rf-actions">
 <a class="btn ghost" href="/phenome-store/app/">Get the app</a>
 <a class="link-more" href="/phenome-store/testing/">Explore testing</a>
 </div>
+</div>
+<form class="rf-form" data-rf-form="">
+<label>Email
+<input placeholder="you@email.com" required="" type="email"/>
+</label>
+<button class="btn" type="submit">Email me a sign in link</button>
+<p data-sent="" hidden="">Check your inbox, if that address has a Phenome account, a sign in link is on its way. It opens the same account as the app.</p>
+<p class="rf-small">This build is not connected to the live account system, nothing you type here is submitted.</p>
+</form>
 </div></section>
-<section class="section section-gray"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">What an account holds</h2></div>
-<p class="lede" style="margin-left:0">Four things, and they only mean something together.</p>
-<div class="grid grid-4 rail" style="margin-top:40px">
-<a class="card-gray" href="/phenome-store/app/results-and-reports/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Your results</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Every test you’ve taken, kept in one place, genome, gut, oral, and whatever your Ring recorded while you slept. Not six PDFs lost in an inbox.</p>
-</a>
-<a class="card-gray" href="/phenome-store/app/results-and-reports/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Your reports</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">The written version: reviewed by a clinician, put in plain language, and downloadable as a PDF for the day you need to hand it to someone.</p>
-</a>
-<a class="card-gray" href="/phenome-store/app/dashboard/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Your plan</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">What to actually do on a Tuesday, the formula built against your own results, the change worth making, the session with a specialist when you want one.</p>
-</a>
-<a class="card-gray" href="/phenome-store/account/orders/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Your orders</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">What you’ve ordered, what’s on its way, and what’s still sitting in a box in the hallway waiting to be activated.</p>
-</a>
+
+<section class="rf-sec is-tint"><div class="rf-wrap">
+<header class="rf-head is-split">
+<h2 class="rf-solid">What an account holds</h2>
+<p class="rf-lede">Four things, and they only mean something together.</p>
+</header>
+<div class="rf-cards" data-n="4">
+<a class="rf-card" href="/phenome-store/app/results-and-reports/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 20h16"></path><path d="M7 16.5V11M12 16.5V6.5M17 16.5v-3.5"></path></svg></span><h3 class="rf-card-t">Your results</h3><p class="rf-card-d">Every test you’ve taken, kept in one place, genome, gut, oral, and whatever your Ring recorded while you slept. Not six PDFs lost in an inbox.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+<a class="rf-card" href="/phenome-store/app/results-and-reports/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect height="18.8" rx="2" width="12" x="6" y="2.6"></rect><path d="M9.4 7.6h5.2M9.4 11.2h5.2M9.4 14.8h3.1"></path></svg></span><h3 class="rf-card-t">Your reports</h3><p class="rf-card-d">The written version: reviewed by a clinician, put in plain language, and downloadable as a PDF for the day you need to hand it to someone.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+<a class="rf-card" href="/phenome-store/app/dashboard/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect height="16" rx="2.4" width="17" x="3.5" y="5"></rect><path d="M3.5 9.6h17M8 3v4M16 3v4"></path><path d="M9 14.6l2 2 4-4"></path></svg></span><h3 class="rf-card-t">Your plan</h3><p class="rf-card-d">What to actually do on a Tuesday, the formula built against your own results, the change worth making, the session with a specialist when you want one.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+<a class="rf-card" href="/phenome-store/account/orders/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3.2 7.4 12 3l8.8 4.4v9.2L12 21l-8.8-4.4z"></path><path d="M3.2 7.4 12 11.8l8.8-4.4M12 11.8V21"></path></svg></span><h3 class="rf-card-t">Your orders</h3><p class="rf-card-d">What you’ve ordered, what’s on its way, and what’s still sitting in a box in the hallway waiting to be activated.</p><span aria-hidden="true" class="rf-card-go"></span></a>
 </div>
 </div></section>
-<section class="section"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">Some of it lives here. Most of it lives in the app.</h2></div>
-<p class="lede" style="margin-left:0">We’d rather say so plainly than let you hunt for it. Every report Phenome produces is delivered in the Phenome app, that is where results are read, tracked and asked questions of. These pages handle the rest.</p>
-<div class="grid grid-2" style="margin-top:40px">
-<div class="card-gray">
-<h3 class="card-title" style="font-size:21px">Here on the web</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Signing in, activating a kit, finding an order, and your privacy settings, the paperwork side of an account.</p>
-</div>
-<a class="card-gray" href="/phenome-store/app/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">In the Phenome app</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Results, reports, trends over time, your Longevity AI and your booked sessions. Free on iOS and Android, with no monthly fee behind it.</p>
-</a>
+
+<section class="rf-sec"><div class="rf-wrap">
+<header class="rf-head">
+<h2 class="ph-display is-ink"><span class="ph-display-lead">Some of it lives here.</span><span>Most of it lives in the app.</span></h2>
+<p class="rf-lede">We’d rather say so plainly than let you hunt for it. Every report Phenome produces is delivered in the Phenome app, that is where results are read, tracked and asked questions of. These pages handle the rest.</p>
+</header>
+<div class="rf-duo">
+<div><p class="rf-duo-k">Here on the web</p><p class="rf-duo-t">Signing in, activating a kit, finding an order, and your privacy settings, the paperwork side of an account.</p></div>
+<div class="acct-go"><p class="rf-duo-k"><a href="/phenome-store/app/">In the Phenome app</a></p><p class="rf-duo-t">Results, reports, trends over time, your Longevity AI and your booked sessions. Free on iOS and Android, with no monthly fee behind it.</p></div>
 </div>
 </div></section>
-<section class="section section-gray"><div class="wrap-wide">
-<h2 class="sec-title">The two things people come here to do</h2>
-<div class="grid grid-2" style="margin-top:40px">
-<a class="card-gray" href="/phenome-store/account/activate/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Activate a kit</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Link the kit in front of you to your profile before you collect your sample. Results cannot be released without it.</p>
-<p class="link-more" style="margin-top:12px">How to activate</p>
-</a>
-<a class="card-gray" href="/phenome-store/account/orders/" style="text-decoration:none;color:inherit">
-<h3 class="card-title" style="font-size:21px">Track an order</h3>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Free UK delivery in 2 to 3 working days, and a tracking link in every dispatch email. If it has been longer, we’ll chase it.</p>
-<p class="link-more" style="margin-top:12px">Find your order</p>
-</a>
+
+<section class="rf-sec is-ink"><div class="rf-wrap">
+<header class="rf-head">
+<h2 class="rf-solid">The two things people come here to do</h2>
+</header>
+<div class="rf-cards" data-n="2">
+<div class="rf-card has-link"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3.4 8.6V5.2a1.8 1.8 0 0 1 1.8-1.8h3.4M15.4 3.4h3.4a1.8 1.8 0 0 1 1.8 1.8v3.4M20.6 15.4v3.4a1.8 1.8 0 0 1-1.8 1.8h-3.4M8.6 20.6H5.2a1.8 1.8 0 0 1-1.8-1.8v-3.4"></path><path d="M3.4 12h17.2"></path></svg></span><h3 class="rf-card-t">Activate a kit</h3><p class="rf-card-d">Link the kit in front of you to your profile before you collect your sample. Results cannot be released without it.</p><a class="rf-card-go" href="/phenome-store/account/activate/">How to activate</a></div>
+<div class="rf-card has-link"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2.8 6.5h11v9.8h-11z"></path><path d="M13.8 9.6h3.9l3.5 3.4v3.3h-7.4"></path><circle cx="6.6" cy="17.6" r="1.8"></circle><circle cx="17" cy="17.6" r="1.8"></circle></svg></span><h3 class="rf-card-t">Track an order</h3><p class="rf-card-d">Free UK delivery in 2 to 3 working days, and a tracking link in every dispatch email. If it has been longer, we’ll chase it.</p><a class="rf-card-go" href="/phenome-store/account/orders/">Find your order</a></div>
 </div>
 </div></section>
-<section class="section"><div class="wrap-wide opener"><div class="opener-t"><h2 class="sec-title">Your data, your call</h2></div>
-<p class="lede" style="margin-left:0">You are handing over something more personal than a shoe size. The controls are not buried.</p>
-<ul class="assure assure-3"><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Encrypted</b>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Your data is encrypted and access is limited to the people who need it to produce your report.</p>
-</div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Never sold</b>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">We do not sell your data, and we do not share it with insurers, employers or advertisers.</p>
-</div></li><li><svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4.5 12.4l4.6 4.6L19.5 6.6"></path></svg><div><b>Deleted on request</b>
-<p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Settings → Privacy → Delete account in the app, or ask support. We remove it and confirm in writing.</p>
-</div></li></ul>
-<div style="margin-top:28px;display:flex;gap:8px;flex-wrap:wrap">
-<a class="tag" href="/phenome-store/legal/privacy.html">Privacy and your data →</a>
-<a class="tag" href="/phenome-store/contact/">Ask support →</a>
+
+<section class="rf-sec is-tint"><div class="rf-wrap">
+<header class="rf-head is-split">
+<h2 class="rf-solid">Your data, your call</h2>
+<p class="rf-lede">You are handing over something more personal than a shoe size. The controls are not buried.</p>
+</header>
+<div class="rf-cards">
+<div class="rf-card"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect height="10" rx="2.2" width="14" x="5" y="10.5"></rect><path d="M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7"></path><path d="M12 14.6v2"></path></svg></span><h3 class="rf-card-t">Encrypted</h3><p class="rf-card-d">Your data is encrypted and access is limited to the people who need it to produce your report.</p></div>
+<div class="rf-card"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.6c0 4.4-3 7.8-7 9.2-4-1.4-7-4.8-7-9.2V6z"></path><path d="M9 9.4l6 6M15 9.4l-6 6"></path></svg></span><h3 class="rf-card-t">Never sold</h3><p class="rf-card-d">We do not sell your data, and we do not share it with insurers, employers or advertisers.</p></div>
+<div class="rf-card"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4.6 6.6h14.8M9.6 6.6V4.4h4.8v2.2"></path><path d="M6.4 6.6l.9 12.6a1.6 1.6 0 0 0 1.6 1.4h6.2a1.6 1.6 0 0 0 1.6-1.4l.9-12.6"></path><path d="M10.2 10.6v6M13.8 10.6v6"></path></svg></span><h3 class="rf-card-t">Deleted on request</h3><p class="rf-card-d">Settings → Privacy → Delete account in the app, or ask support. We remove it and confirm in writing.</p></div>
 </div>
-<p class="body-text" style="margin-top:32px;font-size:14px;color:var(--ph-text-2);line-height:18px">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment.</p>
+<div class="rf-tags">
+<a href="/phenome-store/legal/privacy.html">Privacy and your data →</a>
+<a href="/phenome-store/contact/">Ask support →</a>
+</div>
+<p class="rf-small">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment.</p>
 </div></section>
-<section class="section section-gray"><div class="wrap-wide"><h2 class="faq-h">Questions</h2>
+
+<section class="rf-sec"><div class="rf-wrap"><h2 class="faq-h">Questions</h2>
 <div class="acc is-faq" data-faq-list="">
 <details class="acc-item" open=""><summary>I don’t remember which email I used</summary><div class="acc-body"><div><p>Try the address the order confirmation arrived at. If that draws a blank, message support with your name and roughly when you ordered, and we’ll find it.</p></div></div></details>
 <details class="acc-item"><summary>Do I need an account to use the PhenomeTech Ring?</summary><div class="acc-body"><div><p>Yes. The Ring pairs with the Phenome app, and the app is where sleep, heart rate, HRV and activity are read. There is no monthly fee to see your own data.</p></div></div></details>
@@ -115,17 +110,24 @@
 <details class="acc-item"><summary>How do I delete my account?</summary><div class="acc-body"><div><p>Settings → Privacy → Delete account in the app, or message support. Your data is removed and we confirm it in writing.</p></div></div></details>
 <details class="acc-item"><summary>Something isn’t working</summary><div class="acc-body"><div><p>Message support with what you were trying to do and, if it concerns an order, the order number. A person reads it.</p></div></div></details>
 </div>
-<div class="cta-actions" style="justify-content:flex-start;margin-top:28px"><a class="link-more" href="/phenome-store/contact/">Go to support</a></div>
+<p class="faq-note"><a href="/phenome-store/contact/">Go to support</a></p>
 </div></section>
-<section class="cta-band section-close"><div class="wrap">
-<h2>Not tested yet?</h2>
-<p>The account is the easy part. Start with the right test.</p>
-<div class="cta-actions"><a class="btn" href="/phenome-store/testing/compare/">Compare all tests</a></div>
+
+<section class="rf-end"><div class="rf-wrap">
+<div class="rf-end-card is-solo">
+<video class="rf-end-film" aria-hidden="true" tabindex="-1" autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="/phenome-store/assets/video/hero-aurora.webp"><source src="/phenome-store/assets/video/hero-aurora.webm" type="video/webm"/><source src="/phenome-store/assets/video/hero-aurora.mp4" type="video/mp4"/></video>
+<div class="rf-end-copy">
+<h2 class="rf-solid">Not tested yet?</h2>
+<p class="rf-end-lede">The account is the easy part. Start with the right test.</p>
+<div class="rf-actions"><a class="btn ghost" href="/phenome-store/testing/compare/">Compare all tests</a></div>
+</div>
+</div>
 </div></section>
 </main>
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/kit/rf.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>

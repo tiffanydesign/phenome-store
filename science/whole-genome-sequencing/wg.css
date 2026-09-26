@@ -1,0 +1,19 @@
+/* science/whole-genome-sequencing · page sheet on top of kit/rf.css
+   The chip against the genome: each side of the duo carries its four lines. */
+.rf .wg-vs > div { gap: 22px; }
+.rf .wg-list { display: grid; gap: 0; margin: auto 0 0; padding: 0; list-style: none; }
+.rf .wg-list li {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 14px; align-items: baseline;
+  padding: 16px 0; border-top: 1px solid var(--rf-rule);
+  font-size: clamp(17px, 1.3vw, 20px); line-height: 1.45; color: var(--rf-ink);
+}
+.rf .wg-vs > div:last-child .wg-list li { border-color: rgba(255, 255, 255, .16); color: #fff; }
+.rf .wg-m {
+  display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  font-size: 15px; font-weight: 700; line-height: 1; translate: 0 3px;
+  background: #fff; color: var(--rf-ink-2);
+}
+.rf .wg-vs > div:last-child .wg-m { background: #fff; color: var(--rf-navy); }
+.rf .wg-vs > div:first-child .wg-list li { color: var(--rf-ink-2); }
+.rf .wg-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 560px) { .rf .wg-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

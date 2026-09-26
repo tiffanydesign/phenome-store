@@ -11,61 +11,72 @@
 <link href="https://use.typekit.net/omf6kcr.css" rel="stylesheet"/>
 <link href="/phenome-store/shared.css" rel="stylesheet"/>
 <link href="/phenome-store/phenome-glass.css" rel="stylesheet"/>
+<link href="/phenome-store/kit/rf.css" rel="stylesheet"/>
+<link href="/phenome-store/clinic/clinic.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="rf">
 <div data-ph-nav=""></div>
 <main>
-<section class="hero"><div class="wrap-wide hero-split"><div>
+<section class="hero rf-hero"><div class="rf-wrap rf-hero-grid">
 <div>
-<div class="eyebrow">Clinic enquiries</div>
-<h1 class="hero-title">Register your interest.</h1>
-<p class="lede" style="margin-left:0">This is not a booking. The clinic is still being built and no appointments are being taken. Leave your details and we will write to you once, when there is a date, an address, and something worth booking.</p>
+<p class="rf-kicker">Clinic enquiries</p>
+<h1 class="rf-solid cl-h1">Register your interest.</h1>
+<p class="rf-lede">This is not a booking. The clinic is still being built and no appointments are being taken. Leave your details and we will write to you once, when there is a date, an address, and something worth booking.</p>
 </div>
-</div><div class="hero-img"><img alt="The bare front room of a townhouse part way through its fit out, the front door open to the street" decoding="async" height="933" loading="eager" src="/phenome-store/assets/pages/clinic_book.webp" width="1400"/></div></div></section>
-<section class="section"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">The list</div><h2 class="sec-title">Three fields and a sentence.</h2></div>
-<p class="lede" style="margin-left:0">Tell us what you would want out of a visit. It shapes what we build.</p>
-<form onsubmit="event.preventDefault();this.querySelector('[data-sent]').style.display='block'" style="margin-top:32px;max-width:640px">
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Name
-<input placeholder="Your name" required="" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/>
-</label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Email
-<input placeholder="you@email.com" required="" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px" type="email"/>
-</label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Where you are
-<input placeholder="London, elsewhere in the UK, abroad" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/>
-</label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">Are you already a Phenome customer?
-<input placeholder="Yes / No / Not yet" style="width:100%;height:48px;margin-top:8px;padding:0 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;line-height:21px"/>
-</label>
-<label style="font-size:14px;color:var(--gray);display:block;margin-top:16px">What would you want from a visit?
-<textarea placeholder="Reading a result properly, a second opinion, sitting down with someone, whatever it is." rows="4" style="width:100%;margin-top:8px;padding:12px 16px;border:1px solid var(--border);border-radius:12px;font-size:17px;font-family:inherit;line-height:21px"></textarea>
-</label>
-<div style="margin-top:20px"><button class="btn" type="submit">Register your interest</button></div>
-<p data-sent="" style="display:none;margin-top:16px;color:var(--navy)">Thanks, you’re on the list. We will write to you once, when there is a date and a door. Nothing else.</p>
+<figure class="rf-hero-media"><img alt="The bare front room of a townhouse part way through its fit out, the front door open to the street" decoding="async" height="933" loading="eager" src="/phenome-store/assets/pages/clinic_book.webp" width="1400"/></figure>
+</div></section>
+
+<section class="rf-sec is-tint"><div class="rf-wrap">
+<div class="rf-formgrid">
+<div class="cl-form-side">
+<p class="rf-kicker">The list</p>
+<h2 class="rf-solid">Three fields and a sentence.</h2>
+<p class="rf-lede">Tell us what you would want out of a visit. It shapes what we build.</p>
+</div>
+<form class="rf-form" data-rf-form="">
+<label>Name<input placeholder="Your name" required=""/></label>
+<label>Email<input placeholder="you@email.com" required="" type="email"/></label>
+<label>Where you are<input placeholder="London, elsewhere in the UK, abroad"/></label>
+<label>Are you already a Phenome customer?<input placeholder="Yes / No / Not yet"/></label>
+<label>What would you want from a visit?<textarea placeholder="Reading a result properly, a second opinion, sitting down with someone, whatever it is." rows="4"></textarea></label>
+<button class="btn" type="submit">Register your interest</button>
+<p data-sent="" hidden="">Thanks, you’re on the list. We will write to you once, when there is a date and a door. Nothing else.</p>
+<p class="rf-small">Your details are used to contact you about the clinic and nothing else. <a href="/phenome-store/legal/privacy.html">Privacy and data</a>.</p>
 </form>
-<p class="body-text" style="margin-top:24px;font-size:14px;color:var(--ph-text-2)">Your details are used to contact you about the clinic and nothing else. <a href="/phenome-store/legal/privacy.html">Privacy and data</a>.</p>
-</div></section>
-<section class="section section-gray section-close"><div class="wrap-wide opener"><div class="opener-t"><div class="eyebrow">In the meantime</div><h2 class="sec-title">You do not have to wait for a building.</h2></div>
-<p class="lede" style="margin-left:0">Everything the clinic is being designed to do in a room already happens, remotely, today.</p>
-<div class="grid grid-3 rail" style="margin-top:40px">
-<a class="card" href="/phenome-store/app/book-a-session/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px">Book a session</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Talk your results through with a specialist over video, from wherever you are.</p></a>
-<a class="card" href="/phenome-store/testing/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px">Explore testing</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">Whole genome and microbiome tests, and what each of them can actually read.</p></a>
-<a class="card" href="/phenome-store/contact/" style="text-decoration:none;color:inherit"><h3 class="card-title" style="font-size:21px">Ask us something</h3><p class="body-text" style="margin-top:8px;font-size:17px;line-height:21px">A question about an order, a kit or a report. A person answers.</p></a>
 </div>
-<p class="body-text" style="margin-top:24px;font-size:14px;color:var(--ph-text-2)">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment.</p>
 </div></section>
-<section class="cta-band section-close"><div class="wrap">
-<h2>Read the rest first.</h2>
-<p>What the clinic is, and what a visit is being designed to feel like.</p>
-<div class="cta-actions">
-<a class="btn ghost" href="/phenome-store/clinic/">About the clinic</a>
-<a class="link-more" href="/phenome-store/clinic/what-to-expect/">What to expect</a>
+
+<section class="rf-sec"><div class="rf-wrap">
+<header class="rf-head is-split">
+<div>
+<p class="rf-kicker">In the meantime</p>
+<h2 class="ph-display is-ink"><span class="ph-display-lead">You do not have to wait</span><span>For a building.</span></h2>
+</div>
+<p class="rf-lede">Everything the clinic is being designed to do in a room already happens, remotely, today.</p>
+</header>
+<div class="rf-cards">
+<a class="rf-card" href="/phenome-store/app/book-a-session/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><rect x="2.8" y="6" width="13" height="12" rx="2.4"></rect><path d="M15.8 10.4l5.4-3v9.2l-5.4-3"></path></svg></span><h3 class="rf-card-t">Book a session</h3><p class="rf-card-d">Talk your results through with a specialist over video, from wherever you are.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+<a class="rf-card" href="/phenome-store/testing/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M9.6 3h4.8M10.6 3v6.3l-4.9 8.1a2 2 0 0 0 1.7 3.1h9.2a2 2 0 0 0 1.7-3.1l-4.9-8.1V3"></path><path d="M8.1 14.2h7.8"></path></svg></span><h3 class="rf-card-t">Explore testing</h3><p class="rf-card-d">Whole genome and microbiome tests, and what each of them can actually read.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+<a class="rf-card" href="/phenome-store/contact/"><span class="rf-card-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24"><path d="M20.4 12.1c0 3.9-3.8 7.1-8.4 7.1a10 10 0 0 1-2.6-.34L4.8 20.6l1.3-3.5a6.8 6.8 0 0 1-2.5-5c0-3.9 3.8-7.1 8.4-7.1s8.4 3.2 8.4 7.1z"></path></svg></span><h3 class="rf-card-t">Ask us something</h3><p class="rf-card-d">A question about an order, a kit or a report. A person answers.</p><span aria-hidden="true" class="rf-card-go"></span></a>
+</div>
+<p class="rf-small">Phenome tests are for wellness and information only and are not a substitute for professional medical advice, diagnosis or treatment.</p>
+</div></section>
+
+<section class="rf-end"><div class="rf-wrap">
+<div class="rf-end-card is-solo">
+<video class="rf-end-film" aria-hidden="true" tabindex="-1" autoplay="" muted="" loop="" playsinline="" preload="metadata" poster="/phenome-store/assets/video/hero-aurora.webp"><source src="/phenome-store/assets/video/hero-aurora.webm" type="video/webm"/><source src="/phenome-store/assets/video/hero-aurora.mp4" type="video/mp4"/></video>
+<div class="rf-end-copy">
+<h2 class="rf-solid">Read the rest first.</h2>
+<p class="rf-end-lede">What the clinic is, and what a visit is being designed to feel like.</p>
+<div class="rf-actions"><a class="btn ghost" href="/phenome-store/clinic/">About the clinic</a><a class="link-more" href="/phenome-store/clinic/what-to-expect/">What to expect</a></div>
+</div>
 </div>
 </div></section>
 </main>
 <div data-ph-footer=""></div>
 <script src="/phenome-store/shared.js"></script>
 <script src="/phenome-store/phenome-routes.js"></script>
+<script src="/phenome-store/kit/rf.js"></script>
 <a class="ds-launch" href="/phenome-store/design-system/" aria-label="Open the design system"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><rect x="0" y="0" width="4" height="4" rx="1" opacity=".4"/><rect x="7" y="0" width="4" height="4" rx="1" opacity=".55"/><rect x="14" y="0" width="4" height="4" rx="1" opacity=".7"/><rect x="0" y="7" width="4" height="4" rx="1" opacity=".55"/><rect x="7" y="7" width="4" height="4" rx="1" opacity=".7"/><rect x="14" y="7" width="4" height="4" rx="1" opacity=".85"/><rect x="0" y="14" width="4" height="4" rx="1" opacity=".7"/><rect x="7" y="14" width="4" height="4" rx="1" opacity=".85"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg><span class="ds-launch-t">Design system</span></a>
 </body>
 </html>

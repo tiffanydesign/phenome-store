@@ -1,0 +1,23 @@
+/* devices/ring/how-it-works · the "better together" sum (Ring + Genome +
+   Blood + Gut) and the window's heading. Scoped to body.rf (kit/rf.css). */
+.rf .hw-sum {
+  display: flex; align-items: stretch; justify-content: center; gap: clamp(8px, 1.2vw, 18px);
+  max-width: 1120px; margin: clamp(40px, 4.6vw, 72px) auto 0; padding: 0; list-style: none;
+}
+.rf .hw-sum > li:not(.hw-plus) {
+  flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  padding: clamp(28px, 3vw, 44px) 16px; border-radius: var(--rf-r-md); background: #fff; text-align: center;
+}
+.rf .hw-sum > li.is-lead { background: radial-gradient(120% 120% at 100% 0%, var(--rf-navy-2), var(--rf-navy) 70%); color: #fff; }
+.rf .hw-ic { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--rf-sunk); color: var(--rf-navy); }
+.rf .hw-sum > li.is-lead .hw-ic { background: rgba(255, 255, 255, .12); color: #fff; }
+.rf .hw-ic svg { width: 30px; height: 30px; }
+.rf .hw-sum h3 { margin: 0; font-size: clamp(20px, 1.6vw, 24px); font-weight: 600; letter-spacing: -0.01em; color: inherit; }
+.rf .hw-sum > li:not(.is-lead) h3 { color: var(--rf-ink); }
+.rf .hw-plus { flex: none; align-self: center; font-size: 30px; font-weight: 500; line-height: 1; color: var(--rf-accent); }
+.rf .rf-window-copy .hw-win-h { color: #fff; }
+@media (max-width: 760px) {
+  .rf .hw-sum { flex-wrap: wrap; }
+  .rf .hw-sum > li:not(.hw-plus) { flex: 1 1 calc(50% - 10px); }
+  .rf .hw-plus { display: none; }
+}
