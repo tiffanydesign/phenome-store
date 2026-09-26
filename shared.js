@@ -144,6 +144,7 @@
             { "label": "Phenome+ NAD+", "href": "/phenome-store/supplements/nad/" },
             { "label": "NAD+ Boost", "href": "/phenome-store/supplements/nad-boost/" },
             { "label": "Gly-NAC", "href": "/phenome-store/supplements/gly-nac/" },
+            { "label": "Broccoli Complex", "href": "/phenome-store/supplements/broccoli-complex-capsules/" },
             { "label": "Carnitine Performance+", "href": "/phenome-store/supplements/carnitine-performance/" }
           ]
         },

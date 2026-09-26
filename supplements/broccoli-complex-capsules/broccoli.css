@@ -28,3 +28,45 @@
   .nadp .bc-steps { grid-template-columns: minmax(0, 1fr); }
   .nadp .bc-step:not(:last-child)::after { top: auto; bottom: calc(-1 * clamp(16px, 2vw, 28px) / 2 - 14px); right: 50%; translate: 50% 0; rotate: 90deg; }
 }
+
+/* ---- Rebuilt 2026-09-26 on the official product copy ---------------------- */
+/* Five essentials across the photo card rather than the kit's four. */
+.nadp .nd-ess-panel.is-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
+.nadp .nd-ess-panel.is-5 p { max-width: none; }
+@media (max-width: 1180px) { .nadp .nd-ess-panel.is-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .nadp .nd-ess-panel.is-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .nadp .nd-ess-panel.is-5 { grid-template-columns: minmax(0, 1fr); } }
+
+/* Sub headings and paragraphs inside the buy column folds. */
+.nadp .nd-acc-k { margin: 18px 0 4px; font-size: 16px; font-weight: 600; color: var(--nd-navy); }
+.nadp .nd-acc-k:first-child { margin-top: 0; }
+.nadp .nd-acc-p { margin: 8px 0 0; }
+.nadp .nd-buy-acc .supp-claim + .nd-bullets { margin-top: 14px; }
+
+/* The science: the flow's own lede is long, so the column widens, and the
+   supporting paragraph sits under the three steps. */
+.nadp .bc-flow .nd-sub { max-width: 72ch; color: var(--nd-ink-2, #4a5578); }
+.nadp .bc-more { max-width: 860px; margin: clamp(32px, 3.4vw, 48px) auto 0; text-align: center; font-size: 17px; line-height: 1.6; color: var(--nd-ink-2, #4a5578); }
+.nadp .bc-step h3 { margin-top: 4px; }
+
+/* Perfect for: five moments as a row of white cards on the page ground,
+   then the five short tags from the product page as capsules. */
+.nadp .bc-when-list {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.2vw, 18px);
+  margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; list-style: none;
+}
+.nadp .bc-when-list li {
+  display: flex; flex-direction: column; gap: 10px; min-height: 200px;
+  padding: clamp(22px, 2.2vw, 30px); border-radius: 24px; background: var(--nd-sunk);
+  transition: translate .5s cubic-bezier(.16, 1, .3, 1), background .4s;
+}
+.nadp .bc-when-list li:hover { translate: 0 -4px; background: var(--nd-navy); }
+.nadp .bc-when-list h3 { margin: 0; font-size: clamp(19px, 1.5vw, 22px); line-height: 1.2; font-weight: 600; color: var(--nd-navy); transition: color .4s; }
+.nadp .bc-when-list p { margin: auto 0 0; font-size: 16px; line-height: 1.5; color: var(--nd-ink-2, #4a5578); transition: color .4s; }
+.nadp .bc-when-list li:hover h3 { color: #fff; }
+.nadp .bc-when-list li:hover p { color: rgba(255, 255, 255, .8); }
+.nadp .bc-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 28px 0 0; padding: 0; list-style: none; }
+.nadp .bc-tags li { display: inline-flex; align-items: center; height: 42px; padding: 0 18px; border-radius: 99px; background: var(--phenome-blue-100, #e6e9f2); color: var(--nd-navy); font-size: 16px; font-weight: 600; }
+@media (max-width: 1180px) { .nadp .bc-when-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .nadp .bc-when-list { grid-template-columns: minmax(0, 1fr); } .nadp .bc-when-list li { min-height: 0; } }
+@media (max-width: 760px) { .nadp .bc-more, .nadp .bc-flow .nd-sub { text-align: left; } }
